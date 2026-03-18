@@ -1,0 +1,31 @@
+{
+  "name": "openclaw-foundry",
+  "version": "0.1.0",
+  "description": "AI-driven one-click OpenClaw deployment",
+  "type": "module",
+  "scripts": {
+    "ocf": "tsx src/cli.ts",
+    "server": "tsx src/server.ts",
+    "build": "tsc",
+    "dev": "tsx watch src/server.ts"
+  },
+  "bin": {
+    "ocf": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "@inquirer/prompts": "^7.0.0",
+    "chalk": "^5.4.0",
+    "commander": "^13.0.0",
+    "execa": "^9.5.0",
+    "express": "^4.21.0",
+    "ora": "^8.2.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Full-Stack Developer",
+    "os": "darwin",
+    "created": "2026-03-10",
+    "profile": "fullstack-developer",
+    "description": "Full-stack developer setup with coding, review, testing, and debugging skills"
+  },
+  "openclaw": { "version": "latest", "installMethod": "npm" },
+  "identity": {
+    "role": "Full-Stack Developer",
+    "soulTemplate": "fullstack-developer"
+  },
+  "skills": {
+    "fromAifleet": [
+      "code-review", "git-commit", "test-driven-development",
+      "systematic-debugging", "security-best-practices",
+      "search-first", "commit-helper", "grammar-check",
+      "react-best-practices", "frontend-design"
+    ],
+    "fromClawhub": [],
+    "custom": []
+  },
+  "agents": [
+    { "name": "main", "role": "Primary development assistant", "jobs": ["coding", "code-review", "debugging"] },
+    { "name": "researcher", "role": "Tech research specialist", "jobs": ["research", "documentation"] }
+  ],
+  "config": {
+    "autonomy": "L1-guided",
+    "modelRouting": "balanced",
+    "memoryChunks": 72
+  },
+  "cron": [],
+  "mcpServers": ["github"],
+  "extensions": []
+}

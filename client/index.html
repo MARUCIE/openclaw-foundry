@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw Foundry</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e4e4ef;
+    --text2: #9b9bad;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; min-height: 100vh;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .header h1 span { color: var(--accent2); }
+  .header p { color: var(--text2); font-size: 15px; }
+
+  /* Steps indicator */
+  .steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; }
+  .step-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border); transition: all 0.3s;
+  }
+  .step-dot.active { background: var(--accent); width: 32px; border-radius: 5px; }
+  .step-dot.done { background: var(--green); }
+
+  /* Card */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  }
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+  .card h2 .num {
+    display: inline-block; width: 28px; height: 28px; line-height: 28px;
+    text-align: center; background: var(--accent); border-radius: 50%;
+    font-size: 13px; margin-right: 10px; color: #fff;
+  }
+
+  /* Form elements */
+  .field { margin-bottom: 20px; }
+  .field label { display: block; font-size: 13px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
+  .field input[type="text"] {
+    width: 100%; padding: 10px 14px; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 8px; color: var(--text);
+    font-size: 15px; outline: none; transition: border-color 0.2s;
+  }
+  .field input:focus { border-color: var(--accent); }
+
+  /* Option grid */
+  .options { display: grid; gap: 8px; }
+  .options.cols-2 { grid-template-columns: 1fr 1fr; }
+  .options.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .opt {
+    padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.2s;
+    user-select: none;
+  }
+  .opt:hover { border-color: var(--accent); background: #1e1e30; }
+  .opt.selected { border-color: var(--accent); background: rgba(99,102,241,0.15); }
+  .opt .opt-title { font-weight: 500; font-size: 14px; }
+  .opt .opt-desc { color: var(--text2); font-size: 12px; margin-top: 2px; }
+
+  /* Category header in options */
+  .opt-category {
+    grid-column: 1 / -1; font-size: 11px; font-weight: 600;
+    color: var(--text2); text-transform: uppercase; letter-spacing: 1px;
+    padding: 8px 0 2px; border-bottom: 1px solid var(--border);
+  }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 12px; justify-content: flex-end; margin-top: 28px; }
+  .btn {
+    padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); }
+
+  /* Result */
+  .result { display: none; }
+  .result.show { display: block; }
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat {
+    background: var(--surface2); border-radius: 8px; padding: 16px; text-align: center;
+  }
+  .stat .num { font-size: 28px; font-weight: 700; color: var(--accent2); }
+  .stat .label { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    padding: 4px 10px; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; font-size: 12px; color: var(--text2);
+  }
+  .tag.mcp { border-color: var(--green); color: var(--green); }
+
+  .agent-card {
+    background: var(--surface2); border-radius: 8px; padding: 14px; margin-bottom: 8px;
+  }
+  .agent-card .name { font-weight: 600; font-size: 14px; }
+  .agent-card .role { color: var(--text2); font-size: 13px; }
+
+  /* JSON preview */
+  .json-toggle { font-size: 13px; color: var(--accent2); cursor: pointer; margin-top: 16px; }
+  .json-preview {
+    display: none; margin-top: 12px; background: var(--surface2);
+    border-radius: 8px; padding: 16px; overflow-x: auto;
+    font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px;
+    line-height: 1.5; max-height: 400px; overflow-y: auto;
+    border: 1px solid var(--border);
+  }
+  .json-preview.open { display: block; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 60px 20px; }
+  .spinner {
+    width: 40px; height: 40px; border: 3px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Copy button */
+  .copy-wrap { position: relative; }
+  .copy-btn {
+    position: absolute; top: 8px; right: 8px; padding: 4px 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text2); font-size: 11px;
+    cursor: pointer;
+  }
+  .copy-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  /* Install command */
+  .install-cmd {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; font-family: 'SF Mono', monospace; font-size: 13px;
+    color: var(--green); margin-top: 16px; position: relative;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 40px 20px; color: var(--text2);
+    font-size: 13px; line-height: 2.2;
+  }
+
+  /* Hidden */
+  .hidden { display: none; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .options.cols-2, .options.cols-3 { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 20px 16px 60px; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Open<span>Claw</span> Foundry</h1>
+    <p>AI-driven one-click OpenClaw deployment</p>
+  </div>
+
+  <div class="steps" id="steps">
+    <div class="step-dot active" data-step="0"></div>
+    <div class="step-dot" data-step="1"></div>
+    <div class="step-dot" data-step="2"></div>
+    <div class="step-dot" data-step="3"></div>
+    <div class="step-dot" data-step="4"></div>
+    <div class="step-dot" data-step="5"></div>
+  </div>
+
+  <!-- Step 0: Name + Role -->
+  <div class="card step-card" data-step="0">
+    <h2><span class="num">1</span>About You</h2>
+    <div class="field">
+      <label>Your name</label>
+      <input type="text" id="userName" placeholder="e.g. Maurice">
+    </div>
+    <div class="field">
+      <label>Primary role</label>
+      <div class="options cols-2" id="roleOptions">
+        <div class="opt-category">Development</div>
+        <div class="opt" data-v="fullstack-developer"><div class="opt-title">Full-Stack Developer</div></div>
+        <div class="opt" data-v="frontend-developer"><div class="opt-title">Frontend (React/Vue)</div></div>
+        <div class="opt" data-v="java-developer"><div class="opt-title">Java/Spring Backend</div></div>
+        <div class="opt" data-v="go-developer"><div class="opt-title">Go Backend</div></div>
+        <div class="opt" data-v="python-developer"><div class="opt-title">Python Backend</div></div>
+        <div class="opt" data-v="backend-developer"><div class="opt-title">Node.js/TS Backend</div></div>
+        <div class="opt" data-v="cpp-developer"><div class="opt-title">C/C++ Systems</div></div>
+        <div class="opt" data-v="mobile-developer"><div class="opt-title">iOS/Android Mobile</div></div>
+        <div class="opt" data-v="embedded-developer"><div class="opt-title">Embedded/IoT</div></div>
+        <div class="opt-category">QA & Infrastructure</div>
+        <div class="opt" data-v="qa-tester"><div class="opt-title">QA/Testing</div></div>
+        <div class="opt" data-v="devops"><div class="opt-title">DevOps/SRE</div></div>
+        <div class="opt" data-v="dba"><div class="opt-title">DBA</div></div>
+        <div class="opt" data-v="security-engineer"><div class="opt-title">Security Engineer</div></div>
+        <div class="opt-category">Data & AI</div>
+        <div class="opt" data-v="data-analyst"><div class="opt-title">Data Analyst/BI</div></div>
+        <div class="opt" data-v="data-engineer"><div class="opt-title">Data Engineer</div></div>
+        <div class="opt" data-v="algorithm-engineer"><div class="opt-title">Algorithm (NLP/CV)</div></div>
+        <div class="opt" data-v="ml-ai-engineer"><div class="opt-title">AI/LLM Engineer</div></div>
+        <div class="opt-category">Product & Design</div>
+        <div class="opt" data-v="product-manager"><div class="opt-title">Product Manager</div></div>
+        <div class="opt" data-v="ai-product-manager"><div class="opt-title">AI Product Manager</div></div>
+        <div class="opt" data-v="project-manager"><div class="opt-title">Project Manager</div></div>
+        <div class="opt" data-v="designer-ux"><div class="opt-title">UI/UX Designer</div></div>
+        <div class="opt" data-v="visual-designer"><div class="opt-title">Visual/Brand Designer</div></div>
+        <div class="opt-category">Operations</div>
+        <div class="opt" data-v="user-ops"><div class="opt-title">User/Community Ops</div></div>
+        <div class="opt" data-v="content-ops"><div class="opt-title">Content/New Media</div></div>
+        <div class="opt" data-v="ecommerce-ops"><div class="opt-title">E-commerce Ops</div></div>
+        <div class="opt" data-v="data-ops"><div class="opt-title">Data/Strategy Ops</div></div>
+        <div class="opt-category">Marketing & Sales</div>
+        <div class="opt" data-v="seo-sem"><div class="opt-title">SEO/SEM</div></div>
+        <div class="opt" data-v="marketing-growth"><div class="opt-title">Marketing/Brand</div></div>
+        <div class="opt" data-v="sales-bizdev"><div class="opt-title">Sales/BD</div></div>
+        <div class="opt" data-v="customer-support"><div class="opt-title">Pre-sales/CS</div></div>
+        <div class="opt-category">Corporate & Other</div>
+        <div class="opt" data-v="finance-accounting"><div class="opt-title">Finance/Accounting</div></div>
+        <div class="opt" data-v="compliance"><div class="opt-title">Legal/Compliance</div></div>
+        <div class="opt" data-v="hr-recruiter"><div class="opt-title">HR/Recruiting</div></div>
+        <div class="opt" data-v="cto-tech-lead"><div class="opt-title">CTO/Tech Lead</div></div>
+        <div class="opt" data-v="researcher"><div class="opt-title">Researcher</div></div>
+        <div class="opt" data-v="educator"><div class="opt-title">Educator</div></div>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="nextStep()">Next</button></div>
+  </div>
+
+  <!-- Step 1: Industry + Level + Team -->
+  <div class="card step-card hidden" data-step="1">
+    <h2><span class="num">2</span>Your Context</h2>
+    <div class="field">
+      <label>Industry</label>
+      <div class="options cols-2" id="industryOptions">
+        <div class="opt" data-v="saas"><div class="opt-title">SaaS / Enterprise</div></div>
+        <div class="opt" data-v="fintech"><div class="opt-title">FinTech</div></div>
+        <div class="opt" data-v="ecommerce"><div class="opt-title">E-commerce / Retail</div></div>
+        <div class="opt" data-v="gaming"><div class="opt-title">Gaming</div></div>
+        <div class="opt" data-v="education"><div class="opt-title">Education / EdTech</div></div>
+        <div class="opt" data-v="healthcare"><div class="opt-title">Healthcare</div></div>
+        <div class="opt" data-v="media"><div class="opt-title">Content / Media</div></div>
+        <div class="opt" data-v="iot"><div class="opt-title">IoT / Hardware</div></div>
+        <div class="opt" data-v="ai-native"><div class="opt-title">AI / LLM-native</div></div>
+        <div class="opt" data-v="general"><div class="opt-title">General / Other</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Experience level</label>
+      <div class="options cols-3" id="levelOptions">
+        <div class="opt" data-v="junior"><div class="opt-title">Junior</div><div class="opt-desc">0-2 years</div></div>
+        <div class="opt" data-v="mid"><div class="opt-title">Mid</div><div class="opt-desc">2-5 years</div></div>
+        <div class="opt" data-v="senior"><div class="opt-title">Senior</div><div class="opt-desc">5-10 years</div></div>
+        <div class="opt" data-v="lead"><div class="opt-title">Lead</div><div class="opt-desc">Manager</div></div>
+        <div class="opt" data-v="executive"><div class="opt-title">Executive</div><div class="opt-desc">VP/CTO</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Team size</label>
+      <div class="options cols-2" id="teamOptions">
+        <div class="opt" data-v="solo"><div class="opt-title">Solo</div></div>
+        <div class="opt" data-v="small"><div class="opt-title">Small (2-10)</div></div>
+        <div class="opt" data-v="medium"><div class="opt-title">Medium (10-50)</div></div>
+        <div class="opt" data-v="large"><div class="opt-title">Large (50+)</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Use Cases -->
+  <div class="card step-card hidden" data-step="2">
+    <h2><span class="num">3</span>Use Cases</h2>
+    <div class="field">
+      <label>Select all that apply</label>
+      <div class="options cols-2" id="ucOptions" data-multi="true">
+        <div class="opt-category">Engineering</div>
+        <div class="opt" data-v="coding"><div class="opt-title">Coding & Development</div></div>
+        <div class="opt" data-v="code-review"><div class="opt-title">Code Review</div></div>
+        <div class="opt" data-v="testing-qa"><div class="opt-title">Testing & QA</div></div>
+        <div class="opt" data-v="api-development"><div class="opt-title">API Development</div></div>
+        <div class="opt" data-v="mobile-development"><div class="opt-title">Mobile Dev</div></div>
+        <div class="opt" data-v="ml-ai"><div class="opt-title">ML & AI</div></div>
+        <div class="opt" data-v="devops-cicd"><div class="opt-title">DevOps & CI/CD</div></div>
+        <div class="opt" data-v="security"><div class="opt-title">Security</div></div>
+        <div class="opt-category">Business</div>
+        <div class="opt" data-v="project-management"><div class="opt-title">Project Management</div></div>
+        <div class="opt" data-v="marketing-seo"><div class="opt-title">Marketing & SEO</div></div>
+        <div class="opt" data-v="sales-bizdev"><div class="opt-title">Sales & BD</div></div>
+        <div class="opt" data-v="customer-support"><div class="opt-title">Customer Support</div></div>
+        <div class="opt" data-v="finance-accounting"><div class="opt-title">Finance</div></div>
+        <div class="opt" data-v="ecommerce"><div class="opt-title">E-commerce</div></div>
+        <div class="opt-category">Knowledge</div>
+        <div class="opt" data-v="research"><div class="opt-title">Research & Analysis</div></div>
+        <div class="opt" data-v="writing"><div class="opt-title">Technical Writing</div></div>
+        <div class="opt" data-v="content-social"><div class="opt-title">Content & Social</div></div>
+        <div class="opt" data-v="education-training"><div class="opt-title">Education</div></div>
+        <div class="opt-category">Other</div>
+        <div class="opt" data-v="data-analysis"><div class="opt-title">Data Analysis</div></div>
+        <div class="opt" data-v="design"><div class="opt-title">Design</div></div>
+        <div class="opt" data-v="automation"><div class="opt-title">Automation</div></div>
+        <div class="opt" data-v="compliance"><div class="opt-title">Compliance</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Deliverables -->
+  <div class="card step-card hidden" data-step="3">
+    <h2><span class="num">4</span>Deliverables</h2>
+    <div class="field">
+      <label>What output artifacts do you produce? (select all that apply)</label>
+      <div class="options cols-3" id="delOptions" data-multi="true">
+        <div class="opt" data-v="pdf"><div class="opt-title">PDF</div><div class="opt-desc">Reports, papers</div></div>
+        <div class="opt" data-v="ppt"><div class="opt-title">PPT / Slides</div><div class="opt-desc">Presentations</div></div>
+        <div class="opt" data-v="word"><div class="opt-title">Word / Docs</div><div class="opt-desc">Proposals, specs</div></div>
+        <div class="opt" data-v="excel"><div class="opt-title">Excel</div><div class="opt-desc">Spreadsheets, models</div></div>
+        <div class="opt" data-v="text"><div class="opt-title">Text</div><div class="opt-desc">Articles, blog posts</div></div>
+        <div class="opt" data-v="image"><div class="opt-title">Images</div><div class="opt-desc">Graphics, screenshots</div></div>
+        <div class="opt" data-v="video"><div class="opt-title">Video</div><div class="opt-desc">Clips, tutorials</div></div>
+        <div class="opt" data-v="poster"><div class="opt-title">Posters</div><div class="opt-desc">Marketing, events</div></div>
+        <div class="opt" data-v="diagram"><div class="opt-title">Diagrams</div><div class="opt-desc">Architecture, flows</div></div>
+        <div class="opt" data-v="prototype"><div class="opt-title">Prototypes</div><div class="opt-desc">UI mockups</div></div>
+        <div class="opt" data-v="report"><div class="opt-title">Reports</div><div class="opt-desc">Dashboards, analytics</div></div>
+        <div class="opt" data-v="code"><div class="opt-title">Code</div><div class="opt-desc">Libraries, scripts</div></div>
+        <div class="opt" data-v="article"><div class="opt-title">Articles</div><div class="opt-desc">WeChat, social media</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Languages + Integrations + Autonomy -->
+  <div class="card step-card hidden" data-step="4">
+    <h2><span class="num">5</span>Tech Stack</h2>
+    <div class="field">
+      <label>Languages & tools</label>
+      <div class="options cols-3" id="langOptions" data-multi="true">
+        <div class="opt" data-v="typescript"><div class="opt-title">TS / JS</div></div>
+        <div class="opt" data-v="python"><div class="opt-title">Python</div></div>
+        <div class="opt" data-v="go"><div class="opt-title">Go</div></div>
+        <div class="opt" data-v="rust"><div class="opt-title">Rust</div></div>
+        <div class="opt" data-v="java"><div class="opt-title">Java</div></div>
+        <div class="opt" data-v="swift"><div class="opt-title">Swift</div></div>
+        <div class="opt" data-v="cpp"><div class="opt-title">C / C++</div></div>
+        <div class="opt" data-v="sql"><div class="opt-title">SQL</div></div>
+        <div class="opt" data-v="shell"><div class="opt-title">Shell</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Integrations</label>
+      <div class="options cols-3" id="intOptions" data-multi="true">
+        <div class="opt" data-v="github"><div class="opt-title">GitHub</div></div>
+        <div class="opt" data-v="telegram"><div class="opt-title">Telegram</div></div>
+        <div class="opt" data-v="slack"><div class="opt-title">Slack</div></div>
+        <div class="opt" data-v="discord"><div class="opt-title">Discord</div></div>
+        <div class="opt" data-v="notion"><div class="opt-title">Notion</div></div>
+        <div class="opt" data-v="linear"><div class="opt-title">Linear</div></div>
+        <div class="opt" data-v="jira"><div class="opt-title">Jira</div></div>
+        <div class="opt" data-v="google"><div class="opt-title">Google</div></div>
+        <div class="opt" data-v="supabase"><div class="opt-title">Supabase</div></div>
+        <div class="opt" data-v="vercel"><div class="opt-title">Vercel</div></div>
+        <div class="opt" data-v="aws"><div class="opt-title">AWS</div></div>
+        <div class="opt" data-v="stripe"><div class="opt-title">Stripe</div></div>
+        <div class="opt" data-v="shopify"><div class="opt-title">Shopify</div></div>
+        <div class="opt" data-v="hubspot"><div class="opt-title">HubSpot</div></div>
+        <div class="opt" data-v="postgres"><div class="opt-title">PostgreSQL</div></div>
+      </div>
+    </div>
+    <div class="field">
+      <label>AI autonomy level</label>
+      <div class="options" id="autoOptions">
+        <div class="opt" data-v="L1-guided"><div class="opt-title">L1 Guided</div><div class="opt-desc">AI suggests, you approve</div></div>
+        <div class="opt" data-v="L2-semi"><div class="opt-title">L2 Semi-autonomous</div><div class="opt-desc">AI acts on routine, asks for important decisions</div></div>
+        <div class="opt" data-v="L3-full"><div class="opt-title">L3 Full autonomous</div><div class="opt-desc">AI handles everything, reports results</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+      <button class="btn btn-primary" onclick="submitWizard()">Generate Blueprint</button>
+    </div>
+  </div>
+
+  <!-- Step 5: Loading -->
+  <div class="card step-card hidden" data-step="5">
+    <div class="loading" id="loadingView">
+      <div class="spinner"></div>
+      <p>AI analyzing your needs...</p>
+      <p style="color:var(--text2); font-size:13px; margin-top:8px;">Matching skills, MCP servers, and agents</p>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result" id="resultView">
+    <div class="card">
+      <h2>Your Blueprint</h2>
+      <p id="resultDesc" style="color:var(--text2); font-size:14px; margin-bottom:20px;"></p>
+
+      <div class="stat-grid">
+        <div class="stat"><div class="num" id="statSkills">0</div><div class="label">Skills</div></div>
+        <div class="stat"><div class="num" id="statAgents">0</div><div class="label">Agents</div></div>
+        <div class="stat"><div class="num" id="statMcp">0</div><div class="label">MCP Servers</div></div>
+      </div>
+
+      <h3 style="font-size:14px; margin-bottom:10px;">Agents</h3>
+      <div id="agentsList"></div>
+
+      <h3 style="font-size:14px; margin:16px 0 10px;">Skills</h3>
+      <div class="skill-tags" id="skillsList"></div>
+
+      <h3 style="font-size:14px; margin:16px 0 10px;">MCP Servers</h3>
+      <div class="skill-tags" id="mcpList"></div>
+
+      <div class="json-toggle" onclick="toggleJson()">Show raw JSON</div>
+      <div class="copy-wrap">
+        <div class="json-preview" id="jsonPreview"></div>
+        <button class="copy-btn hidden" id="copyBtn" onclick="copyJson()">Copy</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Install</h2>
+      <p style="color:var(--text2); font-size:14px; margin-bottom:12px;">Run this command to deploy your customized OpenClaw:</p>
+      <div class="install-cmd copy-wrap">
+        <code id="installCmd"></code>
+        <button class="copy-btn" onclick="copyInstall()">Copy</button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="startOver()">Start Over</button>
+      <button class="btn btn-primary" onclick="downloadBlueprint()">Download Blueprint</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>OpenClaw Foundry v0.1.0</p>
+  <p>Maurice | maurice_wen@proton.me</p>
+</footer>
+
+<script>
+const API = window.location.origin;
+let currentStep = 0;
+let blueprint = null;
+
+// Selection state
+const state = {
+  userName: '', role: '', industry: '', level: '', teamSize: '',
+  useCases: [], deliverables: [], languages: [], integrations: [], autonomy: ''
+};
+
+// Option click handlers
+document.querySelectorAll('.options').forEach(group => {
+  const isMulti = group.dataset.multi === 'true';
+  group.querySelectorAll('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (isMulti) {
+        opt.classList.toggle('selected');
+      } else {
+        group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      }
+    });
+  });
+});
+
+function getSelected(id) {
+  const el = document.getElementById(id);
+  if (!el) return [];
+  const selected = el.querySelectorAll('.opt.selected');
+  return Array.from(selected).map(o => o.dataset.v);
+}
+
+function getSingle(id) {
+  const vals = getSelected(id);
+  return vals.length > 0 ? vals[0] : '';
+}
+
+function updateSteps() {
+  document.querySelectorAll('.step-dot').forEach(dot => {
+    const s = parseInt(dot.dataset.step);
+    dot.classList.remove('active', 'done');
+    if (s === currentStep) dot.classList.add('active');
+    else if (s < currentStep) dot.classList.add('done');
+  });
+  document.querySelectorAll('.step-card').forEach(card => {
+    const s = parseInt(card.dataset.step);
+    card.classList.toggle('hidden', s !== currentStep);
+  });
+}
+
+function nextStep() {
+  // Save state
+  if (currentStep === 0) {
+    state.userName = document.getElementById('userName').value || 'user';
+    state.role = getSingle('roleOptions');
+    if (!state.role) { alert('Please select a role'); return; }
+  } else if (currentStep === 1) {
+    state.industry = getSingle('industryOptions');
+    state.level = getSingle('levelOptions');
+    state.teamSize = getSingle('teamOptions');
+    if (!state.industry || !state.level || !state.teamSize) {
+      alert('Please complete all fields'); return;
+    }
+  } else if (currentStep === 2) {
+    state.useCases = getSelected('ucOptions');
+    if (state.useCases.length === 0) { alert('Please select at least one use case'); return; }
+  } else if (currentStep === 3) {
+    state.deliverables = getSelected('delOptions');
+  }
+  currentStep++;
+  updateSteps();
+}
+
+function prevStep() {
+  if (currentStep > 0) { currentStep--; updateSteps(); }
+}
+
+async function submitWizard() {
+  state.languages = getSelected('langOptions');
+  state.integrations = getSelected('intOptions');
+  state.autonomy = getSingle('autoOptions') || 'L1-guided';
+
+  currentStep = 5;
+  updateSteps();
+
+  const os = navigator.platform.includes('Win') ? 'win32' :
+             navigator.platform.includes('Mac') ? 'darwin' : 'linux';
+
+  try {
+    const resp = await fetch(`${API}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userName: state.userName, os, role: state.role,
+        industry: state.industry, level: state.level, teamSize: state.teamSize,
+        useCases: state.useCases, deliverables: state.deliverables,
+        languages: state.languages,
+        autonomy: state.autonomy, integrations: state.integrations,
+        llmMode: 'skip'
+      })
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error);
+    blueprint = data.blueprint;
+    showResult();
+  } catch (err) {
+    alert('Analysis failed: ' + err.message);
+    currentStep = 4; updateSteps();
+  }
+}
+
+function showResult() {
+  document.querySelectorAll('.step-card').forEach(c => c.classList.add('hidden'));
+  document.getElementById('steps').style.display = 'none';
+  document.getElementById('resultView').classList.add('show');
+
+  const skills = [...(blueprint.skills.fromAifleet || []), ...(blueprint.skills.fromClawhub || [])];
+  document.getElementById('statSkills').textContent = skills.length;
+  document.getElementById('statAgents').textContent = blueprint.agents.length;
+  document.getElementById('statMcp').textContent = blueprint.mcpServers.length;
+  document.getElementById('resultDesc').textContent = blueprint.meta.description || blueprint.meta.name;
+
+  // Agents
+  const agentsEl = document.getElementById('agentsList');
+  agentsEl.innerHTML = blueprint.agents.map(a =>
+    `<div class="agent-card"><div class="name">${a.name}</div><div class="role">${a.role || ''}</div></div>`
+  ).join('');
+
+  // Skills
+  const skillsEl = document.getElementById('skillsList');
+  skillsEl.innerHTML = skills.map(s => `<span class="tag">${s}</span>`).join('');
+
+  // MCP
+  const mcpEl = document.getElementById('mcpList');
+  mcpEl.innerHTML = blueprint.mcpServers.map(m => `<span class="tag mcp">${m}</span>`).join('');
+
+  // JSON
+  document.getElementById('jsonPreview').textContent = JSON.stringify(blueprint, null, 2);
+
+  // Install command
+  const installCmd = navigator.platform.includes('Win')
+    ? `irm ${API}/foundry.ps1 | iex`
+    : `bash <(curl -sSL ${API}/foundry.sh)`;
+  document.getElementById('installCmd').textContent = installCmd;
+}
+
+function toggleJson() {
+  const el = document.getElementById('jsonPreview');
+  const btn = document.getElementById('copyBtn');
+  el.classList.toggle('open');
+  btn.classList.toggle('hidden');
+}
+
+function copyJson() {
+  navigator.clipboard.writeText(JSON.stringify(blueprint, null, 2));
+  document.getElementById('copyBtn').textContent = 'Copied!';
+  setTimeout(() => document.getElementById('copyBtn').textContent = 'Copy', 1500);
+}
+
+function copyInstall() {
+  const cmd = document.getElementById('installCmd').textContent;
+  navigator.clipboard.writeText(cmd);
+}
+
+function downloadBlueprint() {
+  const blob = new Blob([JSON.stringify(blueprint, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `openclaw-blueprint-${Date.now()}.json`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function startOver() {
+  currentStep = 0; blueprint = null;
+  document.getElementById('steps').style.display = '';
+  document.getElementById('resultView').classList.remove('show');
+  document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
+  document.getElementById('userName').value = '';
+  updateSteps();
+}
+</script>
+</body>
+</html>
