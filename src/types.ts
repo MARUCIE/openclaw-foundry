@@ -57,7 +57,7 @@ export const BlueprintSchema = z.object({
   openclaw: z.object({
     version: z.string().default('latest'),
     installMethod: z.enum(['npm', 'pnpm', 'manual', 'docker', 'cloud']).default('npm'),
-  }),
+  }).default({ version: 'latest', installMethod: 'npm' }),
   identity: z.object({
     role: z.string(),
     soulTemplate: z.string().optional(),
@@ -67,7 +67,7 @@ export const BlueprintSchema = z.object({
     fromAifleet: z.array(z.string()).default([]),
     fromClawhub: z.array(z.string()).default([]),
     custom: z.array(z.string()).default([]),
-  }),
+  }).default({ fromAifleet: [], fromClawhub: [], custom: [] }),
   agents: z.array(z.object({
     name: z.string(),
     role: z.string().optional(),
@@ -77,7 +77,7 @@ export const BlueprintSchema = z.object({
     autonomy: z.enum(['L1-guided', 'L2-semi', 'L3-full']).default('L1-guided'),
     modelRouting: z.enum(['premium', 'balanced', 'fast']).default('balanced'),
     memoryChunks: z.number().default(72),
-  }),
+  }).default({ autonomy: 'L1-guided', modelRouting: 'balanced', memoryChunks: 72 }),
   cron: z.array(z.object({
     schedule: z.string(),
     job: z.string(),
