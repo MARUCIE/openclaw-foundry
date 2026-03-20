@@ -14,6 +14,8 @@ import {
 import { runDoctor } from '../doctor.js';
 
 export class OpenClawProvider extends DesktopProvider {
+  apiReady = true; // Only provider with real integration
+
   meta: ProviderMeta = {
     id: 'openclaw',
     name: 'OpenClaw',

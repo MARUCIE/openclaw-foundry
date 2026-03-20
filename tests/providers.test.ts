@@ -227,9 +227,8 @@ test('Provider interface: deploy with missing credentials returns error for clou
   for (const id of cloudIds) {
     const provider = getProvider(id);
     const bp = buildTestBlueprint(id);
-    // No credentials — should fail gracefully
     const result = await provider.deploy(bp);
-    assert.equal(result.success, false, `${id}: deploy without credentials should fail`);
+    assert.equal(result.success, false, `${id}: deploy should fail (no API or no credentials)`);
     assert.ok(result.steps.length > 0, `${id}: should have at least one step`);
     assert.ok(
       result.steps.some(s => s.status === 'error'),
@@ -244,9 +243,31 @@ test('Provider interface: deploy with missing token returns error for SaaS provi
     const provider = getProvider(id);
     const bp = buildTestBlueprint(id);
     const result = await provider.deploy(bp);
-    assert.equal(result.success, false, `${id}: deploy without token should fail`);
+    assert.equal(result.success, false, `${id}: deploy should fail (no API or no token)`);
     assert.ok(result.steps.some(s => s.status === 'error'), `${id}: should have error`);
   }
+});
+
+test('Provider interface: all non-openclaw providers have apiReady=false', () => {
+  for (const id of PROVIDER_IDS) {
+    const provider = getProvider(id);
+    if (id === 'openclaw') {
+      assert.equal((provider as any).apiReady, true, 'openclaw should be apiReady');
+    } else {
+      assert.equal((provider as any).apiReady, false, `${id} should NOT be apiReady yet`);
+    }
+  }
+});
+
+test('Provider interface: non-ready providers return actionable error with console URL', async () => {
+  const provider = getProvider('arkclaw');
+  const bp = buildTestBlueprint('arkclaw');
+  const result = await provider.deploy(bp);
+  assert.equal(result.success, false);
+  const errorStep = result.steps.find(s => s.status === 'error');
+  assert.ok(errorStep);
+  assert.ok(errorStep!.message.includes('not yet integrated'), 'Error should mention API not integrated');
+  assert.ok(errorStep!.message.includes(provider.meta.consoleUrl), 'Error should include console URL');
 });
 
 // ===== OpenClaw Provider Specific =====

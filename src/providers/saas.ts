@@ -23,6 +23,9 @@ export class KimiClawProvider extends SaaSProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    const notReady = this.checkApiReady();
+    if (notReady) return notReady;
+
     const steps = [];
     const token = blueprint.target?.credentials?.token;
 
@@ -111,6 +114,9 @@ export class MaxClawProvider extends SaaSProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    const notReady = this.checkApiReady();
+    if (notReady) return notReady;
+
     const steps = [];
     const token = blueprint.target?.credentials?.token;
 

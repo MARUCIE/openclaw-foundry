@@ -9,12 +9,32 @@ import { log } from '../utils.js';
 export abstract class BaseProvider implements Provider {
   abstract meta: ProviderMeta;
 
+  // Override to true when real API integration is implemented
+  apiReady = false;
+
   abstract deploy(blueprint: Blueprint): Promise<DeployResult>;
   abstract test(blueprint: Blueprint): Promise<TestResult>;
   abstract repair(blueprint: Blueprint): Promise<ExecutionResult>;
   abstract uninstall(options: { keepConfig?: boolean; keepMemory?: boolean; dryRun?: boolean }): Promise<ExecutionResult>;
   abstract diagnose(): Promise<DiagnoseResult>;
   abstract getRequirements(): Requirement[];
+
+  /** Guard: call at the top of deploy() for providers without real API integration */
+  protected checkApiReady(): DeployResult | null {
+    if (!this.apiReady) {
+      return {
+        success: false,
+        steps: [
+          this.step('API Integration', 'error',
+            `${this.meta.name} provider API not yet integrated. ` +
+            `Manual setup: ${this.meta.consoleUrl}`),
+          this.step('Workaround', 'warn',
+            `Export blueprint with "ocf export" and manually configure at ${this.meta.consoleUrl}`),
+        ],
+      };
+    }
+    return null;
+  }
 
   async isAvailable(): Promise<boolean> {
     const reqs = this.getRequirements().filter(r => r.required);

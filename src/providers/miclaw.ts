@@ -21,6 +21,9 @@ export class MiClawProvider extends MobileProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    const notReady = this.checkApiReady();
+    if (notReady) return notReady;
+
     const steps = [];
 
     // 1. Check ADB connection

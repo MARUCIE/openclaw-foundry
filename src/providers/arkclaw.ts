@@ -21,6 +21,9 @@ export class ArkClawProvider extends CloudProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    const notReady = this.checkApiReady();
+    if (notReady) return notReady;
+
     const steps = [];
 
     // 1. Check credentials

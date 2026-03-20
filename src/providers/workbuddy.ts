@@ -21,6 +21,9 @@ export class WorkBuddyProvider extends CloudProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    const notReady = this.checkApiReady();
+    if (notReady) return notReady;
+
     const steps = [];
     steps.push(await this.checkApiAccess(blueprint));
     if (steps[0].status === 'error') return { success: false, steps };
