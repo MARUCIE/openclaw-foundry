@@ -3,26 +3,72 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-03-11`
+- Updated: `2026-03-20`
 
 ## System Boundary
-OpenClaw Foundry is a single Node.js codebase that supports two runtime styles:
+OpenClaw Foundry v2.0 is a universal Agent deployment platform supporting **13 platforms** across 5 categories (Desktop/SaaS/Cloud/Mobile/Remote). The system uses a **Provider abstraction layer** to dispatch a single Blueprint to any supported platform.
+
+Runtime styles:
 1. local execution through the `ocf` CLI
 2. remote execution through an Express server plus static browser/bootstrap clients
+3. multi-platform deployment via Provider dispatch
 
-The shared contract between both styles is `Blueprint`, a typed JSON document describing an OpenClaw setup.
+The shared contract is `Blueprint v2.0`, a typed JSON document now including a `target` field for platform routing.
 
 ## High-Level Modules
 | Module | Files | Responsibility |
 | --- | --- | --- |
-| CLI shell | `src/cli.ts`, `src/wizard.ts` | Collect local input, call AI/catalog flows, execute lifecycle commands |
-| Analysis engine | `src/analyzer.ts`, `src/capability-registry.ts` | Convert wizard answers and catalog data into `Blueprint`, then normalize system-owned fields and repartition skills by catalog |
+| CLI shell | `src/cli.ts`, `src/wizard.ts` | Collect local input, platform selection, call AI/catalog flows, execute lifecycle commands |
+| Analysis engine | `src/analyzer.ts`, `src/capability-registry.ts` | Convert wizard answers and catalog data into `Blueprint`, then normalize and repartition |
 | Catalog layer | `src/catalog.ts` | Scan local AI-Fleet skills and remote ClawHub skills |
-| Execution layer | `src/executor.ts` | Install, export, repair, upgrade, rollback, uninstall, snapshot |
-| Server/API | `src/server.ts` | Expose health, analyze, catalog, profile, customer, static assets, and LLM proxy |
+| **Provider system** | `src/providers/*.ts` (12 files) | **v2.0: Multi-platform deployment abstraction (deploy/test/repair/uninstall/diagnose)** |
+| Execution layer | `src/executor.ts` | Legacy install/export/repair/upgrade/rollback (wrapped by OpenClawProvider) |
+| Server/API | `src/server.ts` | Expose health, analyze, catalog, providers, profile, customer, and LLM proxy |
 | Persistence | `src/profiles.ts`, `src/customers.ts` | Store reusable profiles and managed customer tokens/usage |
 | LLM gateway | `src/llm-proxy.ts` | Customer-authenticated OpenAI-compatible chat proxy |
-| Static client | `client/` | Browser wizard, thin bootstrap scripts, role pipeline manual |
+| Static client | `client/` | Browser wizard with platform selection, bootstrap scripts |
+
+## Provider Architecture (v2.0)
+```
+Blueprint.target.provider → ProviderRegistry.getProvider() → Provider.deploy()
+
+BaseProvider (abstract)
+├── CloudProvider (checkApiAccess, checkApiHealth, getEndpoint)
+│   ├── JDCloudProvider (genericCloudDeploy)
+│   │   ├── HuaweiCloudProvider
+│   │   ├── AliyunProvider
+│   │   └── DuClawProvider
+│   ├── ArkClawProvider
+│   └── WorkBuddyProvider
+├── DesktopProvider (checkLocalInstall)
+│   ├── OpenClawProvider (wraps legacy executor)
+│   ├── LobsterAIProvider
+│   └── AutoClawProvider
+├── SaaSProvider (checkApiHealth)
+│   ├── KimiClawProvider
+│   └── MaxClawProvider
+├── MobileProvider (checkDeviceConnection)
+│   └── MiClawProvider
+└── BaseProvider (direct)
+    └── LenovoProvider (remote service)
+```
+
+### Supported Platforms (13)
+| ID | Name | Vendor | Type | Status |
+|----|------|--------|------|--------|
+| openclaw | OpenClaw | Anthropic | desktop | stable |
+| workbuddy | WorkBuddy/QClaw | Tencent | desktop | stable |
+| lobsterai | LobsterAI | NetEase Youdao | desktop | beta |
+| autoclaw | AutoClaw | Zhipu AI | desktop | stable |
+| arkclaw | ArkClaw | ByteDance | saas | stable |
+| duclaw | DuClaw | Baidu Cloud | saas | stable |
+| kimiclaw | Kimi Claw | Moonshot AI | saas | stable |
+| maxclaw | MaxClaw | MiniMax | saas | stable |
+| jdcloud | JD Cloud OpenClaw | JD Cloud | cloud | beta |
+| huaweicloud | Huawei Cloud | Huawei Cloud | cloud | beta |
+| aliyun | AgentBay | Alibaba Cloud | cloud | stable |
+| miclaw | miclaw | Xiaomi | mobile | preview |
+| lenovo | Lenovo BaiYing | Lenovo | remote | preview |
 
 ## Runtime Topology
 ```mermaid
@@ -50,16 +96,21 @@ flowchart TD
 ```
 
 ## Core Data Objects
-1. `WizardAnswers`
+1. `WizardAnswers` / `WizardAnswersV2`
    - Structured user intent collected from CLI or browser
-2. `Blueprint`
+   - v2 adds: `targetProvider`, `targetDeployMode`, `targetRegion`, `targetImChannel`, cloud credentials
+2. `Blueprint` (v2.0)
    - Canonical deployment contract
-   - Includes meta, identity, skills, agents, config, cron, MCP servers, extensions, and LLM settings
-3. `Manifest`
+   - Includes meta, **target** (provider + deployMode + credentials), identity, skills, agents, config, cron, MCP servers, extensions, LLM
+   - `target` defaults to `{provider:'openclaw', deployMode:'local'}` for backward compatibility
+3. `Provider` (interface)
+   - Multi-platform deployment abstraction
+   - Methods: deploy, test, repair, uninstall, diagnose, getRequirements, isAvailable
+4. `Manifest`
    - Records files and directories written by Foundry
-4. `Snapshot`
+5. `Snapshot`
    - Captures pre-change installation state for rollback
-5. `Customer`
+6. `Customer`
    - Managed LLM subscriber record with token, tier, and usage stats
 
 ## Contract Guardrails
@@ -83,9 +134,12 @@ flowchart TD
 - `npm run dev`
 
 ### HTTP
-- `GET /api/health`
+- `GET /api/health` — includes provider stats
 - `POST /api/analyze`
 - `GET /api/catalog`
+- **`GET /api/providers`** — list all 13 platforms (filter: ?type=, ?os=)
+- **`GET /api/providers/:id`** — platform detail + requirements + availability
+- **`GET /api/providers/:id/diagnose`** — platform health check
 - `GET /api/profiles`
 - `GET /api/profiles/:id`
 - `POST /api/customers`

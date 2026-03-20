@@ -266,7 +266,7 @@ function ruleBasedBlueprint(answers: WizardAnswers, catalog: CatalogEntry[]): Bl
   }
 
   return {
-    version: '1.0',
+    version: '2.0',
     meta: {
       name: `${answers.userName}'s ${answers.role} Setup`,
       os: answers.os,
@@ -274,6 +274,7 @@ function ruleBasedBlueprint(answers: WizardAnswers, catalog: CatalogEntry[]): Bl
       profile: roleKey,
       description: `Customized OpenClaw for ${answers.role} — ${answers.useCases.join(', ')}`,
     },
+    target: { provider: 'openclaw', deployMode: 'local' },
     openclaw: { version: 'latest', installMethod: 'npm' },
     identity: {
       role: answers.role,

@@ -1,19 +1,62 @@
 import { z } from 'zod';
 
+// --- Target: where and how to deploy (v2.0 multi-platform) ---
+
+export const DEPLOY_MODES = ['local', 'cloud', 'saas', 'mobile', 'remote'] as const;
+export type DeployMode = typeof DEPLOY_MODES[number];
+
+export const PROVIDER_IDS = [
+  'openclaw',       // Anthropic OpenClaw (default, local)
+  'arkclaw',        // 火山引擎 ArkClaw + 飞书
+  'workbuddy',      // 腾讯 WorkBuddy + QClaw + 企微/QQ
+  'jdcloud',        // 京东云 Lighthouse OpenClaw
+  'huaweicloud',    // 华为云 OpenClaw
+  'aliyun',         // 阿里云 JVS Claw + AgentBay
+  'duclaw',         // 百度智能云 DuClaw
+  'lobsterai',      // 网易有道 LobsterAI (开源桌面)
+  'autoclaw',       // 智谱 AutoClaw (AutoGLM)
+  'miclaw',         // 小米 miclaw (手机系统层)
+  'kimiclaw',       // 月之暗面 Kimi Claw (SaaS 托管)
+  'maxclaw',        // MiniMax MaxClaw (SaaS 托管+移动)
+  'lenovo',         // 联想百应远程部署
+] as const;
+export type ProviderId = typeof PROVIDER_IDS[number];
+
+export const IM_CHANNELS = ['feishu', 'wecom', 'qq', 'dingtalk', 'telegram', 'discord', 'slack'] as const;
+export type ImChannel = typeof IM_CHANNELS[number];
+
+export const TargetSchema = z.object({
+  provider: z.enum(PROVIDER_IDS).default('openclaw'),
+  deployMode: z.enum(DEPLOY_MODES).default('local'),
+  region: z.string().optional(),
+  instanceType: z.string().optional(),
+  credentials: z.object({
+    accessKeyId: z.string().optional(),
+    accessKeySecret: z.string().optional(),
+    token: z.string().optional(),
+    endpoint: z.string().optional(),
+  }).optional(),
+  imChannel: z.enum(IM_CHANNELS).optional(),
+  extras: z.record(z.string()).optional(),
+});
+
+export type Target = z.infer<typeof TargetSchema>;
+
 // --- Blueprint: the core data contract between client and server ---
 
 export const BlueprintSchema = z.object({
-  version: z.string().default('1.0'),
+  version: z.string().default('2.0'),
   meta: z.object({
     name: z.string(),
-    os: z.enum(['darwin', 'win32', 'linux']),
+    os: z.enum(['darwin', 'win32', 'linux', 'android', 'harmonyos']).default('darwin'),
     created: z.string(),
     profile: z.string().optional(),
     description: z.string().optional(),
   }),
+  target: TargetSchema.default({ provider: 'openclaw', deployMode: 'local' }),
   openclaw: z.object({
     version: z.string().default('latest'),
-    installMethod: z.enum(['npm', 'pnpm', 'manual']).default('npm'),
+    installMethod: z.enum(['npm', 'pnpm', 'manual', 'docker', 'cloud']).default('npm'),
   }),
   identity: z.object({
     role: z.string(),
@@ -159,4 +202,78 @@ export interface StepResult {
 export interface ExecutionResult {
   success: boolean;
   steps: StepResult[];
+}
+
+// --- Provider: multi-platform deployment abstraction (v2.0) ---
+
+export type ProviderType = 'cloud' | 'desktop' | 'mobile' | 'saas' | 'remote';
+export type ProviderStatus = 'stable' | 'beta' | 'preview' | 'planned';
+
+export interface ProviderMeta {
+  id: ProviderId;
+  name: string;
+  vendor: string;
+  type: ProviderType;
+  platforms: ('darwin' | 'win32' | 'linux' | 'android' | 'harmonyos')[];
+  status: ProviderStatus;
+  consoleUrl: string;
+  docUrl: string;
+  imChannels: ImChannel[];
+  description: string;
+}
+
+export interface Requirement {
+  name: string;
+  check: string;         // shell command to verify
+  installHint: string;   // how to fix if missing
+  required: boolean;
+}
+
+export interface DeployResult {
+  success: boolean;
+  steps: StepResult[];
+  instanceUrl?: string;       // cloud/saas: URL to access the deployed instance
+  credentials?: {
+    username?: string;
+    token?: string;
+    endpoint?: string;
+  };
+}
+
+export interface TestResult {
+  success: boolean;
+  checks: StepResult[];
+  healthUrl?: string;
+}
+
+export interface DiagnoseResult {
+  healthy: boolean;
+  checks: StepResult[];
+  suggestions: string[];
+}
+
+export interface Provider {
+  meta: ProviderMeta;
+
+  // Lifecycle
+  deploy(blueprint: Blueprint): Promise<DeployResult>;
+  test(blueprint: Blueprint): Promise<TestResult>;
+  repair(blueprint: Blueprint): Promise<ExecutionResult>;
+  uninstall(options: { keepConfig?: boolean; keepMemory?: boolean; dryRun?: boolean }): Promise<ExecutionResult>;
+  diagnose(): Promise<DiagnoseResult>;
+
+  // Info
+  getRequirements(): Requirement[];
+  isAvailable(): Promise<boolean>;
+}
+
+// --- WizardAnswers v2: adds target selection ---
+
+export interface WizardAnswersV2 extends WizardAnswers {
+  targetProvider: ProviderId;
+  targetDeployMode: DeployMode;
+  targetRegion?: string;
+  targetImChannel?: ImChannel;
+  cloudAccessKeyId?: string;
+  cloudAccessKeySecret?: string;
 }

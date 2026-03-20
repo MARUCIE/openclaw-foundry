@@ -179,7 +179,7 @@
 <div class="container">
   <div class="header">
     <h1>Open<span>Claw</span> Foundry</h1>
-    <p>AI-driven one-click OpenClaw deployment</p>
+    <p>AI-driven universal Agent deployment — 13 platforms, one Blueprint</p>
   </div>
 
   <div class="steps" id="steps">
@@ -189,6 +189,7 @@
     <div class="step-dot" data-step="3"></div>
     <div class="step-dot" data-step="4"></div>
     <div class="step-dot" data-step="5"></div>
+    <div class="step-dot" data-step="6"></div>
   </div>
 
   <!-- Step 0: Name + Role -->
@@ -406,12 +407,43 @@
     </div>
     <div class="btn-row">
       <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next</button>
+    </div>
+  </div>
+
+  <!-- Step 5: Platform Selection (v2.0) -->
+  <div class="card step-card hidden" data-step="5">
+    <h2><span class="num">6</span>Deploy Target</h2>
+    <p style="color:var(--text2); font-size:13px; margin-bottom:16px;">Choose where to deploy your AI agent</p>
+    <div class="field">
+      <div class="options cols-2" id="platformOptions">
+        <div class="opt-category">Desktop / Local</div>
+        <div class="opt selected" data-v="openclaw"><div class="opt-title">OpenClaw</div><div class="opt-desc">Anthropic | Local npm install</div></div>
+        <div class="opt" data-v="workbuddy"><div class="opt-title">WorkBuddy</div><div class="opt-desc">Tencent | WeChat/QQ integration</div></div>
+        <div class="opt" data-v="lobsterai"><div class="opt-title">LobsterAI</div><div class="opt-desc">NetEase | Open source desktop</div></div>
+        <div class="opt" data-v="autoclaw"><div class="opt-title">AutoClaw</div><div class="opt-desc">Zhipu AI | One-click + USB install</div></div>
+        <div class="opt-category">SaaS (Zero Deploy)</div>
+        <div class="opt" data-v="arkclaw"><div class="opt-title">ArkClaw</div><div class="opt-desc">ByteDance | Feishu + Doubao models</div></div>
+        <div class="opt" data-v="duclaw"><div class="opt-title">DuClaw</div><div class="opt-desc">Baidu | Built-in search + knowledge</div></div>
+        <div class="opt" data-v="kimiclaw"><div class="opt-title">Kimi Claw</div><div class="opt-desc">Moonshot | 5000+ plugins, K2.5</div></div>
+        <div class="opt" data-v="maxclaw"><div class="opt-title">MaxClaw</div><div class="opt-desc">MiniMax | Web + iOS + Android</div></div>
+        <div class="opt-category">Cloud IaaS</div>
+        <div class="opt" data-v="huaweicloud"><div class="opt-title">Huawei Cloud</div><div class="opt-desc">From 9.9 CNY/mo | 4 IM channels</div></div>
+        <div class="opt" data-v="aliyun"><div class="opt-title">AgentBay</div><div class="opt-desc">Alibaba Cloud | Enterprise PaaS</div></div>
+        <div class="opt" data-v="jdcloud"><div class="opt-title">JD Cloud</div><div class="opt-desc">Lighthouse pre-built image</div></div>
+        <div class="opt-category">Mobile / Remote</div>
+        <div class="opt" data-v="miclaw"><div class="opt-title">miclaw</div><div class="opt-desc">Xiaomi | Phone system-level agent</div></div>
+        <div class="opt" data-v="lenovo"><div class="opt-title">Lenovo BaiYing</div><div class="opt-desc">Remote install service</div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="prevStep()">Back</button>
       <button class="btn btn-primary" onclick="submitWizard()">Generate Blueprint</button>
     </div>
   </div>
 
-  <!-- Step 5: Loading -->
-  <div class="card step-card hidden" data-step="5">
+  <!-- Step 6: Loading -->
+  <div class="card step-card hidden" data-step="6">
     <div class="loading" id="loadingView">
       <div class="spinner"></div>
       <p>AI analyzing your needs...</p>
@@ -425,7 +457,8 @@
       <h2>Your Blueprint</h2>
       <p id="resultDesc" style="color:var(--text2); font-size:14px; margin-bottom:20px;"></p>
 
-      <div class="stat-grid">
+      <div class="stat-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="stat"><div class="num" id="statPlatform" style="font-size:16px;">-</div><div class="label">Platform</div></div>
         <div class="stat"><div class="num" id="statSkills">0</div><div class="label">Skills</div></div>
         <div class="stat"><div class="num" id="statAgents">0</div><div class="label">Agents</div></div>
         <div class="stat"><div class="num" id="statMcp">0</div><div class="label">MCP Servers</div></div>
@@ -464,7 +497,7 @@
 </div>
 
 <footer>
-  <p>OpenClaw Foundry v0.1.0</p>
+  <p>OpenClaw Foundry v2.0.0 — 13 platforms, one Blueprint</p>
   <p>Maurice | maurice_wen@proton.me</p>
 </footer>
 
@@ -476,7 +509,8 @@ let blueprint = null;
 // Selection state
 const state = {
   userName: '', role: '', industry: '', level: '', teamSize: '',
-  useCases: [], deliverables: [], languages: [], integrations: [], autonomy: ''
+  useCases: [], deliverables: [], languages: [], integrations: [], autonomy: '',
+  targetProvider: 'openclaw'
 };
 
 // Option click handlers
@@ -537,6 +571,10 @@ function nextStep() {
     if (state.useCases.length === 0) { alert('Please select at least one use case'); return; }
   } else if (currentStep === 3) {
     state.deliverables = getSelected('delOptions');
+  } else if (currentStep === 4) {
+    state.languages = getSelected('langOptions');
+    state.integrations = getSelected('intOptions');
+    state.autonomy = getSingle('autoOptions') || 'L1-guided';
   }
   currentStep++;
   updateSteps();
@@ -547,11 +585,15 @@ function prevStep() {
 }
 
 async function submitWizard() {
-  state.languages = getSelected('langOptions');
-  state.integrations = getSelected('intOptions');
-  state.autonomy = getSingle('autoOptions') || 'L1-guided';
+  // Collect remaining state from step 4 if not yet collected
+  if (!state.autonomy) {
+    state.languages = getSelected('langOptions');
+    state.integrations = getSelected('intOptions');
+    state.autonomy = getSingle('autoOptions') || 'L1-guided';
+  }
+  state.targetProvider = getSingle('platformOptions') || 'openclaw';
 
-  currentStep = 5;
+  currentStep = 6;
   updateSteps();
 
   const os = navigator.platform.includes('Win') ? 'win32' :
@@ -576,7 +618,7 @@ async function submitWizard() {
     showResult();
   } catch (err) {
     alert('Analysis failed: ' + err.message);
-    currentStep = 4; updateSteps();
+    currentStep = 5; updateSteps();
   }
 }
 
@@ -586,6 +628,12 @@ function showResult() {
   document.getElementById('resultView').classList.add('show');
 
   const skills = [...(blueprint.skills.fromAifleet || []), ...(blueprint.skills.fromClawhub || [])];
+  const platformNames = {
+    openclaw:'OpenClaw', arkclaw:'ArkClaw', workbuddy:'WorkBuddy', jdcloud:'JD Cloud',
+    huaweicloud:'Huawei', aliyun:'AgentBay', duclaw:'DuClaw', lobsterai:'LobsterAI',
+    autoclaw:'AutoClaw', miclaw:'miclaw', kimiclaw:'Kimi Claw', maxclaw:'MaxClaw', lenovo:'Lenovo'
+  };
+  document.getElementById('statPlatform').textContent = platformNames[blueprint.target?.provider] || state.targetProvider;
   document.getElementById('statSkills').textContent = skills.length;
   document.getElementById('statAgents').textContent = blueprint.agents.length;
   document.getElementById('statMcp').textContent = blueprint.mcpServers.length;

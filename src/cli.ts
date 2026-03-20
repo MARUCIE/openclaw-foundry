@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import { readFile, writeFile } from 'fs/promises';
 import chalk from 'chalk';
-import { runWizard } from './wizard.js';
+import { runWizard, runWizardV2 } from './wizard.js';
 import { analyzeAndGenerateBlueprint } from './analyzer.js';
 import { executeBlueprint, exportBlueprint, uninstallFoundry, repairFoundry, upgradeFoundry, rollbackFoundry, listSnapshots } from './executor.js';
 import { getFullCatalog } from './catalog.js';
@@ -12,8 +12,9 @@ import { createCustomer, listCustomers, getCustomer, updateTier, deactivateCusto
 import { BlueprintSchema } from './types.js';
 import type { Customer } from './types.js';
 import { log } from './utils.js';
+import { getProvider, listProviders, getProviderStats } from './providers/index.js';
 
-const VERSION = '0.1.0';
+const VERSION = '2.0.0';
 
 const program = new Command()
   .name('ocf')
@@ -23,24 +24,26 @@ const program = new Command()
 // ===== ocf init =====
 program
   .command('init')
-  .description('Interactive wizard -> AI analysis -> install customized OpenClaw')
+  .description('Interactive wizard -> AI analysis -> deploy to any platform')
   .option('-p, --profile <id>', 'Start from a preset profile instead of wizard')
+  .option('-t, --target <provider>', 'Target platform (openclaw, arkclaw, duclaw, etc.)')
   .option('--save-blueprint <path>', 'Save generated blueprint to a JSON file')
-  .option('--dry-run', 'Generate blueprint without installing')
+  .option('--dry-run', 'Generate blueprint without deploying')
   .option('--server <url>', 'Use remote Foundry server for AI analysis')
+  .option('--classic', 'Use v1 wizard (no platform selection)')
   .action(async (opts) => {
     console.log(chalk.bold.cyan(`\n  OpenClaw Foundry v${VERSION}\n`));
+    const stats = getProviderStats();
+    console.log(chalk.dim(`  ${listProviders().length} platforms: ${Object.entries(stats).map(([k, v]) => `${v} ${k}`).join(', ')}\n`));
 
     let blueprint;
 
     if (opts.profile) {
-      // P2: load from preset
       blueprint = await loadProfile(opts.profile);
       if (!blueprint) return;
       log.ok(`Loaded profile: ${opts.profile}`);
     } else if (opts.server) {
-      // Client-Server mode: wizard locally, analysis on VPS
-      const answers = await runWizard();
+      const answers = opts.classic ? await runWizard() : await runWizardV2();
       log.note(`Sending to server: ${opts.server}`);
 
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
@@ -61,21 +64,48 @@ program
       blueprint = BlueprintSchema.parse(data.blueprint);
       log.ok('Blueprint received from server');
     } else {
-      // Full local mode
-      const answers = await runWizard();
+      // Full local mode — v2 wizard includes platform selection
+      const answers = opts.classic ? await runWizard() : await runWizardV2();
       const catalog = await getFullCatalog();
       log.note(`Catalog: ${catalog.length} skills available`);
       blueprint = await analyzeAndGenerateBlueprint(answers, catalog);
+
+      // Inject target from v2 wizard answers
+      if ('targetProvider' in answers) {
+        const v2 = answers as import('./types.js').WizardAnswersV2;
+        blueprint.target = {
+          provider: v2.targetProvider,
+          deployMode: v2.targetDeployMode,
+          region: v2.targetRegion,
+          imChannel: v2.targetImChannel,
+          credentials: v2.cloudAccessKeyId ? {
+            accessKeyId: v2.cloudAccessKeyId,
+            accessKeySecret: v2.cloudAccessKeySecret,
+          } : undefined,
+        };
+      }
     }
+
+    // Override target from CLI flag
+    if (opts.target) {
+      blueprint.target = { ...blueprint.target, provider: opts.target };
+    }
+
+    // Resolve provider
+    const providerId = blueprint.target?.provider || 'openclaw';
+    const provider = getProvider(providerId as import('./types.js').ProviderId);
 
     // Summary
     console.log('');
     console.log(chalk.bold('--- Blueprint Summary ---'));
     console.log(`  Name:     ${blueprint.meta.name}`);
     console.log(`  Role:     ${blueprint.identity.role}`);
+    console.log(`  Platform: ${provider.meta.name} (${provider.meta.vendor})`);
+    console.log(`  Mode:     ${blueprint.target?.deployMode || 'local'}`);
     console.log(`  Skills:   ${blueprint.skills.fromAifleet.length} (AI-Fleet) + ${blueprint.skills.fromClawhub.length} (ClawHub)`);
     console.log(`  Agents:   ${blueprint.agents.length}`);
     console.log(`  Autonomy: ${blueprint.config.autonomy}`);
+    if (blueprint.target?.imChannel) console.log(`  IM:       ${blueprint.target.imChannel}`);
     console.log('');
 
     if (opts.saveBlueprint) {
@@ -89,7 +119,11 @@ program
       return;
     }
 
-    await executeBlueprint(blueprint);
+    // Deploy via provider
+    const result = await provider.deploy(blueprint);
+    if (result.instanceUrl) {
+      log.ok(`Instance: ${result.instanceUrl}`);
+    }
   });
 
 // ===== ocf cast =====
@@ -331,6 +365,62 @@ customerCmd
     const ok = await deactivateCustomer(id);
     if (!ok) { log.error(`Customer ${id} not found.`); return; }
     log.ok('Customer deactivated');
+  });
+
+// ===== ocf platforms =====
+program
+  .command('platforms')
+  .description('List all supported deployment platforms')
+  .option('--type <type>', 'Filter by type: cloud | desktop | mobile | saas | remote')
+  .option('--json', 'JSON output')
+  .option('--check', 'Check which platforms are available on this system')
+  .action(async (opts) => {
+    const providers = listProviders();
+    const filtered = opts.type ? providers.filter(p => p.type === opts.type) : providers;
+
+    if (opts.json) {
+      console.log(JSON.stringify(filtered, null, 2));
+      return;
+    }
+
+    console.log(chalk.bold(`\n  Supported Platforms (${filtered.length})\n`));
+
+    const byType: Record<string, typeof filtered> = {};
+    for (const p of filtered) (byType[p.type] ??= []).push(p);
+
+    const typeLabels: Record<string, string> = {
+      desktop: 'Desktop / Local',
+      cloud: 'Cloud Platforms',
+      saas: 'SaaS Hosted',
+      mobile: 'Mobile',
+      remote: 'Remote Service',
+    };
+
+    for (const [type, items] of Object.entries(byType)) {
+      console.log(chalk.cyan(`  --- ${typeLabels[type] || type} ---`));
+      for (const p of items) {
+        const statusBadge = p.status === 'stable' ? chalk.green('stable')
+          : p.status === 'beta' ? chalk.yellow('beta')
+          : p.status === 'preview' ? chalk.magenta('preview')
+          : chalk.dim('planned');
+        const im = p.imChannels.length ? chalk.dim(` [${p.imChannels.join(',')}]`) : '';
+        console.log(`  ${chalk.bold(p.id.padEnd(14))} ${p.name.padEnd(20)} ${p.vendor.padEnd(24)} ${statusBadge}${im}`);
+      }
+      console.log('');
+    }
+
+    if (opts.check) {
+      console.log(chalk.bold('  Availability Check:\n'));
+      const { getAvailableProviders } = await import('./providers/index.js');
+      const available = await getAvailableProviders();
+      const availIds = new Set(available.map(a => a.id));
+      for (const p of filtered) {
+        const ok = availIds.has(p.id);
+        const tag = ok ? chalk.green('READY') : chalk.dim('NOT READY');
+        console.log(`  ${tag} ${p.id}`);
+      }
+      console.log('');
+    }
   });
 
 program.parse();

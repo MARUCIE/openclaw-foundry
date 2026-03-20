@@ -9,6 +9,8 @@ import { listProfiles, loadProfile } from './profiles.js';
 import { createLlmProxy } from './llm-proxy.js';
 import { createCustomer, listCustomers, getCustomer, updateTier, deactivateCustomer, getUsageSummary } from './customers.js';
 import { log } from './utils.js';
+import { listProviders, getProvider, getProviderStats } from './providers/index.js';
+import type { ProviderId } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = parseInt(process.env.OCF_PORT || '18800');
@@ -46,7 +48,38 @@ app.use('/api', (req, res, next) => {
 
 // --- Health check ---
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', version: '0.1.0', uptime: process.uptime() });
+  res.json({ status: 'ok', version: '2.0.0', uptime: process.uptime(), providers: getProviderStats() });
+});
+
+// --- Providers: list and query supported platforms ---
+app.get('/api/providers', (req, res) => {
+  const type = req.query.type as string | undefined;
+  const os = req.query.os as string | undefined;
+  let providers = listProviders();
+  if (type) providers = providers.filter(p => p.type === type);
+  if (os) providers = providers.filter(p => p.platforms.includes(os as any));
+  res.json({ total: providers.length, providers });
+});
+
+app.get('/api/providers/:id', async (req, res) => {
+  const provider = getProvider(req.params.id as ProviderId);
+  if (!provider || provider.meta.id !== req.params.id) {
+    res.status(404).json({ error: 'Provider not found' });
+    return;
+  }
+  const available = await provider.isAvailable();
+  const reqs = provider.getRequirements();
+  res.json({ provider: provider.meta, available, requirements: reqs });
+});
+
+app.get('/api/providers/:id/diagnose', async (req, res) => {
+  const provider = getProvider(req.params.id as ProviderId);
+  if (!provider || provider.meta.id !== req.params.id) {
+    res.status(404).json({ error: 'Provider not found' });
+    return;
+  }
+  const result = await provider.diagnose();
+  res.json(result);
 });
 
 // --- Catalog cache (refresh every 5 min) ---
@@ -200,19 +233,23 @@ app.get('/foundry.ps1', async (req, res) => {
 
 // --- Start ---
 app.listen(PORT, '0.0.0.0', () => {
-  log.ok(`Foundry Server running on http://0.0.0.0:${PORT}`);
+  const stats = getProviderStats();
+  const totalProviders = listProviders().length;
+  log.ok(`Foundry Server v2.0 running on http://0.0.0.0:${PORT}`);
+  log.ok(`${totalProviders} platforms: ${Object.entries(stats).map(([k, v]) => `${v} ${k}`).join(', ')}`);
   log.note(`API key protection: ${API_KEY ? 'enabled' : 'disabled (set OCF_API_KEY to enable)'}`);
   log.note('Endpoints:');
-  console.log('  POST /api/analyze        — AI analysis → Blueprint');
-  console.log('  GET  /api/catalog        — Browse skills catalog');
-  console.log('  GET  /api/profiles       — List preset profiles');
-  console.log('  GET  /api/health         — Health check');
-  console.log('  POST /api/customers      — Create customer');
-  console.log('  GET  /api/customers      — List customers');
-  console.log('  GET  /api/customers/:id  — Customer detail + usage');
+  console.log('  POST /api/analyze           — AI analysis → Blueprint');
+  console.log('  GET  /api/catalog           — Browse skills catalog');
+  console.log('  GET  /api/providers         — List deployment platforms');
+  console.log('  GET  /api/providers/:id     — Platform detail + requirements');
+  console.log('  GET  /api/profiles          — List preset profiles');
+  console.log('  GET  /api/health            — Health check');
+  console.log('  POST /api/customers         — Create customer');
+  console.log('  GET  /api/customers         — List customers');
   console.log('  POST /llm/v1/chat/completions — LLM proxy (OpenAI-compatible)');
-  console.log('  GET  /foundry.sh         — Mac/Linux bootstrap script');
-  console.log('  GET  /foundry.ps1        — Windows bootstrap script');
+  console.log('  GET  /foundry.sh            — Mac/Linux bootstrap script');
+  console.log('  GET  /foundry.ps1           — Windows bootstrap script');
 });
 
 export { app };

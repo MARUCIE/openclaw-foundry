@@ -1,6 +1,7 @@
 import { select, input, checkbox, password } from '@inquirer/prompts';
-import type { WizardAnswers } from './types.js';
+import type { WizardAnswers, WizardAnswersV2, ProviderId, DeployMode, ImChannel } from './types.js';
 import { detectOS, log } from './utils.js';
+import { listProviders, listProvidersByOS } from './providers/index.js';
 import chalk from 'chalk';
 
 const ROLES = [
@@ -263,5 +264,131 @@ export async function runWizard(): Promise<WizardAnswers> {
     llmMode,
     llmProvider,
     llmApiKey,
+  };
+}
+
+// --- v2 Wizard: adds platform selection ---
+
+const DEPLOY_MODE_MAP: Record<string, DeployMode> = {
+  cloud: 'cloud', desktop: 'local', mobile: 'mobile', saas: 'saas', remote: 'remote',
+};
+
+export async function runWizardV2(): Promise<WizardAnswersV2> {
+  // Run base wizard first
+  const base = await runWizard();
+
+  console.log('');
+  console.log(chalk.bold('--- Platform Selection ---'));
+  console.log(chalk.dim('Choose where to deploy your AI agent'));
+  console.log('');
+
+  // Filter providers by detected OS
+  const allProviders = listProviders();
+  const osProviders = listProvidersByOS(base.os);
+
+  // Group by type for display
+  const groups: Record<string, typeof allProviders> = {};
+  for (const p of allProviders) {
+    const group = p.type;
+    (groups[group] ??= []).push(p);
+  }
+
+  const statusIcon: Record<string, string> = {
+    stable: '', beta: ' [beta]', preview: ' [preview]', planned: ' [planned]',
+  };
+
+  const providerChoices = allProviders.map(p => {
+    const compatible = osProviders.some(op => op.id === p.id);
+    const suffix = !compatible ? chalk.dim(' (requires ' + p.platforms.join('/') + ')') : '';
+    return {
+      name: `${p.name} — ${p.vendor}${statusIcon[p.status] || ''}${suffix}`,
+      value: p.id as ProviderId,
+      disabled: !compatible && p.status !== 'preview' ? '(OS not supported)' : false,
+    };
+  });
+
+  const targetProvider = await select({
+    message: 'Deploy target platform:',
+    choices: [
+      { name: chalk.cyan('--- Desktop / Local ---'), value: 'openclaw' as ProviderId, disabled: false },
+      ...providerChoices.filter(c => {
+        const p = allProviders.find(pp => pp.id === c.value);
+        return p?.type === 'desktop';
+      }),
+      { name: chalk.cyan('--- Cloud Platforms ---'), value: '__cloud_header' as ProviderId, disabled: '─' },
+      ...providerChoices.filter(c => {
+        const p = allProviders.find(pp => pp.id === c.value);
+        return p?.type === 'cloud';
+      }),
+      { name: chalk.cyan('--- SaaS Hosted ---'), value: '__saas_header' as ProviderId, disabled: '─' },
+      ...providerChoices.filter(c => {
+        const p = allProviders.find(pp => pp.id === c.value);
+        return p?.type === 'saas';
+      }),
+      { name: chalk.cyan('--- Mobile ---'), value: '__mobile_header' as ProviderId, disabled: '─' },
+      ...providerChoices.filter(c => {
+        const p = allProviders.find(pp => pp.id === c.value);
+        return p?.type === 'mobile';
+      }),
+      { name: chalk.cyan('--- Remote Service ---'), value: '__remote_header' as ProviderId, disabled: '─' },
+      ...providerChoices.filter(c => {
+        const p = allProviders.find(pp => pp.id === c.value);
+        return p?.type === 'remote';
+      }),
+    ].filter(c => !c.value.startsWith('__')),
+  });
+
+  const selectedProvider = allProviders.find(p => p.id === targetProvider)!;
+  const targetDeployMode = DEPLOY_MODE_MAP[selectedProvider.type] || 'local';
+
+  // Region for cloud providers
+  let targetRegion: string | undefined;
+  if (targetDeployMode === 'cloud') {
+    targetRegion = await input({
+      message: 'Cloud region (default auto):',
+      default: 'auto',
+    });
+    if (targetRegion === 'auto') targetRegion = undefined;
+  }
+
+  // IM channel for providers that support it
+  let targetImChannel: ImChannel | undefined;
+  if (selectedProvider.imChannels.length > 0) {
+    targetImChannel = await select({
+      message: 'IM channel integration:',
+      choices: [
+        ...selectedProvider.imChannels.map(im => ({ name: im, value: im })),
+        { name: 'Skip', value: undefined as any },
+      ],
+    });
+  }
+
+  // Credentials for cloud/saas
+  let cloudAccessKeyId: string | undefined;
+  let cloudAccessKeySecret: string | undefined;
+  if (targetDeployMode === 'cloud' || targetDeployMode === 'saas') {
+    console.log('');
+    log.note(`${selectedProvider.vendor} credentials needed for deployment`);
+    cloudAccessKeyId = await input({
+      message: `${selectedProvider.vendor} Access Key / Token:`,
+    });
+    if (cloudAccessKeyId) {
+      cloudAccessKeySecret = await password({
+        message: `${selectedProvider.vendor} Secret Key:`,
+        mask: '*',
+      });
+    }
+  }
+
+  log.ok(`Target: ${selectedProvider.name} (${selectedProvider.vendor})`);
+
+  return {
+    ...base,
+    targetProvider,
+    targetDeployMode,
+    targetRegion,
+    targetImChannel,
+    cloudAccessKeyId,
+    cloudAccessKeySecret,
   };
 }

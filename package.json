@@ -1,7 +1,7 @@
 {
   "name": "openclaw-foundry",
-  "version": "0.1.0",
-  "description": "AI-driven one-click OpenClaw deployment",
+  "version": "2.0.0",
+  "description": "AI-driven universal Agent deployment — 13 platforms, one Blueprint",
   "type": "module",
   "scripts": {
     "ocf": "tsx src/cli.ts",
