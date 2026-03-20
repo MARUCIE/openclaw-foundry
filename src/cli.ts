@@ -129,12 +129,20 @@ program
 // ===== ocf cast =====
 program
   .command('cast <blueprint-file>')
-  .description('Execute an existing blueprint JSON file')
-  .action(async (file) => {
+  .description('Deploy an existing blueprint JSON file to its target platform')
+  .option('-t, --target <provider>', 'Override target platform')
+  .action(async (file, opts) => {
     try {
       const raw = await readFile(file, 'utf-8');
       const blueprint = BlueprintSchema.parse(JSON.parse(raw));
-      await executeBlueprint(blueprint);
+      if (opts.target) blueprint.target = { ...blueprint.target, provider: opts.target };
+
+      const providerId = blueprint.target?.provider || 'openclaw';
+      const provider = getProvider(providerId as import('./types.js').ProviderId);
+      log.note(`Deploying to ${provider.meta.name} (${provider.meta.vendor})`);
+
+      const result = await provider.deploy(blueprint);
+      if (result.instanceUrl) log.ok(`Instance: ${result.instanceUrl}`);
     } catch (e: unknown) {
       log.error(`Invalid blueprint: ${(e as Error).message}`);
     }
@@ -184,8 +192,10 @@ program
     }
     const blueprint = await loadProfile(profileId);
     if (!blueprint) return;
-    log.note(`Switching to profile: ${profileId}`);
-    await executeBlueprint(blueprint);
+    const providerId = blueprint.target?.provider || 'openclaw';
+    const provider = getProvider(providerId as import('./types.js').ProviderId);
+    log.note(`Switching to profile: ${profileId} (${provider.meta.name})`);
+    await provider.deploy(blueprint);
   });
 
 // ===== ocf export (P3) =====
@@ -298,8 +308,28 @@ program
 // ===== ocf doctor =====
 program
   .command('doctor')
-  .description('Verify OpenClaw installation health')
-  .action(async () => { await runDoctor(); });
+  .description('Verify installation health (provider-aware)')
+  .option('-t, --target <provider>', 'Diagnose a specific platform')
+  .action(async (opts) => {
+    if (opts.target) {
+      const provider = getProvider(opts.target as import('./types.js').ProviderId);
+      console.log(chalk.bold(`\n  Diagnosing: ${provider.meta.name} (${provider.meta.vendor})\n`));
+      const result = await provider.diagnose();
+      for (const c of result.checks) {
+        const tag = c.status === 'ok' ? chalk.green('OK')
+          : c.status === 'warn' ? chalk.yellow('WARN') : chalk.red('ERROR');
+        console.log(`  ${tag} ${c.name}: ${c.message}`);
+      }
+      if (result.suggestions.length) {
+        console.log('');
+        for (const s of result.suggestions) console.log(`  ${chalk.dim('>')} ${s}`);
+      }
+      console.log('');
+      result.healthy ? log.ok('Platform healthy') : log.warn('Issues found');
+    } else {
+      await runDoctor();
+    }
+  });
 
 // ===== ocf customer (server-side admin) =====
 const customerCmd = program
@@ -365,6 +395,36 @@ customerCmd
     const ok = await deactivateCustomer(id);
     if (!ok) { log.error(`Customer ${id} not found.`); return; }
     log.ok('Customer deactivated');
+  });
+
+// ===== ocf test =====
+program
+  .command('test [blueprint-file]')
+  .description('Test a deployment (verify platform health + blueprint state)')
+  .option('-t, --target <provider>', 'Target platform to test')
+  .action(async (file, opts) => {
+    let blueprint;
+    if (file) {
+      const raw = await readFile(file, 'utf-8');
+      blueprint = BlueprintSchema.parse(JSON.parse(raw));
+    }
+
+    const providerId = opts.target || blueprint?.target?.provider || 'openclaw';
+    const provider = getProvider(providerId as import('./types.js').ProviderId);
+
+    console.log(chalk.bold(`\n  Testing: ${provider.meta.name} (${provider.meta.vendor})\n`));
+
+    const result = blueprint
+      ? await provider.test(blueprint)
+      : await provider.test({ version: '2.0', meta: { name: 'test', os: 'darwin', created: '' }, target: { provider: providerId, deployMode: 'local' }, openclaw: { version: 'latest', installMethod: 'npm' }, identity: { role: 'test' }, skills: { fromAifleet: [], fromClawhub: [], custom: [] }, agents: [], config: { autonomy: 'L1-guided', modelRouting: 'balanced', memoryChunks: 72 }, cron: [], mcpServers: [], extensions: [], llm: { mode: 'skip' } });
+
+    for (const c of result.checks) {
+      const tag = c.status === 'ok' ? chalk.green('OK')
+        : c.status === 'warn' ? chalk.yellow('WARN') : chalk.red('ERROR');
+      console.log(`  ${tag} ${c.name}: ${c.message}`);
+    }
+    console.log('');
+    result.success ? log.ok('All tests passed') : log.error('Tests failed');
   });
 
 // ===== ocf platforms =====

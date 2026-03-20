@@ -1,21 +1,23 @@
 # PRD - OpenClaw Foundry
 
 ## Product Summary
-OpenClaw Foundry is an AI-driven setup system that turns a user profile into a deployable OpenClaw environment. It supports local CLI flow, remote client-server flow, thin bootstrap scripts, and a static browser wizard that all converge on a shared `Blueprint` contract.
+OpenClaw Foundry v2.0 is a **universal AI Agent deployment platform** that turns a user profile into a deployable Agent environment across **13 platforms** (Desktop/SaaS/Cloud/Mobile/Remote). One Blueprint, any platform. It supports local CLI, remote client-server flow, thin bootstrap scripts, and a browser wizard with platform selection.
 
 ## Problem Statement
-Installing and tailoring OpenClaw for different roles, industries, and delivery styles is manual, inconsistent, and hard to operationalize at scale. Foundry aims to standardize that process without forcing a one-size-fits-all profile.
+The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkBuddy, DuClaw, Kimi Claw, etc.), each with its own setup flow, IM integration, and model routing. Users must learn each platform's configuration separately. Foundry v2 standardizes deployment across all platforms through a single Blueprint contract + Provider abstraction layer.
 
 ## Target Users
-1. Individual operators who want a personalized OpenClaw setup on macOS, Windows, or Linux
-2. Team leads or platform owners who want a managed server-side provisioning path
-3. Operators who need a managed LLM proxy with customer tokens and tier limits
+1. Individual operators who want a personalized Agent setup on any of 13 supported platforms
+2. Team leads who need to deploy the same Blueprint to different platforms (e.g., local dev + cloud production)
+3. Platform owners who want a managed server-side provisioning path with multi-platform support
+4. Operators who need a managed LLM proxy with customer tokens and tier limits
 
 ## Goals
-1. Collect structured user context through CLI, shell bootstrap, or browser wizard
-2. Generate a valid `Blueprint` JSON using AI or deterministic fallback logic
-3. Execute a blueprint into a local OpenClaw installation with install, repair, upgrade, uninstall, and rollback support
-4. Offer a server mode that centralizes catalog scanning, blueprint generation, customer creation, and LLM proxying
+1. Collect structured user context + platform selection through CLI, shell bootstrap, or browser wizard
+2. Generate a valid `Blueprint v2.0` JSON with target platform routing using AI or deterministic fallback
+3. Deploy to any of 13 platforms via Provider abstraction (deploy/test/repair/uninstall/diagnose)
+4. Offer a server mode with platform discovery, catalog scanning, blueprint generation, and LLM proxying
+5. Support IM channel integration (Feishu/WeCom/QQ/DingTalk/Telegram/Discord/Slack)
 
 ## Non-Goals
 1. Multi-tenant SaaS admin console
