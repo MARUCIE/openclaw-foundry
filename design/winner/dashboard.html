@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw Foundry - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#8a4cfc",
+              "primary-fixed": "#dbe1ff",
+              "secondary": "#712ae2",
+              "outline-variant": "#c6c6cd",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#002113",
+              "inverse-on-surface": "#eaf1ff",
+              "inverse-primary": "#b4c5ff",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-primary-fixed-variant": "#003ea8",
+              "inverse-surface": "#213145",
+              "surface": "#f8f9ff",
+              "surface-variant": "#d3e4fe",
+              "secondary-fixed": "#eaddff",
+              "on-tertiary-fixed": "#002113",
+              "on-secondary-container": "#fffbff",
+              "on-primary-fixed": "#00174b",
+              "surface-tint": "#0053db",
+              "primary-container": "#00174b",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#6ffbbe",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#eff4ff",
+              "on-primary": "#ffffff",
+              "background": "#f8f9ff",
+              "surface-bright": "#f8f9ff",
+              "tertiary-fixed-dim": "#4edea3",
+              "primary": "#000000",
+              "on-primary-container": "#497cff",
+              "on-secondary-fixed": "#25005a",
+              "surface-container": "#e5eeff",
+              "on-secondary": "#ffffff",
+              "secondary-fixed-dim": "#d2bbff",
+              "on-tertiary-fixed-variant": "#005236",
+              "on-background": "#0b1c30",
+              "surface-container-high": "#dce9ff",
+              "on-surface": "#0b1c30",
+              "tertiary": "#000000",
+              "outline": "#76777d",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "surface-dim": "#cbdbf5",
+              "on-secondary-fixed-variant": "#5a00c6",
+              "surface-container-highest": "#d3e4fe",
+              "on-surface-variant": "#45464d",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#009668"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; color: #0b1c30; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col h-screen w-64 bg-slate-50 border-r border-transparent z-50">
+<div class="p-6">
+<h1 class="text-xl font-bold text-slate-900 tracking-tight">OpenClaw Foundry</h1>
+<p class="text-xs text-slate-500 font-medium mt-1">Foundry Admin</p>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<!-- Dashboard (Active) -->
+<a class="relative flex items-center gap-3 px-4 py-2.5 text-blue-600 font-manrope text-sm font-semibold before:absolute before:left-0 before:h-5 before:w-0.5 before:bg-blue-600 before:rounded-r-full hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                仪表盘
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+                平台目录
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                部署
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="swords">swords</span>
+                竞技场
+            </a>
+</nav>
+<div class="p-4 bg-slate-100/50 border-t border-slate-200/30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white text-xs font-bold">JD</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Admin User</p>
+<p class="text-[10px] text-slate-500 truncate">admin@openclaw.io</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-8 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-on-primary-container/20" placeholder="搜索 AI 代理或平台..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-500">
+<button class="hover:text-on-primary-container transition-all"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-on-primary-container transition-all"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<button class="hover:text-on-primary-container transition-all"><span class="material-symbols-outlined" data-icon="help_outline">help_outline</span></button>
+</div>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                新建部署
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-8 min-h-screen">
+<!-- Top Section: Stats Cards -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-on-surface-variant text-xs font-label font-semibold tracking-wider uppercase mb-1">平台总数</p>
+<h3 class="text-3xl font-extrabold font-headline">13</h3>
+</div>
+<div class="bg-surface-container p-2 rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-[10px] text-on-tertiary-container font-semibold">
+<span class="material-symbols-outlined text-xs mr-1">trending_up</span>
+                    较上月 +12%
+                </div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-on-surface-variant text-xs font-label font-semibold tracking-wider uppercase mb-1">桌面端</p>
+<h3 class="text-3xl font-extrabold font-headline text-on-primary-container">4</h3>
+</div>
+<div class="bg-primary-fixed p-2 rounded-lg text-on-primary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="desktop_windows">desktop_windows</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-[10px] text-on-surface-variant font-medium">
+                    稳定运行中
+                </div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-on-surface-variant text-xs font-label font-semibold tracking-wider uppercase mb-1">SaaS 云端</p>
+<h3 class="text-3xl font-extrabold font-headline text-secondary">4</h3>
+</div>
+<div class="bg-secondary-fixed p-2 rounded-lg text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="cloud">cloud</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-[10px] text-on-surface-variant font-medium">
+                    2 个待更新
+                </div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-on-surface-variant text-xs font-label font-semibold tracking-wider uppercase mb-1">移动/远程</p>
+<h3 class="text-3xl font-extrabold font-headline text-on-tertiary-container">2</h3>
+</div>
+<div class="bg-tertiary-fixed p-2 rounded-lg text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="smartphone">smartphone</span>
+</div>
+</div>
+<div class="mt-4 flex items-center text-[10px] text-on-surface-variant font-medium">
+                    活跃连接: 18
+                </div>
+</div>
+</section>
+<!-- Middle Section: Deployment & Arena -->
+<section class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+<!-- Left: Recently Deployed Table -->
+<div class="lg:col-span-3 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden flex flex-col">
+<div class="px-6 py-5 border-b border-surface-container-low flex justify-between items-center">
+<h2 class="text-lg font-bold tracking-tight">最近部署</h2>
+<button class="text-xs font-bold text-on-primary-container hover:underline">查看全部</button>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container text-on-surface-variant text-[10px] font-label font-bold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-3">平台</th>
+<th class="px-6 py-3">状态</th>
+<th class="px-6 py-3">时间</th>
+<th class="px-6 py-3"></th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-semibold">OpenClaw</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">成功</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs">2 分钟前</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-on-primary-container"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-semibold">ArkClaw</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">进行中</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs">5 分钟前</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-on-primary-container"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-semibold">WorkBuddy</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">成功</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs">15 分钟前</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-on-primary-container"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-semibold">TaskFlow</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-error-container text-on-error-container">失败</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs">1 小时前</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-on-primary-container"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-semibold">BotSync</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">成功</span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant text-xs">3 小时前</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-on-primary-container"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right: Arena Battles List -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex justify-between items-center mb-2">
+<h2 class="text-lg font-bold tracking-tight">竞技场比武</h2>
+<span class="material-symbols-outlined text-slate-400">swords</span>
+</div>
+<!-- Arena Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="OpenAI logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK4-jHpa-U-jb_RG3AeSRa3Xo0uJ2XGdFz36sVnEH3VGe2D3af4n7XUNKJ6knrjEhmxdt2oaPVTfhR_G5L7TlexVrS6k5_mXAoQdAaLlT7YUAbIuBr0hqBTSkNpzIKfUNCSb_-PkCtY7efxdLTRZRkp5paHvDAxJVI3Iv3eDWg-4Xpod7Fwt9SL6BrGfmk4X8Nj2ox8Eh5QrcXbdatuft3VI7KMnl7weuFBZa4DuXXcyZbeRTOG7y-Po3CIDMxQcA07_gnD8Q0fsWM"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Anthropic logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDPRmk5CAJcS-woNl2F55HuQe8TX3-6FKGEjKjJIrveWZvTThcqq5TbdPqSk-v8kEHBdf5sYfiwprDOHeDITgSvMiA977UfdcZSlGU1KOm9SXoS2xfsHC_wZaSF-k9pW1qF2nfKAMXMNAK1f5ni78vRbvnl8VM9JgEwBlneah1evli7T-RSZWCU2sFTqda_AHtC1ny_jrB2RRTkHakGf6yo8sNU0Pv10o53E2fYd_M8nqm6rQ0E-FijWecXLos_FEpwtDRPIPj70Ee"/>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-bold">GPT-4 vs Claude 3</h4>
+<p class="text-[10px] text-on-surface-variant">性能评测模型比武</p>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-medium">刚刚</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed-variant">Claude 3 胜</span>
+<button class="text-[10px] font-bold text-on-primary-container">查看报告 →</button>
+</div>
+</div>
+<!-- Arena Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Meta logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnZTsHNLY2_WQFRjkmQ4BBXjkXOzrLF_oH-yZw5NOT67js7mV9pI5L2GCDhj-GDMPk8aZ3N5fPkFlwhKtPZFmEj_3ohXygydsa5r_WZzAZcEG9YSuKxoke0LJLo9Bk-x_BQ_7zIh26Oixry5XojcbtR9MhZTUgbE9ZR50H8I_41znrgbECfL95CXbBikXGM1Fs5_pKy1Dn5bYSWxhv6QZPqvV2UuyU-Pil5OJA1FDVn5iF6Fgm0pNQt9yn5wyOuu_F89JuoaXm2hKs"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Mistral logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAltdnFgPk4iwdVJp8mTMfDTCGX6RRPXCbtpfvvvqeocHSRaLrpwaF5Mty4gptQr3cbBFlvoPv_4YD-Wx7JX6ipThs0ODhqXm2UeUDnuK0_uYCwQ2tsW-av1PglfSlFio10ONe2SSuWX-RdUrlRnDEKY6UPqFlF1TB0UniEfPunuoLQOEgWoddXns4XOQBZOpdrE98IqH9x0Hvw9PuecYP3CfU9pn11EbtmkO4qrMtsJQrOLBv3XEXzUiIYW9Z6ivPAKNahXBC-t5v4"/>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-bold">Llama 3 vs Mistral</h4>
+<p class="text-[10px] text-on-surface-variant">开源模型推理测试</p>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-medium">10 分钟前</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed-variant">Llama 3 胜</span>
+<button class="text-[10px] font-bold text-on-primary-container">查看报告 →</button>
+</div>
+</div>
+<!-- Arena Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Google logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvYqGXyv_WGbZmoqpHVc8CJOPjJUxWfnaEQYNIpIOJAkDrm9sVDwp0eEo0bxsS4t9HYj42BHueNCzHtHLXpSHWhyTtMUGcjb7DasCEi6QmISu5MzB-CQ3lc_R_L5IWXBVK-ATqvdiKFgzrzLpdQ8B8oPEQrDTBDZx3LKtIfctHHdg8Lqf0y1dhL-jtvqer-U2XdPSZUVQuZ6o9wsATWva2jziz3zfw6dLLVpHav2JQhYYN15bCCkQODFkuLpgtaE0HieP6CDeAnhzc"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="OpenAI GPT-4o logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiAUIAwPKtwUy5okyEzRsF-Zj0Up9-TZMb2PFq5ff3NcZUUvl0VSfc7Qg-XCv307smENCmawdFvx9Q_oruetyURciPVb12BCCTZXPw2f6IKVc-FmH6vkWIzhCr8JGJQMKIWya_Zrk_y_4H4mmwnWg0Upd2oKnp9Wo_-uKQM-Di-J07_bfxHN5iZ7xw4LPXZIsTdfmRWYGIHMliKJOedCDs8ckhPcyobj-TawcZzIse2HwUAIFaAATJaF5-_KYH41Y43p_0ucf17SYP"/>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-bold">Gemini 1.5 vs GPT-4o</h4>
+<p class="text-[10px] text-on-surface-variant">多模态能力比对</p>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-medium">30 分钟前</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-fixed text-on-primary-fixed-variant">进行中</span>
+<div class="flex-1 ml-4 h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-on-primary-container rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Section: System Health -->
+<section class="bg-primary-container text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
+<div class="absolute top-0 right-0 w-64 h-64 bg-on-primary-container/20 blur-3xl -mr-32 -mt-32"></div>
+<div class="flex items-center gap-4 z-10">
+<div class="w-12 h-12 bg-on-primary-container/30 rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h2 class="text-lg font-bold font-manrope">系统健康状态</h2>
+<p class="text-white/60 text-xs">所有核心组件均处于活跃状态</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-16 z-10">
+<div class="flex flex-col">
+<span class="text-white/50 text-[10px] uppercase font-bold tracking-widest mb-1">服务器运行时间</span>
+<span class="text-xl font-bold font-manrope">99.9%</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white/50 text-[10px] uppercase font-bold tracking-widest mb-1">API 延迟</span>
+<span class="text-xl font-bold font-manrope">120ms</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white/50 text-[10px] uppercase font-bold tracking-widest mb-1">活跃任务</span>
+<span class="text-xl font-bold font-manrope">45</span>
+</div>
+</div>
+<div class="z-10 flex items-center gap-3">
+<div class="flex items-center gap-2 text-tertiary-fixed text-sm font-bold">
+<div class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></div>
+                    在线
+                </div>
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-xs font-bold transition-all border border-white/10 backdrop-blur-sm">诊断报告</button>
+</div>
+</section>
+</main>
+<!-- FAB Suppression: On Dashboard, FAB might be relevant -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-on-primary-container text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition-all active:scale-95 z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+</body></html>

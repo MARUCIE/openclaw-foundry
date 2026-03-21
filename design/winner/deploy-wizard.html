@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw Foundry - 部署向导</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#002113",
+              "inverse-surface": "#213145",
+              "surface-container-high": "#dce9ff",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "surface-bright": "#f8f9ff",
+              "on-primary-container": "#497cff",
+              "primary": "#000000",
+              "on-surface": "#0b1c30",
+              "surface-dim": "#cbdbf5",
+              "secondary-fixed": "#eaddff",
+              "primary-fixed-dim": "#b4c5ff",
+              "primary-fixed": "#dbe1ff",
+              "surface-container": "#e5eeff",
+              "tertiary": "#000000",
+              "surface-variant": "#d3e4fe",
+              "surface-tint": "#0053db",
+              "on-tertiary-container": "#009668",
+              "tertiary-fixed": "#6ffbbe",
+              "on-secondary-fixed-variant": "#5a00c6",
+              "on-secondary-fixed": "#25005a",
+              "outline": "#76777d",
+              "background": "#f8f9ff",
+              "on-tertiary-fixed-variant": "#005236",
+              "error-container": "#ffdad6",
+              "on-background": "#0b1c30",
+              "on-surface-variant": "#45464d",
+              "on-primary-fixed": "#00174b",
+              "inverse-on-surface": "#eaf1ff",
+              "on-error-container": "#93000a",
+              "surface-container-highest": "#d3e4fe",
+              "secondary-container": "#8a4cfc",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#d2bbff",
+              "on-tertiary-fixed": "#002113",
+              "on-primary-fixed-variant": "#003ea8",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface": "#f8f9ff",
+              "inverse-primary": "#b4c5ff",
+              "on-secondary-container": "#fffbff",
+              "surface-container-low": "#eff4ff",
+              "secondary": "#712ae2",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "primary-container": "#00174b",
+              "outline-variant": "#c6c6cd"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col h-screen w-64 bg-surface-container-low border-r border-transparent font-manrope text-sm font-medium z-50">
+<div class="p-6">
+<h1 class="text-xl font-bold text-slate-900 tracking-tight">OpenClaw Foundry</h1>
+<p class="text-xs text-on-surface-variant opacity-70">Foundry Admin</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>仪表盘</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span>平台目录</span>
+</a>
+<a class="relative flex items-center gap-3 px-4 py-2 text-on-primary-container before:absolute before:left-0 before:h-5 before:w-0.5 before:bg-surface-tint before:rounded-r-full hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">rocket_launch</span>
+<span>部署</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined">swords</span>
+<span>竞技场</span>
+</a>
+</nav>
+<div class="mt-auto p-6 space-y-4">
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-highest/30">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Premium Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-8 z-40 bg-white/80 backdrop-blur-xl shadow-sm border-b border-slate-200/50">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border-none rounded-lg text-sm focus:ring-2 focus:ring-surface-tint/20" placeholder="搜索部署任务或平台..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container rounded-full transition-all active:scale-95 duration-75">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-all active:scale-95 duration-75">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-all active:scale-95 duration-75">
+<span class="material-symbols-outlined text-on-surface-variant">help_outline</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<img class="w-8 h-8 rounded-full border border-outline-variant/50" data-alt="User profile avatar with professional look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdF1jQRxD5mtZrdk92EFiy7JSlcAl4CKGGxF_AbuztRoifXi8G4954LysnBJR7U_V5n29QgmrIBuNpWcPNDDAlk6XpwlEoA76eaAdg1ZLV_mvRQKN5vLIWv5K5Wq-WyTynhoTEkGMLitM1peijznzZ6I3Q2P3nmHqgxuMWA9s3a9TzvXlsdN0ZheeFGM1Sha5cSlidBvblp8pK9lRXfkzcy3hJS9ruHVXAwG8YDpjxd2v1_Es5Udp6tXbKffdRbu93u9r1T_C_cxei"/>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 pt-16 min-h-screen bg-surface">
+<div class="max-w-6xl mx-auto px-8 py-12">
+<!-- Horizontal Stepper -->
+<div class="mb-12">
+<div class="flex items-center justify-between relative">
+<!-- Progress Line Background -->
+<div class="absolute top-5 left-0 w-full h-0.5 bg-outline-variant/20 -z-10"></div>
+<!-- Step 1 (Active) -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-tint text-white flex items-center justify-center font-bold ring-4 ring-primary-fixed">
+                            1
+                        </div>
+<span class="text-sm font-semibold text-on-primary-container">选择平台</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold">
+                            2
+                        </div>
+<span class="text-sm font-medium text-on-surface-variant">配置蓝图</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold">
+                            3
+                        </div>
+<span class="text-sm font-medium text-on-surface-variant">确认部署</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center font-bold">
+                            4
+                        </div>
+<span class="text-sm font-medium text-on-surface-variant">部署执行</span>
+</div>
+</div>
+</div>
+<!-- Content Header -->
+<div class="mb-8">
+<h2 class="text-2xl font-extrabold text-on-surface tracking-tight">选择目标平台</h2>
+<p class="text-on-surface-variant mt-1">请从可用组件库中选择您希望部署的 Foundry 核心平台。</p>
+</div>
+<!-- Platform Card Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<!-- OpenClaw (Selected) -->
+<div class="group relative bg-surface-container-lowest p-6 rounded-xl border-2 border-surface-tint shadow-sm transition-all hover:scale-[1.02] cursor-pointer">
+<div class="absolute top-4 right-4">
+<div class="w-6 h-6 rounded-full bg-surface-tint flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-surface-tint text-3xl">terminal</span>
+</div>
+<h3 class="font-bold text-on-surface text-lg">OpenClaw</h3>
+<div class="mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-secondary-fixed text-on-secondary-fixed">Desktop</span>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-2">兼容性</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">laptop</span> MacOS</span>
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">window</span> Windows</span>
+</div>
+</div>
+</div>
+<!-- ArkClaw -->
+<div class="group relative bg-surface-container-lowest p-6 rounded-xl border border-transparent hover:border-surface-tint/30 transition-all hover:scale-[1.02] cursor-pointer">
+<div class="absolute top-4 right-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant"></div>
+</div>
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">token</span>
+</div>
+<h3 class="font-bold text-on-surface text-lg">ArkClaw</h3>
+<div class="mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-tertiary-fixed text-on-tertiary-fixed">SaaS</span>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-2">兼容性</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">language</span> Browser</span>
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">hub</span> Slack IM</span>
+</div>
+</div>
+</div>
+<!-- WorkBuddy -->
+<div class="group relative bg-surface-container-lowest p-6 rounded-xl border border-transparent hover:border-surface-tint/30 transition-all hover:scale-[1.02] cursor-pointer">
+<div class="absolute top-4 right-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant"></div>
+</div>
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">work</span>
+</div>
+<h3 class="font-bold text-on-surface text-lg">WorkBuddy</h3>
+<div class="mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-tertiary-fixed text-on-tertiary-fixed">SaaS</span>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-2">兼容性</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">language</span> Browser</span>
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">group</span> Teams</span>
+</div>
+</div>
+</div>
+<!-- DuClaw -->
+<div class="group relative bg-surface-container-lowest p-6 rounded-xl border border-transparent hover:border-surface-tint/30 transition-all hover:scale-[1.02] cursor-pointer">
+<div class="absolute top-4 right-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant"></div>
+</div>
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">memory</span>
+</div>
+<h3 class="font-bold text-on-surface text-lg">DuClaw</h3>
+<div class="mt-1">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-secondary-fixed text-on-secondary-fixed">Desktop</span>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase mb-2">兼容性</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">laptop</span> Linux</span>
+<span class="text-[11px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-xs">window</span> Windows</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary Section -->
+<div class="bg-surface-container-low p-6 rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-tint">info</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">已选平台</p>
+<div class="flex items-center gap-2">
+<span class="text-lg font-bold text-on-surface">OpenClaw - 桌面端</span>
+<span class="material-symbols-outlined text-on-tertiary-container text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-tint/10 flex items-center justify-center border-2 border-surface-container-low">
+<span class="material-symbols-outlined text-xs text-surface-tint">settings</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-tint/10 flex items-center justify-center border-2 border-surface-container-low">
+<span class="material-symbols-outlined text-xs text-surface-tint">layers</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky-feel Footer -->
+<div class="mt-12 pt-8 border-t border-outline-variant/20 flex items-center justify-between">
+<button class="px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface font-semibold hover:bg-surface-container transition-all active:scale-95">
+                    取消
+                </button>
+<button class="px-10 py-2.5 rounded-lg bg-gradient-to-br from-on-primary-container to-surface-tint text-white font-bold shadow-lg shadow-surface-tint/20 hover:opacity-90 transition-all active:scale-95 flex items-center gap-2">
+                    下一步
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Visual Accents for Architectural Feel -->
+<div class="fixed top-20 right-10 w-64 h-64 bg-surface-tint/5 rounded-full blur-3xl -z-10"></div>
+<div class="fixed bottom-10 left-80 w-48 h-48 bg-secondary-container/5 rounded-full blur-3xl -z-10"></div>
+</body></html>

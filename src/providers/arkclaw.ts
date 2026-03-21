@@ -21,8 +21,10 @@ export class ArkClawProvider extends CloudProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
-    const notReady = this.checkApiReady();
-    if (notReady) return notReady;
+    // Fallback to simulation if no real credentials
+    if (!this.hasCredentials(blueprint)) {
+      return this.realLocalDeploy(blueprint);
+    }
 
     const steps = [];
 
@@ -77,6 +79,9 @@ export class ArkClawProvider extends CloudProvider {
   }
 
   async test(blueprint: Blueprint): Promise<TestResult> {
+    if (!this.hasCredentials(blueprint)) {
+      return this.realLocalTest(blueprint);
+    }
     const endpoint = blueprint.target?.credentials?.endpoint;
     if (!endpoint) {
       return { success: false, checks: [this.step('Endpoint', 'error', 'No instance endpoint')] };

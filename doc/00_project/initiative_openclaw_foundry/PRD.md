@@ -1,7 +1,7 @@
 # PRD - OpenClaw Foundry
 
 ## Product Summary
-OpenClaw Foundry v2.0 is a **universal AI Agent deployment platform** that turns a user profile into a deployable Agent environment across **13 platforms** (Desktop/SaaS/Cloud/Mobile/Remote). One Blueprint, any platform. It supports local CLI, remote client-server flow, thin bootstrap scripts, and a browser wizard with platform selection.
+OpenClaw Foundry v3.0 is a **universal AI Agent deployment platform** that turns a user profile into a deployable Agent environment across **13 platforms** (Desktop/SaaS/Cloud/Mobile/Remote). One Blueprint, any platform. It supports local CLI, remote client-server flow, thin bootstrap scripts, a browser wizard, and a **full Web Console** with platform catalog, one-click deploy, and multi-claw arena comparison.
 
 ## Problem Statement
 The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkBuddy, DuClaw, Kimi Claw, etc.), each with its own setup flow, IM integration, and model routing. Users must learn each platform's configuration separately. Foundry v2 standardizes deployment across all platforms through a single Blueprint contract + Provider abstraction layer.
@@ -20,10 +20,9 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 5. Support IM channel integration (Feishu/WeCom/QQ/DingTalk/Telegram/Discord/Slack)
 
 ## Non-Goals
-1. Multi-tenant SaaS admin console
-2. Full billing workflow
-3. Multi-page authenticated operator dashboard
-4. Production-grade secret vault and enterprise policy engine
+1. Full billing workflow with payment integration
+2. Production-grade secret vault and enterprise policy engine
+3. Multi-tenant isolation (Web Console is single-operator)
 
 ## Primary Product Surfaces
 1. Local CLI:
@@ -43,6 +42,11 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
    - browser wizard (`client/index.html`)
    - role/pipeline manual (`client/pipeline-manual.html`)
    - bootstrap scripts (`foundry.sh`, `foundry.ps1`)
+4. **Web Console** (v3.0):
+   - Dashboard: platform stats, recent deploys, recent arena matches
+   - Platform Catalog: browse/filter 13 platforms, view details and requirements
+   - One-Click Deploy: stepper wizard (select → configure → confirm → execute)
+   - Arena: multi-claw comparison (2-5 providers, same task, scoring + winner)
 
 ## Functional Requirements
 | ID | Requirement | Current Baseline |
@@ -57,6 +61,10 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-08 | Expose reusable preset profiles from JSON files | Implemented |
 | FR-09 | Maintain project-level canonical documentation under `doc/` | Implemented in this iteration |
 | FR-10 | Normalize AI-generated blueprints against trusted user inputs and current catalog before returning them | Implemented |
+| FR-11 | Web Console: browse all 13 platforms with filter/search, view provider details and requirements | v3.0 |
+| FR-12 | Web Console: one-click deploy wizard with async job tracking and real-time log streaming | v3.0 |
+| FR-13 | Web Console: arena mode — same blueprint dispatched to 2-5 providers in parallel, auto-scoring and winner determination | v3.0 |
+| FR-14 | Web Console: dashboard with aggregate stats, recent deploys, recent arena matches, system health | v3.0 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers

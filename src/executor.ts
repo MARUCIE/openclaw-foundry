@@ -6,6 +6,7 @@ import { MAX_SNAPSHOTS } from './types.js';
 import { SOUL_TEMPLATES } from './analyzer.js';
 import { log, spinner } from './utils.js';
 import chalk from 'chalk';
+import { provisionIMBot, provisionModelAPIKey } from './auto-provision.js';
 
 const HOME = process.env.HOME || process.env.USERPROFILE || '~';
 const OPENCLAW_HOME = join(HOME, '.openclaw');
@@ -914,17 +915,18 @@ async function checkPrereqs(): Promise<StepResult> {
 
 async function installOpenClaw(bp: Blueprint): Promise<StepResult> {
   try {
-    const { stdout } = await execa('openclaw', ['--version']).catch(() => ({ stdout: '' }));
-    if (stdout) return { name: 'OpenClaw', status: 'ok', message: `Already installed (${stdout.trim()})` };
+    // Check if claude/openclaw CLI is available
+    const { stdout } = await execa('claude', ['--version'], { timeout: 5_000 }).catch(() => ({ stdout: '' }));
+    if (stdout) return { name: 'OpenClaw', status: 'ok', message: `Claude CLI found (${stdout.trim()})` };
 
-    const spin = spinner('Installing OpenClaw...');
-    spin.start();
-    const cmd = bp.openclaw.installMethod === 'pnpm' ? 'pnpm' : 'npm';
-    await execa(cmd, ['install', '-g', '@anthropic/openclaw'], { timeout: 120_000 });
-    spin.succeed('Installed');
-    return { name: 'OpenClaw', status: 'ok', message: 'Installed successfully' };
+    // Check npm-installed openclaw
+    const ocfCheck = await execa('openclaw', ['--version'], { timeout: 5_000 }).catch(() => ({ stdout: '' }));
+    if (ocfCheck.stdout) return { name: 'OpenClaw', status: 'ok', message: `OpenClaw found (${ocfCheck.stdout.trim()})` };
+
+    // Not installed — report as warning, don't attempt global install in server mode
+    return { name: 'OpenClaw', status: 'warn', message: 'OpenClaw CLI not found. Install manually: npm i -g @anthropic-ai/claude-code' };
   } catch (e: unknown) {
-    return { name: 'OpenClaw', status: 'warn', message: `Install failed: ${(e as Error).message}` };
+    return { name: 'OpenClaw', status: 'warn', message: `Check failed: ${(e as Error).message}` };
   }
 }
 
@@ -1067,6 +1069,397 @@ async function verify(): Promise<StepResult> {
   } catch {
     return { name: 'Verify', status: 'warn', message: 'openclaw doctor not available' };
   }
+}
+
+// ===== Universal provider deploy (v3.0) =====
+// Parameterized version of executeBlueprint — works for ANY provider, not just OpenClaw.
+// Each provider gets its own home directory (~/.{provider}/) with the same file structure.
+
+export interface ProviderDeployOptions {
+  providerId: string;         // e.g. 'arkclaw', 'workbuddy'
+  providerName: string;       // e.g. 'ArkClaw', 'WorkBuddy / QClaw'
+  homeDir?: string;           // override, defaults to ~/.{providerId}
+  configFileName?: string;    // override, defaults to {providerId}.json
+  cliCommand?: string;        // CLI binary name to check, e.g. 'arkclaw', 'workbuddy'
+  consoleUrl?: string;        // platform console URL for guidance
+  imChannels?: string[];      // supported IM channels from provider meta
+}
+
+export async function executeBlueprintForProvider(
+  blueprint: Blueprint,
+  opts: ProviderDeployOptions,
+): Promise<ExecutionResult> {
+  const steps: StepResult[] = [];
+  const providerHome = opts.homeDir || join(HOME, `.${opts.providerId}`);
+  const configFile = opts.configFileName || `${opts.providerId}.json`;
+
+  const step = (name: string, status: 'ok' | 'warn' | 'error', message: string): StepResult =>
+    ({ name, status, message });
+
+  // 1. Prerequisites (Node.js)
+  try {
+    const { stdout } = await execa('node', ['--version']);
+    steps.push(step('Prerequisites', 'ok', `Node.js ${stdout.trim()}`));
+  } catch {
+    steps.push(step('Prerequisites', 'error', 'Node.js not found'));
+    return { success: false, steps };
+  }
+
+  // 2. Check if provider CLI exists locally
+  if (opts.cliCommand) {
+    try {
+      const { stdout } = await execa(opts.cliCommand, ['--version'], { timeout: 5_000 });
+      steps.push(step(`${opts.providerName} CLI`, 'ok', `Found: ${stdout.trim()}`));
+    } catch {
+      steps.push(step(`${opts.providerName} CLI`, 'warn',
+        `${opts.cliCommand} not found locally. Install from ${opts.consoleUrl || 'provider website'}`));
+    }
+  } else {
+    steps.push(step(`${opts.providerName}`, 'ok', `SaaS/Cloud platform — no local CLI required`));
+  }
+
+  // 3. Create home directory
+  try {
+    await mkdir(providerHome, { recursive: true });
+    await mkdir(join(providerHome, 'skills'), { recursive: true });
+    await mkdir(join(providerHome, 'agents'), { recursive: true });
+    steps.push(step('Home Directory', 'ok', providerHome));
+  } catch (e: any) {
+    steps.push(step('Home Directory', 'error', e.message));
+    return { success: false, steps };
+  }
+
+  // 4. Write identity files
+  try {
+    const identity = [
+      `# Identity`,
+      ``,
+      `Role: ${blueprint.identity.role}`,
+      `Platform: ${opts.providerName}`,
+      `Setup: OpenClaw Foundry v3.0`,
+      `Profile: ${blueprint.meta.profile || 'custom'}`,
+      `Created: ${blueprint.meta.created}`,
+      ``,
+    ].join('\n');
+    await writeFile(join(providerHome, 'IDENTITY.md'), identity);
+
+    const template = blueprint.identity.soulTemplate || 'fullstack-developer';
+    const soulText = SOUL_TEMPLATES[template] || SOUL_TEMPLATES['fullstack-developer']!;
+    const soul = `# Soul\n\n${soulText}\n\n## Core Values\n- Quality over speed\n- Clarity over cleverness\n- Evidence over opinion\n`;
+    await writeFile(join(providerHome, 'SOUL.md'), soul);
+
+    steps.push(step('Identity', 'ok', 'IDENTITY.md + SOUL.md'));
+  } catch (e: any) {
+    steps.push(step('Identity', 'error', e.message));
+  }
+
+  // 5. Install skills (symlink from AI-Fleet)
+  const ok: string[] = [];
+  const fail: string[] = [];
+  const skillsDir = join(providerHome, 'skills');
+  for (const id of blueprint.skills.fromAifleet) {
+    try {
+      const src = join(AIFLEET_SKILLS, id);
+      const dest = join(skillsDir, id);
+      await access(src);
+      try { await access(dest); ok.push(id); continue; } catch { /* not linked */ }
+      await symlink(src, dest, 'dir');
+      ok.push(id);
+    } catch { fail.push(id); }
+  }
+  const skillMsg = `${ok.length} installed` + (fail.length ? `, ${fail.length} failed` : '');
+  steps.push(step('Skills', fail.length ? 'warn' : 'ok', skillMsg));
+
+  // 6. Configure agents
+  try {
+    for (const agent of blueprint.agents) {
+      await writeFile(join(providerHome, 'agents', `${agent.name}.json`), JSON.stringify(agent, null, 2));
+    }
+    steps.push(step('Agents', 'ok', `${blueprint.agents.length} agent(s)`));
+  } catch (e: any) {
+    steps.push(step('Agents', 'error', e.message));
+  }
+
+  // 7. Write config
+  try {
+    const cfgPath = join(providerHome, configFile);
+    let existing: Record<string, unknown> = {};
+    try { existing = JSON.parse(await readFile(cfgPath, 'utf-8')); } catch { /* first run */ }
+
+    const merged = {
+      ...existing,
+      provider: opts.providerId,
+      providerName: opts.providerName,
+      autonomy: { level: blueprint.config.autonomy },
+      model: { routing: blueprint.config.modelRouting },
+      memory: { chunks: blueprint.config.memoryChunks },
+      mcpServers: blueprint.mcpServers,
+      extensions: blueprint.extensions,
+      target: blueprint.target,
+      _foundry: {
+        blueprint: blueprint.meta.name,
+        profile: blueprint.meta.profile,
+        created: blueprint.meta.created,
+        deployedAt: new Date().toISOString(),
+      },
+    };
+    await writeFile(cfgPath, JSON.stringify(merged, null, 2));
+    steps.push(step('Config', 'ok', `${configFile} written`));
+  } catch (e: any) {
+    steps.push(step('Config', 'error', e.message));
+  }
+
+  // 8. IM channel configuration — auto-provision first, fallback to templates
+  const requestedIM = blueprint.target?.imChannel;
+  const supportedIM = opts.imChannels || [];
+  if (supportedIM.length > 0) {
+    try {
+      const imDir = join(providerHome, 'im');
+      await mkdir(imDir, { recursive: true });
+
+      // Auto-provision: try to register IM bot automatically for the REQUESTED channel
+      if (requestedIM && supportedIM.includes(requestedIM)) {
+        const provision = await provisionIMBot(requestedIM, blueprint.meta.name, providerHome);
+        steps.push(...provision.steps);
+
+        if (provision.success) {
+          // Auto-provision succeeded — write real credentials
+          const credConfig = {
+            channel: requestedIM,
+            ...provision.credentials,
+            status: 'provisioned',
+            provisionedAt: new Date().toISOString(),
+            provisionMethod: 'auto',
+          };
+          await writeFile(join(imDir, `${requestedIM}.json`), JSON.stringify(credConfig, null, 2));
+          steps.push(step('IM Auto-Provision', 'ok',
+            `${requestedIM} bot auto-registered with real credentials`));
+        }
+        // If failed, fall through to template writing below
+      }
+
+      // Write templates for ALL supported channels (skip already provisioned ones)
+      const imConfigs: Record<string, object> = {
+        feishu: {
+          channel: 'feishu',
+          appId: '',
+          appSecret: '',
+          webhookUrl: '',
+          status: requestedIM === 'feishu' ? 'pending_setup' : 'available',
+          setupGuide: 'https://open.feishu.cn/document/home/index',
+          steps: [
+            '1. 打开飞书开放平台 https://open.feishu.cn',
+            '2. 创建企业自建应用',
+            '3. 添加机器人能力',
+            '4. 获取 App ID 和 App Secret 填入此配置',
+            '5. 配置事件订阅 webhook URL',
+          ],
+        },
+        wecom: {
+          channel: 'wecom',
+          corpId: '',
+          agentId: '',
+          secret: '',
+          status: requestedIM === 'wecom' ? 'pending_setup' : 'available',
+          setupGuide: 'https://developer.work.weixin.qq.com/document/path/90664',
+          steps: [
+            '1. 登录企业微信管理后台 https://work.weixin.qq.com',
+            '2. 应用管理 → 创建自建应用',
+            '3. 获取 CorpID / AgentId / Secret',
+            '4. 填入此配置文件',
+            '5. 配置接收消息 API',
+          ],
+        },
+        qq: {
+          channel: 'qq',
+          appId: '',
+          appSecret: '',
+          status: requestedIM === 'qq' ? 'pending_setup' : 'available',
+          setupGuide: 'https://q.qq.com/wiki/develop/miniprogram/frame/',
+          steps: [
+            '1. 前往 QQ 开放平台 https://q.qq.com',
+            '2. 创建 QQ 机器人应用',
+            '3. 获取 AppID 和 AppSecret',
+            '4. 填入此配置',
+          ],
+        },
+        dingtalk: {
+          channel: 'dingtalk',
+          appKey: '',
+          appSecret: '',
+          robotCode: '',
+          status: requestedIM === 'dingtalk' ? 'pending_setup' : 'available',
+          setupGuide: 'https://open.dingtalk.com/document/orgapp/create-orgapp',
+          steps: [
+            '1. 登录钉钉开放平台 https://open.dingtalk.com',
+            '2. 创建企业内部应用',
+            '3. 添加机器人能力',
+            '4. 获取 AppKey / AppSecret / RobotCode',
+            '5. 填入此配置',
+          ],
+        },
+        telegram: {
+          channel: 'telegram',
+          botToken: '',
+          status: requestedIM === 'telegram' ? 'pending_setup' : 'available',
+          setupGuide: 'https://core.telegram.org/bots#how-do-i-create-a-bot',
+          steps: [
+            '1. 在 Telegram 找到 @BotFather',
+            '2. 发送 /newbot 创建机器人',
+            '3. 获取 Bot Token 填入此配置',
+          ],
+        },
+        discord: {
+          channel: 'discord',
+          botToken: '',
+          applicationId: '',
+          status: requestedIM === 'discord' ? 'pending_setup' : 'available',
+          setupGuide: 'https://discord.com/developers/docs/getting-started',
+          steps: [
+            '1. 前往 Discord Developer Portal https://discord.com/developers',
+            '2. 创建 Application → Bot',
+            '3. 获取 Bot Token 和 Application ID',
+            '4. 填入此配置',
+          ],
+        },
+        slack: {
+          channel: 'slack',
+          botToken: '',
+          signingSecret: '',
+          status: requestedIM === 'slack' ? 'pending_setup' : 'available',
+          setupGuide: 'https://api.slack.com/start/building',
+          steps: [
+            '1. 前往 https://api.slack.com/apps 创建 App',
+            '2. 添加 Bot User',
+            '3. 获取 Bot Token 和 Signing Secret',
+            '4. 填入此配置',
+          ],
+        },
+      };
+
+      const configuredChannels: string[] = [];
+      const pendingChannels: string[] = [];
+
+      for (const ch of supportedIM) {
+        const template = imConfigs[ch];
+        if (template) {
+          await writeFile(join(imDir, `${ch}.json`), JSON.stringify(template, null, 2));
+          if (requestedIM === ch) {
+            pendingChannels.push(ch);
+          } else {
+            configuredChannels.push(ch);
+          }
+        }
+      }
+
+      // Write IM summary
+      const imSummary = {
+        activeChannel: requestedIM || null,
+        supported: supportedIM,
+        configured: configuredChannels,
+        pendingSetup: pendingChannels,
+        configDir: imDir,
+      };
+      await writeFile(join(imDir, '_summary.json'), JSON.stringify(imSummary, null, 2));
+
+      if (pendingChannels.length > 0) {
+        const chName = pendingChannels[0];
+        const guide = (imConfigs[chName] as any)?.steps?.[0] || '';
+        steps.push(step('IM Channels', 'warn',
+          `${chName} config created at ${imDir}/${chName}.json — needs token setup. ${guide}`));
+      } else if (configuredChannels.length > 0) {
+        steps.push(step('IM Channels', 'ok',
+          `${configuredChannels.length} channel configs ready: ${configuredChannels.join(', ')}`));
+      } else {
+        steps.push(step('IM Channels', 'ok', `${supportedIM.length} channel templates written`));
+      }
+    } catch (e: any) {
+      steps.push(step('IM Channels', 'error', e.message));
+    }
+  } else {
+    steps.push(step('IM Channels', 'warn', `${opts.providerName} has no IM channel support`));
+  }
+
+  // 9. Model API key provisioning
+  const llmMode = blueprint.llm?.mode;
+  if (llmMode === 'byok' && blueprint.llm?.provider && !blueprint.llm?.apiKey) {
+    // User wants BYOK but no key provided — try to auto-provision
+    const modelResult = await provisionModelAPIKey(blueprint.llm.provider, providerHome);
+    steps.push(...modelResult.steps);
+
+    if (modelResult.success && modelResult.apiKey) {
+      // Write key into main config
+      try {
+        const cfgPath = join(providerHome, configFile);
+        const raw = await readFile(cfgPath, 'utf-8');
+        const cfg = JSON.parse(raw);
+        cfg.llm = {
+          mode: 'byok',
+          provider: blueprint.llm.provider,
+          apiKey: modelResult.apiKey,
+          provisionedAt: new Date().toISOString(),
+        };
+        await writeFile(cfgPath, JSON.stringify(cfg, null, 2));
+        steps.push(step('Model API', 'ok',
+          `${blueprint.llm.provider} API key auto-provisioned and saved`));
+      } catch (e: any) {
+        steps.push(step('Model API', 'warn', `Key obtained but config write failed: ${e.message}`));
+      }
+    }
+  } else if (llmMode === 'byok' && blueprint.llm?.apiKey) {
+    // Key already provided — write it
+    try {
+      const cfgPath = join(providerHome, configFile);
+      const raw = await readFile(cfgPath, 'utf-8');
+      const cfg = JSON.parse(raw);
+      cfg.llm = {
+        mode: 'byok',
+        provider: blueprint.llm.provider,
+        apiKey: blueprint.llm.apiKey,
+      };
+      await writeFile(cfgPath, JSON.stringify(cfg, null, 2));
+      steps.push(step('Model API', 'ok', `${blueprint.llm.provider} key configured`));
+    } catch (e: any) {
+      steps.push(step('Model API', 'warn', e.message));
+    }
+  } else if (llmMode !== 'skip') {
+    steps.push(step('Model API', 'ok', `LLM mode: ${llmMode || 'skip'}`));
+  }
+
+  // 10. Write manifest
+  try {
+    const manifest = {
+      version: blueprint.version || '2.0',
+      provider: opts.providerId,
+      created: new Date().toISOString(),
+      updated: new Date().toISOString(),
+      home: providerHome,
+      blueprint: { name: blueprint.meta.name, role: blueprint.identity.role },
+      files: [
+        join(providerHome, 'IDENTITY.md'),
+        join(providerHome, 'SOUL.md'),
+        join(providerHome, configFile),
+      ],
+      skills: { installed: ok },
+      agents: blueprint.agents.map(a => a.name),
+    };
+    await writeFile(join(providerHome, '.foundry-manifest.json'), JSON.stringify(manifest, null, 2));
+    steps.push(step('Manifest', 'ok', `${manifest.files.length} files tracked`));
+  } catch (e: any) {
+    steps.push(step('Manifest', 'warn', e.message));
+  }
+
+  // 9. Verify — check files exist
+  try {
+    await access(join(providerHome, 'IDENTITY.md'));
+    await access(join(providerHome, configFile));
+    steps.push(step('Verify', 'ok', `${opts.providerName} deployed to ${providerHome}`));
+  } catch {
+    steps.push(step('Verify', 'warn', 'Some files missing after deploy'));
+  }
+
+  const success = steps.every(s => s.status !== 'error');
+  return { success, steps };
 }
 
 // ===== Export helpers (P3) =====

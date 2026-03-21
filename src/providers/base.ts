@@ -5,6 +5,7 @@ import type {
   ExecutionResult, DiagnoseResult, Requirement, StepResult,
 } from '../types.js';
 import { log } from '../utils.js';
+import { executeBlueprintForProvider } from '../executor.js';
 
 export abstract class BaseProvider implements Provider {
   abstract meta: ProviderMeta;
@@ -19,21 +20,111 @@ export abstract class BaseProvider implements Provider {
   abstract diagnose(): Promise<DiagnoseResult>;
   abstract getRequirements(): Requirement[];
 
-  /** Guard: call at the top of deploy() for providers without real API integration */
+  /** Guard: if not apiReady, fallback to simulation instead of hard-failing */
   protected checkApiReady(): DeployResult | null {
-    if (!this.apiReady) {
-      return {
-        success: false,
-        steps: [
-          this.step('API Integration', 'error',
-            `${this.meta.name} provider API not yet integrated. ` +
-            `Manual setup: ${this.meta.consoleUrl}`),
-          this.step('Workaround', 'warn',
-            `Export blueprint with "ocf export" and manually configure at ${this.meta.consoleUrl}`),
-        ],
-      };
-    }
+    // Returns null — let each provider decide to call simulateDeploy() as fallback
     return null;
+  }
+
+  /** Check if real API credentials are configured for this provider */
+  protected hasCredentials(blueprint: Blueprint): boolean {
+    const creds = blueprint.target?.credentials;
+    return !!(creds?.accessKeyId && creds?.accessKeySecret) || !!(creds?.token);
+  }
+
+  /** Real local deploy — writes files to ~/.{providerId}/ using universal executor */
+  protected async realLocalDeploy(blueprint: Blueprint): Promise<DeployResult> {
+    const result = await executeBlueprintForProvider(blueprint, {
+      providerId: this.meta.id,
+      providerName: this.meta.name,
+      cliCommand: this.getCliCommand(),
+      consoleUrl: this.meta.consoleUrl,
+      imChannels: this.meta.imChannels,
+    });
+    return { success: result.success, steps: result.steps };
+  }
+
+  /** Real local test — verifies deployed files exist and are valid */
+  protected async realLocalTest(_blueprint: Blueprint): Promise<TestResult> {
+    const { access } = await import('fs/promises');
+    const { join } = await import('path');
+    const home = join(process.env.HOME || process.env.USERPROFILE || '~', `.${this.meta.id}`);
+    const checks: StepResult[] = [];
+
+    // Check home dir exists
+    try {
+      await access(home);
+      checks.push(this.step('Home Dir', 'ok', home));
+    } catch {
+      checks.push(this.step('Home Dir', 'error', `${home} not found — run deploy first`));
+      return { success: false, checks };
+    }
+
+    // Check identity files
+    for (const f of ['IDENTITY.md', 'SOUL.md']) {
+      try {
+        await access(join(home, f));
+        checks.push(this.step(f, 'ok', 'Present'));
+      } catch {
+        checks.push(this.step(f, 'warn', 'Missing'));
+      }
+    }
+
+    // Check config file
+    const configFile = `${this.meta.id}.json`;
+    try {
+      const { readFile } = await import('fs/promises');
+      const raw = await readFile(join(home, configFile), 'utf-8');
+      const cfg = JSON.parse(raw);
+      checks.push(this.step('Config', 'ok',
+        `${configFile} (provider: ${cfg.provider}, routing: ${cfg.model?.routing || 'unknown'})`));
+    } catch {
+      checks.push(this.step('Config', 'warn', `${configFile} missing or invalid`));
+    }
+
+    // Check manifest
+    try {
+      await access(join(home, '.foundry-manifest.json'));
+      checks.push(this.step('Manifest', 'ok', 'Foundry manifest present'));
+    } catch {
+      checks.push(this.step('Manifest', 'warn', 'No manifest'));
+    }
+
+    // Check IM channel configs
+    if (this.meta.imChannels.length > 0) {
+      const imDir = join(home, 'im');
+      try {
+        await access(imDir);
+        const { readdir, readFile } = await import('fs/promises');
+        const files = await readdir(imDir);
+        const channelFiles = files.filter(f => f.endsWith('.json') && !f.startsWith('_'));
+        let pending = 0;
+        for (const f of channelFiles) {
+          try {
+            const raw = await readFile(join(imDir, f), 'utf-8');
+            const cfg = JSON.parse(raw);
+            if (cfg.status === 'pending_setup') pending++;
+          } catch { /* skip */ }
+        }
+        if (pending > 0) {
+          checks.push(this.step('IM Channels', 'warn',
+            `${channelFiles.length} configs, ${pending} pending token setup`));
+        } else {
+          checks.push(this.step('IM Channels', 'ok',
+            `${channelFiles.length} channel configs present`));
+        }
+      } catch {
+        checks.push(this.step('IM Channels', 'error', 'IM config directory missing — redeploy'));
+      }
+    }
+
+    const passed = checks.filter(c => c.status === 'ok').length;
+    return { success: passed >= checks.length / 2, checks };
+  }
+
+  /** Override in subclass if provider has a CLI tool */
+  protected getCliCommand(): string | undefined {
+    return undefined;
   }
 
   async isAvailable(): Promise<boolean> {

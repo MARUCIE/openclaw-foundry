@@ -11,6 +11,9 @@ import { createCustomer, listCustomers, getCustomer, updateTier, deactivateCusto
 import { log } from './utils.js';
 import { listProviders, getProvider, getProviderStats } from './providers/index.js';
 import type { ProviderId } from './types.js';
+import { createDeployJob, getDeployJob, listDeployJobs, cancelDeployJob } from './deploy-manager.js';
+import { createArenaMatch, getArenaMatch, listArenaMatches } from './arena-engine.js';
+import { listModelProviders } from './auto-provision.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PORT = parseInt(process.env.OCF_PORT || '18800');
@@ -198,6 +201,87 @@ app.delete('/api/customers/:id', async (req, res) => {
   res.json({ ok: true });
 });
 
+// --- Deploy Jobs (v3.0) ---
+app.post('/api/deploy', (req, res) => {
+  const { provider, blueprint } = req.body;
+  if (!provider || !blueprint) {
+    res.status(400).json({ error: 'provider and blueprint are required' });
+    return;
+  }
+  const job = createDeployJob(provider as ProviderId, blueprint);
+  res.status(202).json({ jobId: job.id, status: job.status });
+});
+
+app.get('/api/deploy', (_req, res) => {
+  res.json({ jobs: listDeployJobs() });
+});
+
+app.get('/api/deploy/:jobId', (req, res) => {
+  const job = getDeployJob(req.params.jobId);
+  if (!job) { res.status(404).json({ error: 'Job not found' }); return; }
+  res.json(job);
+});
+
+app.post('/api/deploy/:jobId/cancel', (req, res) => {
+  const ok = cancelDeployJob(req.params.jobId);
+  if (!ok) { res.status(404).json({ error: 'Job not found or not running' }); return; }
+  res.json({ ok: true });
+});
+
+// --- Arena (v3.0) ---
+app.post('/api/arena', (req, res) => {
+  const { providers: providerIds, blueprint, testPrompt } = req.body;
+  if (!providerIds || !blueprint || !testPrompt) {
+    res.status(400).json({ error: 'providers, blueprint, and testPrompt are required' });
+    return;
+  }
+  const result = createArenaMatch(providerIds, blueprint, testPrompt);
+  if ('error' in result) {
+    res.status(400).json({ error: result.error });
+    return;
+  }
+  res.status(202).json({ matchId: result.id, status: result.status });
+});
+
+app.get('/api/arena', (_req, res) => {
+  res.json({ matches: listArenaMatches() });
+});
+
+app.get('/api/arena/:matchId', (req, res) => {
+  const match = getArenaMatch(req.params.matchId);
+  if (!match) { res.status(404).json({ error: 'Match not found' }); return; }
+  res.json(match);
+});
+
+app.get('/api/arena/:matchId/results', (req, res) => {
+  const match = getArenaMatch(req.params.matchId);
+  if (!match) { res.status(404).json({ error: 'Match not found' }); return; }
+  if (match.status !== 'completed' && match.status !== 'failed') {
+    res.status(409).json({ error: 'Match not yet completed', status: match.status });
+    return;
+  }
+  res.json({ winner: match.winner, scoring: match.scoring, lanes: match.lanes });
+});
+
+// --- Model API providers list (v3.0) ---
+app.get('/api/model-providers', (_req, res) => {
+  res.json({ providers: listModelProviders() });
+});
+
+// --- Stats (v3.0) ---
+app.get('/api/stats', (_req, res) => {
+  const providerStats = getProviderStats();
+  const totalProviders = listProviders().length;
+  const recentDeploys = listDeployJobs().slice(0, 5);
+  const recentArena = listArenaMatches().slice(0, 3);
+  res.json({
+    providers: { total: totalProviders, byType: providerStats },
+    deploys: { recent: recentDeploys.length, jobs: recentDeploys },
+    arena: { recent: recentArena.length, matches: recentArena },
+    uptime: process.uptime(),
+  });
+});
+
 // --- Static files (Web UI) ---
 app.use(express.static(join(__dirname, '..', 'client')));
 
@@ -235,7 +319,7 @@ app.get('/foundry.ps1', async (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   const stats = getProviderStats();
   const totalProviders = listProviders().length;
-  log.ok(`Foundry Server v2.0 running on http://0.0.0.0:${PORT}`);
+  log.ok(`Foundry Server v3.0 running on http://0.0.0.0:${PORT}`);
   log.ok(`${totalProviders} platforms: ${Object.entries(stats).map(([k, v]) => `${v} ${k}`).join(', ')}`);
   log.note(`API key protection: ${API_KEY ? 'enabled' : 'disabled (set OCF_API_KEY to enable)'}`);
   log.note('Endpoints:');
@@ -249,6 +333,11 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log('  GET  /api/customers         — List customers');
   console.log('  POST /llm/v1/chat/completions — LLM proxy (OpenAI-compatible)');
   console.log('  GET  /foundry.sh            — Mac/Linux bootstrap script');
+  console.log('  POST /api/deploy            — Start async deploy job');
+  console.log('  GET  /api/deploy/:id        — Poll deploy status');
+  console.log('  POST /api/arena             — Start arena match');
+  console.log('  GET  /api/arena/:id         — Poll arena status');
+  console.log('  GET  /api/stats             — Dashboard stats');
   console.log('  GET  /foundry.ps1           — Windows bootstrap script');
 });
 

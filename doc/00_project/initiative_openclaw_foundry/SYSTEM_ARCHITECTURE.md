@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-03-20`
+- Updated: `2026-03-21`
 
 ## System Boundary
 OpenClaw Foundry v2.0 is a universal Agent deployment platform supporting **13 platforms** across 5 categories (Desktop/SaaS/Cloud/Mobile/Remote). The system uses a **Provider abstraction layer** to dispatch a single Blueprint to any supported platform.
@@ -27,6 +27,9 @@ The shared contract is `Blueprint v2.0`, a typed JSON document now including a `
 | Persistence | `src/profiles.ts`, `src/customers.ts` | Store reusable profiles and managed customer tokens/usage |
 | LLM gateway | `src/llm-proxy.ts` | Customer-authenticated OpenAI-compatible chat proxy |
 | Static client | `client/` | Browser wizard with platform selection, bootstrap scripts |
+| **Web Console** | `web/` (Next.js 15) | **v3.0: Visual management — Platform Catalog, One-Click Deploy, Arena** |
+| **Deploy Manager** | `src/deploy-manager.ts` | **v3.0: Async deploy job lifecycle (create/poll/cancel)** |
+| **Arena Engine** | `src/arena-engine.ts` | **v3.0: Multi-provider parallel execution + scoring** |
 
 ## Provider Architecture (v2.0)
 ```
@@ -166,11 +169,206 @@ flowchart TD
    - `~/.openclaw/.foundry-manifest.json`
    - `~/.openclaw/.snapshots/`
 
+---
+
+## Web Console Architecture (v3.0)
+
+### Overview
+Web Console 是 OpenClaw Foundry 的可视化管理界面，提供三大核心能力：
+
+| Module | Purpose | Core Interaction |
+|--------|---------|-----------------|
+| **Platform Catalog** | 浏览全部 13 个 **Claw 平台，按类型/状态/OS 筛选 | 卡片网格 + 详情面板 |
+| **One-Click Deploy** | 选择平台 → 配置 Blueprint → 一键部署 | 步骤向导 (Stepper) |
+| **Arena 比武场** | 同一任务 dispatch 到多个 Claw，并行执行并横向对比 | 多列对比面板 + 实时状态 |
+
+### Frontend Architecture
+
+```
+web/                          # Next.js 15 App Router
+├── app/
+│   ├── layout.tsx            # Root layout (sidebar + header)
+│   ├── page.tsx              # Dashboard (overview stats)
+│   ├── catalog/
+│   │   ├── page.tsx          # Platform catalog grid
+│   │   └── [id]/page.tsx     # Platform detail + requirements
+│   ├── deploy/
+│   │   ├── page.tsx          # Deploy wizard (stepper)
+│   │   └── [jobId]/page.tsx  # Deploy job status
+│   └── arena/
+│       ├── page.tsx          # Arena setup (select task + claws)
+│       └── [matchId]/page.tsx # Arena live match view
+├── components/
+│   ├── ui/                   # shadcn/ui primitives
+│   ├── platform-card.tsx     # Provider card with status badge
+│   ├── deploy-stepper.tsx    # Multi-step deploy flow
+│   ├── arena-lane.tsx        # Single claw lane in arena
+│   ├── blueprint-editor.tsx  # Blueprint JSON editor
+│   └── status-badge.tsx      # Provider status indicator
+├── lib/
+│   ├── api.ts                # OCF server API client
+│   ├── types.ts              # Shared types (re-export from src/)
+│   └── hooks/
+│       ├── use-providers.ts  # SWR hook for provider list
+│       ├── use-deploy.ts     # Deploy job polling
+│       └── use-arena.ts      # Arena match state
+└── tailwind.config.ts
+```
+
+Tech stack: **Next.js 15** + **Tailwind v4** + **shadcn/ui** + **SWR** for data fetching.
+Connects to existing Express server at `localhost:18800`.
+
+### New Server API Endpoints (v3.0)
+
+| Method | Path | Purpose | Module |
+|--------|------|---------|--------|
+| POST | `/api/deploy` | Start a deploy job (async) | Deploy |
+| GET | `/api/deploy/:jobId` | Poll deploy job status | Deploy |
+| POST | `/api/deploy/:jobId/cancel` | Cancel running deploy | Deploy |
+| POST | `/api/arena` | Create arena match (N providers, 1 blueprint) | Arena |
+| GET | `/api/arena/:matchId` | Poll arena match status | Arena |
+| GET | `/api/arena/:matchId/results` | Final comparison results | Arena |
+| GET | `/api/stats` | Aggregate dashboard stats | Dashboard |
+
+### Deploy Job Model
+
+```typescript
+interface DeployJob {
+  id: string;                    // "deploy-{timestamp}"
+  status: 'pending' | 'running' | 'success' | 'failed' | 'cancelled';
+  provider: ProviderId;
+  blueprint: Blueprint;
+  createdAt: string;
+  startedAt?: string;
+  completedAt?: string;
+  result?: DeployResult;
+  logs: StepResult[];            // Streaming step log
+}
+```
+
+Deploy flow: POST /api/deploy → 202 Accepted (jobId) → GET poll → final result.
+Server stores jobs in-memory Map with TTL (1 hour).
+
+### Arena Match Model
+
+```typescript
+interface ArenaMatch {
+  id: string;                    // "arena-{timestamp}"
+  status: 'setup' | 'running' | 'completed' | 'failed';
+  task: {
+    blueprint: Blueprint;        // Shared blueprint template
+    testPrompt: string;          // The task all claws will execute
+  };
+  lanes: ArenaLane[];            // One per selected provider
+  createdAt: string;
+  completedAt?: string;
+  winner?: ProviderId;           // Auto-determined or user-voted
+  scoring?: ArenaScoring;
+}
+
+interface ArenaLane {
+  provider: ProviderId;
+  status: 'pending' | 'deploying' | 'testing' | 'done' | 'error';
+  deployResult?: DeployResult;
+  testResult?: TestResult;
+  timing: {
+    deployMs?: number;
+    testMs?: number;
+    totalMs?: number;
+  };
+  score?: number;                // 0-100 composite score
+}
+
+interface ArenaScoring {
+  dimensions: {
+    deploySpeed: Record<ProviderId, number>;    // Lower ms = higher score
+    testPassRate: Record<ProviderId, number>;   // % checks passed
+    featureSupport: Record<ProviderId, number>; // Requirements met
+    platformReach: Record<ProviderId, number>;  // OS + IM coverage
+  };
+  overall: Record<ProviderId, number>;
+  method: 'weighted-average';
+  weights: { deploySpeed: 0.2; testPassRate: 0.4; featureSupport: 0.25; platformReach: 0.15 };
+}
+```
+
+Arena flow:
+1. User selects 2-5 providers + writes a task prompt
+2. POST /api/arena → creates match, spawns parallel deploy+test per lane
+3. Frontend polls GET /api/arena/:matchId → updates lane status in real-time
+4. When all lanes complete → server computes scoring → determines winner
+5. Frontend shows side-by-side comparison with scores + timing + logs
+
+### Page Architecture
+
+#### P1: Dashboard (`/`)
+- Provider count by type (4 cards: Desktop / SaaS / Cloud / Mobile+Remote)
+- Recent deploy jobs (last 5)
+- Recent arena matches (last 3)
+- System health (server uptime, API latency)
+
+#### P2: Platform Catalog (`/catalog`)
+- Filter bar: type | status | OS | IM channel
+- Card grid: each card shows logo placeholder, name, vendor, type badge, status badge
+- Click → detail page with:
+  - Full provider meta
+  - Requirements checklist (with live availability check)
+  - Quick actions: Deploy / Add to Arena / Diagnose
+  - Console URL + Doc URL external links
+
+#### P3: Deploy Flow (`/deploy`)
+- Step 1: Select provider (from catalog or dropdown)
+- Step 2: Configure blueprint (profile preset or manual JSON editor)
+- Step 3: Review blueprint summary
+- Step 4: Deploy + real-time log streaming
+- Step 5: Result summary + next actions (test / diagnose / open console)
+
+#### P4: Arena (`/arena`)
+- Setup panel: select 2-5 providers + enter task prompt
+- Live view: N columns (one per provider), each showing:
+  - Status indicator (spinner → checkmark/cross)
+  - Deploy steps log
+  - Test results
+  - Timing
+- Results panel: radar chart + score table + winner badge
+
+### Data Flow
+
+```mermaid
+flowchart LR
+  subgraph "Web Console (Next.js)"
+    D[Dashboard] --> API
+    C[Catalog] --> API
+    DP[Deploy] --> API
+    AR[Arena] --> API
+  end
+  subgraph "OCF Server (Express)"
+    API[API Layer]
+    API --> PR[Provider Registry]
+    API --> AN[Analyzer]
+    API --> DJ[Deploy Job Manager]
+    API --> AM[Arena Match Manager]
+    DJ --> PR
+    AM --> PR
+    PR --> P1[OpenClaw]
+    PR --> P2[ArkClaw]
+    PR --> P3[WorkBuddy]
+    PR --> PN[... 10 more]
+  end
+```
+
+### Security Constraints
+- Web Console runs same-origin or CORS with existing `x-api-key` guard
+- Cloud credentials (accessKeyId/Secret) are server-side only, never sent to frontend
+- Arena matches are rate-limited (max 3 concurrent, 10/hour)
+- Deploy jobs respect existing `checkApiReady()` guard per provider
+
 ## Architecture Risks
 1. Provider routing gap:
    - `routeModel()` can return `openai`, but `createLlmProxy()` does not implement an OpenAI upstream caller
 2. Persistence simplicity:
    - customers are stored in a JSON file, which is acceptable for MVP but weak for concurrent writes
+   - Deploy jobs and arena matches use in-memory Map (acceptable for single-instance, lost on restart)
 3. Git boundary mismatch:
    - repository directory lives inside a parent git root, which weakens project-isolated git health checks
 4. Export parity gap:
@@ -179,3 +377,9 @@ flowchart TD
    - `/api/*` uses optional shared API key, while `/llm/v1/*` uses bearer customer tokens
 6. Documentation split:
    - `docs/` historical material can drift unless future changes only update `doc/`
+7. Arena concurrency:
+   - Parallel provider.deploy() calls share the same process; a slow/hanging provider blocks the event loop
+   - Mitigation: per-lane timeout (60s) + AbortController
+8. Web Console coupling:
+   - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
+   - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy

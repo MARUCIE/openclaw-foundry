@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  /* Foundry Slate design system tokens */
+  --surface: #f8f9ff;
+  --surface-container: #e5eeff;
+  --surface-container-low: #eff4ff;
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #dce9ff;
+  --surface-tint: #0053db;
+  --on-surface: #0b1c30;
+  --on-surface-variant: #45464d;
+  --primary: #2563eb;
+  --primary-fixed: #dbe1ff;
+  --secondary: #7c3aed;
+  --secondary-fixed: #eaddff;
+  --tertiary: #10b981;
+  --tertiary-fixed: #6ffbbe;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --outline: #76777d;
+  --outline-variant: #c6c6cd;
+}
+
+body {
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', system-ui, sans-serif;
+}

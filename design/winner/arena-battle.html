@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arena Battle - OpenClaw Foundry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#000000",
+                        "primary-fixed": "#dbe1ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-container": "#002113",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "secondary-fixed": "#eaddff",
+                        "on-background": "#0b1c30",
+                        "surface-dim": "#cbdbf5",
+                        "surface": "#f8f9ff",
+                        "on-secondary-container": "#fffbff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#712ae2",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface-variant": "#45464d",
+                        "surface-variant": "#d3e4fe",
+                        "error": "#ba1a1a",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "primary": "#000000",
+                        "outline": "#76777d",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "primary-container": "#00174b",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary-fixed": "#25005a",
+                        "secondary-container": "#8a4cfc",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-tertiary-container": "#009668",
+                        "on-primary-container": "#497cff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-surface": "#213145",
+                        "tertiary-fixed-dim": "#4edea3"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 50%;
+            width: 2px;
+            height: 1.5rem;
+            background: #0053db;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-slate-50 dark:bg-slate-900 z-40 flex flex-col">
+<div class="px-6 py-8">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-surface-tint text-3xl" data-icon="precision_manufacturing">precision_manufacturing</span>
+<div class="flex flex-col">
+<span class="text-xl font-bold tracking-tighter text-slate-900 dark:text-slate-100 font-headline">OpenClaw</span>
+<span class="text-xs font-medium tracking-tight text-slate-500 uppercase">AI Foundry</span>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="swords">swords</span>
+<span>Battlefield</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span>Foundry</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-blue-700 dark:text-blue-300 bg-blue-100/50 dark:bg-blue-900/30 border-l-2 border-blue-600 font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span>Agents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800 transition-colors font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<button class="w-full py-3 bg-surface-tint text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Battle
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-30 flex justify-between items-center w-full px-12 py-4 bg-white/80 backdrop-blur-xl border-b border-slate-100">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-black text-slate-900 font-headline tracking-tight">竞技场</h1>
+<div class="h-6 w-px bg-slate-200"></div>
+<span class="text-sm font-semibold text-slate-500 font-manrope">同一任务，多龙虾比武</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<a class="text-slate-500 hover:text-blue-500 transition-all font-manrope text-sm font-semibold" href="#">Global Rank</a>
+<a class="text-slate-500 hover:text-blue-500 transition-all font-manrope text-sm font-semibold" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer" data-icon="help_outline">help_outline</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="User profile avatar smiling businessman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlja9Bi8X9nFdUoEvjWSnt-eCd8AV5eGvxrQJQ_5C0w6uT2R_zl-6QC192fyvnvz7yHKqvO6c1s0WU2trCZvcPmBX2i48tmY6mRY3Qv9q78cO4mXolBpqqE1bRAqLcuymwPyVRnt-XFlkbsIjVRv0beFCdeSJ1z_ga7Op7dSNj2di7Y-l-s10Rh-4ZojYatH-sKSFg2s1ezNaf5UhTO12RpsfM0PQbIHxfpjuQvkbfURm6pONFXChiCDeT8KYb6eRWttxKgh0BkeFe"/>
+</div>
+</div>
+</div>
+</header>
+<div class="px-12 py-8 space-y-8 max-w-7xl mx-auto">
+<!-- Setup Area (Top Card) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 p-6">
+<div class="grid grid-cols-12 gap-8 items-end">
+<!-- Left: Multi-select -->
+<div class="col-span-5 space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-label">选择参赛平台</label>
+<div class="flex flex-wrap gap-2 p-2 bg-surface rounded-lg border border-outline-variant/30 min-h-[48px] items-center">
+<span class="flex items-center gap-1.5 px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-semibold">
+                                OpenClaw <span class="material-symbols-outlined text-xs cursor-pointer" data-icon="close">close</span>
+</span>
+<span class="flex items-center gap-1.5 px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-semibold">
+                                ArkClaw <span class="material-symbols-outlined text-xs cursor-pointer" data-icon="close">close</span>
+</span>
+<span class="flex items-center gap-1.5 px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-xs font-semibold">
+                                WorkBuddy <span class="material-symbols-outlined text-xs cursor-pointer" data-icon="close">close</span>
+</span>
+</div>
+</div>
+<!-- Right: Task Input -->
+<div class="col-span-5 space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-label">测试任务</label>
+<input class="w-full px-4 py-3 bg-surface border border-outline-variant/30 rounded-lg focus:ring-2 focus:ring-surface-tint focus:border-transparent outline-none transition-all font-body" placeholder="描述你的 Agent 任务..." type="text"/>
+</div>
+<!-- CTA -->
+<div class="col-span-2">
+<button class="w-full py-3 bg-gradient-to-br from-on-primary-container to-surface-tint text-on-primary rounded-xl font-bold shadow-lg shadow-surface-tint/20 hover:translate-y-[-1px] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                            开始比武
+                        </button>
+</div>
+</div>
+</section>
+<!-- Battle Area (Main Comparison Grid) -->
+<div class="grid grid-cols-3 gap-6">
+<!-- Lane 1: OpenClaw -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 overflow-hidden">
+<div class="p-6 bg-surface-container-low border-b border-outline-variant/10 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="bolt">bolt</span>
+</div>
+<h3 class="font-bold text-lg font-headline">OpenClaw</h3>
+</div>
+<span class="flex items-center gap-1 text-on-tertiary-container bg-tertiary-fixed px-3 py-1 rounded-full text-xs font-bold uppercase">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            完成
+                        </span>
+</div>
+<div class="p-8 space-y-10">
+<div class="space-y-6">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">环境检查</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">1.2s</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">蓝图应用</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">4.5s</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">技能安装</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">4.5s</span>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10 space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">部署耗时</span>
+<span class="text-sm font-bold text-on-primary-container">10.2s</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">测试耗时</span>
+<span class="text-sm font-bold text-on-primary-container">4.8s</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-full h-full bg-surface-tint rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Lane 2: ArkClaw -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 overflow-hidden relative">
+<div class="p-6 bg-surface-container-low border-b border-outline-variant/10 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-fixed" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="font-bold text-lg font-headline">ArkClaw</h3>
+</div>
+<span class="flex items-center gap-1 text-on-primary-fixed-variant bg-primary-fixed px-3 py-1 rounded-full text-xs font-bold uppercase animate-pulse">
+<span class="material-symbols-outlined text-sm animate-spin" data-icon="sync">sync</span>
+                            进行中
+                        </span>
+</div>
+<div class="p-8 space-y-10">
+<div class="space-y-6">
+<div class="flex items-center justify-between group opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">环境检查</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">2.1s</span>
+</div>
+<div class="flex items-center justify-between group opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">蓝图应用</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">10.2s</span>
+</div>
+<div class="flex items-center justify-between group relative step-active">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-surface-tint animate-pulse" data-icon="progress_activity">progress_activity</span>
+<span class="text-sm font-bold text-surface-tint">技能安装</span>
+</div>
+<span class="text-xs text-surface-tint font-mono">进行中...</span>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10 space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">部署耗时</span>
+<span class="text-sm font-bold text-on-primary-container">12.3s</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">测试耗时</span>
+<span class="text-sm font-bold text-slate-300">--</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-surface-tint rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Lane 3: WorkBuddy -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 overflow-hidden">
+<div class="p-6 bg-surface-container-low border-b border-outline-variant/10 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="groups">groups</span>
+</div>
+<h3 class="font-bold text-lg font-headline">WorkBuddy</h3>
+</div>
+<span class="flex items-center gap-1 text-on-tertiary-container bg-tertiary-fixed px-3 py-1 rounded-full text-xs font-bold uppercase">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            完成
+                        </span>
+</div>
+<div class="p-8 space-y-10">
+<div class="space-y-6">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">环境检查</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">3.4s</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">蓝图应用</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">5.1s</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check">check</span>
+<span class="text-sm font-medium">技能安装</span>
+</div>
+<span class="text-xs text-slate-400 font-mono">6.0s</span>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10 space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">部署耗时</span>
+<span class="text-sm font-bold text-on-primary-container">14.5s</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">测试耗时</span>
+<span class="text-sm font-bold text-on-primary-container">6.2s</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-full h-full bg-surface-tint rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Results Panel -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="text-xl font-bold font-headline text-on-surface">比武结果摘要</h2>
+<div class="flex items-center gap-3 px-4 py-2 bg-primary-fixed/30 rounded-lg border border-primary-fixed-dim">
+<span class="material-symbols-outlined text-amber-500" data-icon="rewarded_ads" style="font-variation-settings: 'FILL' 1;">rewarded_ads</span>
+<span class="text-sm font-bold text-on-primary-fixed-variant">冠军: OpenClaw (87分)</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/10 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-xs font-bold uppercase tracking-widest font-label text-on-surface-variant">
+<th class="px-6 py-4">平台</th>
+<th class="px-6 py-4">部署速度</th>
+<th class="px-6 py-4">测试通过率</th>
+<th class="px-6 py-4">功能覆盖</th>
+<th class="px-6 py-4">平台覆盖</th>
+<th class="px-6 py-4 text-right">综合得分</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-surface-tint"></div>
+<span class="font-bold text-sm">OpenClaw</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium">极速 (10.2s)</td>
+<td class="px-6 py-4 text-sm font-medium text-on-tertiary-container">98.5%</td>
+<td class="px-6 py-4 text-sm font-medium">92%</td>
+<td class="px-6 py-4 text-sm font-medium">85%</td>
+<td class="px-6 py-4 text-right font-black text-lg text-on-primary-container">87</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group opacity-60">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<span class="font-bold text-sm">ArkClaw</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium">较快 (12.3s)</td>
+<td class="px-6 py-4 text-sm font-medium">计算中...</td>
+<td class="px-6 py-4 text-sm font-medium">--</td>
+<td class="px-6 py-4 text-sm font-medium">--</td>
+<td class="px-6 py-4 text-right font-black text-lg text-slate-400">--</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="font-bold text-sm">WorkBuddy</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium">中等 (14.5s)</td>
+<td class="px-6 py-4 text-sm font-medium">94.2%</td>
+<td class="px-6 py-4 text-sm font-medium">78%</td>
+<td class="px-6 py-4 text-sm font-medium">90%</td>
+<td class="px-6 py-4 text-right font-black text-lg text-slate-700">74</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex justify-end gap-4 pt-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-bold text-on-surface-variant bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        导出报告
+                    </button>
+<button class="px-6 py-2.5 rounded-lg text-sm font-bold text-on-surface border border-outline-variant hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="replay">replay</span>
+                        再来一局
+                    </button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

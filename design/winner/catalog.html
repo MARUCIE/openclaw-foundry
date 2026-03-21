@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>平台目录 - OpenClaw Foundry</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-lowest": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-background": "#0b1c30",
+              "surface-tint": "#0053db",
+              "primary-fixed": "#dbe1ff",
+              "inverse-on-surface": "#eaf1ff",
+              "secondary-fixed": "#eaddff",
+              "surface-variant": "#d3e4fe",
+              "surface-dim": "#cbdbf5",
+              "on-primary-container": "#497cff",
+              "surface-bright": "#f8f9ff",
+              "secondary-fixed-dim": "#d2bbff",
+              "on-surface-variant": "#45464d",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              "outline-variant": "#c6c6cd",
+              "on-tertiary-container": "#009668",
+              "tertiary-fixed-dim": "#4edea3",
+              "outline": "#76777d",
+              "surface": "#f8f9ff",
+              "on-tertiary-fixed-variant": "#005236",
+              "on-secondary-fixed": "#25005a",
+              "secondary": "#712ae2",
+              "primary": "#000000",
+              "secondary-container": "#8a4cfc",
+              "error": "#ba1a1a",
+              "on-primary": "#ffffff",
+              "on-secondary-container": "#fffbff",
+              "surface-container-high": "#dce9ff",
+              "error-container": "#ffdad6",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed": "#002113",
+              "tertiary-fixed": "#6ffbbe",
+              "surface-container-highest": "#d3e4fe",
+              "primary-container": "#00174b",
+              "surface-container": "#e5eeff",
+              "on-primary-fixed-variant": "#003ea8",
+              "inverse-surface": "#213145",
+              "on-secondary-fixed-variant": "#5a00c6",
+              "surface-container-low": "#eff4ff",
+              "on-primary-fixed": "#00174b",
+              "tertiary": "#000000",
+              "inverse-primary": "#b4c5ff",
+              "primary-fixed-dim": "#b4c5ff",
+              "tertiary-container": "#002113",
+              "background": "#f8f9ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #497cff 0%, #0053db 100%);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col h-screen w-64 bg-slate-50 border-r border-transparent z-50">
+<div class="p-6 flex flex-col gap-1">
+<span class="text-xl font-bold text-slate-900 tracking-tight">OpenClaw Foundry</span>
+<span class="text-xs font-medium text-on-surface-variant opacity-60">Foundry Admin</span>
+</div>
+<nav class="flex-1 px-3 mt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                仪表盘
+            </a>
+<!-- Active Tab: 平台目录 -->
+<a class="relative flex items-center gap-3 px-4 py-2 text-blue-600 font-manrope text-sm font-medium transition-colors before:absolute before:left-0 before:h-5 before:w-0.5 before:bg-blue-600 before:rounded-r-full" href="#">
+<span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
+                平台目录
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                部署
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 font-manrope text-sm font-medium hover:bg-slate-200/50 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="swords">swords</span>
+                竞技场
+            </a>
+</nav>
+<div class="p-4 mt-auto">
+<div class="bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="person">person</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Admin User</span>
+<span class="text-[10px] uppercase tracking-wider text-on-surface-variant">Enterprise Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="pl-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-64 h-16 flex justify-between items-center px-8 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/50">
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="search">search</span>
+</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-1.5 text-sm w-80 focus:ring-1 focus:ring-surface-tint transition-all" placeholder="全局搜索平台、部署或文档..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<button class="text-slate-500 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-500 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-slate-500 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile avatar portrait circle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuMyhvOmvRyQOvN5cA9LymUKYO7tXEeijoc7A6yyNMmTKnlH2nWcCVVbjdJWaUOaClhLnoRJix98PyAkf1MGE3CeHTlzFcnJqWo5FWyxrVXKCmIUWR4eLgMKgTShksF-0uSCH6v2lPGqZZAjvPZ1MNoBhnp1KYgPte3Uw_kfQ59NW8YQuKsG81ZjooCbw5By0Qx5DP0OlqjEGPcD8-xfvK8pEIEjFUbG54fGrnbpF29CwC94SjywYzG6Qh5KCBfmmb-Uxy-HlLtFp"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="pt-24 pb-12 px-8">
+<!-- Breadcrumb & Header -->
+<div class="mb-8 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-xs font-label uppercase tracking-widest text-on-surface-variant/60">
+<span>Foundry</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-surface font-semibold">平台目录</span>
+</div>
+<h1 class="text-3xl font-headline font-extrabold tracking-tight text-on-surface">平台目录</h1>
+</div>
+<!-- Filter Bar Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6 mb-8 shadow-sm">
+<div class="flex flex-col gap-6">
+<!-- Filters Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3 block">类型</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-xs font-semibold cursor-pointer">全部</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">桌面端</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">SaaS</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">云端</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3 block">状态</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-xs font-semibold cursor-pointer">全部</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">稳定</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">测试</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-3 block">操作系统</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">macOS</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">Windows</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-medium hover:bg-surface-container-high transition-colors cursor-pointer">Linux</span>
+</div>
+</div>
+<div class="flex flex-col justify-end">
+<div class="relative">
+<span class="absolute inset-y-0 left-3 flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-surface-tint" placeholder="关键词检索..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cards Grid Area -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Platform Card Component Helper -->
+<!-- Card 1: OpenClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-blue-100 text-blue-600 font-bold text-xl">O</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">OpenClaw</h3>
+<p class="text-xs text-on-surface-variant">Anthropic</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-600">桌面端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="desktop_windows">desktop_windows</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="laptop_mac">laptop_mac</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 2: ArkClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-purple-100 text-purple-600 font-bold text-xl">A</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">ArkClaw 方舟</h3>
+<p class="text-xs text-on-surface-variant">火山引擎</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-secondary-fixed text-on-secondary-fixed-variant">SaaS</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="cloud">cloud</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 3: WorkBuddy -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-sky-100 text-sky-600 font-bold text-xl">W</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">WorkBuddy</h3>
+<p class="text-xs text-on-surface-variant">腾讯</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-600">桌面端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="laptop_windows">laptop_windows</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="phone_iphone">phone_iphone</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 4: DuClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-indigo-100 text-indigo-600 font-bold text-xl">D</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">DuClaw</h3>
+<p class="text-xs text-on-surface-variant">百度云</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-secondary-fixed text-on-secondary-fixed-variant">SaaS</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="public">public</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 5: KimiClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-rose-100 text-rose-600 font-bold text-xl">K</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">KimiClaw</h3>
+<p class="text-xs text-on-surface-variant">月之暗面</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-secondary-fixed text-on-secondary-fixed-variant">SaaS</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="language">language</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 6: MaxClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-emerald-100 text-emerald-600 font-bold text-xl">M</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">MaxClaw</h3>
+<p class="text-xs text-on-surface-variant">MiniMax</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-secondary-fixed text-on-secondary-fixed-variant">SaaS</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="hub">hub</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 7: AutoClaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-orange-100 text-orange-600 font-bold text-xl">A</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">AutoClaw</h3>
+<p class="text-xs text-on-surface-variant">智谱</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-600">桌面端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="computer">computer</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 8: LobsterAI -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-100 text-red-600 font-bold text-xl">L</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">LobsterAI</h3>
+<p class="text-xs text-on-surface-variant">网易有道</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-600">桌面端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-surface-container-highest text-on-surface-variant">测试</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="grid_view">grid_view</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 9: JD Cloud -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-100 text-red-600 font-bold text-xl">J</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">JD Cloud</h3>
+<p class="text-xs text-on-surface-variant">京东云</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-orange-50 text-orange-600">云端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-surface-container-highest text-on-surface-variant">测试</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="cloud_queue">cloud_queue</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 10: Huawei Cloud -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-red-100 text-red-700 font-bold text-xl">H</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">Huawei Cloud</h3>
+<p class="text-xs text-on-surface-variant">华为云</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-orange-50 text-orange-600">云端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-surface-container-highest text-on-surface-variant">测试</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="dns">dns</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 11: AgentBay -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-orange-100 text-orange-700 font-bold text-xl">A</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">AgentBay</h3>
+<p class="text-xs text-on-surface-variant">阿里云</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-orange-50 text-orange-600">云端</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">稳定</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings_input_component">settings_input_component</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 12: miclaw -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-orange-50 text-orange-600 font-bold text-xl">m</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">miclaw</h3>
+<p class="text-xs text-on-surface-variant">小米</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-green-50 text-green-600">移动</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-surface-container text-on-surface-variant opacity-60">预览</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="phone_android">phone_android</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+<!-- Card 13: Lenovo -->
+<div class="bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-100 text-slate-700 font-bold text-xl">L</div>
+<div>
+<h3 class="font-bold text-on-surface leading-tight">Lenovo</h3>
+<p class="text-xs text-on-surface-variant">联想</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-600">远程</span>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-surface-container text-on-surface-variant opacity-60">预览</span>
+</div>
+</div>
+<div class="flex gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="settings_remote">settings_remote</span>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 primary-gradient text-white text-xs font-bold py-2.5 rounded-lg shadow-sm">部署</button>
+<button class="flex-1 border border-outline-variant text-on-surface text-xs font-bold py-2.5 rounded-lg hover:bg-surface-container transition-colors">详情</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

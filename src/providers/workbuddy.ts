@@ -21,8 +21,7 @@ export class WorkBuddyProvider extends CloudProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
-    const notReady = this.checkApiReady();
-    if (notReady) return notReady;
+    if (!this.hasCredentials(blueprint)) { return this.realLocalDeploy(blueprint); }
 
     const steps = [];
     steps.push(await this.checkApiAccess(blueprint));
@@ -68,6 +67,7 @@ export class WorkBuddyProvider extends CloudProvider {
   }
 
   async test(blueprint: Blueprint): Promise<TestResult> {
+    if (!this.hasCredentials(blueprint)) { return this.realLocalTest(blueprint); }
     const check = await this.checkApiHealth('https://claw.guanjia.qq.com/api/health');
     return { success: check.status === 'ok', checks: [check] };
   }

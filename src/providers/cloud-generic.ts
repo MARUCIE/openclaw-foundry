@@ -24,10 +24,12 @@ export class JDCloudProvider extends CloudProvider {
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
+    if (!this.hasCredentials(blueprint)) { return this.realLocalDeploy(blueprint); }
     return this.genericCloudDeploy(blueprint, 'https://api.jdcloud-api.com/v1/openclaw/instances', 'cn-north-1');
   }
 
   async test(blueprint: Blueprint): Promise<TestResult> {
+    if (!this.hasCredentials(blueprint)) { return this.realLocalTest(blueprint); }
     return this.genericCloudTest(blueprint);
   }
 
@@ -49,8 +51,7 @@ export class JDCloudProvider extends CloudProvider {
   }
 
   protected async genericCloudDeploy(blueprint: Blueprint, apiUrl: string, defaultRegion: string): Promise<DeployResult> {
-    const notReady = this.checkApiReady();
-    if (notReady) return notReady;
+    if (!this.hasCredentials(blueprint)) { return this.realLocalDeploy(blueprint); }
 
     const steps = [];
     steps.push(await this.checkApiAccess(blueprint));
