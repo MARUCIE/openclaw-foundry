@@ -87,20 +87,31 @@ async function main() {
     }
   }
 
-  // Static prebuild: top 2000 skills (sorted by score) for fast page load
+  // Static prebuild: top 1500 skills + top 500 MCP servers (separate pools)
   // Full dataset served via Workers API for search/pagination
-  const TOP_N = 2000;
-  const topSkills = skillsData.skills
+  const SKILL_N = 1500;
+  const MCP_N = 500;
+
+  const clawSkills = skillsData.skills
+    .filter(s => (s.source || 'clawhub') !== 'mcp-registry')
     .sort((a, b) => (b.score || 0) - (a.score || 0))
-    .slice(0, TOP_N);
+    .slice(0, SKILL_N);
+
+  const mcpServers = skillsData.skills
+    .filter(s => s.source === 'mcp-registry')
+    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    .slice(0, MCP_N);
+
+  const topSkills = [...clawSkills, ...mcpServers]
+    .sort((a, b) => (b.score || 0) - (a.score || 0));
 
   await writeFile(join(OUT, 'skills.json'), JSON.stringify({
-    meta: { ...skillsData.meta, prebuildTop: TOP_N },
+    meta: { ...skillsData.meta, prebuildSkills: SKILL_N, prebuildMcp: MCP_N },
     total: skillsData.skills.length,
     offset: 0,
-    limit: TOP_N,
+    limit: topSkills.length,
     skills: topSkills,
-  })); // top 2000 only, ~2MB
+  })); // ~2MB
   console.log(`OK: Skills (${skillsData.skills.length})`);
 
   // Categories

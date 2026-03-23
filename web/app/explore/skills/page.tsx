@@ -14,14 +14,29 @@ const RATING_COLORS: Record<string, string> = {
   D: 'bg-red-50 text-red-400',
 };
 
-// Install targets with command templates
+// Install targets with real, verified commands (March 2026)
 const INSTALL_TARGETS = [
-  { id: 'claude', name: 'Claude Code', icon: 'terminal', cmdSkill: (s: string) => `claude skill add ${s}`, cmdMcp: (s: string, repo: string) => `claude mcp add ${s} -- npx -y ${repo}` },
-  { id: 'openclaw', name: 'OpenClaw', icon: 'smart_toy', cmdSkill: (s: string) => `openclaw install ${s}`, cmdMcp: null },
-  { id: 'cursor', name: 'Cursor', icon: 'edit', cmdSkill: null, cmdMcp: (_s: string, repo: string) => `# Add to .cursor/mcp.json:\n{\n  "mcpServers": {\n    "${_s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'vscode', name: 'VS Code', icon: 'code', cmdSkill: null, cmdMcp: (_s: string, repo: string) => `# Add to .vscode/mcp.json:\n{\n  "servers": {\n    "${_s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'windsurf', name: 'Windsurf', icon: 'air', cmdSkill: null, cmdMcp: (_s: string, repo: string) => `# Add to ~/.codeium/windsurf/mcp_config.json:\n{\n  "mcpServers": {\n    "${_s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cli', name: '通用 CLI', icon: 'content_copy', cmdSkill: (s: string) => `npx openclaw-foundry install ${s}`, cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
+  { id: 'claude', name: 'Claude Code', icon: 'terminal',
+    cmdSkill: (s: string) => `claude plugin install ${s}`,
+    cmdMcp: (s: string, repo: string) => `claude mcp add ${s} -- npx -y ${repo}` },
+  { id: 'openclaw', name: 'OpenClaw / Lobster', icon: 'smart_toy',
+    cmdSkill: (s: string) => `clawhub install ${s}`,
+    cmdMcp: null },
+  { id: 'cursor', name: 'Cursor', icon: 'edit',
+    cmdSkill: null,
+    cmdMcp: (s: string, repo: string) => `# .cursor/mcp.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
+  { id: 'vscode', name: 'VS Code / Copilot', icon: 'code',
+    cmdSkill: null,
+    cmdMcp: (s: string, repo: string) => `# .vscode/mcp.json\n{\n  "servers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
+  { id: 'windsurf', name: 'Windsurf', icon: 'air',
+    cmdSkill: null,
+    cmdMcp: (s: string, repo: string) => `# ~/.codeium/windsurf/mcp_config.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
+  { id: 'cline', name: 'Cline', icon: 'psychology',
+    cmdSkill: null,
+    cmdMcp: (s: string, repo: string) => `# cline_mcp_settings.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
+  { id: 'cli', name: '直接运行', icon: 'play_arrow',
+    cmdSkill: (s: string) => `clawhub install ${s}`,
+    cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
 ];
 
 function formatNum(n: number): string {
