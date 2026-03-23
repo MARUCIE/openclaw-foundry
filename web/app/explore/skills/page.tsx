@@ -5,12 +5,18 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import { getSkills, getSkillCategories, type ClawHubSkill } from '@/lib/api';
 
-const RATINGS = ['全部', 'S', 'A', 'B', 'C'];
+const RATINGS = ['全部', 'S', 'A', 'B', 'C', 'D'];
 const RATING_COLORS: Record<string, string> = {
   S: 'bg-amber-100 text-amber-700',
   A: 'bg-blue-100 text-blue-700',
   B: 'bg-slate-100 text-slate-600',
   C: 'bg-gray-100 text-gray-500',
+  D: 'bg-red-50 text-red-400',
+};
+
+const SOURCE_LABELS: Record<string, string> = {
+  'clawhub': 'ClawHub',
+  'mcp-registry': 'MCP',
 };
 
 function formatNum(n: number): string {
@@ -26,13 +32,18 @@ export default function SkillsMarketplacePage() {
   const [page, setPage] = useState(0);
   const LIMIT = 18;
 
-  // Fetch ALL skills once (works for both API and static fallback)
-  const { data, isLoading } = useSWR('all-skills', () => getSkills('limit=999'));
+  const [showAllCats, setShowAllCats] = useState(false);
+
+  // Fetch top skills (prebuild 2000 from static, or paginated from API)
+  const { data, isLoading } = useSWR('all-skills', () => getSkills('limit=2000'));
   const { data: catData } = useSWR('skill-categories', () => getSkillCategories());
 
   const allSkills = data?.skills || [];
   const categories = catData?.categories || data?.meta?.byCategory || {};
-  const allCategories = ['全部', ...Object.keys(categories)];
+  const sortedCats = Object.entries(categories)
+    .sort(([, a], [, b]) => (b as number) - (a as number))
+    .map(([k]) => k);
+  const allCategories = ['全部', ...sortedCats];
   const syncedAt = data?.meta?.syncedAt ? new Date(data.meta.syncedAt).toLocaleDateString('zh-CN') : '';
 
   // Client-side filtering
@@ -62,7 +73,7 @@ export default function SkillsMarketplacePage() {
           ClawHub Skill 市场
         </h1>
         <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-          {data?.meta?.totalProcessed || '...'} 精选 AI Agent 技能，质量评级，一键安装
+          {formatNum(data?.total || data?.meta?.totalProcessed || 0)} AI Agent 技能 &amp; MCP 服务，双源聚合，质量评级
           {syncedAt && <span className="text-xs ml-2 opacity-60">({syncedAt} 同步)</span>}
         </p>
         <div className="relative max-w-lg mx-auto">
@@ -85,7 +96,7 @@ export default function SkillsMarketplacePage() {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--on-surface-variant)' }}>分类</h3>
             <div className="space-y-1">
-              {allCategories.map(cat => (
+              {(showAllCats ? allCategories : allCategories.slice(0, 11)).map(cat => (
                 <button
                   key={cat}
                   onClick={() => { setActiveCategory(cat); setPage(0); }}
@@ -98,10 +109,19 @@ export default function SkillsMarketplacePage() {
                 >
                   {cat}
                   {cat !== '全部' && categories[cat] && (
-                    <span className="float-right text-xs opacity-50">{categories[cat]}</span>
+                    <span className="float-right text-xs opacity-50">{formatNum(categories[cat] as number)}</span>
                   )}
                 </button>
               ))}
+              {allCategories.length > 11 && (
+                <button
+                  onClick={() => setShowAllCats(!showAllCats)}
+                  className="block w-full text-left text-xs px-3 py-2 rounded-lg font-medium"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  {showAllCats ? '收起' : `展开全部 (${allCategories.length - 1})`}
+                </button>
+              )}
             </div>
           </div>
           <div>
@@ -131,8 +151,8 @@ export default function SkillsMarketplacePage() {
         {/* Grid */}
         <div className="flex-1">
           {/* Mobile filters */}
-          <div className="lg:hidden flex gap-2 flex-wrap mb-6 overflow-x-auto pb-1">
-            {allCategories.slice(0, 8).map(cat => (
+          <div className="lg:hidden flex gap-2 mb-6 overflow-x-auto pb-1 no-scrollbar">
+            {allCategories.slice(0, 12).map(cat => (
               <button
                 key={cat}
                 onClick={() => { setActiveCategory(cat); setPage(0); }}
@@ -178,10 +198,15 @@ export default function SkillsMarketplacePage() {
                       {skill.rating}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center gap-2 mb-3 flex-wrap">
                     <span className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>@{skill.author}</span>
                     {skill.official && (
                       <span className="text-[9px] px-1.5 py-0.5 rounded font-bold" style={{ background: 'var(--primary-fixed)', color: 'var(--on-primary-fixed-variant)' }}>Official</span>
+                    )}
+                    {(skill as any).source && (skill as any).source !== 'clawhub' && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded font-bold bg-emerald-50 text-emerald-600">
+                        {SOURCE_LABELS[(skill as any).source] || (skill as any).source}
+                      </span>
                     )}
                     <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
                       {skill.category}
@@ -191,15 +216,24 @@ export default function SkillsMarketplacePage() {
                   {/* Description */}
                   <p className="text-sm mb-4 line-clamp-2" style={{ color: 'var(--on-surface-variant)' }}>{skill.description}</p>
 
-                  {/* Metrics */}
+                  {/* Metrics — hide zeros for MCP Registry entries */}
                   <div className="flex items-center gap-4 mb-3 text-xs" style={{ color: 'var(--on-surface-variant)' }}>
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">download</span> {skill.downloadsDisplay}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm" style={{ color: '#f59e0b', fontVariationSettings: "'FILL' 1" }}>star</span> {skill.starsDisplay}
-                    </span>
-                    <span>{skill.versions} 版本</span>
+                    {skill.downloads > 0 && (
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">download</span> {skill.downloadsDisplay || formatNum(skill.downloads)}
+                      </span>
+                    )}
+                    {skill.stars > 0 && (
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm" style={{ color: '#f59e0b', fontVariationSettings: "'FILL' 1" }}>star</span> {skill.starsDisplay || formatNum(skill.stars)}
+                      </span>
+                    )}
+                    {skill.versions > 0 && <span>{skill.versions} 版本</span>}
+                    {skill.downloads === 0 && skill.stars === 0 && (skill as any).source === 'mcp-registry' && (
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">verified</span> MCP 认证
+                      </span>
+                    )}
                   </div>
 
                   {/* Platforms + action */}
