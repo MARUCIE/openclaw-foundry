@@ -1,5 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../index';
+import type { SkillRow, CountRow, SyncRow } from '../types';
+import { safeJsonArray } from '../types';
 
 export const skills = new Hono<{ Bindings: Env }>();
 
@@ -32,37 +34,37 @@ skills.get('/', async (c) => {
   const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
   // Counts: filtered + total
-  const countRow = await db.prepare(`SELECT COUNT(*) as cnt FROM skills ${where}`).bind(...params).first();
-  const total = (countRow as any)?.cnt || 0;
-  const totalRawRow = await db.prepare('SELECT COUNT(*) as cnt FROM skills').first();
-  const totalRaw = (totalRawRow as any)?.cnt || 0;
-  const syncRow = await db.prepare('SELECT MAX(synced_at) as latest FROM skills').first();
-  const syncedAt = (syncRow as any)?.latest || '';
+  const countRow = await db.prepare(`SELECT COUNT(*) as cnt FROM skills ${where}`).bind(...params).first<CountRow>();
+  const total = countRow?.cnt || 0;
+  const totalRawRow = await db.prepare('SELECT COUNT(*) as cnt FROM skills').first<CountRow>();
+  const totalRaw = totalRawRow?.cnt || 0;
+  const syncRow = await db.prepare('SELECT MAX(synced_at) as latest FROM skills').first<SyncRow>();
+  const syncedAt = syncRow?.latest || '';
 
   // Fetch page
   const { results } = await db.prepare(
     `SELECT * FROM skills ${where} ORDER BY score DESC LIMIT ? OFFSET ?`
-  ).bind(...params, limit, offset).all();
+  ).bind(...params, limit, offset).all<SkillRow>();
 
   // Categories summary
   const { results: catRows } = await db.prepare(
     'SELECT category, COUNT(*) as cnt FROM skills GROUP BY category'
-  ).all();
+  ).all<{ category: string; cnt: number }>();
   const byCategory: Record<string, number> = {};
   for (const r of catRows || []) {
-    byCategory[(r as any).category] = (r as any).cnt;
+    byCategory[r.category] = r.cnt;
   }
 
   // Rating summary
   const { results: ratingRows } = await db.prepare(
     'SELECT rating, COUNT(*) as cnt FROM skills GROUP BY rating'
-  ).all();
+  ).all<{ rating: string; cnt: number }>();
   const byRating: Record<string, number> = {};
   for (const r of ratingRows || []) {
-    byRating[(r as any).rating] = (r as any).cnt;
+    byRating[r.rating] = r.cnt;
   }
 
-  const mapped = (results || []).map((s: any) => ({
+  const mapped = (results || []).map((s) => ({
     id: s.id,
     name: s.name,
     slug: s.slug,
@@ -75,7 +77,7 @@ skills.get('/', async (c) => {
     stars: s.stars,
     starsDisplay: s.stars_display,
     versions: s.versions,
-    platforms: (() => { try { return JSON.parse(s.platforms || '[]'); } catch { return []; } })(),
+    platforms: safeJsonArray(s.platforms),
     official: Boolean(s.official),
     score: s.score,
     rating: s.rating,
@@ -106,11 +108,11 @@ skills.get('/categories', async (c) => {
   const db = c.env.DB;
   const { results } = await db.prepare(
     'SELECT category, COUNT(*) as cnt FROM skills GROUP BY category ORDER BY cnt DESC'
-  ).all();
+  ).all<{ category: string; cnt: number }>();
 
   const categories: Record<string, number> = {};
   for (const r of results || []) {
-    categories[(r as any).category] = (r as any).cnt;
+    categories[r.category] = r.cnt;
   }
 
   return c.json({ categories });

@@ -1,6 +1,7 @@
 // OCF Server API client — with static fallback for CF Pages
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev/api';
+// API base URL: set via env var or fallback to static JSON files only
+const BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 // Static file mapping: /api/X?params → /data/X.json (ignoring params, client-side filtering)
 const STATIC_MAP: Record<string, string> = {
@@ -37,8 +38,8 @@ export async function getProviders(params?: string): Promise<{ total: number; pr
   return { total: raw.total, providers: raw.providers.map(normalizeProvider) };
 }
 
-export async function getProvider(id: string): Promise<{ provider: ProviderMeta; available: boolean; requirements: any[] }> {
-  const raw = await fetchJSON<{ provider: RawProviderMeta; available: boolean; requirements: any[] }>(`/providers/${id}`);
+export async function getProvider(id: string): Promise<{ provider: ProviderMeta; available: boolean; requirements: { name: string; met: boolean }[] }> {
+  const raw = await fetchJSON<{ provider: RawProviderMeta; available: boolean; requirements: { name: string; met: boolean }[] }>(`/providers/${id}`);
   return { ...raw, provider: normalizeProvider(raw.provider) };
 }
 
@@ -46,7 +47,7 @@ export async function getProvider(id: string): Promise<{ provider: ProviderMeta;
 export const getStats = () => fetchJSON<DashboardStats>('/stats');
 
 // Deploy
-export const startDeploy = (provider: string, blueprint: any) =>
+export const startDeploy = (provider: string, blueprint: Record<string, unknown>) =>
   fetchJSON<{ jobId: string; status: string }>('/deploy', {
     method: 'POST',
     body: JSON.stringify({ provider, blueprint }),
@@ -102,7 +103,7 @@ export const getSkillCategories = () =>
   fetchJSON<{ categories: Record<string, number> }>('/skills/categories');
 
 // Arena
-export const startArena = (providers: string[], blueprint: any, testPrompt: string) =>
+export const startArena = (providers: string[], blueprint: Record<string, unknown>, testPrompt: string) =>
   fetchJSON<{ matchId: string; status: string }>('/arena', {
     method: 'POST',
     body: JSON.stringify({ providers, blueprint, testPrompt }),

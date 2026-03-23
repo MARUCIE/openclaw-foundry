@@ -16,12 +16,13 @@ const app = new Hono<{ Bindings: Env }>();
 // CORS — restrict to known origins
 app.use('*', cors({
   origin: (origin) => {
+    if (!origin) return false;
     const allowed = [
       'https://openclaw-foundry.pages.dev',
       'http://localhost:3200',
       'http://localhost:3000',
     ];
-    return allowed.includes(origin) ? origin : 'https://openclaw-foundry.pages.dev';
+    return allowed.includes(origin) ? origin : false;
   },
   allowMethods: ['GET', 'OPTIONS'],
   credentials: false,

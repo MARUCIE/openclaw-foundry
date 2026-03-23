@@ -60,25 +60,25 @@ Visit [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev) — no se
 git clone https://github.com/MARUCIE/openclaw-foundry.git
 cd openclaw-foundry
 
-# Install all dependencies
-npm install
-cd web && npm install && cd ..
-cd worker && npm install && cd ..
+# Install dependencies (root + frontend + backend)
+npm install                         # root scripts
+cd web && npm install && cd ..      # frontend
+cd worker && npm install && cd ..   # backend
 
 # Configure Cloudflare bindings
 cp worker/wrangler.toml.example worker/wrangler.toml
-# Edit wrangler.toml with your D1 database ID and KV namespace ID
+# Edit wrangler.toml: replace YOUR_D1_DATABASE_ID and YOUR_KV_NAMESPACE_ID
 
-# Create D1 database
-npx wrangler d1 create openclaw-foundry
+# Create D1 database (first time only)
+cd worker && npx wrangler d1 create openclaw-foundry && cd ..
 
-# Seed the database
-node scripts/generate-seed-sql.mjs
+# Generate and seed the database
+node scripts/generate-seed-sql.mjs  # outputs worker/src/seed.sql
 cd worker && npx wrangler d1 execute openclaw-foundry --local --file=src/seed.sql && cd ..
 
-# Run locally
-cd web && npm run dev     # Frontend at http://localhost:3200
-cd worker && npm run dev  # API at http://localhost:8787
+# Run locally (2 terminals)
+cd web && npm run dev       # Frontend at http://localhost:3200
+cd worker && npm run dev    # API at http://localhost:8787
 ```
 
 ### Option 3: Deploy to Cloudflare

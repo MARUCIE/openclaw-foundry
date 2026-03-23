@@ -1,9 +1,9 @@
 import { Hono } from 'hono';
 import type { Env } from '../index';
+import type { ProviderRow } from '../types';
+import { safeJsonArray } from '../types';
 
 export const providers = new Hono<{ Bindings: Env }>();
-
-const TIER_MAP: Record<number, string> = { 1: 'full-auto', 2: 'semi-auto', 3: 'guided' };
 
 providers.get('/', async (c) => {
   const type = c.req.query('type');
@@ -17,19 +17,19 @@ providers.get('/', async (c) => {
   }
   query += ' ORDER BY tier ASC, name ASC';
 
-  const { results } = await db.prepare(query).bind(...params).all();
+  const { results } = await db.prepare(query).bind(...params).all<ProviderRow>();
 
-  const mapped = (results || []).map((p: any) => ({
+  const mapped = (results || []).map((p) => ({
     id: p.id,
     name: p.name,
     vendor: p.vendor,
     type: p.type,
     tier: p.tier,
-    platforms: (() => { try { return JSON.parse(p.platforms || '[]'); } catch { return []; } })(),
+    platforms: safeJsonArray(p.platforms),
     status: p.status,
     consoleUrl: p.console_url,
     docUrl: p.doc_url,
-    imChannels: (() => { try { return JSON.parse(p.im_channels || '[]'); } catch { return []; } })(),
+    imChannels: safeJsonArray(p.im_channels),
     description: p.description,
     installCmd: p.install_cmd,
     github: p.github,
@@ -42,14 +42,14 @@ providers.get('/:id', async (c) => {
   const id = c.req.param('id');
   const db = c.env.DB;
 
-  const row = await db.prepare('SELECT * FROM providers WHERE id = ?').bind(id).first();
+  const row = await db.prepare('SELECT * FROM providers WHERE id = ?').bind(id).first<ProviderRow>();
   if (!row) return c.json({ error: 'Provider not found' }, 404);
 
   return c.json({
     provider: {
       ...row,
-      platforms: (() => { try { return JSON.parse((row as any).platforms || '[]'); } catch { return []; } })(),
-      imChannels: (() => { try { return JSON.parse((row as any).im_channels || '[]'); } catch { return []; } })(),
+      platforms: safeJsonArray(row.platforms),
+      imChannels: safeJsonArray(row.im_channels),
     },
     available: true,
     requirements: [],
