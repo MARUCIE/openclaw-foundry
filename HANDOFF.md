@@ -54,13 +54,37 @@ CF Pages (frontend) ←→ CF Workers/Hono (API) ←→ D1 SQLite (DB)
 - Local cron: `0 6 * * * /path/to/scripts/clawhub-sync-cron.sh`
 - Flow: Scrape ClawHub → filter/rate → seed D1 → redeploy Pages
 
-## Commits (this session)
+## Data Pipeline (v2: Multi-Source)
+
+### Sources
+| Source | Count | Script | Method |
+|--------|-------|--------|--------|
+| ClawHub API | 33,566 | `scrape-clawhub-api.mjs` | REST `/api/v1/packages?family=skill` |
+| ClawHub Scroll | 2,108 (stats) | `scrape-clawhub.mjs` | Playwright 4-sort dedup |
+| Official MCP Registry | 11,870 | `scrape-mcp-registry.mjs` | REST v0.1 cursor pagination |
+| **Unified** | **37,296** | `merge-all-sources.mjs` | Cross-source dedup |
+
+### Processing
+- `sync-clawhub-skills.mjs`: 23 categories, v3 scoring (continuous + percentile)
+- `enrich-clawhub-data.mjs`: Merge scroll stats (downloads/stars) into API data
+- `prebuild-static.mjs`: Top 2000 for static, full via Workers API
+- `generate-seed-sql.mjs`: D1 seed from unified index
+
+### Category System (23 categories)
+区块链 Web3, 金融交易, 电商营销, 办公文档, 教育学习, 游戏娱乐, 生活服务, HR 人才,
+Agent 基建, 安全合规, AI 模型, 浏览器自动化, 搜索与研究, 通讯集成, 数据分析,
+内容创作, 效率工具, 多媒体, DevOps 部署, 代码开发, 系统工具, API 网关, 其他
+
+### Rating (percentile: S 5% / A 21% / B 32% / C 34% / D 7%)
+
+## Commits
 1. `6dbd779` feat(portal): v4.0 frontend 8 pages + ClawHub sync + UI polish 3 rounds
 2. `f016e1a` chore: configurable API base URL
 3. `bcf10f9` feat(static): prebuild baked data for CF Pages
 4. `ecffda4` ci: GitHub Actions auto-deploy + daily cron
 5. `9c97a83` feat(worker): CF Workers backend (Hono + D1 + R2)
 6. `f057734` feat(live): connect frontend to Workers API
+7. `750ff8d` feat(data): multi-source skill registry — 249 to 37,296 entries
 
 ## Reusable Template (for 50 projects)
 ```
