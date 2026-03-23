@@ -1,6 +1,6 @@
 // OCF Server API client — with static fallback for CF Pages
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
+const BASE = process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev/api';
 
 // Static file mapping: /api/X?params → /data/X.json (ignoring params, client-side filtering)
 const STATIC_MAP: Record<string, string> = {
