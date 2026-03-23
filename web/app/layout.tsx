@@ -1,55 +1,34 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import './globals.css';
+import { TopNav } from '@/components/top-nav';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
-  title: 'OpenClaw Foundry Console',
-  description: 'Universal AI Agent Deployment Platform — 13 Platforms, One Blueprint',
+  title: 'OpenClaw Foundry — 中国 OpenClaw 生态一站式门户',
+  description: '一键部署 AI Agent，12 大平台，一个入口。Skills 市场、MCP 目录、资讯中心。',
 };
-
-const NAV_ITEMS = [
-  { href: '/', label: '仪表盘', icon: '◆' },
-  { href: '/catalog', label: '平台目录', icon: '▤' },
-  { href: '/deploy', label: '部署', icon: '▶' },
-  { href: '/arena', label: '竞技场', icon: '⚔' },
-];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
-      <body className="min-h-screen flex">
-        {/* Sidebar */}
-        <aside className="w-56 shrink-0 flex flex-col" style={{ background: 'var(--surface-container-low)' }}>
-          <div className="p-5 pb-8">
-            <h1 className="text-lg font-bold tracking-tight" style={{ color: 'var(--on-surface)' }}>
-              OpenClaw Foundry
-            </h1>
-            <p className="text-xs mt-1" style={{ color: 'var(--on-surface-variant)' }}>v3.0 Console</p>
-          </div>
-          <nav className="flex-1 px-3 space-y-1">
-            {NAV_ITEMS.map(item => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-[var(--primary-fixed)]"
-                style={{ color: 'var(--on-surface)' }}
-              >
-                <span className="text-base">{item.icon}</span>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="p-4 text-xs" style={{ color: 'var(--outline)' }}>
-            13 platforms / 7 IM channels
-          </div>
-        </aside>
-
-        {/* Main content */}
-        <main className="flex-1 overflow-auto">
-          <div className="max-w-7xl mx-auto p-6">
-            {children}
-          </div>
+      <head>
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen antialiased">
+        <TopNav />
+        <main className="pt-20 min-h-screen">
+          {children}
         </main>
+        <Footer />
       </body>
     </html>
   );

@@ -7,75 +7,49 @@ import type {
 import { CloudProvider } from './base.js';
 
 export class ArkClawProvider extends CloudProvider {
+  apiReady = true;
+
   meta: ProviderMeta = {
     id: 'arkclaw',
     name: 'ArkClaw',
     vendor: '火山引擎 (ByteDance)',
     type: 'saas',
+    tier: 2,
     platforms: ['darwin', 'win32', 'linux'],
     status: 'stable',
-    consoleUrl: 'https://console.volcengine.com/ark/claw',
+    consoleUrl: 'https://console.volcengine.com/ark/region:ark+cn-beijing/experience/claw',
     docUrl: 'https://www.volcengine.com/docs/82379/2229107',
-    imChannels: ['feishu'],
-    description: '火山引擎方舟 ArkClaw — 零部署 SaaS，浏览器直接用。飞书深度集成 + Doubao-Seed-2.0/Kimi/GLM 多模型。Coding Plan Pro 用户直接可用。',
+    imChannels: ['feishu', 'dingtalk', 'wecom'],
+    description: '火山引擎方舟 ArkClaw — 零部署 SaaS，浏览器直接用。飞书深度集成 + Doubao/Kimi/GLM 多模型。需飞书 QR 扫码授权一次。',
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {
-    // Fallback to simulation if no real credentials
-    if (!this.hasCredentials(blueprint)) {
-      return this.realLocalDeploy(blueprint);
-    }
-
     const steps = [];
 
-    // 1. Check credentials
-    steps.push(await this.checkApiAccess(blueprint));
-    if (steps[0].status === 'error') return { success: false, steps };
+    // ArkClaw is browser-only SaaS — no instance creation API exists.
+    // Tier 2: guide user to console + Feishu setup, then local config
+    this.logProvider('deploy', 'ArkClaw is browser-based SaaS — opening console');
 
-    // 2. Create cloud instance via Volcengine API
-    this.logProvider('deploy', 'Creating ArkClaw instance on Volcengine');
-    const endpoint = this.getEndpoint(blueprint);
-    const region = blueprint.target?.region || 'cn-beijing';
-
+    // 1. Open console URL
     try {
-      const resp = await fetch(`${endpoint}/api/v1/claw/instances`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Access-Key': blueprint.target?.credentials?.accessKeyId || '',
-          'X-Secret-Key': blueprint.target?.credentials?.accessKeySecret || '',
-        },
-        body: JSON.stringify({
-          name: blueprint.meta.name,
-          region,
-          identity: blueprint.identity,
-          skills: blueprint.skills,
-          agents: blueprint.agents,
-          config: blueprint.config,
-          im_channel: blueprint.target?.imChannel || 'feishu',
-        }),
-        signal: AbortSignal.timeout(30_000),
-      });
-
-      if (!resp.ok) {
-        const err = await resp.text();
-        steps.push(this.step('Instance', 'error', `Volcengine API: ${resp.status} ${err}`));
-        return { success: false, steps };
-      }
-
-      const data = await resp.json() as { instance_id: string; endpoint: string };
-      steps.push(this.step('Instance', 'ok', `Created: ${data.instance_id}`));
-
-      return {
-        success: true,
-        steps,
-        instanceUrl: `${this.meta.consoleUrl}/instance/${data.instance_id}`,
-        credentials: { endpoint: data.endpoint },
-      };
-    } catch (err: unknown) {
-      steps.push(this.step('Instance', 'error', `Deploy failed: ${(err as Error).message}`));
-      return { success: false, steps };
+      const { execa } = await import('execa');
+      await execa('open', [this.meta.consoleUrl], { timeout: 5_000 }).catch(() => {});
+      steps.push(this.step('Console', 'ok', `Opened ${this.meta.consoleUrl}`));
+    } catch {
+      steps.push(this.step('Console', 'warn', `Open manually: ${this.meta.consoleUrl}`));
     }
+
+    // 2. Show Feishu setup guide
+    steps.push(this.step('Step 1', 'ok', 'Volcengine 控制台创建 API Key'));
+    steps.push(this.step('Step 2', 'ok', 'open.feishu.cn 创建飞书 App + Bot'));
+    steps.push(this.step('Step 3', 'ok', 'ArkClaw 配置飞书 App ID/Secret'));
+    steps.push(this.step('Step 4', 'warn', '飞书扫码授权 (需手机操作一次)'));
+
+    // 3. Also do local config via executor
+    const localResult = await this.realLocalDeploy(blueprint);
+    steps.push(...localResult.steps);
+
+    return { success: true, steps, instanceUrl: this.meta.consoleUrl };
   }
 
   async test(blueprint: Blueprint): Promise<TestResult> {

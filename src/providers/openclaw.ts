@@ -21,12 +21,15 @@ export class OpenClawProvider extends DesktopProvider {
     name: 'OpenClaw',
     vendor: 'Anthropic',
     type: 'desktop',
+    tier: 1,
     platforms: ['darwin', 'win32', 'linux'],
     status: 'stable',
     consoleUrl: 'https://console.anthropic.com',
     docUrl: 'https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview',
     imChannels: ['telegram', 'discord', 'slack'],
-    description: 'Anthropic OpenClaw — the original local AI agent platform. Install via npm, configure locally.',
+    description: 'Anthropic OpenClaw — the original local AI agent platform. Install via curl, configure locally.',
+    installCmd: 'curl -fsSL https://claude.ai/install.sh | bash',
+    github: 'anthropics/claude-code',
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {

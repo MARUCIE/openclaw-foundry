@@ -1,15 +1,19 @@
 // Provider Registry — discover, list, and resolve providers by ID
 
 import type { Provider, ProviderId, ProviderMeta } from '../types.js';
+// Tier 1: 全自动
 import { OpenClawProvider } from './openclaw.js';
-import { ArkClawProvider } from './arkclaw.js';
-import { WorkBuddyProvider } from './workbuddy.js';
-import { JDCloudProvider, HuaweiCloudProvider, AliyunProvider, DuClawProvider } from './cloud-generic.js';
-import { LobsterAIProvider } from './lobsterai.js';
+import { HiClawProvider } from './hiclaw.js';
+import { CoPawProvider } from './copaw.js';
 import { AutoClawProvider } from './autoclaw.js';
-import { MiClawProvider } from './miclaw.js';
-import { KimiClawProvider, MaxClawProvider } from './saas.js';
-import { LenovoProvider } from './lenovo.js';
+import { JDCloudProvider, HuaweiCloudProvider, AliyunProvider } from './cloud-generic.js';
+// Tier 2: 半自动
+import { QClawProvider } from './qclaw.js';
+import { ArkClawProvider } from './arkclaw.js';
+import { MaxClawProvider } from './saas.js';
+// Tier 3: 引导式
+import { KimiClawProvider } from './saas.js';
+import { DuClawProvider } from './cloud-generic.js';
 
 // Singleton instances — lazy initialized
 const providers = new Map<ProviderId, Provider>();
@@ -18,19 +22,21 @@ function ensureRegistered(): void {
   if (providers.size > 0) return;
 
   const all: Provider[] = [
+    // Tier 1
     new OpenClawProvider(),
-    new ArkClawProvider(),
-    new WorkBuddyProvider(),
-    new JDCloudProvider(),
-    new HuaweiCloudProvider(),
-    new AliyunProvider(),
-    new DuClawProvider(),
-    new LobsterAIProvider(),
+    new HiClawProvider(),
+    new CoPawProvider(),
     new AutoClawProvider(),
-    new MiClawProvider(),
-    new KimiClawProvider(),
+    new HuaweiCloudProvider(),
+    new JDCloudProvider(),
+    new AliyunProvider(),
+    // Tier 2
+    new QClawProvider(),
+    new ArkClawProvider(),
     new MaxClawProvider(),
-    new LenovoProvider(),
+    // Tier 3
+    new KimiClawProvider(),
+    new DuClawProvider(),
   ];
 
   for (const p of all) {

@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { getProviders, type ProviderMeta } from '@/lib/api';
-import { Card } from '@/components/ui/card';
 import { TypeBadge, StatusBadge } from '@/components/ui/badge';
 import Link from 'next/link';
 
@@ -11,6 +10,22 @@ const fetcher = () => getProviders();
 
 const TYPE_FILTERS = ['all', 'desktop', 'saas', 'cloud', 'mobile', 'remote'] as const;
 const STATUS_FILTERS = ['all', 'stable', 'beta', 'preview'] as const;
+
+const TYPE_ICONS: Record<string, string> = {
+  desktop: 'desktop_windows',
+  saas: 'cloud',
+  cloud: 'cloud_queue',
+  mobile: 'smartphone',
+  remote: 'lan',
+};
+
+const TYPE_COLORS: Record<string, string> = {
+  desktop: 'var(--surface-tint)',
+  saas: 'var(--secondary)',
+  cloud: '#e65100',
+  mobile: 'var(--on-tertiary-container)',
+  remote: '#616161',
+};
 
 export default function CatalogPage() {
   const { data, isLoading } = useSWR('providers', fetcher);
@@ -32,7 +47,10 @@ export default function CatalogPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">平台目录</h2>
+      <div>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>平台目录</h2>
+        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>浏览和管理 {providers.length} 个 AI Agent 部署平台</p>
+      </div>
 
       {/* Filter bar */}
       <div className="flex flex-wrap gap-3 items-center">
@@ -51,6 +69,7 @@ export default function CatalogPage() {
             </button>
           ))}
         </div>
+        <div className="h-6 w-px" style={{ background: 'var(--outline-variant)' }} />
         <div className="flex gap-1">
           {STATUS_FILTERS.map(s => (
             <button
@@ -66,14 +85,17 @@ export default function CatalogPage() {
             </button>
           ))}
         </div>
-        <input
-          type="text"
-          placeholder="搜索平台..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="ml-auto px-3 py-1.5 rounded-lg text-sm outline-none"
-          style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
-        />
+        <div className="relative ml-auto">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg" style={{ color: 'var(--outline)' }}>search</span>
+          <input
+            type="text"
+            placeholder="搜索平台..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="pl-10 pr-4 py-1.5 rounded-xl text-sm outline-none"
+            style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
+          />
+        </div>
       </div>
 
       {/* Results count */}
@@ -83,11 +105,13 @@ export default function CatalogPage() {
 
       {/* Card grid */}
       {isLoading ? (
-        <div className="grid grid-cols-3 gap-4">
-          {[1,2,3,4,5,6].map(i => <div key={i} className="h-48 rounded-lg animate-pulse" style={{ background: 'var(--surface-container)' }} />)}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="h-52 rounded-xl animate-pulse" style={{ background: 'var(--surface-container)' }} />
+          ))}
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(p => (
             <PlatformCard key={p.id} provider={p} />
           ))}
@@ -98,23 +122,27 @@ export default function CatalogPage() {
 }
 
 function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
-  const initial = p.name.charAt(0).toUpperCase();
-  const typeColor: Record<string, string> = {
-    desktop: 'var(--surface-tint)', saas: 'var(--secondary)', cloud: '#e65100',
-    mobile: 'var(--tertiary)', remote: '#616161',
-  };
+  const icon = TYPE_ICONS[p.type] || 'devices';
+  const color = TYPE_COLORS[p.type] || '#616161';
 
   return (
-    <Card className="flex flex-col gap-3 hover:shadow-md transition-shadow">
+    <div
+      className="flex flex-col gap-3 rounded-xl p-5 transition-all hover:shadow-md group"
+      style={{
+        background: 'var(--surface-container-lowest)',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+        border: '1px solid rgba(198, 198, 205, 0.1)',
+      }}
+    >
       <div className="flex items-start gap-3">
         <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
-          style={{ background: typeColor[p.type] || '#616161' }}
+          className="w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0"
+          style={{ background: color }}
         >
-          {initial}
+          <span className="material-symbols-outlined text-xl">{icon}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm truncate">{p.name}</h3>
+          <h3 className="font-semibold text-sm truncate" style={{ fontFamily: 'Manrope, sans-serif' }}>{p.name}</h3>
           <p className="text-xs truncate" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
         </div>
       </div>
@@ -128,14 +156,23 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
         {p.description}
       </p>
 
-      <div className="text-xs" style={{ color: 'var(--outline)' }}>
-        OS: {p.platforms.join(', ')} | IM: {p.imChannels.join(', ') || '—'}
+      <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--outline)' }}>
+        <span className="flex items-center gap-1">
+          <span className="material-symbols-outlined text-sm">computer</span>
+          {p.platforms.join(', ')}
+        </span>
+        {p.imChannels.length > 0 && (
+          <span className="flex items-center gap-1">
+            <span className="material-symbols-outlined text-sm">chat</span>
+            {p.imChannels.join(', ')}
+          </span>
+        )}
       </div>
 
-      <div className="flex gap-2 mt-auto pt-2">
+      <div className="flex gap-2 mt-auto pt-3" style={{ borderTop: '1px solid var(--surface-container-low)' }}>
         <Link
           href={`/deploy?provider=${p.id}`}
-          className="flex-1 text-center py-1.5 rounded-md text-xs font-medium text-white"
+          className="flex-1 text-center py-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90"
           style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
         >
           部署
@@ -144,12 +181,12 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
           href={p.consoleUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 text-center py-1.5 rounded-md text-xs font-medium"
-          style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}
+          className="flex-1 text-center py-2 rounded-lg text-xs font-medium transition-colors hover:bg-[var(--surface-container)]"
+          style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
         >
           详情
         </a>
       </div>
-    </Card>
+    </div>
   );
 }

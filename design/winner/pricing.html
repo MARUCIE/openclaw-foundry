@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#64f1b4",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container": "#ededf9",
+                        "on-background": "#191b23",
+                        "surface-container-high": "#e7e7f3",
+                        "outline-variant": "#c3c6d7",
+                        "primary-container": "#0053db",
+                        "surface-dim": "#d9d9e5",
+                        "inverse-surface": "#2e3039",
+                        "primary": "#003ea8",
+                        "outline": "#737686",
+                        "tertiary": "#005136",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191b23",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#712ae2",
+                        "surface-container-highest": "#e1e2ed",
+                        "on-secondary-container": "#fffbff",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed": "#002114",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#0053db",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-container": "#006c49",
+                        "surface-bright": "#faf8ff",
+                        "surface": "#faf8ff",
+                        "secondary-fixed": "#eaddff",
+                        "on-surface-variant": "#434655",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-container-low": "#f3f3fe",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#ced8ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "surface-variant": "#e1e2ed",
+                        "secondary-container": "#8b4bfc",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#25005a",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#5a00c6"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f3fe;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c6d7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737686;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#faf8ff]/80 backdrop-blur-xl shadow-[0px_20px_40px_rgba(25,27,35,0.06)] font-['Manrope'] antialiased tracking-tight">
+<div class="flex justify-between items-center px-8 h-20 max-w-[1440px] mx-auto">
+<div class="text-xl font-bold bg-gradient-to-r from-[#003ea8] to-[#712ae2] bg-clip-text text-transparent">
+                OpenClaw Foundry v4.0
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#434655] hover:text-[#003ea8] transition-colors" href="#">部署</a>
+<a class="text-[#434655] hover:text-[#003ea8] transition-colors" href="#">导航</a>
+<a class="text-[#434655] hover:text-[#003ea8] transition-colors" href="#">资讯</a>
+<a class="text-[#434655] hover:text-[#003ea8] transition-colors" href="#">竞技场</a>
+<a class="text-[#0053db] font-semibold border-b-2 border-[#0053db] pb-1" href="#">定价</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-5 py-2 rounded-xl bg-primary-container text-on-primary font-semibold active:scale-95 duration-200 transition-all">
+                    开始使用
+                </button>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">account_circle</span>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 max-w-[1440px] mx-auto overflow-x-hidden">
+<!-- Page Header -->
+<header class="text-center mb-16">
+<h1 class="font-headline font-extrabold text-5xl md:text-6xl text-primary tracking-tight mb-4">平台定价对比</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto">12 大 OpenClaw 平台费用一览，找到最适合你的方案</p>
+</header>
+<!-- Main Comparison Table Container -->
+<section class="mb-20 overflow-x-auto pb-6">
+<div class="min-w-[1800px] bg-surface-container-low rounded-3xl p-1">
+<table class="w-full text-left border-separate border-spacing-0">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="sticky left-0 z-20 bg-surface-container-low p-6 rounded-tl-3xl border-r border-outline-variant/10 w-48 font-headline font-bold text-on-surface-variant uppercase text-xs tracking-widest">对比项</th>
+<!-- Platform Headers -->
+<th class="p-6 bg-primary/5 relative">
+<span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-0.5 rounded-full">推荐</span>
+<div class="font-headline font-extrabold text-primary text-lg">OpenClaw</div>
+</th>
+<th class="p-6 bg-primary/5 relative">
+<span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-0.5 rounded-full">推荐</span>
+<div class="font-headline font-extrabold text-primary text-lg">HiClaw</div>
+</th>
+<th class="p-6 bg-primary/5 relative">
+<span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-0.5 rounded-full">推荐</span>
+<div class="font-headline font-extrabold text-primary text-lg">CoPaw</div>
+</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">AutoClaw</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">华为云</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">京东云</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">阿里云</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">QClaw</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">ArkClaw</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">MaxClaw</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg">KimiClaw</th>
+<th class="p-6 font-headline font-bold text-on-surface-variant text-lg rounded-tr-3xl">DuClaw</th>
+</tr>
+</thead>
+<tbody class="bg-surface-container-lowest">
+<!-- 类型 -->
+<tr>
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">类型</td>
+<td class="p-6 bg-primary/5">开源核心</td>
+<td class="p-6 bg-primary/5">协作版</td>
+<td class="p-6 bg-primary/5">轻量版</td>
+<td class="p-6">自动化引擎</td>
+<td class="p-6">云托管</td>
+<td class="p-6">云托管</td>
+<td class="p-6">云托管</td>
+<td class="p-6">精简版</td>
+<td class="p-6">私有部署</td>
+<td class="p-6">性能版</td>
+<td class="p-6">对话版</td>
+<td class="p-6">多模态</td>
+</tr>
+<!-- Tier -->
+<tr>
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">Tier</td>
+<td class="p-6 bg-primary/5"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6 bg-primary/5"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6 bg-primary/5"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#fbc02d]"></span> 半自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#9e9e9e]"></span> 引导式</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#fbc02d]"></span> 半自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#9e9e9e]"></span> 引导式</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span> 全自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#fbc02d]"></span> 半自动</span></td>
+<td class="p-6"><span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#fbc02d]"></span> 半自动</span></td>
+</tr>
+<!-- 基础价格 -->
+<tr class="bg-surface-container-low/30">
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">基础价格</td>
+<td class="p-6 bg-primary/5 font-bold text-primary">免费开源</td>
+<td class="p-6 bg-primary/5 font-bold text-primary">¥299/月</td>
+<td class="p-6 bg-primary/5 font-bold text-primary">¥99/月</td>
+<td class="p-6">¥199/月</td>
+<td class="p-6">¥0.45/时</td>
+<td class="p-6">¥0.38/时</td>
+<td class="p-6">¥0.48/时</td>
+<td class="p-6">¥59/月</td>
+<td class="p-6">联系销售</td>
+<td class="p-6">¥499/月</td>
+<td class="p-6">按需计费</td>
+<td class="p-6">按需计费</td>
+</tr>
+<!-- 模型 -->
+<tr>
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">模型</td>
+<td class="p-6 bg-primary/5">自带模型/OpenAI</td>
+<td class="p-6 bg-primary/5">Foundry Pro</td>
+<td class="p-6 bg-primary/5">Lightweight</td>
+<td class="p-6">Logic 4.0</td>
+<td class="p-6">Pangu</td>
+<td class="p-6">ChatJD</td>
+<td class="p-6">Qwen</td>
+<td class="p-6">Q-Model</td>
+<td class="p-6">Custom Private</td>
+<td class="p-6">Max High-Perf</td>
+<td class="p-6">Kimi-Long</td>
+<td class="p-6">ERNIE</td>
+</tr>
+<!-- Skills -->
+<tr class="bg-surface-container-low/30">
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">Skills</td>
+<td class="p-6 bg-primary/5">无限 (自定义)</td>
+<td class="p-6 bg-primary/5">200+ 精选</td>
+<td class="p-6 bg-primary/5">50+ 基础</td>
+<td class="p-6">100+ 自动</td>
+<td class="p-6">50+ 企业级</td>
+<td class="p-6">30+ 垂直</td>
+<td class="p-6">80+ 云原生</td>
+<td class="p-6">40+</td>
+<td class="p-6">私有化定制</td>
+<td class="p-6">150+ 专业</td>
+<td class="p-6">20+ 办公</td>
+<td class="p-6">60+ 多模态</td>
+</tr>
+<!-- IM 集成 -->
+<tr>
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">IM 集成</td>
+<td class="p-6 bg-primary/5">Webhook/API</td>
+<td class="p-6 bg-primary/5">全平台支持</td>
+<td class="p-6 bg-primary/5">微信/钉钉</td>
+<td class="p-6">Webhook</td>
+<td class="p-6">WeLink</td>
+<td class="p-6">京ME</td>
+<td class="p-6">钉钉</td>
+<td class="p-6">企微</td>
+<td class="p-6">全私有 IM</td>
+<td class="p-6">全支持</td>
+<td class="p-6">API</td>
+<td class="p-6">百度 HI</td>
+</tr>
+<!-- 开源 -->
+<tr class="bg-surface-container-low/30">
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 font-semibold border-r border-outline-variant/10">开源</td>
+<td class="p-6 bg-primary/5"><span class="text-tertiary-container font-bold">✓</span></td>
+<td class="p-6 bg-primary/5"><span class="text-tertiary-container font-bold">✓</span></td>
+<td class="p-6 bg-primary/5"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-tertiary-container font-bold">✓</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-tertiary-container font-bold">✓</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+<td class="p-6"><span class="text-error font-bold">✗</span></td>
+</tr>
+<!-- Actions -->
+<tr>
+<td class="sticky left-0 z-10 bg-surface-container-low p-6 rounded-bl-3xl border-r border-outline-variant/10"></td>
+<td class="p-6 bg-primary/5">
+<button class="w-full py-2 bg-primary-container text-on-primary rounded-xl font-semibold hover:opacity-90 transition-all">立即使用</button>
+</td>
+<td class="p-6 bg-primary/5">
+<button class="w-full py-2 bg-primary-container text-on-primary rounded-xl font-semibold hover:opacity-90 transition-all">立即使用</button>
+</td>
+<td class="p-6 bg-primary/5">
+<button class="w-full py-2 bg-primary-container text-on-primary rounded-xl font-semibold hover:opacity-90 transition-all">立即使用</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+<td class="p-6 rounded-br-3xl">
+<button class="w-full py-2 border border-primary/20 text-primary rounded-xl font-semibold hover:bg-primary/5 transition-all">了解更多</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Recommendation Cards Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-[0px_20px_40px_rgba(25,27,35,0.06)] border border-outline-variant/10 flex flex-col items-start text-left">
+<div class="mb-6 p-3 bg-secondary/10 rounded-2xl">
+<span class="material-symbols-outlined text-secondary text-3xl">person</span>
+</div>
+<h3 class="font-headline font-bold text-2xl mb-2 text-on-surface">个人开发者</h3>
+<p class="text-on-surface-variant font-medium mb-4">OpenClaw + AutoClaw</p>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">免费开始，本地安装，50+ 预装 Skills。适合追求自由度与本地化控制的极客玩家。</p>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-xl font-bold active:scale-95 transition-all">立即安装 OpenClaw</button>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-[0px_20px_40px_rgba(25,27,35,0.06)] border border-outline-variant/10 flex flex-col items-start text-left relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold tracking-widest uppercase rotate-45 translate-x-12 -translate-y-2 w-40 text-center">Popular</div>
+<div class="mb-6 p-3 bg-primary/10 rounded-2xl">
+<span class="material-symbols-outlined text-primary text-3xl">groups</span>
+</div>
+<h3 class="font-headline font-bold text-2xl mb-2 text-on-surface">团队协作</h3>
+<p class="text-on-surface-variant font-medium mb-4">HiClaw + ArkClaw</p>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">开源自托管 + 飞书深度集成。专为中小型开发团队、初创企业设计的协作方案。</p>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-xl font-bold active:scale-95 transition-all">部署 HiClaw</button>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-[0px_20px_40px_rgba(25,27,35,0.06)] border border-outline-variant/10 flex flex-col items-start text-left">
+<div class="mb-6 p-3 bg-tertiary/10 rounded-2xl">
+<span class="material-symbols-outlined text-tertiary text-3xl">domain</span>
+</div>
+<h3 class="font-headline font-bold text-2xl mb-2 text-on-surface">企业级部署</h3>
+<p class="text-on-surface-variant font-medium mb-4">华为云 + 阿里云</p>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed">云端一键部署，SLA 保障，企业 IM 支持。提供极致的稳定性与专业的售后支持。</p>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-xl font-bold active:scale-95 transition-all">咨询企业方案</button>
+</div>
+</section>
+<!-- Enterprise CTA -->
+<section class="relative rounded-[2rem] overflow-hidden p-12 md:p-16 text-center">
+<!-- Background with gradient -->
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary-container z-0 opacity-100"></div>
+<!-- Background Image Overlay -->
+<div class="absolute inset-0 opacity-20 mix-blend-overlay z-0">
+<img alt="" class="w-full h-full object-cover" data-alt="Abstract cyber security and data pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqv7lT4adiK0Q8O8e9W7blMB7TjbD4yjfgPJHJgRJfHGafzJbqAq3BCS9stNxwSmtg_p2RXFim78YqoqK9Vo0UOs1VpT3gM2Aw63gq6O0FHV3lN7DyPrNi8SqIWC4_XPoks_faIHQHsrDlBQVXHTo-SBq8OFcExpoF__U7mbhKfaj8iQwYqV3Ov-b9nWYU9Padoqqnn6D-id3UrKQVmfuRxORSt1p8jrlVp2lmIe8XxKdvgkQzY1RzU6Kgws8ipYBa3M5LlZNgtCk"/>
+</div>
+<div class="relative z-10 flex flex-col items-center">
+<h2 class="font-headline font-extrabold text-3xl md:text-5xl text-on-primary mb-6">需要企业级定制部署？</h2>
+<p class="text-on-primary/80 text-lg md:text-xl mb-12 max-w-xl">联系我们获取专属方案，我们的专家将为您提供一对一咨询</p>
+<form class="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
+<input class="flex-grow bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder:text-white/60 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-white/40 transition-all" placeholder="输入您的企业邮箱" type="email"/>
+<button class="bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-surface-container transition-all active:scale-95" type="submit">提交</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#d9d9e5] dark:bg-slate-950 font-['Manrope'] text-sm w-full py-12">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6 max-w-[1440px] mx-auto">
+<div class="font-bold text-[#434655] dark:text-slate-300">
+                OpenClaw Foundry
+            </div>
+<div class="flex gap-8 text-[#434655] dark:text-slate-400">
+<a class="hover:text-[#0053db] underline underline-offset-4 transition-all" href="#">关于</a>
+<a class="hover:text-[#0053db] underline underline-offset-4 transition-all" href="#">文档</a>
+<a class="hover:text-[#0053db] underline underline-offset-4 transition-all" href="#">GitHub</a>
+<a class="hover:text-[#0053db] underline underline-offset-4 transition-all" href="#">ClawHub</a>
+<a class="hover:text-[#0053db] underline underline-offset-4 transition-all" href="#">联系</a>
+</div>
+<div class="text-[#434655]/60">
+                © 2024 OpenClaw Foundry. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

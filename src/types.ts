@@ -6,19 +6,21 @@ export const DEPLOY_MODES = ['local', 'cloud', 'saas', 'mobile', 'remote'] as co
 export type DeployMode = typeof DEPLOY_MODES[number];
 
 export const PROVIDER_IDS = [
-  'openclaw',       // Anthropic OpenClaw (default, local)
-  'arkclaw',        // 火山引擎 ArkClaw + 飞书
-  'workbuddy',      // 腾讯 WorkBuddy + QClaw + 企微/QQ
-  'jdcloud',        // 京东云 Lighthouse OpenClaw
-  'huaweicloud',    // 华为云 OpenClaw
-  'aliyun',         // 阿里云 JVS Claw + AgentBay
-  'duclaw',         // 百度智能云 DuClaw
-  'lobsterai',      // 网易有道 LobsterAI (开源桌面)
-  'autoclaw',       // 智谱 AutoClaw (AutoGLM)
-  'miclaw',         // 小米 miclaw (手机系统层)
-  'kimiclaw',       // 月之暗面 Kimi Claw (SaaS 托管)
-  'maxclaw',        // MiniMax MaxClaw (SaaS 托管+移动)
-  'lenovo',         // 联想百应远程部署
+  // Tier 1: 全自动 (凭证即部署)
+  'openclaw',       // Anthropic Claude Code (default, curl install)
+  'hiclaw',         // 阿里开源 HiClaw 团队版 (curl install + Higress API)
+  'copaw',          // 阿里开源 CoPaw 个人版 (pip install + CLI)
+  'autoclaw',       // 智谱 AutoClaw (download + CLI --no-interactive)
+  'huaweicloud',    // 华为云 Flexus L (Python SDK)
+  'jdcloud',        // 京东云 Compute Factory (Python SDK)
+  'aliyun',         // 阿里云轻量服务器 (Python SDK)
+  // Tier 2: 半自动 (一次人工授权后自动)
+  'qclaw',          // 腾讯 QClaw QQ Bot (QQ 开放平台 AppID)
+  'arkclaw',        // 火山引擎 ArkClaw (飞书 QR 扫码后 API 全自动)
+  'maxclaw',        // MiniMax MaxClaw (浏览器注册后 REST API)
+  // Tier 3: 引导式 (打开页面 + 步骤指南)
+  'kimiclaw',       // 月之暗面 KimiClaw (Web SaaS, K2.5 API fallback)
+  'duclaw',         // 百度智能云 DuClaw (Web SaaS, 无 API)
 ] as const;
 export type ProviderId = typeof PROVIDER_IDS[number];
 
@@ -149,6 +151,12 @@ export interface CatalogEntry {
   source: 'aifleet' | 'clawhub';
   category?: string;
   tags?: string[];
+  // Enriched fields (from MANIFEST + skill-groups)
+  designPattern?: 'reviewer' | 'generator' | 'pipeline' | 'unclassified';
+  lastModified?: string;
+  fileCount?: number;
+  group?: string;        // skill-group name
+  icon?: string;         // Material Symbols icon name
 }
 
 // --- Install manifest: records everything Foundry writes for uninstall/repair ---
@@ -206,20 +214,26 @@ export interface ExecutionResult {
 
 // --- Provider: multi-platform deployment abstraction (v2.0) ---
 
-export type ProviderType = 'cloud' | 'desktop' | 'mobile' | 'saas' | 'remote';
-export type ProviderStatus = 'stable' | 'beta' | 'preview' | 'planned';
+export type ProviderType = 'cloud' | 'desktop' | 'saas';
+export type ProviderStatus = 'stable' | 'beta' | 'preview';
+export type ProviderTier = 1 | 2 | 3;  // 1=全自动 2=半自动 3=引导式
 
 export interface ProviderMeta {
   id: ProviderId;
   name: string;
   vendor: string;
   type: ProviderType;
+  tier: ProviderTier;
   platforms: ('darwin' | 'win32' | 'linux' | 'android' | 'harmonyos')[];
   status: ProviderStatus;
   consoleUrl: string;
   docUrl: string;
   imChannels: ImChannel[];
   description: string;
+  /** Real install command or SDK package */
+  installCmd?: string;
+  /** GitHub repo (if open source) */
+  github?: string;
 }
 
 export interface Requirement {

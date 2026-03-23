@@ -150,3 +150,17 @@
 4. `ai check`:
    - `outputs/doc-bootstrap/doc-bootstrap-20260311-analyzer-fix/logs/ai-check.log`
    - Result: timeout after 20s
+
+##### Web Console v3.0 (2026-03-22, 完成)
+- Web Console: Next.js 15 + Tailwind v4 + Foundry Slate 设计系统
+- 4 页面: Dashboard / Catalog (13 platforms) / Deploy (4-step wizard) / Arena (multi-claw battle)
+- Stitch 设计管线: project 14805725606263234014, 4 screens generated
+- 后端: deploy-manager (async job) + arena-engine (4-dimension scoring) + auto-provision
+- 12 新 API 端点: deploy CRUD + arena CRUD + stats + model-providers
+- Executor v3: executeBlueprintForProvider — 真实本地部署到 ~/.{provider}/
+- 11 步部署: prereqs → CLI → home dir → identity → skills → agents → config → IM → model API → manifest → verify
+- IM auto-provision: 从 telegram/discord plugin + claude-to-im 自动同步 token (3 层 fallback)
+- Model API auto-provision: 从 env vars + config files 自动读取 (8 providers)
+- Arena 评分: deploySpeed(20%) + testPassRate(40%) + featureSupport(25%) + platformReach(15%)
+- tsc PASS, next build PASS, 4K screenshots captured
+- GitHub: MARUCIE/openclaw-foundry, commit 4fbea02 (+4,530 lines, 31 files)

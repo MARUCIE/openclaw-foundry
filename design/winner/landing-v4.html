@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw Foundry - 中国 OpenClaw 生态一站式门户</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-background": "#191b23",
+              "inverse-on-surface": "#f0f0fb",
+              "surface-container-high": "#e7e7f3",
+              "secondary-fixed": "#eaddff",
+              "background": "#faf8ff",
+              "tertiary-fixed": "#6ffbbe",
+              "primary-container": "#0053db",
+              "on-primary": "#ffffff",
+              "surface-bright": "#faf8ff",
+              "outline": "#737686",
+              "on-error": "#ffffff",
+              "surface": "#faf8ff",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-error-container": "#93000a",
+              "on-surface": "#191b23",
+              "on-primary-container": "#ced8ff",
+              "on-surface-variant": "#434655",
+              "secondary-fixed-dim": "#d2bbff",
+              "on-primary-fixed": "#00174b",
+              "inverse-surface": "#2e3039",
+              "surface-container-lowest": "#ffffff",
+              "secondary-container": "#8b4bfc",
+              "surface-dim": "#d9d9e5",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline-variant": "#c3c6d7",
+              "on-secondary-container": "#fffbff",
+              "surface-container-highest": "#e1e2ed",
+              "on-secondary-fixed": "#25005a",
+              "on-tertiary": "#ffffff",
+              "primary": "#003ea8",
+              "on-tertiary-fixed": "#002114",
+              "surface-tint": "#0053db",
+              "surface-container-low": "#f3f3fe",
+              "tertiary-container": "#006c49",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface-container": "#ededf9",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#5a00c6",
+              "surface-variant": "#e1e2ed",
+              "on-tertiary-container": "#64f1b4",
+              "primary-fixed": "#dbe1ff",
+              "inverse-primary": "#b4c5ff",
+              "tertiary": "#005136",
+              "on-tertiary-fixed-variant": "#005236",
+              "secondary": "#712ae2"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .tonal-shift { transition: background-color 0.3s ease; }
+      .glass-effect { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+      .mesh-overlay {
+        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+        background-size: 24px 24px;
+      }
+      @keyframes countUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-count { animation: countUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm">
+<div class="max-w-screen-2xl mx-auto flex justify-between items-center px-6 md:px-12 py-4">
+<div class="text-2xl font-black tracking-tighter text-blue-800 dark:text-blue-200 font-headline">
+                OpenClaw Foundry
+            </div>
+<div class="hidden md:flex items-center space-x-8 font-manrope font-bold text-sm tracking-tight">
+<a class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 dark:border-blue-400 pb-1" href="#">部署</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-colors px-3 py-2" href="#">导航</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-colors px-3 py-2" href="#">资讯</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-colors px-3 py-2" href="#">竞技场</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-colors px-3 py-2" href="#">定价</a>
+</div>
+<div class="flex items-center">
+<button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-full font-headline font-bold text-sm hover:opacity-90 transition-all active:scale-95 duration-150 ease-in-out shadow-lg shadow-primary/20">
+                    开始使用
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden bg-gradient-to-br from-[#003ea8] to-[#712ae2]">
+<div class="absolute inset-0 mesh-overlay opacity-30"></div>
+<div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 space-y-8 text-center md:text-left">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold tracking-widest uppercase backdrop-blur-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                    China AI Agent Portal
+                </div>
+<h1 class="text-5xl md:text-7xl font-headline font-extrabold text-white leading-[1.1] tracking-tight">
+                    一键部署 AI Agent <br/>
+<span class="opacity-90">12 大平台，一个入口</span>
+</h1>
+<p class="text-xl md:text-2xl text-blue-50/80 max-w-2xl leading-relaxed">
+                    OpenClaw Foundry 是中国 OpenClaw 生态的一站式部署、导航、资讯平台。
+                </p>
+<div class="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center md:justify-start">
+<button class="w-full sm:w-auto px-10 py-4 bg-white text-primary rounded-2xl font-headline font-bold text-lg shadow-2xl hover:bg-blue-50 transition-all transform hover:-translate-y-1">
+                        立即部署
+                    </button>
+<button class="w-full sm:w-auto px-10 py-4 border-2 border-white/30 text-white rounded-2xl font-headline font-bold text-lg hover:bg-white/10 backdrop-blur-sm transition-all transform hover:-translate-y-1">
+                        浏览平台
+                    </button>
+</div>
+</div>
+<div class="flex-1 w-full max-w-xl">
+<div class="relative group">
+<div class="absolute -inset-4 bg-white/10 rounded-[2.5rem] blur-2xl opacity-50"></div>
+<div class="relative bg-white/5 p-4 rounded-[2.5rem] shadow-2xl border border-white/20 overflow-hidden backdrop-blur-md">
+<img alt="AI Core" class="rounded-[2rem] w-full object-cover aspect-[4/3]" data-alt="Futuristic AI glowing core with geometric circuits" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9kYCqE8-CdFSl-6uIGEjnKaGo_-O1V2gMKCaxmnYPmQzdRiHzKo28-O-VFYSOYJu81nn0oK2NBg-N4sc34-U63LvwIesnO_L91BaJLjDBgZMULDHZGdasmS8GHthB0WGEpQFf4SOPGGZnU89NxZIc82cgC3igzyI3lFWg3XrH_tl3ffOW2vKjGdaVcxTAwNZ3DCIsAN4prjZXpUEc7ozcrrOmLvuoJRKZZJ7_6GAb8gAyOzcpkP6Oy7RSHl5xaK_RwyN1pDKqDIA"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Quick Stats Bar -->
+<section class="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-2xl shadow-primary/10 flex flex-col items-center justify-center text-center space-y-3 group hover:bg-primary transition-all duration-300 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl transition-colors">rocket_launch</span>
+<span class="text-4xl font-headline font-extrabold text-on-surface group-hover:text-white transition-colors animate-count">12</span>
+<span class="text-xs font-label font-bold text-on-surface-variant group-hover:text-white/70 transition-colors tracking-widest uppercase">支持平台</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-2xl shadow-primary/10 flex flex-col items-center justify-center text-center space-y-3 group hover:bg-primary transition-all duration-300 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl transition-colors">puzzle</span>
+<span class="text-4xl font-headline font-extrabold text-on-surface group-hover:text-white transition-colors animate-count">5,400+</span>
+<span class="text-xs font-label font-bold text-on-surface-variant group-hover:text-white/70 transition-colors tracking-widest uppercase">Agent Skills</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-2xl shadow-primary/10 flex flex-col items-center justify-center text-center space-y-3 group hover:bg-primary transition-all duration-300 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl transition-colors">hub</span>
+<span class="text-4xl font-headline font-extrabold text-on-surface group-hover:text-white transition-colors animate-count">100+</span>
+<span class="text-xs font-label font-bold text-on-surface-variant group-hover:text-white/70 transition-colors tracking-widest uppercase">MCP Connectors</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-2xl shadow-primary/10 flex flex-col items-center justify-center text-center space-y-3 group hover:bg-primary transition-all duration-300 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl transition-colors">auto_fix</span>
+<span class="text-4xl font-headline font-extrabold text-on-surface group-hover:text-white transition-colors animate-count">L3</span>
+<span class="text-xs font-label font-bold text-on-surface-variant group-hover:text-white/70 transition-colors tracking-widest uppercase">自动化级别</span>
+</div>
+</div>
+</section>
+<!-- Platform Showcase Section -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+<div class="space-y-4">
+<h2 class="text-4xl font-headline font-extrabold text-on-surface">12 大 Agent 平台，3 级自动化</h2>
+<p class="text-on-surface-variant text-lg">基于自动化程度精细化分类，找到最适合您的部署方案。</p>
+</div>
+<div class="flex gap-2">
+<div class="px-4 py-2 bg-surface-container-high rounded-full text-sm font-bold text-on-surface-variant">全部平台</div>
+<div class="px-4 py-2 bg-primary text-on-primary rounded-full text-sm font-bold">按层级查看</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Tier 1: Full Auto -->
+<div class="space-y-6">
+<div class="flex items-center gap-3 p-4 bg-tertiary-fixed rounded-2xl">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<h3 class="font-headline font-bold text-on-tertiary-fixed">Tier 1 全自动</h3>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#22c55e]"></span>
+<h4 class="font-bold text-on-surface">OpenClaw</h4>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a>
+</div>
+<p class="text-xs text-on-surface-variant">Official Vendor</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">核心全自动 Agent 引擎，支持多任务并行调度。</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">cloud</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#22c55e]"></span>
+<h4 class="font-bold text-on-surface">华为云</h4>
+</div>
+<p class="text-xs text-on-surface-variant">Cloud Provider</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">深度集成 ModelArts，提供极速算力加持。</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl opacity-60">
+<p class="text-center text-xs text-on-surface-variant font-medium">
+                        + <span class="text-green-600">●</span> HiClaw, <span class="text-green-600">●</span> CoPaw, <span class="text-green-600">●</span> AutoClaw, 京东云, 阿里云
+                    </p>
+</div>
+</div>
+</div>
+<!-- Tier 2: Semi Auto -->
+<div class="space-y-6">
+<div class="flex items-center gap-3 p-4 bg-secondary-fixed rounded-2xl">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome_motion</span>
+<h3 class="font-headline font-bold text-on-secondary-fixed">Tier 2 半自动</h3>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">token</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+<h4 class="font-bold text-on-surface">ArkClaw</h4>
+</div>
+<p class="text-xs text-on-surface-variant">Enterprise Edition</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">为企业安全设计的半自动流，关键步骤人工确认。</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#f59e0b]"></span>
+<h4 class="font-bold text-on-surface">QClaw</h4>
+</div>
+<p class="text-xs text-on-surface-variant">Community Project</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">灵活可配置的轻量级方案，适合开发者调试。</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl opacity-60">
+<p class="text-center text-xs text-on-surface-variant font-medium">+ <span class="text-amber-500">●</span> MaxClaw</p>
+</div>
+</div>
+</div>
+<!-- Tier 3: Guided -->
+<div class="space-y-6">
+<div class="flex items-center gap-3 p-4 bg-surface-container-high rounded-2xl">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<h3 class="font-headline font-bold text-on-surface">Tier 3 引导式</h3>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#94a3b8]"></span>
+<h4 class="font-bold text-on-surface">KimiClaw</h4>
+</div>
+<p class="text-xs text-on-surface-variant">Social Integration</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">基于对话引导的部署模式，新手友好度 100%。</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl hover:bg-surface-container-lowest transition-all group border border-transparent hover:border-outline-variant/30">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-4">
+<div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#94a3b8]"></span>
+<h4 class="font-bold text-on-surface">DuClaw</h4>
+</div>
+<p class="text-xs text-on-surface-variant">Baidu Eco</p>
+</div>
+</div>
+<button class="px-4 py-1.5 bg-primary-container text-on-primary rounded-lg text-xs font-bold">部署</button>
+</div>
+<p class="text-sm text-on-surface-variant">深度连接百度文心生态，提供全中文沉浸引导。</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest News Section -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex justify-between items-center mb-16">
+<h2 class="text-4xl font-headline font-extrabold text-on-surface">最新动态</h2>
+<a class="text-primary font-bold hover:underline underline-offset-8" href="#">查看全部动态 →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<!-- Featured News Card (2x wide) -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group flex flex-col md:flex-row">
+<div class="md:w-1/2 overflow-hidden h-64 md:h-auto">
+<img alt="News 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApk_6B24Lp23Z5ayMp7OTuP9I2dlRCKRQXVlKK7TyvwTfQkiG8qQ790jXcTARlOw4F2eIPaMSVglnZxgBg5syOgCMGxkbMxlsjEn-TotrXioPqHmm1cXWjROEj_pqdIbS6qq_BY8YjCmjDl1wWGmeN2jofvgxfaTqNmaguw577BW3qYIb8uYLpuD-FYjEoEPeC6I-ByqlOsuVslWOojFl6eghjKEpAPSAIix0SbdH10muN8oUcW3BZHKTTW_ojA8c_1z4WHZ00m_E"/>
+</div>
+<div class="md:w-1/2 p-8 flex flex-col justify-center space-y-4">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-red-100 text-red-600 text-[10px] font-bold rounded-full uppercase">IT之家</span>
+<span class="text-xs text-on-surface-variant">2024年11月12日</span>
+</div>
+<h3 class="font-bold text-2xl text-on-surface leading-tight">OpenClaw 2.0 正式发布：全面支持 MCP 协议</h3>
+<p class="text-on-surface-variant">全新架构支持插件化扩展，大幅提升 Agent 之间的协同效率，打通最后 1 公里...</p>
+<button class="text-primary font-bold text-sm inline-flex items-center gap-2 hover:translate-x-1 transition-transform">阅读原文 <span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+</div>
+</div>
+<!-- News Card 2 -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group">
+<div class="h-48 overflow-hidden">
+<img alt="News 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqSXYVjEtIy5FSsIhFLZ-2Uc0-oLohKZNoLaOyJY8PknJge_NDVquO4D_46WDwD_tm5mjxCIAqCH2ayQ98t0c3iu8OWOIYkfqriwW32uMQDNybL2U4KfJCAWvbOc0RJCiVX_ksEA0EK0zkVW3-45stpCu4cNzmI3LWbAKBepbQB4SvJM22_mzgBqcHpLDugOgYMFqQskm27V0j8AByQ695BRPJ5HoKvY0EfMtE_KA5vT9zMiq-vMcJkADjx6HpoWN69RYosbBvJL0"/>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-bold rounded-full uppercase">36kr</span>
+<span class="text-xs text-on-surface-variant">2024年11月10日</span>
+</div>
+<h3 class="font-bold text-lg text-on-surface leading-snug">Foundry 与华为云达成战略协作</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">开发者现在可以通过 Foundry 控制台直接调用华为云计算资源...</p>
+</div>
+</div>
+<!-- News Card 3 -->
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group">
+<div class="h-48 overflow-hidden">
+<img alt="News 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhuiBdd3Ku-n6h-mQbq50MbJFY6Um0FN7fCKzHMwOMQ0_TGL2Gy42_XmgCKdv1GmjX9LhRpZvGLc-Q5rbVSIhBbHv-5yRJiseKlqQA6PTJ2rsS9D7Xson9kUnNUqPdQlYGpo40IQxuNlZF7fen2l-uFsErkyTQPBhCZ8OKPetSYoJFCYX6ydR5uaLmBw_I_FQywapV0aFO7G0rJstmHA5vwc32Gc_H9GrednTGfZ4AqN1z8BEJaaD6s7epXDyhn_WppRJqHxlFDXQ"/>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-full uppercase">GitHub</span>
+<span class="text-xs text-on-surface-variant">2024年11月08日</span>
+</div>
+<h3 class="font-bold text-lg text-on-surface leading-snug">100+ 新 MCP 插件上架资源库</h3>
+<p class="text-sm text-on-surface-variant line-clamp-2">社区贡献者力量爆发，Foundry 插件市场现已覆盖金融、医疗等...</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ClawHub Skill Market Section -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+<div class="flex justify-between items-end mb-12">
+<div class="space-y-4">
+<h2 class="text-4xl font-headline font-extrabold text-on-surface">热门 Skills</h2>
+<p class="text-on-surface-variant text-lg">基于自动化程度精细化分类，找到最适合您的部署方案。</p>
+</div>
+<a class="text-primary font-bold hover:underline underline-offset-8" href="#">浏览 5,400+ Skills →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Skill Card 1 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">query_stats</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">2.4k 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">深度市场分析</h4>
+<p class="text-sm text-on-surface-variant">自动抓取主流财经媒体数据，生成多维度的市场情绪简报。</p>
+</div>
+<!-- Skill Card 2 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">translate</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">1.8k 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">术语精准翻译</h4>
+<p class="text-sm text-on-surface-variant">集成自研术语库，为科研和工程文档提供专家级的中英互译。</p>
+</div>
+<!-- Skill Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">code</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">4.1k 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">代码重构大师</h4>
+<p class="text-sm text-on-surface-variant">深度扫描遗留代码，根据最新的设计模式提供自动化重构建议。</p>
+</div>
+<!-- Skill Card 4 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">1.1k 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">智能日程编排</h4>
+<p class="text-sm text-on-surface-variant">跨平台同步日程，自动冲突检测并推荐最优的工作流路径。</p>
+</div>
+<!-- Skill Card 5 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">900+ 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">安全合规助手</h4>
+<p class="text-sm text-on-surface-variant">实时监测交互数据，确保符合企业级安全标准和隐私法规要求。</p>
+</div>
+<!-- Skill Card 6 -->
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30 hover:border-primary/50 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">psychology_alt</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-bold text-on-surface-variant">2.8k 安装</span>
+<button class="mt-2 px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">安装</button>
+</div>
+</div>
+<h4 class="font-bold text-lg text-on-surface mb-2">创意思维导图</h4>
+<p class="text-sm text-on-surface-variant">通过自然语言交互，快速生成结构化的脑暴导图及初步方案。</p>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full pt-16 pb-12 border-t border-slate-200/50">
+<div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
+<div class="flex flex-col items-center space-y-4">
+<div class="font-bold text-slate-900 dark:text-slate-100 text-2xl font-headline tracking-tighter">OpenClaw Foundry</div>
+<div class="flex gap-6 font-manrope text-sm font-semibold text-slate-500 dark:text-slate-400">
+<a class="hover:text-blue-600 transition-colors" href="#">关于</a>
+<a class="hover:text-blue-600 transition-colors" href="#">文档</a>
+<a class="hover:text-blue-600 transition-colors" href="#">GitHub</a>
+<a class="hover:text-blue-600 transition-colors" href="#">ClawHub</a>
+<a class="hover:text-blue-600 transition-colors" href="#">联系</a>
+</div>
+</div>
+<div class="w-full h-px bg-slate-200/50"></div>
+<div class="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs font-manrope text-slate-400">
+<div class="font-medium">OpenClaw Foundry v4.0 — Maurice | maurice_wen@proton.me</div>
+<div class="flex items-center gap-4">
+<span>隐私政策</span>
+<span>服务条款</span>
+<span>© 2024</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

@@ -11,3 +11,6 @@ outputs/
 __pycache__/
 *.pyc
 .venv/
+web/.next/
+web/tsconfig.tsbuildinfo
+design/variants/

@@ -98,9 +98,9 @@ test('BlueprintSchema v2: rejects invalid deploy mode', () => {
 
 // ===== Registry Tests =====
 
-test('Registry: listProviders returns all 13 providers', () => {
+test('Registry: listProviders returns all 12 providers (v4.0)', () => {
   const providers = listProviders();
-  assert.equal(providers.length, 13);
+  assert.equal(providers.length, 12);
 });
 
 test('Registry: every PROVIDER_ID has a registered provider', () => {
@@ -134,8 +134,7 @@ test('Registry: listProvidersByOS filters correctly', () => {
   assert.ok(darwinProviders.length >= 10); // most support darwin
   for (const p of darwinProviders) assert.ok(p.platforms.includes('darwin'));
 
-  const androidProviders = listProvidersByOS('android');
-  assert.ok(androidProviders.length >= 1); // at least miclaw
+  // miclaw removed in v4.0 (closed beta)
 });
 
 test('Registry: listProvidersByIM filters correctly', () => {
@@ -150,7 +149,7 @@ test('Registry: getProviderStats returns correct type counts', () => {
   assert.equal(typeof stats.saas, 'number');
   assert.equal(typeof stats.cloud, 'number');
   const total = Object.values(stats).reduce((a, b) => a + b, 0);
-  assert.equal(total, 13);
+  assert.equal(total, 12);
 });
 
 // ===== Provider Meta Integrity Tests =====
@@ -177,7 +176,7 @@ test('Provider meta: no duplicate IDs', () => {
 });
 
 test('Provider meta: provider type matches expected categories', () => {
-  const validTypes = new Set(['cloud', 'desktop', 'mobile', 'saas', 'remote']);
+  const validTypes = new Set(['cloud', 'desktop', 'saas']);
   for (const p of listProviders()) {
     assert.ok(validTypes.has(p.type), `${p.id}: invalid type "${p.type}"`);
   }
@@ -222,52 +221,39 @@ test('Provider interface: diagnose returns valid structure', async () => {
   }
 });
 
-test('Provider interface: deploy with missing credentials returns error for cloud providers', async () => {
-  const cloudIds: ProviderId[] = ['arkclaw', 'jdcloud', 'huaweicloud', 'aliyun', 'duclaw'];
-  for (const id of cloudIds) {
-    const provider = getProvider(id);
-    const bp = buildTestBlueprint(id);
-    const result = await provider.deploy(bp);
-    assert.equal(result.success, false, `${id}: deploy should fail (no API or no credentials)`);
-    assert.ok(result.steps.length > 0, `${id}: should have at least one step`);
-    assert.ok(
-      result.steps.some(s => s.status === 'error'),
-      `${id}: should have an error step`,
-    );
-  }
-});
-
-test('Provider interface: deploy with missing token returns error for SaaS providers', async () => {
-  const saasIds: ProviderId[] = ['kimiclaw', 'maxclaw'];
-  for (const id of saasIds) {
-    const provider = getProvider(id);
-    const bp = buildTestBlueprint(id);
-    const result = await provider.deploy(bp);
-    assert.equal(result.success, false, `${id}: deploy should fail (no API or no token)`);
-    assert.ok(result.steps.some(s => s.status === 'error'), `${id}: should have error`);
-  }
-});
-
-test('Provider interface: all non-openclaw providers have apiReady=false', () => {
+test('Provider interface: all providers deploy returns valid result (v4.0)', async () => {
   for (const id of PROVIDER_IDS) {
     const provider = getProvider(id);
-    if (id === 'openclaw') {
-      assert.equal((provider as any).apiReady, true, 'openclaw should be apiReady');
-    } else {
-      assert.equal((provider as any).apiReady, false, `${id} should NOT be apiReady yet`);
-    }
+    const bp = buildTestBlueprint(id);
+    const result = await provider.deploy(bp);
+    assert.equal(typeof result.success, 'boolean', `${id}: deploy must return boolean success`);
+    assert.ok(Array.isArray(result.steps), `${id}: deploy must return steps array`);
+    assert.ok(result.steps.length > 0, `${id}: deploy must have at least one step`);
   }
 });
 
-test('Provider interface: non-ready providers return actionable error with console URL', async () => {
-  const provider = getProvider('arkclaw');
-  const bp = buildTestBlueprint('arkclaw');
-  const result = await provider.deploy(bp);
-  assert.equal(result.success, false);
-  const errorStep = result.steps.find(s => s.status === 'error');
-  assert.ok(errorStep);
-  assert.ok(errorStep!.message.includes('not yet integrated'), 'Error should mention API not integrated');
-  assert.ok(errorStep!.message.includes(provider.meta.consoleUrl), 'Error should include console URL');
+test('Provider interface: all v4.0 providers have apiReady=true', () => {
+  for (const id of PROVIDER_IDS) {
+    const provider = getProvider(id);
+    assert.equal((provider as any).apiReady, true, `${id} should be apiReady in v4.0`);
+  }
+});
+
+test('Provider interface: all providers have valid tier (1, 2, or 3)', () => {
+  for (const id of PROVIDER_IDS) {
+    const provider = getProvider(id);
+    const tier = provider.meta.tier;
+    assert.ok([1, 2, 3].includes(tier), `${id}: tier must be 1, 2, or 3 (got ${tier})`);
+  }
+});
+
+test('Provider interface: tier 1 providers have installCmd', () => {
+  for (const id of PROVIDER_IDS) {
+    const provider = getProvider(id);
+    if (provider.meta.tier === 1) {
+      assert.ok(provider.meta.installCmd, `${id}: tier 1 must have installCmd`);
+    }
+  }
 });
 
 // ===== OpenClaw Provider Specific =====

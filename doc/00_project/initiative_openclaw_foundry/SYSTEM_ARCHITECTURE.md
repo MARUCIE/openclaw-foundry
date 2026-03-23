@@ -3,10 +3,10 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-03-21`
+- Updated: `2026-03-22`
 
 ## System Boundary
-OpenClaw Foundry v2.0 is a universal Agent deployment platform supporting **13 platforms** across 5 categories (Desktop/SaaS/Cloud/Mobile/Remote). The system uses a **Provider abstraction layer** to dispatch a single Blueprint to any supported platform.
+OpenClaw Foundry v4.0 升维为**一键部署 + 导航 + 资讯站 + 商业化平台**，支持 **12 platforms** across 3 Tiers (全自动/半自动/引导式)。从内部 Console 升级为公开 Portal。
 
 Runtime styles:
 1. local execution through the `ocf` CLI
@@ -383,3 +383,171 @@ flowchart LR
 8. Web Console coupling:
    - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
    - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy
+
+---
+
+## v4.0 升维: Console → Portal (一键部署 + 导航 + 资讯 + 商业化)
+
+### 升维动机
+
+v3.0 是内部管理 Console (4 页: Dashboard/Catalog/Deploy/Arena)。
+v4.0 定位为**中国 OpenClaw 生态一站式公开入口**:
+- 流量入口: SEO + 社区传播 → 用户发现 OpenClaw 平台
+- 部署入口: 12 平台一键部署 (3 Tier 自动化)
+- 导航入口: ClawHub Skill 市场 + MCP 服务器目录
+- 资讯入口: 大厂动态 + 版本追踪 + 教程
+- 商业入口: 云厂商返佣 + 企业部署服务
+
+### v4.0 Provider 架构 (v3.0 审计后重建)
+
+v2.0/v3.0 审计发现: 13 Provider 中仅 OpenClaw 1 个真实 (7.7%)，其余 12 个 API 全是编造的。
+v4.0 基于 9 个研究 Agent 的调查结果重建:
+
+```
+Tier 1 全自动 (7)              Tier 2 半自动 (3)            Tier 3 引导式 (2)
+├── openclaw (curl+files)      ├── qclaw (QQ Bot)           ├── kimiclaw (Web SaaS)
+├── hiclaw (curl+Higress)      ├── arkclaw (飞书 QR)        └── duclaw (Web SaaS)
+├── copaw (pip+CLI)            └── maxclaw (注册+API)
+├── autoclaw (CLI --no-interactive)
+├── huaweicloud (Python SDK)
+├── jdcloud (Python SDK)
+└── aliyun (Python SDK)
+```
+
+砍掉: miclaw(封测) / 联想(IT服务) / WorkBuddy(合并QClaw) / LobsterAI(需源码构建)
+新增: hiclaw(阿里开源团队版) / copaw(阿里开源个人版) / qclaw(腾讯QQ Bot)
+
+### v4.0 页面架构 (Information Architecture)
+
+```
+/                              首页 Landing
+│                              Hero + 12 平台卡片 + 快速部署 CTA + 最新资讯
+│
+├── /deploy                    一键部署
+│   ├── /deploy/[provider]     平台专属页 (12个, 各含部署向导)
+│   └── /deploy/history        部署历史
+│
+├── /explore                   导航发现
+│   ├── /explore/platforms     平台目录 (12平台, Tier/Type 筛选, 对比工具)
+│   ├── /explore/skills        ClawHub Skill 市场 (搜索/分类/一键安装)
+│   ├── /explore/mcp           MCP 服务器目录
+│   └── /explore/compare       平台对比 (2-3 平台并排)
+│
+├── /news                      资讯中心
+│   ├── /news/feed             信息流 (RSS 聚合)
+│   ├── /news/releases         版本追踪 (各平台 changelog)
+│   └── /news/tutorials        教程合集
+│
+├── /arena                     竞技场 (保留, 增强)
+├── /pricing                   定价对比 + 返佣入口
+└── /about                     关于 + 企业合作
+```
+
+### vs v3.0 变更矩阵
+
+| v3.0 Page | v4.0 Page | 变化 |
+|-----------|-----------|------|
+| `/` Dashboard (内部统计) | `/` Hero Landing (公开) | 管理后台 → 公开入口 |
+| `/catalog` (平台列表) | `/explore/platforms` (导航+对比) | +Tier 徽章 +价格 +对比 |
+| `/deploy` (4步向导) | `/deploy/[provider]` (专属页) | 每平台独立 |
+| `/arena` (竞技场) | `/arena` (保留增强) | +评分维度 |
+| — | `/explore/skills` | 新增 ClawHub |
+| — | `/explore/mcp` | 新增 MCP 目录 |
+| — | `/news` | 新增资讯聚合 |
+| — | `/pricing` | 新增商业化 |
+
+### 新增数据模型
+
+```typescript
+// ClawHub Skill 条目
+interface SkillEntry {
+  id: string;
+  name: string;
+  description: string;
+  source: 'clawhub' | 'tencent-fork' | 'aifleet' | 'community';
+  category: string;
+  installCmd: string;
+  stars?: number;
+  downloads?: number;
+  compatibleProviders: ProviderId[];
+  tags: string[];
+}
+
+// MCP 服务器条目
+interface McpServerEntry {
+  id: string;
+  name: string;
+  description: string;
+  type: 'stdio' | 'http' | 'sse';
+  installCmd: string;
+  npmPackage?: string;
+  github?: string;
+  category: string;
+}
+
+// 资讯条目
+interface NewsItem {
+  id: string;
+  title: string;
+  summary: string;
+  url: string;
+  source: string;
+  category: 'release' | 'tutorial' | 'news' | 'analysis';
+  publishedAt: string;
+  tags: string[];
+  provider?: ProviderId;
+}
+
+// 平台定价
+interface PricingTier {
+  providerId: ProviderId;
+  tiers: {
+    name: string;
+    price: string;
+    features: string[];
+    affiliateUrl?: string;
+  }[];
+}
+```
+
+### 商业化模型
+
+| 收入来源 | 模式 | 入口 |
+|----------|------|------|
+| 云厂商 CPS 返佣 | 华为/京东/阿里注册链接 | /pricing + /deploy |
+| 企业部署服务 | 定制部署+培训 | /about 表单 |
+| Skill 市场分成 | 付费 Skill 上架 | /explore/skills |
+| 流量广告 | 导航站 Banner | 全站 |
+| 数据报告 | 行业分析 | 付费订阅 |
+
+### 技术栈 (增量)
+
+| 新增 | 技术 | 用途 |
+|------|------|------|
+| ISR | Next.js Incremental Static Regeneration | 资讯页 6h 刷新 |
+| RSS Parser | `rss-parser` npm | 聚合 IT之家/36kr |
+| GitHub API | Octokit | 版本追踪 |
+| SQLite/Turso | 持久化 | 部署历史+资讯缓存 |
+| Plausible | 分析 | 隐私友好 |
+| Vercel/CF Pages | 部署 | 静态+SSR |
+
+### Stitch 设计管线
+
+架构确认后，走 3 轮 Stitch 设计:
+
+| Round | 页面 | 产出 |
+|-------|------|------|
+| R1 | 首页 Hero + 快速部署 | 3 方案 → 选 Winner |
+| R2 | Skill 市场 + MCP 目录 | 3 方案 → 选 Winner |
+| R3 | 资讯中心 + 定价页 | 3 方案 → 选 Winner |
+
+### 实施路线
+
+| Phase | 内容 | 依赖 |
+|-------|------|------|
+| P0 | Provider v3.0 真实实现 (进行中) | — |
+| P1 | Stitch R1: 首页 + 部署页 | P0 |
+| P2 | Stitch R2: Skill + MCP 导航 | P1 |
+| P3 | 资讯聚合引擎 + /news | P1 |
+| P4 | 商业化: /pricing + 返佣 | P2 |
+| P5 | Stitch R3: 资讯 + 定价 | P3+P4 |

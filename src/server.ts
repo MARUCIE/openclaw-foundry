@@ -146,6 +146,62 @@ app.get('/api/catalog', async (req, res) => {
   }
 });
 
+// --- ClawHub Skills (curated, from daily sync) ---
+let clawhubCache: { meta: any; skills: any[] } | null = null;
+
+async function loadClawHubSkills() {
+  if (clawhubCache) return clawhubCache;
+  try {
+    const raw = await readFile(join(__dirname, '..', 'data', 'clawhub-skills.json'), 'utf-8');
+    clawhubCache = JSON.parse(raw);
+    log.ok(`ClawHub skills loaded: ${clawhubCache!.skills.length} curated`);
+    return clawhubCache!;
+  } catch {
+    return { meta: { totalProcessed: 0 }, skills: [] };
+  }
+}
+
+// Reload on SIGHUP (for cron sync refresh)
+process.on('SIGHUP', () => {
+  clawhubCache = null;
+  log.note('ClawHub cache cleared (SIGHUP), will reload on next request');
+});
+
+app.get('/api/skills', async (req, res) => {
+  const data = await loadClawHubSkills();
+  const category = req.query.category as string | undefined;
+  const rating = req.query.rating as string | undefined;
+  const search = req.query.search as string | undefined;
+  const limit = parseInt(req.query.limit as string || '50');
+  const offset = parseInt(req.query.offset as string || '0');
+
+  let filtered = data.skills;
+  if (category) filtered = filtered.filter((s: any) => s.category === category);
+  if (rating) filtered = filtered.filter((s: any) => s.rating === rating);
+  if (search) {
+    const q = search.toLowerCase();
+    filtered = filtered.filter((s: any) =>
+      s.name.toLowerCase().includes(q) || s.description.toLowerCase().includes(q) || s.author.toLowerCase().includes(q)
+    );
+  }
+
+  const total = filtered.length;
+  const paged = filtered.slice(offset, offset + limit);
+
+  res.json({
+    meta: data.meta,
+    total,
+    offset,
+    limit,
+    skills: paged,
+  });
+});
+
+app.get('/api/skills/categories', async (_req, res) => {
+  const data = await loadClawHubSkills();
+  res.json({ categories: data.meta.byCategory || {} });
+});
+
 // --- Profiles: list / get preset profiles ---
 app.get('/api/profiles', async (_req, res) => {
   const profiles = await listProfiles();

@@ -1,25 +1,59 @@
 @import "tailwindcss";
 
+/* Azure Foundry Design System — MD3 tokens from Stitch Winner HTML */
 :root {
-  /* Foundry Slate design system tokens */
-  --surface: #f8f9ff;
-  --surface-container: #e5eeff;
-  --surface-container-low: #eff4ff;
+  --surface: #faf8ff;
+  --surface-dim: #d9d9e5;
+  --surface-bright: #faf8ff;
+  --surface-container: #ededf9;
+  --surface-container-low: #f3f3fe;
   --surface-container-lowest: #ffffff;
-  --surface-container-high: #dce9ff;
+  --surface-container-high: #e7e7f3;
+  --surface-container-highest: #e1e2ed;
+  --surface-variant: #e1e2ed;
   --surface-tint: #0053db;
-  --on-surface: #0b1c30;
-  --on-surface-variant: #45464d;
-  --primary: #2563eb;
+  --on-surface: #191b23;
+  --on-surface-variant: #434655;
+  --on-background: #191b23;
+  --background: #faf8ff;
+  --primary: #003ea8;
+  --primary-container: #0053db;
   --primary-fixed: #dbe1ff;
-  --secondary: #7c3aed;
+  --primary-fixed-dim: #b4c5ff;
+  --on-primary: #ffffff;
+  --on-primary-container: #ced8ff;
+  --on-primary-fixed: #00174b;
+  --on-primary-fixed-variant: #003ea8;
+  --inverse-primary: #b4c5ff;
+  --inverse-surface: #2e3039;
+  --inverse-on-surface: #f0f0fb;
+  --secondary: #712ae2;
+  --secondary-container: #8b4bfc;
   --secondary-fixed: #eaddff;
-  --tertiary: #10b981;
+  --secondary-fixed-dim: #d2bbff;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #fffbff;
+  --on-secondary-fixed: #25005a;
+  --on-secondary-fixed-variant: #5a00c6;
+  --tertiary: #005136;
+  --tertiary-container: #006c49;
   --tertiary-fixed: #6ffbbe;
+  --tertiary-fixed-dim: #4edea3;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #64f1b4;
+  --on-tertiary-fixed: #002114;
+  --on-tertiary-fixed-variant: #005236;
   --error: #ba1a1a;
   --error-container: #ffdad6;
-  --outline: #76777d;
-  --outline-variant: #c6c6cd;
+  --on-error: #ffffff;
+  --on-error-container: #93000a;
+  --outline: #737686;
+  --outline-variant: #c3c6d7;
+}
+
+/* ═══ Base Typography ═══ */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -30,4 +64,148 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+/* ═══ Interactive Elements ═══ */
+
+/* Smooth transitions for all interactive elements */
+a, button {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* All buttons get press feedback */
+button:active, a[class*="rounded"]:active {
+  transform: scale(0.97);
+}
+
+/* Card hover lift — enhanced with border glow */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 62, 168, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Stat card hover (Landing page stats bar) */
+.stat-card {
+  transition: background-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stat-card:hover {
+  background-color: var(--primary) !important;
+  transform: translateY(-2px);
+}
+.stat-card:hover .stat-icon,
+.stat-card:hover .stat-value {
+  color: white !important;
+}
+.stat-card:hover .stat-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ═══ Hero ═══ */
+.mesh-overlay {
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ═══ Animations ═══ */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-count { animation: countUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered card entrance */
+.card-hover:nth-child(1) { animation-delay: 0ms; }
+.card-hover:nth-child(2) { animation-delay: 50ms; }
+.card-hover:nth-child(3) { animation-delay: 100ms; }
+.card-hover:nth-child(4) { animation-delay: 150ms; }
+.card-hover:nth-child(5) { animation-delay: 200ms; }
+.card-hover:nth-child(6) { animation-delay: 250ms; }
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--surface-container) 25%, var(--surface-container-low) 50%, var(--surface-container) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ═══ Focus Ring ═══ */
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0, 83, 219, 0.15);
+  border-color: var(--primary-container) !important;
+  outline: none;
+}
+
+/* ═══ Table ═══ */
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+/* ═══ Scrollbar ═══ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--outline-variant); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--outline); }
+
+/* ═══ CJK Typography ═══ */
+p, span, td, th, li, label {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 768px) {
+  .desktop-nav { display: none; }
+}
+
+/* ═══ Selection ═══ */
+::selection {
+  background: var(--primary-fixed-dim);
+  color: var(--on-surface);
+}
+
+/* ═══ Nav link hover underline animation ═══ */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--surface-tint);
+  transition: width 0.25s ease, left 0.25s ease;
+}
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  width: 100%;
+  left: 0;
 }

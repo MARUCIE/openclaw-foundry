@@ -10,7 +10,7 @@ import { executeBlueprintForProvider } from '../executor.js';
 export abstract class BaseProvider implements Provider {
   abstract meta: ProviderMeta;
 
-  // Override to true when real API integration is implemented
+  // Override to true when real API/CLI integration is verified working
   apiReady = false;
 
   abstract deploy(blueprint: Blueprint): Promise<DeployResult>;
@@ -20,10 +20,15 @@ export abstract class BaseProvider implements Provider {
   abstract diagnose(): Promise<DiagnoseResult>;
   abstract getRequirements(): Requirement[];
 
-  /** Guard: if not apiReady, fallback to simulation instead of hard-failing */
+  /** Guard: if not apiReady, return actionable error with console URL */
   protected checkApiReady(): DeployResult | null {
-    // Returns null — let each provider decide to call simulateDeploy() as fallback
-    return null;
+    if (this.apiReady) return null;
+    return {
+      success: false,
+      steps: [this.step('API', 'error',
+        `${this.meta.name} API not yet integrated — use ${this.meta.consoleUrl} manually` +
+        (this.meta.installCmd ? ` or install via: ${this.meta.installCmd}` : ''))],
+    };
   }
 
   /** Check if real API credentials are configured for this provider */

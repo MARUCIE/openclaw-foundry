@@ -7,17 +7,22 @@ import type {
 import { DesktopProvider } from './base.js';
 
 export class AutoClawProvider extends DesktopProvider {
+  apiReady = true;
+
   meta: ProviderMeta = {
     id: 'autoclaw',
     name: 'AutoClaw',
     vendor: '智谱 AI (Zhipu AI)',
     type: 'desktop',
+    tier: 1,
     platforms: ['darwin', 'win32', 'linux'],
-    status: 'preview',
+    status: 'stable',
     consoleUrl: 'https://autoglm.zhipuai.cn/autoclaw',
     docUrl: 'https://open.bigmodel.cn/dev/howuse/autoclaw',
-    imChannels: [],
-    description: '智谱 AutoClaw — 国内首个"一键安装"本地 OpenClaw 客户端。AutoGLM Browser-Use 多步跨页面自动化。预置 50+ Skills。支持飞书集成。',
+    imChannels: ['feishu'],
+    installCmd: 'curl -L https://autoglm.zhipuai.cn/autoclaw/AutoClaw-macos-arm64.dmg -o /tmp/autoclaw.dmg',
+    github: 'tsingliuwin/autoclaw',
+    description: '智谱 AutoClaw — 国内首个一键安装本地 OpenClaw。CLI-first 设计，支持 --no-interactive 无人值守。50+ 预装 Skills + AutoGLM 浏览器自动化。',
   };
 
   async deploy(blueprint: Blueprint): Promise<DeployResult> {

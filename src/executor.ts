@@ -1076,11 +1076,11 @@ async function verify(): Promise<StepResult> {
 // Each provider gets its own home directory (~/.{provider}/) with the same file structure.
 
 export interface ProviderDeployOptions {
-  providerId: string;         // e.g. 'arkclaw', 'workbuddy'
-  providerName: string;       // e.g. 'ArkClaw', 'WorkBuddy / QClaw'
+  providerId: string;         // e.g. 'arkclaw', 'hiclaw', 'qclaw'
+  providerName: string;       // e.g. 'ArkClaw', 'HiClaw', 'QClaw'
   homeDir?: string;           // override, defaults to ~/.{providerId}
   configFileName?: string;    // override, defaults to {providerId}.json
-  cliCommand?: string;        // CLI binary name to check, e.g. 'arkclaw', 'workbuddy'
+  cliCommand?: string;        // CLI binary name to check, e.g. 'arkclaw', 'copaw'
   consoleUrl?: string;        // platform console URL for guidance
   imChannels?: string[];      // supported IM channels from provider meta
 }

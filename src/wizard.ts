@@ -325,16 +325,7 @@ export async function runWizardV2(): Promise<WizardAnswersV2> {
         const p = allProviders.find(pp => pp.id === c.value);
         return p?.type === 'saas';
       }),
-      { name: chalk.cyan('--- Mobile ---'), value: '__mobile_header' as ProviderId, disabled: '─' },
-      ...providerChoices.filter(c => {
-        const p = allProviders.find(pp => pp.id === c.value);
-        return p?.type === 'mobile';
-      }),
-      { name: chalk.cyan('--- Remote Service ---'), value: '__remote_header' as ProviderId, disabled: '─' },
-      ...providerChoices.filter(c => {
-        const p = allProviders.find(pp => pp.id === c.value);
-        return p?.type === 'remote';
-      }),
+      // mobile and remote types removed in v4.0
     ].filter(c => !c.value.startsWith('__')),
   });
 

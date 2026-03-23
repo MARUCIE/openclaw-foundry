@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw Foundry v4.0 - MCP 服务器目录</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2e3039",
+              "on-surface-variant": "#434655",
+              "on-secondary": "#ffffff",
+              "secondary-container": "#8b4bfc",
+              "on-tertiary-container": "#64f1b4",
+              "on-background": "#191b23",
+              "secondary": "#712ae2",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#d2bbff",
+              "tertiary-fixed-dim": "#4edea3",
+              "tertiary-fixed": "#6ffbbe",
+              "on-secondary-container": "#fffbff",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#ededf9",
+              "primary-fixed-dim": "#b4c5ff",
+              "outline-variant": "#c3c6d7",
+              "secondary-fixed": "#eaddff",
+              "on-tertiary-fixed-variant": "#005236",
+              "surface-dim": "#d9d9e5",
+              "on-surface": "#191b23",
+              "error": "#ba1a1a",
+              "surface-bright": "#faf8ff",
+              "on-primary-fixed": "#00174b",
+              "surface-variant": "#e1e2ed",
+              "surface-tint": "#0053db",
+              "outline": "#737686",
+              "tertiary": "#005136",
+              "surface-container-high": "#e7e7f3",
+              "inverse-on-surface": "#f0f0fb",
+              "primary": "#003ea8",
+              "on-primary": "#ffffff",
+              "surface-container-low": "#f3f3fe",
+              "surface-container-highest": "#e1e2ed",
+              "background": "#faf8ff",
+              "surface": "#faf8ff",
+              "on-tertiary-fixed": "#002114",
+              "tertiary-container": "#006c49",
+              "on-primary-fixed-variant": "#003ea8",
+              "on-secondary-fixed": "#25005a",
+              "inverse-primary": "#b4c5ff",
+              "error-container": "#ffdad6",
+              "primary-container": "#0053db",
+              "on-secondary-fixed-variant": "#5a00c6",
+              "primary-fixed": "#dbe1ff",
+              "on-primary-container": "#ced8ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed-dim selection:text-primary">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-[#faf8ff]/80 dark:bg-[#1a1b23]/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 h-16 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold text-[#003ea8] dark:text-[#faf8ff] tracking-tighter font-headline">OpenClaw Foundry v4.0</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#434655] dark:text-[#d9d9e5] hover:text-[#712ae2] transition-colors duration-300 active:scale-95 transition-transform" href="#">部署</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#0053db] dark:text-[#4edea3] border-b-2 border-[#0053db] pb-1 hover:text-[#712ae2] transition-colors duration-300 active:scale-95 transition-transform" href="#">导航</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#434655] dark:text-[#d9d9e5] hover:text-[#712ae2] transition-colors duration-300 active:scale-95 transition-transform" href="#">资讯</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#434655] dark:text-[#d9d9e5] hover:text-[#712ae2] transition-colors duration-300 active:scale-95 transition-transform" href="#">竞技场</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#434655] dark:text-[#d9d9e5] hover:text-[#712ae2] transition-colors duration-300 active:scale-95 transition-transform" href="#">定价</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">language</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">dark_mode</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-20 max-w-[1440px] mx-auto px-8">
+<!-- Hero Section -->
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-5xl font-extrabold font-headline tracking-tight text-primary mb-3">MCP 服务器目录</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl">100+ 模型上下文协议服务器，连接 AI Agent 与万物。通过标准化的接口扩展您的模型能力。</p>
+</div>
+<div class="w-full md:w-96 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-high border-none rounded-2xl focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="搜索 MCP 服务器..." type="text"/>
+</div>
+</div>
+</header>
+<!-- Category Tabs -->
+<div class="flex flex-wrap gap-2 mb-12 border-b border-outline-variant/20 pb-4">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-semibold text-sm transition-all active:scale-95">全部</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">数据库</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">通讯</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">云服务</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">文件系统</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">开发工具</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">搜索</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">浏览器</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">IM</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high font-medium text-sm transition-all active:scale-95">其他</button>
+</div>
+<!-- Featured Section -->
+<section class="mb-16">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<h2 class="text-2xl font-bold font-headline text-on-surface">官方推荐</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Featured Card 1: GitHub -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 relative overflow-hidden ring-1 ring-outline-variant/10">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex items-start justify-between mb-6">
+<div class="p-4 bg-primary-container rounded-2xl text-on-primary">
+<span class="material-symbols-outlined text-4xl">code</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-xs font-bold uppercase tracking-wider">Premium</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">GitHub</h3>
+<p class="text-on-surface-variant mb-6 leading-relaxed">完整集成 GitHub 工作流，管理仓库、PR、Issue 及代码讨论，让 Agent 具备真正的开发协作能力。</p>
+<div class="bg-surface-container-high p-3 rounded-xl mb-6 font-mono text-xs text-primary-container flex items-center justify-between">
+<code>npx @modelcontextprotocol/server-github</code>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-secondary">content_copy</span>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> 一键安装
+                    </button>
+</div>
+<!-- Featured Card 2: Filesystem -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 relative overflow-hidden ring-1 ring-outline-variant/10">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-tertiary-fixed-dim/10 rounded-full blur-3xl group-hover:bg-tertiary-fixed-dim/20 transition-colors"></div>
+<div class="flex items-start justify-between mb-6">
+<div class="p-4 bg-tertiary-container rounded-2xl text-on-tertiary">
+<span class="material-symbols-outlined text-4xl">folder_open</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold uppercase tracking-wider">Core</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Filesystem</h3>
+<p class="text-on-surface-variant mb-6 leading-relaxed">本地文件系统读写权限。支持受控目录下的文件搜索、内容读取与自动化修改，Agent 的大脑延伸至本地。</p>
+<div class="bg-surface-container-high p-3 rounded-xl mb-6 font-mono text-xs text-primary-container flex items-center justify-between">
+<code>npx @modelcontextprotocol/server-filesystem</code>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-secondary">content_copy</span>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> 一键安装
+                    </button>
+</div>
+<!-- Featured Card 3: PostgreSQL -->
+<div class="group p-8 rounded-2xl bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 relative overflow-hidden ring-1 ring-outline-variant/10">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary-container/10 rounded-full blur-3xl group-hover:bg-secondary-container/20 transition-colors"></div>
+<div class="flex items-start justify-between mb-6">
+<div class="p-4 bg-secondary-container rounded-2xl text-on-secondary-container">
+<span class="material-symbols-outlined text-4xl">database</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-xs font-bold uppercase tracking-wider">Data</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">PostgreSQL</h3>
+<p class="text-on-surface-variant mb-6 leading-relaxed">安全地连接至您的关系型数据库。支持 Schema 自查、复杂 SQL 执行与数据分析报告生成。</p>
+<div class="bg-surface-container-high p-3 rounded-xl mb-6 font-mono text-xs text-primary-container flex items-center justify-between">
+<code>npx @modelcontextprotocol/server-postgres</code>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-secondary">content_copy</span>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span> 一键安装
+                    </button>
+</div>
+</div>
+</section>
+<!-- MCP Server Grid -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">apps</span>
+<h2 class="text-2xl font-bold font-headline text-on-surface">探索全部服务器</h2>
+</div>
+<div class="text-sm font-medium text-on-surface-variant bg-surface-container-high px-4 py-1 rounded-full">
+                    显示 12 / 128 个结果
+                </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">database</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">PostgreSQL</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">数据库查询与管理</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/postgres
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            2.4k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-on-background bg-surface-variant p-2 rounded-lg">terminal</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">GitHub</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">仓库/PR/Issue 管理</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/github
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            3.1k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed p-2 rounded-lg">chat_bubble</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Slack</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">消息发送与频道管理</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/slack
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            1.8k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-tertiary bg-tertiary-fixed p-2 rounded-lg">folder_shared</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Filesystem</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">本地文件读写</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/filesystem
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.2k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">view_agenda</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Docker</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">容器管理与部署</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/docker
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            1.2k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-on-surface-variant bg-surface-container-high p-2 rounded-lg">search_check</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Brave Search</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">隐私搜索引擎</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/brave
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            900
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">browser_updated</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Chrome DevTools</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">浏览器调试与自动化</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/chrome
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            1.5k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-blue-500 bg-blue-50 p-2 rounded-lg">nest_multi_room</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">飞书</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">消息/文档/日历自动化</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/feishu
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            800
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 9 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-blue-600 bg-blue-100 p-2 rounded-lg">corporate_fare</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">钉钉</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">企业通讯与审批</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/dingtalk
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            650
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 10 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-tertiary bg-tertiary-fixed p-2 rounded-lg">hub</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">MongoDB</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">NoSQL 数据库操作</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/mongodb
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            1.1k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 11 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-on-background bg-surface-variant p-2 rounded-lg">layers</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">HTTP</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Vercel</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">部署与域名管理</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/vercel
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            700
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+<!-- Card 12 -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl ring-1 ring-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed p-2 rounded-lg">smart_display</span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">STDIO</span>
+</div>
+<h4 class="font-bold text-lg mb-1 group-hover:text-primary transition-colors">Playwright</h4>
+<p class="text-xs text-on-surface-variant line-clamp-1 mb-3">端到端浏览器测试</p>
+<div class="font-mono text-[10px] bg-surface-container-low p-2 rounded-md mb-4 text-on-surface-variant overflow-hidden truncate">
+                        npx @mcp/playwright
+                    </div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+                            2k
+                        </div>
+<button class="px-4 py-1.5 bg-primary-container/10 text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">安装</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center font-bold">1</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center font-medium hover:bg-surface-container-high">2</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center font-medium hover:bg-surface-container-high">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center font-medium hover:bg-surface-container-high">11</button>
+<button class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-[#d9d9e5] dark:bg-[#12121a]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 gap-6 max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-2">
+<span class="font-bold text-[#003ea8] dark:text-[#faf8ff] font-headline">OpenClaw Foundry v4.0</span>
+<p class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0]">OpenClaw Foundry v4.0 — Maurice | maurice_wen@proton.me</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0] hover:text-[#0053db] dark:hover:text-[#4edea3] underline-offset-4 underline transition-all duration-200" href="#">关于</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0] hover:text-[#0053db] dark:hover:text-[#4edea3] underline-offset-4 underline transition-all duration-200" href="#">文档</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0] hover:text-[#0053db] dark:hover:text-[#4edea3] underline-offset-4 underline transition-all duration-200" href="#">GitHub</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0] hover:text-[#0053db] dark:hover:text-[#4edea3] underline-offset-4 underline transition-all duration-200" href="#">ClawHub</a>
+<a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-[#434655] dark:text-[#a0a0b0] hover:text-[#0053db] dark:hover:text-[#4edea3] underline-offset-4 underline transition-all duration-200" href="#">联系</a>
+</div>
+</div>
+</footer>
+</body></html>
