@@ -36,6 +36,10 @@ CREATE TABLE IF NOT EXISTS skills (
   score INTEGER DEFAULT 0,
   rating TEXT DEFAULT 'C' CHECK (rating IN ('S', 'A', 'B', 'C', 'D')),
   url TEXT DEFAULT '',
+  source TEXT DEFAULT 'clawhub', -- 'clawhub' or 'mcp-registry'
+  source_url TEXT DEFAULT '',
+  repository_url TEXT DEFAULT '',
+  remote_url TEXT DEFAULT '',
   synced_at TEXT DEFAULT (datetime('now'))
 );
 

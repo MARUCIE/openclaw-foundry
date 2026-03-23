@@ -74,6 +74,10 @@ export interface ClawHubSkill {
   score: number;
   rating: 'S' | 'A' | 'B' | 'C' | 'D';
   url: string;
+  source?: 'clawhub' | 'mcp-registry';
+  sourceUrl?: string;
+  repositoryUrl?: string;
+  remoteUrl?: string;
 }
 
 export interface SkillsResponse {

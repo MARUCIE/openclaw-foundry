@@ -76,6 +76,10 @@ skills.get('/', async (c) => {
     score: s.score,
     rating: s.rating,
     url: s.url,
+    source: s.source || 'clawhub',
+    sourceUrl: s.source_url || '',
+    repositoryUrl: s.repository_url || '',
+    remoteUrl: s.remote_url || '',
   }));
 
   return c.json({
