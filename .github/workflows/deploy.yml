@@ -8,9 +8,65 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  # ── Step 1: Scrape + process data (cron/dispatch only) ──
+  sync-data:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Scrape ClawHub API
+        run: node scripts/scrape-clawhub-api.mjs --process
+
+      - name: Scrape MCP Registry
+        run: node scripts/scrape-mcp-registry.mjs
+
+      - name: Merge all sources
+        run: node scripts/merge-all-sources.mjs
+
+      - name: Prebuild static data
+        run: node scripts/prebuild-static.mjs --no-api
+
+      - name: Verify prebuild has data
+        run: |
+          SKILL_COUNT=$(node -e "const d=require('./web/public/data/skills.json');console.log(d.skills?.length||0)")
+          echo "Prebuild skills: $SKILL_COUNT"
+          if [ "$SKILL_COUNT" -lt 100 ]; then
+            echo "ERROR: Prebuild has less than 100 skills — aborting"
+            exit 1
+          fi
+
+      - name: Generate seed SQL
+        run: node scripts/generate-seed-sql.mjs
+
+      - name: Upload data artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-data
+          retention-days: 3
+          path: |
+            web/public/data/skills.json
+            web/public/data/skills-categories.json
+            web/public/data/providers.json
+            web/public/data/stats.json
+            worker/src/seed.sql
+
+  # ── Step 2: Deploy frontend ──
   deploy-frontend:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    needs: [sync-data]
+    if: always() && (needs.sync-data.result == 'success' || needs.sync-data.result == 'skipped')
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -27,15 +83,27 @@ jobs:
           npm ci
           cd web && npm ci
 
-      - name: Sync skills data (daily cron + manual dispatch)
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: |
-          node scripts/scrape-clawhub-api.mjs --process
-          node scripts/scrape-mcp-registry.mjs
-          node scripts/merge-all-sources.mjs
+      # Download fresh data from sync-data job (if available)
+      - name: Download synced data
+        if: needs.sync-data.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sync-data
+          merge-multiple: true
 
-      - name: Prebuild static data (no API, use local JSON files)
-        run: node scripts/prebuild-static.mjs --no-api
+      # On push events (no sync-data), use git-committed static files
+      - name: Verify static data exists
+        run: |
+          if [ ! -f web/public/data/skills.json ]; then
+            echo "ERROR: No static skills data found"
+            exit 1
+          fi
+          SKILL_COUNT=$(node -e "const d=require('./web/public/data/skills.json');console.log(d.skills?.length||0)")
+          echo "Static skills: $SKILL_COUNT"
+          if [ "$SKILL_COUNT" -lt 100 ]; then
+            echo "ERROR: Static data has less than 100 skills"
+            exit 1
+          fi
 
       - name: Build Next.js static export
         run: cd web && npx next build
@@ -47,6 +115,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy web/out --project-name openclaw-foundry --branch main --commit-dirty=true
 
+  # ── Step 3: Deploy worker ──
   deploy-worker:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -68,11 +137,12 @@ jobs:
           workingDirectory: worker
           command: deploy
 
+  # ── Step 4: Seed D1 (only after fresh sync) ──
   seed-db:
     runs-on: ubuntu-latest
-    needs: [deploy-worker, deploy-frontend]
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    timeout-minutes: 15
+    needs: [sync-data, deploy-worker]
+    if: needs.sync-data.result == 'success'
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -80,27 +150,60 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Download seed SQL
+        uses: actions/download-artifact@v4
+        with:
+          name: sync-data
+          merge-multiple: true
 
-      - name: Generate seed SQL
-        run: node scripts/generate-seed-sql.mjs
+      - name: Verify seed SQL exists
+        run: |
+          if [ ! -f worker/src/seed.sql ]; then
+            echo "ERROR: seed.sql not found in artifacts"
+            exit 1
+          fi
+          LINES=$(wc -l < worker/src/seed.sql)
+          echo "Seed SQL: $LINES lines"
+          if [ "$LINES" -lt 100 ]; then
+            echo "ERROR: seed.sql has less than 100 lines"
+            exit 1
+          fi
 
-      - name: Seed D1 database (batched for large datasets)
+      - name: Seed D1 database (batched)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           cd worker
-          # Clear existing data
+
+          # Find where skill INSERTs start (after header with providers)
+          HEADER_END=$(grep -n "^INSERT INTO skills" src/seed.sql | head -1 | cut -d: -f1)
+          HEADER_END=$((HEADER_END - 1))
+          echo "Header: $HEADER_END lines"
+
+          # Execute header (BEGIN TRANSACTION + providers)
+          head -$HEADER_END src/seed.sql > /tmp/seed-header.sql
           npx wrangler d1 execute openclaw-foundry --remote --command "DELETE FROM skills; DELETE FROM providers;"
-          # Split seed into 10K-line batches and execute sequentially
-          head -20 src/seed.sql > /tmp/seed-header.sql
           npx wrangler d1 execute openclaw-foundry --remote --file=/tmp/seed-header.sql
-          tail -n +21 src/seed.sql | split -l 10000 - /tmp/seed-batch-
+
+          # Split skill INSERTs into batches
+          tail -n +$((HEADER_END + 1)) src/seed.sql | grep "^INSERT" | split -d -l 10000 - /tmp/seed-batch-
+
+          BATCH=0
           for f in /tmp/seed-batch-*; do
-            echo "Seeding batch: $f ($(wc -l < $f) lines)"
-            npx wrangler d1 execute openclaw-foundry --remote --file="$f"
+            BATCH=$((BATCH + 1))
+            LINES=$(wc -l < "$f")
+            echo "Batch $BATCH: $f ($LINES lines)"
+            npx wrangler d1 execute openclaw-foundry --remote --file="$f" || echo "WARN: Batch $BATCH had errors"
           done
-          # Verify
-          npx wrangler d1 execute openclaw-foundry --remote --command "SELECT COUNT(*) as total FROM skills" --json | grep total
+
+          # Verify minimum count
+          RESULT=$(npx wrangler d1 execute openclaw-foundry --remote --command "SELECT COUNT(*) as total FROM skills" --json 2>&1)
+          echo "$RESULT"
+          TOTAL=$(echo "$RESULT" | grep -o '"total":[0-9]*' | grep -o '[0-9]*')
+          echo "D1 total skills: $TOTAL"
+          if [ "$TOTAL" -lt 1000 ]; then
+            echo "ERROR: D1 has less than 1000 skills after seed — possible failure"
+            exit 1
+          fi
+          echo "OK: D1 seed complete ($TOTAL skills)"
