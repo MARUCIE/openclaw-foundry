@@ -181,7 +181,7 @@ jobs:
           HEADER_END=$((HEADER_END - 1))
           echo "Header: $HEADER_END lines"
 
-          # Execute header (BEGIN TRANSACTION + providers)
+          # Execute header (providers)
           head -$HEADER_END src/seed.sql > /tmp/seed-header.sql
           npx wrangler d1 execute openclaw-foundry --remote --command "DELETE FROM skills; DELETE FROM providers;"
           npx wrangler d1 execute openclaw-foundry --remote --file=/tmp/seed-header.sql
