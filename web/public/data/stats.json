@@ -1,0 +1,19 @@
+{
+  "providers": {
+    "total": 12,
+    "byType": {
+      "desktop": 5,
+      "cloud": 3,
+      "saas": 4
+    }
+  },
+  "deploys": {
+    "recent": 0,
+    "jobs": []
+  },
+  "arena": {
+    "recent": 0,
+    "matches": []
+  },
+  "uptime": 0
+}

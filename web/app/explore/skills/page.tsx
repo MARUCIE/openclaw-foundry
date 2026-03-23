@@ -26,23 +26,30 @@ export default function SkillsMarketplacePage() {
   const [page, setPage] = useState(0);
   const LIMIT = 18;
 
-  // Build query params
-  const params = new URLSearchParams();
-  params.set('limit', String(LIMIT));
-  params.set('offset', String(page * LIMIT));
-  if (activeCategory !== '全部') params.set('category', activeCategory);
-  if (activeRating !== '全部') params.set('rating', activeRating);
-  if (search) params.set('search', search);
-
-  const { data, isLoading } = useSWR(`skills-${params}`, () => getSkills(params.toString()), { keepPreviousData: true });
+  // Fetch ALL skills once (works for both API and static fallback)
+  const { data, isLoading } = useSWR('all-skills', () => getSkills('limit=999'));
   const { data: catData } = useSWR('skill-categories', () => getSkillCategories());
 
-  const skills = data?.skills || [];
-  const total = data?.total || 0;
-  const totalPages = Math.ceil(total / LIMIT);
-  const categories = catData?.categories || {};
+  const allSkills = data?.skills || [];
+  const categories = catData?.categories || data?.meta?.byCategory || {};
   const allCategories = ['全部', ...Object.keys(categories)];
   const syncedAt = data?.meta?.syncedAt ? new Date(data.meta.syncedAt).toLocaleDateString('zh-CN') : '';
+
+  // Client-side filtering
+  const filtered = allSkills.filter((s: ClawHubSkill) => {
+    if (activeCategory !== '全部' && s.category !== activeCategory) return false;
+    if (activeRating !== '全部' && s.rating !== activeRating) return false;
+    if (search) {
+      const q = search.toLowerCase();
+      if (!s.name.toLowerCase().includes(q) && !s.description.toLowerCase().includes(q) && !s.author.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  // Client-side pagination
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / LIMIT);
+  const skills = filtered.slice(page * LIMIT, (page + 1) * LIMIT);
 
   return (
     <div className="max-w-[1440px] mx-auto px-6 md:px-8">

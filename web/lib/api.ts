@@ -1,17 +1,34 @@
-// OCF Server API client
+// OCF Server API client — with static fallback for CF Pages
 
 const BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
 
+// Static file mapping: /api/X?params → /data/X.json (ignoring params, client-side filtering)
+const STATIC_MAP: Record<string, string> = {
+  '/providers': '/data/providers.json',
+  '/stats': '/data/stats.json',
+  '/skills': '/data/skills.json',
+  '/skills/categories': '/data/skills-categories.json',
+};
+
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...init,
-  });
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `HTTP ${res.status}`);
+  const url = `${BASE}${path}`;
+  try {
+    const res = await fetch(url, {
+      headers: { 'Content-Type': 'application/json' },
+      ...init,
+    });
+    if (res.ok) return res.json();
+    throw new Error(`HTTP ${res.status}`);
+  } catch {
+    // Fallback: try static JSON (for CF Pages / static export)
+    const basePath = path.split('?')[0];
+    const staticPath = STATIC_MAP[basePath];
+    if (staticPath) {
+      const fallback = await fetch(staticPath);
+      if (fallback.ok) return fallback.json();
+    }
+    return {} as T;
   }
-  return res.json();
 }
 
 // Providers (with tier normalization: backend 1/2/3 → frontend full-auto/semi-auto/guided)
