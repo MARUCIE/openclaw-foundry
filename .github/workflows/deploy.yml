@@ -1,18 +1,17 @@
-name: Deploy to CF Pages
+name: Deploy to Cloudflare
 
 on:
   push:
     branches: [main]
   schedule:
-    # Daily 06:00 UTC — scrape ClawHub + rebuild + deploy
-    - cron: '0 6 * * *'
+    - cron: '0 6 * * *' # Daily ClawHub sync
   workflow_dispatch: {}
 
 jobs:
-  build-deploy:
+  # ── Frontend: CF Pages (static export) ──
+  deploy-frontend:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     steps:
       - uses: actions/checkout@v4
 
@@ -41,9 +40,58 @@ jobs:
       - name: Build Next.js static export
         run: cd web && npx next build
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to CF Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy web/out --project-name openclaw-foundry --branch main --commit-dirty=true
+
+  # ── Backend: CF Workers (Hono + D1) ──
+  deploy-worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install worker dependencies
+        run: cd worker && npm ci
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: deploy
+
+  # ── Seed DB (only on schedule / manual trigger) ──
+  seed-db:
+    runs-on: ubuntu-latest
+    needs: deploy-worker
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate seed SQL
+        run: node scripts/generate-seed-sql.mjs
+
+      - name: Seed D1 database
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: d1 execute openclaw-foundry --file=src/seed.sql

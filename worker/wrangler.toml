@@ -1,0 +1,29 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "openclaw-foundry-api"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 SQL Database — providers, skills, deploys
+[[d1_databases]]
+binding = "DB"
+database_name = "openclaw-foundry"
+database_id = "" # fill after `wrangler d1 create`
+
+# R2 Object Storage — blueprints, exports, screenshots
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "openclaw-foundry-files"
+
+# KV Namespace — cache, sessions
+[[kv_namespaces]]
+binding = "CACHE"
+id = "" # fill after `wrangler kv namespace create`
+
+# Cron triggers — daily ClawHub sync
+[triggers]
+crons = ["0 6 * * *"]
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"

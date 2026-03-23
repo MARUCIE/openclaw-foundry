@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+/**
+ * Generate seed.sql for D1 from existing JSON data files.
+ * Reads: data/clawhub-skills.json + runs backend to get providers
+ * Output: worker/src/seed.sql
+ */
+
+import { readFile, writeFile } from 'fs/promises';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const PROJECT = join(__dirname, '..');
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/'/g, "''");
+}
+
+async function main() {
+  const lines = ['-- Auto-generated seed data', `-- Generated: ${new Date().toISOString()}`, ''];
+
+  // 1. Providers — from static prebuild data
+  try {
+    const raw = await readFile(join(PROJECT, 'web', 'public', 'data', 'providers.json'), 'utf-8');
+    const { providers } = JSON.parse(raw);
+    lines.push('-- Providers');
+    lines.push('DELETE FROM providers;');
+    for (const p of providers) {
+      lines.push(`INSERT INTO providers (id, name, vendor, type, tier, platforms, status, console_url, doc_url, im_channels, description, install_cmd, github) VALUES ('${esc(p.id)}', '${esc(p.name)}', '${esc(p.vendor)}', '${esc(p.type)}', ${p.tier}, '${esc(JSON.stringify(p.platforms))}', '${esc(p.status)}', '${esc(p.consoleUrl)}', '${esc(p.docUrl)}', '${esc(JSON.stringify(p.imChannels))}', '${esc(p.description)}', '${esc(p.installCmd || '')}', '${esc(p.github || '')}');`);
+    }
+    console.log(`OK: ${providers.length} providers`);
+  } catch (err) {
+    console.log('WARN: No providers data found');
+  }
+
+  // 2. Skills — from clawhub-skills.json
+  try {
+    const raw = await readFile(join(PROJECT, 'data', 'clawhub-skills.json'), 'utf-8');
+    const { skills } = JSON.parse(raw);
+    lines.push('');
+    lines.push('-- Skills');
+    lines.push('DELETE FROM skills;');
+    for (const s of skills) {
+      lines.push(`INSERT INTO skills (id, name, slug, author, description, category, icon, downloads, downloads_display, stars, stars_display, versions, platforms, official, score, rating, url) VALUES ('${esc(s.id)}', '${esc(s.name)}', '${esc(s.slug)}', '${esc(s.author)}', '${esc(s.description)}', '${esc(s.category)}', '${esc(s.icon)}', ${s.downloads}, '${esc(s.downloadsDisplay)}', ${s.stars}, '${esc(s.starsDisplay)}', ${s.versions}, '${esc(JSON.stringify(s.platforms))}', ${s.official ? 1 : 0}, ${s.score}, '${esc(s.rating)}', '${esc(s.url)}');`);
+    }
+    console.log(`OK: ${skills.length} skills`);
+  } catch (err) {
+    console.log('WARN: No skills data found');
+  }
+
+  await writeFile(join(PROJECT, 'worker', 'src', 'seed.sql'), lines.join('\n'));
+  console.log('OK: worker/src/seed.sql generated');
+}
+
+main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
