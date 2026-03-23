@@ -39,6 +39,41 @@ const INSTALL_TARGETS = [
     cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
 ];
 
+// Chinese → English synonym map for fuzzy search
+const SEARCH_SYNONYMS: Record<string, string[]> = {
+  '前端': ['frontend', 'react', 'vue', 'next', 'tailwind', 'css', 'html', 'ui', 'component', 'web'],
+  '后端': ['backend', 'api', 'server', 'express', 'fastapi', 'django', 'node'],
+  '数据库': ['database', 'sql', 'postgres', 'mysql', 'mongodb', 'redis', 'sqlite', 'supabase'],
+  '搜索': ['search', 'google', 'bing', 'exa', 'tavily', 'brave'],
+  '浏览器': ['browser', 'chrome', 'playwright', 'puppeteer', 'selenium'],
+  '邮件': ['email', 'gmail', 'imap', 'smtp', 'mail'],
+  '聊天': ['chat', 'slack', 'discord', 'telegram', 'wechat', 'message'],
+  '图片': ['image', 'photo', 'picture', 'png', 'screenshot', 'vision'],
+  '视频': ['video', 'youtube', 'ffmpeg', 'recording'],
+  '音频': ['audio', 'speech', 'tts', 'stt', 'whisper', 'voice'],
+  '翻译': ['translate', 'translation', 'language', 'i18n'],
+  '安全': ['security', 'auth', 'guard', 'antivirus', 'vulnerability'],
+  '部署': ['deploy', 'docker', 'kubernetes', 'ci', 'cd', 'vercel', 'cloudflare'],
+  '测试': ['test', 'testing', 'jest', 'playwright', 'e2e', 'unit'],
+  '文档': ['document', 'doc', 'markdown', 'pdf', 'word', 'notion'],
+  '笔记': ['note', 'obsidian', 'notion', 'memo', 'journal'],
+  '股票': ['stock', 'trading', 'finance', 'market', 'investment'],
+  '加密': ['crypto', 'bitcoin', 'blockchain', 'web3', 'defi', 'nft'],
+  '游戏': ['game', 'gaming', 'unity', 'unreal'],
+  '设计': ['design', 'figma', 'ui', 'ux', 'prototype'],
+  '爬虫': ['crawl', 'scrape', 'spider', 'fetch'],
+};
+
+function expandSearch(query: string): string[] {
+  const q = query.toLowerCase();
+  const terms = [q];
+  for (const [cn, en] of Object.entries(SEARCH_SYNONYMS)) {
+    if (q.includes(cn)) terms.push(...en);
+    for (const e of en) { if (q.includes(e)) terms.push(cn, ...en); }
+  }
+  return [...new Set(terms)];
+}
+
 function formatNum(n: number): string {
   if (n >= 100000) return (n / 1000).toFixed(0) + 'k';
   if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
@@ -190,8 +225,9 @@ export default function SkillsMarketplacePage() {
     if (activeCategory !== '全部' && s.category !== activeCategory) return false;
     if (activeRating !== '全部' && s.rating !== activeRating) return false;
     if (search) {
-      const q = search.toLowerCase();
-      if (!s.name.toLowerCase().includes(q) && !s.description?.toLowerCase().includes(q) && !s.author?.toLowerCase().includes(q)) return false;
+      const terms = expandSearch(search);
+      const text = `${s.name} ${s.description || ''} ${s.author || ''} ${s.category || ''}`.toLowerCase();
+      if (!terms.some(t => text.includes(t))) return false;
     }
     return true;
   });

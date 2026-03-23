@@ -93,12 +93,17 @@ async function main() {
         description: s.description,
         category: s.category,
         source: 'clawhub',
+        url: s.url,
         sourceUrl: s.url,
         downloads: s.downloads,
+        downloadsDisplay: s.downloadsDisplay || '',
         stars: s.stars,
+        starsDisplay: s.starsDisplay || '',
         score: s.score,
         rating: s.rating,
         versions: s.versions,
+        platforms: s.platforms || [],
+        official: s.official || false,
         repositoryUrl: '',
         remoteUrl: '',
         publishedAt: '',
@@ -127,6 +132,7 @@ async function main() {
       const ck = crossSourceKey(s.name, s.description);
       if (ck && crossKeys.has(ck)) { stats.duplicates++; continue; }
       const category = inferCategory(s.name, s.description);
+      const mcpUrl = s.repositoryUrl || s.sourceUrl || '';
       unified.set(key, {
         id: s.id,
         name: s.name,
@@ -135,12 +141,17 @@ async function main() {
         description: s.description,
         category,
         source: 'mcp-registry',
+        url: mcpUrl,
         sourceUrl: s.sourceUrl,
         downloads: 0,
+        downloadsDisplay: '',
         stars: 0,
-        score: s.remoteUrl ? 15 : 10, // remote-capable gets bonus
-        rating: 'C', // will be reassigned
+        starsDisplay: '',
+        score: s.remoteUrl ? 15 : 10,
+        rating: 'C',
         versions: 0,
+        platforms: s.remoteUrl ? ['Remote'] : [],
+        official: false,
         repositoryUrl: s.repositoryUrl,
         remoteUrl: s.remoteUrl,
         publishedAt: s.publishedAt,
