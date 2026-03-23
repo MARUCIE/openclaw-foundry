@@ -1,0 +1,49 @@
+name: Deploy to CF Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Daily 06:00 UTC — scrape ClawHub + rebuild + deploy
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd web && npm ci
+
+      - name: Scrape ClawHub skills (daily cron only)
+        if: github.event_name == 'schedule'
+        run: |
+          npx playwright install chromium --with-deps
+          node scripts/scrape-clawhub.mjs --target 300
+
+      - name: Prebuild static data
+        run: node scripts/prebuild-static.mjs
+
+      - name: Build Next.js static export
+        run: cd web && npx next build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy web/out --project-name openclaw-foundry --branch main --commit-dirty=true
