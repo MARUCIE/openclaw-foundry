@@ -29,7 +29,7 @@ const CATEGORY_RULES = [
   // -- Domain-specific (most specific, check first) --
   // -- Domain-specific (most specific, check first) --
   { category: '区块链 Web3', keywords: ['crypto', 'bitcoin', 'tron', 'pancakeswap', 'swap', 'farming', 'staking', 'onchain', 'blockchain', 'web3', 'nft', 'defi', 'wallet', 'bnb', 'token', 'polymarket'] },
-  { category: '金融交易', keywords: ['stock', 'trading', 'forex', 'finance', 'investment', 'quant', 'portfolio', 'market snapshot', 'a股', '股票', '基金', 'lof', 'baostock', 'futu', '金价', '黄金', 'gold price', '东方财富', 'eastmoney', 'etf', '可转债', 'tax', '个税', 'billing'] },
+  { category: '金融交易', keywords: ['stock', 'trading', 'forex', 'finance', 'investment', 'quant', 'portfolio', 'market snapshot', 'a股', '股票', '基金', 'lof', 'baostock', 'futu', '金价', '黄金', 'gold price', '东方财富', 'eastmoney', 'etf', '可转债', '个税', '报税'] },
   { category: '电商营销', keywords: ['ecommerce', 'amazon', 'listing', 'shopify', 'jd.com', 'meituan', 'tiktok', 'xiaohongshu', '小红书', '带货', 'seo', 'marketing', 'growth', 'ads', 'ad intel', 'klaviyo', 'job board', 'post job', 'customer service', '客服', 'shopping', 'dropship', '闲鱼', '砍价', '优惠券', 'coupon', 'competitor analy'] },
   { category: '办公文档', keywords: ['word', 'docx', 'excel', 'xlsx', 'powerpoint', 'pptx', 'ppt', 'pdf', 'slide', 'presentation', '公文', '周报', '论文', 'thesis', 'resume', 'business plan', '商业计划', '翻译', 'translat'] },
   { category: '教育学习', keywords: ['vocabulary', 'language', 'classical chinese', '文言文', 'training plan', 'learn', 'curriculum', 'quiz', 'interview simul', '面试', 'mock interview', '诗词', 'poetry', '棋谱', 'weiqi', '起名', 'name gen', '八字', 'bazi', 'color palette', '传统色', 'career roadmap', '副业', '阅读', 'reading', 'mindfulness', '清除中文ai'] },

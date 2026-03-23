@@ -35,7 +35,7 @@ const INSTALL_TARGETS = [
     cmdSkill: null,
     cmdMcp: (s: string, repo: string) => `# cline_mcp_settings.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
   { id: 'cli', name: '直接运行', icon: 'play_arrow',
-    cmdSkill: (s: string) => `clawhub install ${s}`,
+    cmdSkill: null,
     cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
 ];
 

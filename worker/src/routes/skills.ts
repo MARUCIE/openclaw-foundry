@@ -31,9 +31,13 @@ skills.get('/', async (c) => {
 
   const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
-  // Count
+  // Counts: filtered + total
   const countRow = await db.prepare(`SELECT COUNT(*) as cnt FROM skills ${where}`).bind(...params).first();
   const total = (countRow as any)?.cnt || 0;
+  const totalRawRow = await db.prepare('SELECT COUNT(*) as cnt FROM skills').first();
+  const totalRaw = (totalRawRow as any)?.cnt || 0;
+  const syncRow = await db.prepare('SELECT MAX(synced_at) as latest FROM skills').first();
+  const syncedAt = (syncRow as any)?.latest || '';
 
   // Fetch page
   const { results } = await db.prepare(
@@ -84,8 +88,9 @@ skills.get('/', async (c) => {
 
   return c.json({
     meta: {
-      source: 'https://clawhub.ai/skills',
-      syncedAt: (results?.[0] as any)?.synced_at || '',
+      source: 'openclaw-foundry',
+      syncedAt,
+      totalRaw,
       totalProcessed: total,
       byCategory,
       byRating,
