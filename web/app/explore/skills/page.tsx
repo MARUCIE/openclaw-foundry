@@ -80,12 +80,12 @@ function formatNum(n: number): string {
   return String(n);
 }
 
-function getInstallId(skill: any): string {
+function getInstallId(skill: ClawHubSkill): string {
   if (skill.source === 'mcp-registry') return skill.slug || skill.name;
   return `${skill.author}/${skill.slug || skill.name}`;
 }
 
-function getRepoName(skill: any): string {
+function getRepoName(skill: ClawHubSkill): string {
   if (skill.repositoryUrl) {
     const m = skill.repositoryUrl.match(/github\.com\/([^/]+\/[^/]+)/);
     if (m) return m[1];
@@ -94,7 +94,7 @@ function getRepoName(skill: any): string {
 }
 
 // ── Install Modal ──
-function InstallModal({ skill, onClose }: { skill: any; onClose: () => void }) {
+function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => void }) {
   const [copied, setCopied] = useState('');
   const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
   const installId = getInstallId(skill);
@@ -199,7 +199,7 @@ export default function SkillsMarketplacePage() {
   const [activeRating, setActiveRating] = useState('全部');
   const [page, setPage] = useState(0);
   const [showAllCats, setShowAllCats] = useState(false);
-  const [installSkill, setInstallSkill] = useState<any>(null);
+  const [installSkill, setInstallSkill] = useState<ClawHubSkill | null>(null);
   const LIMIT = 18;
 
   // Load from static prebuild (has 1500 Skills + 500 MCP split)
@@ -222,11 +222,11 @@ export default function SkillsMarketplacePage() {
   const syncedAt = data?.meta?.syncedAt ? new Date(data.meta.syncedAt).toLocaleDateString('zh-CN') : '';
 
   // Source counts
-  const skillCount = allSkills.filter((s: any) => (s.source || 'clawhub') !== 'mcp-registry').length;
-  const mcpCount = allSkills.filter((s: any) => s.source === 'mcp-registry').length;
+  const skillCount = allSkills.filter((s: ClawHubSkill) => (s.source || 'clawhub') !== 'mcp-registry').length;
+  const mcpCount = allSkills.filter((s: ClawHubSkill) => s.source === 'mcp-registry').length;
 
   // Client-side filtering
-  const filtered = allSkills.filter((s: any) => {
+  const filtered = allSkills.filter((s: ClawHubSkill) => {
     const src = s.source || 'clawhub';
     if (activeSource === 'Skills' && src === 'mcp-registry') return false;
     if (activeSource === 'MCP Servers' && src !== 'mcp-registry') return false;
@@ -382,7 +382,7 @@ export default function SkillsMarketplacePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {skills.map((skill: any) => {
+              {skills.map((skill: ClawHubSkill) => {
                 const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
                 return (
                   <div

@@ -45,10 +45,9 @@ const CATEGORY_RULES = [
   { category: '搜索与研究', keywords: ['search', 'research', 'web search', 'google', 'baidu', 'exa', 'tavily', 'bing', 'brave search', 'deep research', 'academic search', 'news'] },
   { category: '通讯集成', keywords: ['email', 'slack', 'discord', 'telegram', 'wechat', 'feishu', 'dingtalk', 'imap', 'smtp', 'chat', 'message', 'twitter', 'weibo', '微信', '微博'] },
   { category: '数据分析', keywords: ['data analy', 'analytics', 'sql', 'database', 'csv', 'chart', 'visualization', 'etl', 'pandas', 'cohort', 'a/b test'] },
-  { category: '内容创作', keywords: ['write', 'blog', 'translate', 'article', 'content', 'copywriting', 'humanize', 'prompt gen', 'image prompt', 'video gen'] },
+  { category: '内容创作', keywords: ['write', 'blog', 'translate', 'article', 'content', 'copywriting', 'humanize', 'prompt gen', 'image prompt', 'video gen', 'prd', 'product analy', '需求分析', 'press coverage', '掘金', 'juejin'] },
   { category: '效率工具', keywords: ['todo', 'task', 'calendar', 'schedule', 'obsidian', 'notion', 'note', 'bookmark', 'clipboard', 'productivity', 'workflow', 'automation'] },
   { category: '多媒体', keywords: ['audio', 'video', 'image', 'photo', 'camera', 'recording', 'subtitle', 'srt', 'video summar', 'seedance', 'lyrics'] },
-  { category: '内容创作', keywords: ['write', 'blog', 'translate', 'article', 'content', 'copywriting', 'humanize', 'prompt gen', 'image prompt', 'video gen', 'prd', 'product analy', '需求分析', 'press coverage', '掘金', 'juejin'] },
 
   // -- Infrastructure (generic, check last) --
   { category: 'DevOps 部署', keywords: ['deploy', 'docker', 'ci', 'cd', 'kubernetes', 'terraform', 'cloudflare', 'vercel', 'aws', 'infra', 'wordpress', 'server', 'container', 'cert', 'acmesh', 'nginx', 'redis'] },

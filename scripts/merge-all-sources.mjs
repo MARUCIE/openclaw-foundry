@@ -65,12 +65,14 @@ function dedupKey(source, author, name) {
   return norm;
 }
 
-// Cross-source dedup: match by normalized name + description similarity
-function crossSourceKey(name, desc) {
-  // Only match if name is specific enough (>= 3 words or 15 chars)
+// Cross-source dedup: match by normalized name + author
+// Including author prevents false positive dedup of same-named skills from different authors
+function crossSourceKey(name, author) {
+  if (!name) return null;
   const n = name.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
   if (n.length < 15 && n.split(/\s+/).length < 3) return null;
-  return n;
+  const a = (author || 'unknown').toLowerCase().trim();
+  return `${a}/${n}`;
 }
 
 async function main() {
@@ -120,7 +122,7 @@ async function main() {
     // Build cross-source dedup set from ClawHub names
     const crossKeys = new Set();
     for (const [, v] of unified) {
-      const ck = crossSourceKey(v.name, v.description);
+      const ck = crossSourceKey(v.name, v.author);
       if (ck) crossKeys.add(ck);
     }
 
@@ -129,7 +131,7 @@ async function main() {
       if (unified.has(key)) { stats.duplicates++; continue; }
 
       // Cross-source dedup: skip if an identical name already exists in ClawHub
-      const ck = crossSourceKey(s.name, s.description);
+      const ck = crossSourceKey(s.name, s.author);
       if (ck && crossKeys.has(ck)) { stats.duplicates++; continue; }
       const category = inferCategory(s.name, s.description);
       const mcpUrl = s.repositoryUrl || s.sourceUrl || '';

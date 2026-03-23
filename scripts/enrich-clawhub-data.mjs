@@ -34,7 +34,7 @@ async function main() {
     // Run scrape-clawhub.mjs first to get this, or use existing data
     const scrollRaw = JSON.parse(await readFile(join(DATA_DIR, 'clawhub-scroll-backup.json'), 'utf-8'));
     for (const s of scrollRaw) {
-      const key = `${s.author}/${s.slug}`.toLowerCase();
+      const key = `${s.author}/${s.slug || s.name}`.toLowerCase();
       if (s.downloads && s.downloads !== '0') {
         scrollStats.set(key, {
           downloads: s.downloads,
@@ -52,7 +52,7 @@ async function main() {
   // 3. Enrich: merge stats from scroll into API data
   let enriched = 0;
   for (const skill of apiData) {
-    const key = `${skill.author}/${skill.slug}`.toLowerCase();
+    const key = `${skill.author}/${skill.slug || skill.name}`.toLowerCase();
     const stats = scrollStats.get(key);
     if (stats) {
       skill.downloads = stats.downloads;

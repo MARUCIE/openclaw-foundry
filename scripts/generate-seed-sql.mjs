@@ -19,7 +19,7 @@ function esc(s) {
 }
 
 async function main() {
-  const lines = ['-- Auto-generated seed data', `-- Generated: ${new Date().toISOString()}`, ''];
+  const lines = ['-- Auto-generated seed data', `-- Generated: ${new Date().toISOString()}`, '', 'BEGIN TRANSACTION;', ''];
 
   // 1. Providers — from static prebuild data
   try {
@@ -58,6 +58,7 @@ async function main() {
     console.log('WARN: No skills data found');
   }
 
+  lines.push('', 'COMMIT;');
   await writeFile(join(PROJECT, 'worker', 'src', 'seed.sql'), lines.join('\n'));
   console.log('OK: worker/src/seed.sql generated');
 }

@@ -84,10 +84,13 @@ function resolveDisplayName(displayName, slug) {
 }
 
 function normalizeSkill(item) {
-  const slug = `${item.ownerHandle}/${item.name}`;
+  // Fallback slug: ownerHandle + timestamp hash (last 8 hex chars)
+  const rawName = item.name || '';
+  const slug = rawName || `${item.ownerHandle}-${Date.now().toString(16).slice(-8)}`;
+  const fullSlug = `${item.ownerHandle}/${slug}`;
   return {
-    name: resolveDisplayName(item.displayName, item.name),
-    slug: item.name || '',
+    name: resolveDisplayName(item.displayName, slug),
+    slug,
     author: item.ownerHandle || 'unknown',
     desc: item.summary || '',
     downloads: '0', // packages endpoint doesn't expose download counts
@@ -95,7 +98,7 @@ function normalizeSkill(item) {
     versions: 0,
     platforms: [],
     official: item.isOfficial || item.channel === 'official' || false,
-    url: `https://clawhub.ai/${slug}`,
+    url: `https://clawhub.ai/${fullSlug}`,
     tags: item.capabilityTags || [],
     createdAt: item.createdAt ? new Date(item.createdAt).toISOString() : '',
     updatedAt: item.updatedAt ? new Date(item.updatedAt).toISOString() : '',
@@ -125,7 +128,9 @@ async function main() {
       if (items.length === 0) break;
 
       for (const item of items) {
-        const key = `${item.ownerHandle}/${item.name}`;
+        // Skip items with no name AND no displayName — unrecoverable
+        if (!item.name && !item.displayName) continue;
+        const key = `${item.ownerHandle}/${item.name || item.displayName}`;
         if (!allSkills.has(key)) {
           allSkills.set(key, normalizeSkill(item));
           newInMode++;
