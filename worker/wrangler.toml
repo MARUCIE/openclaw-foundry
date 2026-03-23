@@ -8,7 +8,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "openclaw-foundry"
-database_id = "YOUR_D1_DATABASE_ID"
+database_id = "07445758-5b42-4ae1-ba82-94a492c609a5"
 
 # R2 Object Storage
 [[r2_buckets]]
@@ -18,7 +18,7 @@ bucket_name = "openclaw-foundry-files"
 # KV Cache
 [[kv_namespaces]]
 binding = "CACHE"
-id = "YOUR_KV_NAMESPACE_ID"
+id = "968a36b3ce5a4204847810906eefdbbd"
 
 # Cron triggers
 [triggers]
