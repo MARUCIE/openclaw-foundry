@@ -35,10 +35,18 @@ async function main() {
     console.log('WARN: No providers data found');
   }
 
-  // 2. Skills — from clawhub-skills.json
+  // 2. Skills — prefer unified-index.json, fallback to clawhub-skills.json
   try {
-    const raw = await readFile(join(PROJECT, 'data', 'clawhub-skills.json'), 'utf-8');
-    const { skills } = JSON.parse(raw);
+    let skills;
+    try {
+      const unified = JSON.parse(await readFile(join(PROJECT, 'data', 'unified-index.json'), 'utf-8'));
+      skills = unified.skills;
+      console.log(`NOTE: Using unified index (${skills.length} entries)`);
+    } catch {
+      const raw = JSON.parse(await readFile(join(PROJECT, 'data', 'clawhub-skills.json'), 'utf-8'));
+      skills = raw.skills;
+      console.log(`NOTE: Using ClawHub-only data (${skills.length} skills)`);
+    }
     lines.push('');
     lines.push('-- Skills');
     lines.push('DELETE FROM skills;');

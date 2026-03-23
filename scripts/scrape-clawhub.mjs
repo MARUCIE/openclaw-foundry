@@ -15,7 +15,7 @@
  *   node scripts/scrape-clawhub.mjs --target 500       # load more skills (default: 250)
  */
 
-import { writeFile, mkdir } from 'fs/promises';
+import { readFile, writeFile, mkdir } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
@@ -29,10 +29,21 @@ const RAW_FILE = join(DATA_DIR, 'clawhub-skills-raw.json');
 
 const TARGET_SKILLS = parseInt(process.argv.find(a => a.startsWith('--target'))?.split('=')[1]
   || process.argv[process.argv.indexOf('--target') + 1]
-  || '250');
+  || '1000');
 const SCRAPE_ONLY = process.argv.includes('--scrape-only');
+const MULTI_SORT = !process.argv.includes('--single-sort');
 
-const URL = 'https://clawhub.ai/skills?sort=downloads&nonSuspicious=true';
+// Multiple sort dimensions to maximize coverage
+const SORT_MODES = [
+  { sort: 'downloads', label: 'downloads' },
+  { sort: 'stars', label: 'stars' },
+  { sort: 'newest', label: 'newest' },
+  { sort: 'updated', label: 'updated' },
+];
+
+function buildUrl(sort) {
+  return `https://clawhub.ai/skills?sort=${sort}&nonSuspicious=true`;
+}
 
 // Resolve playwright from global install
 let chromium;
@@ -46,8 +57,8 @@ try {
   process.exit(1);
 }
 
-async function scrape() {
-  console.log(`NOTE: Scraping ClawHub (target: ${TARGET_SKILLS} skills)...`);
+async function scrape(url, label) {
+  console.log(`NOTE: Scraping ClawHub [${label}] (target: ${TARGET_SKILLS} skills)...`);
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
@@ -56,7 +67,7 @@ async function scrape() {
   });
   const page = await context.newPage();
 
-  await page.goto(URL, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+  await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
   await page.waitForTimeout(3000);
 
   // Scroll to load skills
@@ -137,10 +148,47 @@ async function scrape() {
 async function main() {
   await mkdir(DATA_DIR, { recursive: true });
 
-  const skills = await scrape();
-  console.log(`OK: Scraped ${skills.length} skills from ClawHub`);
+  const allSkills = new Map(); // key: author/slug -> skill
 
-  await writeFile(RAW_FILE, JSON.stringify(skills, null, 2));
+  // Try loading existing raw data for incremental merge
+  try {
+    const existing = JSON.parse(await readFile(RAW_FILE, 'utf-8'));
+    for (const s of existing) {
+      const key = `${s.author}/${s.slug}`;
+      if (!allSkills.has(key)) allSkills.set(key, s);
+    }
+    console.log(`NOTE: Loaded ${allSkills.size} existing skills for incremental merge`);
+  } catch { /* first run, no existing data */ }
+
+  const modes = MULTI_SORT ? SORT_MODES : [SORT_MODES[0]];
+
+  for (const mode of modes) {
+    try {
+      const url = buildUrl(mode.sort);
+      const skills = await scrape(url, mode.label);
+      let newCount = 0;
+      for (const s of skills) {
+        const key = `${s.author}/${s.slug}`;
+        if (!allSkills.has(key)) {
+          allSkills.set(key, s);
+          newCount++;
+        }
+      }
+      console.log(`OK: [${mode.label}] ${skills.length} scraped, ${newCount} new (total: ${allSkills.size})`);
+
+      // Save after each sort mode to prevent data loss
+      const checkpoint = Array.from(allSkills.values());
+      await writeFile(RAW_FILE, JSON.stringify(checkpoint, null, 2));
+      console.log(`OK: Checkpoint saved (${checkpoint.length} skills)`);
+    } catch (err) {
+      console.error(`WARN: [${mode.label}] scrape failed: ${err.message} — continuing with next mode`);
+    }
+  }
+
+  const merged = Array.from(allSkills.values());
+  console.log(`OK: Total unique skills: ${merged.length}`);
+
+  await writeFile(RAW_FILE, JSON.stringify(merged, null, 2));
   console.log(`OK: Saved raw data to ${RAW_FILE}`);
 
   if (!SCRAPE_ONLY) {

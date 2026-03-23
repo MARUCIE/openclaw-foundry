@@ -70,30 +70,44 @@ async function main() {
   await writeFile(join(OUT, 'stats.json'), JSON.stringify(stats, null, 2));
   console.log(`OK: Stats generated`);
 
-  // 3. Skills (from clawhub-skills.json)
+  // 3. Skills — prefer unified-index.json, fallback to clawhub-skills.json
+  let skillsData;
   try {
-    const raw = await readFile(join(PROJECT, 'data', 'clawhub-skills.json'), 'utf-8');
-    const skillsData = JSON.parse(raw);
-    // Full dataset for client-side filtering
-    await writeFile(join(OUT, 'skills.json'), JSON.stringify({
-      meta: skillsData.meta,
-      total: skillsData.skills.length,
-      offset: 0,
-      limit: skillsData.skills.length,
-      skills: skillsData.skills,
-    }, null, 2));
-    console.log(`OK: Skills (${skillsData.skills.length})`);
-
-    // Categories
-    await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
-      categories: skillsData.meta.byCategory,
-    }));
-    console.log(`OK: Skill categories`);
+    const raw = await readFile(join(PROJECT, 'data', 'unified-index.json'), 'utf-8');
+    skillsData = JSON.parse(raw);
+    console.log(`OK: Using unified index (${skillsData.skills.length} entries from ${Object.keys(skillsData.meta.bySource || {}).join('+')})`);
   } catch {
-    console.log('WARN: No clawhub-skills.json found, skills will be empty');
-    await writeFile(join(OUT, 'skills.json'), JSON.stringify({ meta: {}, total: 0, offset: 0, limit: 0, skills: [] }));
-    await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({ categories: {} }));
+    try {
+      const raw = await readFile(join(PROJECT, 'data', 'clawhub-skills.json'), 'utf-8');
+      skillsData = JSON.parse(raw);
+      console.log(`OK: Using ClawHub-only data (${skillsData.skills.length} skills)`);
+    } catch {
+      console.log('WARN: No skills data found');
+      skillsData = { meta: {}, skills: [] };
+    }
   }
+
+  // Static prebuild: top 2000 skills (sorted by score) for fast page load
+  // Full dataset served via Workers API for search/pagination
+  const TOP_N = 2000;
+  const topSkills = skillsData.skills
+    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    .slice(0, TOP_N);
+
+  await writeFile(join(OUT, 'skills.json'), JSON.stringify({
+    meta: { ...skillsData.meta, prebuildTop: TOP_N },
+    total: skillsData.skills.length,
+    offset: 0,
+    limit: TOP_N,
+    skills: topSkills,
+  })); // top 2000 only, ~2MB
+  console.log(`OK: Skills (${skillsData.skills.length})`);
+
+  // Categories
+  await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
+    categories: skillsData.meta.byCategory || {},
+  }));
+  console.log(`OK: Skill categories (${Object.keys(skillsData.meta.byCategory || {}).length})`);
 
   console.log(`OK: Static data written to ${OUT}`);
 }
