@@ -17,23 +17,40 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT = join(__dirname, '..');
 const OUT = join(PROJECT, 'web', 'public', 'data');
 
+const NO_API = process.argv.includes('--no-api');
+
 async function main() {
   await mkdir(OUT, { recursive: true });
 
-  // 1. Providers — get from running server or generate from source
+  // 1. Providers — get from running server, source, or existing static file
   let providers;
-  try {
-    const res = await fetch('http://localhost:18800/api/providers');
-    providers = await res.json();
-    console.log(`OK: Providers from API (${providers.total})`);
-  } catch {
-    // Fallback: generate from TypeScript source
-    console.log('NOTE: API unavailable, generating providers from source...');
-    const out = execSync('npx tsx -e "import{listProviders}from\'./src/providers/index.js\';console.log(JSON.stringify({total:listProviders().length,providers:listProviders()}))"', {
-      cwd: PROJECT, encoding: 'utf-8',
-    });
-    providers = JSON.parse(out);
-    console.log(`OK: Providers from source (${providers.total})`);
+  if (!NO_API) {
+    try {
+      const res = await fetch('http://localhost:18800/api/providers');
+      providers = await res.json();
+      console.log(`OK: Providers from API (${providers.total})`);
+    } catch { /* fall through */ }
+  }
+  if (!providers) {
+    // Try existing static file first (works in CI without backend)
+    try {
+      const existing = await readFile(join(OUT, 'providers.json'), 'utf-8');
+      providers = JSON.parse(existing);
+      console.log(`OK: Providers from existing static (${providers.total})`);
+    } catch {
+      // Last resort: generate from TypeScript source
+      try {
+        console.log('NOTE: Generating providers from source...');
+        const out = execSync('npx tsx -e "import{listProviders}from\'./src/providers/index.js\';console.log(JSON.stringify({total:listProviders().length,providers:listProviders()}))"', {
+          cwd: PROJECT, encoding: 'utf-8',
+        });
+        providers = JSON.parse(out);
+        console.log(`OK: Providers from source (${providers.total})`);
+      } catch {
+        console.log('WARN: Could not load providers, using empty');
+        providers = { total: 0, providers: [] };
+      }
+    }
   }
   await writeFile(join(OUT, 'providers.json'), JSON.stringify(providers, null, 2));
 

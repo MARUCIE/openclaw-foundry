@@ -4,11 +4,10 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 6 * * *' # Daily ClawHub sync
+    - cron: '0 6 * * *'
   workflow_dispatch: {}
 
 jobs:
-  # ── Frontend: CF Pages (static export) ──
   deploy-frontend:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -34,8 +33,8 @@ jobs:
           npx playwright install chromium --with-deps
           node scripts/scrape-clawhub.mjs --target 300
 
-      - name: Prebuild static data
-        run: node scripts/prebuild-static.mjs
+      - name: Prebuild static data (no API, use local JSON files)
+        run: node scripts/prebuild-static.mjs --no-api
 
       - name: Build Next.js static export
         run: cd web && npx next build
@@ -47,7 +46,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy web/out --project-name openclaw-foundry --branch main --commit-dirty=true
 
-  # ── Backend: CF Workers (Hono + D1) ──
   deploy-worker:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -69,7 +67,6 @@ jobs:
           workingDirectory: worker
           command: deploy
 
-  # ── Seed DB (only on schedule / manual trigger) ──
   seed-db:
     runs-on: ubuntu-latest
     needs: deploy-worker
@@ -88,10 +85,10 @@ jobs:
       - name: Generate seed SQL
         run: node scripts/generate-seed-sql.mjs
 
-      - name: Seed D1 database
+      - name: Seed D1 database (remote)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: worker
-          command: d1 execute openclaw-foundry --file=src/seed.sql
+          command: d1 execute openclaw-foundry --remote --file=src/seed.sql
