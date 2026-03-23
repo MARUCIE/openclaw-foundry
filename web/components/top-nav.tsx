@@ -7,9 +7,9 @@ import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 const NAV_ITEMS = [
   { href: '/explore/platforms', key: 'nav.deploy' },
   { href: '/explore/skills', key: 'nav.explore' },
+  { href: '/api-docs', key: 'nav.api' },
   { href: '/news', key: 'nav.news' },
   { href: '/arena', key: 'nav.arena' },
-  { href: '/pricing', key: 'nav.pricing' },
 ];
 
 export function TopNav() {
