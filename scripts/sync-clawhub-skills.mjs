@@ -193,16 +193,33 @@ function assignRatings(skills) {
   return skills;
 }
 
+// ── Name sanitization ──
+const GENERIC_NAMES = new Set([
+  'skill', 'tool', 'plugin', 'test', 'my skill', 'agent', 'bot', 'app',
+  'demo', 'example', 'hello', 'server', 'client', 'openclaw', 'openclaw skill',
+]);
+
+function titleCase(slug) {
+  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function sanitizeName(name, slug) {
+  if (!name || name.length <= 2 || GENERIC_NAMES.has(name.toLowerCase())) {
+    return titleCase(slug || name || 'Unknown');
+  }
+  return name;
+}
+
 // ── Main processing pipeline ──
 async function processSkills(rawSkills) {
   const processed = rawSkills
-    .filter(s => s.name && (s.desc || s.slug)) // keep skills even without downloads
+    .filter(s => s.name && (s.desc || s.slug))
     .map(s => {
       const category = inferCategory(s);
       const score = computeScore(s);
       return {
         id: `${s.author}/${s.slug}`,
-        name: s.name,
+        name: sanitizeName(s.name, s.slug),
         slug: s.slug,
         author: s.author,
         description: s.desc || s.slug,

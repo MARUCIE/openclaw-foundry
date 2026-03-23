@@ -64,10 +64,29 @@ async function fetchPage(sort, cursor) {
   return res.json();
 }
 
+// Generic names that should be replaced with slug
+const GENERIC_NAMES = new Set([
+  'skill', 'tool', 'plugin', 'test', 'my skill', 'agent', 'bot', 'app',
+  'demo', 'example', 'hello', 'server', 'client', 'openclaw', 'openclaw skill',
+]);
+
+function titleCase(slug) {
+  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function resolveDisplayName(displayName, slug) {
+  // Use slug title-case if displayName is missing, generic, or too short
+  if (!displayName || displayName.length <= 2 ||
+      GENERIC_NAMES.has(displayName.toLowerCase())) {
+    return titleCase(slug);
+  }
+  return displayName;
+}
+
 function normalizeSkill(item) {
   const slug = `${item.ownerHandle}/${item.name}`;
   return {
-    name: item.displayName || item.name || '',
+    name: resolveDisplayName(item.displayName, item.name),
     slug: item.name || '',
     author: item.ownerHandle || 'unknown',
     desc: item.summary || '',
