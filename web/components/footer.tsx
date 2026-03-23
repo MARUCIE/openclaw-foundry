@@ -48,7 +48,7 @@ export function Footer() {
         <div className="w-full h-px" style={{ background: 'rgba(195, 198, 215, 0.3)' }} />
 
         <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Manrope, sans-serif' }}>
-          <div className="font-medium">OpenClaw Foundry v4.0 -- Maurice | maurice_wen@proton.me</div>
+          <div className="font-medium">OpenClaw Foundry v4.0</div>
           <div className="flex items-center gap-4">
             <span>{t('footer.privacy')}</span>
             <span>{t('footer.terms')}</span>

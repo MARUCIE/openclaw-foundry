@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import en from '@/messages/en.json';
 import zh from '@/messages/zh.json';
 
@@ -20,15 +20,20 @@ const I18nContext = createContext<I18nCtx>({
   t: (k) => k,
 });
 
-function getInitialLocale(): Locale {
-  if (typeof window === 'undefined') return 'en';
-  const saved = localStorage.getItem('ocf-lang');
-  if (saved === 'zh' || saved === 'en') return saved;
-  return navigator.language.startsWith('zh') ? 'zh' : 'en';
-}
-
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
+  // Always start with 'en' to match server render, then hydrate from localStorage
+  const [locale, setLocaleState] = useState<Locale>('en');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('ocf-lang');
+    if (saved === 'zh' || saved === 'en') {
+      setLocaleState(saved);
+    } else if (navigator.language.startsWith('zh')) {
+      setLocaleState('zh');
+    }
+    setMounted(true);
+  }, []);
 
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);

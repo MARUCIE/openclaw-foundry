@@ -13,8 +13,25 @@ export interface Env {
 
 const app = new Hono<{ Bindings: Env }>();
 
-// CORS
-app.use('*', cors());
+// CORS — restrict to known origins
+app.use('*', cors({
+  origin: (origin) => {
+    const allowed = [
+      'https://openclaw-foundry.pages.dev',
+      'http://localhost:3200',
+      'http://localhost:3000',
+    ];
+    return allowed.includes(origin) ? origin : 'https://openclaw-foundry.pages.dev';
+  },
+  allowMethods: ['GET', 'OPTIONS'],
+  credentials: false,
+}));
+
+// Global error handler
+app.onError((err, c) => {
+  console.error('Unhandled error:', err.message);
+  return c.json({ error: 'Internal Server Error' }, 500);
+});
 
 // Health
 app.get('/api/health', (c) => {

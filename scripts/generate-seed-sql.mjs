@@ -15,7 +15,12 @@ const PROJECT = join(__dirname, '..');
 
 function esc(s) {
   if (s == null) return '';
-  return String(s).replace(/'/g, "''");
+  return String(s)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "''")
+    .replace(/\n/g, '\\n')
+    .replace(/\r/g, '\\r')
+    .replace(/\0/g, '');
 }
 
 async function main() {

@@ -8,8 +8,8 @@ skills.get('/', async (c) => {
   const category = c.req.query('category');
   const rating = c.req.query('rating');
   const search = c.req.query('search');
-  const limit = parseInt(c.req.query('limit') || '50');
-  const offset = parseInt(c.req.query('offset') || '0');
+  const limit = Math.min(Math.max(parseInt(c.req.query('limit') || '50') || 50, 1), 100);
+  const offset = Math.max(parseInt(c.req.query('offset') || '0') || 0, 0);
 
   // Build query
   const conditions: string[] = [];
@@ -75,7 +75,7 @@ skills.get('/', async (c) => {
     stars: s.stars,
     starsDisplay: s.stars_display,
     versions: s.versions,
-    platforms: JSON.parse(s.platforms || '[]'),
+    platforms: (() => { try { return JSON.parse(s.platforms || '[]'); } catch { return []; } })(),
     official: Boolean(s.official),
     score: s.score,
     rating: s.rating,
