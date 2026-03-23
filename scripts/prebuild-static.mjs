@@ -82,7 +82,22 @@ async function main() {
       skillsData = JSON.parse(raw);
       console.log(`OK: Using ClawHub-only data (${skillsData.skills.length} skills)`);
     } catch {
-      console.log('WARN: No skills data found');
+      // Last resort: preserve existing static file (don't overwrite with empty)
+      try {
+        const existing = await readFile(join(OUT, 'skills.json'), 'utf-8');
+        const parsed = JSON.parse(existing);
+        if (parsed.skills?.length > 0) {
+          console.log(`OK: Keeping existing static skills (${parsed.skills.length} entries)`);
+          // Write categories and exit early for skills
+          await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
+            categories: parsed.meta?.byCategory || {},
+          }));
+          console.log(`OK: Skill categories (preserved)`);
+          console.log(`OK: Static data written to ${OUT}`);
+          return;
+        }
+      } catch { /* no existing file either */ }
+      console.log('WARN: No skills data found and no existing static file');
       skillsData = { meta: {}, skills: [] };
     }
   }
