@@ -220,6 +220,82 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
   );
 }
 
+// ── Curation Badges (v2: deploy stats + stale + permissions) ──
+function CurationBadges({ skill }: { skill: ClawHubSkill }) {
+  const rate = (skill as any).deploySuccessRate ?? -1;
+  const count = (skill as any).deployCount ?? 0;
+  const stale = (skill as any).stale;
+  const pm = (skill as any).permissionManifest || {};
+
+  const hasDeployData = rate >= 0 && count > 0;
+  const hasPermissions = pm.network_access || pm.filesystem_access;
+
+  if (!hasDeployData && !stale && !hasPermissions) return null;
+
+  return (
+    <div className="flex items-center gap-1.5 mb-2 flex-wrap">
+      {/* Deploy success rate */}
+      {hasDeployData && (
+        <span
+          className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold"
+          style={{
+            background: rate >= 0.8 ? '#dcfce7' : rate >= 0.5 ? '#fef9c3' : '#fee2e2',
+            color: rate >= 0.8 ? '#166534' : rate >= 0.5 ? '#854d0e' : '#991b1b',
+          }}
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>
+            {rate >= 0.8 ? 'verified' : rate >= 0.5 ? 'warning' : 'error'}
+          </span>
+          {Math.round(rate * 100)}% ({count})
+        </span>
+      )}
+
+      {/* Stale warning */}
+      {stale && (
+        <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold"
+          style={{ background: '#fee2e2', color: '#991b1b' }}>
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>schedule</span>
+          Stale
+        </span>
+      )}
+
+      {/* Permission icons */}
+      {pm.network_access === 'full' && (
+        <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium"
+          style={{ background: '#fef3c7', color: '#92400e' }}
+          title="Full network access">
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>language</span>
+          NET
+        </span>
+      )}
+      {pm.filesystem_access === 'write' && (
+        <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium"
+          style={{ background: '#fce7f3', color: '#9d174d' }}
+          title="File write access">
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>edit_document</span>
+          FS:W
+        </span>
+      )}
+      {pm.shell_execution && (
+        <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium"
+          style={{ background: '#ede9fe', color: '#5b21b6' }}
+          title="Shell execution">
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>terminal</span>
+          SHELL
+        </span>
+      )}
+      {pm.data_sensitivity === 'confidential' && (
+        <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium"
+          style={{ background: '#fee2e2', color: '#991b1b' }}
+          title="Handles confidential data">
+          <span className="material-symbols-outlined" style={{ fontSize: '11px' }}>shield</span>
+          CONF
+        </span>
+      )}
+    </div>
+  );
+}
+
 // ── Deploy Feedback Bar (R1 flywheel seed) ──
 function DeployFeedbackBar({ skillId }: { skillId: string }) {
   const [submitted, setSubmitted] = useState<string | null>(null);
@@ -518,6 +594,9 @@ export default function SkillsMarketplacePage() {
                         </span>
                       )}
                     </div>
+
+                    {/* V2 Curation badges */}
+                    <CurationBadges skill={skill} />
 
                     {/* Deploy Feedback (R1 flywheel) */}
                     <DeployFeedbackBar skillId={skill.id} />

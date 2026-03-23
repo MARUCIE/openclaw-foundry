@@ -56,7 +56,9 @@ async function main() {
     lines.push('-- Skills');
     lines.push('DELETE FROM skills;');
     for (const s of skills) {
-      lines.push(`INSERT INTO skills (id, name, slug, author, description, category, icon, downloads, downloads_display, stars, stars_display, versions, platforms, official, score, rating, url, source, source_url, repository_url, remote_url) VALUES ('${esc(s.id)}', '${esc(s.name)}', '${esc(s.slug)}', '${esc(s.author)}', '${esc(s.description)}', '${esc(s.category)}', '${esc(s.icon || 'widgets')}', ${s.downloads || 0}, '${esc(s.downloadsDisplay || '')}', ${s.stars || 0}, '${esc(s.starsDisplay || '')}', ${s.versions || 0}, '${esc(JSON.stringify(s.platforms || []))}', ${s.official ? 1 : 0}, ${s.score || 0}, '${esc(s.rating || 'C')}', '${esc(s.url || '')}', '${esc(s.source || 'clawhub')}', '${esc(s.sourceUrl || '')}', '${esc(s.repositoryUrl || '')}', '${esc(s.remoteUrl || '')}');`);
+      const pm = s.permissionManifest ? esc(JSON.stringify(s.permissionManifest)) : '{}';
+      const stale = s.stale ? 1 : 0;
+      lines.push(`INSERT INTO skills (id, name, slug, author, description, category, icon, downloads, downloads_display, stars, stars_display, versions, platforms, official, score, rating, url, source, source_url, repository_url, remote_url, permission_manifest, deploy_success_rate, deploy_count, stale) VALUES ('${esc(s.id)}', '${esc(s.name)}', '${esc(s.slug)}', '${esc(s.author)}', '${esc(s.description)}', '${esc(s.category)}', '${esc(s.icon || 'widgets')}', ${s.downloads || 0}, '${esc(s.downloadsDisplay || '')}', ${s.stars || 0}, '${esc(s.starsDisplay || '')}', ${s.versions || 0}, '${esc(JSON.stringify(s.platforms || []))}', ${s.official ? 1 : 0}, ${s.score || 0}, '${esc(s.rating || 'C')}', '${esc(s.url || '')}', '${esc(s.source || 'clawhub')}', '${esc(s.sourceUrl || '')}', '${esc(s.repositoryUrl || '')}', '${esc(s.remoteUrl || '')}', '${pm}', -1, 0, ${stale});`);
     }
     console.log(`OK: ${skills.length} skills`);
   } catch (err) {
