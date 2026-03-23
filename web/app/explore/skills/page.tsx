@@ -202,8 +202,16 @@ export default function SkillsMarketplacePage() {
   const [installSkill, setInstallSkill] = useState<any>(null);
   const LIMIT = 18;
 
-  const { data, isLoading } = useSWR('all-skills', () => getSkills('limit=2000'));
-  const { data: catData } = useSWR('skill-categories', () => getSkillCategories());
+  // Load from static prebuild (has 1500 Skills + 500 MCP split)
+  // Workers API returns by score only, losing MCP representation
+  const { data, isLoading } = useSWR('all-skills', async () => {
+    const res = await fetch('/data/skills.json');
+    return res.ok ? res.json() : {};
+  });
+  const { data: catData } = useSWR('skill-categories', async () => {
+    const res = await fetch('/data/skills-categories.json');
+    return res.ok ? res.json() : {};
+  });
 
   const allSkills = data?.skills || [];
   const categories = catData?.categories || data?.meta?.byCategory || {};
