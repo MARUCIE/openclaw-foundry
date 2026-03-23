@@ -177,17 +177,64 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-4 bg-white/10 rounded-[2.5rem] blur-2xl opacity-50" />
               <div className="relative bg-white/5 p-4 rounded-[2.5rem] shadow-2xl border border-white/20 overflow-hidden backdrop-blur-md">
-                {/* Hero illustration: will be replaced by Gemini-generated image */}
-                <img
-                  src="/images/hero-agent.png"
-                  alt="AI Agent Platform"
-                  className="rounded-[2rem] w-full aspect-[4/3] object-cover"
-                  onError={(e) => {
-                    // Fallback to icon if image not found
-                    (e.target as HTMLImageElement).style.display = 'none';
-                    (e.target as HTMLImageElement).parentElement!.innerHTML += '<div class="rounded-[2rem] w-full aspect-[4/3] flex items-center justify-center bg-white/10"><span class="material-symbols-outlined text-white/60" style="font-size:120px;font-variation-settings:\'FILL\' 1">deployed_code</span></div>';
-                  }}
-                />
+                <div className="rounded-[2rem] w-full aspect-[4/3] bg-gradient-to-br from-white/10 to-white/5 relative overflow-hidden">
+                  {/* Animated constellation of agent nodes */}
+                  <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    {/* Connection lines */}
+                    <g stroke="rgba(255,255,255,0.15)" strokeWidth="1">
+                      <line x1="200" y1="100" x2="100" y2="180"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/></line>
+                      <line x1="200" y1="100" x2="300" y2="160"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.5s" repeatCount="indefinite"/></line>
+                      <line x1="200" y1="100" x2="160" y2="50"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="2.8s" repeatCount="indefinite"/></line>
+                      <line x1="200" y1="100" x2="280" y2="60"><animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite"/></line>
+                      <line x1="100" y1="180" x2="170" y2="230"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="3.2s" repeatCount="indefinite"/></line>
+                      <line x1="300" y1="160" x2="340" y2="220"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="3.8s" repeatCount="indefinite"/></line>
+                      <line x1="100" y1="180" x2="60" y2="120"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="2.5s" repeatCount="indefinite"/></line>
+                      <line x1="300" y1="160" x2="350" y2="100"><animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite"/></line>
+                    </g>
+                    {/* Central hub */}
+                    <g>
+                      <circle cx="200" cy="100" r="28" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" strokeWidth="2">
+                        <animate attributeName="r" values="26;30;26" dur="2s" repeatCount="indefinite"/>
+                      </circle>
+                      <text x="200" y="106" textAnchor="middle" fill="white" fontSize="22" fontFamily="Material Symbols Outlined">&#xe86c;</text>
+                    </g>
+                    {/* Agent nodes */}
+                    {[
+                      { x: 100, y: 180, icon: '&#xf049;', delay: '0.5s' },
+                      { x: 300, y: 160, icon: '&#xe322;', delay: '1s' },
+                      { x: 160, y: 50, icon: '&#xe8b8;', delay: '0.3s' },
+                      { x: 280, y: 60, icon: '&#xe9da;', delay: '0.8s' },
+                      { x: 170, y: 230, icon: '&#xef42;', delay: '1.2s' },
+                      { x: 340, y: 220, icon: '&#xe30a;', delay: '0.6s' },
+                      { x: 60, y: 120, icon: '&#xe161;', delay: '1.5s' },
+                      { x: 350, y: 100, icon: '&#xeb8b;', delay: '0.9s' },
+                    ].map((n, i) => (
+                      <g key={i}>
+                        <circle cx={n.x} cy={n.y} r="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth="1">
+                          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" begin={n.delay} repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx={n.x} cy={n.y} r="3" fill="rgba(78,222,163,0.8)">
+                          <animate attributeName="r" values="2;4;2" dur="2s" begin={n.delay} repeatCount="indefinite"/>
+                        </circle>
+                      </g>
+                    ))}
+                    {/* Floating particles */}
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <circle key={`p${i}`} cx={50 + (i * 30)} cy={40 + (i % 3) * 80} r="1.5" fill="rgba(255,255,255,0.3)">
+                        <animate attributeName="cy" values={`${40 + (i % 3) * 80};${30 + (i % 3) * 80};${40 + (i % 3) * 80}`} dur={`${3 + i * 0.3}s`} repeatCount="indefinite"/>
+                      </circle>
+                    ))}
+                    {/* Stats badges */}
+                    <g transform="translate(120, 260)">
+                      <rect x="0" y="0" width="70" height="24" rx="12" fill="rgba(255,255,255,0.15)" />
+                      <text x="35" y="16" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">37K Skills</text>
+                    </g>
+                    <g transform="translate(210, 260)">
+                      <rect x="0" y="0" width="80" height="24" rx="12" fill="rgba(255,255,255,0.15)" />
+                      <text x="40" y="16" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">4.2K MCP</text>
+                    </g>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
