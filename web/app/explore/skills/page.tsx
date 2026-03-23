@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import useSWR from 'swr';
-import { getSkills, getSkillCategories, type ClawHubSkill } from '@/lib/api';
+import { getSkills, getSkillCategories, type ClawHubSkill, submitFeedback } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
 const SOURCE_KEYS = ['all', 'Skills', 'MCP Servers'] as const;
@@ -215,6 +215,57 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
             {t('skills.viewDetails', { source: isSkill ? 'ClawHub' : 'MCP Registry' })}
           </a>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Deploy Feedback Bar (R1 flywheel seed) ──
+function DeployFeedbackBar({ skillId }: { skillId: string }) {
+  const [submitted, setSubmitted] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+
+  const submit = useCallback(async (outcome: 'success' | 'fail' | 'not_tried') => {
+    if (sending || submitted) return;
+    setSending(true);
+    try {
+      await submitFeedback(skillId, outcome);
+      setSubmitted(outcome);
+    } catch {
+      // Silent fail — feedback is best-effort
+    } finally {
+      setSending(false);
+    }
+  }, [skillId, sending, submitted]);
+
+  const OUTCOMES = [
+    { key: 'success' as const, icon: 'check_circle', label: 'OK', color: '#22c55e' },
+    { key: 'fail' as const, icon: 'cancel', label: 'FAIL', color: '#ef4444' },
+    { key: 'not_tried' as const, icon: 'help', label: '?', color: '#94a3b8' },
+  ];
+
+  return (
+    <div className="flex items-center gap-2 mb-3 py-1.5 border-t" style={{ borderColor: 'rgba(195,198,215,0.2)' }}>
+      <span className="text-[10px] font-medium" style={{ color: 'var(--on-surface-variant)' }}>
+        {submitted ? 'Thanks!' : 'Tried it?'}
+      </span>
+      <div className="flex gap-1 ml-auto">
+        {OUTCOMES.map(o => (
+          <button
+            key={o.key}
+            onClick={() => submit(o.key)}
+            disabled={sending || !!submitted}
+            className="flex items-center gap-0.5 px-2 py-0.5 rounded text-[10px] font-bold transition-all"
+            style={{
+              background: submitted === o.key ? o.color : 'var(--surface-container)',
+              color: submitted === o.key ? '#fff' : 'var(--on-surface-variant)',
+              opacity: submitted && submitted !== o.key ? 0.3 : 1,
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>{o.icon}</span>
+            {o.label}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -467,6 +518,9 @@ export default function SkillsMarketplacePage() {
                         </span>
                       )}
                     </div>
+
+                    {/* Deploy Feedback (R1 flywheel) */}
+                    <DeployFeedbackBar skillId={skill.id} />
 
                     {/* Install button */}
                     <div className="flex justify-between items-center">

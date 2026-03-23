@@ -102,6 +102,13 @@ export const getSkills = (params?: string) =>
 export const getSkillCategories = () =>
   fetchJSON<{ categories: Record<string, number> }>('/skills/categories');
 
+// Deploy feedback (R1 flywheel)
+export const submitFeedback = (skillId: string, outcome: 'success' | 'fail' | 'not_tried', providerId?: string) =>
+  fetchJSON<{ ok: boolean }>('/feedback', {
+    method: 'POST',
+    body: JSON.stringify({ skill_id: skillId, outcome, provider_id: providerId || '' }),
+  });
+
 // Arena
 export const startArena = (providers: string[], blueprint: Record<string, unknown>, testPrompt: string) =>
   fetchJSON<{ matchId: string; status: string }>('/arena', {

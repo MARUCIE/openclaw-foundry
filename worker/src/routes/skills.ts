@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import type { Env } from '../index';
 import type { SkillRow, CountRow, SyncRow } from '../types';
-import { safeJsonArray } from '../types';
+import { safeJsonArray, safeJsonObject } from '../types';
 
 export const skills = new Hono<{ Bindings: Env }>();
 
@@ -86,6 +86,11 @@ skills.get('/', async (c) => {
     sourceUrl: s.source_url || '',
     repositoryUrl: s.repository_url || '',
     remoteUrl: s.remote_url || '',
+    // v2 curation fields
+    deploySuccessRate: (s as any).deploy_success_rate ?? -1,
+    deployCount: (s as any).deploy_count ?? 0,
+    stale: Boolean((s as any).stale),
+    permissionManifest: safeJsonObject((s as any).permission_manifest),
   }));
 
   return c.json({

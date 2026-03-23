@@ -27,3 +27,4 @@ data/mcp-registry-servers.json
 data/unified-index.json
 data/clawhub-scroll-backup.json
 data/clawhub-api-full.json
+worker/.wrangler/
