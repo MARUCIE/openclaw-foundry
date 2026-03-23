@@ -1,8 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useI18n } from '@/lib/i18n';
 
-const TABS = ['全部', '版本更新', '行业动态', '教程', '社区精选'];
+const TAB_KEYS = ['news.tab.all', 'news.tab.releases', 'news.tab.industry', 'news.tab.tutorials', 'news.tab.community'] as const;
+const TAB_CATEGORIES: Record<string, string> = {
+  'news.tab.releases': '版本更新',
+  'news.tab.industry': '行业动态',
+  'news.tab.tutorials': '教程',
+  'news.tab.community': '社区精选',
+};
 
 const FEATURED = {
   tag: 'GITHUB RELEASE', tagColor: 'bg-blue-100 text-blue-700',
@@ -32,11 +39,12 @@ const VERSION_TRACKER = [
 const TAGS = ['#MCP', '#飞书', '#一键部署', '#Skills', '#ClawHub', '#自动化', '#开源', '#企业'];
 
 export default function NewsPage() {
-  const [activeTab, setActiveTab] = useState('全部');
+  const { t } = useI18n();
+  const [activeTab, setActiveTab] = useState<string>('news.tab.all');
 
-  const filtered = activeTab === '全部'
+  const filtered = activeTab === 'news.tab.all'
     ? NEWS_FEED
-    : NEWS_FEED.filter(n => n.category === activeTab);
+    : NEWS_FEED.filter(n => n.category === TAB_CATEGORIES[activeTab]);
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
@@ -46,26 +54,26 @@ export default function NewsPage() {
           className="text-4xl font-extrabold mb-4"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
-          资讯中心
+          {t('news.title')}
         </h1>
         <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-          OpenClaw 生态最新动态、版本更新和社区精选。
+          {t('news.subtitle')}
         </p>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2 flex-wrap mb-10">
-        {TABS.map(tab => (
+        {TAB_KEYS.map(tabKey => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
+            key={tabKey}
+            onClick={() => setActiveTab(tabKey)}
             className="px-4 py-2 rounded-full text-sm font-bold transition-all"
             style={{
-              background: activeTab === tab ? 'var(--primary)' : 'var(--surface-container)',
-              color: activeTab === tab ? 'var(--on-primary)' : 'var(--on-surface-variant)',
+              background: activeTab === tabKey ? 'var(--primary)' : 'var(--surface-container)',
+              color: activeTab === tabKey ? 'var(--on-primary)' : 'var(--on-surface-variant)',
             }}
           >
-            {tab}
+            {t(tabKey)}
           </button>
         ))}
       </div>
@@ -88,7 +96,7 @@ export default function NewsPage() {
           </h2>
           <p className="text-lg leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{FEATURED.desc}</p>
           <a href="#" className="font-bold text-sm inline-flex items-center gap-2 hover:translate-x-1 transition-transform" style={{ color: 'var(--primary)' }}>
-            阅读全文 <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            {t('news.readMore')} <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
         </div>
         <div
@@ -130,7 +138,7 @@ export default function NewsPage() {
         <aside className="w-full lg:w-80 shrink-0 space-y-8">
           {/* Version Tracker */}
           <div className="p-6 rounded-2xl" style={{ background: 'var(--surface-container-lowest)', border: '1px solid rgba(195, 198, 215, 0.2)' }}>
-            <h3 className="font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>版本追踪</h3>
+            <h3 className="font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{t('news.versionTracker')}</h3>
             <div className="space-y-3">
               {VERSION_TRACKER.map(v => (
                 <div key={v.name} className="flex justify-between items-center py-2" style={{ borderBottom: '1px solid rgba(195, 198, 215, 0.15)' }}>
@@ -146,7 +154,7 @@ export default function NewsPage() {
 
           {/* Tags */}
           <div className="p-6 rounded-2xl" style={{ background: 'var(--surface-container-lowest)', border: '1px solid rgba(195, 198, 215, 0.2)' }}>
-            <h3 className="font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>热门标签</h3>
+            <h3 className="font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{t('news.popularTags')}</h3>
             <div className="flex flex-wrap gap-2">
               {TAGS.map(tag => (
                 <span
@@ -166,8 +174,8 @@ export default function NewsPage() {
             style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
           >
             <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
-            <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>订阅动态</h3>
-            <p className="text-xs opacity-80">每周精选 Agent 生态要闻直达邮箱</p>
+            <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('news.subscribe')}</h3>
+            <p className="text-xs opacity-80">{t('news.newsletter')}</p>
             <input
               type="email"
               placeholder="your@email.com"
@@ -178,7 +186,7 @@ export default function NewsPage() {
               className="w-full py-2 rounded-lg text-sm font-bold transition-opacity hover:opacity-90"
               style={{ background: 'white', color: 'var(--primary)' }}
             >
-              订阅
+              {t('news.subscribe')}
             </button>
           </div>
         </aside>

@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { getProviders, type ProviderMeta } from '@/lib/api';
 import { TypeBadge, StatusBadge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { useI18n } from '@/lib/i18n';
 
 const fetcher = () => getProviders();
 
@@ -28,6 +29,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function CatalogPage() {
+  const { t } = useI18n();
   const { data, isLoading } = useSWR('providers', fetcher);
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -42,14 +44,14 @@ export default function CatalogPage() {
     return true;
   });
 
-  const typeLabels: Record<string, string> = { all: '全部', desktop: '桌面端', saas: 'SaaS', cloud: '云端', mobile: '移动', remote: '远程' };
-  const statusLabels: Record<string, string> = { all: '全部', stable: '稳定', beta: '测试', preview: '预览' };
+  const typeLabels: Record<string, string> = { all: t('catalog.all'), desktop: t('type.desktop'), saas: 'SaaS', cloud: t('type.cloud'), mobile: t('type.mobile'), remote: t('type.remote') };
+  const statusLabels: Record<string, string> = { all: t('catalog.all'), stable: t('catalog.stable'), beta: t('catalog.beta'), preview: t('catalog.preview') };
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>平台目录</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>浏览和管理 {providers.length} 个 AI Agent 部署平台</p>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('catalog.title')}</h2>
+        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
       </div>
 
       {/* Filter bar */}
@@ -89,7 +91,7 @@ export default function CatalogPage() {
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg" style={{ color: 'var(--outline)' }}>search</span>
           <input
             type="text"
-            placeholder="搜索平台..."
+            placeholder={t('catalog.searchPlaceholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="pl-10 pr-4 py-1.5 rounded-xl text-sm outline-none"
@@ -100,7 +102,7 @@ export default function CatalogPage() {
 
       {/* Results count */}
       <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-        {filtered.length} / {providers.length} 平台
+        {filtered.length} / {t('catalog.count', { count: providers.length })}
       </p>
 
       {/* Card grid */}
@@ -122,6 +124,7 @@ export default function CatalogPage() {
 }
 
 function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
+  const { t } = useI18n();
   const icon = TYPE_ICONS[p.type] || 'devices';
   const color = TYPE_COLORS[p.type] || '#616161';
 
@@ -175,7 +178,7 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
           className="flex-1 text-center py-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90"
           style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
         >
-          部署
+          {t('catalog.deploy')}
         </Link>
         <a
           href={p.consoleUrl}
@@ -184,7 +187,7 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
           className="flex-1 text-center py-2 rounded-lg text-xs font-medium transition-colors hover:bg-[var(--surface-container)]"
           style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
         >
-          详情
+          {t('catalog.details')}
         </a>
       </div>
     </div>

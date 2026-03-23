@@ -2,15 +2,16 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { TopNav } from '@/components/top-nav';
 import { Footer } from '@/components/footer';
+import { I18nProvider } from '@/lib/i18n';
 
 export const metadata: Metadata = {
-  title: 'OpenClaw Foundry — 中国 OpenClaw 生态一站式门户',
-  description: '一键部署 AI Agent，12 大平台，一个入口。Skills 市场、MCP 目录、资讯中心。',
+  title: 'OpenClaw Foundry — The Curated AI Agent Skill Marketplace',
+  description: '37,000+ vetted AI agent skills. S/A/B/C quality ratings. Deploy to any platform in one click.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com" rel="preconnect" />
         <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -24,11 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen antialiased">
-        <TopNav />
-        <main className="pt-20 min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <I18nProvider>
+          <TopNav />
+          <main className="pt-20 min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </I18nProvider>
       </body>
     </html>
   );

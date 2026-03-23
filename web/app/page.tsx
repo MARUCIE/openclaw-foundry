@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { getProviders, type ProviderMeta, type ProviderTier, type ClawHubSkill } from '@/lib/api';
+import { useI18n } from '@/lib/i18n';
 
-/* ── Tier config ── */
-const TIER_CONFIG: Record<ProviderTier, { label: string; bg: string; color: string; dot: string; icon: string }> = {
-  'full-auto': { label: 'Tier 1 全自动', bg: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed)', dot: '#22c55e', icon: 'bolt' },
-  'semi-auto': { label: 'Tier 2 半自动', bg: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed)', dot: '#f59e0b', icon: 'auto_awesome_motion' },
-  'guided': { label: 'Tier 3 引导式', bg: 'var(--surface-container-high)', color: 'var(--on-surface)', dot: '#94a3b8', icon: 'menu_book' },
+/* ── Tier config (labels resolved inside component via t()) ── */
+const TIER_STYLE: Record<ProviderTier, { bg: string; color: string; dot: string; icon: string; labelKey: string }> = {
+  'full-auto': { bg: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed)', dot: '#22c55e', icon: 'bolt', labelKey: 'tier.fullAuto' },
+  'semi-auto': { bg: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed)', dot: '#f59e0b', icon: 'auto_awesome_motion', labelKey: 'tier.semiAuto' },
+  'guided': { bg: 'var(--surface-container-high)', color: 'var(--on-surface)', dot: '#94a3b8', icon: 'menu_book', labelKey: 'tier.guided' },
 };
 
 const TYPE_ICONS: Record<string, string> = {
@@ -29,8 +30,8 @@ function formatNum(n: number): string {
 }
 
 /* ── Platform card ── */
-function PlatformCard({ p }: { p: ProviderMeta }) {
-  const cfg = TIER_CONFIG[p.tier] || TIER_CONFIG.guided;
+function PlatformCard({ p, t }: { p: ProviderMeta; t: (key: string, vars?: Record<string, string | number>) => string }) {
+  const cfg = TIER_STYLE[p.tier] || TIER_STYLE.guided;
   return (
     <div
       className="p-5 rounded-2xl transition-all group hover:bg-[var(--surface-container-lowest)]"
@@ -54,7 +55,7 @@ function PlatformCard({ p }: { p: ProviderMeta }) {
           className="px-4 py-1.5 rounded-lg text-xs font-bold"
           style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
         >
-          部署
+          {t('landing.deploy')}
         </Link>
       </div>
       <p className="text-sm line-clamp-2" style={{ color: 'var(--on-surface-variant)' }}>{p.description}</p>
@@ -106,6 +107,7 @@ function SkillCard({ s }: { s: ClawHubSkill }) {
 
 /* ── Main Landing Page ── */
 export default function LandingPage() {
+  const { t } = useI18n();
   const { data: providerData } = useSWR('providers', () => getProviders());
 
   // Load real skills from static prebuild
@@ -129,10 +131,10 @@ export default function LandingPage() {
   const mcpCount = (skillsData?.skills || []).filter((s: any) => s.source === 'mcp-registry').length;
 
   const STATS = [
-    { icon: 'rocket_launch', value: String(totalProviders), label: '支持平台' },
-    { icon: 'widgets', value: formatNum(totalSkills), label: 'Agent Skills' },
-    { icon: 'hub', value: formatNum(mcpCount || 4200), label: 'MCP Servers' },
-    { icon: 'auto_fix', value: 'L3', label: '自动化级别' },
+    { icon: 'rocket_launch', value: String(totalProviders), label: t('stats.platforms') },
+    { icon: 'widgets', value: formatNum(totalSkills), label: t('stats.skills') },
+    { icon: 'hub', value: formatNum(mcpCount || 4200), label: t('stats.mcp') },
+    { icon: 'auto_fix', value: 'L3', label: t('stats.automation') },
   ];
 
   return (
@@ -144,17 +146,17 @@ export default function LandingPage() {
           <div className="flex-1 space-y-8 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold tracking-widest uppercase backdrop-blur-md">
               <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-              China AI Agent Portal
+              {t('hero.badge')}
             </div>
             <h1
               className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] tracking-tight"
               style={{ fontFamily: 'Manrope, sans-serif' }}
             >
-              一键部署 AI Agent <br />
-              <span className="opacity-90">{totalProviders} 大平台，一个入口</span>
+              {t('hero.title')} <br />
+              <span className="opacity-90">{t('hero.subtitle', { count: totalProviders })}</span>
             </h1>
             <p className="text-xl md:text-2xl text-blue-50/80 max-w-2xl leading-relaxed">
-              OpenClaw Foundry 是中国 OpenClaw 生态的一站式部署、导航、资讯平台。
+              {t('hero.description')}
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center md:justify-start">
               <Link
@@ -162,14 +164,14 @@ export default function LandingPage() {
                 className="w-full sm:w-auto px-10 py-4 rounded-2xl font-bold text-lg shadow-2xl transition-all transform hover:-translate-y-1"
                 style={{ background: 'white', color: 'var(--primary)', fontFamily: 'Manrope, sans-serif' }}
               >
-                立即部署
+                {t('hero.deployNow')}
               </Link>
               <Link
                 href="/explore/skills"
                 className="w-full sm:w-auto px-10 py-4 border-2 border-white/30 text-white rounded-2xl font-bold text-lg backdrop-blur-sm transition-all transform hover:-translate-y-1 hover:bg-white/10"
                 style={{ fontFamily: 'Manrope, sans-serif' }}
               >
-                浏览 {formatNum(totalSkills)} Skills
+                {t('hero.browseSkills', { count: formatNum(totalSkills) })}
               </Link>
             </div>
           </div>
@@ -267,12 +269,12 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
           <div className="space-y-4">
             <h2 className="text-4xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-              {totalProviders} 大 Agent 平台，3 级自动化
+              {t('landing.platformsTitle', { count: totalProviders })}
             </h2>
-            <p style={{ color: 'var(--on-surface-variant)' }} className="text-lg">基于自动化程度精细化分类，找到最适合您的部署方案。</p>
+            <p style={{ color: 'var(--on-surface-variant)' }} className="text-lg">{t('landing.platformsDesc')}</p>
           </div>
           <Link href="/explore/platforms" className="px-4 py-2 rounded-full text-sm font-bold" style={{ background: 'var(--primary)', color: 'var(--on-primary)' }}>
-            查看全部平台
+            {t('landing.viewAllPlatforms')}
           </Link>
         </div>
 
@@ -290,18 +292,18 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {(['full-auto', 'semi-auto', 'guided'] as const).map(tier => {
               const items = grouped[tier];
-              const cfg = TIER_CONFIG[tier];
+              const cfg = TIER_STYLE[tier];
               const displayItems = items.slice(0, 2);
               const remaining = items.length - 2;
               return (
                 <div key={tier} className="space-y-6">
                   <div className="flex items-center gap-3 p-4 rounded-2xl" style={{ background: cfg.bg }}>
                     <span className="material-symbols-outlined" style={{ color: cfg.color, fontVariationSettings: "'FILL' 1" }}>{cfg.icon}</span>
-                    <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: cfg.color }}>{cfg.label}</h3>
+                    <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: cfg.color }}>{t(cfg.labelKey)}</h3>
                     <span className="ml-auto text-sm font-bold" style={{ color: cfg.color }}>{items.length}</span>
                   </div>
                   <div className="space-y-4">
-                    {displayItems.map(p => <PlatformCard key={p.id} p={p} />)}
+                    {displayItems.map(p => <PlatformCard key={p.id} p={p} t={t} />)}
                     {remaining > 0 && (
                       <div className="p-5 rounded-2xl opacity-60" style={{ background: 'var(--surface-container-low)' }}>
                         <p className="text-center text-xs font-medium" style={{ color: 'var(--on-surface-variant)' }}>
@@ -322,14 +324,14 @@ export default function LandingPage() {
         <div className="flex justify-between items-end mb-12">
           <div className="space-y-4">
             <h2 className="text-4xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-              热门 Skills
+              {t('landing.hotSkills')}
             </h2>
             <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-              从 {formatNum(totalSkills)} Agent Skills 中发现最适合您工作流的工具。
+              {t('landing.hotSkillsDesc', { count: formatNum(totalSkills) })}
             </p>
           </div>
           <Link href="/explore/skills" className="font-bold hover:underline underline-offset-8" style={{ color: 'var(--primary)' }}>
-            浏览全部 Skills →
+            {t('landing.browseAll')}
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

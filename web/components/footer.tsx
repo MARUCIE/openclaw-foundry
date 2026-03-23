@@ -1,14 +1,19 @@
+'use client';
+
 import Link from 'next/link';
+import { useI18n } from '@/lib/i18n';
 
 const FOOTER_LINKS = [
-  { href: '/about', label: '关于' },
-  { href: '/docs', label: '文档' },
-  { href: 'https://github.com/MARUCIE/openclaw-foundry', label: 'GitHub' },
-  { href: '/explore/skills', label: 'ClawHub' },
-  { href: 'mailto:maurice_wen@proton.me', label: '联系' },
+  { href: '/about', key: 'footer.about' },
+  { href: '/docs', key: 'footer.docs' },
+  { href: 'https://github.com/MARUCIE/openclaw-foundry', key: null, label: 'GitHub' },
+  { href: '/explore/skills', key: null, label: 'ClawHub' },
+  { href: 'mailto:maurice_wen@proton.me', key: 'footer.contact' },
 ];
 
 export function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer
       className="w-full pt-16 pb-12"
@@ -34,7 +39,7 @@ export function Footer() {
                 className="transition-colors hover:text-[var(--surface-tint)]"
                 style={{ color: 'var(--on-surface-variant)' }}
               >
-                {link.label}
+                {link.key ? t(link.key) : link.label}
               </Link>
             ))}
           </div>
@@ -45,9 +50,9 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Manrope, sans-serif' }}>
           <div className="font-medium">OpenClaw Foundry v4.0 -- Maurice | maurice_wen@proton.me</div>
           <div className="flex items-center gap-4">
-            <span>隐私政策</span>
-            <span>服务条款</span>
-            <span>© 2026</span>
+            <span>{t('footer.privacy')}</span>
+            <span>{t('footer.terms')}</span>
+            <span>&copy; 2026</span>
           </div>
         </div>
       </div>

@@ -3,9 +3,37 @@
 import { useState, useCallback } from 'react';
 import useSWR from 'swr';
 import { getSkills, getSkillCategories, type ClawHubSkill } from '@/lib/api';
+import { useI18n } from '@/lib/i18n';
 
-const SOURCES = ['全部', 'Skills', 'MCP Servers'] as const;
-const RATINGS = ['全部', 'S', 'A', 'B', 'C', 'D'];
+const SOURCE_KEYS = ['all', 'Skills', 'MCP Servers'] as const;
+const RATING_KEYS = ['all', 'S', 'A', 'B', 'C', 'D'];
+
+// Map Chinese category names (from API) to i18n keys
+const CATEGORY_KEY_MAP: Record<string, string> = {
+  '区块链 Web3': 'skills.cat.blockchain',
+  '金融交易': 'skills.cat.finance',
+  '电商营销': 'skills.cat.ecommerce',
+  '办公文档': 'skills.cat.office',
+  '教育学习': 'skills.cat.education',
+  '游戏娱乐': 'skills.cat.gaming',
+  '生活服务': 'skills.cat.lifestyle',
+  'HR 人才': 'skills.cat.hr',
+  'Agent 基建': 'skills.cat.agent',
+  '安全合规': 'skills.cat.security',
+  'AI 模型': 'skills.cat.ai',
+  '浏览器自动化': 'skills.cat.browser',
+  '搜索与研究': 'skills.cat.search',
+  '通讯集成': 'skills.cat.communication',
+  '数据分析': 'skills.cat.data',
+  '内容创作': 'skills.cat.content',
+  '效率工具': 'skills.cat.productivity',
+  '多媒体': 'skills.cat.multimedia',
+  'DevOps 部署': 'skills.cat.devops',
+  '代码开发': 'skills.cat.development',
+  '系统工具': 'skills.cat.system',
+  'API 网关': 'skills.cat.api',
+  '其他': 'skills.cat.other',
+};
 const RATING_COLORS: Record<string, string> = {
   S: 'bg-amber-100 text-amber-700',
   A: 'bg-blue-100 text-blue-700',
@@ -34,7 +62,7 @@ const INSTALL_TARGETS = [
   { id: 'cline', name: 'Cline', icon: 'psychology',
     cmdSkill: null,
     cmdMcp: (s: string, repo: string) => `# cline_mcp_settings.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cli', name: '直接运行', icon: 'play_arrow',
+  { id: 'cli', name: 'skills.directRun', icon: 'play_arrow',
     cmdSkill: null,
     cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
 ];
@@ -95,6 +123,7 @@ function getRepoName(skill: ClawHubSkill): string {
 
 // ── Install Modal ──
 function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => void }) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState('');
   const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
   const installId = getInstallId(skill);
@@ -106,7 +135,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
     setTimeout(() => setCopied(''), 2000);
   }, []);
 
-  const targets = INSTALL_TARGETS.filter(t => isSkill ? t.cmdSkill : t.cmdMcp);
+  const targets = INSTALL_TARGETS.filter(tgt => isSkill ? tgt.cmdSkill : tgt.cmdMcp);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
@@ -137,29 +166,29 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
         {/* Install commands */}
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>
-            选择安装目标
+            {t('skills.selectTarget')}
           </h4>
-          {targets.map(t => {
-            const cmd = isSkill ? t.cmdSkill?.(installId) : t.cmdMcp?.(installId, repoName);
+          {targets.map(tgt => {
+            const cmd = isSkill ? tgt.cmdSkill?.(installId) : tgt.cmdMcp?.(installId, repoName);
             if (!cmd) return null;
             const isMultiline = cmd.includes('\n');
             return (
-              <div key={t.id} className="rounded-xl p-3" style={{ background: 'var(--surface-container)' }}>
+              <div key={tgt.id} className="rounded-xl p-3" style={{ background: 'var(--surface-container)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm" style={{ color: 'var(--primary)' }}>{t.icon}</span>
-                    <span className="text-sm font-bold" style={{ color: 'var(--on-surface)' }}>{t.name}</span>
+                    <span className="material-symbols-outlined text-sm" style={{ color: 'var(--primary)' }}>{tgt.icon}</span>
+                    <span className="text-sm font-bold" style={{ color: 'var(--on-surface)' }}>{tgt.id === 'cli' ? t(tgt.name) : tgt.name}</span>
                   </div>
                   <button
-                    onClick={() => copy(cmd, t.id)}
+                    onClick={() => copy(cmd, tgt.id)}
                     className="flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold transition-all"
                     style={{
-                      background: copied === t.id ? '#22c55e' : 'var(--primary)',
+                      background: copied === tgt.id ? '#22c55e' : 'var(--primary)',
                       color: 'white',
                     }}
                   >
-                    <span className="material-symbols-outlined text-sm">{copied === t.id ? 'check' : 'content_copy'}</span>
-                    {copied === t.id ? '已复制' : '复制'}
+                    <span className="material-symbols-outlined text-sm">{copied === tgt.id ? 'check' : 'content_copy'}</span>
+                    {copied === tgt.id ? t('skills.copied') : t('skills.copy')}
                   </button>
                 </div>
                 <pre
@@ -183,7 +212,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
             style={{ color: 'var(--primary)' }}
           >
             <span className="material-symbols-outlined text-sm">open_in_new</span>
-            在 {isSkill ? 'ClawHub' : 'MCP Registry'} 查看详情
+            {t('skills.viewDetails', { source: isSkill ? 'ClawHub' : 'MCP Registry' })}
           </a>
         </div>
       </div>
@@ -193,10 +222,11 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
 
 // ── Main Page ──
 export default function SkillsMarketplacePage() {
+  const { t } = useI18n();
   const [search, setSearch] = useState('');
-  const [activeSource, setActiveSource] = useState<typeof SOURCES[number]>('全部');
-  const [activeCategory, setActiveCategory] = useState('全部');
-  const [activeRating, setActiveRating] = useState('全部');
+  const [activeSource, setActiveSource] = useState<typeof SOURCE_KEYS[number]>('all');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeRating, setActiveRating] = useState('all');
   const [page, setPage] = useState(0);
   const [showAllCats, setShowAllCats] = useState(false);
   const [installSkill, setInstallSkill] = useState<ClawHubSkill | null>(null);
@@ -218,7 +248,7 @@ export default function SkillsMarketplacePage() {
   const sortedCats = Object.entries(categories)
     .sort(([, a], [, b]) => (b as number) - (a as number))
     .map(([k]) => k);
-  const allCategories = ['全部', ...sortedCats];
+  const allCategories = ['all', ...sortedCats];
   const syncedAt = data?.meta?.syncedAt ? new Date(data.meta.syncedAt).toLocaleDateString('zh-CN') : '';
 
   // Source counts
@@ -230,8 +260,8 @@ export default function SkillsMarketplacePage() {
     const src = s.source || 'clawhub';
     if (activeSource === 'Skills' && src === 'mcp-registry') return false;
     if (activeSource === 'MCP Servers' && src !== 'mcp-registry') return false;
-    if (activeCategory !== '全部' && s.category !== activeCategory) return false;
-    if (activeRating !== '全部' && s.rating !== activeRating) return false;
+    if (activeCategory !== 'all' && s.category !== activeCategory) return false;
+    if (activeRating !== 'all' && s.rating !== activeRating) return false;
     if (search) {
       const terms = expandSearch(search);
       const text = `${s.name} ${s.description || ''} ${s.author || ''} ${s.category || ''}`.toLowerCase();
@@ -252,17 +282,17 @@ export default function SkillsMarketplacePage() {
           className="text-4xl md:text-5xl font-extrabold"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
-          Agent 能力市场
+          {t('skills.title')}
         </h1>
         <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-          {formatNum(data?.total || 0)} Skills &amp; MCP Servers，一键安装到任意工具
-          {syncedAt && <span className="text-xs ml-2 opacity-60">({syncedAt} 同步)</span>}
+          {formatNum(data?.total || 0)} {t('skills.subtitle')}
+          {syncedAt && <span className="text-xs ml-2 opacity-60">({syncedAt} {t('skills.synced')})</span>}
         </p>
         <div className="relative max-w-lg mx-auto">
           <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-xl" style={{ color: 'var(--outline)' }}>search</span>
           <input
             type="text"
-            placeholder="搜索 Skills 或 MCP Servers..."
+            placeholder={t('skills.searchPlaceholder')}
             value={search}
             onChange={e => { setSearch(e.target.value); setPage(0); }}
             className="w-full rounded-2xl py-4 pl-12 pr-4 text-sm"
@@ -273,7 +303,7 @@ export default function SkillsMarketplacePage() {
 
       {/* ═══ Source Tabs ═══ */}
       <div className="flex justify-center gap-1 mb-8 p-1 rounded-2xl max-w-md mx-auto" style={{ background: 'var(--surface-container)' }}>
-        {SOURCES.map(src => (
+        {SOURCE_KEYS.map(src => (
           <button
             key={src}
             onClick={() => { setActiveSource(src); setPage(0); }}
@@ -283,9 +313,9 @@ export default function SkillsMarketplacePage() {
               color: activeSource === src ? 'var(--on-primary)' : 'var(--on-surface-variant)',
             }}
           >
-            {src}
+            {src === 'all' ? t('skills.all') : src}
             <span className="ml-1.5 text-xs opacity-70">
-              {src === '全部' ? formatNum(allSkills.length) : src === 'Skills' ? formatNum(skillCount) : formatNum(mcpCount)}
+              {src === 'all' ? formatNum(allSkills.length) : src === 'Skills' ? formatNum(skillCount) : formatNum(mcpCount)}
             </span>
           </button>
         ))}
@@ -296,7 +326,7 @@ export default function SkillsMarketplacePage() {
         {/* Sidebar */}
         <aside className="hidden lg:block w-52 shrink-0 sticky top-28 self-start space-y-8">
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--on-surface-variant)' }}>分类</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--on-surface-variant)' }}>{t('skills.categories')}</h3>
             <div className="space-y-1">
               {(showAllCats ? allCategories : allCategories.slice(0, 11)).map(cat => (
                 <button
@@ -309,8 +339,8 @@ export default function SkillsMarketplacePage() {
                     fontWeight: activeCategory === cat ? 600 : 400,
                   }}
                 >
-                  {cat}
-                  {cat !== '全部' && categories[cat] && (
+                  {cat === 'all' ? t('skills.all') : (CATEGORY_KEY_MAP[cat] ? t(CATEGORY_KEY_MAP[cat]) : cat)}
+                  {cat !== 'all' && categories[cat] && (
                     <span className="float-right text-xs opacity-50">{formatNum(categories[cat] as number)}</span>
                   )}
                 </button>
@@ -321,15 +351,15 @@ export default function SkillsMarketplacePage() {
                   className="block w-full text-left text-xs px-3 py-2 rounded-lg font-medium"
                   style={{ color: 'var(--primary)' }}
                 >
-                  {showAllCats ? '收起' : `展开全部 (${allCategories.length - 1})`}
+                  {showAllCats ? t('skills.collapse') : `${t('skills.expandAll')} (${allCategories.length - 1})`}
                 </button>
               )}
             </div>
           </div>
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--on-surface-variant)' }}>质量评级</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'var(--on-surface-variant)' }}>{t('skills.qualityRating')}</h3>
             <div className="space-y-1">
-              {RATINGS.map(r => (
+              {RATING_KEYS.map(r => (
                 <button
                   key={r}
                   onClick={() => { setActiveRating(r); setPage(0); }}
@@ -340,8 +370,8 @@ export default function SkillsMarketplacePage() {
                     fontWeight: activeRating === r ? 600 : 400,
                   }}
                 >
-                  {r === '全部' ? '全部评级' : `${r} 级`}
-                  {r !== '全部' && data?.meta?.byRating?.[r] && (
+                  {r === 'all' ? t('skills.allRatings') : `${r} ${t('skills.level')}`}
+                  {r !== 'all' && data?.meta?.byRating?.[r] && (
                     <span className="float-right text-xs opacity-50">{formatNum(data.meta.byRating[r])}</span>
                   )}
                 </button>
@@ -364,14 +394,14 @@ export default function SkillsMarketplacePage() {
                   color: activeCategory === cat ? 'var(--on-primary)' : 'var(--on-surface-variant)',
                 }}
               >
-                {cat}
+                {cat === 'all' ? t('skills.all') : (CATEGORY_KEY_MAP[cat] ? t(CATEGORY_KEY_MAP[cat]) : cat)}
               </button>
             ))}
           </div>
 
           <div className="mb-4 text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            显示 {total > 0 ? page * LIMIT + 1 : 0}-{Math.min((page + 1) * LIMIT, total)} / {total}
-            {activeSource !== '全部' && ` ${activeSource}`}
+            {t('skills.showing', { start: total > 0 ? page * LIMIT + 1 : 0, end: Math.min((page + 1) * LIMIT, total), total })}
+            {activeSource !== 'all' && ` ${activeSource}`}
           </div>
 
           {isLoading && skills.length === 0 ? (
@@ -411,7 +441,7 @@ export default function SkillsMarketplacePage() {
                         <span className="text-[9px] px-1.5 py-0.5 rounded font-bold" style={{ background: 'var(--primary-fixed)', color: 'var(--on-primary-fixed-variant)' }}>Official</span>
                       )}
                       <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
-                        {skill.category}
+                        {CATEGORY_KEY_MAP[skill.category] ? t(CATEGORY_KEY_MAP[skill.category]) : skill.category}
                       </span>
                     </div>
 
@@ -430,7 +460,7 @@ export default function SkillsMarketplacePage() {
                           <span className="material-symbols-outlined text-sm" style={{ color: '#f59e0b', fontVariationSettings: "'FILL' 1" }}>star</span> {skill.starsDisplay || formatNum(skill.stars)}
                         </span>
                       )}
-                      {skill.versions > 0 && <span>{skill.versions} 版本</span>}
+                      {skill.versions > 0 && <span>{skill.versions} {t('skills.versions')}</span>}
                       {!isSkill && skill.remoteUrl && (
                         <span className="flex items-center gap-1">
                           <span className="material-symbols-outlined text-sm">cloud</span> Remote
@@ -447,7 +477,7 @@ export default function SkillsMarketplacePage() {
                         className="text-xs flex items-center gap-1 hover:underline"
                         style={{ color: 'var(--on-surface-variant)' }}
                       >
-                        <span className="material-symbols-outlined text-sm">open_in_new</span> 详情
+                        <span className="material-symbols-outlined text-sm">open_in_new</span> {t('skills.details')}
                       </a>
                       <button
                         onClick={() => setInstallSkill(skill)}
@@ -455,7 +485,7 @@ export default function SkillsMarketplacePage() {
                         style={{ background: 'var(--primary)', color: 'white' }}
                       >
                         <span className="material-symbols-outlined text-sm">download</span>
-                        安装
+                        {t('skills.install')}
                       </button>
                     </div>
                   </div>
@@ -468,7 +498,7 @@ export default function SkillsMarketplacePage() {
           {totalPages > 1 && (
             <div className="flex justify-between items-center mt-10">
               <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-                显示 {page * LIMIT + 1}-{Math.min((page + 1) * LIMIT, total)} / {total}
+                {t('skills.showing', { start: page * LIMIT + 1, end: Math.min((page + 1) * LIMIT, total), total })}
               </span>
               <div className="flex items-center gap-1">
                 <button

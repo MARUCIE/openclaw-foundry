@@ -2,17 +2,19 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 
 const NAV_ITEMS = [
-  { href: '/explore/platforms', label: '部署' },
-  { href: '/explore/skills', label: '导航' },
-  { href: '/news', label: '资讯' },
-  { href: '/arena', label: '竞技场' },
-  { href: '/pricing', label: '定价' },
+  { href: '/explore/platforms', key: 'nav.deploy' },
+  { href: '/explore/skills', key: 'nav.explore' },
+  { href: '/news', key: 'nav.news' },
+  { href: '/arena', key: 'nav.arena' },
+  { href: '/pricing', key: 'nav.pricing' },
 ];
 
 export function TopNav() {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   return (
     <nav
@@ -48,7 +50,7 @@ export function TopNav() {
                   color: isActive ? 'var(--surface-tint)' : 'var(--on-surface-variant)',
                 }}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             );
           })}
@@ -56,6 +58,7 @@ export function TopNav() {
 
         {/* CTA */}
         <div className="flex items-center gap-4">
+          <LanguageSwitcher />
           <Link
             href="/explore/platforms"
             className="px-6 py-2.5 rounded-xl font-bold text-sm active:scale-95 transition-all duration-150"
@@ -65,7 +68,7 @@ export function TopNav() {
               fontFamily: 'Manrope, sans-serif',
             }}
           >
-            开始使用
+            {t('nav.getStarted')}
           </Link>
         </div>
       </div>

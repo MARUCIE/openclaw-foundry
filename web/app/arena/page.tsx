@@ -5,8 +5,10 @@ import useSWR from 'swr';
 import { getProviders, startArena, getArenaMatch, type ProviderMeta } from '@/lib/api';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatusBadge } from '@/components/ui/badge';
+import { useI18n } from '@/lib/i18n';
 
 export default function ArenaPage() {
+  const { t } = useI18n();
   const { data: providerData } = useSWR('providers', () => getProviders());
   const providers = providerData?.providers || [];
 
@@ -55,14 +57,14 @@ export default function ArenaPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>竞技场</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>同一任务，多平台比武</p>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('arena.title')}</h2>
+        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.subtitle')}</p>
       </div>
 
       {/* Setup */}
       {!matchId && (
         <Card>
-          <CardHeader><CardTitle>选择参赛平台 (2-5)</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{t('arena.selectPlatforms')}</CardTitle></CardHeader>
           <div className="flex flex-wrap gap-2 mb-6">
             {providers.map(p => (
               <button
@@ -84,13 +86,13 @@ export default function ArenaPage() {
           </div>
 
           <div className="mb-6">
-            <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>测试任务</label>
+            <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.testTask')}</label>
             <div className="relative">
               <span className="material-symbols-outlined absolute left-3 top-3 text-lg" style={{ color: 'var(--outline)' }}>edit_note</span>
               <textarea
                 value={testPrompt}
                 onChange={e => setTestPrompt(e.target.value)}
-                placeholder="描述你的 Agent 任务..."
+                placeholder={t('arena.taskPlaceholder')}
                 rows={3}
                 className="w-full pl-10 pr-4 py-3 rounded-xl text-sm outline-none resize-none"
                 style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
@@ -105,7 +107,7 @@ export default function ArenaPage() {
             style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
           >
             <span className="material-symbols-outlined text-sm">swords</span>
-            开始比武
+            {t('arena.startBattle')}
           </button>
         </Card>
       )}
@@ -131,16 +133,16 @@ export default function ArenaPage() {
                     <span>{log.name}: {log.message}</span>
                   </div>
                 ))}
-                {lane.status === 'deploying' && <p className="text-xs animate-pulse" style={{ color: 'var(--surface-tint)' }}>部署中...</p>}
-                {lane.status === 'testing' && <p className="text-xs animate-pulse" style={{ color: 'var(--secondary)' }}>测试中...</p>}
+                {lane.status === 'deploying' && <p className="text-xs animate-pulse" style={{ color: 'var(--surface-tint)' }}>{t('arena.deploying')}</p>}
+                {lane.status === 'testing' && <p className="text-xs animate-pulse" style={{ color: 'var(--secondary)' }}>{t('arena.testing')}</p>}
               </div>
 
               <div className="mt-3 pt-3 text-xs space-y-1" style={{ borderTop: '1px solid var(--outline-variant)', color: 'var(--on-surface-variant)' }}>
-                {lane.timing.deployMs != null && <p>部署耗时: {(lane.timing.deployMs / 1000).toFixed(1)}s</p>}
-                {lane.timing.testMs != null && <p>测试耗时: {(lane.timing.testMs / 1000).toFixed(1)}s</p>}
+                {lane.timing.deployMs != null && <p>{t('arena.deployTime')} {(lane.timing.deployMs / 1000).toFixed(1)}s</p>}
+                {lane.timing.testMs != null && <p>{t('arena.testTime')} {(lane.timing.testMs / 1000).toFixed(1)}s</p>}
                 {lane.score != null && (
                   <p className="font-bold text-sm" style={{ color: 'var(--on-surface)', fontFamily: 'Manrope, sans-serif' }}>
-                    得分: {lane.score}
+                    {t('arena.score')} {lane.score}
                   </p>
                 )}
               </div>
@@ -153,14 +155,14 @@ export default function ArenaPage() {
       {isCompleted && matchData?.scoring && (
         <Card className="!p-0 overflow-hidden">
           <div className="px-6 py-5" style={{ borderBottom: '1px solid var(--surface-container-low)' }}>
-            <h2 className="text-lg font-bold tracking-tight" style={{ fontFamily: 'Manrope, sans-serif' }}>比武结果</h2>
+            <h2 className="text-lg font-bold tracking-tight" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('arena.results')}</h2>
           </div>
 
           {matchData.winner && (
             <div className="mx-6 mt-5 flex items-center gap-3 p-4 rounded-xl" style={{ background: 'var(--tertiary-fixed)' }}>
               <span className="material-symbols-outlined text-2xl" style={{ color: '#005236' }}>emoji_events</span>
               <span className="font-bold" style={{ color: '#005236', fontFamily: 'Manrope, sans-serif' }}>
-                冠军: {matchData.winner} ({matchData.scoring.overall[matchData.winner]}分)
+                {t('arena.champion')} {matchData.winner} ({matchData.scoring.overall[matchData.winner]})
               </span>
             </div>
           )}
@@ -169,12 +171,12 @@ export default function ArenaPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr style={{ background: 'var(--surface-container)' }}>
-                  <th className="text-left p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>平台</th>
-                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>部署速度</th>
-                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>测试通过率</th>
-                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>功能覆盖</th>
-                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>平台覆盖</th>
-                  <th className="text-right p-3 font-extrabold text-xs uppercase tracking-wider">综合得分</th>
+                  <th className="text-left p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.colPlatform')}</th>
+                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.colDeploySpeed')}</th>
+                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.colTestPass')}</th>
+                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.colFeature')}</th>
+                  <th className="text-right p-3 font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.colCoverage')}</th>
+                  <th className="text-right p-3 font-extrabold text-xs uppercase tracking-wider">{t('arena.colOverall')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -204,7 +206,7 @@ export default function ArenaPage() {
               style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
             >
               <span className="material-symbols-outlined text-sm">replay</span>
-              再来一局
+              {t('arena.playAgain')}
             </button>
           </div>
         </Card>

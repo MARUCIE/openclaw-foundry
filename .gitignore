@@ -13,9 +13,12 @@ __pycache__/
 .venv/
 web/.next/
 web/tsconfig.tsbuildinfo
-design/variants/
 web/out/
 worker/src/seed.sql
+
+# Internal development artifacts
+design/variants/
+profiles/
 
 # Large generated data files (regenerate via scripts/)
 data/clawhub-skills-raw.json

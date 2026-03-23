@@ -1,8 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { useI18n } from '@/lib/i18n';
 
-const CATEGORIES = ['全部', '数据库', '通讯', '云服务', '文件系统', '开发工具', '搜索', '浏览器', 'IM'];
+// Category keys map to i18n keys mcp.cat.*
+const CATEGORY_KEYS = ['all', '数据库', '通讯', '云服务', '文件系统', '开发工具', '搜索', '浏览器', 'IM'] as const;
+const MCP_CAT_I18N: Record<string, string> = {
+  'all': 'mcp.cat.all',
+  '数据库': 'mcp.cat.database',
+  '通讯': 'mcp.cat.communication',
+  '云服务': 'mcp.cat.cloud',
+  '文件系统': 'mcp.cat.filesystem',
+  '开发工具': 'mcp.cat.devtools',
+  '搜索': 'mcp.cat.search',
+  '浏览器': 'mcp.cat.browser',
+  'IM': 'mcp.cat.im',
+};
 
 const FEATURED = [
   { name: 'GitHub', icon: 'code', iconBg: 'var(--primary-fixed)', iconColor: 'var(--primary)', badge: 'PREMIUM', badgeBg: 'var(--surface-container-high)', desc: '完整集成 GitHub 工作流、管理仓库、PR、Issue 及代码特扫等全 Agent 操作能力。', cmd: 'npx -y @modelcontextprotocol/server-github', stars: '12.4k' },
@@ -30,11 +43,12 @@ const MCP_SERVERS = [
 ];
 
 export default function McpDirectoryPage() {
-  const [activeCategory, setActiveCategory] = useState('全部');
+  const { t } = useI18n();
+  const [activeCategory, setActiveCategory] = useState('all');
   const [search, setSearch] = useState('');
 
   const filtered = MCP_SERVERS.filter(s => {
-    if (activeCategory !== '全部' && s.category !== activeCategory) return false;
+    if (activeCategory !== 'all' && s.category !== activeCategory) return false;
     if (search && !s.name.toLowerCase().includes(search.toLowerCase()) && !s.desc.includes(search)) return false;
     return true;
   });
@@ -48,17 +62,17 @@ export default function McpDirectoryPage() {
             className="text-4xl md:text-5xl font-extrabold"
             style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
           >
-            MCP 服务器目录
+            {t('mcp.title')}
           </h1>
           <p className="text-lg max-w-2xl" style={{ color: 'var(--on-surface-variant)' }}>
-            100+ 模型上下文协议服务器，连接 AI Agent 与万物。通过标准化的接口扩展您的模型能力。
+            {t('mcp.subtitle')}
           </p>
         </div>
         <div className="relative w-full lg:w-80">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--outline)' }}>search</span>
           <input
             type="text"
-            placeholder="搜索 MCP 服务器..."
+            placeholder={t('mcp.searchPlaceholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="w-full rounded-xl py-3 pl-10 pr-4 text-sm"
@@ -69,7 +83,7 @@ export default function McpDirectoryPage() {
 
       {/* Category Tabs */}
       <div className="flex gap-2 flex-wrap mb-12">
-        {CATEGORIES.map(cat => (
+        {CATEGORY_KEYS.map(cat => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
@@ -79,7 +93,7 @@ export default function McpDirectoryPage() {
               color: activeCategory === cat ? 'var(--on-primary)' : 'var(--on-surface-variant)',
             }}
           >
-            {cat}
+            {MCP_CAT_I18N[cat] ? t(MCP_CAT_I18N[cat]) : cat}
           </button>
         ))}
       </div>
@@ -87,7 +101,7 @@ export default function McpDirectoryPage() {
       {/* Featured Section */}
       <section className="mb-16">
         <h2 className="text-xl font-bold mb-6" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface-variant)' }}>
-          官方推荐
+          {t('mcp.featured')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {FEATURED.map(mcp => (
@@ -124,7 +138,7 @@ export default function McpDirectoryPage() {
                 style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
               >
                 <span className="material-symbols-outlined text-sm">download</span>
-                一键安装
+                {t('mcp.install')}
               </button>
             </div>
           ))}
@@ -135,10 +149,10 @@ export default function McpDirectoryPage() {
       <section className="pb-16">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface-variant)' }}>
-            探索全部服务器
+            {t('mcp.exploreAll')}
           </h2>
           <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            显示 {filtered.length} / 128 个结果
+            {t('mcp.showingResults', { count: filtered.length, total: 128 })}
           </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -183,7 +197,7 @@ export default function McpDirectoryPage() {
                   className="px-3 py-1.5 rounded-lg text-xs font-bold transition-opacity hover:opacity-90"
                   style={{ background: 'var(--primary)', color: 'white' }}
                 >
-                  安装
+                  {t('mcp.install')}
                 </button>
               </div>
             </div>

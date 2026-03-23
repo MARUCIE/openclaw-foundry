@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { getProviders, type ProviderMeta, type ProviderTier } from '@/lib/api';
+import { useI18n } from '@/lib/i18n';
 
 /* ── Pricing metadata (not in API — enriched static data) ── */
 const PRICING_META: Record<string, { type: string; price: string; model: string; skills: string; im: string; opensource: boolean; recommended?: boolean }> = {
@@ -20,37 +21,37 @@ const PRICING_META: Record<string, { type: string; price: string; model: string;
   duclaw:      { type: '全中文', price: '¥59/月', model: '文心一言', skills: '60+', im: '百度搜索/百科', opensource: false },
 };
 
-const TIER_DOT: Record<string, { color: string; label: string }> = {
-  'full-auto': { color: '#22c55e', label: '全自动' },
-  'semi-auto': { color: '#f59e0b', label: '半自动' },
-  'guided': { color: '#94a3b8', label: '引导式' },
+const TIER_DOT: Record<string, { color: string; labelKey: string }> = {
+  'full-auto': { color: '#22c55e', labelKey: 'tier.fullAuto' },
+  'semi-auto': { color: '#f59e0b', labelKey: 'tier.semiAuto' },
+  'guided': { color: '#94a3b8', labelKey: 'tier.guided' },
 };
 
 const RECOMMENDATIONS = [
   {
     icon: 'person',
     bg: 'var(--primary-fixed)',
-    title: '个人开发者',
+    titleKey: 'pricing.individual',
     subtitle: 'OpenClaw + QClaw',
-    desc: '零成本起步，OpenClaw 核心引擎 + QClaw 社区版提供丰富的调试工具。适合个人项目和学习场景。',
-    cta: '免费开始',
+    descKey: 'pricing.individual.desc',
+    ctaKey: 'pricing.startFree',
   },
   {
     icon: 'groups',
     bg: 'var(--secondary-fixed)',
-    title: '团队协作',
+    titleKey: 'pricing.team',
     subtitle: 'HiClaw + ArkClaw',
-    desc: '飞书生态深度集成，从开发到部署全链路覆盖。企业级安全和审计功能，适合 10-100 人团队。',
-    cta: '了解方案',
+    descKey: 'pricing.team.desc',
+    ctaKey: 'pricing.contactSales',
     popular: true,
   },
   {
     icon: 'apartment',
     bg: 'var(--tertiary-fixed)',
-    title: '企业级部署',
-    subtitle: '华为云 + 阿里云',
-    desc: '私有化部署，完全自主可控。支持国密算法和等保三级认证，适合金融、政务等强合规场景。',
-    cta: '联系销售',
+    titleKey: 'pricing.enterprise',
+    subtitle: 'Huawei Cloud + Alibaba Cloud',
+    descKey: 'pricing.enterprise.desc',
+    ctaKey: 'pricing.contactSales',
   },
 ];
 
@@ -87,6 +88,7 @@ function mergeData(providers: ProviderMeta[]): PricingRow[] {
 }
 
 export default function PricingPage() {
+  const { t } = useI18n();
   const { data, isLoading } = useSWR('providers', () => getProviders());
   const platforms = data ? mergeData(data.providers) : [];
 
@@ -98,10 +100,10 @@ export default function PricingPage() {
           className="text-4xl md:text-5xl font-extrabold"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
-          平台定价对比
+          {t('pricing.title')}
         </h1>
         <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--on-surface-variant)' }}>
-          {platforms.length || 12} 大平台全面对比，找到最适合您团队的方案。
+          {t('pricing.subtitle', { count: platforms.length || 12 })}
         </p>
       </div>
 
@@ -112,21 +114,21 @@ export default function PricingPage() {
         <section className="mb-20">
           <div className="md:hidden text-center mb-3 text-xs font-medium flex items-center justify-center gap-1" style={{ color: 'var(--on-surface-variant)' }}>
             <span className="material-symbols-outlined text-sm">swipe</span>
-            左右滑动查看全部平台
+            {t('pricing.swipeHint')}
           </div>
           <div className="overflow-x-auto rounded-2xl" style={{ border: '1px solid rgba(195, 198, 215, 0.3)' }}>
           <table className="w-full text-sm" style={{ minWidth: `${100 + platforms.length * 120}px` }}>
             <thead>
               <tr style={{ background: 'var(--surface-container)' }}>
                 <th className="text-left p-4 font-bold sticky left-0 z-10 text-xs uppercase tracking-wider" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', minWidth: '100px' }}>
-                  对比项
+                  {t('pricing.comparison')}
                 </th>
                 {platforms.map(p => (
                   <th key={p.id} className="p-4 text-center font-bold relative" style={{ color: 'var(--on-surface)', minWidth: '110px', background: p.recommended ? 'rgba(0, 62, 168, 0.05)' : undefined }}>
                     {p.name}
                     {p.recommended && (
                       <span className="block text-[9px] font-bold mt-1 px-2 py-0.5 rounded-full mx-auto w-fit" style={{ background: 'var(--primary)', color: 'var(--on-primary)' }}>
-                        推荐
+                        {t('pricing.recommended')}
                       </span>
                     )}
                   </th>
@@ -136,21 +138,21 @@ export default function PricingPage() {
             <tbody>
               {/* Type */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>类型</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.type')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.type}</td>
                 ))}
               </tr>
               {/* Tier */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>Tier</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.tier')}</td>
                 {platforms.map(p => {
-                  const t = TIER_DOT[p.tier] || TIER_DOT.guided;
+                  const tierInfo = TIER_DOT[p.tier] || TIER_DOT.guided;
                   return (
                     <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
                       <span className="inline-flex items-center gap-1.5 text-xs">
-                        <span className="w-2 h-2 rounded-full" style={{ background: t.color }} />
-                        {t.label}
+                        <span className="w-2 h-2 rounded-full" style={{ background: tierInfo.color }} />
+                        {t(tierInfo.labelKey)}
                       </span>
                     </td>
                   );
@@ -158,35 +160,35 @@ export default function PricingPage() {
               </tr>
               {/* Price */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>价格</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.price')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--primary)' }}>{p.price}</td>
                 ))}
               </tr>
               {/* Model */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>模型</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.model')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.model}</td>
                 ))}
               </tr>
               {/* Skills */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>Skills</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.skills')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.skills}</td>
                 ))}
               </tr>
               {/* IM */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>IM 集成</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.im')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.im}</td>
                 ))}
               </tr>
               {/* Open Source */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>开源</td>
+                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.openSource')}</td>
                 {platforms.map(p => (
                   <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
                     <span className="material-symbols-outlined text-lg" style={{ color: p.opensource ? 'var(--on-tertiary-container)' : 'var(--outline-variant)', fontVariationSettings: "'FILL' 1" }}>
@@ -208,7 +210,7 @@ export default function PricingPage() {
                         color: p.recommended ? 'var(--on-primary)' : 'var(--on-surface-variant)',
                       }}
                     >
-                      {p.recommended ? '立即使用' : '了解更多'}
+                      {p.recommended ? t('pricing.useNow') : t('pricing.learnMore')}
                     </Link>
                   </td>
                 ))}
@@ -225,12 +227,12 @@ export default function PricingPage() {
           className="text-3xl font-extrabold text-center mb-12"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
-          不知道选哪个？看这里
+          {t('pricing.notSure')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {RECOMMENDATIONS.map(rec => (
             <div
-              key={rec.title}
+              key={rec.titleKey}
               className="p-8 rounded-3xl relative transition-all card-hover"
               style={{
                 background: 'var(--surface-container-lowest)',
@@ -255,16 +257,16 @@ export default function PricingPage() {
                 className="text-xl font-bold mb-2"
                 style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
               >
-                {rec.title}
+                {t(rec.titleKey)}
               </h3>
               <p className="text-sm font-bold mb-3" style={{ color: 'var(--primary)' }}>{rec.subtitle}</p>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{rec.desc}</p>
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{t(rec.descKey)}</p>
               <Link
                 href="/deploy"
                 className="block w-full text-center py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90"
                 style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
               >
-                {rec.cta}
+                {t(rec.ctaKey)}
               </Link>
             </div>
           ))}
@@ -280,15 +282,15 @@ export default function PricingPage() {
           className="text-3xl md:text-5xl font-extrabold text-white"
           style={{ fontFamily: 'Manrope, sans-serif' }}
         >
-          需要企业定制方案？
+          {t('pricing.enterpriseCTA')}
         </h2>
         <p className="text-lg text-white/80 max-w-2xl mx-auto">
-          提供私有化部署、定制 Skills、专属技术支持和 SLA 保障。联系我们获取量身定制的方案。
+          {t('pricing.enterpriseDesc')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
           <input
             type="email"
-            placeholder="输入企业邮箱"
+            placeholder={t('pricing.enterEmail')}
             className="w-full sm:w-80 rounded-xl py-3 px-4 text-sm"
             style={{ background: 'rgba(255,255,255,0.9)', border: 'none', color: 'var(--on-surface)' }}
           />
@@ -296,7 +298,7 @@ export default function PricingPage() {
             className="px-8 py-3 rounded-xl font-bold text-sm transition-all hover:bg-blue-50"
             style={{ background: 'white', color: 'var(--primary)', fontFamily: 'Manrope, sans-serif' }}
           >
-            获取方案
+            {t('pricing.getSolution')}
           </button>
         </div>
       </section>

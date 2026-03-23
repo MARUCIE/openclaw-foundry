@@ -6,8 +6,9 @@ import useSWR from 'swr';
 import { getProviders, getProvider as getProviderDetail, startDeploy, getDeployJob, type ProviderMeta } from '@/lib/api';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { TypeBadge, StatusBadge } from '@/components/ui/badge';
+import { useI18n } from '@/lib/i18n';
 
-const STEPS = ['选择平台', '配置蓝图', '确认部署', '部署执行'];
+const STEP_KEYS = ['deploy.step1', 'deploy.step2', 'deploy.step3', 'deploy.step4'];
 const STEP_ICONS = ['subscriptions', 'tune', 'check_circle', 'rocket_launch'];
 
 export default function DeployPage() {
@@ -19,6 +20,7 @@ export default function DeployPage() {
 }
 
 function DeployPageInner() {
+  const { t } = useI18n();
   const searchParams = useSearchParams();
   const preselected = searchParams.get('provider') || '';
 
@@ -28,7 +30,7 @@ function DeployPageInner() {
   const [providerAvailable, setProviderAvailable] = useState<boolean | null>(null);
   const [providerReqs, setProviderReqs] = useState<any[]>([]);
   const [blueprintName, setBlueprintName] = useState('my-agent');
-  const [role, setRole] = useState('全栈工程师');
+  const [role, setRole] = useState(t('deploy.roleDefault'));
   const [autonomy, setAutonomy] = useState('L1-guided');
   const [modelRouting, setModelRouting] = useState('balanced');
   const [jobId, setJobId] = useState<string | null>(null);
@@ -106,14 +108,14 @@ function DeployPageInner() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>部署</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>一键部署 AI Agent 到任意平台</p>
+        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('deploy.title')}</h2>
+        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.subtitle')}</p>
       </div>
 
       {/* Stepper */}
       <div className="flex gap-2 items-center px-2">
-        {STEPS.map((s, i) => (
-          <div key={s} className="flex items-center gap-2">
+        {STEP_KEYS.map((key, i) => (
+          <div key={key} className="flex items-center gap-2">
             <button
               onClick={() => { if (i < step && step < 3) setStep(i); }}
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all"
@@ -133,9 +135,9 @@ function DeployPageInner() {
               color: i === step ? 'var(--on-surface)' : 'var(--on-surface-variant)',
               fontFamily: 'Manrope, sans-serif',
             }}>
-              {s}
+              {t(key)}
             </span>
-            {i < STEPS.length - 1 && (
+            {i < STEP_KEYS.length - 1 && (
               <div className="w-12 h-px" style={{ background: i < step ? 'var(--on-tertiary-container)' : 'var(--outline-variant)' }} />
             )}
           </div>
@@ -145,7 +147,7 @@ function DeployPageInner() {
       {/* Step 1: Select platform */}
       {step === 0 && (
         <Card>
-          <CardHeader><CardTitle>选择目标平台</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{t('deploy.selectTarget')}</CardTitle></CardHeader>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {providers.map(p => (
               <button
@@ -173,7 +175,7 @@ function DeployPageInner() {
               className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold text-white disabled:opacity-40 transition-opacity hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
             >
-              下一步
+              {t('deploy.next')}
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
           </div>
@@ -183,7 +185,7 @@ function DeployPageInner() {
       {/* Step 2: Configure blueprint */}
       {step === 1 && (
         <Card>
-          <CardHeader><CardTitle>配置蓝图</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{t('deploy.step2')}</CardTitle></CardHeader>
 
           {providerInfo && (
             <div className="mb-6 p-4 rounded-xl" style={{ background: 'var(--surface-container-low)' }}>
@@ -203,7 +205,7 @@ function DeployPageInner() {
                       background: providerAvailable ? 'var(--tertiary-fixed)' : 'var(--error-container)',
                       color: providerAvailable ? '#005236' : 'var(--error)',
                     }}>
-                      {providerAvailable ? '可用' : '不可用'}
+                      {providerAvailable ? t('deploy.available') : t('deploy.unavailable')}
                     </span>
                   )}
                 </div>
@@ -211,7 +213,7 @@ function DeployPageInner() {
               <p className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{providerInfo.description}</p>
               {providerReqs.length > 0 && (
                 <div className="mt-3 space-y-1">
-                  <p className="text-xs font-medium" style={{ color: 'var(--on-surface-variant)' }}>依赖检查:</p>
+                  <p className="text-xs font-medium" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.depCheck')}</p>
                   {providerReqs.map((r, i) => (
                     <div key={i} className="text-xs flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-sm" style={{ color: r.required ? 'var(--surface-tint)' : 'var(--outline)' }}>
@@ -226,24 +228,24 @@ function DeployPageInner() {
           )}
 
           <div className="grid grid-cols-2 gap-4 max-w-2xl">
-            <FormField label="蓝图名称" value={blueprintName} onChange={setBlueprintName} />
-            <FormField label="角色" value={role} onChange={setRole} />
+            <FormField label={t('deploy.blueprintName')} value={blueprintName} onChange={setBlueprintName} />
+            <FormField label={t('deploy.role')} value={role} onChange={setRole} />
             <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>自治等级</label>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.autonomy')}</label>
               <select value={autonomy} onChange={e => setAutonomy(e.target.value)} className="w-full px-3 py-2.5 rounded-xl text-sm outline-none"
                 style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
-                <option value="L1-guided">L1 - 引导模式</option>
-                <option value="L2-semi">L2 - 半自主</option>
-                <option value="L3-full">L3 - 全自主</option>
+                <option value="L1-guided">{t('deploy.autonomyL1')}</option>
+                <option value="L2-semi">{t('deploy.autonomyL2')}</option>
+                <option value="L3-full">{t('deploy.autonomyL3')}</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>模型路由</label>
+              <label className="text-xs font-medium block mb-1.5" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.modelRouting')}</label>
               <select value={modelRouting} onChange={e => setModelRouting(e.target.value)} className="w-full px-3 py-2.5 rounded-xl text-sm outline-none"
                 style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
-                <option value="premium">Premium (最高质量)</option>
-                <option value="balanced">Balanced (均衡)</option>
-                <option value="fast">Fast (最快速度)</option>
+                <option value="premium">{t('deploy.premium')}</option>
+                <option value="balanced">{t('deploy.balanced')}</option>
+                <option value="fast">{t('deploy.fast')}</option>
               </select>
             </div>
           </div>
@@ -251,11 +253,11 @@ function DeployPageInner() {
           <div className="flex justify-between mt-6">
             <button onClick={() => setStep(0)} className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium" style={{ background: 'var(--surface-container)' }}>
               <span className="material-symbols-outlined text-sm">arrow_back</span>
-              上一步
+              {t('deploy.prev')}
             </button>
             <button onClick={() => setStep(2)} className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold text-white transition-opacity hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}>
-              下一步
+              {t('deploy.next')}
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
           </div>
@@ -265,7 +267,7 @@ function DeployPageInner() {
       {/* Step 3: Confirm */}
       {step === 2 && (
         <Card>
-          <CardHeader><CardTitle>确认部署</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{t('deploy.confirm')}</CardTitle></CardHeader>
           <div className="space-y-3 text-sm">
             {providerInfo && (
               <div className="flex items-center gap-3 p-4 rounded-xl" style={{ background: 'var(--surface-container-low)' }}>
@@ -280,21 +282,21 @@ function DeployPageInner() {
               </div>
             )}
             <div className="grid grid-cols-2 gap-3 p-4 rounded-xl" style={{ background: 'var(--surface-container-low)' }}>
-              <ConfirmRow label="蓝图" value={blueprintName} />
-              <ConfirmRow label="角色" value={role} />
-              <ConfirmRow label="自治等级" value={autonomy} />
-              <ConfirmRow label="模型路由" value={modelRouting} />
+              <ConfirmRow label={t('deploy.blueprint')} value={blueprintName} />
+              <ConfirmRow label={t('deploy.role')} value={role} />
+              <ConfirmRow label={t('deploy.autonomy')} value={autonomy} />
+              <ConfirmRow label={t('deploy.modelRouting')} value={modelRouting} />
             </div>
           </div>
           <div className="flex justify-between mt-6">
             <button onClick={() => setStep(1)} className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium" style={{ background: 'var(--surface-container)' }}>
               <span className="material-symbols-outlined text-sm">arrow_back</span>
-              上一步
+              {t('deploy.prev')}
             </button>
             <button onClick={handleDeploy} className="flex items-center gap-2 px-8 py-2.5 rounded-lg text-sm font-bold text-white transition-opacity hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}>
               <span className="material-symbols-outlined text-sm">rocket_launch</span>
-              开始部署
+              {t('deploy.startDeploy')}
             </button>
           </div>
         </Card>
@@ -303,7 +305,7 @@ function DeployPageInner() {
       {/* Step 4: Deploy execution */}
       {step === 3 && (
         <Card>
-          <CardHeader><CardTitle>部署执行</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{t('deploy.execution')}</CardTitle></CardHeader>
           {jobData ? (
             <div className="space-y-4">
               <div className="flex items-center gap-3">
@@ -311,7 +313,7 @@ function DeployPageInner() {
                 <span className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>{providerInfo?.name || jobData.provider}</span>
                 {jobData.completedAt && (
                   <span className="text-xs" style={{ color: 'var(--outline)' }}>
-                    耗时 {Math.round((new Date(jobData.completedAt).getTime() - new Date(jobData.createdAt).getTime()) / 1000)}s
+                    {t('deploy.elapsed')} {Math.round((new Date(jobData.completedAt).getTime() - new Date(jobData.createdAt).getTime()) / 1000)}s
                   </span>
                 )}
               </div>
@@ -339,17 +341,17 @@ function DeployPageInner() {
               {jobData.status === 'success' && (
                 <div className="p-4 rounded-xl flex items-center gap-2" style={{ background: 'var(--tertiary-fixed)' }}>
                   <span className="material-symbols-outlined" style={{ color: '#005236' }}>check_circle</span>
-                  <span className="font-bold" style={{ color: '#005236' }}>部署成功</span>
+                  <span className="font-bold" style={{ color: '#005236' }}>{t('deploy.success')}</span>
                 </div>
               )}
 
               {jobData.status === 'failed' && (
                 <div className="p-4 rounded-xl flex items-center gap-2" style={{ background: 'var(--error-container)' }}>
                   <span className="material-symbols-outlined" style={{ color: 'var(--error)' }}>error</span>
-                  <span className="font-bold" style={{ color: 'var(--error)' }}>部署失败</span>
+                  <span className="font-bold" style={{ color: 'var(--error)' }}>{t('deploy.failed')}</span>
                   {providerInfo?.consoleUrl && (
                     <a href={providerInfo.consoleUrl} target="_blank" rel="noopener noreferrer" className="ml-auto text-xs underline" style={{ color: 'var(--surface-tint)' }}>
-                      前往控制台 →
+                      {t('deploy.goConsole')} →
                     </a>
                   )}
                 </div>
@@ -361,11 +363,11 @@ function DeployPageInner() {
                     className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold text-white transition-opacity hover:opacity-90"
                     style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}>
                     <span className="material-symbols-outlined text-sm">add</span>
-                    新建部署
+                    {t('deploy.newDeploy')}
                   </button>
                   <a href="/" className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium" style={{ background: 'var(--surface-container)' }}>
                     <span className="material-symbols-outlined text-sm">dashboard</span>
-                    返回仪表盘
+                    {t('deploy.backDashboard')}
                   </a>
                 </div>
               )}
@@ -375,7 +377,7 @@ function DeployPageInner() {
               <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--surface-container)' }}>
                 <div className="h-full rounded-full animate-pulse" style={{ background: 'var(--surface-tint)', width: '30%' }} />
               </div>
-              <p className="text-sm animate-pulse" style={{ color: 'var(--on-surface-variant)' }}>正在启动部署...</p>
+              <p className="text-sm animate-pulse" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.starting')}</p>
             </div>
           )}
         </Card>
