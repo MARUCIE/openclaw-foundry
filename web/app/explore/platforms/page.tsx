@@ -43,12 +43,15 @@ export default function PlatformsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
         <div className="space-y-4">
-          <h1
-            className="text-4xl font-extrabold"
-            style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-          >
-            {t('platforms.title')}
-          </h1>
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+            <h1
+              className="text-4xl font-extrabold"
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
+            >
+              {t('platforms.title')}
+            </h1>
+          </div>
           <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
             {t('platforms.subtitle', { count: providers.length })}
           </p>
@@ -76,7 +79,7 @@ export default function PlatformsPage() {
         if (items.length === 0) return null;
         const cfg = TIER_CONFIG[tier];
         return (
-          <section key={tier} className="mb-12">
+          <section key={tier} className="mb-16">
             <div className="flex items-center gap-3 p-4 rounded-2xl mb-6" style={{ background: cfg.bg }}>
               <span className="material-symbols-outlined" style={{ color: cfg.color, fontVariationSettings: "'FILL' 1" }}>{cfg.icon}</span>
               <h2 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: cfg.color }}>{t(cfg.labelKey)}</h2>
@@ -86,7 +89,7 @@ export default function PlatformsPage() {
               {items.map((p: ProviderMeta) => (
                 <div
                   key={p.id}
-                  className="p-6 rounded-2xl transition-all card-hover"
+                  className="p-6 rounded-2xl transition-all card-hover flex flex-col"
                   style={{
                     background: 'var(--surface-container-lowest)',
                     border: '1px solid rgba(195, 198, 215, 0.3)',
@@ -115,14 +118,14 @@ export default function PlatformsPage() {
                       {TYPE_LABEL_KEYS[p.type] ? t(TYPE_LABEL_KEYS[p.type]) : p.type}
                     </span>
                   </div>
-                  <p className="text-sm mb-4" style={{ color: 'var(--on-surface-variant)' }}>{p.description}</p>
+                  <p className="text-sm mb-4 line-clamp-3" style={{ color: 'var(--on-surface-variant)' }}>{p.description}</p>
                   {p.price && (
                     <p className="text-xs font-bold mb-3" style={{ color: 'var(--primary)' }}>{p.price}</p>
                   )}
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mt-auto pt-4" style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                     <Link
-                      href="/deploy"
-                      className="flex-1 text-center py-2 rounded-lg text-xs font-bold transition-opacity hover:opacity-90"
+                      href={`/deploy?provider=${p.id}`}
+                      className="flex-1 text-center py-2.5 rounded-lg text-xs font-bold transition-opacity hover:opacity-90"
                       style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
                     >
                       {t('platforms.deploy')}
@@ -132,8 +135,8 @@ export default function PlatformsPage() {
                         href={p.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-2 rounded-lg text-xs font-bold transition-colors"
-                        style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}
+                        className="flex items-center justify-center gap-1 px-4 py-2.5 rounded-lg text-xs font-bold transition-colors hover:bg-[var(--surface-container)]"
+                        style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface-variant)' }}
                       >
                         GitHub
                       </a>

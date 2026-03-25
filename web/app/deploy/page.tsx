@@ -138,7 +138,7 @@ function DeployPageInner() {
               {t(key)}
             </span>
             {i < STEP_KEYS.length - 1 && (
-              <div className="w-12 h-px" style={{ background: i < step ? 'var(--on-tertiary-container)' : 'var(--outline-variant)' }} />
+              <div className="w-8 md:w-12 h-0.5 rounded-full" style={{ background: i < step ? 'var(--on-tertiary-container)' : 'var(--outline-variant)' }} />
             )}
           </div>
         ))}
@@ -153,15 +153,24 @@ function DeployPageInner() {
               <button
                 key={p.id}
                 onClick={() => handleSelectProvider(p.id)}
-                className="p-4 rounded-xl text-left transition-all group"
+                className="p-4 rounded-xl text-left transition-all group hover:shadow-md"
                 style={{
                   background: selectedProvider === p.id ? 'var(--primary-fixed)' : 'var(--surface-container-low)',
                   border: selectedProvider === p.id ? '2px solid var(--surface-tint)' : '2px solid transparent',
+                  boxShadow: selectedProvider === p.id ? '0 4px 12px rgba(0, 62, 168, 0.15)' : undefined,
                 }}
               >
-                <p className="font-semibold text-sm" style={{ fontFamily: 'Manrope, sans-serif' }}>{p.name}</p>
-                <p className="text-xs mt-0.5" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
-                <div className="mt-2 flex gap-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="font-semibold text-sm" style={{ fontFamily: 'Manrope, sans-serif' }}>{p.name}</p>
+                  {selectedProvider === p.id && (
+                    <span className="material-symbols-outlined text-sm" style={{ color: 'var(--primary)', fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                  )}
+                </div>
+                <p className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
+                <p className="text-xs mt-1.5 line-clamp-2" style={{ color: 'var(--on-surface-variant)', opacity: 0.8 }}>
+                  {p.description ? (p.description.length > 60 ? p.description.slice(0, 60) + '...' : p.description) : ''}
+                </p>
+                <div className="mt-2.5 flex gap-1">
                   <TypeBadge type={p.type} />
                   <StatusBadge status={p.status} />
                 </div>

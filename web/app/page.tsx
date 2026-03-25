@@ -51,8 +51,8 @@ function PlatformCard({ p, t }: { p: ProviderMeta; t: (key: string, vars?: Recor
 function SkillCard({ s }: { s: ClawHubSkill }) {
   return (
     <Link
-      href="/explore/skills"
-      className="p-6 rounded-2xl transition-all group hover:border-[rgba(0,62,168,0.5)] block"
+      href={`/skill?id=${encodeURIComponent(s.id)}`}
+      className="p-6 rounded-2xl transition-all group hover:shadow-lg hover:border-[rgba(0,62,168,0.4)] block"
       style={{ background: 'var(--surface-container-low)', border: '1px solid rgba(195, 198, 215, 0.3)' }}
     >
       <div className="flex justify-between items-start mb-3">
@@ -119,10 +119,10 @@ export default function LandingPage() {
   return (
     <div className="-mt-20">
       {/* ═══ Hero Section ═══ */}
-      <header className="relative pt-32 pb-24 md:pt-48 md:pb-40 overflow-hidden bg-gradient-to-br from-[#003ea8] to-[#712ae2]">
+      <header className="relative pt-32 pb-28 md:pt-48 md:pb-40 overflow-hidden bg-gradient-to-br from-[#003ea8] to-[#712ae2]">
         <div className="absolute inset-0 mesh-overlay opacity-30" />
         <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
-          <div className="flex-1 space-y-8 text-center md:text-left">
+          <div className="md:flex-1 space-y-8 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold tracking-widest uppercase backdrop-blur-md">
               <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
               {t('hero.badge')}
@@ -159,21 +159,21 @@ export default function LandingPage() {
       </header>
 
       {/* ═══ Quick Stats Bar ═══ */}
-      <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="max-w-7xl mx-auto px-6 -mt-10 md:-mt-16 relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {STATS.map(stat => (
             <div
               key={stat.label}
-              className="stat-card p-8 rounded-3xl flex flex-col items-center justify-center text-center space-y-3"
+              className="stat-card p-5 md:p-8 rounded-2xl md:rounded-3xl flex flex-col items-center justify-center text-center space-y-2 md:space-y-3"
               style={{
                 background: 'var(--surface-container-lowest)',
                 boxShadow: '0 25px 50px -12px rgba(0, 62, 168, 0.1)',
                 border: '1px solid rgba(195, 198, 215, 0.3)',
               }}
             >
-              <span className="stat-icon material-symbols-outlined text-3xl transition-colors" style={{ color: 'var(--primary)' }}>{stat.icon}</span>
-              <span className="stat-value text-4xl font-extrabold transition-colors" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{stat.value}</span>
-              <span className="stat-label text-xs font-bold tracking-widest uppercase transition-colors" style={{ color: 'var(--on-surface-variant)' }}>{stat.label}</span>
+              <span className="stat-icon material-symbols-outlined text-2xl md:text-3xl transition-colors" style={{ color: 'var(--primary)' }}>{stat.icon}</span>
+              <span className="stat-value text-2xl md:text-4xl font-extrabold transition-colors" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{stat.value}</span>
+              <span className="stat-label text-[10px] md:text-xs font-bold tracking-widest uppercase transition-colors" style={{ color: 'var(--on-surface-variant)' }}>{stat.label}</span>
             </div>
           ))}
         </div>
@@ -215,7 +215,9 @@ export default function LandingPage() {
                   <div className="flex items-center gap-3 p-4 rounded-2xl" style={{ background: cfg.bg }}>
                     <span className="material-symbols-outlined" style={{ color: cfg.color, fontVariationSettings: "'FILL' 1" }}>{cfg.icon}</span>
                     <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: cfg.color }}>{t(cfg.labelKey)}</h3>
-                    <span className="ml-auto text-sm font-bold" style={{ color: cfg.color }}>{items.length}</span>
+                    <span className="ml-auto text-xs font-bold px-2.5 py-1 rounded-full" style={{ color: cfg.color, background: 'rgba(255,255,255,0.5)' }}>
+                      {items.length} {t('stats.platforms').toLowerCase()}
+                    </span>
                   </div>
                   <div className="space-y-4">
                     {displayItems.map(p => <PlatformCard key={p.id} p={p} t={t} />)}
