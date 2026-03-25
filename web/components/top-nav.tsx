@@ -26,7 +26,7 @@ export function TopNav() {
         WebkitBackdropFilter: 'blur(20px)',
       }}
     >
-      <div className="flex justify-between items-center px-6 md:px-12 h-20 max-w-[1440px] mx-auto">
+      <div className="flex justify-between items-center px-6 h-20 max-w-7xl mx-auto">
         {/* Logo */}
         <Link
           href="/"

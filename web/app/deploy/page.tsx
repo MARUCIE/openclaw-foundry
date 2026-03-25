@@ -106,10 +106,13 @@ function DeployPageInner() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('deploy.title')}</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.subtitle')}</p>
+    <div className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+        <div>
+          <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{t('deploy.title')}</h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.subtitle')}</p>
+        </div>
       </div>
 
       {/* Stepper */}

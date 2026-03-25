@@ -73,11 +73,11 @@ export default function PricingPage() {
   const platforms = data ? mergeData(data.providers) : [];
 
   return (
-    <div className="max-w-[1440px] mx-auto px-6 py-12">
+    <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Header */}
       <div className="text-center mb-16 space-y-4">
         <h1
-          className="text-4xl md:text-5xl font-extrabold"
+          className="text-3xl md:text-4xl font-extrabold"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
           {t('pricing.title')}
@@ -213,7 +213,7 @@ export default function PricingPage() {
           {RECOMMENDATIONS.map(rec => (
             <div
               key={rec.titleKey}
-              className="p-8 rounded-3xl relative transition-all card-hover"
+              className="p-8 rounded-2xl relative transition-all card-hover"
               style={{
                 background: 'var(--surface-container-lowest)',
                 border: '1px solid rgba(195, 198, 215, 0.3)',
@@ -255,7 +255,7 @@ export default function PricingPage() {
 
       {/* Enterprise CTA */}
       <section
-        className="rounded-3xl p-12 md:p-20 text-center space-y-6"
+        className="rounded-2xl p-12 md:p-20 text-center space-y-6"
         style={{ background: 'linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-container))' }}
       >
         <h2

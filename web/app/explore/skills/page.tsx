@@ -371,11 +371,11 @@ export default function SkillsMarketplacePage() {
   const skills = filtered.slice(page * LIMIT, (page + 1) * LIMIT);
 
   return (
-    <div className="max-w-[1440px] mx-auto px-6 md:px-8">
+    <div className="max-w-7xl mx-auto px-6">
       {/* ═══ Hero ═══ */}
-      <div className="text-center pt-8 pb-6 space-y-5">
+      <div className="text-center pt-12 pb-6 space-y-5">
         <h1
-          className="text-4xl md:text-5xl font-extrabold"
+          className="text-3xl md:text-4xl font-extrabold"
           style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
         >
           {t('skills.title')}

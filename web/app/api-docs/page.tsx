@@ -168,18 +168,23 @@ export default function ApiDocsPage() {
   const [expandedSection, setExpandedSection] = useState<number>(0);
 
   return (
-    <div className="max-w-4xl mx-auto px-6 md:px-8 pb-20">
+    <div className="max-w-4xl mx-auto px-6 py-12">
       {/* Hero */}
-      <div className="pt-8 pb-10 space-y-4">
-        <h1
-          className="text-4xl font-extrabold"
-          style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-        >
-          Arsenal API
-        </h1>
-        <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-          Programmatic access to 37,000+ curated skills with quality ratings, permission manifests, and deploy feedback.
-        </p>
+      <div className="pb-10 space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+          <div>
+            <h1
+              className="text-3xl md:text-4xl font-extrabold"
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
+            >
+              Arsenal API
+            </h1>
+            <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
+              Programmatic access to 37,000+ curated skills with quality ratings, permission manifests, and deploy feedback.
+            </p>
+          </div>
+        </div>
         <div className="flex flex-wrap gap-3">
           <span className="px-3 py-1.5 rounded-lg text-xs font-bold" style={{ background: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed)' }}>
             REST API

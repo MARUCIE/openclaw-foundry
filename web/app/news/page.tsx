@@ -15,16 +15,19 @@ export default function NewsPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Header */}
-      <div className="mb-10">
-        <h1
-          className="text-4xl font-extrabold mb-4"
-          style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-        >
-          {t('news.title')}
-        </h1>
-        <p className="text-lg" style={{ color: 'var(--on-surface-variant)' }}>
-          {t('news.subtitle')}
-        </p>
+      <div className="flex items-center gap-3 mb-10">
+        <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+        <div>
+          <h1
+            className="text-3xl md:text-4xl font-extrabold"
+            style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
+          >
+            {t('news.title')}
+          </h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
+            {t('news.subtitle')}
+          </p>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -48,7 +51,7 @@ export default function NewsPage() {
 
       {/* Featured Article */}
       <section
-        className="rounded-3xl overflow-hidden mb-12 flex flex-col md:flex-row"
+        className="rounded-2xl overflow-hidden mb-12 flex flex-col md:flex-row"
         style={{ background: 'var(--surface-container-lowest)', border: '1px solid rgba(195, 198, 215, 0.3)' }}
       >
         <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center space-y-5" style={{ borderLeft: '4px solid var(--primary-container)' }}>

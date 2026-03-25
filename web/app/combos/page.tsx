@@ -18,17 +18,22 @@ export default function CombosPage() {
   const totalInstalls = collections.reduce((sum, c) => sum + c.installCount, 0);
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto px-6 py-12 space-y-10">
       {/* Hero */}
       <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          {t('combos.title')}
-        </h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
-          {t('combos.subtitle')}
-        </p>
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+          <div>
+            <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
+              {t('combos.title')}
+            </h1>
+            <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
+              {t('combos.subtitle')}
+            </p>
+          </div>
+        </div>
         {!isLoading && collections.length > 0 && (
-          <div className="flex gap-3 mt-4">
+          <div className="flex gap-3 mt-4 ml-5">
             <StatPill icon="collections_bookmark" value={collections.length} label={t('combos.recipes')} />
             <StatPill icon="extension" value={totalSkills} label={t('combos.skills')} />
             <StatPill icon="download" value={totalInstalls} label={t('combos.installs')} />
@@ -158,7 +163,7 @@ function InstallButton({ collection, size = 'normal' }: { collection: Collection
 function FeaturedCard({ collection: c }: { collection: Collection }) {
   return (
     <div
-      className="rounded-xl p-6 transition-all hover:shadow-lg"
+      className="rounded-2xl p-6 transition-all hover:shadow-lg"
       style={{
         background: 'linear-gradient(135deg, rgba(0,62,168,0.03), rgba(113,42,226,0.03))',
         boxShadow: '0 4px 16px rgba(0, 62, 168, 0.08)',
@@ -203,11 +208,11 @@ function CollectionCard({ collection: c }: { collection: Collection }) {
   const { t } = useI18n();
   return (
     <div
-      className="flex flex-col gap-3 rounded-xl p-5 transition-all hover:shadow-md"
+      className="flex flex-col gap-3 rounded-2xl p-5 transition-all hover:shadow-md"
       style={{
         background: 'var(--surface-container-lowest)',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-        border: '1px solid rgba(198, 198, 205, 0.1)',
+        border: '1px solid rgba(195, 198, 215, 0.3)',
         borderTopWidth: '3px',
         borderTopColor: 'var(--surface-tint)',
       }}

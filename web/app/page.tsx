@@ -164,7 +164,7 @@ export default function LandingPage() {
           {STATS.map(stat => (
             <div
               key={stat.label}
-              className="stat-card p-5 md:p-8 rounded-2xl md:rounded-3xl flex flex-col items-center justify-center text-center space-y-2 md:space-y-3"
+              className="stat-card p-5 md:p-8 rounded-2xl flex flex-col items-center justify-center text-center space-y-2 md:space-y-3"
               style={{
                 background: 'var(--surface-container-lowest)',
                 boxShadow: '0 25px 50px -12px rgba(0, 62, 168, 0.1)',

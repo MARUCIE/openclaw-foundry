@@ -16,19 +16,22 @@ export default function McpDirectoryPage() {
   });
 
   return (
-    <div className="max-w-[1440px] mx-auto px-6 md:px-8">
+    <div className="max-w-7xl mx-auto px-6">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 pt-8 pb-10">
-        <div className="space-y-3">
-          <h1
-            className="text-4xl md:text-5xl font-extrabold"
-            style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-          >
-            {t('mcp.title')}
-          </h1>
-          <p className="text-lg max-w-2xl" style={{ color: 'var(--on-surface-variant)' }}>
-            {t('mcp.subtitle')}
-          </p>
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 py-12 pb-10">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-10 rounded-full shrink-0" style={{ background: 'var(--primary)' }} />
+          <div className="space-y-1">
+            <h1
+              className="text-3xl md:text-4xl font-extrabold"
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
+            >
+              {t('mcp.title')}
+            </h1>
+            <p className="text-lg max-w-2xl" style={{ color: 'var(--on-surface-variant)' }}>
+              {t('mcp.subtitle')}
+            </p>
+          </div>
         </div>
         <div className="relative w-full lg:w-80">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--outline)' }}>search</span>
@@ -72,7 +75,7 @@ export default function McpDirectoryPage() {
           {FEATURED_MCP.map(mcp => (
             <div
               key={mcp.name}
-              className="p-8 rounded-3xl transition-all card-hover flex flex-col"
+              className="p-8 rounded-2xl transition-all card-hover flex flex-col"
               style={{
                 background: 'var(--surface-container-lowest)',
                 border: '1px solid rgba(195, 198, 215, 0.3)',
@@ -127,7 +130,7 @@ export default function McpDirectoryPage() {
               className="p-5 rounded-2xl transition-all card-hover"
               style={{
                 background: 'var(--surface-container-lowest)',
-                border: '1px solid rgba(195, 198, 215, 0.2)',
+                border: '1px solid rgba(195, 198, 215, 0.3)',
               }}
             >
               <div className="flex items-center gap-3 mb-3">

@@ -46,7 +46,7 @@ export default function PlatformsPage() {
           <div className="flex items-center gap-3">
             <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
             <h1
-              className="text-4xl font-extrabold"
+              className="text-3xl md:text-4xl font-extrabold"
               style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
               {t('platforms.title')}

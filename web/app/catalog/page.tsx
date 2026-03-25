@@ -65,10 +65,13 @@ function CatalogContent() {
   const statusLabels: Record<string, string> = { all: t('catalog.all'), stable: t('catalog.stable'), beta: t('catalog.beta'), preview: t('catalog.preview') };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('catalog.title')}</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
+    <div className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+        <div>
+          <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{t('catalog.title')}</h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
+        </div>
       </div>
 
       {/* Filter bar */}
@@ -156,11 +159,11 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
 
   return (
     <div
-      className="flex flex-col gap-3 rounded-xl p-5 transition-all hover:shadow-md group"
+      className="flex flex-col gap-3 rounded-2xl p-5 transition-all hover:shadow-md group"
       style={{
         background: 'var(--surface-container-lowest)',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-        border: '1px solid rgba(198, 198, 205, 0.1)',
+        border: '1px solid rgba(195, 198, 215, 0.3)',
       }}
     >
       <div className="flex items-start gap-3">

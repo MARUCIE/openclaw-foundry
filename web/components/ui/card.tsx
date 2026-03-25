@@ -3,11 +3,11 @@
 export function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <div
-      className={`rounded-xl p-6 ${className}`}
+      className={`rounded-2xl p-6 ${className}`}
       style={{
         background: 'var(--surface-container-lowest)',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-        border: '1px solid rgba(198, 198, 205, 0.1)',
+        border: '1px solid rgba(195, 198, 215, 0.3)',
       }}
     >
       {children}
