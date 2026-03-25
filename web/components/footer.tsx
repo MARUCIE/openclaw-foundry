@@ -36,7 +36,7 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-[var(--surface-tint)]"
+                className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
                 style={{ color: 'var(--on-surface-variant)' }}
               >
                 {link.key ? t(link.key) : link.label}

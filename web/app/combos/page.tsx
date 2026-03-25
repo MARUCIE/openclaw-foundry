@@ -73,7 +73,7 @@ export default function CombosPage() {
 
       {/* Collections grid */}
       {!isLoading && rest.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 stagger-grid">
           {rest.map((c, i) => (
             <CollectionCard key={c.id} collection={c} index={i} />
           ))}
@@ -240,10 +240,12 @@ function CollectionCard({ collection: c, index = 0 }: { collection: Collection; 
 
       <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--outline)' }}>
         <span>{c.curator}</span>
-        <span className="flex items-center gap-1">
-          <span className="material-symbols-outlined text-sm">download</span>
-          {c.installCount}
-        </span>
+        {c.installCount > 0 && (
+          <span className="flex items-center gap-1">
+            <span className="material-symbols-outlined text-sm">download</span>
+            {c.installCount}
+          </span>
+        )}
       </div>
 
       <div className="flex gap-2 mt-auto pt-3" style={{ borderTop: '1px solid var(--surface-container-low)' }}>

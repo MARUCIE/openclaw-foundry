@@ -251,7 +251,7 @@ export default function LandingPage() {
             {t('landing.browseAll')}
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-grid">
           {topSkills.length > 0 ? (
             topSkills.map(s => <SkillCard key={s.id} s={s} />)
           ) : (
