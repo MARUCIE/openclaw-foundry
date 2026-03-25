@@ -391,9 +391,19 @@ export default function SkillsMarketplacePage() {
             placeholder={t('skills.searchPlaceholder')}
             value={search}
             onChange={e => { setSearch(e.target.value); setPage(0); }}
-            className="w-full rounded-2xl py-4 pl-12 pr-4 text-sm"
+            aria-label={t('skills.searchPlaceholder')}
+            className="w-full rounded-2xl py-4 pl-12 pr-12 text-sm"
             style={{ background: 'var(--surface-container-low)', border: 'none' }}
           />
+          {search && (
+            <button
+              onClick={() => { setSearch(''); setPage(0); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-0.5 rounded-full hover:bg-black/5"
+              aria-label="Clear search"
+            >
+              <span className="material-symbols-outlined text-lg" style={{ color: 'var(--outline)' }}>close</span>
+            </button>
+          )}
         </div>
       </div>
 

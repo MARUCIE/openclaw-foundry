@@ -68,11 +68,11 @@ export default function McpDirectoryPage() {
         <h2 className="text-xl font-bold mb-6" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface-variant)' }}>
           {t('mcp.featured')}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {FEATURED_MCP.map(mcp => (
             <div
               key={mcp.name}
-              className="p-8 rounded-3xl transition-all card-hover"
+              className="p-8 rounded-3xl transition-all card-hover flex flex-col"
               style={{
                 background: 'var(--surface-container-lowest)',
                 border: '1px solid rgba(195, 198, 215, 0.3)',
@@ -90,7 +90,7 @@ export default function McpDirectoryPage() {
                 </span>
               </div>
               <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{mcp.name}</h3>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{mcp.desc}</p>
+              <p className="text-sm mb-6 leading-relaxed flex-1" style={{ color: 'var(--on-surface-variant)' }}>{mcp.desc}</p>
               <div
                 className="p-3 rounded-xl mb-4 text-xs font-mono truncate flex items-center justify-between"
                 style={{ background: 'var(--surface-container)', color: 'var(--on-surface)' }}
@@ -117,7 +117,7 @@ export default function McpDirectoryPage() {
             {t('mcp.exploreAll')}
           </h2>
           <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            {t('mcp.showingResults', { count: filtered.length, total: 128 })}
+            {t('mcp.showingResults', { count: filtered.length, total: MCP_SERVERS.length })}
           </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

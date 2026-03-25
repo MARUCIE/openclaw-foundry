@@ -158,12 +158,11 @@ function InstallButton({ collection, size = 'normal' }: { collection: Collection
 function FeaturedCard({ collection: c }: { collection: Collection }) {
   return (
     <div
-      className="rounded-xl p-6 transition-all hover:shadow-md"
+      className="rounded-xl p-6 transition-all hover:shadow-lg"
       style={{
-        background: 'var(--surface-container-lowest)',
-        borderTop: '3px solid var(--surface-tint)',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
-        border: '1px solid rgba(198, 198, 205, 0.1)',
+        background: 'linear-gradient(135deg, rgba(0,62,168,0.03), rgba(113,42,226,0.03))',
+        boxShadow: '0 4px 16px rgba(0, 62, 168, 0.08)',
+        border: '1px solid rgba(0, 62, 168, 0.15)',
         borderTopWidth: '3px',
         borderTopColor: 'var(--surface-tint)',
       }}

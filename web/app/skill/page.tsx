@@ -131,7 +131,7 @@ function SkillDetailContent() {
   const deployRate = rate ?? 0;
 
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-32">
+    <div className="max-w-4xl mx-auto px-6 pb-40">
 
       {/* ═══ Zone 1: Hero ═══ */}
       <section className="pt-8 pb-6">
