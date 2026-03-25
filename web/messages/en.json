@@ -207,6 +207,8 @@
   "arena.colCoverage": "Platform Reach",
   "arena.colOverall": "Overall Score",
   "arena.playAgain": "Play Again",
+  "arena.selectMin2": "Select at least 2 platforms to start",
+  "arena.enterTask": "Enter a test task description first",
 
   "catalog.title": "Platform Catalog",
   "catalog.subtitle": "Browse and manage {count} AI Agent deployment platforms",

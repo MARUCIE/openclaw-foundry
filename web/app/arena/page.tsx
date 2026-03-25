@@ -115,7 +115,8 @@ export default function ArenaPage() {
           <button
             onClick={handleStart}
             disabled={selected.length < 2 || !testPrompt}
-            className="flex items-center gap-2 px-8 py-2.5 rounded-lg text-sm font-bold text-white disabled:opacity-40 transition-opacity hover:opacity-90"
+            title={selected.length < 2 ? t('arena.selectMin2') : !testPrompt ? t('arena.enterTask') : undefined}
+            className="flex items-center gap-2 px-8 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-40 disabled:cursor-not-allowed transition-opacity hover:opacity-90"
             style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
           >
             <span className="material-symbols-outlined text-sm">swords</span>

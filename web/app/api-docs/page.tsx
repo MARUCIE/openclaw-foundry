@@ -208,7 +208,7 @@ export default function ApiDocsPage() {
           <div>
             <p className="text-sm font-medium mb-1" style={{ color: 'var(--on-surface-variant)' }}>1. Register for an API key (free)</p>
             <div className="flex items-center gap-2">
-              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: '#1e1e2e', color: '#cdd6f4' }}>
+              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
                 {`curl -X POST '${API_BASE}/api/tenants/register' \\\n  -H 'Content-Type: application/json' \\\n  -d '{"name":"my-app"}'`}
               </pre>
               <CopyButton text={`curl -X POST '${API_BASE}/api/tenants/register' -H 'Content-Type: application/json' -d '{"name":"my-app"}'`} />
@@ -217,7 +217,7 @@ export default function ApiDocsPage() {
           <div>
             <p className="text-sm font-medium mb-1" style={{ color: 'var(--on-surface-variant)' }}>2. Use the API key to search skills</p>
             <div className="flex items-center gap-2">
-              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: '#1e1e2e', color: '#cdd6f4' }}>
+              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
                 {`curl -H 'Authorization: Bearer ocf_YOUR_KEY' \\\n  '${API_BASE}/api/arsenal/search?q=browser&rating=S'`}
               </pre>
               <CopyButton text={`curl -H 'Authorization: Bearer ocf_YOUR_KEY' '${API_BASE}/api/arsenal/search?q=browser&rating=S'`} />
@@ -334,7 +334,7 @@ export default function ApiDocsPage() {
                         <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>Example</h4>
                         <CopyButton text={ep.example} />
                       </div>
-                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: '#1e1e2e', color: '#cdd6f4' }}>
+                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
                         {ep.example}
                       </pre>
                     </div>
@@ -344,7 +344,7 @@ export default function ApiDocsPage() {
                   {ep.response && (
                     <div>
                       <h4 className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--on-surface-variant)' }}>Response</h4>
-                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: '#1e1e2e', color: '#a6e3a1' }}>
+                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--tertiary)' }}>
                         {ep.response}
                       </pre>
                     </div>

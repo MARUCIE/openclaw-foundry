@@ -95,7 +95,7 @@ export default function McpDirectoryPage() {
               <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{mcp.name}</h3>
               <p className="text-sm mb-6 leading-relaxed flex-1" style={{ color: 'var(--on-surface-variant)' }}>{mcp.desc}</p>
               <div
-                className="p-3 rounded-xl mb-4 text-xs font-mono truncate flex items-center justify-between"
+                className="p-3.5 rounded-xl mb-4 text-xs font-mono truncate flex items-center justify-between gap-3"
                 style={{ background: 'var(--surface-container)', color: 'var(--on-surface)' }}
               >
                 <span className="truncate">{mcp.cmd}</span>

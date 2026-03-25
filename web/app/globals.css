@@ -162,6 +162,28 @@ input:focus, select:focus, textarea:focus {
   outline: none;
 }
 
+/* Button focus ring for keyboard navigation */
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+/* Filter pill active state */
+button[role="tab"]:hover {
+  opacity: 0.85;
+}
+button[role="tab"][aria-selected="true"] {
+  box-shadow: 0 2px 8px rgba(0, 62, 168, 0.2);
+}
+
+/* Generic card clickable feedback */
+[class*="rounded-2xl"][class*="hover:shadow"] {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease;
+}
+
 /* ═══ Table ═══ */
 tbody tr {
   transition: background-color 0.15s ease;

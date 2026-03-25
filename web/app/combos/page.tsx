@@ -74,8 +74,8 @@ export default function CombosPage() {
       {/* Collections grid */}
       {!isLoading && rest.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {rest.map(c => (
-            <CollectionCard key={c.id} collection={c} />
+          {rest.map((c, i) => (
+            <CollectionCard key={c.id} collection={c} index={i} />
           ))}
         </div>
       )}
@@ -204,7 +204,9 @@ function FeaturedCard({ collection: c }: { collection: Collection }) {
   );
 }
 
-function CollectionCard({ collection: c }: { collection: Collection }) {
+const BORDER_COLORS = ['var(--primary)', 'var(--secondary)', 'var(--tertiary)', 'var(--surface-tint)', '#f59e0b', '#ec4899'];
+
+function CollectionCard({ collection: c, index = 0 }: { collection: Collection; index?: number }) {
   const { t } = useI18n();
   return (
     <div
@@ -214,7 +216,7 @@ function CollectionCard({ collection: c }: { collection: Collection }) {
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
         border: '1px solid rgba(195, 198, 215, 0.3)',
         borderTopWidth: '3px',
-        borderTopColor: 'var(--surface-tint)',
+        borderTopColor: BORDER_COLORS[index % BORDER_COLORS.length],
       }}
     >
       <div className="flex items-start justify-between gap-2">

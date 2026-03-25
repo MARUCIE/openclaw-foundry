@@ -139,11 +139,11 @@ export default function NewsPage() {
           {/* Subscribe */}
           <div
             className="p-6 rounded-2xl text-center space-y-4"
-            style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
+            style={{ background: 'linear-gradient(135deg, #003ea8, #0053db)', color: 'white' }}
           >
             <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
             <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('news.subscribe')}</h3>
-            <p className="text-xs opacity-80">{t('news.newsletter')}</p>
+            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>{t('news.newsletter')}</p>
             <input
               type="email"
               placeholder="your@email.com"

@@ -75,7 +75,7 @@ function CatalogContent() {
       </div>
 
       {/* Filter bar */}
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-3 items-start sm:items-center">
         <div className="flex gap-1">
           {TYPE_FILTERS.map(t => (
             <button
@@ -188,13 +188,13 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
         {p.description}
       </p>
 
-      <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--outline)' }}>
-        <span className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center gap-2 text-xs" style={{ color: 'var(--on-surface-variant)' }}>
+        <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ background: 'var(--surface-container)' }}>
           <span className="material-symbols-outlined text-sm">computer</span>
           {p.platforms.join(', ')}
         </span>
         {p.imChannels.length > 0 && (
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ background: 'var(--surface-container)' }}>
             <span className="material-symbols-outlined text-sm">chat</span>
             {p.imChannels.join(', ')}
           </span>

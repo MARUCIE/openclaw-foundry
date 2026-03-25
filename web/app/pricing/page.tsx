@@ -259,7 +259,7 @@ export default function PricingPage() {
         style={{ background: 'linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-container))' }}
       >
         <h2
-          className="text-3xl md:text-5xl font-extrabold text-white"
+          className="text-2xl md:text-3xl font-extrabold text-white"
           style={{ fontFamily: 'Manrope, sans-serif' }}
         >
           {t('pricing.enterpriseCTA')}

@@ -207,6 +207,8 @@
   "arena.colCoverage": "平台覆盖",
   "arena.colOverall": "综合得分",
   "arena.playAgain": "再来一局",
+  "arena.selectMin2": "请至少选择 2 个平台",
+  "arena.enterTask": "请先输入测试任务描述",
 
   "catalog.title": "平台目录",
   "catalog.subtitle": "浏览和管理 {count} 个 AI Agent 部署平台",

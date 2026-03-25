@@ -532,11 +532,11 @@ export default function SkillsMarketplacePage() {
                     {/* Header: name + type + rating */}
                     <div className="flex justify-between items-start mb-1">
                       <h4 className="font-bold text-base leading-tight" style={{ color: 'var(--on-surface)' }}>{skill.name}</h4>
-                      <div className="flex items-center gap-1 shrink-0 ml-2">
-                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${isSkill ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
+                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                        <span className={`px-2.5 py-1 text-xs font-bold rounded-full ${isSkill ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
                           {isSkill ? 'Skill' : 'MCP'}
                         </span>
-                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${RATING_BADGE_CLASSES[skill.rating] || 'bg-gray-100 text-gray-500'}`}>
+                        <span className={`px-2.5 py-1 text-xs font-bold rounded-full ${RATING_BADGE_CLASSES[skill.rating] || 'bg-gray-100 text-gray-500'}`}>
                           {skill.rating}
                         </span>
                       </div>
