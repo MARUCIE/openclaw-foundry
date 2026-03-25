@@ -86,10 +86,8 @@ export default function NewsPage() {
           {filtered.map((n, i) => (
             <article
               key={i}
-              className="p-6 rounded-2xl transition-colors cursor-pointer"
+              className="p-6 rounded-2xl transition-colors cursor-pointer hover:bg-[var(--surface-container-low)]"
               style={{ borderBottom: i < filtered.length - 1 ? '1px solid rgba(195, 198, 215, 0.2)' : 'none' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--surface-container-low)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; }}
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className={`px-3 py-1 text-[10px] font-bold rounded-full uppercase ${n.tagColor}`}>{n.tag}</span>

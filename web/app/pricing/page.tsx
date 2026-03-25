@@ -104,7 +104,7 @@ export default function PricingPage() {
                   {t('pricing.comparison')}
                 </th>
                 {platforms.map(p => (
-                  <th key={p.id} className="p-4 text-center font-bold relative" style={{ color: 'var(--on-surface)', minWidth: '110px', background: p.recommended ? 'rgba(0, 62, 168, 0.05)' : undefined }}>
+                  <th key={p.id} className="p-4 text-center font-bold relative" style={{ color: 'var(--on-surface)', minWidth: '110px', background: p.recommended ? 'rgba(0, 62, 168, 0.1)' : undefined }}>
                     {p.name}
                     {p.recommended && (
                       <span className="block text-[9px] font-bold mt-1 px-2 py-0.5 rounded-full mx-auto w-fit" style={{ background: 'var(--primary)', color: 'var(--on-primary)' }}>
@@ -120,7 +120,7 @@ export default function PricingPage() {
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.type')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.type}</td>
+                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.type}</td>
                 ))}
               </tr>
               {/* Tier */}
@@ -129,7 +129,7 @@ export default function PricingPage() {
                 {platforms.map(p => {
                   const tierInfo = TIER_CONFIG[p.tier] || TIER_CONFIG.guided;
                   return (
-                    <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
+                    <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
                       <span className="inline-flex items-center gap-1.5 text-xs">
                         <span className="w-2 h-2 rounded-full" style={{ background: tierInfo.dot }} />
                         {t(tierInfo.labelKey)}
@@ -142,35 +142,35 @@ export default function PricingPage() {
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.price')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--primary)' }}>{p.price}</td>
+                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--primary)' }}>{p.price}</td>
                 ))}
               </tr>
               {/* Model */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.model')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.model}</td>
+                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.model}</td>
                 ))}
               </tr>
               {/* Skills */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.skills')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.skills}</td>
+                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.skills}</td>
                 ))}
               </tr>
               {/* IM */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.im')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.im}</td>
+                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.im}</td>
                 ))}
               </tr>
               {/* Open Source */}
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.openSource')}</td>
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
+                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
                     <span className="material-symbols-outlined text-lg" style={{ color: p.opensource ? 'var(--on-tertiary-container)' : 'var(--outline-variant)', fontVariationSettings: "'FILL' 1" }}>
                       {p.opensource ? 'check_circle' : 'cancel'}
                     </span>
@@ -181,7 +181,7 @@ export default function PricingPage() {
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 sticky left-0" style={{ background: 'var(--surface-container-lowest)' }} />
                 {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
+                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
                     <Link
                       href={`/deploy?provider=${p.id}`}
                       className="inline-block px-3 py-1.5 rounded-lg text-xs font-bold transition-opacity hover:opacity-90"

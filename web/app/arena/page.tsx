@@ -55,16 +55,28 @@ export default function ArenaPage() {
   const isCompleted = matchData && (matchData.status === 'completed' || matchData.status === 'failed');
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('arena.title')}</h2>
-        <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.subtitle')}</p>
+    <div className="max-w-5xl mx-auto space-y-6">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+        <div>
+          <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('arena.title')}</h2>
+          <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('arena.subtitle')}</p>
+        </div>
       </div>
 
       {/* Setup */}
       {!matchId && (
         <Card>
-          <CardHeader><CardTitle>{t('arena.selectPlatforms')}</CardTitle></CardHeader>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>{t('arena.selectPlatforms')}</CardTitle>
+              {selected.length > 0 && (
+                <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: 'var(--primary-fixed)', color: 'var(--primary)' }}>
+                  {selected.length} / 5
+                </span>
+              )}
+            </div>
+          </CardHeader>
           <div className="flex flex-wrap gap-2 mb-6">
             {providers.map(p => (
               <button
@@ -93,7 +105,7 @@ export default function ArenaPage() {
                 value={testPrompt}
                 onChange={e => setTestPrompt(e.target.value)}
                 placeholder={t('arena.taskPlaceholder')}
-                rows={3}
+                rows={5}
                 className="w-full pl-10 pr-4 py-3 rounded-xl text-sm outline-none resize-none"
                 style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
               />
