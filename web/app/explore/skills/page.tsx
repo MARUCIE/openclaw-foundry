@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import useSWR from 'swr';
 import { getSkills, getSkillCategories, type ClawHubSkill, submitFeedback } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
+import { RATING_BADGE_CLASSES, INSTALL_TARGETS } from '@/lib/constants';
 
 const SOURCE_KEYS = ['all', 'Skills', 'MCP Servers'] as const;
 const RATING_KEYS = ['all', 'S', 'A', 'B', 'C', 'D'];
@@ -34,38 +35,6 @@ const CATEGORY_KEY_MAP: Record<string, string> = {
   'API 网关': 'skills.cat.api',
   '其他': 'skills.cat.other',
 };
-const RATING_COLORS: Record<string, string> = {
-  S: 'bg-amber-100 text-amber-700',
-  A: 'bg-blue-100 text-blue-700',
-  B: 'bg-slate-100 text-slate-600',
-  C: 'bg-gray-100 text-gray-500',
-  D: 'bg-red-50 text-red-400',
-};
-
-// Install targets with real, verified commands (March 2026)
-const INSTALL_TARGETS = [
-  { id: 'claude', name: 'Claude Code', icon: 'terminal',
-    cmdSkill: (s: string) => `claude plugin install ${s}`,
-    cmdMcp: (s: string, repo: string) => `claude mcp add ${s} -- npx -y ${repo}` },
-  { id: 'openclaw', name: 'OpenClaw / Lobster', icon: 'smart_toy',
-    cmdSkill: (s: string) => `clawhub install ${s}`,
-    cmdMcp: null },
-  { id: 'cursor', name: 'Cursor', icon: 'edit',
-    cmdSkill: null,
-    cmdMcp: (s: string, repo: string) => `# .cursor/mcp.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'vscode', name: 'VS Code / Copilot', icon: 'code',
-    cmdSkill: null,
-    cmdMcp: (s: string, repo: string) => `# .vscode/mcp.json\n{\n  "servers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'windsurf', name: 'Windsurf', icon: 'air',
-    cmdSkill: null,
-    cmdMcp: (s: string, repo: string) => `# ~/.codeium/windsurf/mcp_config.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cline', name: 'Cline', icon: 'psychology',
-    cmdSkill: null,
-    cmdMcp: (s: string, repo: string) => `# cline_mcp_settings.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cli', name: 'skills.directRun', icon: 'play_arrow',
-    cmdSkill: null,
-    cmdMcp: (_s: string, repo: string) => `npx -y ${repo}` },
-];
 
 // Chinese → English synonym map for fuzzy search
 const SEARCH_SYNONYMS: Record<string, string[]> = {
@@ -557,7 +526,7 @@ export default function SkillsMarketplacePage() {
                         <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${isSkill ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
                           {isSkill ? 'Skill' : 'MCP'}
                         </span>
-                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${RATING_COLORS[skill.rating] || 'bg-gray-100 text-gray-500'}`}>
+                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${RATING_BADGE_CLASSES[skill.rating] || 'bg-gray-100 text-gray-500'}`}>
                           {skill.rating}
                         </span>
                       </div>

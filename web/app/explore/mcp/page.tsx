@@ -2,45 +2,7 @@
 
 import { useState } from 'react';
 import { useI18n } from '@/lib/i18n';
-
-// Category keys map to i18n keys mcp.cat.*
-const CATEGORY_KEYS = ['all', '数据库', '通讯', '云服务', '文件系统', '开发工具', '搜索', '浏览器', 'IM'] as const;
-const MCP_CAT_I18N: Record<string, string> = {
-  'all': 'mcp.cat.all',
-  '数据库': 'mcp.cat.database',
-  '通讯': 'mcp.cat.communication',
-  '云服务': 'mcp.cat.cloud',
-  '文件系统': 'mcp.cat.filesystem',
-  '开发工具': 'mcp.cat.devtools',
-  '搜索': 'mcp.cat.search',
-  '浏览器': 'mcp.cat.browser',
-  'IM': 'mcp.cat.im',
-};
-
-const FEATURED = [
-  { name: 'GitHub', icon: 'code', iconBg: 'var(--primary-fixed)', iconColor: 'var(--primary)', badge: 'PREMIUM', badgeBg: 'var(--surface-container-high)', desc: '完整集成 GitHub 工作流、管理仓库、PR、Issue 及代码特扫等全 Agent 操作能力。', cmd: 'npx -y @modelcontextprotocol/server-github', stars: '12.4k' },
-  { name: 'Filesystem', icon: 'folder', iconBg: 'var(--tertiary-fixed)', iconColor: 'var(--tertiary)', badge: 'CORE', badgeBg: 'var(--tertiary-fixed)', desc: '本地文件系统读写和搜索，支持目录浏览下的文件操作、内置权限控制，Agent 的大脑延展干泉。', cmd: 'npx -y @modelcontextprotocol/server-filesystem', stars: '8.7k' },
-  { name: 'PostgreSQL', icon: 'database', iconBg: 'var(--secondary-fixed)', iconColor: 'var(--secondary)', badge: 'DATA', badgeBg: 'var(--secondary-fixed)', desc: '安全地连接定位的关系型数据源，支持查询 Schema 自查、复合 SQL 执行与数据分析统计构建。', cmd: 'npx -y @modelcontextprotocol/server-postgres', stars: '6.3k' },
-];
-
-const MCP_SERVERS = [
-  { name: 'PostgreSQL', icon: 'database', iconBg: '#e8f5e9', iconColor: '#2e7d32', category: '数据库', cmd: 'npx @mcp/postgres', stars: '2.4k', protocol: 'STDIO', desc: '安全地连接与管理数据' },
-  { name: 'GitHub', icon: 'code', iconBg: '#e3f2fd', iconColor: '#1565c0', category: '开发工具', cmd: 'npx @mcp/github', stars: '3.5k', protocol: 'HTTP', desc: '代码托管和Issue管理' },
-  { name: 'Slack', icon: 'chat_bubble', iconBg: '#fce4ec', iconColor: '#c62828', category: 'IM', cmd: 'npx @mcp/slack', stars: '1.8k', protocol: 'HTTP', desc: '消息发送与频道联动管理' },
-  { name: 'Filesystem', icon: 'folder', iconBg: '#fff3e0', iconColor: '#e65100', category: '文件系统', cmd: 'npx @mcp/filesystem', stars: '4.3k', protocol: 'STDIO', desc: '本地文件的读写和操控' },
-  { name: 'Docker', icon: 'deployed_code', iconBg: '#e8eaf6', iconColor: '#283593', category: '开发工具', cmd: 'npx @mcp/docker', stars: '1.2k', protocol: 'STDIO', desc: '容器管理和服务编排' },
-  { name: 'Brave Search', icon: 'search', iconBg: '#fce4ec', iconColor: '#ad1457', category: '搜索', cmd: 'npx @mcp/brave-search', stars: '900', protocol: 'STDIO', desc: '隐私友好的 AI 搜索引擎' },
-  { name: 'Chrome DevTools', icon: 'web', iconBg: '#e8f5e9', iconColor: '#2e7d32', category: '浏览器', cmd: 'npx @mcp/chrome-devtools', stars: '', protocol: 'HTTP', desc: '浏览器调试和可视化自动化' },
-  { name: '飞书', icon: 'mark_chat_read', iconBg: '#e3f2fd', iconColor: '#1565c0', category: 'IM', cmd: 'npx @mcp/feishu', stars: '', protocol: 'HTTP', desc: '飞书开放平台 API 集成' },
-  { name: 'Cloudflare', icon: 'cloud_done', iconBg: '#fff3e0', iconColor: '#e65100', category: '云服务', cmd: 'npx @mcp/cloudflare', stars: '3.4k', protocol: 'STDIO', desc: 'Workers/KV/D1/R2 全栈管理' },
-  { name: 'MongoDB', icon: 'database', iconBg: '#e8f5e9', iconColor: '#2e7d32', category: '数据库', cmd: 'npx @mcp/mongodb', stars: '1.1k', protocol: 'STDIO', desc: 'NoSQL 数据库查询与管理' },
-  { name: 'Vercel', icon: 'cloud_upload', iconBg: '#f3e5f5', iconColor: '#6a1b9a', category: '云服务', cmd: 'npx @mcp/vercel', stars: '700', protocol: 'STDIO', desc: '项目与域名化管理部署' },
-  { name: 'Playwright', icon: 'smart_display', iconBg: '#e8eaf6', iconColor: '#283593', category: '浏览器', cmd: 'npx @mcp/playwright', stars: '2k', protocol: 'STDIO', desc: '跨浏览器自动化测试引擎' },
-  { name: '钉钉', icon: 'forum', iconBg: '#e3f2fd', iconColor: '#1565c0', category: 'IM', cmd: 'npx @mcp/dingtalk', stars: '650', protocol: 'HTTP', desc: '钉钉机器人和公告推送集成' },
-  { name: 'Redis MCP', icon: 'memory', iconBg: '#ffebee', iconColor: '#c62828', category: '数据库', cmd: 'npx @mcp/redis', stars: '3.1k', protocol: 'STDIO', desc: 'Redis 缓存和消息队列集成' },
-  { name: 'AWS S3', icon: 'cloud_upload', iconBg: '#fff3e0', iconColor: '#e65100', category: '云服务', cmd: 'npx @mcp/aws-s3', stars: '4.0k', protocol: 'STDIO', desc: 'S3 存储桶管理和文件操作' },
-  { name: 'Elasticsearch', icon: 'manage_search', iconBg: '#e8eaf6', iconColor: '#283593', category: '搜索', cmd: 'npx @mcp/elasticsearch', stars: '2.1k', protocol: 'STDIO', desc: '全文搜索与日志分析' },
-];
+import { CATEGORY_KEYS, CATEGORY_I18N, FEATURED_MCP, MCP_SERVERS } from '@/lib/mcp-data';
 
 export default function McpDirectoryPage() {
   const { t } = useI18n();
@@ -75,6 +37,7 @@ export default function McpDirectoryPage() {
             placeholder={t('mcp.searchPlaceholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
+            aria-label={t('mcp.searchPlaceholder')}
             className="w-full rounded-xl py-3 pl-10 pr-4 text-sm"
             style={{ background: 'var(--surface-container-low)', border: 'none' }}
           />
@@ -82,10 +45,12 @@ export default function McpDirectoryPage() {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex gap-2 flex-wrap mb-12">
+      <div className="flex gap-2 flex-wrap mb-12" role="tablist">
         {CATEGORY_KEYS.map(cat => (
           <button
             key={cat}
+            role="tab"
+            aria-selected={activeCategory === cat}
             onClick={() => setActiveCategory(cat)}
             className="px-4 py-2 rounded-full text-sm font-bold transition-all"
             style={{
@@ -93,7 +58,7 @@ export default function McpDirectoryPage() {
               color: activeCategory === cat ? 'var(--on-primary)' : 'var(--on-surface-variant)',
             }}
           >
-            {MCP_CAT_I18N[cat] ? t(MCP_CAT_I18N[cat]) : cat}
+            {CATEGORY_I18N[cat] ? t(CATEGORY_I18N[cat]) : cat}
           </button>
         ))}
       </div>
@@ -104,7 +69,7 @@ export default function McpDirectoryPage() {
           {t('mcp.featured')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {FEATURED.map(mcp => (
+          {FEATURED_MCP.map(mcp => (
             <div
               key={mcp.name}
               className="p-8 rounded-3xl transition-all card-hover"
@@ -205,13 +170,14 @@ export default function McpDirectoryPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-1 mt-10">
-          <button className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
+        <nav className="flex justify-center items-center gap-1 mt-10" aria-label="Pagination">
+          <button aria-label="Previous page" className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
             <span className="material-symbols-outlined text-sm">chevron_left</span>
           </button>
           {[1, 2, 3].map(p => (
             <button
               key={p}
+              aria-current={p === 1 ? 'page' : undefined}
               className="w-9 h-9 rounded-lg text-sm font-bold"
               style={{
                 background: p === 1 ? 'var(--primary)' : 'var(--surface-container)',
@@ -223,10 +189,10 @@ export default function McpDirectoryPage() {
           ))}
           <span className="px-2 text-sm" style={{ color: 'var(--outline)' }}>...</span>
           <button className="w-9 h-9 rounded-lg text-sm font-bold" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>11</button>
-          <button className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
+          <button aria-label="Next page" className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
             <span className="material-symbols-outlined text-sm">chevron_right</span>
           </button>
-        </div>
+        </nav>
       </section>
     </div>
   );

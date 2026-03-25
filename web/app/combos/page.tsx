@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { getCollections, installCollection, type Collection } from '@/lib/api';
+import { useI18n } from '@/lib/i18n';
 
 const fetcher = () => getCollections();
 
 export default function CombosPage() {
+  const { t } = useI18n();
   const { data, isLoading } = useSWR('collections', fetcher);
   const collections = data?.collections || [];
   const featured = collections.find(c => c.featured);
@@ -20,16 +22,16 @@ export default function CombosPage() {
       {/* Hero */}
       <div>
         <h2 className="text-2xl font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>
-          Combo 配方
+          {t('combos.title')}
         </h2>
         <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
-          经过验证的技能组合工作流，一键安装完整解决方案
+          {t('combos.subtitle')}
         </p>
         {!isLoading && collections.length > 0 && (
           <div className="flex gap-3 mt-4">
-            <StatPill icon="collections_bookmark" value={collections.length} label="个配方" />
-            <StatPill icon="extension" value={totalSkills} label="个技能" />
-            <StatPill icon="download" value={totalInstalls} label="次安装" />
+            <StatPill icon="collections_bookmark" value={collections.length} label={t('combos.recipes')} />
+            <StatPill icon="extension" value={totalSkills} label={t('combos.skills')} />
+            <StatPill icon="download" value={totalInstalls} label={t('combos.installs')} />
           </div>
         )}
       </div>
@@ -56,7 +58,7 @@ export default function CombosPage() {
             auto_awesome
           </span>
           <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
-            配方正在策划中，敬请期待
+            {t('combos.empty')}
           </p>
         </div>
       )}
@@ -92,6 +94,7 @@ function StatPill({ icon, value, label }: { icon: string; value: number; label: 
 }
 
 function SkillPills({ skillIds, max = 5 }: { skillIds: string[]; max?: number }) {
+  const { t } = useI18n();
   const visible = skillIds.slice(0, max);
   const remaining = skillIds.length - max;
   return (
@@ -110,7 +113,7 @@ function SkillPills({ skillIds, max = 5 }: { skillIds: string[]; max?: number })
           className="px-2 py-0.5 rounded-full text-xs"
           style={{ background: 'var(--surface-container)', color: 'var(--outline)' }}
         >
-          +{remaining} more
+          {t('combos.more', { count: remaining })}
         </span>
       )}
     </div>
@@ -118,6 +121,7 @@ function SkillPills({ skillIds, max = 5 }: { skillIds: string[]; max?: number })
 }
 
 function InstallButton({ collection, size = 'normal' }: { collection: Collection; size?: 'normal' | 'large' }) {
+  const { t } = useI18n();
   const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle');
 
   const handleInstall = async () => {
@@ -133,11 +137,11 @@ function InstallButton({ collection, size = 'normal' }: { collection: Collection
   };
 
   const label =
-    status === 'loading' ? '安装中...' :
-    status === 'done' ? '已安装' :
+    status === 'loading' ? t('combos.installing') :
+    status === 'done' ? t('combos.installed') :
     size === 'large'
-      ? `一键安装 ${collection.skillIds.length} 个技能`
-      : '一键安装';
+      ? t('combos.installAll', { count: collection.skillIds.length })
+      : t('combos.install');
 
   return (
     <button
@@ -197,6 +201,7 @@ function FeaturedCard({ collection: c }: { collection: Collection }) {
 }
 
 function CollectionCard({ collection: c }: { collection: Collection }) {
+  const { t } = useI18n();
   return (
     <div
       className="flex flex-col gap-3 rounded-xl p-5 transition-all hover:shadow-md"
@@ -241,7 +246,7 @@ function CollectionCard({ collection: c }: { collection: Collection }) {
           className="flex-1 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-[var(--surface-container)]"
           style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
         >
-          查看详情
+          {t('combos.details')}
         </button>
       </div>
     </div>

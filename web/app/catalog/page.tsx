@@ -1,39 +1,56 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { getProviders, type ProviderMeta } from '@/lib/api';
 import { TypeBadge, StatusBadge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
+import { TYPE_ICONS, TYPE_COLORS } from '@/lib/constants';
+import { ErrorState, EmptyState } from '@/components/ui/states';
 
 const fetcher = () => getProviders();
 
 const TYPE_FILTERS = ['all', 'desktop', 'saas', 'cloud', 'mobile', 'remote'] as const;
 const STATUS_FILTERS = ['all', 'stable', 'beta', 'preview'] as const;
 
-const TYPE_ICONS: Record<string, string> = {
-  desktop: 'desktop_windows',
-  saas: 'cloud',
-  cloud: 'cloud_queue',
-  mobile: 'smartphone',
-  remote: 'lan',
-};
-
-const TYPE_COLORS: Record<string, string> = {
-  desktop: 'var(--surface-tint)',
-  saas: 'var(--secondary)',
-  cloud: '#e65100',
-  mobile: 'var(--on-tertiary-container)',
-  remote: '#616161',
-};
-
 export default function CatalogPage() {
+  return (
+    <Suspense fallback={
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[1, 2, 3, 4, 5, 6].map(i => (
+          <div key={i} className="h-52 rounded-xl animate-pulse" style={{ background: 'var(--surface-container)' }} />
+        ))}
+      </div>
+    }>
+      <CatalogContent />
+    </Suspense>
+  );
+}
+
+function CatalogContent() {
   const { t } = useI18n();
-  const { data, isLoading } = useSWR('providers', fetcher);
-  const [typeFilter, setTypeFilter] = useState<string>('all');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [search, setSearch] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { data, isLoading, error, mutate } = useSWR('providers', fetcher);
+
+  const [typeFilter, setTypeFilter] = useState<string>(searchParams.get('type') || 'all');
+  const [statusFilter, setStatusFilter] = useState<string>(searchParams.get('status') || 'all');
+  const [search, setSearch] = useState(searchParams.get('q') || '');
+
+  const updateURL = useCallback((type: string, status: string, q: string) => {
+    const params = new URLSearchParams();
+    if (type !== 'all') params.set('type', type);
+    if (status !== 'all') params.set('status', status);
+    if (q) params.set('q', q);
+    const qs = params.toString();
+    router.replace(qs ? `?${qs}` : '/catalog', { scroll: false });
+  }, [router]);
+
+  const handleType = (v: string) => { setTypeFilter(v); updateURL(v, statusFilter, search); };
+  const handleStatus = (v: string) => { setStatusFilter(v); updateURL(typeFilter, v, search); };
+  const handleSearch = (v: string) => { setSearch(v); updateURL(typeFilter, statusFilter, v); };
 
   const providers = data?.providers || [];
   const filtered = providers.filter(p => {
@@ -60,7 +77,7 @@ export default function CatalogPage() {
           {TYPE_FILTERS.map(t => (
             <button
               key={t}
-              onClick={() => setTypeFilter(t)}
+              onClick={() => handleType(t)}
               className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
               style={{
                 background: typeFilter === t ? 'var(--surface-tint)' : 'var(--surface-container)',
@@ -76,7 +93,7 @@ export default function CatalogPage() {
           {STATUS_FILTERS.map(s => (
             <button
               key={s}
-              onClick={() => setStatusFilter(s)}
+              onClick={() => handleStatus(s)}
               className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
               style={{
                 background: statusFilter === s ? 'var(--secondary)' : 'var(--surface-container)',
@@ -93,7 +110,7 @@ export default function CatalogPage() {
             type="text"
             placeholder={t('catalog.searchPlaceholder')}
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => handleSearch(e.target.value)}
             className="pl-10 pr-4 py-1.5 rounded-xl text-sm outline-none"
             style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
           />
@@ -112,6 +129,15 @@ export default function CatalogPage() {
             <div key={i} className="h-52 rounded-xl animate-pulse" style={{ background: 'var(--surface-container)' }} />
           ))}
         </div>
+      ) : error || (!data?.providers?.length && !isLoading) ? (
+        <ErrorState
+          icon="cloud_off"
+          title={t('error.loadFailed')}
+          description={t('error.loadFailedDesc')}
+          action={{ label: t('error.retry'), onClick: () => mutate() }}
+        />
+      ) : filtered.length === 0 ? (
+        <EmptyState icon="filter_alt_off" title={t('error.noResults')} description={t('error.noResultsDesc')} />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map(p => (

@@ -4,28 +4,8 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import { getProviders, type ProviderMeta, type ProviderTier } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
-
-/* ── Pricing metadata (not in API — enriched static data) ── */
-const PRICING_META: Record<string, { type: string; price: string; model: string; skills: string; im: string; opensource: boolean; recommended?: boolean }> = {
-  openclaw:    { type: '开源核心', price: '免费开源', model: 'Claude/GPT', skills: '无限', im: 'Telegram/Discord/Slack', opensource: true, recommended: true },
-  hiclaw:      { type: '协作版', price: '¥199/月', model: 'DashScope', skills: '500+', im: '钉钉/飞书/Discord/Telegram', opensource: true, recommended: true },
-  copaw:       { type: '全托管', price: '¥99/月', model: 'DashScope', skills: '300+', im: '钉钉/飞书/QQ/Discord', opensource: true, recommended: true },
-  autoclaw:    { type: '全自动化', price: '¥149/月', model: 'GLM-4', skills: '200+', im: '钉钉', opensource: true },
-  huaweicloud: { type: '企业云', price: '按量计费', model: 'DeepSeek/GLM/Qwen', skills: '150+', im: 'WeLink', opensource: false },
-  jdcloud:     { type: '电商版', price: '¥99/月', model: '言犀', skills: '100+', im: '京东客服', opensource: false },
-  aliyun:      { type: 'PaaS 版', price: '按量计费', model: '通义千问', skills: '200+', im: '钉钉', opensource: false },
-  qclaw:       { type: '社区版', price: '免费/¥99', model: '混元', skills: '50+', im: 'QQ/微信', opensource: true },
-  arkclaw:     { type: '企业版', price: '¥499/月', model: '豆包/Kimi/SLM', skills: '400+', im: '飞书', opensource: false },
-  maxclaw:     { type: '多模态', price: '¥199/月', model: 'MiniMax', skills: '120+', im: '海螺', opensource: false },
-  kimiclaw:    { type: '对话式', price: '免费/Pro', model: 'Moonshot', skills: '80+', im: 'Web Chat', opensource: false },
-  duclaw:      { type: '全中文', price: '¥59/月', model: '文心一言', skills: '60+', im: '百度搜索/百科', opensource: false },
-};
-
-const TIER_DOT: Record<string, { color: string; labelKey: string }> = {
-  'full-auto': { color: '#22c55e', labelKey: 'tier.fullAuto' },
-  'semi-auto': { color: '#f59e0b', labelKey: 'tier.semiAuto' },
-  'guided': { color: '#94a3b8', labelKey: 'tier.guided' },
-};
+import { TIER_CONFIG } from '@/lib/constants';
+import { PRICING_META } from '@/lib/pricing-data';
 
 const RECOMMENDATIONS = [
   {
@@ -147,11 +127,11 @@ export default function PricingPage() {
               <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
                 <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.tier')}</td>
                 {platforms.map(p => {
-                  const tierInfo = TIER_DOT[p.tier] || TIER_DOT.guided;
+                  const tierInfo = TIER_CONFIG[p.tier] || TIER_CONFIG.guided;
                   return (
                     <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.03)' : 'var(--surface-container-lowest)' }}>
                       <span className="inline-flex items-center gap-1.5 text-xs">
-                        <span className="w-2 h-2 rounded-full" style={{ background: tierInfo.color }} />
+                        <span className="w-2 h-2 rounded-full" style={{ background: tierInfo.dot }} />
                         {t(tierInfo.labelKey)}
                       </span>
                     </td>

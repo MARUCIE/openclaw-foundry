@@ -5,20 +5,7 @@ import useSWR from 'swr';
 import { getProviders, type ProviderMeta } from '@/lib/api';
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
-
-const TIER_CONFIG = {
-  'full-auto': { labelKey: 'tier.fullAuto', bg: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed-variant)', dot: '#22c55e', icon: 'bolt' },
-  'semi-auto': { labelKey: 'tier.semiAuto', bg: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed-variant)', dot: '#f59e0b', icon: 'auto_awesome_motion' },
-  'guided': { labelKey: 'tier.guided', bg: 'var(--surface-container-high)', color: 'var(--on-surface-variant)', dot: '#94a3b8', icon: 'menu_book' },
-} as const;
-
-const TYPE_ICONS: Record<string, string> = {
-  desktop: 'desktop_windows',
-  cloud: 'cloud',
-  saas: 'language',
-  mobile: 'smartphone',
-  remote: 'router',
-};
+import { TIER_CONFIG, TYPE_ICONS } from '@/lib/constants';
 
 const FILTER_TYPES = ['all', 'desktop', 'cloud', 'saas', 'mobile'];
 const TYPE_LABEL_KEYS: Record<string, string> = { desktop: 'type.desktop', cloud: 'type.cloud', saas: 'type.saas', mobile: 'type.mobile', remote: 'type.remote' };
