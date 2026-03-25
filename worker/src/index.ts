@@ -4,6 +4,8 @@ import { providers } from './routes/providers';
 import { skills } from './routes/skills';
 import { stats } from './routes/stats';
 import { feedback } from './routes/feedback';
+import { events } from './routes/events';
+import { collections } from './routes/collections';
 import { tenants } from './routes/tenants';
 import { arena } from './routes/arena';
 import { authMiddleware } from './middleware/auth';
@@ -49,6 +51,8 @@ app.route('/api/providers', providers);
 app.route('/api/skills', skills);
 app.route('/api/stats', stats);
 app.route('/api/feedback', feedback);
+app.route('/api/events', events);
+app.route('/api/collections', collections);
 app.route('/api/arena', arena);
 
 // Tenant registration is public
@@ -97,7 +101,7 @@ arsenal.get('/search', async (c) => {
   const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
   const { results } = await db.prepare(
-    `SELECT * FROM skills ${where} ORDER BY score DESC LIMIT ? OFFSET ?`
+    `SELECT * FROM skills ${where} ORDER BY composite_score DESC, score DESC LIMIT ? OFFSET ?`
   ).bind(...params, limit, offset).all();
 
   return c.json({ total: (results || []).length, skills: results || [] });
@@ -152,9 +156,9 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
     console.log(`Cron triggered at ${new Date(event.scheduledTime).toISOString()}`);
 
-    // Aggregate deploy feedback into skill stats
     ctx.waitUntil((async () => {
       try {
+        // Step 1: Aggregate deploy_feedback (legacy) into skill stats
         await env.DB.prepare(
           `UPDATE skills SET
              deploy_success_rate = COALESCE(
@@ -168,9 +172,69 @@ export default {
                0
              )`
         ).run();
-        console.log('Feedback aggregation completed');
+        console.log('Step 1: deploy_feedback aggregation done');
+
+        // Step 2: Aggregate skill_events into review counts
+        await env.DB.prepare(
+          `UPDATE skills SET
+             review_up = COALESCE(
+               (SELECT COUNT(*) FROM skill_events e
+                WHERE e.skill_id = skills.id AND e.event_type = 'review_up' AND e.weight >= 0.5), 0),
+             review_down = COALESCE(
+               (SELECT COUNT(*) FROM skill_events e
+                WHERE e.skill_id = skills.id AND e.event_type = 'review_down' AND e.weight >= 0.5), 0)`
+        ).run();
+        console.log('Step 2: review aggregation done');
+
+        // Step 3: Compute trending_score (7-day window, time-decayed)
+        await env.DB.prepare(
+          `UPDATE skills SET
+             trending_score = COALESCE(
+               (SELECT SUM(
+                  CASE e.event_type
+                    WHEN 'install' THEN 3.0
+                    WHEN 'deploy_ok' THEN 2.0
+                    WHEN 'review_up' THEN 2.0
+                    WHEN 'view' THEN 0.1
+                    ELSE 0
+                  END
+                  * e.weight
+                  * (1.0 / (1.0 + julianday('now') - julianday(e.created_at)))
+                )
+                FROM skill_events e
+                WHERE e.skill_id = skills.id
+                  AND e.created_at > datetime('now', '-7 days')
+               ), 0.0)`
+        ).run();
+        console.log('Step 3: trending_score done');
+
+        // Step 4: Compute stale_penalty (continuous decay, not just boolean)
+        // B2: 7-day fail rate > 60% triggers penalty; also factor in stale boolean
+        await env.DB.prepare(
+          `UPDATE skills SET
+             stale_penalty = CASE
+               WHEN stale = 1 THEN 0.8
+               WHEN deploy_success_rate >= 0 AND deploy_success_rate < 0.4 THEN 0.5
+               ELSE 0.0
+             END`
+        ).run();
+        console.log('Step 4: stale_penalty done');
+
+        // Step 5: Compute composite_score (the unified ranking signal)
+        await env.DB.prepare(
+          `UPDATE skills SET
+             composite_score =
+               score * 0.35
+               + CASE WHEN deploy_success_rate >= 0 THEN deploy_success_rate * 100 ELSE 0 END * 0.30
+               + (review_up - review_down) * 5 * 0.20
+               + trending_score * 0.10
+               + (1.0 - stale_penalty) * 10 * 0.05`
+        ).run();
+        console.log('Step 5: composite_score done');
+
+        console.log('Cron: all 5 steps completed successfully');
       } catch (err) {
-        console.error('Feedback aggregation failed:', err);
+        console.error('Cron aggregation failed:', err);
       }
     })());
   },

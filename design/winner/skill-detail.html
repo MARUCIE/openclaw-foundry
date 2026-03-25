@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html class="light" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>deep-research - Skill 详情 | OpenClaw Foundry</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-background": "#191b23",
+        "inverse-on-surface": "#f0f0fb",
+        "surface-container-high": "#e7e7f3",
+        "secondary-fixed": "#eaddff",
+        "background": "#faf8ff",
+        "tertiary-fixed": "#6ffbbe",
+        "primary-container": "#0053db",
+        "on-primary": "#ffffff",
+        "surface-bright": "#faf8ff",
+        "outline": "#737686",
+        "on-error": "#ffffff",
+        "surface": "#faf8ff",
+        "primary-fixed-dim": "#b4c5ff",
+        "on-error-container": "#93000a",
+        "on-surface": "#191b23",
+        "on-primary-container": "#ced8ff",
+        "on-surface-variant": "#434655",
+        "secondary-fixed-dim": "#d2bbff",
+        "on-primary-fixed": "#00174b",
+        "inverse-surface": "#2e3039",
+        "surface-container-lowest": "#ffffff",
+        "secondary-container": "#8b4bfc",
+        "surface-dim": "#d9d9e5",
+        "on-primary-fixed-variant": "#003ea8",
+        "outline-variant": "#c3c6d7",
+        "on-secondary-container": "#fffbff",
+        "surface-container-highest": "#e1e2ed",
+        "on-secondary-fixed": "#25005a",
+        "on-tertiary": "#ffffff",
+        "primary": "#003ea8",
+        "on-tertiary-fixed": "#002114",
+        "surface-tint": "#0053db",
+        "surface-container-low": "#f3f3fe",
+        "tertiary-container": "#006c49",
+        "error": "#ba1a1a",
+        "tertiary-fixed-dim": "#4edea3",
+        "surface-container": "#ededf9",
+        "error-container": "#ffdad6",
+        "on-secondary-fixed-variant": "#5a00c6",
+        "surface-variant": "#e1e2ed",
+        "on-tertiary-container": "#64f1b4",
+        "primary-fixed": "#dbe1ff",
+        "inverse-primary": "#b4c5ff",
+        "tertiary": "#005136",
+        "on-tertiary-fixed-variant": "#005236",
+        "secondary": "#712ae2"
+      },
+      fontFamily: {
+        "headline": ["Manrope", "sans-serif"],
+        "body": ["Inter", "sans-serif"],
+        "label": ["Inter", "sans-serif"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "2xl": "1.5rem",
+        "full": "9999px"
+      },
+    },
+  },
+}
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+  .material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .glass-effect {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  /* CJK typography */
+  p, span, td, th, li, label {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  /* Selection */
+  ::selection {
+    background: #b4c5ff;
+    color: #191b23;
+  }
+  /* Card hover */
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 62, 168, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  /* Tab active indicator */
+  .tab-btn { position: relative; }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #0053db;
+    border-radius: 1px;
+  }
+  /* Sparkline bars */
+  .spark-bar {
+    display: inline-block;
+    width: 6px;
+    border-radius: 2px 2px 0 0;
+    background: #b4c5ff;
+    vertical-align: bottom;
+    transition: background 0.2s;
+  }
+  .spark-bar:hover { background: #0053db; }
+  /* Install bar slide-up */
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .install-bar-anim { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #737686; }
+  /* Code block */
+  .code-block {
+    font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  /* Fade in stagger */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .fade-in-d1 { animation-delay: 50ms; }
+  .fade-in-d2 { animation-delay: 100ms; }
+  .fade-in-d3 { animation-delay: 150ms; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed pb-24">
+
+<!-- ═══ Top Navigation Bar ═══ -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
+  <div class="max-w-screen-2xl mx-auto flex justify-between items-center px-6 md:px-12 py-4">
+    <a href="#" class="text-2xl font-black tracking-tighter text-primary font-headline">ClawHub</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a class="font-headline font-semibold tracking-tight text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Skill 市场</a>
+      <a class="font-headline font-semibold tracking-tight text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">部署</a>
+      <a class="font-headline font-semibold tracking-tight text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">竞技场</a>
+      <a class="font-headline font-semibold tracking-tight text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">资讯</a>
+      <a class="font-headline font-semibold tracking-tight text-sm text-on-surface-variant hover:text-primary transition-colors" href="#">定价</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="bg-primary-container text-on-primary px-6 py-2.5 rounded-xl font-headline font-bold text-sm active:scale-95 transition-transform duration-200">
+        开始使用
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 max-w-5xl mx-auto px-6 md:px-12">
+
+  <!-- ═══ ZONE 1: HERO ═══ -->
+  <section class="mb-12 fade-in">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-on-surface-variant mb-6">
+      <a href="#" class="hover:text-primary transition-colors">Skill 市场</a>
+      <span class="material-symbols-outlined text-base">chevron_right</span>
+      <a href="#" class="hover:text-primary transition-colors">搜索与研究</a>
+      <span class="material-symbols-outlined text-base">chevron_right</span>
+      <span class="text-on-surface font-medium">deep-research</span>
+    </nav>
+
+    <div class="flex flex-col md:flex-row md:items-start gap-6">
+      <!-- Left: icon + info -->
+      <div class="flex-1">
+        <div class="flex items-center gap-4 mb-4">
+          <!-- Skill icon -->
+          <div class="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-3xl">travel_explore</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <h1 class="text-3xl md:text-4xl font-headline font-extrabold tracking-tight text-on-surface">deep-research</h1>
+              <!-- S Rating Badge -->
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                <span class="material-symbols-outlined text-sm filled">workspace_premium</span>
+                S
+              </span>
+            </div>
+            <div class="flex items-center gap-3 mt-2 flex-wrap">
+              <!-- Author -->
+              <span class="inline-flex items-center gap-1.5 text-sm text-on-surface-variant">
+                <span class="material-symbols-outlined text-base filled text-primary">verified</span>
+                openclaw
+              </span>
+              <!-- Category -->
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-secondary-fixed text-on-secondary-fixed">
+                <span class="material-symbols-outlined text-sm">search</span>
+                搜索与研究
+              </span>
+              <!-- Version -->
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-surface-container-high text-outline">v3.2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tagline -->
+        <p class="text-lg text-on-surface-variant leading-relaxed mt-4 max-w-2xl">
+          多步骤信息综合研究。当问题无法一次搜索回答时，它用 7 阶段流水线从定义到输出全自动完成。
+        </p>
+
+        <!-- Stats row -->
+        <div class="flex items-center gap-6 mt-6 flex-wrap">
+          <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-base">download</span>
+            <span class="font-semibold text-on-surface">2.6k</span> 下载
+          </div>
+          <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-base filled text-amber-500">star</span>
+            <span class="font-semibold text-on-surface">489</span> 收藏
+          </div>
+          <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-base">history</span>
+            <span class="font-semibold text-on-surface">12</span> 版本
+          </div>
+          <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-base">devices</span>
+            <span class="font-semibold text-on-surface">6</span> 平台
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-outline-variant/40 mb-12"/>
+
+  <!-- ═══ ZONE 2: SCENARIOS ═══ -->
+  <section class="mb-14 fade-in fade-in-d1">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-xl">bolt</span>
+      <h2 class="text-xl font-headline font-bold text-on-surface">用了能做什么</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Scenario 1 -->
+      <div class="card-hover bg-surface-container-lowest p-6 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20">
+        <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-primary">query_stats</span>
+        </div>
+        <h3 class="font-headline font-bold text-on-surface mb-2">竞品深度调研</h3>
+        <p class="text-sm text-on-surface-variant leading-relaxed">给定一个赛道，自动完成 7 阶段研究，输出带来源引用的完整报告</p>
+      </div>
+      <!-- Scenario 2 -->
+      <div class="card-hover bg-surface-container-lowest p-6 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20">
+        <div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-secondary">compare_arrows</span>
+        </div>
+        <h3 class="font-headline font-bold text-on-surface mb-2">技术方案评估</h3>
+        <p class="text-sm text-on-surface-variant leading-relaxed">对比 3-5 个技术选型，从文档、社区、性能、成本四个维度交叉验证</p>
+      </div>
+      <!-- Scenario 3 -->
+      <div class="card-hover bg-surface-container-lowest p-6 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20">
+        <div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-tertiary">monitoring</span>
+        </div>
+        <h3 class="font-headline font-bold text-on-surface mb-2">市场规模估算</h3>
+        <p class="text-sm text-on-surface-variant leading-relaxed">TAM/SAM/SOM 三层估算，自动搜索公开数据源并计算</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ZONE 3: COMBO RECOMMENDATIONS ═══ -->
+  <section class="mb-14 fade-in fade-in-d2">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-xl">hub</span>
+      <h2 class="text-xl font-headline font-bold text-on-surface">经常搭配</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Combo 1 -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20 flex flex-col">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-tertiary text-xl">public</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <h4 class="font-headline font-bold text-sm text-on-surface truncate">agent-fetch</h4>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100 flex-shrink-0">A</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed mb-4 flex-1">HTTP 结构化数据提取</p>
+        <button class="w-full text-center px-3 py-2 rounded-xl text-xs font-semibold bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition-colors">
+          一起安装
+        </button>
+      </div>
+      <!-- Combo 2 -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20 flex flex-col">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-secondary text-xl">translate</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <h4 class="font-headline font-bold text-sm text-on-surface truncate">baoyu-translate</h4>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-100 flex-shrink-0">A</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed mb-4 flex-1">多语言翻译</p>
+        <button class="w-full text-center px-3 py-2 rounded-xl text-xs font-semibold bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition-colors">
+          一起安装
+        </button>
+      </div>
+      <!-- Combo 3 -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20 flex flex-col">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-primary text-xl">newsmode</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <h4 class="font-headline font-bold text-sm text-on-surface truncate">news-aggregator-skill</h4>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 flex-shrink-0">B</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed mb-4 flex-1">28 源新闻聚合</p>
+        <button class="w-full text-center px-3 py-2 rounded-xl text-xs font-semibold bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition-colors">
+          一起安装
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ZONE 4: BATTLE RECORD TESTIMONIALS ═══ -->
+  <section class="mb-14 fade-in fade-in-d3">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-xl">military_tech</span>
+      <h2 class="text-xl font-headline font-bold text-on-surface">实战战绩</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Testimonial 1 (success) -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-on-surface-variant">竞品分析报告</span>
+          <span class="material-symbols-outlined text-lg filled text-tertiary">thumb_up</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">Before</div>
+            <div class="text-lg font-headline font-bold text-on-surface-variant">2 天</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">After</div>
+            <div class="text-lg font-headline font-bold text-primary">3 小时</div>
+          </div>
+        </div>
+        <div class="w-full bg-surface-container-high rounded-full h-1.5">
+          <div class="bg-tertiary-container h-1.5 rounded-full" style="width: 94%"></div>
+        </div>
+      </div>
+      <!-- Testimonial 2 (success) -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-on-surface-variant">技术选型评估</span>
+          <span class="material-symbols-outlined text-lg filled text-tertiary">thumb_up</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">Before</div>
+            <div class="text-lg font-headline font-bold text-on-surface-variant">4 小时</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">After</div>
+            <div class="text-lg font-headline font-bold text-primary">40 分钟</div>
+          </div>
+        </div>
+        <div class="w-full bg-surface-container-high rounded-full h-1.5">
+          <div class="bg-tertiary-container h-1.5 rounded-full" style="width: 83%"></div>
+        </div>
+      </div>
+      <!-- Testimonial 3 (failure - shown equally!) -->
+      <div class="card-hover bg-surface-container-lowest p-5 rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-error/10">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold text-on-surface-variant">不适合实时数据</span>
+          <span class="material-symbols-outlined text-lg filled text-error">thumb_down</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">Before</div>
+            <div class="text-lg font-headline font-bold text-on-surface-variant">--</div>
+          </div>
+          <div>
+            <div class="text-[10px] font-medium text-outline uppercase tracking-wider mb-1">After</div>
+            <div class="text-lg font-headline font-bold text-on-surface-variant">--</div>
+          </div>
+        </div>
+        <p class="text-xs text-error/80 leading-relaxed mt-1">实时行情、直播等需要持续数据流的场景，无法通过批量搜索解决</p>
+      </div>
+    </div>
+    <div class="mt-6 text-center">
+      <button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-surface-container-high text-primary hover:bg-primary hover:text-on-primary transition-colors">
+        <span class="material-symbols-outlined text-base">add</span>
+        提交你的战绩
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ ZONE 6: PERMISSION MANIFEST ═══ -->
+  <section class="mb-14 fade-in">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-xl">shield</span>
+      <h2 class="text-xl font-headline font-bold text-on-surface">权限清单</h2>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20 divide-y divide-outline-variant/20">
+      <!-- Permission 1 -->
+      <div class="flex items-center gap-4 p-5">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-amber-600">language</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <h4 class="font-headline font-semibold text-sm text-on-surface">网络访问</h4>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium">需要</span>
+          </div>
+          <p class="text-xs text-on-surface-variant mt-0.5">需要访问外部搜索 API (WebSearch, WebFetch)</p>
+        </div>
+      </div>
+      <!-- Permission 2 -->
+      <div class="flex items-center gap-4 p-5">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-primary">folder_open</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <h4 class="font-headline font-semibold text-sm text-on-surface">文件读写</h4>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-medium">需要</span>
+          </div>
+          <p class="text-xs text-on-surface-variant mt-0.5">读取项目文件用于上下文分析</p>
+        </div>
+      </div>
+      <!-- Permission 3 -->
+      <div class="flex items-center gap-4 p-5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-emerald-600">verified_user</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <h4 class="font-headline font-semibold text-sm text-on-surface">无敏感权限</h4>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-medium">安全</span>
+          </div>
+          <p class="text-xs text-on-surface-variant mt-0.5">不访问 .env、credentials 等敏感文件</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ZONE 7: ACTIVITY ═══ -->
+  <section class="mb-20 fade-in">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="material-symbols-outlined text-primary text-xl">insights</span>
+      <h2 class="text-xl font-headline font-bold text-on-surface">活跃度</h2>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl shadow-[0px_4px_16px_rgba(25,27,35,0.04)] border border-outline-variant/20 p-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Left: sparkline -->
+        <div>
+          <div class="text-xs font-medium text-outline uppercase tracking-wider mb-3">30 天下载趋势</div>
+          <div class="flex items-end gap-[3px] h-16">
+            <!-- 30 bars with varying heights representing daily downloads -->
+            <span class="spark-bar" style="height:28%"></span>
+            <span class="spark-bar" style="height:35%"></span>
+            <span class="spark-bar" style="height:22%"></span>
+            <span class="spark-bar" style="height:45%"></span>
+            <span class="spark-bar" style="height:40%"></span>
+            <span class="spark-bar" style="height:55%"></span>
+            <span class="spark-bar" style="height:48%"></span>
+            <span class="spark-bar" style="height:62%"></span>
+            <span class="spark-bar" style="height:50%"></span>
+            <span class="spark-bar" style="height:58%"></span>
+            <span class="spark-bar" style="height:72%"></span>
+            <span class="spark-bar" style="height:65%"></span>
+            <span class="spark-bar" style="height:60%"></span>
+            <span class="spark-bar" style="height:55%"></span>
+            <span class="spark-bar" style="height:70%"></span>
+            <span class="spark-bar" style="height:75%"></span>
+            <span class="spark-bar" style="height:68%"></span>
+            <span class="spark-bar" style="height:80%"></span>
+            <span class="spark-bar" style="height:72%"></span>
+            <span class="spark-bar" style="height:78%"></span>
+            <span class="spark-bar" style="height:85%"></span>
+            <span class="spark-bar" style="height:90%"></span>
+            <span class="spark-bar" style="height:82%"></span>
+            <span class="spark-bar" style="height:88%"></span>
+            <span class="spark-bar" style="height:75%"></span>
+            <span class="spark-bar" style="height:92%"></span>
+            <span class="spark-bar" style="height:95%"></span>
+            <span class="spark-bar" style="height:88%"></span>
+            <span class="spark-bar" style="height:100%"></span>
+            <span class="spark-bar" style="height:93%"></span>
+          </div>
+        </div>
+        <!-- Right: stats -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-on-surface-variant flex items-center gap-2">
+              <span class="material-symbols-outlined text-base">update</span>
+              最后更新
+            </span>
+            <span class="text-sm font-semibold text-on-surface">3 天前</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-on-surface-variant flex items-center gap-2">
+              <span class="material-symbols-outlined text-base">trending_up</span>
+              连续上榜
+            </span>
+            <span class="text-sm font-semibold text-on-surface">连续 4 周 Top 10</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-on-surface-variant flex items-center gap-2">
+              <span class="material-symbols-outlined text-base">check_circle</span>
+              部署成功率
+            </span>
+            <div class="flex items-center gap-3">
+              <div class="w-32 bg-surface-container-high rounded-full h-2">
+                <div class="bg-tertiary-container h-2 rounded-full" style="width: 89%"></div>
+              </div>
+              <span class="text-sm font-semibold text-tertiary">89%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ ZONE 5: INSTALL COMMAND (STICKY) ═══ -->
+<div class="fixed bottom-0 left-0 right-0 z-40 install-bar-anim">
+  <div class="bg-white/95 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0px_-4px_24px_rgba(25,27,35,0.08)]">
+    <div class="max-w-5xl mx-auto px-6 md:px-12 py-4">
+      <!-- Platform tabs -->
+      <div class="flex items-center gap-1 mb-3 overflow-x-auto" id="platform-tabs">
+        <button onclick="switchPlatform(this, 'claude')" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold text-primary bg-primary-fixed transition-colors whitespace-nowrap">Claude Code</button>
+        <button onclick="switchPlatform(this, 'cursor')" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap">Cursor</button>
+        <button onclick="switchPlatform(this, 'vscode')" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap">VS Code</button>
+        <button onclick="switchPlatform(this, 'windsurf')" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap">Windsurf</button>
+        <button onclick="switchPlatform(this, 'cline')" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap">Cline</button>
+        <button onclick="switchPlatform(this, 'direct')" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap">直接运行</button>
+      </div>
+      <!-- Install command -->
+      <div class="flex items-center gap-3">
+        <div class="flex-1 bg-inverse-surface text-inverse-on-surface rounded-xl px-4 py-3 relative group">
+          <code id="install-cmd" class="code-block text-sm select-all">claude skill install openclaw/deep-research</code>
+        </div>
+        <button onclick="copyCommand()" id="copy-btn" class="flex-shrink-0 bg-primary-container text-on-primary px-5 py-3 rounded-xl font-headline font-bold text-sm active:scale-95 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-base" id="copy-icon">content_copy</span>
+          <span id="copy-text">复制</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="bg-surface-dim w-full py-12 px-6 md:px-12">
+  <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-5xl mx-auto">
+    <div class="text-on-surface-variant opacity-70 text-xs tracking-wide uppercase font-medium">
+      OpenClaw Foundry v4.0 -- Skill Detail Page
+    </div>
+    <div class="text-on-surface-variant opacity-70 text-xs tracking-wide font-medium">
+      Maurice | maurice_wen@proton.me
+    </div>
+  </div>
+</footer>
+
+<script>
+// Platform install commands
+const commands = {
+  claude: 'claude skill install openclaw/deep-research',
+  cursor: 'cursor ext install openclaw.deep-research',
+  vscode: 'code --install-extension openclaw.deep-research',
+  windsurf: 'windsurf skill add openclaw/deep-research',
+  cline: 'cline skill install openclaw/deep-research',
+  direct: 'npx @openclaw/deep-research@latest'
+};
+
+function switchPlatform(btn, platform) {
+  // Update tabs
+  document.querySelectorAll('#platform-tabs .tab-btn').forEach(t => {
+    t.classList.remove('active', 'text-primary', 'bg-primary-fixed');
+    t.classList.add('text-on-surface-variant');
+  });
+  btn.classList.add('active', 'text-primary', 'bg-primary-fixed');
+  btn.classList.remove('text-on-surface-variant');
+  // Update command
+  document.getElementById('install-cmd').textContent = commands[platform];
+  // Reset copy button
+  resetCopyBtn();
+}
+
+function copyCommand() {
+  const cmd = document.getElementById('install-cmd').textContent;
+  navigator.clipboard.writeText(cmd).then(() => {
+    const icon = document.getElementById('copy-icon');
+    const text = document.getElementById('copy-text');
+    icon.textContent = 'check';
+    text.textContent = '已复制';
+    setTimeout(resetCopyBtn, 2000);
+  });
+}
+
+function resetCopyBtn() {
+  document.getElementById('copy-icon').textContent = 'content_copy';
+  document.getElementById('copy-text').textContent = '复制';
+}
+</script>
+</body>
+</html>

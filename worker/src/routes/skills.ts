@@ -43,7 +43,7 @@ skills.get('/', async (c) => {
 
   // Fetch page
   const { results } = await db.prepare(
-    `SELECT * FROM skills ${where} ORDER BY score DESC LIMIT ? OFFSET ?`
+    `SELECT * FROM skills ${where} ORDER BY composite_score DESC, score DESC LIMIT ? OFFSET ?`
   ).bind(...params, limit, offset).all<SkillRow>();
 
   // Categories summary
@@ -91,6 +91,13 @@ skills.get('/', async (c) => {
     deployCount: (s as any).deploy_count ?? 0,
     stale: Boolean((s as any).stale),
     permissionManifest: safeJsonObject((s as any).permission_manifest),
+    // v3 curation fields
+    editorialTagline: (s as any).editorial_tagline || '',
+    trendingScore: (s as any).trending_score ?? 0,
+    compositeScore: (s as any).composite_score ?? 0,
+    reviewUp: (s as any).review_up ?? 0,
+    reviewDown: (s as any).review_down ?? 0,
+    stalePenalty: (s as any).stale_penalty ?? 0,
   }));
 
   return c.json({

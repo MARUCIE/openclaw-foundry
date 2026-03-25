@@ -7,6 +7,7 @@ import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 const NAV_ITEMS = [
   { href: '/explore/platforms', key: 'nav.deploy' },
   { href: '/explore/skills', key: 'nav.explore' },
+  { href: '/combos', key: 'nav.combos', fallback: 'Combos' },
   { href: '/api-docs', key: 'nav.api' },
   { href: '/news', key: 'nav.news' },
   { href: '/arena', key: 'nav.arena' },
@@ -50,7 +51,7 @@ export function TopNav() {
                   color: isActive ? 'var(--surface-tint)' : 'var(--on-surface-variant)',
                 }}
               >
-                {t(item.key)}
+                {t(item.key) || (item as any).fallback || item.key}
               </Link>
             );
           })}

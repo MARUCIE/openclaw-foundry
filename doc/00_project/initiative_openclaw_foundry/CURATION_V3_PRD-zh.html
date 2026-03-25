@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenClaw Foundry -- 策展系统 v3 PRD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-900: #002855;
+  --blue-700: #003A70;
+  --blue-500: #0066B3;
+  --blue-100: #E8F0FE;
+  --blue-50: #F4F7FB;
+  --green: #1B7F4B;
+  --green-light: #E6F4EC;
+  --amber: #D4850D;
+  --amber-light: #FEF3E0;
+  --red: #C4281C;
+  --red-light: #FDECEB;
+  --ink: #1A1A2E;
+  --body: #2D2D3F;
+  --secondary: #5A5A72;
+  --muted: #8E8EA0;
+  --rule: #D4D4DC;
+  --rule-strong: #1A1A2E;
+  --bg: #FFFFFF;
+  --bg-gray: #F5F5F8;
+  --bg-dark: #002855;
+  --font-headline: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--body);
+  background: var(--bg);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.container { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+/* Hero */
+.hero {
+  background: var(--bg-dark);
+  color: #fff;
+  padding: 56px 0;
+}
+.hero .container { padding: 0 48px; }
+.hero h1 {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.hero .subtitle {
+  color: rgba(255,255,255,0.75);
+  font-size: 1.1rem;
+  font-weight: 400;
+  max-width: 720px;
+}
+.hero .meta-bar {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Section */
+section { padding: 48px 0; border-bottom: 1px solid var(--rule); }
+section.gray { background: var(--bg-gray); }
+section:last-of-type { border-bottom: none; }
+
+.section-num {
+  font-family: var(--font-headline);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-700);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+h3 {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+p { margin-bottom: 14px; }
+p:last-child { margin-bottom: 0; }
+
+/* Key Message Bar */
+.key-message {
+  background: var(--blue-700);
+  color: #fff;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+/* KPI Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.kpi {
+  padding: 20px 24px;
+  background: var(--bg);
+}
+.kpi .label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.kpi .value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--blue-700);
+  line-height: 1.2;
+}
+.kpi .context {
+  font-size: 13px;
+  color: var(--secondary);
+  margin-top: 4px;
+}
+
+/* Cards */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--blue-700);
+  padding: 24px;
+}
+.card h3 { font-size: 1rem; margin-bottom: 10px; }
+.card p { font-size: 14px; color: var(--secondary); }
+
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+/* Pillar Grid */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.pillar {
+  padding: 24px;
+  border-right: 1px solid var(--rule);
+}
+.pillar:last-child { border-right: none; }
+.pillar-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--blue-700);
+  margin-bottom: 8px;
+}
+.pillar h3 {
+  border-bottom: 2px solid var(--blue-700);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.pillar ul { padding-left: 18px; font-size: 14px; color: var(--secondary); }
+.pillar li { margin-bottom: 6px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+th {
+  background: var(--blue-900);
+  color: #fff;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 16px;
+  text-align: left;
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+tr:nth-child(even) td { background: var(--blue-50); }
+
+/* Status Tags */
+.status-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.status-tag.green { background: var(--green-light); color: var(--green); }
+.status-tag.amber { background: var(--amber-light); color: var(--amber); }
+.status-tag.red { background: var(--red-light); color: var(--red); }
+.status-tag.blue { background: var(--blue-100); color: var(--blue-700); }
+
+/* Phase Grid */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule);
+  margin: 24px 0;
+}
+.phase {
+  padding: 24px;
+  border-right: 1px solid var(--rule);
+}
+.phase:last-child { border-right: none; }
+.phase-header {
+  background: var(--blue-700);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  margin: -24px -24px 20px;
+}
+.phase-header.p2 { background: var(--blue-500); }
+.phase-header.p3 { background: #0088CC; }
+.phase ul { padding-left: 18px; font-size: 14px; color: var(--secondary); }
+.phase li { margin-bottom: 8px; }
+
+/* Callouts */
+.callout {
+  background: var(--blue-100);
+  border-left: 4px solid var(--blue-700);
+  padding: 20px 24px;
+  font-size: 0.95rem;
+  margin: 20px 0;
+}
+.callout-risk {
+  background: var(--red-light);
+  border-left: 4px solid var(--red);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.callout-action {
+  background: var(--amber-light);
+  border-left: 4px solid var(--amber);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+
+/* Implication Box */
+.implication {
+  background: var(--bg-gray);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--blue-700);
+  padding: 20px 24px;
+  margin-top: 24px;
+}
+.implication-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue-700);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* Code blocks */
+pre {
+  background: var(--bg-gray);
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--blue-50);
+  padding: 2px 6px;
+}
+
+/* Loop Diagram */
+.loop-box {
+  border: 2px solid var(--blue-700);
+  padding: 20px 24px;
+  margin: 12px 0;
+  position: relative;
+}
+.loop-box .loop-label {
+  position: absolute;
+  top: -12px;
+  left: 16px;
+  background: var(--blue-700);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 12px;
+  letter-spacing: 1px;
+}
+.loop-box.balance { border-color: var(--amber); }
+.loop-box.balance .loop-label { background: var(--amber); }
+.loop-box p { font-size: 14px; margin-bottom: 6px; }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 60px 20px 40px;
+  color: #9B9B9D;
+  font-size: 13px;
+  line-height: 2.2;
+  border-top: 3px solid var(--blue-700);
+}
+.site-footer .attr { font-size: 12px; margin-top: 8px; }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-3, .pillar-grid, .phase-grid { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .pillar { border-right: none; border-bottom: 1px solid var(--rule); }
+  .pillar:last-child { border-bottom: none; }
+  .phase { border-right: none; border-bottom: 1px solid var(--rule); }
+  .phase:last-child { border-bottom: none; }
+}
+@media (max-width: 640px) {
+  .hero .container { padding: 0 20px; }
+  .hero { padding: 32px 0; }
+  .hero h1 { font-size: 1.8rem; }
+  .container { padding: 0 20px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+
+/* Responsive scaling */
+@media (min-width: 2000px) {
+  html { font-size: calc(15px + 0.15vw); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="container">
+    <h1>OpenClaw Foundry<br>策展系统 v3 产品需求文档</h1>
+    <p class="subtitle">从工具目录到策展市场 -- 7 大特性将 OpenClaw 从 "skill 列表" 升维为 "开发者的武器库策展平台"，建立竞品无法复制的信任飞轮与组合推荐壁垒。</p>
+    <div class="meta-bar">
+      <span>版本 3.0</span>
+      <span>2026-03-25</span>
+      <span>基于 5 路蜂群头脑风暴综合</span>
+      <span>优先级: P0 → P1 → P2</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXECUTIVE SUMMARY ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">00</span>
+    <h2>执行摘要</h2>
+
+    <div class="key-message">核心建议：用 3 张新表 + 1 个 cron 重算，让 249 个 skill 的排序从"第三方爬虫分"变成"真实部署质量分"，同时启动 Combo 配方和战绩证词两大差异化武器。</div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">当前 Skills</div>
+        <div class="value">249</div>
+        <div class="context">23 个分类，S/A/B/C/D 五级评分</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Deploy Rate 可用</div>
+        <div class="value">0%</div>
+        <div class="context">deploy_success_rate 全部 -1（无数据）</div>
+      </div>
+      <div class="kpi">
+        <div class="label">新增表</div>
+        <div class="value">2+1</div>
+        <div class="context">skill_events + collections + skills ALTER</div>
+      </div>
+      <div class="kpi">
+        <div class="label">竞品差距</div>
+        <div class="value">Combo</div>
+        <div class="context">Smithery/ClawHub 均无组合推荐</div>
+      </div>
+    </div>
+
+    <p>当前策展系统的核心问题：<strong>信号收集了但没有驱动任何行为</strong>。deploy_feedback 表已在收集部署反馈，但 deploy_success_rate 未参与排序计算。这是 Meadows 系统动力学中的 #6 杠杆点（信息流断裂），修复代价极低但影响最大。</p>
+
+    <div class="implication">
+      <div class="implication-label">行动建议</div>
+      <p>P0 阶段仅需一次 migration + 一个 cron handler 扩展，即可激活质量曝光增强环 (R1)。Combo 配方和战绩证词在 P1 阶段落地，形成差异化壁垒。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 01 CURRENT STATE ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">01</span>
+    <h2>系统现状诊断</h2>
+
+    <div class="key-message">现有系统是一个"断路的质量飞轮"：信号在收集，但未驱动排序，也未向用户展示。</div>
+
+    <h3>已有能力</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>层面</th>
+          <th>能力</th>
+          <th>状态</th>
+          <th>评估</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>数据层</td>
+          <td>249 skills，S/A/B/C/D 评分，23 个分类</td>
+          <td><span class="status-tag green">OK</span></td>
+          <td>基础完整</td>
+        </tr>
+        <tr>
+          <td>反馈层</td>
+          <td>deploy_feedback 匿名部署反馈 (success/fail/not_tried)</td>
+          <td><span class="status-tag green">OK</span></td>
+          <td>事件流雏形</td>
+        </tr>
+        <tr>
+          <td>策展层</td>
+          <td>permission_manifest 扫描 + stale 检测</td>
+          <td><span class="status-tag amber">PARTIAL</span></td>
+          <td>stale 是布尔值，无衰减梯度</td>
+        </tr>
+        <tr>
+          <td>排序层</td>
+          <td>score 字段 (来自 ClawHub 第三方)</td>
+          <td><span class="status-tag red">BROKEN</span></td>
+          <td>deploy_success_rate 未参与排序</td>
+        </tr>
+        <tr>
+          <td>前端层</td>
+          <td>Skills 列表 + 多维筛选 + 中文同义词搜索 + 7 平台安装命令</td>
+          <td><span class="status-tag green">OK</span></td>
+          <td>功能完整但无详情页</td>
+        </tr>
+        <tr>
+          <td>社区层</td>
+          <td>无</td>
+          <td><span class="status-tag red">MISSING</span></td>
+          <td>无用户评价、无收藏、无组合推荐</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键缺失 (蜂群共识)</h3>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Skill 详情页</h3>
+        <p>当前无独立 Skill 页面。用户无法深入了解单个 skill 的使用场景、权限需求、社区评价。</p>
+      </div>
+      <div class="card">
+        <h3>Combo 组合推荐</h3>
+        <p>Smithery / ClawHub 均无此功能。这是最大的差异化窗口 -- "安装了 A 的人也安装了 B"。</p>
+      </div>
+      <div class="card">
+        <h3>战绩证词系统</h3>
+        <p>开发者不信星级评分。他们信 "我用这个 skill 在 4 小时内完成了原来一周的工作" 这种可验证故事。</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication-label">诊断结论</div>
+      <p>系统基础设施完整（数据同步、反馈收集、前端搜索），但<strong>缺乏将信号转化为用户行为的闭环</strong>。修复优先级：先通排序回路 (P0)，再建差异化特性 (P1)，最后做增长引擎 (P2)。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02 DATA MODEL ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">02</span>
+    <h2>数据模型设计</h2>
+
+    <div class="key-message">遵循 Hickey 简洁原则：只加 2 张新表 + 1 组 ALTER，拒绝 4 表中间层的过度设计。事件表 append-only，排序字段 cron 物化。</div>
+
+    <h3>设计原则 (5 路蜂群共识)</h3>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <h3>统一事件流</h3>
+        <ul>
+          <li>一张 <code>skill_events</code> 替代 N 张表</li>
+          <li>deploy/review/view/install 全是同一事实结构</li>
+          <li>Append-only，UNIQUE 去重</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <h3>Cron 物化</h3>
+        <ul>
+          <li>写入只管写入，不即时更新 skills</li>
+          <li>Cron handler 统一重算衍生字段</li>
+          <li>解耦写入路径与计算路径</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <h3>内容在 R2</h3>
+        <ul>
+          <li>README/截图/changelog 存 R2</li>
+          <li>D1 只存元数据指针</li>
+          <li>不把内容 complect 进关系表</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>migration-v3.sql</h3>
+    <pre>-- [新表 1] 统一事件流
+CREATE TABLE IF NOT EXISTS skill_events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  skill_id TEXT NOT NULL,
+  event_type TEXT NOT NULL CHECK (event_type IN (
+    'deploy_ok','deploy_fail',
+    'review_up','review_down',
+    'install','view'
+  )),
+  fingerprint TEXT NOT NULL,
+  tenant_id TEXT DEFAULT '',
+  payload TEXT DEFAULT '{}',
+  weight REAL DEFAULT 1.0,
+  created_at TEXT DEFAULT (datetime('now')),
+  UNIQUE(skill_id, event_type, fingerprint)
+);
+CREATE INDEX IF NOT EXISTS idx_events_skill ON skill_events(skill_id);
+CREATE INDEX IF NOT EXISTS idx_events_type ON skill_events(event_type);
+CREATE INDEX IF NOT EXISTS idx_events_created ON skill_events(created_at);
+
+-- [新表 2] 策展集合 (平表，JSON skill_ids)
+CREATE TABLE IF NOT EXISTS collections (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  tagline TEXT DEFAULT '',
+  description TEXT DEFAULT '',
+  skill_ids TEXT NOT NULL DEFAULT '[]',
+  curator TEXT NOT NULL,
+  cover_type TEXT DEFAULT 'auto',
+  featured INTEGER DEFAULT 0,
+  install_count INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_collections_featured
+  ON collections(featured DESC, install_count DESC);
+
+-- [skills 表扩展] 衍生字段 (cron 重算)
+ALTER TABLE skills ADD COLUMN editorial_tagline TEXT DEFAULT '';
+ALTER TABLE skills ADD COLUMN trending_score REAL DEFAULT 0.0;
+ALTER TABLE skills ADD COLUMN composite_score REAL DEFAULT 0.0;
+ALTER TABLE skills ADD COLUMN review_up INTEGER DEFAULT 0;
+ALTER TABLE skills ADD COLUMN review_down INTEGER DEFAULT 0;
+ALTER TABLE skills ADD COLUMN stale_penalty REAL DEFAULT 0.0;</pre>
+
+    <div class="callout">
+      <strong>为什么不建 skill_combos 中间表？</strong> 249 个 skills 规模下，co-occurrence 推荐只需一个 SQL JOIN (skill_events 自关联)。当 skills 超过 2000 时再考虑物化到 combos 表。过早优化是万恶之源。
+    </div>
+
+    <div class="implication">
+      <div class="implication-label">数据流</div>
+      <p><code>用户行为 → skill_events (append-only) → cron 物化 → skills.composite_score / trending_score → 前端排序</code>。写入路径和计算路径完全解耦。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 03 COMPOSITE SCORE ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">03</span>
+    <h2>P0-1: composite_score 排序引擎</h2>
+
+    <div class="key-message">一行 SQL 变更，让排名从"第三方爬虫分"变成"真实部署质量分"。这是系统动力学 #6 杠杆点（信息流），修复代价最低、影响最大。</div>
+
+    <h3>公式</h3>
+    <pre>composite_score =
+    score * 0.35                           -- 第三方信号 (ClawHub 原始分)
+  + deploy_success_rate * 100 * 0.30       -- 部署质量 (本站真实数据)
+  + (review_up - review_down) * 5 * 0.20   -- 社区评价 (净推荐)
+  + trending_score * 0.10                  -- 短期热度 (7 天窗口)
+  + (1 - stale_penalty) * 10 * 0.05        -- 活跃惩罚 (非布尔衰减)</pre>
+
+    <h3>trending_score 计算 (时间衰减)</h3>
+    <pre>trending_score = SUM(
+  CASE event_type
+    WHEN 'install' THEN 3.0
+    WHEN 'deploy_ok' THEN 2.0
+    WHEN 'review_up' THEN 2.0
+    WHEN 'view' THEN 0.1
+    ELSE 0
+  END
+  * (1.0 / (1 + julianday('now') - julianday(created_at)))
+)
+WHERE created_at > datetime('now', '-7 days')</pre>
+
+    <p>灵感来源：Product Hunt 的投票速率 > 总票数原则。7 天窗口 + 时间衰减确保新 skill 有机会浮出水面，老 skill 不会仅靠历史累积霸榜。</p>
+
+    <div class="implication">
+      <div class="implication-label">实现路径</div>
+      <p>1) migration-v3.sql 添加字段 → 2) cron handler 增加重算逻辑 → 3) skills route 排序改用 <code>composite_score DESC</code>。前端无需变更。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 ANTI-SPAM ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">04</span>
+    <h2>P0-2: B1 防刷平衡环</h2>
+
+    <div class="key-message">Goodhart 定律警告：当 composite_score 成为正式排名依据，它本身就会成为被优化的对象。B1 防刷必须与 R1 质量环同时上线。</div>
+
+    <h3>防刷机制三层</h3>
+    <div class="grid-3">
+      <div class="card">
+        <h3>L1: 指纹去重</h3>
+        <p>UNIQUE(skill_id, event_type, fingerprint) 已内置。同一用户对同一 skill 同一行为只计一次。</p>
+      </div>
+      <div class="card">
+        <h3>L2: 权重衰减</h3>
+        <p>同一 ASN 段 24h 内 > 5 个不同 skill 的同类事件，后续事件 weight 降至 0.1。用 fingerprint 前 8 位做 ASN 段近似。</p>
+      </div>
+      <div class="card">
+        <h3>L3: 评价身份门槛</h3>
+        <p>review_up/review_down 事件强制要求 tenant_id 非空。行为信号 (deploy/view/install) 允许匿名。</p>
+      </div>
+    </div>
+
+    <div class="callout-risk">
+      <strong>风险：</strong>过度防刷会伤害正常用户体验。L2 权重衰减的阈值 (5 事件/24h) 需要通过真实数据校准。初期设置为仅记录 (weight=1.0 但打标记)，积累 2 周数据后再启动实际降权。
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 05 SKILL DETAIL PAGE ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">05</span>
+    <h2>P1-1: Skill 详情页 (7 区布局)</h2>
+
+    <div class="key-message">从工具文档变成产品页。开发者打开 skill 页面时真正问的是"用了它，我能做什么以前做不到的事" -- 当前 UI 完全没有回答这个问题。</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>区域</th>
+          <th>内容</th>
+          <th>数据来源</th>
+          <th>优先级</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Hero</strong></td>
+          <td>名称 + editorial_tagline (80 字) + 最佳 GIF/截图</td>
+          <td>skills.editorial_tagline + R2</td>
+          <td><span class="status-tag blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>2. 场景</strong></td>
+          <td>"用了能做什么" -- 3 个 bullet，不是功能而是场景</td>
+          <td>payload JSON 或 R2 readme</td>
+          <td><span class="status-tag blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>3. Combo</strong></td>
+          <td>"经常搭配" 横向卡片 (2-3 个)</td>
+          <td>co-occurrence SQL query</td>
+          <td><span class="status-tag blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>4. 证词</strong></td>
+          <td>战绩证词 (问题 + 之前耗时 + 之后耗时)，最多 3 条</td>
+          <td>skill_events review_up + payload</td>
+          <td><span class="status-tag blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>5. 安装</strong></td>
+          <td>一键安装 [STICKY] -- 7 平台选择 + 命令复制</td>
+          <td>现有 INSTALL_TARGETS</td>
+          <td><span class="status-tag green">DONE</span></td>
+        </tr>
+        <tr>
+          <td><strong>6. 权限</strong></td>
+          <td>permission_manifest 人话版</td>
+          <td>skills.permission_manifest</td>
+          <td><span class="status-tag blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>7. 活跃度</strong></td>
+          <td>30 天 sparkline + 最后更新时间 + stale 状态</td>
+          <td>skill_events 聚合 + skills.stale</td>
+          <td><span class="status-tag amber">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>关键设计原则 (Jobs)：</strong>安装命令永远是 sticky 的。用户在看完所有内容后只需要一个动作，不要让他们滚动回顶部找按钮。
+    </div>
+
+    <div class="implication">
+      <div class="implication-label">editorial_tagline 策略</div>
+      <p>Top 50 个 S/A 级 skill 由管理员手动撰写 tagline。其余自动截取 description 前 80 字。一个字段的差异，让详情页从工具文档变成产品页。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06 COMBO ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">06</span>
+    <h2>P1-2: Combo 配方与策展集合</h2>
+
+    <div class="key-message">Combo 配方是整个策展系统的核心差异化武器。ClawHub 没有，Smithery 没有，VS Code 有 Extension Pack 但无工作流叙事。OpenClaw 做的不是捆绑包，是菜谱。</div>
+
+    <h3>推荐引擎三层 (Hickey 极简 + Meadows 系统)</h3>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">L1</div>
+        <h3>SQL Co-occurrence</h3>
+        <ul>
+          <li>"安装了 A 的人也安装了 B"</li>
+          <li>skill_events 自 JOIN，零新表</li>
+          <li>249 skills 规模下毫秒级</li>
+          <li><strong>立即可用</strong></li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">L2</div>
+        <h3>人工策展</h3>
+        <ul>
+          <li>collections 表 featured=1</li>
+          <li>编辑手选的工作流配方</li>
+          <li>最高展示权重</li>
+          <li><strong>冷启动必备</strong></li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">L3</div>
+        <h3>语义相似</h3>
+        <ul>
+          <li>调用 Fleet Semantic Fabric</li>
+          <li>embed-index.db 已有 skill 向量</li>
+          <li>仅在 L1 数据不足时启用</li>
+          <li><strong>兜底层</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Collection 预置种子 (编辑策展，人类署名)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>配方名称</th>
+          <th>Tagline</th>
+          <th>Skills</th>
+          <th>策展人</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>全自动代码审计流水线</td>
+          <td>三个 skill 组成端到端安全审计管道</td>
+          <td>security-best-practices + code-review + adversarial-review</td>
+          <td>Maurice</td>
+        </tr>
+        <tr>
+          <td>AI 研究员套装</td>
+          <td>从搜索到分析到输出的完整研究工作流</td>
+          <td>deep-research + agent-fetch + baoyu-translate</td>
+          <td>Maurice</td>
+        </tr>
+        <tr>
+          <td>前端工匠五件套</td>
+          <td>设计 → 原型 → 开发 → 测试 → 发布一条龙</td>
+          <td>frontend-design + react-best-practices + ui-ux-polish + frontend-testing + deploy-preview</td>
+          <td>Maurice</td>
+        </tr>
+        <tr>
+          <td>产品经理全家桶</td>
+          <td>从发现到定义到验证的产品管理工具箱</td>
+          <td>create-prd + user-stories + competitor-analysis + ab-test-analysis</td>
+          <td>Maurice</td>
+        </tr>
+        <tr>
+          <td>独立开发者生存包</td>
+          <td>一个人做完产品 + 营销 + 发布的最小技能集</td>
+          <td>lean-canvas + frontend-design + agentic-seo + launch-checklist + gtm-strategy</td>
+          <td>Maurice</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Collection 的五种类型 (Godin)</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h3>工作流叙事型</h3>
+        <p>"我是如何用这 7 个 skill 在两周内独立完成一个 SaaS 的" -- 叙事才能传播。</p>
+      </div>
+      <div class="card">
+        <h3>替代方案型</h3>
+        <p>"用这 5 个 skill 替代 Copilot 的 80% 功能，成本是零" -- 这种标题会被截图分享。</p>
+      </div>
+      <div class="card">
+        <h3>防坑指南型</h3>
+        <p>"我踩过的 6 个坑，以及修复它们的 skill" -- 负面叙事传播速度是正面的三倍。</p>
+      </div>
+      <div class="card">
+        <h3>角色匹配型</h3>
+        <p>"全栈 solo founder 必备包" / "Tech Lead code review 套装" -- 身份认同驱动转化。</p>
+      </div>
+    </div>
+
+    <div class="implication">
+      <div class="implication-label">冷启动策略</div>
+      <p>seed.sql 预置 5-8 个人工标注的 collection (featured=1)，立即可用，不等算法数据。Godin: "249 个 skill 阶段，80% 编辑策展，不让数据做选择。"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 07 TESTIMONIALS ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">07</span>
+    <h2>P1-3: 战绩证词系统</h2>
+
+    <div class="key-message">开发者不信星级评分。一条 "我用 ontology skill 配合 kuzu-mcp，三小时完成了原本一周的本体建模" 的证词，价值等于 500 个匿名五星。</div>
+
+    <h3>证词结构 (Godin Battle Record)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>字段</th>
+          <th>说明</th>
+          <th>存储</th>
+          <th>必填</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>解决了什么问题</td>
+          <td>一句话描述使用场景</td>
+          <td>payload.problem</td>
+          <td>是</td>
+        </tr>
+        <tr>
+          <td>之前需要多长时间</td>
+          <td>没有这个 skill 时的耗时</td>
+          <td>payload.time_before</td>
+          <td>是</td>
+        </tr>
+        <tr>
+          <td>之后需要多长时间</td>
+          <td>用了这个 skill 后的耗时</td>
+          <td>payload.time_after</td>
+          <td>是</td>
+        </tr>
+        <tr>
+          <td>搭配使用的 skill</td>
+          <td>与哪些 skill 组合使用</td>
+          <td>payload.combo_ids</td>
+          <td>否</td>
+        </tr>
+        <tr>
+          <td>评价方向</td>
+          <td>thumbs up / thumbs down</td>
+          <td>event_type: review_up / review_down</td>
+          <td>是</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>信任分层 (Jobs 三层)</h3>
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-num">T1</div>
+        <h3>战绩证词</h3>
+        <ul>
+          <li>要求 tenant_id (轻量身份)</li>
+          <li>结构化问题/时间表单</li>
+          <li>一条真实证词 = 500 个匿名星</li>
+          <li><strong>最高信任</strong></li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">T2</div>
+        <h3>使用信号</h3>
+        <ul>
+          <li>"过去 7 天 +340 次部署"</li>
+          <li>"连续 3 周 Top 10"</li>
+          <li>时间维度让数字有了生命</li>
+          <li><strong>中等信任</strong></li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">T3</div>
+        <h3>编辑推荐</h3>
+        <ul>
+          <li>每周 5-10 个 Editor's Pick</li>
+          <li>200 字深度评测 + 人类署名</li>
+          <li>不是广告，是审美背书</li>
+          <li><strong>品牌信任</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>失败案例同等展示 (Godin)：</strong>一个 skill 有三条 "我试了，没用，原因是 XXX" 的记录，反而比十条"太棒了"更可信。开发者会因为看到"不适合用在 monorepo 场景"而信任整个平台。
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08 FEEDBACK LOOPS ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">08</span>
+    <h2>反馈回路架构</h2>
+
+    <div class="key-message">三个增强环驱动增长，三个平衡环防止系统崩溃。增强环与平衡环必须配对上线。</div>
+
+    <h3>增强环 (Reinforcing Loops)</h3>
+    <div class="loop-box">
+      <span class="loop-label">R1 质量曝光环 (P0 修复)</span>
+      <p>deploy_ok 事件 → composite_score 上升 → 排名提升 → 曝光增加 → 更多安装 → 更多事件 → 回到起点</p>
+      <p><strong>当前状态：</strong>断路。deploy_success_rate 未参与 score 计算。修复 = 一行 SQL。</p>
+    </div>
+
+    <div class="loop-box">
+      <span class="loop-label">R2 Combo 增强环 (P1 新建)</span>
+      <p>collection 被安装 → 批量 co-install 事件 → combo 推荐权重上升 → 更多人通过 combo 发现 skill → 更多安装 → 回到起点</p>
+      <p><strong>启动条件：</strong>预置 5+ 个 featured collection 做冷启动。</p>
+    </div>
+
+    <div class="loop-box">
+      <span class="loop-label">R3 作者激励环 (P2 新建)</span>
+      <p>skill 获高评分 → 自动通知 repo owner (GitHub Issue) → 作者有动力维护 → 质量提升 → 评分继续上升</p>
+      <p><strong>纯信息流激励，不需要账号系统。</strong></p>
+    </div>
+
+    <h3>平衡环 (Balancing Loops)</h3>
+    <div class="loop-box balance">
+      <span class="loop-label">B1 防刷环 (P0 同步上线)</span>
+      <p>大量同源事件 → ASN 异常检测 → weight 降至 0.1 → 刷分收益趋零</p>
+    </div>
+
+    <div class="loop-box balance">
+      <span class="loop-label">B2 陈旧惩罚环 (P0 升级)</span>
+      <p>stale 从布尔值升级为连续衰减 (stale_penalty REAL)。7 天 fail 率 > 60% 实时触发，不等 cron。</p>
+    </div>
+
+    <div class="loop-box balance">
+      <span class="loop-label">B3 评分通胀抑制 (P2)</span>
+      <p>S 级 skill 比例超 10% → category 内百分位重算 → 晋级门槛自动收紧 → 比例回落均衡</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 09 ROADMAP ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">09</span>
+    <h2>实现路线图</h2>
+
+    <div class="key-message">三个 Phase，渐进式交付。P0 在一个 session 内完成（migration + cron + 防刷），P1 需要 2-3 个 session（详情页 + combo + 证词），P2 按需迭代。</div>
+
+    <div class="phase-grid">
+      <div class="phase">
+        <div class="phase-header">Phase 0: 通排序回路</div>
+        <ul>
+          <li>migration-v3.sql 执行</li>
+          <li>skill_events 表 + 事件写入 API</li>
+          <li>composite_score cron 重算</li>
+          <li>skills route 改用 composite_score 排序</li>
+          <li>B1 防刷 weight 机制</li>
+          <li>B2 stale_penalty 连续衰减</li>
+          <li>deploy_feedback 数据迁移到 skill_events</li>
+        </ul>
+        <p style="margin-top:16px;font-size:13px;color:var(--green);font-weight:600;">预计: 1 session</p>
+      </div>
+      <div class="phase">
+        <div class="phase-header p2">Phase 1: 差异化特性</div>
+        <ul>
+          <li>Skill 详情页 (7 区布局)</li>
+          <li>editorial_tagline Top 50 填充</li>
+          <li>collections API + 种子数据 (5-8 配方)</li>
+          <li>Combo 推荐页前端</li>
+          <li>战绩证词提交 API + 展示组件</li>
+          <li>permission_manifest 人话化</li>
+          <li>R2 内容缓存 (README/screenshots)</li>
+        </ul>
+        <p style="margin-top:16px;font-size:13px;color:var(--blue-500);font-weight:600;">预计: 2-3 sessions</p>
+      </div>
+      <div class="phase">
+        <div class="phase-header p3">Phase 2: 增长引擎</div>
+        <ul>
+          <li>趋势热榜页 (7 日 / 30 日)</li>
+          <li>"问题反向索引" 搜索重构</li>
+          <li>Skill DNA 雷达图 + 分享卡片</li>
+          <li>R3 作者激励环 (GitHub Issue 通知)</li>
+          <li>B3 评分通胀抑制</li>
+          <li>Skill changelog 订阅 (Telegram)</li>
+          <li>"我正在用" 活跃声明按钮</li>
+        </ul>
+        <p style="margin-top:16px;font-size:13px;color:#0088CC;font-weight:600;">预计: 按需迭代</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 RISKS ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">10</span>
+    <h2>风险与缓解</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>风险</th>
+          <th>影响</th>
+          <th>概率</th>
+          <th>缓解策略</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Goodhart 效应：composite_score 被刷</td>
+          <td><span class="status-tag red">HIGH</span></td>
+          <td><span class="status-tag amber">MEDIUM</span></td>
+          <td>B1 防刷环必须与 R1 同时上线。初期 2 周只记录不降权，积累基线数据。</td>
+        </tr>
+        <tr>
+          <td>冷启动空洞：Combo 页 / 证词区为空</td>
+          <td><span class="status-tag amber">MEDIUM</span></td>
+          <td><span class="status-tag red">HIGH</span></td>
+          <td>seed.sql 预置 5-8 个手工 collection + Top 20 skill 手动部署提交真实证词。</td>
+        </tr>
+        <tr>
+          <td>editorial_tagline 维护成本</td>
+          <td><span class="status-tag green">LOW</span></td>
+          <td><span class="status-tag amber">MEDIUM</span></td>
+          <td>仅 Top 50 手动维护，其余自动截取 description。LLM 辅助生成草稿。</td>
+        </tr>
+        <tr>
+          <td>D1 事件表膨胀</td>
+          <td><span class="status-tag green">LOW</span></td>
+          <td><span class="status-tag green">LOW</span></td>
+          <td>UNIQUE 约束天然限制行数 (skills * event_types * users)。D1 免费层 5GB。</td>
+        </tr>
+        <tr>
+          <td>deploy_feedback 向 skill_events 迁移失败</td>
+          <td><span class="status-tag amber">MEDIUM</span></td>
+          <td><span class="status-tag green">LOW</span></td>
+          <td>保留 deploy_feedback 表做历史兼容（不删），新事件全走 skill_events。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ 11 COMPETITIVE ═══ -->
+<section class="gray">
+  <div class="container">
+    <span class="section-num">11</span>
+    <h2>竞品对标与差异化</h2>
+
+    <div class="key-message">7 个成熟市场的对标研究表明：Smithery.ai 发现机制最弱，VS Code Extension Pack 是 Combo 概念的直接验证，Steam 策展人的零激励模式是我们需要避免的反面教材。</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>Smithery</th>
+          <th>ClawHub</th>
+          <th>VS Code</th>
+          <th>OpenClaw v3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>排序算法</td>
+          <td>不透明</td>
+          <td>5 维评分</td>
+          <td>装机数/评分</td>
+          <td><strong>composite_score (4 维 + 时间衰减)</strong></td>
+        </tr>
+        <tr>
+          <td>用户评价</td>
+          <td>无</td>
+          <td>基础评分</td>
+          <td>星级 + 文字</td>
+          <td><strong>战绩证词 (结构化 before/after)</strong></td>
+        </tr>
+        <tr>
+          <td>组合推荐</td>
+          <td>无</td>
+          <td>无</td>
+          <td>Extension Pack</td>
+          <td><strong>Combo 配方 (叙事 + 工作流 + 一键装)</strong></td>
+        </tr>
+        <tr>
+          <td>编辑策展</td>
+          <td>Featured 列表</td>
+          <td>无</td>
+          <td>编辑推荐</td>
+          <td><strong>署名策展人 + 5 种 Collection 类型</strong></td>
+        </tr>
+        <tr>
+          <td>趋势热榜</td>
+          <td>无</td>
+          <td>无</td>
+          <td>7 日增长</td>
+          <td><strong>时间衰减 trending (Product Hunt 模型)</strong></td>
+        </tr>
+        <tr>
+          <td>防刷机制</td>
+          <td>不明</td>
+          <td>不明</td>
+          <td>账号验证</td>
+          <td><strong>三层 (去重 + 权重衰减 + 身份门槛)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="implication">
+      <div class="implication-label">竞争壁垒</div>
+      <p>Combo 配方 + 战绩证词 + 编辑策展署名制 -- 这三个特性的组合在当前所有 AI skill 市场中独一无二。核心壁垒不是技术，是<strong>内容积累</strong>：一旦有 50 条真实证词和 20 个策展配方，竞品即使抄袭架构也无法复制内容资产。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12 APPENDIX ═══ -->
+<section>
+  <div class="container">
+    <span class="section-num">12</span>
+    <h2>附录：蜂群顾问来源</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>顾问</th>
+          <th>角色</th>
+          <th>核心贡献</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Steve Jobs</td>
+          <td>产品体验</td>
+          <td>7 区详情页布局、editorial_tagline、sticky 安装按钮、"问题反向索引" 搜索</td>
+        </tr>
+        <tr>
+          <td>Seth Godin</td>
+          <td>增长 / 部落</td>
+          <td>战绩卡 (Battle Record)、5 种 Collection 类型、"紫牛时刻" 设计、编辑策展比例</td>
+        </tr>
+        <tr>
+          <td>Donella Meadows</td>
+          <td>系统动力学</td>
+          <td>R1-R3 增强环、B1-B3 平衡环、#6 杠杆点 (信息流)、Goodhart 警告</td>
+        </tr>
+        <tr>
+          <td>Rich Hickey</td>
+          <td>架构简洁性</td>
+          <td>统一事件表、cron 物化模式、5 个 complection 危险、"推荐系统就是一个 SQL query"</td>
+        </tr>
+        <tr>
+          <td>竞品研究员</td>
+          <td>对标分析</td>
+          <td>7 市场对比矩阵 (npm/VS Code/Raycast/Smithery/Steam/Product Hunt/ClawHub)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <p>OpenClaw Foundry v3.0 -- Curation System PRD</p>
+  <p>Maurice | maurice_wen@proton.me</p>
+  <p class="attr">Generated 2026-03-25 | Based on 5-agent swarm brainstorm synthesis</p>
+</footer>
+
+</body>
+</html>

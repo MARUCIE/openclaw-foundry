@@ -135,6 +135,23 @@ async function main() {
   }));
   console.log(`OK: Skill categories (${Object.keys(skillsData.meta.byCategory || {}).length})`);
 
+  // 4. Collections — static seed (read from seed-collections.sql or generate empty)
+  const collections = {
+    total: 8,
+    collections: [
+      { id: 'indie-survival-kit', name: '独立开发者生存包', tagline: '一个人做完产品+营销+发布的最小技能集', skillIds: ['lean-canvas','frontend-design','agentic-seo','launch-checklist','gtm-strategy'], curator: 'Maurice', featured: true, installCount: 0 },
+      { id: 'code-audit-pipeline', name: '全自动代码审计流水线', tagline: '三个 skill 组成端到端安全审计管道', skillIds: ['security-best-practices','code-review','adversarial-review'], curator: 'Maurice', featured: true, installCount: 0 },
+      { id: 'ai-researcher-kit', name: 'AI 研究员套装', tagline: '从搜索到分析到输出的完整研究工作流', skillIds: ['deep-research','agent-fetch','baoyu-translate'], curator: 'Maurice', featured: true, installCount: 0 },
+      { id: 'frontend-craftsman', name: '前端工匠五件套', tagline: '设计到原型到开发到测试到发布一条龙', skillIds: ['frontend-design','react-best-practices','ui-ux-polish','frontend-testing','deploy-preview'], curator: 'Maurice', featured: true, installCount: 0 },
+      { id: 'pm-toolkit', name: '产品经理全家桶', tagline: '从发现到定义到验证的产品管理工具箱', skillIds: ['create-prd','user-stories','competitor-analysis','ab-test-analysis'], curator: 'Maurice', featured: false, installCount: 0 },
+      { id: 'content-creator-suite', name: '内容创作工作站', tagline: '从选题到写作到发布的全链路内容管线', skillIds: ['deep-research','baoyu-translate','wechat-article-writer'], curator: 'Maurice', featured: false, installCount: 0 },
+      { id: 'devops-autopilot', name: 'DevOps 自动驾驶', tagline: '基础设施巡检+部署预览+发布检查三合一', skillIds: ['infra-patrol','deploy-preview','release-checklist'], curator: 'Maurice', featured: false, installCount: 0 },
+      { id: 'browser-automation-pro', name: '浏览器自动化专家包', tagline: '从 HTTP 提取到视觉驱动再到持久登录的全层覆盖', skillIds: ['agent-fetch','agent-browser-session','browser-automation'], curator: 'Maurice', featured: false, installCount: 0 },
+    ],
+  };
+  await writeFile(join(OUT, 'collections.json'), JSON.stringify(collections, null, 2));
+  console.log(`OK: Collections (${collections.total})`);
+
   console.log(`OK: Static data written to ${OUT}`);
 }
 

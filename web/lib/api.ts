@@ -9,6 +9,7 @@ const STATIC_MAP: Record<string, string> = {
   '/stats': '/data/stats.json',
   '/skills': '/data/skills.json',
   '/skills/categories': '/data/skills-categories.json',
+  '/collections': '/data/collections.json',
 };
 
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
@@ -79,6 +80,13 @@ export interface ClawHubSkill {
   sourceUrl?: string;
   repositoryUrl?: string;
   remoteUrl?: string;
+  // v3 curation fields
+  editorialTagline?: string;
+  trendingScore?: number;
+  compositeScore?: number;
+  reviewUp?: number;
+  reviewDown?: number;
+  stalePenalty?: number;
 }
 
 export interface SkillsResponse {
@@ -108,6 +116,49 @@ export const submitFeedback = (skillId: string, outcome: 'success' | 'fail' | 'n
     method: 'POST',
     body: JSON.stringify({ skill_id: skillId, outcome, provider_id: providerId || '' }),
   });
+
+// Skill events (v3)
+export const submitEvent = (
+  skillId: string,
+  eventType: 'deploy_ok' | 'deploy_fail' | 'review_up' | 'review_down' | 'install' | 'view',
+  payload?: Record<string, unknown>,
+  tenantId?: string,
+) =>
+  fetchJSON<{ ok: boolean; weight: number }>('/events', {
+    method: 'POST',
+    body: JSON.stringify({ skill_id: skillId, event_type: eventType, payload, tenant_id: tenantId }),
+  });
+
+export const getEventStats = (skillId: string) =>
+  fetchJSON<{ skillId: string; stats: Record<string, { count: number; weighted: number }> }>(`/events/stats?skill_id=${encodeURIComponent(skillId)}`);
+
+export const getRecommendations = (skillId: string, limit = 5) =>
+  fetchJSON<{ skillId: string; recommendations: { partner_id: string; co_count: number }[] }>(
+    `/events/recommendations?skill_id=${encodeURIComponent(skillId)}&limit=${limit}`
+  );
+
+// Collections (v3)
+export interface Collection {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  skillIds: string[];
+  curator: string;
+  coverType: string;
+  featured: boolean;
+  installCount: number;
+  createdAt: string;
+}
+
+export const getCollections = (featured?: boolean) =>
+  fetchJSON<{ total: number; collections: Collection[] }>(`/collections${featured ? '?featured=true' : ''}`);
+
+export const getCollection = (id: string) =>
+  fetchJSON<{ collection: Collection; skills: ClawHubSkill[] }>(`/collections/${id}`);
+
+export const installCollection = (id: string) =>
+  fetchJSON<{ ok: boolean }>(`/collections/${id}/install`, { method: 'POST' });
 
 // Arena
 export const startArena = (providers: string[], blueprint: Record<string, unknown>, testPrompt: string) =>

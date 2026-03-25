@@ -29,6 +29,13 @@ export interface SkillRow {
   last_updated: string;
   stale: number;
   synced_at: string;
+  // v3 curation fields (cron-materialized)
+  editorial_tagline: string;
+  trending_score: number;
+  composite_score: number;
+  review_up: number;
+  review_down: number;
+  stale_penalty: number;
 }
 
 export interface ProviderRow {
@@ -88,6 +95,30 @@ export interface CountRow {
 
 export interface SyncRow {
   latest: string;
+}
+
+export interface SkillEventRow {
+  id: number;
+  skill_id: string;
+  event_type: string;
+  fingerprint: string;
+  tenant_id: string;
+  payload: string;
+  weight: number;
+  created_at: string;
+}
+
+export interface CollectionRow {
+  id: string;
+  name: string;
+  tagline: string;
+  description: string;
+  skill_ids: string;
+  curator: string;
+  cover_type: string;
+  featured: number;
+  install_count: number;
+  created_at: string;
 }
 
 export function safeJsonArray(json: string | null | undefined): string[] {
