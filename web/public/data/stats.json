@@ -7,6 +7,10 @@
       "saas": 4
     }
   },
+  "skills": {
+    "total": 37310,
+    "static": 5000
+  },
   "deploys": {
     "recent": 0,
     "jobs": []

@@ -55,11 +55,13 @@ async function main() {
   await writeFile(join(OUT, 'providers.json'), JSON.stringify(providers, null, 2));
 
   // 2. Stats
+  // Stats: will be enriched with skills count after skills processing
   const stats = {
     providers: {
       total: providers.total,
       byType: {},
     },
+    skills: { total: 0 },
     deploys: { recent: 0, jobs: [] },
     arena: { recent: 0, matches: [] },
     uptime: 0,
@@ -67,8 +69,6 @@ async function main() {
   for (const p of providers.providers) {
     stats.providers.byType[p.type] = (stats.providers.byType[p.type] || 0) + 1;
   }
-  await writeFile(join(OUT, 'stats.json'), JSON.stringify(stats, null, 2));
-  console.log(`OK: Stats generated`);
 
   // 3. Skills — prefer unified-index.json, fallback to clawhub-skills.json
   let skillsData;
@@ -102,32 +102,29 @@ async function main() {
     }
   }
 
-  // Static prebuild: top 1500 skills + top 500 MCP servers (separate pools)
-  // Full dataset served via Workers API for search/pagination
-  const SKILL_N = 1500;
-  const MCP_N = 500;
+  // Static prebuild: top 5000 by score (S/A/B tiers after curation)
+  // Full 37k+ dataset served via Workers API (D1) for search/pagination
+  // Stats show total count; static JSON is for fast first-load only
+  const STATIC_LIMIT = 5000;
 
-  const clawSkills = skillsData.skills
-    .filter(s => (s.source || 'clawhub') !== 'mcp-registry')
-    .sort((a, b) => (b.score || 0) - (a.score || 0))
-    .slice(0, SKILL_N);
-
-  const mcpServers = skillsData.skills
-    .filter(s => s.source === 'mcp-registry')
-    .sort((a, b) => (b.score || 0) - (a.score || 0))
-    .slice(0, MCP_N);
-
-  const topSkills = [...clawSkills, ...mcpServers]
+  const allSorted = skillsData.skills
     .sort((a, b) => (b.score || 0) - (a.score || 0));
 
+  const staticSkills = allSorted.slice(0, STATIC_LIMIT);
+
   await writeFile(join(OUT, 'skills.json'), JSON.stringify({
-    meta: { ...skillsData.meta, prebuildSkills: SKILL_N, prebuildMcp: MCP_N },
-    total: skillsData.skills.length,
+    meta: { ...skillsData.meta, staticLimit: STATIC_LIMIT, totalAvailable: allSorted.length },
+    total: allSorted.length,
     offset: 0,
-    limit: topSkills.length,
-    skills: topSkills,
-  })); // ~2MB
-  console.log(`OK: Skills (${skillsData.skills.length})`);
+    limit: staticSkills.length,
+    skills: staticSkills,
+  }));
+  console.log(`OK: Skills (${staticSkills.length} static / ${allSorted.length} total)`);
+
+  // Update stats with skills count
+  stats.skills = { total: allSorted.length, static: staticSkills.length };
+  await writeFile(join(OUT, 'stats.json'), JSON.stringify(stats, null, 2));
+  console.log(`OK: Stats (${allSorted.length} skills, ${providers.total} providers)`);
 
   // Categories
   await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
