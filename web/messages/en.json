@@ -318,5 +318,6 @@
   "packs.step3Desc": "Your AI agent is now a domain expert from task one",
   "packs.download": "Download Pack",
   "packs.downloading": "Downloading...",
-  "packs.downloaded": "Downloaded"
+  "packs.downloaded": "Downloaded",
+  "packs.downloads": "downloads"
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import useSWR from 'swr';
-import { getPacks, downloadPack, type ConfigPack } from '@/lib/api';
+import { getPacks, type ConfigPack } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
 export default function PacksPage() {
@@ -96,27 +96,18 @@ export default function PacksPage() {
 
 function PackCard({ pack }: { pack: ConfigPack }) {
   const { t } = useI18n();
-  const [downloading, setDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
-  const handleDownload = async () => {
-    setDownloading(true);
-    try {
-      const data = await downloadPack(pack.id);
-      // Generate downloadable JSON
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${pack.id}-config-pack.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+  const handleDownload = (filename: string) => {
+    const a = document.createElement('a');
+    a.href = `/packs/${pack.id}/${filename}`;
+    a.download = filename;
+    a.click();
+    if (!downloaded) {
       setDownloaded(true);
+      // Track download via API (fire-and-forget)
+      fetch(`/api/packs/${pack.id}/download`).catch(() => {});
       setTimeout(() => setDownloaded(false), 3000);
-    } catch {
-      // silent fail
-    } finally {
-      setDownloading(false);
     }
   };
 
@@ -171,25 +162,31 @@ function PackCard({ pack }: { pack: ConfigPack }) {
         </span>
       </div>
 
-      {/* Download stats + button */}
-      <div className="flex items-center justify-between pt-4" style={{ borderTop: '1px solid rgba(195,198,215,0.2)' }}>
-        {pack.downloadCount > 0 && (
-          <span className="text-xs flex items-center gap-1" style={{ color: 'var(--on-surface-variant)' }}>
+      {/* Download buttons */}
+      <div className="space-y-3 pt-4" style={{ borderTop: '1px solid rgba(195,198,215,0.2)' }}>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleDownload('CLAUDE.md')}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+            style={{ background: `linear-gradient(135deg, ${pack.color}, ${pack.color}cc)` }}
+          >
+            <span className="material-symbols-outlined text-sm">{downloaded ? 'check_circle' : 'download'}</span>
+            CLAUDE.md
+          </button>
+          <button
+            onClick={() => handleDownload('AGENTS.md')}
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-[var(--surface-container)]"
+            style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
+          >
             <span className="material-symbols-outlined text-sm">download</span>
-            {pack.downloadCount}
-          </span>
+            AGENTS.md
+          </button>
+        </div>
+        {pack.downloadCount > 0 && (
+          <p className="text-xs text-center" style={{ color: 'var(--on-surface-variant)' }}>
+            {pack.downloadCount} {t('packs.downloads')}
+          </p>
         )}
-        <button
-          onClick={handleDownload}
-          disabled={downloading}
-          className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          style={{ background: `linear-gradient(135deg, ${pack.color}, ${pack.color}cc)` }}
-        >
-          <span className="material-symbols-outlined text-sm">
-            {downloaded ? 'check_circle' : downloading ? 'hourglass_empty' : 'download'}
-          </span>
-          {downloaded ? t('packs.downloaded') : downloading ? t('packs.downloading') : t('packs.download')}
-        </button>
       </div>
     </div>
   );

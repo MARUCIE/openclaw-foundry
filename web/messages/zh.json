@@ -318,5 +318,6 @@
   "packs.step3Desc": "你的 AI 从第一个任务起就是领域专家",
   "packs.download": "下载配置包",
   "packs.downloading": "下载中...",
-  "packs.downloaded": "已下载"
+  "packs.downloaded": "已下载",
+  "packs.downloads": "次下载"
 }
