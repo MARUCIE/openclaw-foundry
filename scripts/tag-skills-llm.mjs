@@ -28,8 +28,8 @@ const BATCH_SIZE = 10;
 const DELAY_MS = 200; // Rate limit safety
 
 if (!API_KEY) {
-  console.error('ERROR: GOOGLE_API_KEY or GEMINI_API_KEY not set');
-  process.exit(1);
+  console.log('NOTE: GOOGLE_API_KEY / GEMINI_API_KEY not set — LLM enrichment skipped (tags/taglines/reclassify will be empty for new skills)');
+  process.exit(0);
 }
 
 // ============================================================
@@ -102,8 +102,12 @@ SKILLS_INPUT
 Output: JSON array, same order, each element: {"tags": {"tech_stack": [...], "scenario": [...], "platform": [...]}}`;
 
 async function tagSkills(skills) {
-  const untagged = skills.filter(s => !s.tags || Object.keys(s.tags).length === 0);
-  console.log(`Phase 3: Tagging ${untagged.length} skills (${Math.ceil(untagged.length / BATCH_SIZE)} batches)...\n`);
+  const untagged = skills.filter(s => !s.tags || Object.keys(s.tags).length === 0 || (s.tags.tech_stack === undefined && s.tags.scenario === undefined));
+  if (untagged.length === 0) {
+    console.log('Phase 3: All skills already tagged, skipping.\n');
+    return skills;
+  }
+  console.log(`Phase 3: Tagging ${untagged.length} NEW skills (${Math.ceil(untagged.length / BATCH_SIZE)} batches, ${skills.length - untagged.length} already tagged)...\n`);
 
   let tagged = 0;
   let errors = 0;
@@ -161,7 +165,11 @@ Output: JSON array, same order, each element: {"tagline": "一句话中文推荐
 
 async function generateTaglines(skills) {
   const sa = skills.filter(s => (s.rating === 'S' || s.rating === 'A') && !s.editorialTagline);
-  console.log(`Phase 4: Generating taglines for ${sa.length} S/A skills...\n`);
+  if (sa.length === 0) {
+    console.log('Phase 4: All S/A skills already have taglines, skipping.\n');
+    return skills;
+  }
+  console.log(`Phase 4: Generating taglines for ${sa.length} NEW S/A skills...\n`);
 
   let generated = 0;
   let errors = 0;

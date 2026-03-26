@@ -1,3 +1,21 @@
+# OpenClaw Foundry — Full Pipeline DAG
+#
+# Daily sync (cron 06:00 UTC / workflow_dispatch):
+#   scrape-clawhub-api.mjs → data/clawhub-skills-raw.json
+#   scrape-mcp-registry.mjs → data/mcp-registry-servers.json
+#   merge-all-sources.mjs → data/unified-index.json
+#   prebuild-static.mjs → web/public/data/skills.json (raw)
+#   curate-skills.mjs → web/public/data/skills.json (dedup + rating + icons)
+#   tag-skills-llm.mjs → web/public/data/skills.json (+ tags + taglines + reclassify) [incremental, optional]
+#   generate-seed-sql.mjs → worker/src/seed.sql (from curated data)
+#   git commit → persist curated data to repo
+#
+# Push to main:
+#   generate-packs.mjs (via npm prebuild) → web/public/packs/ (50 static files)
+#   next build → web/out/ (static export)
+#   wrangler pages deploy → CF Pages
+#   wrangler deploy → CF Worker
+
 name: Deploy to Cloudflare
 
 on:
@@ -46,8 +64,26 @@ jobs:
             exit 1
           fi
 
-      - name: Generate seed SQL
+      # ── Curation pipeline (dedup + rating + icons + LLM tags) ──
+      - name: Curate skills (dedup + rating calibration + icons)
+        run: node scripts/curate-skills.mjs
+
+      - name: LLM enrichment (tags + taglines + reclassify — incremental)
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: node scripts/tag-skills-llm.mjs
+
+      - name: Generate seed SQL (from curated data)
         run: node scripts/generate-seed-sql.mjs
+
+      # ── Commit curated data back to repo ──
+      - name: Commit curated data
+        run: |
+          git config user.email "openclaw-bot@openclaw-foundry.pages.dev"
+          git config user.name "OpenClaw Sync Bot"
+          git add web/public/data/ worker/src/seed.sql
+          git diff --cached --quiet || git commit -m "chore(sync): refresh curated skills $(date -I)"
+          git push origin main || echo "NOTE: Push failed (likely concurrent push), skipping"
 
       - name: Upload data artifacts
         uses: actions/upload-artifact@v4
