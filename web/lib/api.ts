@@ -245,3 +245,44 @@ export interface DashboardStats {
   arena: { recent: number; matches: ArenaMatch[] };
   uptime: number;
 }
+
+// ═══ ConfigPacks ═══
+
+export interface ConfigPack {
+  id: string;
+  role: string;
+  roleZh: string;
+  description: string;
+  descriptionZh: string;
+  icon: string;
+  color: string;
+  mcpServers: string[];
+  skillIds: string[];
+  prompts: string[];
+  version: string;
+  downloadCount: number;
+  createdAt: string;
+}
+
+export interface ConfigPackDetail extends ConfigPack {
+  claudeMd: string;
+  agentsMd: string;
+}
+
+export async function getPacks(): Promise<{ total: number; packs: ConfigPack[] }> {
+  return fetchJSON('/packs');
+}
+
+export async function getPack(id: string): Promise<{ pack: ConfigPackDetail; skills: unknown[] }> {
+  return fetchJSON(`/packs/${id}`);
+}
+
+export async function downloadPack(id: string): Promise<{
+  meta: { id: string; role: string; version: string; generatedAt: string };
+  files: Record<string, string>;
+  mcpServers: string[];
+  skillIds: string[];
+  prompts: string[];
+}> {
+  return fetchJSON(`/packs/${id}/download`);
+}

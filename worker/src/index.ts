@@ -8,6 +8,7 @@ import { events } from './routes/events';
 import { collections } from './routes/collections';
 import { tenants } from './routes/tenants';
 import { arena } from './routes/arena';
+import { packs } from './routes/packs';
 import { authMiddleware } from './middleware/auth';
 
 export interface Env {
@@ -54,6 +55,7 @@ app.route('/api/feedback', feedback);
 app.route('/api/events', events);
 app.route('/api/collections', collections);
 app.route('/api/arena', arena);
+app.route('/api/packs', packs);
 
 // Tenant registration is public
 app.route('/api/tenants', tenants);

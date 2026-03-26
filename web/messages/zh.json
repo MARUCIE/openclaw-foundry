@@ -300,5 +300,23 @@
   "footer.docs": "文档",
   "footer.contact": "联系",
   "footer.privacy": "隐私政策",
-  "footer.terms": "服务条款"
+  "footer.terms": "服务条款",
+
+  "nav.packs": "配置包",
+  "packs.title": "角色配置包",
+  "packs.subtitle": "一键配置，让 AI 出生就懂你的行业",
+  "packs.hero": "你的 AI 已经是行业专家",
+  "packs.heroDesc": "不用花几小时从零写 CLAUDE.md。下载你的角色配置包——CLAUDE.md、AGENTS.md、MCP 服务器、技能组合、行业提示词——全部由领域专家手工打磨。",
+  "packs.setupTime": "配置时间",
+  "packs.configNeeded": "需要手动配置",
+  "packs.howItWorks": "三步上手",
+  "packs.step1": "下载",
+  "packs.step1Desc": "选择你的角色，下载 JSON 配置包",
+  "packs.step2": "放置文件",
+  "packs.step2Desc": "将 CLAUDE.md 和 AGENTS.md 复制到项目根目录",
+  "packs.step3": "开始工作",
+  "packs.step3Desc": "你的 AI 从第一个任务起就是领域专家",
+  "packs.download": "下载配置包",
+  "packs.downloading": "下载中...",
+  "packs.downloaded": "已下载"
 }

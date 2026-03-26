@@ -300,5 +300,23 @@
   "footer.docs": "Docs",
   "footer.contact": "Contact",
   "footer.privacy": "Privacy Policy",
-  "footer.terms": "Terms of Service"
+  "footer.terms": "Terms of Service",
+
+  "nav.packs": "Packs",
+  "packs.title": "ConfigPacks",
+  "packs.subtitle": "One-click role-based configuration for AI Coding Agents",
+  "packs.hero": "Your AI already knows your industry",
+  "packs.heroDesc": "Stop spending hours writing CLAUDE.md from scratch. Download a curated configuration pack for your role — CLAUDE.md, AGENTS.md, MCP servers, skills, and starter prompts — all hand-crafted by domain experts.",
+  "packs.setupTime": "Setup Time",
+  "packs.configNeeded": "Config Needed",
+  "packs.howItWorks": "How It Works",
+  "packs.step1": "Download",
+  "packs.step1Desc": "Pick your role and download the JSON config pack",
+  "packs.step2": "Place Files",
+  "packs.step2Desc": "Copy CLAUDE.md and AGENTS.md to your project root",
+  "packs.step3": "Start Working",
+  "packs.step3Desc": "Your AI agent is now a domain expert from task one",
+  "packs.download": "Download Pack",
+  "packs.downloading": "Downloading...",
+  "packs.downloaded": "Downloaded"
 }
