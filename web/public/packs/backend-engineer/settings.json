@@ -11,12 +11,20 @@
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       }
     },
-    "chrome-devtools": {
+    "postgres": {
       "command": "npx",
       "args": [
         "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
+        "@anthropic-ai/mcp-remote",
+        "https://mcp.postgres.com/sse"
+      ]
+    },
+    "docker": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-remote",
+        "https://mcp.docker.com/sse"
       ]
     }
   }

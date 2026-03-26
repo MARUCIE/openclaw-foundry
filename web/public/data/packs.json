@@ -1,50 +1,532 @@
 {
-  "total": 3,
+  "total": 10,
+  "generated": "2026-03-26T04:03:15.780Z",
+  "lines": [
+    {
+      "id": "engineering",
+      "name": "研发职能线",
+      "packs": [
+        {
+          "id": "frontend-engineer",
+          "name": "Frontend Engineer",
+          "nameZh": "前端工程师",
+          "description": "React/Vue + Tailwind CSS + accessibility + invoice UI patterns for finance-tax platforms.",
+          "descriptionZh": "面向财税平台的前端工程师配置：React/Vue + Tailwind CSS + 无障碍 + 发票 UI 规范。覆盖 APP/PC/财税前端开发组。",
+          "icon": "web",
+          "color": "#0053A4",
+          "line": "engineering",
+          "lineZh": "研发职能线",
+          "layerIds": [
+            "universal",
+            "line-engineering",
+            "role-frontend"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "backend-engineer",
+          "name": "Backend Engineer",
+          "nameZh": "后端工程师",
+          "description": "Go/Java/Python + API design + database + Golden Tax API integration patterns.",
+          "descriptionZh": "面向财税平台的后端工程师配置：Go/Java/Python + API 设计 + 数据库 + 金税系统对接。覆盖 APP/PC/财税后端开发组。",
+          "icon": "dns",
+          "color": "#005136",
+          "line": "engineering",
+          "lineZh": "研发职能线",
+          "layerIds": [
+            "universal",
+            "line-engineering",
+            "role-backend"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "test-engineer",
+          "name": "Test Engineer",
+          "nameZh": "测试工程师",
+          "description": "Test strategy + Playwright E2E + API testing + finance-tax scenario coverage.",
+          "descriptionZh": "面向财税平台的测试工程师配置：测试策略 + Playwright E2E + API 测试 + 财税场景覆盖。覆盖所有测试组。",
+          "icon": "bug_report",
+          "color": "#7C3AED",
+          "line": "engineering",
+          "lineZh": "研发职能线",
+          "layerIds": [
+            "universal",
+            "line-engineering",
+            "role-test"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "infra-engineer",
+          "name": "Infrastructure Engineer",
+          "nameZh": "基础架构工程师",
+          "description": "Docker + K8s + Terraform + monitoring + compliance infrastructure for finance-tax.",
+          "descriptionZh": "面向财税平台的基础架构工程师配置：Docker + K8s + IaC + 监控 + 等保合规基础设施。覆盖基础能力项目部。",
+          "icon": "cloud",
+          "color": "#059669",
+          "line": "engineering",
+          "lineZh": "研发职能线",
+          "layerIds": [
+            "universal",
+            "line-engineering",
+            "role-infra"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "ops-engineer",
+          "name": "Operations Engineer",
+          "nameZh": "运维工程师",
+          "description": "Deployment + monitoring + incident response + tax filing period operations.",
+          "descriptionZh": "面向财税平台的运维工程师配置：部署管理 + 监控告警 + 故障响应 + 申报期保障。覆盖运维管理部。",
+          "icon": "settings",
+          "color": "#D97706",
+          "line": "engineering",
+          "lineZh": "研发职能线",
+          "layerIds": [
+            "universal",
+            "line-engineering",
+            "role-ops"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        }
+      ]
+    },
+    {
+      "id": "data-ai",
+      "name": "数据AI职能线",
+      "packs": [
+        {
+          "id": "algorithm-engineer",
+          "name": "Algorithm Engineer",
+          "nameZh": "算法工程师",
+          "description": "PyTorch + experiment tracking + invoice OCR + anomaly detection for tax scenarios.",
+          "descriptionZh": "面向财税平台的算法工程师配置：PyTorch + 实验管理 + 发票 OCR + 税务异常检测。覆盖数据项目部算法组。",
+          "icon": "psychology",
+          "color": "#DC2626",
+          "line": "data-ai",
+          "lineZh": "数据AI职能线",
+          "layerIds": [
+            "universal",
+            "line-data-ai",
+            "role-algorithm"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "bigdata-engineer",
+          "name": "Big Data Engineer",
+          "nameZh": "大数据工程师",
+          "description": "Spark/Flink + data warehouse + ETL pipelines + tax data analytics at scale.",
+          "descriptionZh": "面向财税平台的大数据工程师配置：Spark/Flink + 数据仓库 + ETL 管线 + 海量税务数据分析。覆盖数据项目部大数据组。",
+          "icon": "storage",
+          "color": "#0053A4",
+          "line": "data-ai",
+          "lineZh": "数据AI职能线",
+          "layerIds": [
+            "universal",
+            "line-data-ai",
+            "role-bigdata"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        }
+      ]
+    },
+    {
+      "id": "product",
+      "name": "产品职能线",
+      "packs": [
+        {
+          "id": "product-manager",
+          "name": "Product Manager",
+          "nameZh": "产品经理",
+          "description": "PRD + user stories + RICE prioritization + finance-tax product lifecycle.",
+          "descriptionZh": "面向财税平台的产品经理配置：PRD + 用户故事 + RICE 排序 + 财税产品全生命周期管理。覆盖产品部和商品管理部。",
+          "icon": "lightbulb",
+          "color": "#7C3AED",
+          "line": "product",
+          "lineZh": "产品职能线",
+          "layerIds": [
+            "universal",
+            "line-product",
+            "role-pm"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        },
+        {
+          "id": "scenario-planner",
+          "name": "Scenario Planner",
+          "nameZh": "场景规划师",
+          "description": "AI scenario design + feasibility assessment + cross-department coordination for finance-tax.",
+          "descriptionZh": "面向财税平台的场景规划师配置：AI 场景设计 + 可行性评估 + 跨部门协调。覆盖场景规划部各组。",
+          "icon": "explore",
+          "color": "#003A70",
+          "line": "product",
+          "lineZh": "产品职能线",
+          "layerIds": [
+            "universal",
+            "line-product",
+            "role-scenario"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "name": "业务职能线",
+      "packs": [
+        {
+          "id": "compliance-expert",
+          "name": "Compliance & Risk Control Expert",
+          "nameZh": "合规风控专家",
+          "description": "Tax compliance + risk rules + policy tracking + audit for finance-tax platforms.",
+          "descriptionZh": "面向财税平台的合规风控专家配置：税务合规 + 风控规则 + 政策追踪 + 审计管理。覆盖场景规划部合规风控组。",
+          "icon": "verified_user",
+          "color": "#D97706",
+          "line": "business",
+          "lineZh": "业务职能线",
+          "layerIds": [
+            "universal",
+            "line-business",
+            "role-compliance"
+          ],
+          "version": "2.0",
+          "files": [
+            "CLAUDE.md",
+            "AGENTS.md",
+            "settings.json",
+            "prompts.md",
+            "install.sh"
+          ],
+          "downloadCount": 0
+        }
+      ]
+    }
+  ],
   "packs": [
     {
-      "id": "finance-tax-pm",
-      "role": "Finance & Tax Compliance PM",
-      "roleZh": "财税合规产品经理",
-      "description": "AI agent pre-configured for Chinese finance/tax compliance work: invoice auditing, tax filing, regulatory monitoring, bookkeeping automation.",
-      "descriptionZh": "AI 助手预配置为中国财税合规工作：发票审核、报税申报、法规监控、代账自动化。内置国标、增值税规则、金税系统知识。",
-      "icon": "account_balance",
-      "color": "#005136",
-      "mcpServers": ["tavily-search", "excel-analysis"],
-      "skillIds": ["compliance-docs", "sql-queries", "excel-analysis", "data-pipeline"],
-      "prompts": ["检查这份合同的增值税发票条款是否合规", "帮我计算本季度企业所得税预缴金额", "审核这批进项发票的抵扣资格", "生成本月代账客户的利润表和资产负债表"],
-      "version": "1.0",
-      "downloadCount": 0,
-      "createdAt": "2026-03-26T00:00:00Z"
-    },
-    {
-      "id": "fullstack-indie",
-      "role": "Full-Stack Indie Developer",
-      "roleZh": "全栈独立开发者",
-      "description": "Ship fast, solo. Pre-configured for one-person SaaS: Next.js/React frontend, Python/Node backend, Supabase/PostgreSQL database, Cloudflare deployment.",
-      "descriptionZh": "独立开发者极速出货配置。一人全栈 SaaS：Next.js 前端、Python/Node 后端、Supabase 数据库、Cloudflare 部署。速度优先于完美。",
-      "icon": "rocket_launch",
-      "color": "#712ae2",
-      "mcpServers": ["github", "supabase"],
-      "skillIds": ["react-best-practices", "fastapi-templates", "docker-optimizer", "deploy-preview", "database-designer", "security-best-practices"],
-      "prompts": ["Scaffold a new SaaS landing page with pricing section", "Design the database schema for a task management app", "Set up Supabase auth with magic link + Google OAuth", "Deploy this Next.js app to Cloudflare Pages"],
-      "version": "1.0",
-      "downloadCount": 0,
-      "createdAt": "2026-03-26T00:00:00Z"
-    },
-    {
       "id": "frontend-engineer",
-      "role": "Frontend Engineer",
-      "roleZh": "前端工程师",
-      "description": "Component-driven, performance-obsessed. Pre-configured for modern frontend: React 19, Tailwind v4, accessibility-first, Core Web Vitals targets.",
-      "descriptionZh": "组件驱动、性能至上。现代前端预配置：React 19、Tailwind v4、无障碍优先、Core Web Vitals 达标。精通设计系统、动画、响应式。",
+      "name": "Frontend Engineer",
+      "nameZh": "前端工程师",
+      "description": "React/Vue + Tailwind CSS + accessibility + invoice UI patterns for finance-tax platforms.",
+      "descriptionZh": "面向财税平台的前端工程师配置：React/Vue + Tailwind CSS + 无障碍 + 发票 UI 规范。覆盖 APP/PC/财税前端开发组。",
       "icon": "web",
-      "color": "#003ea8",
-      "mcpServers": ["chrome-devtools"],
-      "skillIds": ["react-best-practices", "gsap-core", "gsap-scrolltrigger", "design-taste-frontend", "frontend-testing", "security-best-practices"],
-      "prompts": ["Build an accessible dropdown menu with keyboard navigation", "Audit this page for Core Web Vitals and fix LCP issues", "Create a responsive grid layout for 375px to 4K", "Add scroll-triggered animations to this landing page"],
-      "version": "1.0",
-      "downloadCount": 0,
-      "createdAt": "2026-03-26T00:00:00Z"
+      "color": "#0053A4",
+      "line": "engineering",
+      "lineZh": "研发职能线",
+      "layerIds": [
+        "universal",
+        "line-engineering",
+        "role-frontend"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "backend-engineer",
+      "name": "Backend Engineer",
+      "nameZh": "后端工程师",
+      "description": "Go/Java/Python + API design + database + Golden Tax API integration patterns.",
+      "descriptionZh": "面向财税平台的后端工程师配置：Go/Java/Python + API 设计 + 数据库 + 金税系统对接。覆盖 APP/PC/财税后端开发组。",
+      "icon": "dns",
+      "color": "#005136",
+      "line": "engineering",
+      "lineZh": "研发职能线",
+      "layerIds": [
+        "universal",
+        "line-engineering",
+        "role-backend"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "test-engineer",
+      "name": "Test Engineer",
+      "nameZh": "测试工程师",
+      "description": "Test strategy + Playwright E2E + API testing + finance-tax scenario coverage.",
+      "descriptionZh": "面向财税平台的测试工程师配置：测试策略 + Playwright E2E + API 测试 + 财税场景覆盖。覆盖所有测试组。",
+      "icon": "bug_report",
+      "color": "#7C3AED",
+      "line": "engineering",
+      "lineZh": "研发职能线",
+      "layerIds": [
+        "universal",
+        "line-engineering",
+        "role-test"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "infra-engineer",
+      "name": "Infrastructure Engineer",
+      "nameZh": "基础架构工程师",
+      "description": "Docker + K8s + Terraform + monitoring + compliance infrastructure for finance-tax.",
+      "descriptionZh": "面向财税平台的基础架构工程师配置：Docker + K8s + IaC + 监控 + 等保合规基础设施。覆盖基础能力项目部。",
+      "icon": "cloud",
+      "color": "#059669",
+      "line": "engineering",
+      "lineZh": "研发职能线",
+      "layerIds": [
+        "universal",
+        "line-engineering",
+        "role-infra"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "ops-engineer",
+      "name": "Operations Engineer",
+      "nameZh": "运维工程师",
+      "description": "Deployment + monitoring + incident response + tax filing period operations.",
+      "descriptionZh": "面向财税平台的运维工程师配置：部署管理 + 监控告警 + 故障响应 + 申报期保障。覆盖运维管理部。",
+      "icon": "settings",
+      "color": "#D97706",
+      "line": "engineering",
+      "lineZh": "研发职能线",
+      "layerIds": [
+        "universal",
+        "line-engineering",
+        "role-ops"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "algorithm-engineer",
+      "name": "Algorithm Engineer",
+      "nameZh": "算法工程师",
+      "description": "PyTorch + experiment tracking + invoice OCR + anomaly detection for tax scenarios.",
+      "descriptionZh": "面向财税平台的算法工程师配置：PyTorch + 实验管理 + 发票 OCR + 税务异常检测。覆盖数据项目部算法组。",
+      "icon": "psychology",
+      "color": "#DC2626",
+      "line": "data-ai",
+      "lineZh": "数据AI职能线",
+      "layerIds": [
+        "universal",
+        "line-data-ai",
+        "role-algorithm"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "bigdata-engineer",
+      "name": "Big Data Engineer",
+      "nameZh": "大数据工程师",
+      "description": "Spark/Flink + data warehouse + ETL pipelines + tax data analytics at scale.",
+      "descriptionZh": "面向财税平台的大数据工程师配置：Spark/Flink + 数据仓库 + ETL 管线 + 海量税务数据分析。覆盖数据项目部大数据组。",
+      "icon": "storage",
+      "color": "#0053A4",
+      "line": "data-ai",
+      "lineZh": "数据AI职能线",
+      "layerIds": [
+        "universal",
+        "line-data-ai",
+        "role-bigdata"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "product-manager",
+      "name": "Product Manager",
+      "nameZh": "产品经理",
+      "description": "PRD + user stories + RICE prioritization + finance-tax product lifecycle.",
+      "descriptionZh": "面向财税平台的产品经理配置：PRD + 用户故事 + RICE 排序 + 财税产品全生命周期管理。覆盖产品部和商品管理部。",
+      "icon": "lightbulb",
+      "color": "#7C3AED",
+      "line": "product",
+      "lineZh": "产品职能线",
+      "layerIds": [
+        "universal",
+        "line-product",
+        "role-pm"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "scenario-planner",
+      "name": "Scenario Planner",
+      "nameZh": "场景规划师",
+      "description": "AI scenario design + feasibility assessment + cross-department coordination for finance-tax.",
+      "descriptionZh": "面向财税平台的场景规划师配置：AI 场景设计 + 可行性评估 + 跨部门协调。覆盖场景规划部各组。",
+      "icon": "explore",
+      "color": "#003A70",
+      "line": "product",
+      "lineZh": "产品职能线",
+      "layerIds": [
+        "universal",
+        "line-product",
+        "role-scenario"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
+    },
+    {
+      "id": "compliance-expert",
+      "name": "Compliance & Risk Control Expert",
+      "nameZh": "合规风控专家",
+      "description": "Tax compliance + risk rules + policy tracking + audit for finance-tax platforms.",
+      "descriptionZh": "面向财税平台的合规风控专家配置：税务合规 + 风控规则 + 政策追踪 + 审计管理。覆盖场景规划部合规风控组。",
+      "icon": "verified_user",
+      "color": "#D97706",
+      "line": "business",
+      "lineZh": "业务职能线",
+      "layerIds": [
+        "universal",
+        "line-business",
+        "role-compliance"
+      ],
+      "version": "2.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh"
+      ],
+      "downloadCount": 0
     }
   ]
 }

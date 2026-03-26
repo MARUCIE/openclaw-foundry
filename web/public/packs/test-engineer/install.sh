@@ -1,11 +1,11 @@
 #!/bin/bash
 # OpenClaw Foundry — Job Pack Installer
-# Pack: frontend-engineer
-# Usage: curl -sL https://openclaw-foundry.pages.dev/packs/frontend-engineer/install.sh | bash
+# Pack: test-engineer
+# Usage: curl -sL https://openclaw-foundry.pages.dev/packs/test-engineer/install.sh | bash
 
 set -euo pipefail
 
-PACK_ID="frontend-engineer"
+PACK_ID="test-engineer"
 BASE_URL="https://openclaw-foundry.pages.dev/packs/${PACK_ID}"
 TARGET_DIR="${HOME}/.claude"
 

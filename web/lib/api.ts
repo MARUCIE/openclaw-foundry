@@ -247,43 +247,37 @@ export interface DashboardStats {
   uptime: number;
 }
 
-// ═══ ConfigPacks ═══
+// ═══ ConfigPacks v2 (Job Packs) ═══
 
 export interface ConfigPack {
   id: string;
-  role: string;
-  roleZh: string;
+  name: string;
+  nameZh: string;
   description: string;
   descriptionZh: string;
   icon: string;
   color: string;
-  mcpServers: string[];
-  skillIds: string[];
-  prompts: string[];
+  line: string;
+  lineZh: string;
+  layerIds: string[];
+  files: string[];
   version: string;
   downloadCount: number;
-  createdAt: string;
 }
 
-export interface ConfigPackDetail extends ConfigPack {
-  claudeMd: string;
-  agentsMd: string;
+export interface PackLine {
+  id: string;
+  name: string;
+  packs: ConfigPack[];
 }
 
-export async function getPacks(): Promise<{ total: number; packs: ConfigPack[] }> {
+export interface PacksResponse {
+  total: number;
+  generated: string;
+  lines: PackLine[];
+  packs: ConfigPack[];
+}
+
+export async function getPacks(): Promise<PacksResponse> {
   return fetchJSON('/packs');
-}
-
-export async function getPack(id: string): Promise<{ pack: ConfigPackDetail; skills: unknown[] }> {
-  return fetchJSON(`/packs/${id}`);
-}
-
-export async function downloadPack(id: string): Promise<{
-  meta: { id: string; role: string; version: string; generatedAt: string };
-  files: Record<string, string>;
-  mcpServers: string[];
-  skillIds: string[];
-  prompts: string[];
-}> {
-  return fetchJSON(`/packs/${id}/download`);
 }
