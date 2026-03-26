@@ -196,16 +196,9 @@ function rebuildCategories(skills) {
     cats[cat] = (cats[cat] || 0) + 1;
   }
 
-  // Also compute composite scores per category
-  const catScores = {};
-  for (const s of skills) {
-    const cat = s.category || '其他';
-    catScores[cat] = (catScores[cat] || 0) + (s.compositeScore || 0);
-  }
-
+  // categories field = counts (frontend reads this for sidebar display)
   const result = {
-    categories: catScores,
-    counts: cats,
+    categories: cats,
     totalSkills: skills.length,
     curatedAt: new Date().toISOString(),
   };

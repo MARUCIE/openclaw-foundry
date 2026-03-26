@@ -308,15 +308,13 @@ async function main() {
   writeFileSync(SKILLS_PATH, JSON.stringify(data, null, 2), 'utf-8');
   console.log(`Wrote: ${SKILLS_PATH}`);
 
-  // Rebuild categories
+  // Rebuild categories (categories = counts, frontend reads this for sidebar)
   const cats = {};
-  const catScores = {};
   for (const s of skills) {
     const cat = s.category || '其他';
     cats[cat] = (cats[cat] || 0) + 1;
-    catScores[cat] = (catScores[cat] || 0) + (s.score || 0);
   }
-  writeFileSync(CATEGORIES_PATH, JSON.stringify({ categories: catScores, counts: cats, totalSkills: skills.length, curatedAt: new Date().toISOString() }, null, 2), 'utf-8');
+  writeFileSync(CATEGORIES_PATH, JSON.stringify({ categories: cats, totalSkills: skills.length, curatedAt: new Date().toISOString() }, null, 2), 'utf-8');
   console.log(`Wrote: ${CATEGORIES_PATH}`);
 
   console.log(`\nSummary:`);

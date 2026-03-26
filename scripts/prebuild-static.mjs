@@ -102,18 +102,27 @@ async function main() {
     }
   }
 
-  // Static prebuild: top 5000 by score (S/A/B tiers after curation)
-  // Full 37k+ dataset served via Workers API (D1) for search/pagination
-  // Stats show total count; static JSON is for fast first-load only
-  const STATIC_LIMIT = 5000;
+  // Static prebuild: top skills + MCP servers from separate pools
+  // Ensures both sources are represented in static data
+  const SKILL_N = 3500;
+  const MCP_N = 1500;
 
-  const allSorted = skillsData.skills
+  const clawSkills = skillsData.skills
+    .filter(s => (s.source || 'clawhub') !== 'mcp-registry')
+    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    .slice(0, SKILL_N);
+
+  const mcpServers = skillsData.skills
+    .filter(s => s.source === 'mcp-registry')
+    .sort((a, b) => (b.score || 0) - (a.score || 0))
+    .slice(0, MCP_N);
+
+  const allSorted = [...clawSkills, ...mcpServers]
     .sort((a, b) => (b.score || 0) - (a.score || 0));
-
-  const staticSkills = allSorted.slice(0, STATIC_LIMIT);
+  const staticSkills = allSorted;
 
   await writeFile(join(OUT, 'skills.json'), JSON.stringify({
-    meta: { ...skillsData.meta, staticLimit: STATIC_LIMIT, totalAvailable: allSorted.length },
+    meta: { ...skillsData.meta, staticSkills: SKILL_N, staticMcp: MCP_N, totalAvailable: allSorted.length },
     total: allSorted.length,
     offset: 0,
     limit: staticSkills.length,
