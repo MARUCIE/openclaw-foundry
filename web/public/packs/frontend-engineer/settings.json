@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(git:*)",
+      "Read(*)",
+      "Write(*.tsx)",
+      "Write(*.ts)",
+      "Write(*.css)",
+      "Write(*.json)",
+      "Write(*.md)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Write(.env*)"
+    ]
+  },
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"],
+      "env": {}
+    }
+  }
+}

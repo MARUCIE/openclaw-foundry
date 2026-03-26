@@ -73,8 +73,8 @@ export default function PacksPage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { icon: 'download', step: '1', titleKey: 'packs.step1', descKey: 'packs.step1Desc' },
-            { icon: 'folder_copy', step: '2', titleKey: 'packs.step2', descKey: 'packs.step2Desc' },
+            { icon: 'terminal', step: '1', titleKey: 'packs.step1', descKey: 'packs.step1Desc' },
+            { icon: 'settings', step: '2', titleKey: 'packs.step2', descKey: 'packs.step2Desc' },
             { icon: 'rocket_launch', step: '3', titleKey: 'packs.step3', descKey: 'packs.step3Desc' },
           ].map(s => (
             <div key={s.step} className="text-center space-y-3 p-6">
@@ -142,51 +142,49 @@ function PackCard({ pack }: { pack: ConfigPack }) {
         {pack.descriptionZh}
       </p>
 
-      {/* Included items */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--primary-fixed)', color: 'var(--on-primary-fixed-variant)' }}>
-          <span className="material-symbols-outlined text-sm">description</span>
-          CLAUDE.md
-        </span>
-        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed-variant)' }}>
-          <span className="material-symbols-outlined text-sm">hub</span>
-          {pack.mcpServers.length} MCP
-        </span>
-        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed-variant)' }}>
-          <span className="material-symbols-outlined text-sm">widgets</span>
-          {pack.skillIds.length} Skills
-        </span>
-        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
-          <span className="material-symbols-outlined text-sm">chat</span>
-          {pack.prompts.length} Prompts
-        </span>
+      {/* Pack contents */}
+      <div className="space-y-2 mb-4">
+        {[
+          { file: 'CLAUDE.md', icon: 'description', label: t('packs.fileClaude'), bg: 'var(--primary-fixed)' },
+          { file: 'AGENTS.md', icon: 'groups', label: t('packs.fileAgents'), bg: 'var(--secondary-fixed)' },
+          { file: 'settings.json', icon: 'hub', label: `${pack.mcpServers.length} MCP ${t('packs.fileSettings')}`, bg: 'var(--tertiary-fixed)' },
+          { file: 'prompts.md', icon: 'chat', label: `${pack.prompts.length} ${t('packs.filePrompts')}`, bg: 'var(--surface-container)' },
+        ].map(item => (
+          <button
+            key={item.file}
+            onClick={() => handleDownload(item.file)}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs transition-colors hover:bg-[var(--surface-container-low)] text-left"
+          >
+            <span className="w-7 h-7 rounded-md flex items-center justify-center shrink-0" style={{ background: item.bg }}>
+              <span className="material-symbols-outlined text-sm" style={{ color: 'var(--on-surface)' }}>{item.icon}</span>
+            </span>
+            <span className="font-medium" style={{ color: 'var(--on-surface)' }}>{item.file}</span>
+            <span className="ml-auto text-[10px]" style={{ color: 'var(--on-surface-variant)' }}>{item.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Download buttons */}
-      <div className="space-y-3 pt-4" style={{ borderTop: '1px solid rgba(195,198,215,0.2)' }}>
-        <div className="flex gap-2">
-          <button
-            onClick={() => handleDownload('CLAUDE.md')}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
-            style={{ background: `linear-gradient(135deg, ${pack.color}, ${pack.color}cc)` }}
-          >
-            <span className="material-symbols-outlined text-sm">{downloaded ? 'check_circle' : 'download'}</span>
-            CLAUDE.md
-          </button>
-          <button
-            onClick={() => handleDownload('AGENTS.md')}
-            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-[var(--surface-container)]"
-            style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
-          >
-            <span className="material-symbols-outlined text-sm">download</span>
-            AGENTS.md
-          </button>
+      {/* One-click install */}
+      <div className="space-y-2 pt-4" style={{ borderTop: '1px solid rgba(195,198,215,0.2)' }}>
+        <div
+          className="px-3 py-2 rounded-lg text-xs font-mono truncate flex items-center gap-2"
+          style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}
+        >
+          <span className="shrink-0" style={{ color: 'var(--on-surface-variant)' }}>$</span>
+          <span className="truncate">curl -sL openclaw-foundry.pages.dev/packs/{pack.id}/install.sh | bash</span>
         </div>
-        {pack.downloadCount > 0 && (
-          <p className="text-xs text-center" style={{ color: 'var(--on-surface-variant)' }}>
-            {pack.downloadCount} {t('packs.downloads')}
-          </p>
-        )}
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(`curl -sL https://openclaw-foundry.pages.dev/packs/${pack.id}/install.sh | bash`);
+            setDownloaded(true);
+            setTimeout(() => setDownloaded(false), 2000);
+          }}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+          style={{ background: `linear-gradient(135deg, ${pack.color}, ${pack.color}cc)` }}
+        >
+          <span className="material-symbols-outlined text-sm">{downloaded ? 'check_circle' : 'content_copy'}</span>
+          {downloaded ? t('packs.copied') : t('packs.copyInstall')}
+        </button>
       </div>
     </div>
   );
