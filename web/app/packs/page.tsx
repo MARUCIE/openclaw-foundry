@@ -2,13 +2,15 @@
 
 import { useState } from 'react';
 import useSWR from 'swr';
-import { getPacks, type ConfigPack } from '@/lib/api';
+import { getPacks, getCollections, installCollection, type ConfigPack, type Collection } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
 export default function PacksPage() {
   const { t } = useI18n();
   const { data, isLoading } = useSWR('packs', getPacks);
+  const { data: comboData } = useSWR('collections', getCollections);
   const packs = data?.packs || [];
+  const combos = comboData?.collections || [];
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 space-y-10">
@@ -90,6 +92,20 @@ export default function PacksPage() {
           ))}
         </div>
       </section>
+
+      {/* Skill Combos (merged from /combos) */}
+      {combos.length > 0 && (
+        <section className="py-8">
+          <h2 className="text-xl font-bold mb-6" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
+            {t('packs.combosTitle')}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-grid">
+            {combos.map((c, i) => (
+              <ComboCard key={c.id} combo={c} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -185,6 +201,81 @@ function PackCard({ pack }: { pack: ConfigPack }) {
           <span className="material-symbols-outlined text-sm">{downloaded ? 'check_circle' : 'content_copy'}</span>
           {downloaded ? t('packs.copied') : t('packs.copyInstall')}
         </button>
+      </div>
+    </div>
+  );
+}
+
+const COMBO_COLORS = ['var(--primary)', 'var(--secondary)', 'var(--tertiary)', 'var(--surface-tint)', '#f59e0b', '#ec4899'];
+
+function ComboCard({ combo, index = 0 }: { combo: Collection; index?: number }) {
+  const { t } = useI18n();
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done'>('idle');
+
+  const handleInstall = async () => {
+    if (status !== 'idle') return;
+    setStatus('loading');
+    try {
+      await installCollection(combo.id);
+      setStatus('done');
+      setTimeout(() => setStatus('idle'), 2000);
+    } catch {
+      setStatus('idle');
+    }
+  };
+
+  return (
+    <div
+      className="rounded-2xl p-5 flex flex-col gap-3 transition-all hover:shadow-md"
+      style={{
+        background: 'var(--surface-container-lowest)',
+        border: '1px solid rgba(195, 198, 215, 0.3)',
+        borderTopWidth: '3px',
+        borderTopColor: COMBO_COLORS[index % COMBO_COLORS.length],
+      }}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0">
+          <h3 className="font-bold text-sm truncate" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
+            {combo.name}
+          </h3>
+          <p className="text-xs truncate mt-0.5" style={{ color: 'var(--on-surface-variant)' }}>
+            {combo.tagline}
+          </p>
+        </div>
+        <span className="px-2 py-0.5 rounded-full text-xs font-medium shrink-0" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
+          {combo.skillIds.length} skills
+        </span>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5">
+        {combo.skillIds.slice(0, 5).map(id => (
+          <span key={id} className="px-2 py-0.5 rounded-full text-xs" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
+            {id}
+          </span>
+        ))}
+        {combo.skillIds.length > 5 && (
+          <span className="px-2 py-0.5 rounded-full text-xs" style={{ background: 'var(--surface-container)', color: 'var(--outline)' }}>
+            +{combo.skillIds.length - 5}
+          </span>
+        )}
+      </div>
+
+      <div className="flex gap-2 mt-auto pt-3" style={{ borderTop: '1px solid rgba(195,198,215,0.2)' }}>
+        <button
+          onClick={handleInstall}
+          disabled={status === 'loading'}
+          className="flex-1 py-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+          style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
+        >
+          {status === 'done' ? t('packs.installed') : status === 'loading' ? t('packs.installing') : t('packs.installSkills')}
+        </button>
+        {combo.installCount > 0 && (
+          <span className="flex items-center gap-1 text-xs px-2" style={{ color: 'var(--outline)' }}>
+            <span className="material-symbols-outlined text-sm">download</span>
+            {combo.installCount}
+          </span>
+        )}
       </div>
     </div>
   );

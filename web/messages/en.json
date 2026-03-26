@@ -325,5 +325,9 @@
   "packs.fileSettings": "servers configured",
   "packs.filePrompts": "starter prompts",
   "packs.copyInstall": "Copy Install Command",
-  "packs.copied": "Copied!"
+  "packs.copied": "Copied!",
+  "packs.combosTitle": "Skill Combos",
+  "packs.installSkills": "Install All",
+  "packs.installing": "Installing...",
+  "packs.installed": "Installed"
 }

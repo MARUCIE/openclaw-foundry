@@ -325,5 +325,9 @@
   "packs.fileSettings": "个 MCP 已配置",
   "packs.filePrompts": "个启动提示词",
   "packs.copyInstall": "复制安装命令",
-  "packs.copied": "已复制"
+  "packs.copied": "已复制",
+  "packs.combosTitle": "技能组合",
+  "packs.installSkills": "一键安装",
+  "packs.installing": "安装中...",
+  "packs.installed": "已安装"
 }

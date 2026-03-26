@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { href: '/explore/platforms', key: 'nav.deploy' },
   { href: '/explore/skills', key: 'nav.explore' },
   { href: '/packs', key: 'nav.packs', fallback: 'Packs' },
-  { href: '/combos', key: 'nav.combos', fallback: 'Combos' },
   { href: '/api-docs', key: 'nav.api' },
   { href: '/arena', key: 'nav.arena' },
 ];
