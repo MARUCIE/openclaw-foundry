@@ -52,6 +52,60 @@ const CATEGORY_ICONS = {
 };
 
 // ============================================================
+// Phase 0.5: Quality Gate — filter junk entries
+// ============================================================
+
+// Placeholder/junk description patterns
+const JUNK_PATTERNS = [
+  'Powered by BytesAgain',
+  'Description of my MCP server',
+  'A non functional MCP server (yet)',
+  'Non functional server (yet)',
+  'TODO: Add description',
+  'My MCP server',
+  'A Model Context Protocol server',
+  'This is a MCP server',
+  'No description provided',
+  'MCP server for',  // too generic if entire description
+];
+
+function qualityGate(skills) {
+  const before = skills.length;
+  const rejected = { junk: 0, short: 0, noName: 0 };
+
+  skills = skills.filter(s => {
+    const desc = (s.description || '').trim();
+    const name = (s.name || '').trim();
+
+    // Reject: no name or name is just 'mcp' after rename failed
+    if (!name || name.length < 2) {
+      rejected.noName++;
+      return false;
+    }
+
+    // Reject: empty or ultra-short description (<10 chars)
+    if (desc.length < 10) {
+      rejected.short++;
+      return false;
+    }
+
+    // Reject: junk placeholder descriptions
+    for (const pattern of JUNK_PATTERNS) {
+      if (desc === pattern || (desc.length < 60 && desc.startsWith(pattern))) {
+        rejected.junk++;
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  const removed = before - skills.length;
+  console.log(`Phase 0.5 Quality Gate: ${before} → ${skills.length} (removed ${removed}: junk=${rejected.junk} short=${rejected.short} noName=${rejected.noName})\n`);
+  return skills;
+}
+
+// ============================================================
 // Phase 1: Dedup + Rename
 // ============================================================
 
@@ -272,6 +326,9 @@ function main() {
   // When prebuild regenerates skills.json from unified-index, it loses curation.
   // We recover it from the git-committed version (HEAD) of the same file.
   skills = carryForwardCuration(skills);
+
+  // Phase 0.5: Quality Gate — remove junk entries
+  skills = qualityGate(skills);
 
   // Phase 1: Dedup + Rename
   skills = dedup(skills);
