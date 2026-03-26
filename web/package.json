@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3200",
+    "generate-packs": "node ../scripts/generate-packs.mjs",
+    "prebuild": "node ../scripts/generate-packs.mjs",
     "build": "next build",
     "start": "next start -p 3200"
   },
