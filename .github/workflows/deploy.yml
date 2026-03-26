@@ -205,6 +205,9 @@ jobs:
             exit 1
           fi
 
+      - name: Install worker dependencies
+        run: cd worker && npm ci
+
       - name: Seed D1 database (batched)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
