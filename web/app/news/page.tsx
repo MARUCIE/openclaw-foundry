@@ -66,9 +66,9 @@ export default function NewsPage() {
             {FEATURED.title}
           </h2>
           <p className="text-lg leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{FEATURED.desc}</p>
-          <a href="#" className="font-bold text-sm inline-flex items-center gap-2 hover:translate-x-1 transition-transform" style={{ color: 'var(--primary)' }}>
+          <span className="font-bold text-sm inline-flex items-center gap-2" style={{ color: 'var(--primary)' }}>
             {t('news.readMore')} <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+          </span>
         </div>
         <div
           className="md:w-2/5 h-64 md:h-auto flex flex-col items-center justify-center relative overflow-hidden"
@@ -127,7 +127,7 @@ export default function NewsPage() {
               {TAGS.map(tag => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 rounded-full text-xs font-bold cursor-pointer transition-colors"
+                  className="px-3 py-1.5 rounded-full text-xs font-bold"
                   style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}
                 >
                   {tag}
@@ -144,19 +144,13 @@ export default function NewsPage() {
             <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
             <h3 className="font-bold" style={{ fontFamily: 'Manrope, sans-serif' }}>{t('news.subscribe')}</h3>
             <p className="text-xs" style={{ color: 'rgba(255,255,255,0.85)' }}>{t('news.newsletter')}</p>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              aria-label="Email for newsletter"
-              className="w-full rounded-lg py-2 px-3 text-sm text-[var(--on-surface)]"
-              style={{ background: 'rgba(255,255,255,0.9)', border: 'none' }}
-            />
-            <button
-              className="w-full py-2 rounded-lg text-sm font-bold transition-opacity hover:opacity-90"
+            <a
+              href="mailto:maurice_wen@proton.me?subject=OpenClaw%20Newsletter%20Subscribe"
+              className="w-full py-2.5 rounded-lg text-sm font-bold transition-opacity hover:opacity-90 text-center block"
               style={{ background: 'white', color: 'var(--primary)' }}
             >
               {t('news.subscribe')}
-            </button>
+            </a>
           </div>
         </aside>
       </div>

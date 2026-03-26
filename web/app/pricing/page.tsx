@@ -268,18 +268,14 @@ export default function PricingPage() {
           {t('pricing.enterpriseDesc')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-          <input
-            type="email"
-            placeholder={t('pricing.enterEmail')}
-            className="w-full sm:w-80 rounded-xl py-3 px-4 text-sm"
-            style={{ background: 'rgba(255,255,255,0.9)', border: 'none', color: 'var(--on-surface)' }}
-          />
-          <button
-            className="px-8 py-3 rounded-xl font-bold text-sm transition-all hover:bg-blue-50"
+          <a
+            href="mailto:maurice_wen@proton.me?subject=OpenClaw%20Enterprise%20Inquiry"
+            className="px-10 py-3 rounded-xl font-bold text-sm transition-all hover:bg-blue-50 inline-flex items-center gap-2"
             style={{ background: 'white', color: 'var(--primary)', fontFamily: 'Manrope, sans-serif' }}
           >
+            <span className="material-symbols-outlined text-sm">mail</span>
             {t('pricing.getSolution')}
-          </button>
+          </a>
         </div>
       </section>
     </div>

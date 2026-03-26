@@ -250,12 +250,13 @@ function CollectionCard({ collection: c, index = 0 }: { collection: Collection; 
 
       <div className="flex gap-2 mt-auto pt-3" style={{ borderTop: '1px solid var(--surface-container-low)' }}>
         <InstallButton collection={c} />
-        <button
-          className="flex-1 py-2 rounded-lg text-xs font-medium transition-colors hover:bg-[var(--surface-container)]"
+        <a
+          href={`/explore/skills?q=${encodeURIComponent(c.skillIds[0] || c.name)}`}
+          className="flex-1 py-2 rounded-lg text-xs font-medium text-center transition-colors hover:bg-[var(--surface-container)]"
           style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface)' }}
         >
           {t('combos.details')}
-        </button>
+        </a>
       </div>
     </div>
   );

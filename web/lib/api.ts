@@ -10,6 +10,7 @@ const STATIC_MAP: Record<string, string> = {
   '/skills': '/data/skills.json',
   '/skills/categories': '/data/skills-categories.json',
   '/collections': '/data/collections.json',
+  '/packs': '/data/packs.json',
 };
 
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {

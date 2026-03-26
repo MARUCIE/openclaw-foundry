@@ -1,0 +1,50 @@
+{
+  "total": 3,
+  "packs": [
+    {
+      "id": "finance-tax-pm",
+      "role": "Finance & Tax Compliance PM",
+      "roleZh": "财税合规产品经理",
+      "description": "AI agent pre-configured for Chinese finance/tax compliance work: invoice auditing, tax filing, regulatory monitoring, bookkeeping automation.",
+      "descriptionZh": "AI 助手预配置为中国财税合规工作：发票审核、报税申报、法规监控、代账自动化。内置国标、增值税规则、金税系统知识。",
+      "icon": "account_balance",
+      "color": "#005136",
+      "mcpServers": ["tavily-search", "excel-analysis"],
+      "skillIds": ["compliance-docs", "sql-queries", "excel-analysis", "data-pipeline"],
+      "prompts": ["检查这份合同的增值税发票条款是否合规", "帮我计算本季度企业所得税预缴金额", "审核这批进项发票的抵扣资格", "生成本月代账客户的利润表和资产负债表"],
+      "version": "1.0",
+      "downloadCount": 0,
+      "createdAt": "2026-03-26T00:00:00Z"
+    },
+    {
+      "id": "fullstack-indie",
+      "role": "Full-Stack Indie Developer",
+      "roleZh": "全栈独立开发者",
+      "description": "Ship fast, solo. Pre-configured for one-person SaaS: Next.js/React frontend, Python/Node backend, Supabase/PostgreSQL database, Cloudflare deployment.",
+      "descriptionZh": "独立开发者极速出货配置。一人全栈 SaaS：Next.js 前端、Python/Node 后端、Supabase 数据库、Cloudflare 部署。速度优先于完美。",
+      "icon": "rocket_launch",
+      "color": "#712ae2",
+      "mcpServers": ["github", "supabase"],
+      "skillIds": ["react-best-practices", "fastapi-templates", "docker-optimizer", "deploy-preview", "database-designer", "security-best-practices"],
+      "prompts": ["Scaffold a new SaaS landing page with pricing section", "Design the database schema for a task management app", "Set up Supabase auth with magic link + Google OAuth", "Deploy this Next.js app to Cloudflare Pages"],
+      "version": "1.0",
+      "downloadCount": 0,
+      "createdAt": "2026-03-26T00:00:00Z"
+    },
+    {
+      "id": "frontend-engineer",
+      "role": "Frontend Engineer",
+      "roleZh": "前端工程师",
+      "description": "Component-driven, performance-obsessed. Pre-configured for modern frontend: React 19, Tailwind v4, accessibility-first, Core Web Vitals targets.",
+      "descriptionZh": "组件驱动、性能至上。现代前端预配置：React 19、Tailwind v4、无障碍优先、Core Web Vitals 达标。精通设计系统、动画、响应式。",
+      "icon": "web",
+      "color": "#003ea8",
+      "mcpServers": ["chrome-devtools"],
+      "skillIds": ["react-best-practices", "gsap-core", "gsap-scrolltrigger", "design-taste-frontend", "frontend-testing", "security-best-practices"],
+      "prompts": ["Build an accessible dropdown menu with keyboard navigation", "Audit this page for Core Web Vitals and fix LCP issues", "Create a responsive grid layout for 375px to 4K", "Add scroll-triggered animations to this landing page"],
+      "version": "1.0",
+      "downloadCount": 0,
+      "createdAt": "2026-03-26T00:00:00Z"
+    }
+  ]
+}
