@@ -13,6 +13,10 @@ OpenClaw Foundry aggregates skills from multiple sources (ClawHub, MCP Registry)
 
 **Live site:** [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev)
 
+<p align="center">
+  <img src="doc/screenshots/sitemap-01-landing.png" width="80%" alt="OpenClaw Foundry — Landing" />
+</p>
+
 ---
 
 ## Why OpenClaw Foundry?
@@ -108,6 +112,19 @@ The pipeline runs daily via GitHub Actions:
 3. **Rate** — Percentile-based scoring: S (top 5%), A, B, C, D
 4. **Categorize** — 23 categories with keyword + fuzzy matching
 5. **Seed** — Generate SQL and batch-insert into D1
+
+## Screenshots
+
+<table>
+  <tr>
+    <td><img src="doc/screenshots/sitemap-03-skills.png" alt="Skills Marketplace" /></td>
+    <td><img src="doc/screenshots/sitemap-04-mcp.png" alt="MCP Server Directory" /></td>
+  </tr>
+  <tr>
+    <td><img src="doc/screenshots/sitemap-02-platforms.png" alt="Platform Directory" /></td>
+    <td><img src="doc/screenshots/sitemap-10-arena.png" alt="Platform Arena" /></td>
+  </tr>
+</table>
 
 ## Pages
 
