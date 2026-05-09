@@ -5,21 +5,21 @@
   <img src="https://img.shields.io/badge/license-MIT-orange?style=for-the-badge" alt="License" />
 </p>
 
-# OpenClaw Foundry
+# Agent Foundry
 
-> **The curated AI Agent skill marketplace.** 37,000+ vetted skills. S/A/B/C quality ratings. Deploy anywhere.
+> **The curated AI Agent skill marketplace.** 37,000+ vetted skills. S/A/B/C quality ratings. Deploy anywhere. Workshop-ready toolkit, open the box and run.
 
-OpenClaw Foundry aggregates skills from multiple sources (ClawHub, MCP Registry), rates them with a percentile-based S/A/B/C system, and lets you browse, search, and install them to any AI agent platform in one click.
+Agent Foundry aggregates skills from multiple sources (ClawHub, MCP Registry), rates them with a percentile-based S/A/B/C system, and lets you browse, search, and install them to any AI agent platform in one click. Built as the open-the-box toolkit for internal AI workshops.
 
-**Live site:** [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev)
+**Live site:** [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev) (production URL migration to `agent-foundry.pages.dev` is HITL-tracked separately)
 
 <p align="center">
-  <img src="doc/screenshots/sitemap-01-landing.png" width="80%" alt="OpenClaw Foundry — Landing" />
+  <img src="doc/screenshots/sitemap-01-landing.png" width="80%" alt="Agent Foundry — Landing" />
 </p>
 
 ---
 
-## Why OpenClaw Foundry?
+## Why Agent Foundry?
 
 - **37,296 skills** from ClawHub API + MCP Registry, deduplicated and unified
 - **Quality ratings** — S (top 5%) / A (top 26%) / B (top 58%) / C / D based on downloads, stars, and metadata

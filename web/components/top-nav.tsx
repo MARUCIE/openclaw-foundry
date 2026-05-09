@@ -4,17 +4,22 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 
+// T4 IA restructure: home IS the Agent Capability Marketplace, so /explore/skills
+// is dropped from the visible nav (route still alive as alias for old links).
 const NAV_ITEMS = [
-  { href: '/explore/platforms', key: 'nav.deploy' },
-  { href: '/explore/skills', key: 'nav.explore' },
+  { href: '/', key: 'nav.home', fallback: 'Home' },
   { href: '/packs', key: 'nav.packs', fallback: 'Packs' },
   { href: '/api-docs', key: 'nav.api' },
   { href: '/arena', key: 'nav.arena' },
+  { href: '/explore/platforms', key: 'nav.deploy' },
+  { href: '/about', key: 'nav.about', fallback: 'About' },
 ];
 
 export function TopNav() {
   const pathname = usePathname();
   const { t } = useI18n();
+  const ctaHref = '/explore/platforms';
+  const ctaLabel = t('nav.getStarted');
 
   return (
     <nav
@@ -25,20 +30,20 @@ export function TopNav() {
         WebkitBackdropFilter: 'blur(20px)',
       }}
     >
-      <div className="flex justify-between items-center px-6 h-20 max-w-7xl mx-auto">
+      <div className="page-shell flex justify-between items-center h-20">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-2xl font-black tracking-tighter font-headline"
-          style={{ color: 'var(--primary)' }}
-        >
-          OpenClaw Foundry
+          <Link
+            href="/"
+            className="text-2xl font-black tracking-tighter"
+            style={{ color: 'var(--primary)' }}
+          >
+            Agent Foundry
         </Link>
 
-        {/* Center nav links */}
+        {/* Center nav links — always visible since home IS the marketplace */}
         <div className="hidden md:flex items-center gap-8 desktop-nav">
           {NAV_ITEMS.map(item => {
-            const isActive = pathname.startsWith(item.href);
+            const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
@@ -46,7 +51,7 @@ export function TopNav() {
                 className="nav-link font-semibold tracking-tight text-sm py-1"
                 data-active={isActive ? 'true' : undefined}
                 style={{
-                  fontFamily: 'Manrope, sans-serif',
+                  fontFamily: 'Inter, system-ui, sans-serif',
                   color: isActive ? 'var(--surface-tint)' : 'var(--on-surface-variant)',
                 }}
               >
@@ -60,15 +65,15 @@ export function TopNav() {
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
           <Link
-            href="/explore/platforms"
+            href={ctaHref}
             className="px-6 py-2.5 rounded-xl font-bold text-sm active:scale-95 transition-all duration-150"
             style={{
               background: 'var(--primary-container)',
               color: 'var(--on-primary)',
-              fontFamily: 'Manrope, sans-serif',
+              fontFamily: 'Inter, system-ui, sans-serif',
             }}
           >
-            {t('nav.getStarted')}
+            {ctaLabel}
           </Link>
         </div>
       </div>

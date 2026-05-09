@@ -6,8 +6,8 @@ import { useI18n } from '@/lib/i18n';
 const FOOTER_LINKS = [
   { href: '/about', key: 'footer.about' },
   { href: '/docs', key: 'footer.docs' },
-  { href: 'https://github.com/MARUCIE/openclaw-foundry', key: null, label: 'GitHub' },
-  { href: '/explore/skills', key: null, label: 'ClawHub' },
+  { href: 'https://github.com/mauricewen/openclaw-foundry', key: null, label: 'GitHub' },
+  { href: '/', key: null, label: 'Marketplace' },
   { href: 'mailto:maurice_wen@proton.me', key: 'footer.contact' },
 ];
 
@@ -23,15 +23,15 @@ export function Footer() {
         borderTopColor: 'rgba(195, 198, 215, 0.3)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
+      <div className="page-shell flex flex-col items-center gap-10">
         <div className="flex flex-col items-center space-y-4">
           <span
             className="font-bold text-2xl tracking-tighter"
-            style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
+            style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}
           >
-            OpenClaw Foundry
+            Agent Foundry
           </span>
-          <div className="flex gap-6 text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>
+          <div className="flex gap-6 text-sm font-semibold" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
             {FOOTER_LINKS.map(link => (
               <Link
                 key={link.href}
@@ -47,8 +47,8 @@ export function Footer() {
 
         <div className="w-full h-px" style={{ background: 'rgba(195, 198, 215, 0.3)' }} />
 
-        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Manrope, sans-serif' }}>
-          <div className="font-medium">OpenClaw Foundry v4.0</div>
+        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <div className="font-medium">Agent Foundry v4.0</div>
           <div className="flex items-center gap-4">
             <span>{t('footer.privacy')}</span>
             <span>{t('footer.terms')}</span>

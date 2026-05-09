@@ -1,13 +1,17 @@
 {
-  "name": "openclaw-foundry",
+  "name": "agent-foundry",
   "version": "4.0.0",
-  "description": "AI-driven universal Agent deployment — 13 platforms, one Blueprint",
+  "description": "Agent Foundry — workshop-ready AI Agent skill marketplace. 37k+ vetted skills, S/A/B/C ratings, deploy anywhere.",
   "type": "module",
   "scripts": {
     "ocf": "tsx src/cli.ts",
     "server": "tsx src/server.ts",
-    "build": "tsc",
-    "dev": "tsx watch src/server.ts"
+    "design:sync-source": "node scripts/sync-design-source.mjs",
+    "design:verify-source": "node scripts/sync-design-source.mjs --check",
+    "design:check": "node scripts/md8-design-hook.mjs",
+    "build": "tsc && npm run design:verify-source && npm run design:check",
+    "dev": "tsx watch src/server.ts",
+    "workshop:start": "cd web && npm install --silent && npm run dev"
   },
   "bin": {
     "ocf": "./dist/cli.js"
@@ -15,6 +19,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "@inquirer/prompts": "^7.0.0",
+    "better-sqlite3": "^12.8.0",
     "chalk": "^5.4.0",
     "commander": "^13.0.0",
     "execa": "^9.5.0",
@@ -23,6 +28,7 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.0",
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
