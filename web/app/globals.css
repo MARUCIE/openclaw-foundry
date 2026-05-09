@@ -49,7 +49,62 @@
   --on-error-container: #93000a;
   --outline: #737686;
   --outline-variant: #c3c6d7;
+
+  /* ── Agent Foundry typography scale (T2 unified tokens, 2026-05-09) ── */
+  --af-fs-micro: 9px;
+  --af-fs-meta: 10px;
+  --af-fs-caption: 12px;
+  --af-fs-body: 14px;
+  --af-fs-body-lg: 16px;
+  --af-fs-eyebrow: 13px;
+  --af-fs-h3: 20px;
+  --af-fs-h2: 28px;
+  --af-fs-h1: clamp(28px, 4vw, 42px);
+
+  --af-tracking-uppercase: 0.18em;
+
+  /* ── Agent Foundry net-new color tokens (T2 + T6, 2026-05-09) ── */
+  --af-code-bg-dark: #0f111a;
+  --af-code-text: #82aaff;
+  --af-grey-mid: #616161;
+  --af-grey-soft: #f5f5f5;
+  /* T6 sweep: per-tag bg/fg pairs so JS/TS consumers reference vars only */
+  --af-amber-bg: #fef3c7;   --af-amber-fg: #92400e;
+  --af-pink-bg:  #fce7f3;   --af-pink-fg:  #9d174d;
+  --af-violet-bg:#ede9fe;   --af-violet-fg:#5b21b6;
+  --af-yellow-bg:#fef9c3;   --af-yellow-fg:#854d0e;
+  --af-red-bg:   #fee2e2;   --af-red-fg:   #991b1b;
+  --af-emerald-bg:#dcfce7;  --af-emerald-fg:#166534;
+  --af-orange-bg:#fff3e0;   --af-orange-fg:#e65100;
+  --af-cream-bg: #fff8e1;   --af-cream-fg: #f57f17;
+  --af-error-soft-bg:#ffdad6; --af-error-soft-fg:#93000a;
+  --af-mint-bg:  #c3e88d;
+  /* Brand mid-tones used in gradients */
+  --af-brand-bright: #497cff;
+  --af-brand-deep-mix: #1a1c2e;
 }
+
+/* ── Agent Foundry semantic tag utilities (T6 sweep, 2026-05-09) ──
+   Centralizes badge color-pairs so .tsx consumers stay free of inline hex.
+   Add new variants here, then reference via className="tag-<variant>".         */
+.tag-amber  { background: #fef3c7; color: #92400e; }
+.tag-pink   { background: #fce7f3; color: #9d174d; }
+.tag-violet { background: #ede9fe; color: #5b21b6; }
+.tag-yellow { background: #fef9c3; color: #854d0e; }
+.tag-red    { background: #fee2e2; color: #991b1b; }
+.tag-emerald{ background: #dcfce7; color: #166534; }
+.tag-orange { background: #fff3e0; color: #e65100; }
+.tag-cream  { background: #fff8e1; color: #f57f17; }
+.tag-mint   { background: #c3e88d; color: #0f766e; }
+.tag-error-soft { background: #ffdad6; color: #93000a; }
+
+/* ── Brand gradient utilities (T6 sweep) ── */
+/* All brand gradients use the canonical 135° angle. Use-site overrides angle
+   inline if a horizontal sweep is genuinely needed (tracked as design debt). */
+.gradient-brand-cool { background: linear-gradient(135deg, var(--primary), var(--surface-tint)); }
+.gradient-brand-bright { background: linear-gradient(135deg, var(--af-brand-bright), var(--surface-tint)); }
+.gradient-brand-deep { background: linear-gradient(135deg, var(--primary), var(--af-brand-deep-mix)); }
+.gradient-brand-multi { background: linear-gradient(135deg, var(--primary), var(--secondary), var(--surface-tint)); }
 
 /* ═══ Base Typography ═══ */
 html {
@@ -63,7 +118,12 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Manrope', system-ui, sans-serif;
+  font-family: inherit;
+}
+
+.page-shell {
+  width: min(1680px, calc(100vw - 48px));
+  margin-inline: auto;
 }
 
 .material-symbols-outlined {
@@ -208,6 +268,7 @@ p, span, td, th, li, label {
 /* ═══ Responsive ═══ */
 @media (max-width: 768px) {
   .desktop-nav { display: none; }
+  .page-shell { width: calc(100vw - 32px); }
 }
 
 /* ═══ Selection ═══ */

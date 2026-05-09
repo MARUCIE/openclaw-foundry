@@ -11,8 +11,8 @@ export function EmptyState({ icon, title, description }: StateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 rounded-xl" style={{ background: 'var(--surface-container-lowest)' }}>
       <span className="material-symbols-outlined text-5xl mb-4" style={{ color: 'var(--outline)' }}>{icon}</span>
-      <p className="text-sm font-medium" style={{ color: 'var(--on-surface-variant)' }}>{title}</p>
-      {description && <p className="text-xs mt-1" style={{ color: 'var(--outline)' }}>{description}</p>}
+      <p className="text-sm font-medium text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{title}</p>
+      {description && <p className="text-xs mt-1 text-pretty" style={{ color: 'var(--outline)' }}>{description}</p>}
     </div>
   );
 }
@@ -20,9 +20,9 @@ export function EmptyState({ icon, title, description }: StateProps) {
 export function ErrorState({ icon, title, description, action }: StateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16 rounded-xl" style={{ background: 'var(--surface-container-lowest)', border: '1px dashed var(--error, #dc2626)' }}>
-      <span className="material-symbols-outlined text-4xl mb-3" style={{ color: 'var(--error, #dc2626)' }}>{icon}</span>
-      <p className="text-sm font-bold mb-1" style={{ color: 'var(--on-surface)' }}>{title}</p>
-      {description && <p className="text-xs mb-4" style={{ color: 'var(--on-surface-variant)' }}>{description}</p>}
+      <span className="material-symbols-outlined text-4xl mb-3" style={{ color: 'var(--error)' }}>{icon}</span>
+      <p className="text-sm font-bold mb-1 text-pretty" style={{ color: 'var(--on-surface)' }}>{title}</p>
+      {description && <p className="text-xs mb-4 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{description}</p>}
       {action && (
         <button
           onClick={action.onClick}
