@@ -7,12 +7,11 @@ import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 // T4 IA restructure: home IS the Agent Capability Marketplace, so /explore/skills
 // is dropped from the visible nav (route still alive as alias for old links).
 const NAV_ITEMS = [
-  { href: '/', key: 'nav.home', fallback: 'Home' },
-  { href: '/packs', key: 'nav.packs', fallback: 'Packs' },
+  { href: '/', key: 'nav.home' },
+  { href: '/packs', key: 'nav.packs' },
   { href: '/api-docs', key: 'nav.api' },
   { href: '/arena', key: 'nav.arena' },
   { href: '/explore/platforms', key: 'nav.deploy' },
-  { href: '/about', key: 'nav.about', fallback: 'About' },
 ];
 
 export function TopNav() {
@@ -48,14 +47,14 @@ export function TopNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="nav-link font-semibold tracking-tight text-sm py-1"
+                className="nav-link font-medium tracking-tight text-[13px] py-1"
                 data-active={isActive ? 'true' : undefined}
                 style={{
                   fontFamily: 'Inter, system-ui, sans-serif',
                   color: isActive ? 'var(--surface-tint)' : 'var(--on-surface-variant)',
                 }}
               >
-                {t(item.key) || (item as any).fallback || item.key}
+                {t(item.key)}
               </Link>
             );
           })}

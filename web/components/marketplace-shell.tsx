@@ -391,11 +391,18 @@ export function MarketplaceShell() {
 
   return (
     <div className="page-shell py-12 space-y-12">
-      <div className="text-center space-y-6 max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
+      <div className="text-center space-y-5 max-w-3xl mx-auto">
+        <h1
+          className="font-black tracking-tight text-balance"
+          style={{
+            color: 'var(--on-surface)',
+            fontSize: 'var(--af-fs-h1)',
+            lineHeight: 1.1,
+          }}
+        >
           {t('skills.title')}
         </h1>
-        <p className="text-xl font-medium opacity-60 text-pretty">
+        <p className="font-medium opacity-60 text-pretty" style={{ fontSize: 'var(--af-fs-body-lg)' }}>
           {formatNum(data?.total || 0)} {t('skills.subtitle')}
           {syncedAt && <span className="text-[var(--af-fs-meta)] ml-3 uppercase tracking-widest opacity-40">({syncedAt} {t('skills.synced')})</span>}
         </p>

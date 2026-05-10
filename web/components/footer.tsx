@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
 
 const FOOTER_LINKS = [
-  { href: '/about', key: 'footer.about' },
   { href: '/docs', key: 'footer.docs' },
   { href: 'https://github.com/mauricewen/openclaw-foundry', key: null, label: 'GitHub' },
   { href: '/', key: null, label: 'Marketplace' },
