@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "pack": "spellbook-backend-engineer",
+    "source": "https://github.com/kid-sid/claude-spellbook",
+    "adapted_via": "AI-Fleet/configs/spellbook-packs.json"
+  },
+  "memory": {
+    "chunks": 88
+  },
+  "autonomy": {
+    "level": "L1-guided"
+  },
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-remote",
+        "https://mcp.github.com/sse"
+      ]
+    }
+  }
+}
