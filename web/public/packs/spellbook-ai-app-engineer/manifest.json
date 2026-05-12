@@ -1,0 +1,56 @@
+{
+  "pack": "spellbook-ai-app-engineer",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/agentex/SKILL.md",
+      "dst": "skills/spellbook/agentex/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/langgraph/SKILL.md",
+      "dst": "skills/spellbook/langgraph/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/openai-agents/SKILL.md",
+      "dst": "skills/spellbook/openai-agents/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/complex-doc-rag/SKILL.md",
+      "dst": "skills/spellbook/complex-doc-rag/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/promptbase/SKILL.md",
+      "dst": "skills/spellbook/promptbase/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/memory-map/SKILL.md",
+      "dst": "skills/spellbook/memory-map/SKILL.md",
+      "type": "skill"
+    }
+  ]
+}

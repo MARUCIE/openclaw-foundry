@@ -1,0 +1,81 @@
+{
+  "pack": "spellbook-backend-engineer",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/fastapi/SKILL.md",
+      "dst": "skills/spellbook/fastapi/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pydantic/SKILL.md",
+      "dst": "skills/spellbook/pydantic/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/typescript/SKILL.md",
+      "dst": "skills/spellbook/typescript/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/database-design/SKILL.md",
+      "dst": "skills/spellbook/database-design/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/postgresql/SKILL.md",
+      "dst": "skills/spellbook/postgresql/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/mongodb/SKILL.md",
+      "dst": "skills/spellbook/mongodb/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/redis/SKILL.md",
+      "dst": "skills/spellbook/redis/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/sqlalchemy/SKILL.md",
+      "dst": "skills/spellbook/sqlalchemy/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/azure-service-bus/SKILL.md",
+      "dst": "skills/spellbook/azure-service-bus/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/websockets-sse/SKILL.md",
+      "dst": "skills/spellbook/websockets-sse/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "commands/scaffold.md",
+      "dst": "commands/spellbook/scaffold.md",
+      "type": "command"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "pack": "spellbook-test-engineer",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/test-strategy/SKILL.md",
+      "dst": "skills/spellbook/test-strategy/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/unit-testing/SKILL.md",
+      "dst": "skills/spellbook/unit-testing/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/integration-testing/SKILL.md",
+      "dst": "skills/spellbook/integration-testing/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/performance-testing/SKILL.md",
+      "dst": "skills/spellbook/performance-testing/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/solution-testing/SKILL.md",
+      "dst": "skills/spellbook/solution-testing/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/test-coverage-agent.md",
+      "dst": "agents/spellbook/test-coverage-agent.md",
+      "type": "agent"
+    },
+    {
+      "src": "commands/test-gen.md",
+      "dst": "commands/spellbook/test-gen.md",
+      "type": "command"
+    }
+  ]
+}

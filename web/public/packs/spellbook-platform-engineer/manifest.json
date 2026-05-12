@@ -1,0 +1,171 @@
+{
+  "pack": "spellbook-platform-engineer",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/ci-cd/SKILL.md",
+      "dst": "skills/spellbook/ci-cd/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/containerization/SKILL.md",
+      "dst": "skills/spellbook/containerization/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/docker/SKILL.md",
+      "dst": "skills/spellbook/docker/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/deployment-strategies/SKILL.md",
+      "dst": "skills/spellbook/deployment-strategies/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/infrastructure-as-code/SKILL.md",
+      "dst": "skills/spellbook/infrastructure-as-code/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/observability/SKILL.md",
+      "dst": "skills/spellbook/observability/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/incident-response/SKILL.md",
+      "dst": "skills/spellbook/incident-response/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/performance/SKILL.md",
+      "dst": "skills/spellbook/performance/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/microservices/SKILL.md",
+      "dst": "skills/spellbook/microservices/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/event-driven/SKILL.md",
+      "dst": "skills/spellbook/event-driven/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "commands/changelog.md",
+      "dst": "commands/spellbook/changelog.md",
+      "type": "command"
+    },
+    {
+      "src": "lint/go/.golangci.yml",
+      "dst": "configs/lint/spellbook/go/.golangci.yml",
+      "type": "lint"
+    },
+    {
+      "src": "lint/node/.markdownlint.json",
+      "dst": "configs/lint/spellbook/node/.markdownlint.json",
+      "type": "lint"
+    },
+    {
+      "src": "lint/node/.prettierrc",
+      "dst": "configs/lint/spellbook/node/.prettierrc",
+      "type": "lint"
+    },
+    {
+      "src": "lint/node/eslint.config.js",
+      "dst": "configs/lint/spellbook/node/eslint.config.js",
+      "type": "lint"
+    },
+    {
+      "src": "lint/node/package.json",
+      "dst": "configs/lint/spellbook/node/package.json",
+      "type": "lint"
+    },
+    {
+      "src": "lint/rust/clippy.toml",
+      "dst": "configs/lint/spellbook/rust/clippy.toml",
+      "type": "lint"
+    },
+    {
+      "src": "lint/rust/rust-toolchain.toml",
+      "dst": "configs/lint/spellbook/rust/rust-toolchain.toml",
+      "type": "lint"
+    },
+    {
+      "src": "lint/rust/rustfmt.toml",
+      "dst": "configs/lint/spellbook/rust/rustfmt.toml",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/.prettierrc",
+      "dst": "configs/lint/spellbook/svelte/.prettierrc",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/eslint.config.js",
+      "dst": "configs/lint/spellbook/svelte/eslint.config.js",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/package.json",
+      "dst": "configs/lint/spellbook/svelte/package.json",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/svelte.config.js",
+      "dst": "configs/lint/spellbook/svelte/svelte.config.js",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/tsconfig.json",
+      "dst": "configs/lint/spellbook/svelte/tsconfig.json",
+      "type": "lint"
+    },
+    {
+      "src": "lint/svelte/vite.config.ts",
+      "dst": "configs/lint/spellbook/svelte/vite.config.ts",
+      "type": "lint"
+    },
+    {
+      "src": "lint/typescript/.prettierrc",
+      "dst": "configs/lint/spellbook/typescript/.prettierrc",
+      "type": "lint"
+    },
+    {
+      "src": "lint/typescript/eslint.config.js",
+      "dst": "configs/lint/spellbook/typescript/eslint.config.js",
+      "type": "lint"
+    },
+    {
+      "src": "lint/typescript/package.json",
+      "dst": "configs/lint/spellbook/typescript/package.json",
+      "type": "lint"
+    },
+    {
+      "src": "lint/typescript/tsconfig.json",
+      "dst": "configs/lint/spellbook/typescript/tsconfig.json",
+      "type": "lint"
+    }
+  ]
+}

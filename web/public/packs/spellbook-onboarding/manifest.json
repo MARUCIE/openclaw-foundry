@@ -1,0 +1,36 @@
+{
+  "pack": "spellbook-onboarding",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "agents/onboarding-agent.md",
+      "dst": "agents/spellbook/onboarding-agent.md",
+      "type": "agent"
+    },
+    {
+      "src": "commands/prd.md",
+      "dst": "commands/spellbook/prd.md",
+      "type": "command"
+    }
+  ]
+}

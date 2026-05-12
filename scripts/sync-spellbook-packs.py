@@ -3,15 +3,27 @@
 into Agent Foundry `web/public/packs/spellbook-<role>/` + register in
 `web/public/data/packs.json`.
 
-Source of truth: AI-Fleet's spellbook-packs.json defines the 8 role packs
+Source of truth: AI-Fleet's spellbook-packs.json defines 8 role packs
 and what skills/agents/commands/lint each contains. This script generates
-the Agent Foundry pack directory structure (CLAUDE.md, AGENTS.md, install.sh,
-prompts.md, settings.json) for each pack and registers them in the
-marketplace's packs.json.
+each pack as a SELF-CONTAINED bundle:
 
-Why a generator (not 40 hand-written files): regeneration is the documented
-update path. When AI-Fleet's spellbook-packs.json changes (new role,
-upstream upgrade, dedup re-triage), re-run this script to sync.
+  web/public/packs/spellbook-<role>/
+    CLAUDE.md            role config (workspace-level)
+    AGENTS.md            agent matrix
+    prompts.md           command index
+    settings.json        Claude Code settings
+    install.sh           manifest-driven downloader
+    manifest.json        catalog of all artifacts
+    skills/<id>/SKILL.md   ACTUAL skill bodies (copied from spellbook source)
+    agents/<id>.md         ACTUAL agent definitions
+    commands/<id>.md       ACTUAL command bodies
+    lint/<lang>/...        ACTUAL lint configs
+
+install.sh reads manifest.json and curls every artifact into the right
+destination on the user's machine, no AI-Fleet checkout required.
+
+Per-pack duplication is intentional: simpler than cross-pack symlinking,
+total disk cost is ~2MB across all 8 packs.
 
 Usage:
     python3 scripts/sync-spellbook-packs.py [--dry-run]
@@ -21,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
 from pathlib import Path
 from typing import Any
@@ -279,30 +292,199 @@ def render_settings_json(pack_id: str, pack: dict[str, Any]) -> str:
     return json.dumps(settings, indent=2, ensure_ascii=False)
 
 
+def build_manifest(pack_id: str, pack: dict[str, Any]) -> list[dict[str, str]]:
+    """Build manifest entries mapping pack-relative src → user-relative dst.
+
+    User-side destinations follow Claude Code convention:
+      - workspace config: $HOME/.claude/{CLAUDE.md,AGENTS.md,settings.json,prompts.md}
+      - skills:           $HOME/.claude/skills/spellbook/<id>/SKILL.md  (uppercase per AI-Fleet)
+      - agents:           $HOME/.claude/agents/spellbook/<id>.md
+      - commands:         $HOME/.claude/commands/spellbook/<id>.md
+      - lint configs:     $HOME/.claude/configs/lint/spellbook/<lang>/<file>
+    """
+    items: list[dict[str, str]] = []
+    # Workspace-level configs (5 files, all packs)
+    for fname in ("CLAUDE.md", "AGENTS.md", "settings.json", "prompts.md"):
+        items.append({"src": fname, "dst": fname, "type": "config"})
+    # Skills (source: skill.md lowercase → dst: SKILL.md uppercase)
+    for s in pack.get("skills", []):
+        items.append({
+            "src": f"skills/{s}/SKILL.md",
+            "dst": f"skills/spellbook/{s}/SKILL.md",
+            "type": "skill",
+        })
+    # Agents
+    for a in pack.get("agents", []):
+        items.append({
+            "src": f"agents/{a}.md",
+            "dst": f"agents/spellbook/{a}.md",
+            "type": "agent",
+        })
+    # Commands
+    for c in pack.get("commands", []):
+        items.append({
+            "src": f"commands/{c}.md",
+            "dst": f"commands/spellbook/{c}.md",
+            "type": "command",
+        })
+    # Lint (each lang dir has multiple files; we expand at copy time, manifest
+    # uses dir-level entries that install.sh expands)
+    for l in pack.get("lint", []):
+        items.append({
+            "src": f"lint/{l}/",
+            "dst": f"configs/lint/spellbook/{l}/",
+            "type": "lint-dir",
+        })
+    return items
+
+
+def copy_artifacts(target_dir: Path, pack: dict[str, Any], source_root: Path) -> int:
+    """Copy actual skill/agent/command/lint bodies from spellbook source into
+    pack directory. Returns count of files written.
+
+    Source layout:
+      $SOURCE/skills/<id>/skill.md (lowercase) → target/skills/<id>/SKILL.md (uppercase)
+      $SOURCE/.claude/agents/<id>.md           → target/agents/<id>.md
+      $SOURCE/.claude/commands/<id>.md         → target/commands/<id>.md
+      $SOURCE/tools/<lang>/*                   → target/lint/<lang>/*
+    """
+    written = 0
+    for s in pack.get("skills", []):
+        src = source_root / "skills" / s / "skill.md"
+        if not src.exists():
+            print(f"    WARN: missing skill source: {src}", file=sys.stderr)
+            continue
+        dst = target_dir / "skills" / s / "SKILL.md"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        written += 1
+    for a in pack.get("agents", []):
+        src = source_root / ".claude" / "agents" / f"{a}.md"
+        if not src.exists():
+            print(f"    WARN: missing agent source: {src}", file=sys.stderr)
+            continue
+        dst = target_dir / "agents" / f"{a}.md"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        written += 1
+    for c in pack.get("commands", []):
+        src = source_root / ".claude" / "commands" / f"{c}.md"
+        if not src.exists():
+            print(f"    WARN: missing command source: {src}", file=sys.stderr)
+            continue
+        dst = target_dir / "commands" / f"{c}.md"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        written += 1
+    for l in pack.get("lint", []):
+        src_dir = source_root / "tools" / l
+        if not src_dir.is_dir():
+            print(f"    WARN: missing lint dir: {src_dir}", file=sys.stderr)
+            continue
+        dst_dir = target_dir / "lint" / l
+        dst_dir.mkdir(parents=True, exist_ok=True)
+        for src_file in src_dir.iterdir():
+            if src_file.is_file():
+                shutil.copy2(src_file, dst_dir / src_file.name)
+                written += 1
+    return written
+
+
+def render_manifest_json(pack_id: str, manifest_items: list[dict[str, str]],
+                          lint_expansion: dict[str, list[str]]) -> str:
+    """manifest.json — listing every artifact this pack carries with
+    src (pack-relative URL path) and dst (user-relative install path).
+
+    lint-dir entries get expanded to individual files for client simplicity.
+    """
+    expanded: list[dict[str, str]] = []
+    for item in manifest_items:
+        if item["type"] == "lint-dir":
+            lang = item["src"].rstrip("/").split("/")[-1]
+            for fname in lint_expansion.get(lang, []):
+                expanded.append({
+                    "src": f"lint/{lang}/{fname}",
+                    "dst": f"configs/lint/spellbook/{lang}/{fname}",
+                    "type": "lint",
+                })
+        else:
+            expanded.append(item)
+    return json.dumps({
+        "pack": f"spellbook-{pack_id}",
+        "version": "1.0.0",
+        "items": expanded,
+    }, indent=2, ensure_ascii=False)
+
+
 def render_install_sh(pack_id: str) -> str:
-    """install.sh — bootstrap pack into user's $HOME/.claude/."""
+    """install.sh — manifest-driven downloader.
+
+    Reads manifest.json from the pack URL, then curls every item into the
+    user's $HOME/.claude/ tree. No AI-Fleet checkout required — this carries
+    the full bundle.
+    """
+    # Use ascii-only template to dodge unicode-escaping headaches in bash heredocs
     return f"""#!/bin/bash
-# Agent Foundry — Spellbook Job Pack Installer
+# Agent Foundry - Spellbook Job Pack Installer (manifest-driven)
 # Pack: spellbook-{pack_id}
 # Source of truth: AI-Fleet/configs/spellbook-packs.json
 set -euo pipefail
 PACK_ID="spellbook-{pack_id}"
-BASE_URL="https://openclaw-foundry.pages.dev/packs/$PACK_ID"
+# Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
+BASE_URL="${{FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}}/packs/$PACK_ID"
 TARGET_DIR="$HOME/.claude"
-echo "Installing Spellbook Job Pack: $PACK_ID..."
+
+echo "Installing Spellbook Job Pack: $PACK_ID"
+echo "  Source: $BASE_URL"
+echo "  Target: $TARGET_DIR"
+echo ""
+
 mkdir -p "$TARGET_DIR"
-for f in CLAUDE.md AGENTS.md settings.json prompts.md; do
-  echo "  Downloading $f..."
-  curl -sfL "$BASE_URL/$f" -o "$TARGET_DIR/$f"
-done
+
+# Workspace for manifest + TSV
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+MANIFEST="$WORK/manifest.json"
+TSV="$WORK/items.tsv"
+
+echo "  -> Fetching manifest.json"
+curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
+
+# Emit TSV: one (src, dst, type) per line. Single-quoted python script means
+# no f-string interpolation collides with the outer bash f-string.
+python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
+import json, sys
+m = json.load(open(sys.argv[1]))
+for item in m['items']:
+    print(item['src'], item['dst'], item['type'], sep='\\t')
+PYEOF
+
+N=$(wc -l < "$TSV" | tr -d ' ')
+echo "  -> $N artifacts to install"
 echo ""
-echo "Workspace config installed to $TARGET_DIR"
+
+i=0
+while IFS=$'\\t' read -r src dst typ; do
+  i=$((i+1))
+  full_dst="$TARGET_DIR/$dst"
+  mkdir -p "$(dirname "$full_dst")"
+  printf "  [%2d/%d] %-7s %s\\n" "$i" "$N" "$typ" "$dst"
+  curl -sfL "$BASE_URL/$src" -o "$full_dst"
+done < "$TSV"
+
 echo ""
-echo "Optional deeper integration (requires AI-Fleet checkout):"
-echo "  cd /path/to/AI-Fleet"
-echo "  bash scripts/spellbook-install.sh --pack {pack_id}"
+echo "  OK Installed $N artifacts under $TARGET_DIR"
 echo ""
-echo "Done! Restart Claude Code to activate."
+echo "Next steps:"
+echo "  1. Restart Claude Code"
+echo "  2. Skills auto-trigger by description match"
+echo "  3. Agents:   Task(subagent_type=\\"spellbook-<id>\\")"
+echo "  4. Commands: /spellbook:<id>"
+echo ""
+echo "Uninstall: rm -rf \\$HOME/.claude/skills/spellbook \\\\"
+echo "                  \\$HOME/.claude/agents/spellbook \\\\"
+echo "                  \\$HOME/.claude/commands/spellbook \\\\"
+echo "                  \\$HOME/.claude/configs/lint/spellbook"
 """
 
 
@@ -320,8 +502,22 @@ def main() -> int:
     spellbook = json.loads(SPELLBOOK_PACKS_JSON.read_text())
     packs_in = spellbook.get("packs", {})
 
+    if not SPELLBOOK_SOURCE.exists():
+        print(f"ERROR: Spellbook source tree missing: {SPELLBOOK_SOURCE}", file=sys.stderr)
+        print("       Run AI-Fleet's spellbook adoption step first.", file=sys.stderr)
+        return 1
+
+    # Pre-scan: lint dir → list of file names (for manifest expansion)
+    lint_expansion: dict[str, list[str]] = {}
+    for lint_dir in (SPELLBOOK_SOURCE / "tools").iterdir() if (SPELLBOOK_SOURCE / "tools").is_dir() else []:
+        if lint_dir.is_dir() and lint_dir.name not in ("install.sh", "README.md"):
+            lint_expansion[lint_dir.name] = sorted(
+                f.name for f in lint_dir.iterdir() if f.is_file()
+            )
+
     # Generate pack files
-    written = 0
+    pack_count = 0
+    file_count = 0
     for pack_id, pack in packs_in.items():
         if pack_id == "all":
             continue  # super-pack not exposed as Foundry job pack
@@ -331,24 +527,44 @@ def main() -> int:
 
         foundry_id = f"spellbook-{pack_id}"
         target_dir = FOUNDRY_PACKS_DIR / foundry_id
-        files = {
+        manifest_items = build_manifest(pack_id, pack)
+        config_files = {
             "CLAUDE.md": render_claude_md(pack_id, pack),
             "AGENTS.md": render_agents_md(pack_id, pack),
             "prompts.md": render_prompts_md(pack_id, pack),
             "settings.json": render_settings_json(pack_id, pack),
             "install.sh": render_install_sh(pack_id),
+            "manifest.json": render_manifest_json(pack_id, manifest_items, lint_expansion),
         }
+        # Count actual artifacts that will be copied
+        n_skills = len(pack.get("skills", []))
+        n_agents = len(pack.get("agents", []))
+        n_commands = len(pack.get("commands", []))
+        n_lint = sum(len(lint_expansion.get(l, [])) for l in pack.get("lint", []))
+        n_artifacts = n_skills + n_agents + n_commands + n_lint
+        total_files = len(config_files) + n_artifacts
+
         if args.dry_run:
-            print(f"  DRY-RUN would write {target_dir}/ (5 files)")
-            written += 5
+            print(f"  DRY-RUN {foundry_id}/  config={len(config_files)} + artifacts={n_artifacts} "
+                  f"(skills={n_skills} agents={n_agents} cmds={n_commands} lint={n_lint})")
+            pack_count += 1
+            file_count += total_files
             continue
+
+        # Wipe existing pack dir to avoid stale subtrees from prior generator
+        if target_dir.exists():
+            shutil.rmtree(target_dir)
         target_dir.mkdir(parents=True, exist_ok=True)
-        for fname, content in files.items():
+        for fname, content in config_files.items():
             (target_dir / fname).write_text(content)
             if fname == "install.sh":
                 (target_dir / fname).chmod(0o755)
-        print(f"  wrote {foundry_id}/ (5 files)")
-        written += 5
+        n_copied = copy_artifacts(target_dir, pack, SPELLBOOK_SOURCE)
+        actual_total = len(config_files) + n_copied
+        print(f"  wrote {foundry_id}/  config={len(config_files)} artifacts={n_copied} "
+              f"total={actual_total} files")
+        pack_count += 1
+        file_count += actual_total
 
     # Update packs.json — register/refresh spellbook entries
     if FOUNDRY_PACKS_JSON.exists():
@@ -371,6 +587,10 @@ def main() -> int:
         if pack_id == "all" or pack_id not in PACK_META:
             continue
         meta = PACK_META[pack_id]
+        n_skills = len(pack.get("skills", []))
+        n_agents = len(pack.get("agents", []))
+        n_commands = len(pack.get("commands", []))
+        n_lint = sum(len(lint_expansion.get(l, [])) for l in pack.get("lint", []))
         new_entries.append({
             "id": f"spellbook-{pack_id}",
             "name": NAME_EN_MAP[pack_id],
@@ -382,8 +602,15 @@ def main() -> int:
             "line": meta["line"],
             "lineZh": meta["lineZh"],
             "layerIds": meta["layerIds"],
-            "version": "1.0.0",
-            "files": ["CLAUDE.md", "AGENTS.md", "settings.json", "prompts.md", "install.sh"],
+            "version": "1.1.0",
+            "files": ["CLAUDE.md", "AGENTS.md", "settings.json", "prompts.md",
+                      "install.sh", "manifest.json"],
+            "artifacts": {
+                "skills": n_skills,
+                "agents": n_agents,
+                "commands": n_commands,
+                "lint_files": n_lint,
+            },
         })
 
     packs_list.extend(new_entries)
@@ -395,7 +622,9 @@ def main() -> int:
         FOUNDRY_PACKS_JSON.write_text(json.dumps(output, indent=2, ensure_ascii=False))
         print(f"  updated packs.json (+{len(new_entries)} spellbook entries)")
 
-    print(f"\nDone. {written} pack files {'would be ' if args.dry_run else ''}written. {len(new_entries)} pack entries {'would be ' if args.dry_run else ''}registered.")
+    verb = "would be " if args.dry_run else ""
+    print(f"\nDone. {pack_count} packs × {file_count} total files {verb}written. "
+          f"{len(new_entries)} pack entries {verb}registered.")
     return 0
 
 

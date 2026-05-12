@@ -1,0 +1,76 @@
+{
+  "pack": "spellbook-security-auditor",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/security/SKILL.md",
+      "dst": "skills/spellbook/security/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/aws/SKILL.md",
+      "dst": "skills/spellbook/aws/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/containerization/SKILL.md",
+      "dst": "skills/spellbook/containerization/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/observability/SKILL.md",
+      "dst": "skills/spellbook/observability/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/security-auditor.md",
+      "dst": "agents/spellbook/security-auditor.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/dependency-auditor.md",
+      "dst": "agents/spellbook/dependency-auditor.md",
+      "type": "agent"
+    },
+    {
+      "src": "commands/security-scan.md",
+      "dst": "commands/spellbook/security-scan.md",
+      "type": "command"
+    },
+    {
+      "src": "commands/deploy-check.md",
+      "dst": "commands/spellbook/deploy-check.md",
+      "type": "command"
+    },
+    {
+      "src": "lint/python/pyproject.toml",
+      "dst": "configs/lint/spellbook/python/pyproject.toml",
+      "type": "lint"
+    },
+    {
+      "src": "lint/python/requirements-dev.txt",
+      "dst": "configs/lint/spellbook/python/requirements-dev.txt",
+      "type": "lint"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "pack": "spellbook-code-reviewer",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/coding-standards/SKILL.md",
+      "dst": "skills/spellbook/coding-standards/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/api-design/SKILL.md",
+      "dst": "skills/spellbook/api-design/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/complex-doc-rag/SKILL.md",
+      "dst": "skills/spellbook/complex-doc-rag/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/system-design/SKILL.md",
+      "dst": "skills/spellbook/system-design/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/caching/SKILL.md",
+      "dst": "skills/spellbook/caching/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/code-reviewer.md",
+      "dst": "agents/spellbook/code-reviewer.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/code-reviewer-spec.md",
+      "dst": "agents/spellbook/code-reviewer-spec.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/code-reviewer-quality.md",
+      "dst": "agents/spellbook/code-reviewer-quality.md",
+      "type": "agent"
+    },
+    {
+      "src": "commands/review.md",
+      "dst": "commands/spellbook/review.md",
+      "type": "command"
+    },
+    {
+      "src": "commands/explain.md",
+      "dst": "commands/spellbook/explain.md",
+      "type": "command"
+    },
+    {
+      "src": "commands/refactor.md",
+      "dst": "commands/spellbook/refactor.md",
+      "type": "command"
+    },
+    {
+      "src": "commands/adr.md",
+      "dst": "commands/spellbook/adr.md",
+      "type": "command"
+    }
+  ]
+}

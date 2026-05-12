@@ -267,14 +267,21 @@
         "line-engineering",
         "role-spellbook-cr"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 5,
+        "agents": 3,
+        "commands": 4,
+        "lint_files": 0
+      }
     },
     {
       "id": "spellbook-security-auditor",
@@ -291,14 +298,21 @@
         "line-engineering",
         "role-spellbook-sec"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 4,
+        "agents": 2,
+        "commands": 2,
+        "lint_files": 2
+      }
     },
     {
       "id": "spellbook-test-engineer",
@@ -315,14 +329,21 @@
         "line-engineering",
         "role-spellbook-test"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 5,
+        "agents": 1,
+        "commands": 1,
+        "lint_files": 0
+      }
     },
     {
       "id": "spellbook-platform-engineer",
@@ -339,14 +360,21 @@
         "line-engineering",
         "role-spellbook-platform"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 10,
+        "agents": 0,
+        "commands": 1,
+        "lint_files": 18
+      }
     },
     {
       "id": "spellbook-backend-engineer",
@@ -363,14 +391,21 @@
         "line-engineering",
         "role-spellbook-backend"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 10,
+        "agents": 0,
+        "commands": 1,
+        "lint_files": 0
+      }
     },
     {
       "id": "spellbook-frontend-engineer",
@@ -387,14 +422,21 @@
         "line-engineering",
         "role-spellbook-frontend"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 3,
+        "agents": 0,
+        "commands": 0,
+        "lint_files": 14
+      }
     },
     {
       "id": "spellbook-ai-app-engineer",
@@ -411,14 +453,21 @@
         "line-data-ai",
         "role-spellbook-ai"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 6,
+        "agents": 0,
+        "commands": 0,
+        "lint_files": 0
+      }
     },
     {
       "id": "spellbook-onboarding",
@@ -435,14 +484,21 @@
         "line-product",
         "role-spellbook-onboard"
       ],
-      "version": "1.0.0",
+      "version": "1.1.0",
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 0,
+        "agents": 1,
+        "commands": 1,
+        "lint_files": 0
+      }
     }
   ]
 }

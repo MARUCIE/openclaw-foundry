@@ -1,22 +1,61 @@
 #!/bin/bash
-# Agent Foundry — Spellbook Job Pack Installer
+# Agent Foundry - Spellbook Job Pack Installer (manifest-driven)
 # Pack: spellbook-frontend-engineer
 # Source of truth: AI-Fleet/configs/spellbook-packs.json
 set -euo pipefail
 PACK_ID="spellbook-frontend-engineer"
-BASE_URL="https://openclaw-foundry.pages.dev/packs/$PACK_ID"
+# Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
+BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
 TARGET_DIR="$HOME/.claude"
-echo "Installing Spellbook Job Pack: $PACK_ID..."
+
+echo "Installing Spellbook Job Pack: $PACK_ID"
+echo "  Source: $BASE_URL"
+echo "  Target: $TARGET_DIR"
+echo ""
+
 mkdir -p "$TARGET_DIR"
-for f in CLAUDE.md AGENTS.md settings.json prompts.md; do
-  echo "  Downloading $f..."
-  curl -sfL "$BASE_URL/$f" -o "$TARGET_DIR/$f"
-done
+
+# Workspace for manifest + TSV
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+MANIFEST="$WORK/manifest.json"
+TSV="$WORK/items.tsv"
+
+echo "  -> Fetching manifest.json"
+curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
+
+# Emit TSV: one (src, dst, type) per line. Single-quoted python script means
+# no f-string interpolation collides with the outer bash f-string.
+python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
+import json, sys
+m = json.load(open(sys.argv[1]))
+for item in m['items']:
+    print(item['src'], item['dst'], item['type'], sep='\t')
+PYEOF
+
+N=$(wc -l < "$TSV" | tr -d ' ')
+echo "  -> $N artifacts to install"
 echo ""
-echo "Workspace config installed to $TARGET_DIR"
+
+i=0
+while IFS=$'\t' read -r src dst typ; do
+  i=$((i+1))
+  full_dst="$TARGET_DIR/$dst"
+  mkdir -p "$(dirname "$full_dst")"
+  printf "  [%2d/%d] %-7s %s\n" "$i" "$N" "$typ" "$dst"
+  curl -sfL "$BASE_URL/$src" -o "$full_dst"
+done < "$TSV"
+
 echo ""
-echo "Optional deeper integration (requires AI-Fleet checkout):"
-echo "  cd /path/to/AI-Fleet"
-echo "  bash scripts/spellbook-install.sh --pack frontend-engineer"
+echo "  OK Installed $N artifacts under $TARGET_DIR"
 echo ""
-echo "Done! Restart Claude Code to activate."
+echo "Next steps:"
+echo "  1. Restart Claude Code"
+echo "  2. Skills auto-trigger by description match"
+echo "  3. Agents:   Task(subagent_type=\"spellbook-<id>\")"
+echo "  4. Commands: /spellbook:<id>"
+echo ""
+echo "Uninstall: rm -rf \$HOME/.claude/skills/spellbook \\"
+echo "                  \$HOME/.claude/agents/spellbook \\"
+echo "                  \$HOME/.claude/commands/spellbook \\"
+echo "                  \$HOME/.claude/configs/lint/spellbook"
