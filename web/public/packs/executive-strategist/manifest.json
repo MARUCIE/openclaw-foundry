@@ -1,0 +1,96 @@
+{
+  "pack": "executive-strategist",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/swot-analysis/SKILL.md",
+      "dst": "skills/strategy/swot-analysis/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pestle-analysis/SKILL.md",
+      "dst": "skills/strategy/pestle-analysis/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/porters-five-forces/SKILL.md",
+      "dst": "skills/strategy/porters-five-forces/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/business-model/SKILL.md",
+      "dst": "skills/strategy/business-model/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/lean-canvas/SKILL.md",
+      "dst": "skills/strategy/lean-canvas/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/value-proposition/SKILL.md",
+      "dst": "skills/strategy/value-proposition/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/ansoff-matrix/SKILL.md",
+      "dst": "skills/strategy/ansoff-matrix/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/product-strategy/SKILL.md",
+      "dst": "skills/strategy/product-strategy/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-buffett.md",
+      "dst": "agents/advisor-buffett.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-munger.md",
+      "dst": "agents/advisor-munger.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-drucker.md",
+      "dst": "agents/advisor-drucker.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-meadows.md",
+      "dst": "agents/advisor-meadows.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-taleb.md",
+      "dst": "agents/advisor-taleb.md",
+      "type": "agent"
+    },
+    {
+      "src": "references/cognitive-skeleton.md",
+      "dst": "references/cognitive-skeleton.md",
+      "type": "reference"
+    }
+  ]
+}

@@ -499,6 +499,36 @@
         "commands": 1,
         "lint_files": 0
       }
+    },
+    {
+      "id": "executive-strategist",
+      "name": "Executive Strategist",
+      "nameZh": "高管战略顾问",
+      "description": "Executive strategic thinking workspace: 8 frameworks + 5 advisor lenses + 211-model cognitive skeleton.",
+      "descriptionZh": "高管战略思考工作台：8 个分析框架 + 5 位顾问导师视角 + 211 心智模型索引。",
+      "icon": "insights",
+      "color": "#1E3A8A",
+      "line": "strategy",
+      "lineZh": "战略决策线",
+      "layerIds": [
+        "universal",
+        "line-strategy",
+        "role-executive-strategist"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 5,
+        "references": 1
+      }
     }
   ]
 }

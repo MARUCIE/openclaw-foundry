@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "pack": "executive-strategist",
+    "source": "AI-Fleet native (skills/shared/ + .claude/agents/)",
+    "audience": "executive / strategist / investor"
+  },
+  "memory": {
+    "chunks": 96
+  },
+  "autonomy": {
+    "level": "L2-counselor"
+  },
+  "mcpServers": {}
+}
