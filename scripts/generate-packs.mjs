@@ -1,212 +1,23 @@
 #!/usr/bin/env node
 /**
- * generate-packs.mjs — Build-time pack generation script
- *
- * Reads seed-layers.sql + seed-packs-v2.sql, merges layers per pack,
- * outputs 10 x 5 = 50 static files + packs.json to web/public/packs/
- *
- * Usage: node scripts/generate-packs.mjs
+ * generate-packs.mjs — Build-time pack generation script (v4.0 JSON-driven)
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const WORKER_SRC = join(ROOT, 'worker', 'src');
+const DATA_DIR = join(ROOT, 'data', 'job-packs');
 const PUBLIC_PACKS = join(ROOT, 'web', 'public', 'packs');
 const PUBLIC_DATA = join(ROOT, 'web', 'public', 'data');
 const SITE_URL = 'https://openclaw-foundry.pages.dev';
 
-// ============================================================
-// SQL Parser: extract INSERT values from seed files
-// ============================================================
-
-/**
- * Parse pack_layers from seed-layers.sql
- * Each INSERT has: (id, type, name, name_zh, sort_order, content_claude_md, content_agents_md, content_settings, content_prompts_md)
- */
-function parseLayers(sql) {
-  const layers = new Map();
-
-  // Match each INSERT OR REPLACE statement
-  const insertRegex = /INSERT OR REPLACE INTO pack_layers[^V]*?VALUES\s*\(\s*'([^']+)',\s*'([^']+)',\s*'([^']*)',\s*'([^']*)',\s*(\d+),\s*--\s*content_claude_md\s*'([\s\S]*?)',\s*--\s*content_agents_md\s*'([\s\S]*?)',\s*--\s*content_settings[^']*'([\s\S]*?)',\s*--\s*content_prompts_md[^']*'([\s\S]*?)'\s*\)/g;
-
-  // Simpler approach: parse SQL manually by splitting on INSERT statements
-  const insertBlocks = sql.split(/INSERT OR REPLACE INTO pack_layers/);
-
-  for (const block of insertBlocks) {
-    if (!block.includes('VALUES')) continue;
-
-    // Extract the VALUES portion
-    const valuesMatch = block.match(/VALUES\s*\(([\s\S]+)\)\s*;/);
-    if (!valuesMatch) continue;
-
-    const valuesStr = valuesMatch[1];
-
-    // Parse SQL string values - handle escaped single quotes
-    const values = parseSqlValues(valuesStr);
-    if (values.length < 9) continue;
-
-    const [id, type, name, nameZh, sortOrder, claudeMd, agentsMd, settings, promptsMd] = values;
-
-    layers.set(id, {
-      id,
-      type,
-      name,
-      name_zh: nameZh,
-      sort_order: parseInt(sortOrder) || 0,
-      content_claude_md: claudeMd,
-      content_agents_md: agentsMd,
-      content_settings: settings,
-      content_prompts_md: promptsMd,
-    });
-  }
-
-  return layers;
-}
-
-/**
- * Parse config_packs from seed-packs-v2.sql
- * Each INSERT has: (id, name, name_zh, description, description_zh, icon, color, line, line_zh, layer_ids, version)
- */
-function parsePacks(sql) {
-  const packs = [];
-
-  const insertBlocks = sql.split(/INSERT OR REPLACE INTO config_packs/);
-
-  for (const block of insertBlocks) {
-    if (!block.includes('VALUES')) continue;
-
-    const valuesMatch = block.match(/VALUES\s*\(([\s\S]+)\)\s*;/);
-    if (!valuesMatch) continue;
-
-    const values = parseSqlValues(valuesMatch[1]);
-    if (values.length < 11) continue;
-
-    const [id, name, nameZh, desc, descZh, icon, color, line, lineZh, layerIdsStr, version] = values;
-
-    packs.push({
-      id,
-      name,
-      name_zh: nameZh,
-      description: desc,
-      description_zh: descZh,
-      icon,
-      color,
-      line,
-      line_zh: lineZh,
-      layer_ids: JSON.parse(layerIdsStr),
-      version,
-    });
-  }
-
-  return packs;
-}
-
-/**
- * Parse SQL VALUES string into array of values.
- * Handles: 'string with ''escaped'' quotes', numbers, JSON strings
- */
-function parseSqlValues(str) {
-  const values = [];
-  let i = 0;
-  const s = str.trim();
-
-  while (i < s.length) {
-    // Skip whitespace and commas
-    while (i < s.length && (s[i] === ' ' || s[i] === '\n' || s[i] === '\r' || s[i] === '\t' || s[i] === ',')) i++;
-    if (i >= s.length) break;
-
-    // Skip SQL comments (-- ...)
-    if (s[i] === '-' && s[i + 1] === '-') {
-      while (i < s.length && s[i] !== '\n') i++;
-      continue;
-    }
-
-    if (s[i] === "'") {
-      // String value
-      i++; // skip opening quote
-      let val = '';
-      while (i < s.length) {
-        if (s[i] === "'" && s[i + 1] === "'") {
-          val += "'";
-          i += 2;
-        } else if (s[i] === "'") {
-          i++; // skip closing quote
-          break;
-        } else {
-          val += s[i];
-          i++;
-        }
-      }
-      values.push(val);
-    } else if (s[i] >= '0' && s[i] <= '9') {
-      // Number value
-      let val = '';
-      while (i < s.length && s[i] >= '0' && s[i] <= '9') {
-        val += s[i];
-        i++;
-      }
-      values.push(val);
-    }
-  }
-
-  return values;
-}
-
-// ============================================================
-// Layer Merger: pure function, no side effects
-// ============================================================
-
-/**
- * Merge layers for a pack. Returns the 5 file contents.
- */
-function mergeLayers(pack, layers) {
-  const orderedLayers = pack.layer_ids.map(id => {
-    const layer = layers.get(id);
-    if (!layer) throw new Error(`Layer not found: ${id} (pack: ${pack.id})`);
-    return layer;
-  });
-
-  // CLAUDE.md: string concatenation (L0 + L1 + L2)
-  const claudeMd = orderedLayers
-    .map(l => l.content_claude_md)
-    .filter(Boolean)
-    .join('\n\n---\n\n');
-
-  // AGENTS.md: string concatenation
-  const agentsMd = orderedLayers
-    .map(l => l.content_agents_md)
-    .filter(Boolean)
-    .join('\n\n---\n\n');
-
-  // settings.json: deep merge (later layers override earlier)
-  const mergedSettings = orderedLayers.reduce((acc, l) => {
-    try {
-      const parsed = JSON.parse(l.content_settings || '{}');
-      return deepMerge(acc, parsed);
-    } catch {
-      return acc;
-    }
-  }, {});
-
-  // prompts.md: role-specific only (last layer)
-  const promptsMd = orderedLayers.at(-1)?.content_prompts_md || '';
-
-  // install.sh: template
-  const installSh = generateInstallScript(pack.id);
-
-  return { claudeMd, agentsMd, settings: mergedSettings, promptsMd, installSh };
-}
-
-/**
- * Deep merge two objects. Arrays are unioned (for MCP servers).
- */
 function deepMerge(target, source) {
+  if (!source) return target;
+  if (typeof source !== 'object' || Array.isArray(source)) return source;
   const result = { ...target };
-
   for (const key of Object.keys(source)) {
     if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
       result[key] = deepMerge(result[key] || {}, source[key]);
@@ -214,153 +25,110 @@ function deepMerge(target, source) {
       result[key] = source[key];
     }
   }
-
   return result;
 }
 
-/**
- * Generate install.sh for a pack
- */
+function mergeLayers(pack, layersMap) {
+  const orderedLayers = pack.layerIds.map(id => {
+    const layer = layersMap.get(id);
+    if (!layer) throw new Error(`Layer not found: ${id} (pack: ${pack.id})`);
+    return layer;
+  });
+
+  const claudeMd = orderedLayers.map(l => l.content.claudeMd).filter(Boolean).join('\n\n---\n\n');
+  const agentsMd = orderedLayers.map(l => l.content.agentsMd).filter(Boolean).join('\n\n---\n\n');
+  const settings = orderedLayers.reduce((acc, l) => deepMerge(acc, l.content.settingsJson || {}), {});
+  const promptsMd = orderedLayers.map(l => l.content.promptsMd).filter(Boolean).join('\n\n---\n\n');
+
+  return { claudeMd, agentsMd, settings, promptsMd };
+}
+
 function generateInstallScript(packId) {
+  // Use escaped dollar signs for literal shell variables
   return `#!/bin/bash
-# OpenClaw Foundry — Job Pack Installer
+# OpenClaw Foundry — Job Pack Installer (v4.0)
 # Pack: ${packId}
-# Usage: curl -sL ${SITE_URL}/packs/${packId}/install.sh | bash
-
 set -euo pipefail
-
 PACK_ID="${packId}"
-BASE_URL="${SITE_URL}/packs/\${PACK_ID}"
-TARGET_DIR="\${HOME}/.claude"
-
-echo "Installing OpenClaw Job Pack: \${PACK_ID}..."
-echo ""
-
-# Create target directory
-mkdir -p "\${TARGET_DIR}"
-
-# Download files
-echo "  Downloading CLAUDE.md..."
-curl -sfL "\${BASE_URL}/CLAUDE.md" -o "\${TARGET_DIR}/CLAUDE.md"
-
-echo "  Downloading AGENTS.md..."
-curl -sfL "\${BASE_URL}/AGENTS.md" -o "\${TARGET_DIR}/AGENTS.md"
-
-echo "  Downloading settings.json..."
-curl -sfL "\${BASE_URL}/settings.json" -o "\${TARGET_DIR}/settings.json"
-
-echo "  Downloading prompts.md..."
-curl -sfL "\${BASE_URL}/prompts.md" -o "\${TARGET_DIR}/prompts.md"
-
-echo ""
-echo "Done! Pack '\${PACK_ID}' installed to \${TARGET_DIR}/"
-echo ""
-echo "Files installed:"
-echo "  \${TARGET_DIR}/CLAUDE.md      — AI agent configuration"
-echo "  \${TARGET_DIR}/AGENTS.md      — Agent team definitions"
-echo "  \${TARGET_DIR}/settings.json  — MCP server settings"
-echo "  \${TARGET_DIR}/prompts.md     — Starter prompts"
-echo ""
-echo "Restart Claude Code to activate the new configuration."
+BASE_URL="${SITE_URL}/packs/${packId}"
+TARGET_DIR="\$HOME/.claude"
+echo "Installing OpenClaw Job Pack: \$PACK_ID..."
+mkdir -p "\$TARGET_DIR"
+for f in CLAUDE.md AGENTS.md settings.json prompts.md; do
+  echo "  Downloading \$f..."
+  curl -sfL "\$BASE_URL/\$f" -o "\$TARGET_DIR/\$f"
+done
+echo -e "\nDone! Restart Claude Code to activate."
 `;
 }
 
-// ============================================================
-// Main: read SQL, merge, write files
-// ============================================================
-
 function main() {
-  console.log('OpenClaw Foundry — Pack Generator v2.0');
+  console.log('OpenClaw Foundry — Pack Generator v4.0');
   console.log('======================================\n');
 
-  // Read SQL files
-  const layersSql = readFileSync(join(WORKER_SRC, 'seed-layers.sql'), 'utf-8');
-  const packsSql = readFileSync(join(WORKER_SRC, 'seed-packs-v2.sql'), 'utf-8');
-
-  // Parse
-  const layers = parseLayers(layersSql);
-  const packs = parsePacks(packsSql);
-
-  console.log(`Parsed: ${layers.size} layers, ${packs.length} packs\n`);
-
-  if (layers.size === 0) {
-    console.error('ERROR: No layers parsed from seed-layers.sql');
-    process.exit(1);
-  }
-  if (packs.length === 0) {
-    console.error('ERROR: No packs parsed from seed-packs-v2.sql');
-    process.exit(1);
+  const layersMap = new Map();
+  const layerFiles = readdirSync(join(DATA_DIR, 'layers')).filter(f => f.endsWith('.json'));
+  for (const f of layerFiles) {
+    const layer = JSON.parse(readFileSync(join(DATA_DIR, 'layers', f), 'utf-8'));
+    layersMap.set(layer.id, layer);
   }
 
-  // Clean old packs directory
-  if (existsSync(PUBLIC_PACKS)) {
-    // Don't rm -rf, just overwrite
-    console.log('NOTE: Overwriting existing packs directory\n');
-  }
+  const packFiles = readdirSync(join(DATA_DIR, 'packs')).filter(f => f.endsWith('.json'));
+  const packs = packFiles.map(f => JSON.parse(readFileSync(join(DATA_DIR, 'packs', f), 'utf-8')));
+
+  console.log(`Parsed: ${layersMap.size} layers, ${packs.length} packs\n`);
 
   let totalFiles = 0;
   const packListing = [];
 
-  // Generate each pack
   for (const pack of packs) {
-    console.log(`Generating: ${pack.id} (${pack.name_zh})...`);
-
-    const merged = mergeLayers(pack, layers);
+    console.log(`Generating: ${pack.id} (${pack.nameZh})...`);
+    const merged = mergeLayers(pack, layersMap);
     const packDir = join(PUBLIC_PACKS, pack.id);
     mkdirSync(packDir, { recursive: true });
 
-    // Write 5 files
-    writeFileSync(join(packDir, 'CLAUDE.md'), merged.claudeMd, 'utf-8');
-    writeFileSync(join(packDir, 'AGENTS.md'), merged.agentsMd, 'utf-8');
-    writeFileSync(join(packDir, 'settings.json'), JSON.stringify(merged.settings, null, 2), 'utf-8');
-    writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd, 'utf-8');
-    writeFileSync(join(packDir, 'install.sh'), merged.installSh, 'utf-8');
+    writeFileSync(join(packDir, 'CLAUDE.md'), merged.claudeMd);
+    writeFileSync(join(packDir, 'AGENTS.md'), merged.agentsMd);
+    writeFileSync(join(packDir, 'settings.json'), JSON.stringify(merged.settings, null, 2));
+    writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd);
+    writeFileSync(join(packDir, 'install.sh'), generateInstallScript(pack.id));
 
     totalFiles += 5;
-
-    // Add to listing
-    packListing.push({
-      id: pack.id,
-      name: pack.name,
-      nameZh: pack.name_zh,
-      description: pack.description,
-      descriptionZh: pack.description_zh,
-      icon: pack.icon,
-      color: pack.color,
-      line: pack.line,
-      lineZh: pack.line_zh,
-      layerIds: pack.layer_ids,
-      version: pack.version,
-      files: ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'],
-      downloadCount: 0,
-    });
-
-    console.log(`  -> ${packDir}/ (5 files)`);
+    packListing.push({ ...pack, files: ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'] });
   }
 
-  // Group by line for packs.json
-  const lines = [...new Set(packs.map(p => p.line))];
-  const groupedListing = {
-    total: packs.length,
+  // Preserve native packs (spellbook-*, executive-strategist, research-analyst,
+  // design-prototyper, data-analyst, etc.) that are generated by Python sync
+  // scripts and committed to git. generate-packs.mjs owns only the layer-based
+  // packs from data/job-packs/packs/*.json — non-layer entries in packs.json
+  // must survive a regeneration.
+  mkdirSync(PUBLIC_DATA, { recursive: true });
+  const packsJsonPath = join(PUBLIC_DATA, 'packs.json');
+  let preserved = [];
+  if (existsSync(packsJsonPath)) {
+    try {
+      const prior = JSON.parse(readFileSync(packsJsonPath, 'utf-8'));
+      const priorList = (prior && prior.packs) ? prior.packs : (Array.isArray(prior) ? prior : []);
+      const layerIds = new Set(packListing.map(p => p.id));
+      preserved = priorList.filter(p => p && p.id && !layerIds.has(p.id));
+      if (preserved.length > 0) {
+        console.log(`\nPreserving ${preserved.length} non-layer (native) pack(s) in packs.json:`);
+        preserved.forEach(p => console.log(`  - ${p.id}`));
+      }
+    } catch (e) {
+      console.log(`\nWARN: could not read prior packs.json (${e.message}); writing fresh.`);
+    }
+  }
+
+  const finalList = [...packListing, ...preserved];
+  const grouped = {
+    total: finalList.length,
     generated: new Date().toISOString(),
-    lines: lines.map(lineId => {
-      const linePacks = packListing.filter(p => p.line === lineId);
-      return {
-        id: lineId,
-        name: linePacks[0]?.lineZh || lineId,
-        packs: linePacks,
-      };
-    }),
-    packs: packListing,
+    packs: finalList
   };
 
-  // Write packs.json
-  mkdirSync(PUBLIC_DATA, { recursive: true });
-  writeFileSync(join(PUBLIC_DATA, 'packs.json'), JSON.stringify(groupedListing, null, 2), 'utf-8');
-
-  console.log(`\nWrote: ${join(PUBLIC_DATA, 'packs.json')}`);
-  console.log(`\nTotal: ${packs.length} packs, ${totalFiles} files generated.`);
-  console.log('Done.');
+  writeFileSync(packsJsonPath, JSON.stringify(grouped, null, 2));
+  console.log(`\nTotal: ${finalList.length} packs (${packs.length} layer + ${preserved.length} native), ${totalFiles} layer files generated.`);
 }
 
 main();
