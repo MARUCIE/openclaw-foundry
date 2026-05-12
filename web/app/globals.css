@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Typography rightsizing — components still mostly use Tailwind utilities
+   (text-3xl/4xl/5xl etc.). Until per-file token migration completes, tighten
+   the Tailwind defaults globally so headings stop shouting. Marketplace
+   target: calm editorial scale, max ~42px H1 at xl viewport. */
+@theme {
+  --text-2xl: 1.25rem;                       /* 20px (was 24) — matches --af-fs-h3 */
+  --text-2xl--line-height: 1.4;
+  --text-3xl: 1.5rem;                        /* 24px (was 30) */
+  --text-3xl--line-height: 1.35;
+  --text-4xl: 1.75rem;                       /* 28px (was 36) — matches --af-fs-h2 */
+  --text-4xl--line-height: 1.3;
+  --text-5xl: clamp(1.75rem, 4vw, 2.5rem);   /* 28-40px (was 48) */
+  --text-5xl--line-height: 1.2;
+  --text-6xl: clamp(2rem, 5vw, 3rem);        /* 32-48px (was 60) */
+  --text-6xl--line-height: 1.15;
+  --text-7xl: clamp(2.25rem, 6vw, 3.5rem);   /* 36-56px (was 72) */
+  --text-7xl--line-height: 1.1;
+}
+
 /* Azure Foundry Design System — MD3 tokens from Stitch Winner HTML */
 :root {
   --surface: #faf8ff;
