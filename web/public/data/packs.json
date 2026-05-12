@@ -529,6 +529,96 @@
         "agents": 5,
         "references": 1
       }
+    },
+    {
+      "id": "research-analyst",
+      "name": "Research Analyst",
+      "nameZh": "研究分析师",
+      "description": "SOTA scan + competitive analysis + literature synthesis: 8 research-flow skills + 3 advisor lenses.",
+      "descriptionZh": "前沿扫描 + 竞品分析 + 文献综述工作台：8 个研究骨架 skill + 3 位顾问视角。",
+      "icon": "science",
+      "color": "#047857",
+      "line": "research",
+      "lineZh": "研究学习线",
+      "layerIds": [
+        "universal",
+        "line-research",
+        "role-research-analyst"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 3,
+        "references": 0
+      }
+    },
+    {
+      "id": "data-analyst",
+      "name": "Data Analyst",
+      "nameZh": "数据分析师",
+      "description": "Analytics + metrics + dashboards: 8 data skills + 2 advisor lenses for PM-facing analysis.",
+      "descriptionZh": "数据分析 + 指标体系 + Dashboard 工作台：8 个 PM 视角分析 skill + 2 位顾问视角。",
+      "icon": "monitoring",
+      "color": "#B45309",
+      "line": "analyze",
+      "lineZh": "数据洞察线",
+      "layerIds": [
+        "universal",
+        "line-analyze",
+        "role-data-analyst"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 2,
+        "references": 0
+      }
+    },
+    {
+      "id": "design-prototyper",
+      "name": "Design Prototyper",
+      "nameZh": "原型设计师",
+      "description": "Rapid prototyping + visual polish + design review: 8 design skills + 3 advisor lenses.",
+      "descriptionZh": "快速原型 + 视觉打磨 + 设计评议工作台：8 个设计 skill + 3 位顾问视角。",
+      "icon": "brush",
+      "color": "#DB2777",
+      "line": "design",
+      "lineZh": "创意设计线",
+      "layerIds": [
+        "universal",
+        "line-design",
+        "role-design-prototyper"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 3,
+        "references": 0
+      }
     }
   ]
 }

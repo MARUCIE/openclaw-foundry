@@ -58,6 +58,33 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
       { labelKey: 'packs.q2Executive', packId: 'executive-strategist' },
     ],
   },
+  {
+    id: 'research',
+    icon: 'science',
+    labelKey: 'packs.q1Research',
+    descKey: 'packs.q1ResearchDesc',
+    options: [
+      { labelKey: 'packs.q2ResearchAnalyst', packId: 'research-analyst' },
+    ],
+  },
+  {
+    id: 'design',
+    icon: 'brush',
+    labelKey: 'packs.q1Design',
+    descKey: 'packs.q1DesignDesc',
+    options: [
+      { labelKey: 'packs.q2DesignPrototyper', packId: 'design-prototyper' },
+    ],
+  },
+  {
+    id: 'analyze',
+    icon: 'monitoring',
+    labelKey: 'packs.q1Analyze',
+    descKey: 'packs.q1AnalyzeDesc',
+    options: [
+      { labelKey: 'packs.q2DataAnalyst', packId: 'data-analyst' },
+    ],
+  },
 ];
 
 const LINE_TABS = [
@@ -67,6 +94,9 @@ const LINE_TABS = [
   { id: 'product', labelKey: 'packs.tabProduct' },
   { id: 'business', labelKey: 'packs.tabBusiness' },
   { id: 'strategy', labelKey: 'packs.tabStrategy' },
+  { id: 'research', labelKey: 'packs.tabResearch' },
+  { id: 'design', labelKey: 'packs.tabDesign' },
+  { id: 'analyze', labelKey: 'packs.tabAnalyze' },
 ];
 
 export default function PacksPage() {

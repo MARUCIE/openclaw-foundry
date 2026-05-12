@@ -381,6 +381,9 @@
   "packs.tabProduct": "产品线",
   "packs.tabBusiness": "业务线",
   "packs.tabStrategy": "战略决策线",
+  "packs.tabResearch": "研究学习线",
+  "packs.tabDesign": "创意设计线",
+  "packs.tabAnalyze": "数据洞察线",
   "packs.q1Code": "写代码",
   "packs.q1CodeDesc": "前端/后端/测试/架构/运维",
   "packs.q1Data": "做数据",
@@ -391,6 +394,12 @@
   "packs.q1BusinessDesc": "合规/风控/审计",
   "packs.q1Strategy": "定策略",
   "packs.q1StrategyDesc": "高管战略 / 投资决策 / 多角度评议",
+  "packs.q1Research": "做研究",
+  "packs.q1ResearchDesc": "SOTA 扫描 / 竞品分析 / 论文综述",
+  "packs.q1Design": "出原型",
+  "packs.q1DesignDesc": "快速原型 / 视觉打磨 / 设计评议",
+  "packs.q1Analyze": "看数据",
+  "packs.q1AnalyzeDesc": "指标体系 / A/B 解读 / Dashboard",
   "packs.q2Frontend": "前端方向",
   "packs.q2Backend": "后端方向",
   "packs.q2Test": "测试方向",
@@ -401,5 +410,8 @@
   "packs.q2PM": "产品经理",
   "packs.q2Scenario": "场景规划/业务分析",
   "packs.q2Compliance": "合规/风控/审计",
-  "packs.q2Executive": "高管战略顾问"
+  "packs.q2Executive": "高管战略顾问",
+  "packs.q2ResearchAnalyst": "研究分析师",
+  "packs.q2DesignPrototyper": "原型设计师",
+  "packs.q2DataAnalyst": "数据分析师"
 }

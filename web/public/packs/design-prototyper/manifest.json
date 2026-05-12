@@ -1,0 +1,81 @@
+{
+  "pack": "design-prototyper",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/prototype/SKILL.md",
+      "dst": "skills/design/prototype/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/stitch-design-pipeline/SKILL.md",
+      "dst": "skills/design/stitch-design-pipeline/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend-design/SKILL.md",
+      "dst": "skills/design/frontend-design/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/design-system/SKILL.md",
+      "dst": "skills/design/design-system/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/design-taste-frontend/SKILL.md",
+      "dst": "skills/design/design-taste-frontend/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/visual-style/SKILL.md",
+      "dst": "skills/design/visual-style/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/impeccable-design/SKILL.md",
+      "dst": "skills/design/impeccable-design/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/design-review/SKILL.md",
+      "dst": "skills/design/design-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-jobs.md",
+      "dst": "agents/advisor-jobs.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-hara.md",
+      "dst": "agents/advisor-hara.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-catmull.md",
+      "dst": "agents/advisor-catmull.md",
+      "type": "agent"
+    }
+  ]
+}

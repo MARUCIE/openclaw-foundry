@@ -1,0 +1,76 @@
+{
+  "pack": "data-analyst",
+  "version": "1.0.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/bigdata-core/SKILL.md",
+      "dst": "skills/analyze/bigdata-core/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata-viz/SKILL.md",
+      "dst": "skills/analyze/bigdata-viz/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata-ml/SKILL.md",
+      "dst": "skills/analyze/bigdata-ml/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/metrics-dashboard/SKILL.md",
+      "dst": "skills/analyze/metrics-dashboard/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/sql-queries/SKILL.md",
+      "dst": "skills/analyze/sql-queries/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/north-star-metric/SKILL.md",
+      "dst": "skills/analyze/north-star-metric/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pm-cmd-setup-metrics/SKILL.md",
+      "dst": "skills/analyze/pm-cmd-setup-metrics/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/database-designer/SKILL.md",
+      "dst": "skills/analyze/database-designer/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/research-analyst.md",
+      "dst": "agents/research-analyst.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-meadows.md",
+      "dst": "agents/advisor-meadows.md",
+      "type": "agent"
+    }
+  ]
+}

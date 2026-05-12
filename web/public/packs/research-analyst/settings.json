@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "pack": "research-analyst",
+    "source": "AI-Fleet native (skills/shared/ + .claude/agents/)",
+    "audience": "researcher / analyst / PM"
+  },
+  "memory": {
+    "chunks": 96
+  },
+  "autonomy": {
+    "level": "L2-counselor"
+  },
+  "mcpServers": {}
+}

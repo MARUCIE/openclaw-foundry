@@ -381,6 +381,9 @@
   "packs.tabProduct": "Product",
   "packs.tabBusiness": "Business",
   "packs.tabStrategy": "Strategy",
+  "packs.tabResearch": "Research",
+  "packs.tabDesign": "Design",
+  "packs.tabAnalyze": "Analytics",
   "packs.q1Code": "Write Code",
   "packs.q1CodeDesc": "Frontend / Backend / Test / Infra / Ops",
   "packs.q1Data": "Work with Data",
@@ -391,6 +394,12 @@
   "packs.q1BusinessDesc": "Compliance / Risk Control",
   "packs.q1Strategy": "Define Strategy",
   "packs.q1StrategyDesc": "Executive Strategy / Investment / Multi-Lens Council",
+  "packs.q1Research": "Do Research",
+  "packs.q1ResearchDesc": "SOTA Scan / Competitor / Literature Review",
+  "packs.q1Design": "Build Prototypes",
+  "packs.q1DesignDesc": "Rapid Prototype / Visual Polish / Design Review",
+  "packs.q1Analyze": "Analyze Data",
+  "packs.q1AnalyzeDesc": "Metrics System / A/B Readout / Dashboard",
   "packs.q2Frontend": "Frontend",
   "packs.q2Backend": "Backend",
   "packs.q2Test": "Testing",
@@ -401,5 +410,8 @@
   "packs.q2PM": "Product Manager",
   "packs.q2Scenario": "Scenario Planning",
   "packs.q2Compliance": "Compliance / Risk Control",
-  "packs.q2Executive": "Executive Strategist"
+  "packs.q2Executive": "Executive Strategist",
+  "packs.q2ResearchAnalyst": "Research Analyst",
+  "packs.q2DesignPrototyper": "Design Prototyper",
+  "packs.q2DataAnalyst": "Data Analyst"
 }
