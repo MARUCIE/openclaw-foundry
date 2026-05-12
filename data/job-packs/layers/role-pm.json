@@ -1,0 +1,13 @@
+{
+  "id": "role-pm",
+  "type": "role",
+  "name": "Product Manager",
+  "nameZh": "产品经理",
+  "sortOrder": 300,
+  "content": {
+    "claudeMd": "# 产品经理专属配置\n\n5W1H + JTBD + PRD 规范",
+    "agentsMd": "## PRD 审查 Agent\n审查 PRD 完整性。",
+    "settingsJson": {},
+    "promptsMd": "### 产品经理指令\n- /status: 获取当前任务进展"
+  }
+}

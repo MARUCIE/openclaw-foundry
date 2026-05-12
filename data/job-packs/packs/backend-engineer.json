@@ -1,0 +1,17 @@
+{
+  "id": "backend-engineer",
+  "name": "Backend Engineer",
+  "nameZh": "后端工程师",
+  "description": "Go/Java/Python + API design + Golden Tax integration.",
+  "descriptionZh": "面向财税平台的后端工程师配置。",
+  "icon": "dns",
+  "color": "#005136",
+  "line": "engineering",
+  "lineZh": "研发职能线",
+  "layerIds": [
+    "universal",
+    "line-engineering",
+    "role-backend"
+  ],
+  "version": "4.0.0"
+}

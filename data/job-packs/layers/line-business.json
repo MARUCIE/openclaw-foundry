@@ -1,0 +1,23 @@
+{
+  "id": "line-business",
+  "type": "line",
+  "name": "Business Line",
+  "nameZh": "业务职能线",
+  "sortOrder": 40,
+  "content": {
+    "claudeMd": "## 合规先行\n- 所有业务流程必须有合规审查节点\n- 风控规则必须可配置、可审计、可追溯",
+    "agentsMd": "## 合规审查 Agent\n审查业务流程合规性，检查符合财税法规要求。",
+    "settingsJson": {
+      "mcpServers": {
+        "github": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@anthropic-ai/mcp-remote",
+            "https://mcp.github.com/sse"
+          ]
+        }
+      }
+    }
+  }
+}

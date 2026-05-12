@@ -1,0 +1,20 @@
+{
+  "id": "line-engineering",
+  "type": "line",
+  "name": "Engineering Line",
+  "nameZh": "研发职能线",
+  "sortOrder": 10,
+  "content": {
+    "claudeMd": "## 研发规范\n- 采用 TDD 测试驱动开发\n- 遵循 SOLID 原则\n- 所有变更必须包含性能预检",
+    "agentsMd": "## 研发专项 Agent\n- Refactor: 负责代码重构建议\n- TestGen: 负责测试用例自动生成",
+    "settingsJson": {
+      "mcpServers": {
+        "filesystem": {
+          "args": [
+            "/Users/mauricewen/Projects"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "test-engineer",
+  "name": "Test Engineer",
+  "nameZh": "测试工程师",
+  "description": "Test strategy + Playwright E2E + Scenario coverage.",
+  "descriptionZh": "面向财税平台的测试工程师配置。",
+  "icon": "bug_report",
+  "color": "#7C3AED",
+  "line": "engineering",
+  "lineZh": "研发职能线",
+  "layerIds": [
+    "universal",
+    "line-engineering",
+    "role-test"
+  ],
+  "version": "4.0.0"
+}

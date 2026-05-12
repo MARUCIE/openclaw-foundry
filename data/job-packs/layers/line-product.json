@@ -1,0 +1,23 @@
+{
+  "id": "line-product",
+  "type": "line",
+  "name": "Product Line",
+  "nameZh": "产品职能线",
+  "sortOrder": 30,
+  "content": {
+    "claudeMd": "## 用户中心思维\n- 需求优先级用 RICE 框架\n- 用户故事格式：作为 [角色]，我想要 [功能]，以便 [价值]",
+    "agentsMd": "## 需求审查 Agent\n审查 PRD 完整性、验收标准、风险评估。",
+    "settingsJson": {
+      "mcpServers": {
+        "github": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@anthropic-ai/mcp-remote",
+            "https://mcp.github.com/sse"
+          ]
+        }
+      }
+    }
+  }
+}

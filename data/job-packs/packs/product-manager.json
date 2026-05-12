@@ -1,0 +1,17 @@
+{
+  "id": "product-manager",
+  "name": "Product Manager",
+  "nameZh": "产品经理",
+  "description": "PRD + user stories + RICE prioritization.",
+  "descriptionZh": "面向财税平台的产品经理配置。",
+  "icon": "lightbulb",
+  "color": "#7C3AED",
+  "line": "product",
+  "lineZh": "产品职能线",
+  "layerIds": [
+    "universal",
+    "line-product",
+    "role-pm"
+  ],
+  "version": "4.0.0"
+}

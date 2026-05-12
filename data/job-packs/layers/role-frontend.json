@@ -1,0 +1,11 @@
+{
+  "id": "role-frontend",
+  "type": "role",
+  "name": "Frontend Role",
+  "nameZh": "前端岗位",
+  "sortOrder": 20,
+  "content": {
+    "claudeMd": "### 前端专项\n- 使用 Tailwind CSS v4\n- 遵循 MD3 设计规范\n- 强制无障碍性校验",
+    "promptsMd": "### 前端指令\n- /ui: 启动 UI Polish 检查\n- /perf: 执行 LCP/CLS 性能分析"
+  }
+}

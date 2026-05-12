@@ -1,0 +1,13 @@
+{
+  "id": "role-bigdata",
+  "type": "role",
+  "name": "Big Data Engineer",
+  "nameZh": "大数据工程师",
+  "sortOrder": 201,
+  "content": {
+    "claudeMd": "# 大数据工程师专属配置\n\nSpark / Flink + 数据仓库 (ODS->DWD->DWS->ADS)",
+    "agentsMd": "## 性能调优 Agent\n分析任务执行计划。",
+    "settingsJson": {},
+    "promptsMd": "### 大数据工程师指令\n- /status: 获取当前任务进展"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "role-compliance",
+  "type": "role",
+  "name": "Compliance & Risk Control Expert",
+  "nameZh": "合规风控专家",
+  "sortOrder": 400,
+  "content": {
+    "claudeMd": "# 合规风控专家专属配置\n\n税收法规追踪 + 合规审计 + 风控规则",
+    "agentsMd": "## 法规更新 Agent\n监控最新政策公告。",
+    "settingsJson": {},
+    "promptsMd": "### 合规风控专家指令\n- /status: 获取当前任务进展"
+  }
+}

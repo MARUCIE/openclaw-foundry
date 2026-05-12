@@ -1,0 +1,27 @@
+{
+  "id": "frontend-engineer",
+  "name": "Frontend Engineer",
+  "nameZh": "前端工程师",
+  "description": "React/Vue + Tailwind CSS + accessibility + invoice UI patterns.",
+  "descriptionZh": "面向财税平台的前端工程师配置：React/Vue + Tailwind CSS + 无障碍 + 发票 UI 规范。",
+  "icon": "web",
+  "color": "#0053A4",
+  "line": "engineering",
+  "lineZh": "研发职能线",
+  "layerIds": [
+    "universal",
+    "line-engineering",
+    "role-frontend"
+  ],
+  "version": "4.0.0",
+  "variants": {
+    "junior": {
+      "nameModifier": "初级",
+      "level": "L1"
+    },
+    "senior": {
+      "nameModifier": "高级",
+      "level": "L3"
+    }
+  }
+}

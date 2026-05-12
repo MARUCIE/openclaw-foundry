@@ -1,0 +1,13 @@
+{
+  "id": "role-scenario",
+  "type": "role",
+  "name": "Scenario Planner",
+  "nameZh": "场景规划师",
+  "sortOrder": 301,
+  "content": {
+    "claudeMd": "# 场景规划师专属配置\n\n场景挖掘 + 可行性评估 + ROI 估算",
+    "agentsMd": "## 场景评估 Agent\n评估 AI 场景技术可行性。",
+    "settingsJson": {},
+    "promptsMd": "### 场景规划师指令\n- /status: 获取当前任务进展"
+  }
+}

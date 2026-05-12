@@ -1,0 +1,17 @@
+{
+  "id": "compliance-expert",
+  "name": "Compliance & Risk Control Expert",
+  "nameZh": "合规风控专家",
+  "description": "Tax compliance + risk rules + policy tracking.",
+  "descriptionZh": "面向财税平台的合规风控专家配置。",
+  "icon": "verified_user",
+  "color": "#D97706",
+  "line": "business",
+  "lineZh": "业务职能线",
+  "layerIds": [
+    "universal",
+    "line-business",
+    "role-compliance"
+  ],
+  "version": "4.0.0"
+}

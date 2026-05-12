@@ -1,0 +1,13 @@
+{
+  "id": "role-ops",
+  "type": "role",
+  "name": "Operations Engineer",
+  "nameZh": "运维工程师",
+  "sortOrder": 104,
+  "content": {
+    "claudeMd": "# 运维工程师专属配置\n\n部署管理 + 回滚方案 + 故障响应",
+    "agentsMd": "## 故障诊断 Agent\n快速定位故障根因。",
+    "settingsJson": {},
+    "promptsMd": "### 运维工程师指令\n- /status: 获取当前任务进展"
+  }
+}

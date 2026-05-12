@@ -1,0 +1,23 @@
+{
+  "id": "line-data-ai",
+  "type": "line",
+  "name": "Data & AI Line",
+  "nameZh": "数据AI职能线",
+  "sortOrder": 20,
+  "content": {
+    "claudeMd": "## 数据质量\n- 数据管线必须幂等\n- 数据脱敏：敏感信息必须 mask 处理\n- 数据血缘追踪：每个衍生字段可回溯",
+    "agentsMd": "## 数据质量 Agent\n检查数据管线的幂等性、Schema 兼容性、脱敏覆盖率。",
+    "settingsJson": {
+      "mcpServers": {
+        "github": {
+          "command": "npx",
+          "args": [
+            "-y",
+            "@anthropic-ai/mcp-remote",
+            "https://mcp.github.com/sse"
+          ]
+        }
+      }
+    }
+  }
+}

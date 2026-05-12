@@ -1,0 +1,13 @@
+{
+  "id": "role-algorithm",
+  "type": "role",
+  "name": "Algorithm Engineer",
+  "nameZh": "算法工程师",
+  "sortOrder": 200,
+  "content": {
+    "claudeMd": "# 算法工程师专属配置\n\nPyTorch + 实验管理 + 发票 OCR + 异常检测",
+    "agentsMd": "## 实验管理 Agent\n自动记录实验参数。",
+    "settingsJson": {},
+    "promptsMd": "### 算法工程师指令\n- /status: 获取当前任务进展"
+  }
+}

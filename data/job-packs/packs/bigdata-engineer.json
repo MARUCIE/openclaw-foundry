@@ -1,0 +1,17 @@
+{
+  "id": "bigdata-engineer",
+  "name": "Big Data Engineer",
+  "nameZh": "大数据工程师",
+  "description": "Spark/Flink + data warehouse + tax analytics.",
+  "descriptionZh": "面向财税平台的大数据工程师配置。",
+  "icon": "storage",
+  "color": "#0053A4",
+  "line": "data-ai",
+  "lineZh": "数据AI职能线",
+  "layerIds": [
+    "universal",
+    "line-data-ai",
+    "role-bigdata"
+  ],
+  "version": "4.0.0"
+}

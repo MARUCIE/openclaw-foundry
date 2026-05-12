@@ -1,0 +1,13 @@
+{
+  "id": "role-backend",
+  "type": "role",
+  "name": "Backend Engineer",
+  "nameZh": "后端工程师",
+  "sortOrder": 101,
+  "content": {
+    "claudeMd": "# 后端工程师专属配置\n\nGo / Java / Python + API 设计 + 数据库事务",
+    "agentsMd": "## API 设计 Agent\n审查 API 规范、幂等性保障。",
+    "settingsJson": {},
+    "promptsMd": "### 后端工程师指令\n- /status: 获取当前任务进展"
+  }
+}

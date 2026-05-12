@@ -1,0 +1,17 @@
+{
+  "id": "infra-engineer",
+  "name": "Infrastructure Engineer",
+  "nameZh": "基础架构工程师",
+  "description": "Docker + K8s + IaC + Compliance infra.",
+  "descriptionZh": "面向财税平台的基础架构工程师配置。",
+  "icon": "cloud",
+  "color": "#059669",
+  "line": "engineering",
+  "lineZh": "研发职能线",
+  "layerIds": [
+    "universal",
+    "line-engineering",
+    "role-infra"
+  ],
+  "version": "4.0.0"
+}

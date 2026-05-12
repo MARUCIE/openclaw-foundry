@@ -1,0 +1,17 @@
+{
+  "id": "ops-engineer",
+  "name": "Operations Engineer",
+  "nameZh": "运维工程师",
+  "description": "Deployment + incident response + tax period ops.",
+  "descriptionZh": "面向财税平台的运维工程师配置。",
+  "icon": "settings",
+  "color": "#D97706",
+  "line": "engineering",
+  "lineZh": "研发职能线",
+  "layerIds": [
+    "universal",
+    "line-engineering",
+    "role-ops"
+  ],
+  "version": "4.0.0"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "role-infra",
+  "type": "role",
+  "name": "Infrastructure Engineer",
+  "nameZh": "基础架构工程师",
+  "sortOrder": 103,
+  "content": {
+    "claudeMd": "# 基础架构工程师专属配置\n\nIaC (Terraform) + K8s + Prometheus 监控",
+    "agentsMd": "## 架构审查 Agent\n审查基础设施设计、高可用。",
+    "settingsJson": {},
+    "promptsMd": "### 基础架构工程师指令\n- /status: 获取当前任务进展"
+  }
+}

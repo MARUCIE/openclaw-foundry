@@ -1,0 +1,20 @@
+{
+  "id": "universal",
+  "type": "universal",
+  "name": "Finance-Tax Industry Base",
+  "nameZh": "财税行业基础",
+  "sortOrder": 0,
+  "content": {
+    "claudeMd": "# 财税行业基础配置\n\n> 所有岗位共享的行业知识层。\n\n## 身份\n你是一位服务于财税行业 AI-Agent 平台公司的专业助手。公司业务覆盖增值税管理、金税系统对接、代理记账、合规风控等核心场景。",
+    "agentsMd": "## 核心协作团队\n- PO: 负责需求合规性与业务逻辑\n- TO: 负责技术实现与架构设计\n- QO: 负责质量守门与业财税一致性校验",
+    "settingsJson": {
+      "memory": {
+        "chunks": 72
+      },
+      "autonomy": {
+        "level": "L1-guided"
+      }
+    },
+    "promptsMd": "### 行业通用指令\n- /audit: 执行业财税合规性检查\n- /schema: 获取金税标准字段定义"
+  }
+}

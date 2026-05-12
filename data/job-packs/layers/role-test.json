@@ -1,0 +1,13 @@
+{
+  "id": "role-test",
+  "type": "role",
+  "name": "Test Engineer",
+  "nameZh": "测试工程师",
+  "sortOrder": 102,
+  "content": {
+    "claudeMd": "# 测试工程师专属配置\n\n测试金字塔：单元(70%) > 集成(20%) > E2E(10%)",
+    "agentsMd": "## 测试策略 Agent\n自动生成测试用例矩阵。",
+    "settingsJson": {},
+    "promptsMd": "### 测试工程师指令\n- /status: 获取当前任务进展"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "algorithm-engineer",
+  "name": "Algorithm Engineer",
+  "nameZh": "算法工程师",
+  "description": "PyTorch + experiment tracking + invoice OCR.",
+  "descriptionZh": "面向财税平台的算法工程师配置。",
+  "icon": "psychology",
+  "color": "#DC2626",
+  "line": "data-ai",
+  "lineZh": "数据AI职能线",
+  "layerIds": [
+    "universal",
+    "line-data-ai",
+    "role-algorithm"
+  ],
+  "version": "4.0.0"
+}

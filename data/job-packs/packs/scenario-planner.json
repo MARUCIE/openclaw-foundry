@@ -1,0 +1,17 @@
+{
+  "id": "scenario-planner",
+  "name": "Scenario Planner",
+  "nameZh": "场景规划师",
+  "description": "AI scenario design + cross-dept coordination.",
+  "descriptionZh": "面向财税平台的场景规划师配置。",
+  "icon": "explore",
+  "color": "#003A70",
+  "line": "product",
+  "lineZh": "产品职能线",
+  "layerIds": [
+    "universal",
+    "line-product",
+    "role-scenario"
+  ],
+  "version": "4.0.0"
+}
