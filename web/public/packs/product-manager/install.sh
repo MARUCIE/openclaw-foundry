@@ -1,11 +1,12 @@
 #!/bin/bash
-# OpenClaw Foundry — Product Manager Pack Installer (manifest-driven, design-augmented)
+# OpenClaw Foundry — Job Pack Installer (v4.1, manifest-driven)
+# Pack: product-manager
 set -euo pipefail
 PACK_ID="product-manager"
 BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
 TARGET_DIR="$HOME/.claude"
 
-echo "Installing OpenClaw Job Pack: $PACK_ID (with design augment)"
+echo "Installing OpenClaw Job Pack: $PACK_ID (manifest-driven)"
 echo "  Source: $BASE_URL"
 echo "  Target: $TARGET_DIR"
 echo ""
@@ -42,5 +43,4 @@ done < "$TSV"
 
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
-echo ""
-echo "Restart Claude Code to activate."
+echo "  Restart Claude Code to activate."

@@ -2,8 +2,8 @@
   "id": "product-manager",
   "name": "Product Manager",
   "nameZh": "产品经理",
-  "description": "PRD + user stories + RICE prioritization.",
-  "descriptionZh": "面向财税平台的产品经理配置。",
+  "description": "PRD + user stories + RICE + 8 design skills + 3 advisor lenses.",
+  "descriptionZh": "面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角。",
   "icon": "lightbulb",
   "color": "#7C3AED",
   "line": "product",
@@ -13,5 +13,11 @@
     "line-product",
     "role-pm"
   ],
-  "version": "4.0.0"
+  "version": "4.1.0",
+  "design_augmented": true,
+  "artifacts": {
+    "skills": 8,
+    "agents": 3,
+    "references": 0
+  }
 }

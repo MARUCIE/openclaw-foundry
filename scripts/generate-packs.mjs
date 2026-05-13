@@ -62,6 +62,57 @@ echo -e "\nDone! Restart Claude Code to activate."
 `;
 }
 
+function generateManifestDrivenInstallScript(packId) {
+  // For packs with artifacts (skills/ + agents/): manifest-driven install
+  return `#!/bin/bash
+# OpenClaw Foundry — Job Pack Installer (v4.1, manifest-driven)
+# Pack: ${packId}
+set -euo pipefail
+PACK_ID="${packId}"
+BASE_URL="\${FOUNDRY_BASE_URL:-${SITE_URL}}/packs/\$PACK_ID"
+TARGET_DIR="\$HOME/.claude"
+
+echo "Installing OpenClaw Job Pack: \$PACK_ID (manifest-driven)"
+echo "  Source: \$BASE_URL"
+echo "  Target: \$TARGET_DIR"
+echo ""
+
+mkdir -p "\$TARGET_DIR"
+
+WORK=\$(mktemp -d)
+trap 'rm -rf "\$WORK"' EXIT
+MANIFEST="\$WORK/manifest.json"
+TSV="\$WORK/items.tsv"
+
+echo "  -> Fetching manifest.json"
+curl -sfL "\$BASE_URL/manifest.json" -o "\$MANIFEST"
+
+python3 - "\$MANIFEST" <<'PYEOF' > "\$TSV"
+import json, sys
+m = json.load(open(sys.argv[1]))
+for item in m['items']:
+    print(item['src'], item['dst'], item['type'], sep='\\t')
+PYEOF
+
+N=\$(wc -l < "\$TSV" | tr -d ' ')
+echo "  -> \$N artifacts to install"
+echo ""
+
+i=0
+while IFS=\$'\\t' read -r src dst typ; do
+  i=\$((i+1))
+  full_dst="\$TARGET_DIR/\$dst"
+  mkdir -p "\$(dirname "\$full_dst")"
+  printf "  [%2d/%d] %-10s %s\\n" "\$i" "\$N" "\$typ" "\$dst"
+  curl -sfL "\$BASE_URL/\$src" -o "\$full_dst"
+done < "\$TSV"
+
+echo ""
+echo "  OK Installed \$N artifacts under \$TARGET_DIR"
+echo "  Restart Claude Code to activate."
+`;
+}
+
 function main() {
   console.log('OpenClaw Foundry — Pack Generator v4.0');
   console.log('======================================\n');
@@ -91,10 +142,20 @@ function main() {
     writeFileSync(join(packDir, 'AGENTS.md'), merged.agentsMd);
     writeFileSync(join(packDir, 'settings.json'), JSON.stringify(merged.settings, null, 2));
     writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd);
-    writeFileSync(join(packDir, 'install.sh'), generateInstallScript(pack.id));
+
+    // Packs with artifacts (skills/ + agents/) get a manifest-driven installer
+    // that downloads everything listed in manifest.json. Plain packs get the
+    // simple 4-file curl loop. The manifest.json itself is committed to git
+    // and persisted across regenerations (not regenerated here).
+    const installScript = pack.artifacts
+      ? generateManifestDrivenInstallScript(pack.id)
+      : generateInstallScript(pack.id);
+    writeFileSync(join(packDir, 'install.sh'), installScript);
 
     totalFiles += 5;
-    packListing.push({ ...pack, files: ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'] });
+    const fileList = ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'];
+    if (pack.artifacts) fileList.push('manifest.json');
+    packListing.push({ ...pack, files: fileList });
   }
 
   // Preserve native packs (spellbook-*, executive-strategist, research-analyst,
