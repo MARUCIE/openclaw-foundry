@@ -263,6 +263,12 @@ export interface ConfigPack {
   files: string[];
   version: string;
   downloadCount: number;
+  artifacts?: {
+    skills: number;
+    agents: number;
+    references: number;
+  };
+  design_augmented?: boolean;
 }
 
 export interface PackLine {
@@ -281,3 +287,35 @@ export interface PacksResponse {
 export async function getPacks(): Promise<PacksResponse> {
   return fetchJSON('/packs');
 }
+
+// ═══ Customers (Admin) ═══
+
+export interface Customer {
+  id: string;
+  name: string;
+  token: string;
+  tier: 'basic' | 'pro' | 'enterprise';
+  active: boolean;
+  createdAt: string;
+}
+
+export interface CustomerUsage {
+  today: { requests: number; inputTokens: number; outputTokens: number };
+  last7days: { requests: number; inputTokens: number; outputTokens: number };
+  total: { requests: number; inputTokens: number; outputTokens: number };
+}
+
+export const listCustomers = () => fetchJSON<{ total: number; customers: Customer[] }>('/customers');
+export const getCustomer = (id: string) => fetchJSON<{ customer: Customer; usage: CustomerUsage }>(`/customers/${id}`);
+export const createCustomer = (name: string, tier: string) =>
+  fetchJSON<{ customer: Customer }>('/customers', {
+    method: 'POST',
+    body: JSON.stringify({ name, tier }),
+  });
+export const updateCustomerTier = (id: string, tier: string) =>
+  fetchJSON<{ ok: boolean }>(`/customers/${id}/tier`, {
+    method: 'PATCH',
+    body: JSON.stringify({ tier }),
+  });
+export const deleteCustomer = (id: string) =>
+  fetchJSON<{ ok: boolean }>(`/customers/${id}`, { method: 'DELETE' });

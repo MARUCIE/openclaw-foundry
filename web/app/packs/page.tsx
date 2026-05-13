@@ -388,7 +388,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
       </p>
 
       {/* Layer inheritance badge */}
-      <div className="flex gap-1.5 mb-8 flex-wrap">
+      <div className="flex gap-1.5 mb-6 flex-wrap">
         {pack.layerIds.map((lid, i) => (
           <span
             key={lid}
@@ -403,6 +403,54 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           </span>
         ))}
       </div>
+
+      {/* Bundled artifacts (skills + advisors + references) — only when pack ships them */}
+      {pack.artifacts && (pack.artifacts.skills + pack.artifacts.agents + pack.artifacts.references) > 0 && (
+        <div
+          className="mb-6 p-4 rounded-2xl border-2 border-dashed"
+          style={{ borderColor: `${pack.color}40`, background: `${pack.color}08` }}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-60">
+              本包附带 · BUNDLED
+            </span>
+            {pack.design_augmented && (
+              <span
+                className="px-2 py-0.5 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
+                style={{ background: `${pack.color}20`, color: pack.color }}
+              >
+                Design Aug
+              </span>
+            )}
+          </div>
+          <div className="flex gap-5 flex-wrap text-sm">
+            {pack.artifacts.skills > 0 && (
+              <div className="flex items-center gap-1.5">
+                <span aria-hidden="true" className="material-symbols-outlined text-base" style={{ color: pack.color }}>extension</span>
+                <span className="font-black" style={{ color: pack.color }}>+{pack.artifacts.skills}</span>
+                <span className="font-bold opacity-60 uppercase tracking-widest text-[var(--af-fs-micro)]">skill</span>
+              </div>
+            )}
+            {pack.artifacts.agents > 0 && (
+              <div className="flex items-center gap-1.5">
+                <span aria-hidden="true" className="material-symbols-outlined text-base" style={{ color: pack.color }}>groups</span>
+                <span className="font-black" style={{ color: pack.color }}>+{pack.artifacts.agents}</span>
+                <span className="font-bold opacity-60 uppercase tracking-widest text-[var(--af-fs-micro)]">advisor</span>
+              </div>
+            )}
+            {pack.artifacts.references > 0 && (
+              <div className="flex items-center gap-1.5">
+                <span aria-hidden="true" className="material-symbols-outlined text-base" style={{ color: pack.color }}>menu_book</span>
+                <span className="font-black" style={{ color: pack.color }}>+{pack.artifacts.references}</span>
+                <span className="font-bold opacity-60 uppercase tracking-widest text-[var(--af-fs-micro)]">reference</span>
+              </div>
+            )}
+          </div>
+          <p className="text-[var(--af-fs-micro)] mt-3 opacity-50 leading-relaxed">
+            install.sh 通过 manifest.json 自动拉取全部资源到 ~/.claude/{'{'}skills,agents{'}'}/
+          </p>
+        </div>
+      )}
 
       {/* Pack files */}
       <div className="grid grid-cols-2 gap-2 mb-8">
