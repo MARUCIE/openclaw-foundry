@@ -1,6 +1,6 @@
 {
-  "total": 10,
-  "generated": "2026-04-23T09:05:48.585Z",
+  "total": 21,
+  "generated": "2026-05-13T02:46:47.082Z",
   "packs": [
     {
       "id": "algorithm-engineer",
@@ -201,8 +201,15 @@
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
-      ]
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 3,
+        "references": 0
+      },
+      "design_augmented": true
     },
     {
       "id": "scenario-planner",
@@ -587,36 +594,6 @@
       "artifacts": {
         "skills": 8,
         "agents": 2,
-        "references": 0
-      }
-    },
-    {
-      "id": "design-prototyper",
-      "name": "Design Prototyper",
-      "nameZh": "原型设计师",
-      "description": "Rapid prototyping + visual polish + design review: 8 design skills + 3 advisor lenses.",
-      "descriptionZh": "快速原型 + 视觉打磨 + 设计评议工作台：8 个设计 skill + 3 位顾问视角。",
-      "icon": "brush",
-      "color": "#DB2777",
-      "line": "design",
-      "lineZh": "创意设计线",
-      "layerIds": [
-        "universal",
-        "line-design",
-        "role-design-prototyper"
-      ],
-      "version": "1.0.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 8,
-        "agents": 3,
         "references": 0
       }
     }

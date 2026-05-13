@@ -382,7 +382,6 @@
   "packs.tabBusiness": "Business",
   "packs.tabStrategy": "Strategy",
   "packs.tabResearch": "Research",
-  "packs.tabDesign": "Design",
   "packs.tabAnalyze": "Analytics",
   "packs.q1Code": "Write Code",
   "packs.q1CodeDesc": "Frontend / Backend / Test / Infra / Ops",
@@ -412,6 +411,5 @@
   "packs.q2Compliance": "Compliance / Risk Control",
   "packs.q2Executive": "Executive Strategist",
   "packs.q2ResearchAnalyst": "Research Analyst",
-  "packs.q2DesignPrototyper": "Design Prototyper",
   "packs.q2DataAnalyst": "Data Analyst"
 }

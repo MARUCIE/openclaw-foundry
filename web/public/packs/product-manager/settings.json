@@ -1,4 +1,10 @@
 {
+  "memory": {
+    "chunks": 168
+  },
+  "autonomy": {
+    "level": "L2-counselor"
+  },
   "mcpServers": {
     "github": {
       "command": "npx",
@@ -6,10 +12,12 @@
         "-y",
         "@anthropic-ai/mcp-remote",
         "https://mcp.github.com/sse"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      }
+      ]
     }
+  },
+  "_meta": {
+    "design_augmented": true,
+    "design_source": "AI-Fleet skills/shared/ + .claude/agents/",
+    "audience": "PM (with optional pure-designer use case)"
   }
 }

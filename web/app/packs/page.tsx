@@ -37,7 +37,6 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
     descKey: 'packs.q1ProductDesc',
     options: [
       { labelKey: 'packs.q2PM', packId: 'product-manager' },
-      { labelKey: 'packs.q2DesignPrototyper', packId: 'design-prototyper' },
     ],
   },
   {
@@ -95,7 +94,6 @@ const LINE_TABS = [
   { id: 'business', labelKey: 'packs.tabBusiness' },
   { id: 'strategy', labelKey: 'packs.tabStrategy' },
   { id: 'research', labelKey: 'packs.tabResearch' },
-  { id: 'design', labelKey: 'packs.tabDesign' },
   { id: 'analyze', labelKey: 'packs.tabAnalyze' },
 ];
 

@@ -1,6 +1,7 @@
 {
-  "pack": "design-prototyper",
-  "version": "1.0.0",
+  "pack": "product-manager",
+  "version": "4.1.0",
+  "design_augmented": true,
   "items": [
     {
       "src": "CLAUDE.md",

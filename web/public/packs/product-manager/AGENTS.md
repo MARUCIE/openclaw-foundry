@@ -1,26 +1,32 @@
-## 合规审计 Agent
-
-当处理涉及税务计算、发票开具、申报逻辑的代码时，自动启用合规审计视角：
-- 检查税率是否使用常量而非硬编码
-- 检查金额计算是否用 Decimal 类型
-- 检查发票字段完整性校验
-- 检查纳税人识别号是否脱敏
+## 核心协作团队
+- PO: 负责需求合规性与业务逻辑
+- TO: 负责技术实现与架构设计
+- QO: 负责质量守门与业财税一致性校验
 
 ---
 
 ## 需求审查 Agent
-审查 PRD 完整性：用户故事是否清晰、验收标准是否可测、依赖是否标注。
-
-## 竞品分析 Agent
-搜索并分析财税行业竞品的功能、定价、用户评价。
+审查 PRD 完整性、验收标准、风险评估。
 
 ---
 
 ## PRD 审查 Agent
-审查 PRD 完整性和质量，检查用户故事、验收标准、风险评估。
+审查 PRD 完整性。
 
-## 数据分析 Agent
-基于产品数据生成分析报告：留存、转化、使用频次。
+## 设计评议顾问矩阵（合并自原 design-prototyper 包）
 
-## 竞品监测 Agent
-定期扫描财税 SaaS 竞品的功能更新和定价变化。
+3 位 advisor 跑在独立上下文，工具只读，提供差异化判断。
+
+| Advisor | 关注点 | 调用 |
+|---|---|---|
+| advisor-jobs | 用户体验、设计卓越、用户惊喜 | `Task(subagent_type="advisor-jobs")` |
+| advisor-hara | 系统极简、结构清晰、空无哲学 | `Task(subagent_type="advisor-hara")` |
+| advisor-catmull | 创意文化、心理安全、坦诚反馈 | `Task(subagent_type="advisor-catmull")` |
+
+### 推荐三家并行评议
+
+```python
+Task(subagent_type="advisor-jobs",    prompt="评议这个落地页的首屏体验")
+Task(subagent_type="advisor-hara",    prompt="评议这个落地页的首屏体验")
+Task(subagent_type="advisor-catmull", prompt="评议这个落地页的首屏体验")
+```
