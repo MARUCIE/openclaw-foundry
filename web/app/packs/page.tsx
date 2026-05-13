@@ -37,7 +37,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
     descKey: 'packs.q1ProductDesc',
     options: [
       { labelKey: 'packs.q2PM', packId: 'product-manager' },
-      { labelKey: 'packs.q2Scenario', packId: 'scenario-planner' },
+      { labelKey: 'packs.q2DesignPrototyper', packId: 'design-prototyper' },
     ],
   },
   {
@@ -68,12 +68,12 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
     ],
   },
   {
-    id: 'design',
-    icon: 'brush',
-    labelKey: 'packs.q1Design',
-    descKey: 'packs.q1DesignDesc',
+    id: 'scenario',
+    icon: 'account_tree',
+    labelKey: 'packs.q1Scenario',
+    descKey: 'packs.q1ScenarioDesc',
     options: [
-      { labelKey: 'packs.q2DesignPrototyper', packId: 'design-prototyper' },
+      { labelKey: 'packs.q2Scenario', packId: 'scenario-planner' },
     ],
   },
   {
