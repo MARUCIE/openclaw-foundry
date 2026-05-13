@@ -1,40 +1,46 @@
 #!/bin/bash
-# OpenClaw Foundry — Job Pack Installer
+# OpenClaw Foundry — Job Pack Installer (v4.1, manifest-driven)
 # Pack: algorithm-engineer
-# Usage: curl -sL https://openclaw-foundry.pages.dev/packs/algorithm-engineer/install.sh | bash
-
 set -euo pipefail
-
 PACK_ID="algorithm-engineer"
-BASE_URL="https://openclaw-foundry.pages.dev/packs/${PACK_ID}"
-TARGET_DIR="${HOME}/.claude"
+BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
+TARGET_DIR="$HOME/.claude"
 
-echo "Installing OpenClaw Job Pack: ${PACK_ID}..."
+echo "Installing OpenClaw Job Pack: $PACK_ID (manifest-driven)"
+echo "  Source: $BASE_URL"
+echo "  Target: $TARGET_DIR"
 echo ""
 
-# Create target directory
-mkdir -p "${TARGET_DIR}"
+mkdir -p "$TARGET_DIR"
 
-# Download files
-echo "  Downloading CLAUDE.md..."
-curl -sfL "${BASE_URL}/CLAUDE.md" -o "${TARGET_DIR}/CLAUDE.md"
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+MANIFEST="$WORK/manifest.json"
+TSV="$WORK/items.tsv"
 
-echo "  Downloading AGENTS.md..."
-curl -sfL "${BASE_URL}/AGENTS.md" -o "${TARGET_DIR}/AGENTS.md"
+echo "  -> Fetching manifest.json"
+curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
 
-echo "  Downloading settings.json..."
-curl -sfL "${BASE_URL}/settings.json" -o "${TARGET_DIR}/settings.json"
+python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
+import json, sys
+m = json.load(open(sys.argv[1]))
+for item in m['items']:
+    print(item['src'], item['dst'], item['type'], sep='\t')
+PYEOF
 
-echo "  Downloading prompts.md..."
-curl -sfL "${BASE_URL}/prompts.md" -o "${TARGET_DIR}/prompts.md"
+N=$(wc -l < "$TSV" | tr -d ' ')
+echo "  -> $N artifacts to install"
+echo ""
+
+i=0
+while IFS=$'\t' read -r src dst typ; do
+  i=$((i+1))
+  full_dst="$TARGET_DIR/$dst"
+  mkdir -p "$(dirname "$full_dst")"
+  printf "  [%2d/%d] %-10s %s\n" "$i" "$N" "$typ" "$dst"
+  curl -sfL "$BASE_URL/$src" -o "$full_dst"
+done < "$TSV"
 
 echo ""
-echo "Done! Pack '${PACK_ID}' installed to ${TARGET_DIR}/"
-echo ""
-echo "Files installed:"
-echo "  ${TARGET_DIR}/CLAUDE.md      — AI agent configuration"
-echo "  ${TARGET_DIR}/AGENTS.md      — Agent team definitions"
-echo "  ${TARGET_DIR}/settings.json  — MCP server settings"
-echo "  ${TARGET_DIR}/prompts.md     — Starter prompts"
-echo ""
-echo "Restart Claude Code to activate the new configuration."
+echo "  OK Installed $N artifacts under $TARGET_DIR"
+echo "  Restart Claude Code to activate."

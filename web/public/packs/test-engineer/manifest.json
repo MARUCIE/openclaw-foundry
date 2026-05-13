@@ -1,0 +1,71 @@
+{
+  "pack": "test-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/test/test-driven-development/SKILL.md",
+      "dst": "skills/test/test-driven-development/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/test-runner/SPEC.md",
+      "dst": "skills/test/test-runner/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/test-scenarios/SPEC.md",
+      "dst": "skills/test/test-scenarios/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/frontend-testing/SPEC.md",
+      "dst": "skills/test/frontend-testing/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/code-review/SPEC.md",
+      "dst": "skills/test/code-review/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/systematic-debugging/SKILL.md",
+      "dst": "skills/test/systematic-debugging/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/test/vibe-debug/SKILL.md",
+      "dst": "skills/test/vibe-debug/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-brooks.md",
+      "dst": "agents/advisor-brooks.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-catmull.md",
+      "dst": "agents/advisor-catmull.md",
+      "type": "agent"
+    }
+  ]
+}

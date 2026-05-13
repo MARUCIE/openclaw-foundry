@@ -1,0 +1,66 @@
+{
+  "pack": "bigdata-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/bigdata/bigdata-core/SPEC.md",
+      "dst": "skills/bigdata/bigdata-core/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata/bigdata-ml/SPEC.md",
+      "dst": "skills/bigdata/bigdata-ml/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata/bigdata-viz/SPEC.md",
+      "dst": "skills/bigdata/bigdata-viz/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata/data-pipeline/SPEC.md",
+      "dst": "skills/bigdata/data-pipeline/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata/pipeline-triage/SPEC.md",
+      "dst": "skills/bigdata/pipeline-triage/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/bigdata/postgresql-best-practices/SPEC.md",
+      "dst": "skills/bigdata/postgresql-best-practices/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-meadows.md",
+      "dst": "agents/advisor-meadows.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-hickey.md",
+      "dst": "agents/advisor-hickey.md",
+      "type": "agent"
+    }
+  ]
+}

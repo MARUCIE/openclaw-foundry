@@ -1,0 +1,76 @@
+{
+  "pack": "backend-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/backend/api-design-reviewer/SPEC.md",
+      "dst": "skills/backend/api-design-reviewer/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/fastapi-templates/SPEC.md",
+      "dst": "skills/backend/fastapi-templates/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/postgresql-best-practices/SPEC.md",
+      "dst": "skills/backend/postgresql-best-practices/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/code-review/SPEC.md",
+      "dst": "skills/backend/code-review/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/perf-profile/SPEC.md",
+      "dst": "skills/backend/perf-profile/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/new-api-endpoint/SPEC.md",
+      "dst": "skills/backend/new-api-endpoint/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/systematic-debugging/SKILL.md",
+      "dst": "skills/backend/systematic-debugging/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/backend/test-driven-development/SKILL.md",
+      "dst": "skills/backend/test-driven-development/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-hickey.md",
+      "dst": "agents/advisor-hickey.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-brooks.md",
+      "dst": "agents/advisor-brooks.md",
+      "type": "agent"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "pack": "compliance-expert",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/compliance/ft-business-analyst/SKILL.md",
+      "dst": "skills/compliance/ft-business-analyst/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-compliance-auditor/SKILL.md",
+      "dst": "skills/compliance/ft-compliance-auditor/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-compliance-checklist/SKILL.md",
+      "dst": "skills/compliance/ft-compliance-checklist/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-internal-audit/SKILL.md",
+      "dst": "skills/compliance/ft-internal-audit/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-risk-assessment/SKILL.md",
+      "dst": "skills/compliance/ft-risk-assessment/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-tax-advisor/SKILL.md",
+      "dst": "skills/compliance/ft-tax-advisor/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/ft-tax-planner/SKILL.md",
+      "dst": "skills/compliance/ft-tax-planner/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/compliance/compliance-docs/SPEC.md",
+      "dst": "skills/compliance/compliance-docs/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-drucker.md",
+      "dst": "agents/advisor-drucker.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-buffett.md",
+      "dst": "agents/advisor-buffett.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-munger.md",
+      "dst": "agents/advisor-munger.md",
+      "type": "agent"
+    }
+  ]
+}

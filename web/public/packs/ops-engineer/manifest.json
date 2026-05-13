@@ -1,0 +1,61 @@
+{
+  "pack": "ops-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/ops/infra-patrol/SPEC.md",
+      "dst": "skills/ops/infra-patrol/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/ops/observability-setup/SPEC.md",
+      "dst": "skills/ops/observability-setup/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/ops/enterprise-agent-ops/SPEC.md",
+      "dst": "skills/ops/enterprise-agent-ops/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/ops/swarm-ops/SPEC.md",
+      "dst": "skills/ops/swarm-ops/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/ops/deploy-preview/SPEC.md",
+      "dst": "skills/ops/deploy-preview/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-brooks.md",
+      "dst": "agents/advisor-brooks.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-musk.md",
+      "dst": "agents/advisor-musk.md",
+      "type": "agent"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "total": 21,
-  "generated": "2026-05-13T02:54:21.419Z",
+  "generated": "2026-05-13T03:22:29.654Z",
   "packs": [
     {
       "id": "algorithm-engineer",
@@ -17,13 +17,19 @@
         "line-data-ai",
         "role-algorithm"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 6,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -41,13 +47,19 @@
         "line-engineering",
         "role-backend"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 8,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -65,13 +77,19 @@
         "line-data-ai",
         "role-bigdata"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 6,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -89,13 +107,19 @@
         "line-business",
         "role-compliance"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 8,
+        "agents": 3,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -113,7 +137,7 @@
         "line-engineering",
         "role-frontend"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
       "variants": {
         "junior": {
           "nameModifier": "初级",
@@ -124,12 +148,18 @@
           "level": "L3"
         }
       },
+      "artifacts": {
+        "skills": 8,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -147,13 +177,19 @@
         "line-engineering",
         "role-infra"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 5,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -171,13 +207,19 @@
         "line-engineering",
         "role-ops"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 5,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -226,13 +268,19 @@
         "line-product",
         "role-scenario"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 5,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {
@@ -250,13 +298,19 @@
         "line-engineering",
         "role-test"
       ],
-      "version": "4.0.0",
+      "version": "4.1.0",
+      "artifacts": {
+        "skills": 7,
+        "agents": 2,
+        "references": 0
+      },
       "files": [
         "CLAUDE.md",
         "AGENTS.md",
         "settings.json",
         "prompts.md",
-        "install.sh"
+        "install.sh",
+        "manifest.json"
       ]
     },
     {

@@ -1,0 +1,66 @@
+{
+  "pack": "algorithm-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/algorithm/algo-core/SPEC.md",
+      "dst": "skills/algorithm/algo-core/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/algorithm/algo-dl/SPEC.md",
+      "dst": "skills/algorithm/algo-dl/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/algorithm/bigdata-ml/SPEC.md",
+      "dst": "skills/algorithm/bigdata-ml/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/algorithm/deep-learning-pipeline/SKILL.md",
+      "dst": "skills/algorithm/deep-learning-pipeline/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/algorithm/perf-profile/SPEC.md",
+      "dst": "skills/algorithm/perf-profile/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/algorithm/systematic-debugging/SKILL.md",
+      "dst": "skills/algorithm/systematic-debugging/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-hickey.md",
+      "dst": "agents/advisor-hickey.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-munger.md",
+      "dst": "agents/advisor-munger.md",
+      "type": "agent"
+    }
+  ]
+}

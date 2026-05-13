@@ -1,22 +1,14 @@
 {
+  "memory": {
+    "chunks": 72
+  },
+  "autonomy": {
+    "level": "L1-guided"
+  },
   "mcpServers": {
-    "github": {
-      "command": "npx",
+    "filesystem": {
       "args": [
-        "-y",
-        "@anthropic-ai/mcp-remote",
-        "https://mcp.github.com/sse"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      }
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
+        "/Users/mauricewen/Projects"
       ]
     }
   }

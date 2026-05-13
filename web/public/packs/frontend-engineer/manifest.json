@@ -1,0 +1,76 @@
+{
+  "pack": "frontend-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/frontend/frontend-design/SPEC.md",
+      "dst": "skills/frontend/frontend-design/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/design-review/SPEC.md",
+      "dst": "skills/frontend/design-review/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/design-system/SPEC.md",
+      "dst": "skills/frontend/design-system/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/design-taste-frontend/SKILL.md",
+      "dst": "skills/frontend/design-taste-frontend/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/frontend-testing/SPEC.md",
+      "dst": "skills/frontend/frontend-testing/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/impeccable-design/SPEC.md",
+      "dst": "skills/frontend/impeccable-design/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/gsap-performance/SKILL.md",
+      "dst": "skills/frontend/gsap-performance/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/frontend/redesign-existing-projects/SKILL.md",
+      "dst": "skills/frontend/redesign-existing-projects/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-jobs.md",
+      "dst": "agents/advisor-jobs.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-hara.md",
+      "dst": "agents/advisor-hara.md",
+      "type": "agent"
+    }
+  ]
+}

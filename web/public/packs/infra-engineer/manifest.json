@@ -1,0 +1,61 @@
+{
+  "pack": "infra-engineer",
+  "version": "4.1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    },
+    {
+      "src": "skills/infra/codex-cloudflare-deploy/SPEC.md",
+      "dst": "skills/infra/codex-cloudflare-deploy/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/infra/deploy-preview/SPEC.md",
+      "dst": "skills/infra/deploy-preview/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/infra/docker-optimizer/SPEC.md",
+      "dst": "skills/infra/docker-optimizer/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/infra/infra-patrol/SPEC.md",
+      "dst": "skills/infra/infra-patrol/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/infra/observability-setup/SPEC.md",
+      "dst": "skills/infra/observability-setup/SPEC.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-hickey.md",
+      "dst": "agents/advisor-hickey.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-musk.md",
+      "dst": "agents/advisor-musk.md",
+      "type": "agent"
+    }
+  ]
+}
