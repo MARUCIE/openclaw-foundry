@@ -138,10 +138,18 @@ function main() {
     const packDir = join(PUBLIC_PACKS, pack.id);
     mkdirSync(packDir, { recursive: true });
 
-    writeFileSync(join(packDir, 'CLAUDE.md'), merged.claudeMd);
-    writeFileSync(join(packDir, 'AGENTS.md'), merged.agentsMd);
-    writeFileSync(join(packDir, 'settings.json'), JSON.stringify(merged.settings, null, 2));
-    writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd);
+    // Packs with `preserveContent: true` have cohort-curated CLAUDE.md /
+    // AGENTS.md / settings.json / prompts.md committed to git and must NOT be
+    // overwritten by layer-merge regeneration. install.sh is still regenerated
+    // because the install protocol is system-owned, not curator-owned.
+    if (pack.preserveContent) {
+      console.log(`  preserveContent=true, keeping committed CLAUDE/AGENTS/settings/prompts`);
+    } else {
+      writeFileSync(join(packDir, 'CLAUDE.md'), merged.claudeMd);
+      writeFileSync(join(packDir, 'AGENTS.md'), merged.agentsMd);
+      writeFileSync(join(packDir, 'settings.json'), JSON.stringify(merged.settings, null, 2));
+      writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd);
+    }
 
     // Packs with artifacts (skills/ + agents/) get a manifest-driven installer
     // that downloads everything listed in manifest.json. Plain packs get the
@@ -153,8 +161,9 @@ function main() {
     writeFileSync(join(packDir, 'install.sh'), installScript);
 
     totalFiles += 5;
-    const fileList = ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'];
-    if (pack.artifacts) fileList.push('manifest.json');
+    const defaultFiles = ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'];
+    if (pack.artifacts) defaultFiles.push('manifest.json');
+    const fileList = pack.files || defaultFiles;
     packListing.push({ ...pack, files: fileList });
   }
 

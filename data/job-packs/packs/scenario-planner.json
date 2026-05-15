@@ -2,8 +2,8 @@
   "id": "scenario-planner",
   "name": "Scenario Planner",
   "nameZh": "场景规划师",
-  "description": "AI scenario design + cross-dept coordination.",
-  "descriptionZh": "面向财税平台的场景规划师配置。",
+  "description": "AI scenario design + cross-dept coordination. Workshop W3 tool kit (业务分析 / 场景规划岗) included.",
+  "descriptionZh": "面向财税平台的场景规划师配置。集成 AI 训战工作坊 W3（业务分析 / 场景规划岗）的 5 件工具套件。",
   "icon": "explore",
   "color": "#003A70",
   "line": "product",
@@ -13,10 +13,27 @@
     "line-product",
     "role-scenario"
   ],
-  "version": "4.1.0",
+  "version": "4.2.0",
   "artifacts": {
     "skills": 5,
     "agents": 2,
-    "references": 0
-  }
+    "references": 2,
+    "toolKits": 4,
+    "dataCollection": 2
+  },
+  "preserveContent": true,
+  "files": [
+    "CLAUDE.md",
+    "AGENTS.md",
+    "settings.json",
+    "prompts.md",
+    "baseline-before-after.md",
+    "checklist-delivery.md",
+    "tool-kit-03-sop-flowchart.md",
+    "tool-kit-05-document-templates.md",
+    "data-collection/baseline-actual.csv",
+    "data-collection/cohort-feedback-form.md",
+    "install.sh",
+    "manifest.json"
+  ]
 }
