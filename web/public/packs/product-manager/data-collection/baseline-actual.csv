@@ -1,0 +1,11 @@
+wave,row,task,baseline_hours,target_after_hours,target_savings_pct,actual_hours_cohort_member_1,actual_hours_cohort_member_2,actual_hours_cohort_member_3,actual_hours_cohort_member_4,actual_hours_cohort_member_5,actual_hours_cohort_member_6,actual_avg_hours,actual_savings_pct,deviation_vs_target_pct,quality_signal_target,quality_signal_actual,notes
+W1,1,单个需求 PRD 撰写,4.0,1.5,62,,,,,,,,,评审一次通过率 32%→60%,,
+W1,2,需求评审会议纪要 + 行动项,1.5,0.25,83,,,,,,,,,行动项遗漏率 15%→3%,,
+W1,3,用户故事拆分 (Epic→Story→Task),2.0,1.0,50,,,,,,,,,拆分粒度一致性 5→8/10,,
+W1,4,竞品分析报告 (3×5 维度),8.0,2.5,69,,,,,,,,,数据时效性 >30d→<7d,,
+W1,5,低保真线框 5 屏,3.0,0.75,75,,,,,,,,,迭代轮次 5→2 轮,,
+W1,6,设计资产复用率,0,0,0,,,,,,,,,复用率 25%→60%,,
+W1,7,交互流程图 (含异常),2.0,0.5,75,,,,,,,,,异常覆盖 60%→90%,,
+W1,8,设计走查 checklist (10 项),1.0,0.33,67,,,,,,,,,漏检率 12%→3%,,
+W1,9,Coze/Claude Skill 雏形,3.0,0.75,75,,,,,,,,,首次跑通率 30%→75%,,
+W1,10,跨 Skill 链式调用,4.0,1.0,75,,,,,,,,,完成率 0%→80%,,

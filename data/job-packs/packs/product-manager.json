@@ -2,8 +2,8 @@
   "id": "product-manager",
   "name": "Product Manager",
   "nameZh": "产品经理",
-  "description": "PRD + user stories + RICE + 8 design skills + 3 advisor lenses.",
-  "descriptionZh": "面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角。",
+  "description": "PRD + user stories + RICE + 8 design skills + 3 advisor lenses + Workshop W1 tool kit.",
+  "descriptionZh": "面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角 + AI 训战工作坊 W1（产品经理需求分析岗）5 件工具套件。",
   "icon": "lightbulb",
   "color": "#7C3AED",
   "line": "product",
@@ -13,11 +13,31 @@
     "line-product",
     "role-pm"
   ],
-  "version": "4.1.0",
+  "version": "4.2.0",
   "design_augmented": true,
   "artifacts": {
     "skills": 8,
     "agents": 3,
-    "references": 0
-  }
+    "references": 2,
+    "toolKits": 4,
+    "dataCollection": 3
+  },
+  "preserveContent": true,
+  "files": [
+    "CLAUDE.md",
+    "AGENTS.md",
+    "settings.json",
+    "prompts.md",
+    "baseline-before-after.md",
+    "checklist-delivery.md",
+    "tool-kit-03-sop-flowchart.md",
+    "tool-kit-05-document-templates.md",
+    "AI_PM_PRIMER_T-1.md",
+    "AI_PM_PRIMER_T-1.html",
+    "data-collection/baseline-actual.csv",
+    "data-collection/cohort-profile-baseline.csv",
+    "data-collection/cohort-feedback-form.md",
+    "install.sh",
+    "manifest.json"
+  ]
 }
