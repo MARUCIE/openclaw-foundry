@@ -1,11 +1,21 @@
 {
   "pack": "test-engineer",
-  "version": "4.1.0",
+  "version": "4.2.2",
   "items": [
     {
       "src": "CLAUDE.md",
       "dst": "CLAUDE.md",
       "type": "config"
+    },
+    {
+      "src": "AI_PM_PRIMER_T-1.md",
+      "dst": "AI_PM_PRIMER_T-1.md",
+      "type": "doc"
+    },
+    {
+      "src": "AI_PM_PRIMER_T-1.html",
+      "dst": "AI_PM_PRIMER_T-1.html",
+      "type": "doc"
     },
     {
       "src": "AGENTS.md",
@@ -21,6 +31,41 @@
       "src": "prompts.md",
       "dst": "prompts.md",
       "type": "config"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "doc"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "doc"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "doc"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "doc"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "data"
+    },
+    {
+      "src": "data-collection/cohort-profile-baseline.csv",
+      "dst": "data-collection/cohort-profile-baseline.csv",
+      "type": "data"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "data"
     },
     {
       "src": "skills/test/test-driven-development/SKILL.md",

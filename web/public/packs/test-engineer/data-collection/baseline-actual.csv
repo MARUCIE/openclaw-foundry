@@ -1,0 +1,11 @@
+wave,row,task,family,baseline_hours,target_after_hours,target_savings_pct,actual_hours_cohort_member_1,actual_hours_cohort_member_2,actual_hours_cohort_member_3,actual_hours_cohort_member_4,actual_hours_cohort_member_5,actual_hours_cohort_member_6,actual_avg_hours,actual_savings_pct,deviation_vs_target_pct,quality_signal_target,quality_signal_actual,notes
+W4,1,Unit test cases (single file),F1,1.5,0.4,73,,,,,,,,,Line coverage 60%->85%,,
+W4,2,Boundary / edge case enumeration,F1,1.0,0.25,75,,,,,,,,,Edge branches 3->8,,
+W4,3,Test data fixture (synthetic invoices),F1,2.0,0.5,75,,,,,,,,,PII leakage 5%->0%,,
+W4,4,Test plan draft (single feature),F1,3.0,1.0,67,,,,,,,,,Risk areas 4->10,,
+W4,5,Regression suite selection,F2,2.5,0.75,70,,,,,,,,,Critical path coverage 80%->100%,,
+W4,6,Defect triage & root-cause,F2,1.5,0.5,67,,,,,,,,,Reproduction confidence 60%->95%,,
+W4,7,Change impact analysis (PR -> risk),F2,2.0,0.5,75,,,,,,,,,Modules flagged 3->8,,
+W4,8,Tax-rule compliance test cases,F3,4.0,1.5,62,,,,,,,,,Edge branches per rule 2->5,,
+W4,9,Audit-trail assertion suite,F3,3.0,1.0,67,,,,,,,,,Trace gaps 30%->0%,,
+W4,10,Weekly QA digest,F3,1.5,0.4,73,,,,,,,,,Follow-up Qs 5->1,,

@@ -4,7 +4,7 @@
 set -euo pipefail
 PACK_ID="bigdata-engineer"
 BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="$HOME/.claude"
+TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing OpenClaw Job Pack: $PACK_ID (manifest-driven)"
 echo "  Source: $BASE_URL"

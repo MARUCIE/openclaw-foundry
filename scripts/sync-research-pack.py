@@ -174,7 +174,7 @@ def render_install_sh() -> str:
 set -euo pipefail
 PACK_ID="research-analyst"
 BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="$HOME/.claude"
+TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing Research Analyst Pack: $PACK_ID"
 echo "  Source: $BASE_URL"

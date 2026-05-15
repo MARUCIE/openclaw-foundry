@@ -6,7 +6,7 @@ set -euo pipefail
 PACK_ID="spellbook-frontend-engineer"
 # Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
 BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="$HOME/.claude"
+TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing Spellbook Job Pack: $PACK_ID"
 echo "  Source: $BASE_URL"

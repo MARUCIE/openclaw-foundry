@@ -51,7 +51,7 @@ function generateInstallScript(packId) {
 set -euo pipefail
 PACK_ID="${packId}"
 BASE_URL="${SITE_URL}/packs/${packId}"
-TARGET_DIR="\$HOME/.claude"
+TARGET_DIR="\${INSTALL_DEST:-\$HOME/.claude}"
 echo "Installing OpenClaw Job Pack: \$PACK_ID..."
 mkdir -p "\$TARGET_DIR"
 for f in CLAUDE.md AGENTS.md settings.json prompts.md; do
@@ -70,7 +70,7 @@ function generateManifestDrivenInstallScript(packId) {
 set -euo pipefail
 PACK_ID="${packId}"
 BASE_URL="\${FOUNDRY_BASE_URL:-${SITE_URL}}/packs/\$PACK_ID"
-TARGET_DIR="\$HOME/.claude"
+TARGET_DIR="\${INSTALL_DEST:-\$HOME/.claude}"
 
 echo "Installing OpenClaw Job Pack: \$PACK_ID (manifest-driven)"
 echo "  Source: \$BASE_URL"

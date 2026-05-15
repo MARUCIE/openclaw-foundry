@@ -2,8 +2,8 @@
   "id": "test-engineer",
   "name": "Test Engineer",
   "nameZh": "测试工程师",
-  "description": "Test strategy + Playwright E2E + Scenario coverage.",
-  "descriptionZh": "面向财税平台的测试工程师配置。",
+  "description": "Test strategy + Playwright E2E + Scenario coverage. Workshop W4 tool kit (测试质量保障岗) included.",
+  "descriptionZh": "面向财税平台的测试工程师配置。集成 AI 训战工作坊 W4（测试质量保障岗）的 5 件工具套件。",
   "icon": "bug_report",
   "color": "#7C3AED",
   "line": "engineering",
@@ -13,10 +13,27 @@
     "line-engineering",
     "role-test"
   ],
-  "version": "4.1.0",
+  "version": "4.2.0",
   "artifacts": {
     "skills": 7,
     "agents": 2,
-    "references": 0
-  }
+    "references": 2,
+    "toolKits": 4,
+    "dataCollection": 2
+  },
+  "preserveContent": true,
+  "files": [
+    "CLAUDE.md",
+    "AGENTS.md",
+    "settings.json",
+    "prompts.md",
+    "baseline-before-after.md",
+    "checklist-delivery.md",
+    "tool-kit-03-sop-flowchart.md",
+    "tool-kit-05-document-templates.md",
+    "data-collection/baseline-actual.csv",
+    "data-collection/cohort-feedback-form.md",
+    "install.sh",
+    "manifest.json"
+  ]
 }
