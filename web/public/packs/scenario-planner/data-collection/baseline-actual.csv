@@ -1,0 +1,11 @@
+wave,row,task,family,baseline_hours,target_after_hours,target_savings_pct,actual_hours_cohort_member_1,actual_hours_cohort_member_2,actual_hours_cohort_member_3,actual_hours_cohort_member_4,actual_hours_cohort_member_5,actual_hours_cohort_member_6,actual_avg_hours,actual_savings_pct,deviation_vs_target_pct,quality_signal_target,quality_signal_actual,notes
+W3,1,Customer contact log entry,F1,0.5,0.15,70,,,,,,,,,Completeness 70%->95%,,
+W3,2,Hourly time tracking & project allocation,F1,0.5,0.1,80,,,,,,,,,Mis-categorization 15%->3%,,
+W3,3,Weekly project status report (3 projects),F1,3.0,1.0,67,,,,,,,,,Follow-up Qs 6->2 per report,,
+W3,4,Customer risk profile,F2,4.0,1.5,62,,,,,,,,,Hypothesis chain depth 1->3,,
+W3,5,Opportunity intake (new lead),F2,2.5,0.75,70,,,,,,,,,Qualification fields 60%->90%,,
+W3,6,Customer-account churn signal review,F2,2.0,0.5,75,,,,,,,,,Early-warning lead time +14d,,
+W3,7,Cross-sell opportunity surfacing,F2,3.0,1.0,67,,,,,,,,,Opportunities/quarter 2->6,,
+W3,8,Tax/policy circular -> 1-pager,F3,2.0,0.4,80,,,,,,,,,Citation ratio 1:1 with source,,
+W3,9,Policy applicability per client,F3,1.5,0.5,67,,,,,,,,,Decision-tree branches 2->5,,
+W3,10,Daily policy digest,F3,1.0,0.2,80,,,,,,,,,Items reviewed 5->15,,
