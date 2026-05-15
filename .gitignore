@@ -28,3 +28,7 @@ data/unified-index.json
 data/clawhub-scroll-backup.json
 data/clawhub-api-full.json
 worker/.wrangler/
+
+# Skill enrichment cache + bulk run artifacts (POE Gemini-3.1-Pro pipeline)
+# Regenerable via scripts/enrich-skill-via-poe.py — see state/skill-enrichment/PLAN.md
+state/
