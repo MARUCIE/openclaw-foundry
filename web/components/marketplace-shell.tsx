@@ -65,7 +65,7 @@ function getRepoName(skill: ClawHubSkill): string {
 }
 
 function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => void }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [copied, setCopied] = useState('');
   const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
   const installId = getInstallId(skill);
@@ -102,7 +102,9 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           </button>
         </div>
 
-        <p className="text-sm leading-relaxed text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{skill.description}</p>
+        <p className="text-sm leading-relaxed text-pretty" style={{ color: 'var(--on-surface-variant)' }}>
+          {locale === 'zh' && (skill as any).descriptionZh ? (skill as any).descriptionZh : skill.description}
+        </p>
 
         <div className="space-y-4">
           <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-balance" style={{ color: 'var(--on-surface-variant)' }}>
@@ -314,7 +316,7 @@ function DeployFeedbackBar({ skillId }: { skillId: string }) {
 }
 
 export function MarketplaceShell() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState('');
   const [activeSource, setActiveSource] = useState<typeof SOURCE_KEYS[number]>('all');
@@ -555,7 +557,9 @@ export function MarketplaceShell() {
                       </span>
                     </div>
 
-                    <p className="text-sm leading-relaxed mb-6 line-clamp-2 opacity-80 flex-1 text-pretty">{skill.description}</p>
+                    <p className="text-sm leading-relaxed mb-6 line-clamp-2 opacity-80 flex-1 text-pretty">
+                      {locale === 'zh' && (skill as any).descriptionZh ? (skill as any).descriptionZh : skill.description}
+                    </p>
 
                     <div className="flex items-center gap-4 mb-6">
                       {skill.downloads > 0 && (
