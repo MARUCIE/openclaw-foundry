@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--
+  generated-by: html-style-router
+  style-id: html-document-style
+  style-name: Claude Warm Academic Humanism
+  genre: t-1-primer / guide / pre-workshop reading
+  routing-decision: html-style-router SPEC §Tier-1 "Guides, proposals, whitepapers, docs" → Claude Warm Academic
+  date: 2026-05-16
+  canonical-md: AI_PM_PRIMER_T-1.md (English source of truth)
+-->
+<html lang="zh-CN" data-style-id="html-document-style" data-style-name="claude-warm-academic-humanism">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="html-style-router · claude-warm-academic-humanism">
+<title>AI 产品经理 · T-1 训前手册</title>
+<style>
+:root {
+  --cream: #FBF8F2;
+  --cream-light: #FDFCF7;
+  --terra: #B25538;
+  --terra-soft: #C97455;
+  --mustard: #C99239;
+  --navy: #2C3848;
+  --muted: #7A6F62;
+  --ink: #2A2620;
+  --rule: #E8DFD0;
+  --page-max: 760px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--cream); color: var(--ink); font-family: "Noto Serif SC", "Songti SC", "STSong", serif; line-height: 1.78; -webkit-font-smoothing: antialiased; }
+main { max-width: var(--page-max); margin: 0 auto; padding: 64px clamp(20px, 4vw, 48px) 80px; }
+.cover { padding-bottom: 36px; border-bottom: 1px solid var(--rule); margin-bottom: 40px; }
+.cover-eyebrow { font-family: "Playfair Display", "Noto Serif SC", serif; font-size: 13px; letter-spacing: .18em; color: var(--terra); text-transform: uppercase; margin-bottom: 14px; }
+.cover h1 { font-family: "Playfair Display", "Noto Serif SC", serif; font-size: 38px; line-height: 1.25; margin: 0 0 12px; color: var(--navy); font-weight: 700; }
+.cover-sub { font-size: 15px; color: var(--muted); font-style: italic; margin-top: 6px; }
+.tldr { background: var(--cream-light); border-left: 3px solid var(--terra); padding: 18px 22px; margin: 26px 0 0; font-size: 15px; color: var(--ink); }
+h2 { font-family: "Playfair Display", "Noto Serif SC", serif; color: var(--navy); font-size: 24px; margin: 56px 0 18px; font-weight: 700; letter-spacing: -.005em; }
+h2 .num { color: var(--terra); margin-right: 10px; font-size: 20px; }
+h3 { font-family: "Noto Serif SC", serif; color: var(--terra); font-size: 17px; margin: 30px 0 10px; font-weight: 700; }
+p { margin: 14px 0; font-size: 16px; }
+.lede { font-size: 17px; color: var(--ink); }
+strong { color: var(--navy); font-weight: 700; }
+em { color: var(--terra); font-style: italic; }
+ul { padding-left: 22px; }
+ul li { margin: 8px 0; font-size: 15.5px; }
+table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 14.5px; }
+th { text-align: left; padding: 12px 14px; background: var(--cream-light); color: var(--navy); font-weight: 700; border-bottom: 2px solid var(--terra); font-family: "Noto Serif SC", serif; }
+td { padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { font-weight: 600; color: var(--navy); width: 28%; }
+.pull { background: var(--cream-light); border: 1px solid var(--rule); border-left: 4px solid var(--mustard); padding: 18px 22px; margin: 24px 0; font-size: 15.5px; color: var(--ink); }
+.pull strong { color: var(--terra); }
+.disclosure { background: rgba(201,146,57,.08); border: 1px solid rgba(201,146,57,.25); padding: 14px 18px; margin: 22px 0; font-size: 13.5px; color: var(--muted); font-style: italic; line-height: 1.7; }
+.thesis-banner { font-family: "Playfair Display", "Noto Serif SC", serif; font-size: 22px; color: var(--terra); padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 28px 0; text-align: center; font-weight: 700; }
+.score-band { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+.score-band-row { display: flex; gap: 16px; padding: 12px 16px; background: var(--cream-light); border-left: 3px solid var(--mustard); }
+.score-band-num { font-family: "Playfair Display", serif; color: var(--terra); font-weight: 700; min-width: 60px; }
+footer { margin-top: 70px; padding-top: 30px; border-top: 1px solid var(--rule); text-align: center; color: var(--muted); font-size: 13px; line-height: 2.2; }
+@media (max-width: 600px) {
+  .cover h1 { font-size: 28px; }
+  td:first-child { width: 35%; }
+  table { font-size: 13.5px; }
+  td, th { padding: 10px 8px; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<section class="cover">
+  <div class="cover-eyebrow">T-1 · 训前手册 · 5-8 分钟</div>
+  <h1>AI 产品经理</h1>
+  <div class="cover-sub">读完本文 → 填写 <code>data-collection/cohort-profile-baseline.csv</code></div>
+  <div class="tldr">
+    本文目的：在你走进训战教室之前 24 小时，先回答一个问题 — "什么样的人在 2026 年还叫做产品经理？" 再用 §5 的自测模型，知道你现在的位置，然后带着这个坐标进入训战。
+  </div>
+</section>
+
+<h2><span class="num">1</span>什么是 AI 产品经理</h2>
+
+<p class="lede">AI 产品经理是这样一种 PM：主要的工作回路从「写需求 → 排期工程师 → review → 迭代」变成了「想清楚 → AI 生成 → 批判 → 迭代」。</p>
+
+<p>这不是"会用 AI 工具的 PM"。区别在工作重心的位置 — 从协调他人劳动，转移到了直接生产物料。当生成一份 PRD 草稿的成本降 10 倍、生成一个可点击原型的成本降 10 倍，瓶颈就移动了。它从"我怎么让工程把这个做出来"变成了"我们应该不应该做这个，我对自己的判断够不够信"。</p>
+
+<p>这个新瓶颈 — <strong>判断力 + 自我信任</strong> — 就是 AI PM 的工作。</p>
+
+<h2><span class="num">2</span>底层判断：传统的产品经理将不复存在</h2>
+
+<p>到 2026 年，"传统产品经理"已经不是一种可持续的岗位描述。它是一个 legacy 头衔，就像 2005 年的"数据录入员"——这份工作还存在，但只会做这件事的人，已经在竞争性市场里找不到位置。</p>
+
+<div class="thesis-banner">所有 PM 都是 AI PM。唯一的变量是你有没有意识到。</div>
+
+<p>劳动市场里它具体长什么样 — 以下基于 Maurice 在 2024 下半年到 2026 上半年间的 PM 同行网络观察 + 招聘对话：</p>
+
+<ul>
+  <li>同一个 PM，18 个月前写 PRD 要 3 天，今天用 Cursor + 一个稳定 prompt 模板做同一份只要 30 分钟。跟不上这个节奏的资深 PM 要么往运营转，要么悄悄离场。</li>
+  <li>Maurice 直接了解的 2-3 家 AI-native 公司，PM 招聘流程开始要求候选人在面试时间窗内用 AI 工具交付一个可工作原型，时间盒固定。</li>
+  <li>2024 年中之前写的"PM 工作方法论"教程，跟 Maurice 网络里 2026 年最强 PM 的实际操作对比起来，已经过时。</li>
+</ul>
+
+<div class="disclosure">来源声明：以上是 Maurice 的亲身网络观察（估算覆盖 3 家公司 + 邻近招聘对话约 50-80 位 PM）+ 自己的实操经历。<strong>不是公开统计调查</strong>。如果半年后这套模式不能预测你所在市场看到的现象，请向 Maurice 反馈 — 模式可能局限于他的网络，不是普适的。</div>
+
+<h2><span class="num">3</span>AI PM 与传统 PM 的 7 个区别</h2>
+
+<table>
+  <thead><tr><th>轴</th><th>传统 PM</th><th>AI PM</th></tr></thead>
+  <tbody>
+    <tr><td>产出速度</td><td>1 份 PRD / 周</td><td>5 份 PRD 草稿 / 天，挑 1 个交付</td></tr>
+    <tr><td>原型距离</td><td>"等工程师"</td><td>Cursor / v0 / Figma AI 2 小时做出来，端给用户</td></tr>
+    <tr><td>知识库</td><td>Notion / Confluence</td><td>Skills 库、prompt 库、每个 workflow 一份 <code>agent.md</code></td></tr>
+    <tr><td>决策依据</td><td>利益相关者共识</td><td>快速原型 + AI 辅助综合的证据</td></tr>
+    <tr><td>失败成本</td><td>高（几个月浪费）</td><td>低（一个下午，丢掉重来）</td></tr>
+    <tr><td>工具熟练度门槛</td><td>Excel + JIRA</td><td>Claude / Cursor / Coze / <code>agent.md</code> + 5-10 个在用的 prompt 模板</td></tr>
+    <tr><td>职业拐点</td><td>升 PM 总监</td><td>做出你自己的 AI-native 产品（你的，不是雇主的）</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">4</span>AI PM 的三条操作标准</h2>
+
+<p class="lede">一个 AI PM，是能同时做到下面三件事的人：</p>
+
+<h3>4.1 快速试错</h3>
+<p>一周里把同一个东西做 5 个版本，看哪个用户真的在用，砍掉另外 4 个不带情绪。把观点当作假设，不是立场。"我错了"的肌肉是按小时启动的，不是按季度。</p>
+
+<h3>4.2 快速提供产品清晰度</h3>
+<p>能把一个模糊的利益相关者诉求，4 小时内交付一份 1 页 PRD + 一个可点击原型 + 3 个用户测试问题。产出不需要"精致"，只需要"清楚到能决定下一步做什么"。精致是清晰度的下游产物 — 没有清晰度的精致是装饰。</p>
+
+<h3>4.3 商业信任度</h3>
+<p>工作 6 个月后，业务上的数字 — 收入、留存、NPS — 可以衡量地往上走。不是"我交付了 12 个 feature"，不是"我跑了 4 个 OKR"。是你承诺过的某一个具体数字真的涨了，并且付你钱的人开始信任你对"下一步做什么"的判断。</p>
+
+<div class="pull"><strong>3 项做到 1 项</strong>：junior AI PM。<strong>3 项做到 2 项</strong>：senior AI PM。<strong>3 项全做到</strong>：principal AI PM — 无论宏观如何，你都有市场。</div>
+
+<h2><span class="num">5</span>AI 能力自测模型</h2>
+
+<p>诚实自评 · 5 分钟 · 除你之外没人看见。每条按 Dreyfus 5 级评分。</p>
+
+<h3>5.1 快速试错的等级</h3>
+<table>
+  <thead><tr><th>等级</th><th>看起来像什么</th></tr></thead>
+  <tbody>
+    <tr><td>1 · 新手</td><td>我对该做什么有观点，但没有任何机制去检验它</td></tr>
+    <tr><td>2 · 进阶新手</td><td>每季度做一次用户访谈，把它当作"对我已有计划的确认"</td></tr>
+    <tr><td>3 · 胜任</td><td>每月发布 1 个原型，砍掉烂的，但每砍一个心里都难受</td></tr>
+    <tr><td>4 · 精通</td><td>每周 1 个原型，无情绪，每一个都当作假设</td></tr>
+    <tr><td>5 · 专家</td><td>过去一年砍掉 >30 个原型，能说出其中 3 个"光靠分析根本想不到"的发现</td></tr>
+  </tbody>
+</table>
+
+<h3>5.2 快速产品清晰度的等级</h3>
+<table>
+  <thead><tr><th>等级</th><th>看起来像什么</th></tr></thead>
+  <tbody>
+    <tr><td>1 · 新手</td><td>写一份 PRD 要 3+ 天，工程会因为含糊把它打回来</td></tr>
+    <tr><td>2 · 进阶新手</td><td>能写 1 页 PRD，但里面有缺口，要等工程指出来</td></tr>
+    <tr><td>3 · 胜任</td><td>一天能做出 1 页 PRD + 简单 wireframe，初读基本清楚</td></tr>
+    <tr><td>4 · 精通</td><td>4 小时做出 1 页 PRD + 可点击原型，工程读完就开始写代码</td></tr>
+    <tr><td>5 · 专家</td><td>2 小时做出 1 页 PRD + 可点击原型 + 3 个测试问题，一次会议说服怀疑型干系人</td></tr>
+  </tbody>
+</table>
+
+<h3>5.3 商业信任度的等级</h3>
+<table>
+  <thead><tr><th>等级</th><th>看起来像什么</th></tr></thead>
+  <tbody>
+    <tr><td>1 · 新手</td><td>我说不出我的产品被哪 3 个指标考核</td></tr>
+    <tr><td>2 · 进阶新手</td><td>我知道指标，但说不出我的任何一个决策跟它们的关系</td></tr>
+    <tr><td>3 · 胜任</td><td>能说出 1 个我做的让指标动了的决策，和 1 个没动的</td></tr>
+    <tr><td>4 · 精通</td><td>过去 6 个月，>50% 的决策能追溯到一个真的动了的指标</td></tr>
+    <tr><td>5 · 专家</td><td>对数字做承诺并兑现。Leadership 在决定 scope 之前来征求我意见，不是之后</td></tr>
+  </tbody>
+</table>
+
+<h3>5.4 你的总分（满分 15）</h3>
+<div class="score-band">
+  <div class="score-band-row"><div class="score-band-num">3-5</div><div><strong>Junior</strong> · 三个轴都要补习惯；这次训战目标是把最弱的一维提 1-2 级</div></div>
+  <div class="score-band-row"><div class="score-band-num">6-9</div><div><strong>Competent</strong> · 把最弱的一维补到位；另两维暂时不是瓶颈</div></div>
+  <div class="score-band-row"><div class="score-band-num">10-12</div><div><strong>Senior</strong> · 商业信任度未到 4+ 的话补它；否则帮校准其他人</div></div>
+  <div class="score-band-row"><div class="score-band-num">13-15</div><div><strong>Principal</strong> · 你不需要这次训战。带着你的判断来校准别人，我们可能邀你进讲师轨</div></div>
+</div>
+
+<h2><span class="num">6</span>怎么用这份文档</h2>
+
+<ul>
+  <li><strong>T-1（开场前 24 小时）</strong>：读一遍。诚实给 §5 打分。然后填 <code>cohort-profile-baseline.csv</code>（另一份 artifact — 那个跟踪的是行为事实，不是自评分数）。</li>
+  <li><strong>T+0（训战当天）</strong>：Maurice 没看你的分数。训战会优先把你最弱的一维提 1-2 级。</li>
+  <li><strong>T+30 天（训战后 1 个月）</strong>：重读。重评。如果没动，向 Maurice 升级求 1:1 诊断。</li>
+  <li><strong>之后每季</strong>：重复评分。线应该往上弯。</li>
+</ul>
+
+<h2><span class="num">7</span>反模式 · 这份文档不能这么用</h2>
+
+<ul>
+  <li><strong>不要把你的分数分享给不深度信任的人。</strong>分数是个私人仪器，不是 credential。</li>
+  <li><strong>不要优化分数本身。</strong>分数是工作的下游。直接优化分数就是 Goodhart 定律在你身上现形。</li>
+  <li><strong>不要不加批判地接受这个模型。</strong>如果半年后这 3 条标准不能预测谁在产出有价值的工作，模型就是错的 — 麻烦把这件事告诉 Maurice。</li>
+</ul>
+
+<footer>
+  <p>AI Workshop · T-1 Primer v1.0 — Pre-Workshop Reading</p>
+  <p>Maurice | maurice_wen@proton.me</p>
+  <p style="font-size:12px;margin-top:8px;">2026-05-16 · 中文 human-facing 版（英文 canonical：<code>AI_PM_PRIMER_T-1.md</code>）</p>
+</footer>
+
+</main>
+</body>
+</html>
