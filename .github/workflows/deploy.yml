@@ -190,17 +190,21 @@ jobs:
       - name: Install worker dependencies
         run: cd worker && npm ci
 
-      - name: Apply all D1 migrations in order (tolerant replay)
+      - name: Apply D1 migrations v7+ (CI-managed migrations)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           cd worker
-          # Replay every migration; tolerate idempotent "already-applied" errors so
-          # SQLite migrations using ALTER TABLE ADD COLUMN (no IF NOT EXISTS in SQLite)
-          # can re-run safely. Genuine errors still fail the job.
+          # Scope: v2-v6 were applied manually pre-CI; their replay is unsafe
+          # because later migrations rename/drop columns referenced by earlier ones
+          # (e.g. v4 references "role" which v5+ dropped). v7+ are CI-managed:
+          # each MUST be idempotent (CREATE ... IF NOT EXISTS only).
+          # Followup debt: switch to a _migrations tracking table so this gate
+          # becomes "run only if version not yet recorded."
           IDEMPOTENT_RE='duplicate column name|already exists|UNIQUE constraint failed|table .* already|index .* already'
-          for mig in $(ls src/migration-v*.sql | sort); do
+          shopt -s nullglob
+          for mig in src/migration-v[7-9].sql src/migration-v[1-9][0-9].sql; do
             echo "::group::Applying $mig"
             set +e
             OUT=$(npx wrangler d1 execute openclaw-foundry --remote --file="$mig" 2>&1)
