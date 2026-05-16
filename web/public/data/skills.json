@@ -230,7 +230,7 @@
     {
       "id": "local/agent-browser",
       "name": "agent-browser",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A headless browser automation CLI for AI Agents that requires no MCP, supporting web access, interaction, screenshots, and element extraction.",
       "descriptionZh": "一个面向 AI Agents 的无头浏览器自动化命令行工具，无需 MCP，支持网页访问、交互、截图和元素提取。",
@@ -268,7 +268,7 @@
     {
       "id": "local/agent-browser-codex",
       "name": "agent-browser-codex",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A CLI tool for controlling web browsers, supporting actions like opening URLs, getting interactive element references, clicking, filling forms, and taking screenshots. It is recommended for AI agents to use its structured JSON output for precise web automation.",
@@ -302,7 +302,7 @@
     {
       "id": "local/agent-development",
       "name": "agent-development",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Describes how to develop autonomous agents for Claude Code plugins, covering file structure, triggering conditions, YAML frontmatter configuration, and system prompt design.",
       "descriptionZh": "介绍如何为 Claude Code 插件开发自主代理（Agent），包括代理的文件结构、触发条件、YAML 前文配置以及系统提示词的设计方法。",
@@ -339,7 +339,7 @@
     {
       "id": "local/agent-eval-system",
       "name": "agent-eval-system",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill is an agent evaluation framework that persists tasks, graders, process records, and result states as traceable assets to establish reusable evaluation baselines. It supports initializing, planning, and running evaluations while recording complete I/O transcripts and final environment states.",
       "descriptionZh": "该技能是一个智能体评估框架，将任务、评分器、过程记录和结果状态落盘为可追踪资产，从而建立可复用的评估基线。它支持初始化、生成计划和运行评估，并记录完整的输入输出及最终环境状态。",
@@ -375,7 +375,7 @@
     {
       "id": "local/agent-factory",
       "name": "agent-factory",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Dynamically creates ephemeral worker agents from templates based on task types. Supports batch creation for parallel tasks and generates dispatch prompts.",
       "descriptionZh": "根据任务类型从模板动态创建临时的工作Agent。支持批量创建并行任务的Agent并生成调度提示词。",
@@ -411,7 +411,7 @@
     {
       "id": "local/agent-pack-n-go",
       "name": "agent-pack-n-go",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Clone your OpenClaw Agent to a new device via SSH remote control. The agent handles packing, transferring, and deployment automatically with minimal user confirmation.",
       "descriptionZh": "通过SSH远程控制将OpenClaw Agent克隆到新设备。代理会自动处理打包、传输和部署，用户只需确认步骤即可完成迁移。",
@@ -448,7 +448,7 @@
     {
       "id": "local/agent-reach",
       "name": "agent-reach",
-      "author": "local",
+      "author": "Panniantong",
       "source": "local",
       "description": "Install and configure upstream tools for over 12 platforms including Twitter, YouTube, and Xiaohongshu. Allows direct calling of these tools without a wrapper layer after setup.",
       "descriptionZh": "安装并配置超过12个平台的上游工具（如Twitter、YouTube、小红书等）。配置完成后可直接调用这些工具，无需额外的包装层。",
@@ -487,7 +487,7 @@
     {
       "id": "local/agent-teams-swarm",
       "name": "agent-teams-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates 51 SOP pipelines into multi-agent execution mode using five swarm patterns: Leader, Swarm, Pipeline, Council, and Watchdog.",
       "descriptionZh": "将51个SOP流水线转化为多智能体执行模式，通过Leader、Swarm、Pipeline、Council和Watchdog五种模式进行编排。",
@@ -559,7 +559,7 @@
     {
       "id": "local/ai-drawio",
       "name": "ai-drawio",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill provides chart generation capabilities, supporting flowcharts, architecture diagrams, and mind maps. It is integrated into the PPT generation skill as a core module and outputs in SVG or drawio formats.",
       "descriptionZh": "该技能提供图表生成能力，支持流程图、架构图、思维导图等多种类型。它已整合到PPT生成技能中作为核心模块，支持输出SVG和drawio格式。",
@@ -595,7 +595,7 @@
     {
       "id": "local/ai-flow-contract",
       "name": "ai-flow-contract",
-      "author": "local",
+      "author": "genkit-ai",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Use this skill to graduate an AI feature from prompt-only behavior into an auditable engineering unit. It generates a vendor-neutral contract including flow schemas, runtime commands, trace evidence, and evaluation datasets inspired by Genkit.",
@@ -629,7 +629,7 @@
     {
       "id": "local/ai-news",
       "name": "ai-news",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Aggregates multiple AI news sources into a local file, supporting incremental updates, Chinese title translation, and scheduled execution.",
       "descriptionZh": "将多个AI资讯来源统一聚合到本地文件，支持增量更新、标题中文翻译与定时运行。",
@@ -667,7 +667,7 @@
     {
       "id": "local/ai-tools-conversation-playbook",
       "name": "ai-tools-conversation-playbook",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Consolidates user prompt iterations, solution paths, and validation methods into reusable collaboration templates. It aims to reduce repetitive communication and rework in AI collaboration through standardized conversation and execution workflows.",
@@ -701,7 +701,7 @@
     {
       "id": "local/ai-video-gen",
       "name": "ai-video-gen",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate AI videos from text prompts using multiple providers like VEO, Kling, and Sora. Supports configurable aspect ratios and optional reference images for image-to-video generation.",
       "descriptionZh": "通过文本提示生成AI视频，支持VEO、Kling、Sora等多种模型提供商。提供可配置的宽高比，并支持使用参考图像进行图生视频生成。",
@@ -1548,7 +1548,7 @@
     {
       "id": "local/brainstorm-experiments-existing",
       "name": "brainstorm-experiments-existing",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Design low-effort experiments to test product assumptions before committing to full implementation, aiming for maximum validated learning.",
@@ -1582,7 +1582,7 @@
     {
       "id": "local/brainstorm-experiments-new",
       "name": "brainstorm-experiments-new",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Create XYZ hypotheses and design pretotype experiments to validate a new product concept with minimal effort using lean startup methodology.",
@@ -1616,7 +1616,7 @@
     {
       "id": "local/brainstorm-ideas-existing",
       "name": "brainstorm-ideas-existing",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Multi-perspective ideation tool for continuous product discovery. Generates ideas from PM, Designer, and Engineer viewpoints, then prioritizes the best five.",
       "descriptionZh": "多视角产品发现与创意生成工具。从产品经理、设计师和工程师的角度生成创意，并优先排序出最佳的五个想法。",
@@ -1651,7 +1651,7 @@
     {
       "id": "local/brainstorm-ideas-new",
       "name": "brainstorm-ideas-new",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Multi-perspective ideation for initial product discovery of a new product. Generates and prioritizes specific feature ideas from PM, Designer, and Engineer viewpoints.",
       "descriptionZh": "针对新产品的初始产品探索进行多视角头脑风暴。从产品经理、设计师和工程师的角度生成具体的功能创意并进行优先级排序。",
@@ -1793,7 +1793,7 @@
     {
       "id": "local/build-mcp-app",
       "name": "build-mcp-app",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill guides the creation of MCP apps, which are standard MCP servers that also serve interactive UI resources inline. It covers when to use widgets, architecture, and attaching widgets to tools.",
       "descriptionZh": "该技能指导如何构建MCP应用，即在标准MCP服务器基础上提供内联UI资源的交互式组件。涵盖了何时使用小部件、架构设计以及如何将小部件附加到工具上。",
@@ -1831,7 +1831,7 @@
     {
       "id": "local/build-mcp-server",
       "name": "build-mcp-server",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Guides developers through designing and building MCP servers that work seamlessly with Claude. Covers use case discovery, deployment model recommendations, and tool design patterns.",
@@ -1865,7 +1865,7 @@
     {
       "id": "local/build-mcpb",
       "name": "build-mcpb",
-      "author": "local",
+      "author": "anthropics",
       "source": "local",
       "description": "MCPB is a local MCP server packaged with its runtime for easy distribution. This guide explains how to build an MCPB bundle, configure the manifest, and handle local security.",
       "descriptionZh": "MCPB 是一种打包了运行时的本地 MCP 服务器分发格式。该技能指导如何构建包含 manifest.json 和服务器代码的 MCPB 包，以便在用户本地机器上独立运行。",
@@ -1903,7 +1903,7 @@
     {
       "id": "local/business-diagnosis-pipeline",
       "name": "business-diagnosis-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A business diagnosis pipeline toolkit providing sequential execution for business model diagnosis, benchmark analysis, content creation, execution unblocking, and concept deconstruction.",
       "descriptionZh": "栋哥商业诊断工具箱，提供商业模式诊断、对标分析、内容创作、执行力提升和概念拆解的流水线执行能力。",
@@ -1937,7 +1937,7 @@
     {
       "id": "local/business-docs-sync",
       "name": "business-docs-sync",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Ensures all business strategy, pricing, and product documents stay synchronized when product decisions change during execution or evaluation.",
@@ -1971,7 +1971,7 @@
     {
       "id": "local/business-model",
       "name": "business-model",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a Business Model Canvas with all 9 building blocks. Useful for creating, documenting, or analyzing how a business creates and captures value.",
       "descriptionZh": "生成包含9个核心模块的商业模式画布（BMC）。适用于创建商业模式、记录企业价值创造过程或分析现有的商业模式。",
@@ -2184,7 +2184,7 @@
     {
       "id": "local/claude-automation-recommender",
       "name": "claude-automation-recommender",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "Analyzes codebase patterns to recommend tailored Claude Code automations, including hooks, subagents, skills, and MCP servers.",
       "descriptionZh": "分析代码库模式，为Claude Code推荐定制化的自动化扩展，包括Hooks、Subagents、Skills和MCP服务器。",
@@ -2221,7 +2221,7 @@
     {
       "id": "local/claude-code-best-practices",
       "name": "claude-code-best-practices",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "Converts the Anthropic team's Claude Code best practices PDF into a reusable output workflow, generating a documentation pack with charts and summaries.",
       "descriptionZh": "将Anthropic团队的Claude Code最佳实践PDF转化为可复用的输出流程，并生成包含图表和总结的文档包。",
@@ -2257,7 +2257,7 @@
     {
       "id": "local/claude-code-boris-tips",
       "name": "claude-code-boris-tips",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "Organizes Boris Cherny's ten Claude Code tips into reusable automated runbooks, providing unified prompts and operation templates.",
       "descriptionZh": "将Boris Cherny的Claude Code十个使用技巧整理为可复用的自动化runbook，提供统一的提示词与操作模板。",
@@ -2293,7 +2293,7 @@
     {
       "id": "local/claude-code-insights",
       "name": "claude-code-insights",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "Solidifies the Claude Code `/insights` usage process into a reusable runbook, supporting automatic triggering and recording workflow optimization suggestions.",
       "descriptionZh": "将 Claude Code `/insights` 的使用流程固化为可复用的 runbook，支持自动触发并记录工作流优化建议。",
@@ -2328,7 +2328,7 @@
     {
       "id": "local/claude-hud",
       "name": "claude-hud",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "This Skill installs the Claude HUD plugin to display context usage, tool activity, running agents, and todo progress within Claude Code sessions for visual observation and auditing.",
       "descriptionZh": "该 Skill 用于安装 Claude HUD 插件，在 Claude Code 会话内展示上下文使用量、工具活动、运行中的代理和待办进度，便于可视化观察与审计。",
@@ -2365,7 +2365,7 @@
     {
       "id": "local/claude-md-improver",
       "name": "claude-md-improver",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "Audits, evaluates, and improves CLAUDE.md files across a codebase to ensure Claude Code has optimal project context. It generates a quality report and applies targeted updates upon user approval.",
       "descriptionZh": "审计、评估并改进代码库中的 CLAUDE.md 文件，以确保 Claude Code 拥有最佳的项目上下文。该工具会生成质量报告，并在用户批准后应用针对性的更新。",
@@ -2402,7 +2402,7 @@
     {
       "id": "local/claude-model-bridge",
       "name": "claude-model-bridge",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill safely bridges Claude Code to third-party model providers without polluting native configurations. It includes built-in support for ZenMux and allows extension to other compatible providers via JSON descriptors.",
@@ -2436,7 +2436,7 @@
     {
       "id": "local/claude-opus-chatstyle",
       "name": "claude-opus-chatstyle",
-      "author": "local",
+      "author": "Anthropic",
       "source": "local",
       "description": "A prompt style guideline directing the AI to write like a sharp, clear, and technically grounded human collaborator. It aims to reduce cognitive load while preserving engineering rigor.",
       "descriptionZh": "这是一个用于指导AI以清晰、克制且具备技术基础的人类协作者风格进行交流的提示词模板。它旨在减少认知负担，同时保持工程严谨性。",
@@ -2509,7 +2509,7 @@
     {
       "id": "local/cli-relay",
       "name": "cli-relay",
-      "author": "local",
+      "author": "kittors",
       "source": "local",
       "description": "A unified AI CLI proxy server that routes requests from various AI CLI tools through a local port to multiple upstream model providers. It supports round-robin, failover, usage tracking, and multiple authentication methods.",
       "descriptionZh": "一个统一的AI命令行代理服务器，将各种AI CLI工具的请求通过本地端口路由到多个上游大模型提供商。支持负载均衡、故障转移、使用量跟踪以及多种认证方式。",
@@ -2652,7 +2652,7 @@
     {
       "id": "local/codex-cli-runtime",
       "name": "codex-cli-runtime",
-      "author": "local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "This skill is used exclusively inside the codex:codex-rescue subagent to forward tasks to Codex via the codex-companion.mjs script. It handles command-line arguments like model selection, effort levels, and resume states, returning the raw stdout.",
       "descriptionZh": "该技能专用于 codex:codex-rescue 子代理中，通过调用 codex-companion.mjs 脚本将任务转发给 Codex 执行。它负责处理命令行参数（如模型、工作量、恢复状态等）并直接返回标准输出。",
@@ -2689,7 +2689,7 @@
     {
       "id": "local/codex-relay-pipeline",
       "name": "codex-relay-pipeline",
-      "author": "local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A dual-agent relay pipeline enabling cross-model collaboration between Claude Code and Codex CLI, featuring sub-skills like adversarial review and code review.",
       "descriptionZh": "这是一个双智能体接力流水线工具，支持Claude Code与Codex CLI跨模型协作，包含对抗性审查和代码审查等子技能。",
@@ -2723,7 +2723,7 @@
     {
       "id": "local/codex-result-handling",
       "name": "codex-result-handling",
-      "author": "local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Defines rules for handling Codex helper outputs, including preserving structure, ordering findings by severity, accurately citing file paths, and strictly forbidding auto-applying code fixes without user permission.",
       "descriptionZh": "规定了如何处理 Codex 助手的输出结果，包括保留原始结构、按严重程度排序发现的问题、准确引用文件路径，并严禁在未经用户允许的情况下自动应用代码修复。",
@@ -3071,7 +3071,7 @@
     {
       "id": "local/conductor-orchestrator",
       "name": "conductor-orchestrator",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A master coordinator that runs the Evaluate-Loop for any track using parallel multi-agent execution. Version 3 features goal-driven entry, worker agent parallelism, Board of Directors deliberation, and message bus coordination.",
       "descriptionZh": "这是一个多智能体并行协调器，负责运行评估循环。版本3引入了目标驱动入口、工作智能体并行执行、董事会审议以及消息总线协调功能。",
@@ -3318,7 +3318,7 @@
     {
       "id": "local/craft-agents-oss",
       "name": "craft-agents-oss",
-      "author": "local",
+      "author": "craft-ai-agents",
       "source": "local",
       "description": "Provides a one-click installation and execution entry for Craft Agents OSS, saving it to the project directory for easy auditing and reuse.",
       "descriptionZh": "提供 Craft Agents OSS 的一键安装与运行入口，落盘到项目目录，便于审计和复用。",
@@ -3355,7 +3355,7 @@
     {
       "id": "local/create-onboarding-video",
       "name": "create-onboarding-video",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Produce short, punchy app onboarding videos using Remotion or HyperFrames. It generates code to create App Store-style previews focused on specific feature interactions.",
@@ -3389,7 +3389,7 @@
     {
       "id": "local/create-prd",
       "name": "create-prd",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Act as an experienced product manager to create a comprehensive Product Requirements Document (PRD) using a proven 8-section template, covering objectives, market segments, and value propositions.",
       "descriptionZh": "扮演经验丰富的产品经理，使用经过验证的8个部分模板（包括背景、目标、市场细分、价值主张等）为产品或功能创建全面的产品需求文档（PRD）。",
@@ -3426,7 +3426,7 @@
     {
       "id": "local/create-video",
       "name": "create-video",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate complete videos from a text prompt. The AI automatically handles script writing, avatar selection, visuals, voiceover, pacing, and captions based on your description.",
       "descriptionZh": "通过文本提示生成完整的视频。只需描述需求，AI即可自动处理脚本编写、数字人选择、视觉效果、配音、节奏和字幕。",
@@ -3713,7 +3713,7 @@
     {
       "id": "local/deep-learning-pipeline",
       "name": "deep-learning-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Manages the end-to-end editorial pipeline for the Deep Learning series. It automates a 5-stage process including unique visual style selection, HTML rendering, Cloudflare Pages deployment, multi-format poster generation, and archiving.",
@@ -3747,7 +3747,7 @@
     {
       "id": "local/deep-learning-skill",
       "name": "deep-learning-skill",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Converts learning materials into editorial-grade deep reports with HTML, 4K covers, and optional infographics, featuring automated frontend polishing and Google Drive synchronization.",
@@ -3781,7 +3781,7 @@
     {
       "id": "local/deep-research",
       "name": "deep-research",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A multi-step, multi-agent autonomous deep research tool based on the Graph of Thoughts (GoT) framework. It provides a 7-phase research process from question scoping to knowledge synthesis, featuring strict citation and anti-hallucination mechanisms.",
       "descriptionZh": "基于Graph of Thoughts (GoT)框架的多步骤、多智能体自主深度研究工具。提供从问题界定到知识综合的7阶段研究流程，并包含严格的引用和防幻觉机制。",
@@ -3886,7 +3886,7 @@
     {
       "id": "local/design",
       "name": "design",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Invoked when building UIs, components, or visual interfaces to produce distinctive designs with a committed aesthetic. Supports screenshot-driven iteration and is not intended for backend logic.",
@@ -3920,7 +3920,7 @@
     {
       "id": "local/design-prompts",
       "name": "design-prompts",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Integrates a design prompt library offering over 60 UI/UX design style prompts across 8 categories, including UI styles, page types, and color schemes, supporting smart search and combined generation.",
       "descriptionZh": "集成设计提示词库功能，提供涵盖UI风格、页面类型、配色方案等8大分类的60多种UI/UX设计风格提示词，支持智能搜索与组合生成。",
@@ -3956,7 +3956,7 @@
     {
       "id": "local/design-taste-frontend",
       "name": "design-taste-frontend",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill refines and improves existing frontend UI rather than building from scratch. It enforces design engineering directives, such as typography rules, color calibration, and layout diversification using React and Tailwind CSS.",
       "descriptionZh": "该技能专注于优化和改进现有的前端用户界面，而不是从零开始构建。它通过应用排版规则、色彩校准和布局多样化等设计工程指令，结合 React 和 Tailwind CSS 提升 UI 质量。",
@@ -3993,7 +3993,7 @@
     {
       "id": "local/design-ui-swarm",
       "name": "design-ui-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A SWARM collection of 61 design systems and visual skills, covering chart drawing, poster generation, UI/UX review, prototyping, and PPT creation. It dynamically selects and combines relevant sub-skills to complete user design tasks.",
       "descriptionZh": "这是一个包含61个设计系统和视觉技能的集合（SWARM），涵盖图表绘制、海报生成、UI/UX评审、原型设计和PPT制作。它通过动态选择并结合相关子技能来完成用户的设计任务。",
@@ -4401,7 +4401,7 @@
     {
       "id": "local/docling-vlm-pdf",
       "name": "docling-vlm-pdf",
-      "author": "local",
+      "author": "docling-project",
       "source": "local",
       "description": "A local PDF understanding stack using Vision Language Models (VLMs) via Docling to parse documents with charts and formulas. It supports Apple Silicon MLX acceleration and integrates with MLX-VLM and oMLX for direct model experimentation and local serving.",
       "descriptionZh": "一个基于本地视觉语言模型（VLM）的PDF解析工具栈，主要使用Docling将包含图表和公式的文档转换为结构化格式。支持在Apple Silicon上通过MLX进行加速，并可结合MLX-VLM和oMLX进行模型实验与本地部署。",
@@ -4618,7 +4618,7 @@
     {
       "id": "local/dws-cli",
       "name": "dws-cli",
-      "author": "local",
+      "author": "DingTalk-Real-AI",
       "source": "local",
       "description": "dws-cli is a command-line tool for DingTalk workflows, designed for typed CLI or MCP-friendly environments. It supports automation for various DingTalk services including chat, OA approvals, calendar, and attendance.",
       "descriptionZh": "dws-cli 是一个用于钉钉工作流的命令行工具，适用于类型化 CLI 或 MCP 友好的环境。它支持聊天、OA审批、日历、考勤等多种钉钉服务的自动化操作。",
@@ -4805,7 +4805,7 @@
     {
       "id": "local/eval-business-logic",
       "name": "eval-business-logic",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A specialized evaluator agent for tracks implementing core product logic, such as generation pipelines, state machines, and pricing. It verifies implementation through six passes including product rules, feature correctness, edge cases, state transitions, data flow, and user journey.",
@@ -4839,7 +4839,7 @@
     {
       "id": "local/eval-code-quality",
       "name": "eval-code-quality",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A specialized evaluator agent for functional code deliverables like features, state management, utilities, and API routes. It performs a six-pass check covering build integrity, type safety, code patterns, error handling, dead code, and test coverage.",
@@ -4873,7 +4873,7 @@
     {
       "id": "local/eval-integration",
       "name": "eval-integration",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A specialized evaluator agent for tracks integrating external services like Supabase, Stripe, Gemini, or third-party APIs. It performs six passes checking API contracts, auth flows, data persistence, error recovery, environment config, and end-to-end flows.",
       "descriptionZh": "专门用于评估集成外部服务（如Supabase、Stripe、Gemini或任何第三方API）的评估代理工具。它通过六个阶段检查API契约、身份验证流程、数据持久化、错误恢复、环境配置和端到端流程。",
@@ -4908,7 +4908,7 @@
     {
       "id": "local/eval-ui-ux",
       "name": "eval-ui-ux",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A specialized evaluator agent for visual UI deliverables such as screens, components, design systems, and layouts. It performs multiple passes to check design system adherence, visual consistency, responsive behavior, and component states.",
       "descriptionZh": "专门用于评估视觉UI交付物（如屏幕、组件、设计系统和布局）的评估器Agent。它通过多轮检查（如设计系统一致性、响应式行为和组件状态）来验证UI/UX的实现质量。",
@@ -5339,7 +5339,7 @@
     {
       "id": "local/frontend-design",
       "name": "frontend-design",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill guides the creation of distinctive, production-grade frontend interfaces that avoid generic AI aesthetics. It emphasizes meticulous attention to typography, color, layout, and interaction details in working code.",
       "descriptionZh": "该技能指导创建独特且达到生产级别的前端界面，避免千篇一律的“AI生成”美学。它强调在排版、色彩、布局和交互等细节上进行精细的审美控制与代码实现。",
@@ -5374,7 +5374,7 @@
     {
       "id": "local/frontend-html-theme",
       "name": "frontend-html-theme",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "frontend-html-theme is a single source of truth HTML theme skill for AI-tools that renders generated HTML documents into beautiful, readable, and mobile-friendly offline single-file pages. It features scroll-spy TOC, code copying, and dark mode toggling.",
       "descriptionZh": "frontend-html-theme 是 AI-tools 的单一事实源 HTML 主题工具，用于将生成的 HTML 文档统一渲染为美观、可读且支持移动端的离线单文件页面。支持目录高亮、代码复制和暗黑模式切换。",
@@ -5408,7 +5408,7 @@
     {
       "id": "local/ft-accountant",
       "name": "ft-accountant",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Translates structured business events into debit and credit entries compliant with Chinese Accounting Standards (CAS), covering voucher entry, account mapping, period-end closing, and report preparation.",
@@ -5442,7 +5442,7 @@
     {
       "id": "local/ft-business-analyst",
       "name": "ft-business-analyst",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Responsible for understanding customer business scenarios, identifying tax-related matters, and breaking down business flows to provide structured events to accountants and tax advisors.",
@@ -5476,7 +5476,7 @@
     {
       "id": "local/ft-business-registration",
       "name": "ft-business-registration",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Handles administrative affairs related to the Market Supervision Administration throughout the corporate lifecycle, including business registration, modifications, annual reporting, and cancellation. It also coordinates the cascading effects of these changes on tax and social security.",
@@ -5510,7 +5510,7 @@
     {
       "id": "local/ft-compliance-auditor",
       "name": "ft-compliance-auditor",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Financial and tax compliance auditing tool that provides risk identification, Golden Tax Phase IV warning response, and financial quality checks to ensure consistency across business, finance, invoices, and taxes.",
@@ -5544,7 +5544,7 @@
     {
       "id": "local/ft-compliance-checklist",
       "name": "ft-compliance-checklist",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Automatically generates structured financial and tax compliance checklists based on industry, enterprise scale, and taxpayer type. It only lists items to check, leaving execution to other agents.",
       "descriptionZh": "按行业、企业规模和纳税人类型自动生成结构化的财税合规检查清单。本技能仅负责列出检查项，实际检查交由其他Agent执行。",
@@ -5577,7 +5577,7 @@
     {
       "id": "local/ft-consolidation",
       "name": "ft-consolidation",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Responsible for the full process of preparing consolidated financial statements, including determining consolidation scope, eliminating intercompany transactions, and calculating minority interests.",
@@ -5611,7 +5611,7 @@
     {
       "id": "local/ft-cost-accounting",
       "name": "ft-cost-accounting",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in designing and executing enterprise cost accounting systems across manufacturing, commerce, and service industries. Ensures accurate cost data for pricing decisions and tax compliance.",
@@ -5645,7 +5645,7 @@
     {
       "id": "local/ft-customs-duty",
       "name": "ft-customs-duty",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Customs and excise tax expert responsible for import/export tariff calculations, VAT/excise tax accounting, HS code classification, and bonded zone policies. Ensures accurate tax calculation, customs compliance, and cost reduction through trade agreements.",
@@ -5679,7 +5679,7 @@
     {
       "id": "local/ft-digital-asset-tax",
       "name": "ft-digital-asset-tax",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Digital asset and ESG tax expert responsible for data asset capitalization, AI model cost allocation, carbon emission accounting, and environmental tax compliance. Also handles tax-related matters in ESG disclosures to ensure alignment across financial, tax, and ESG data.",
@@ -5714,7 +5714,7 @@
     {
       "id": "local/ft-export-tax-rebate",
       "name": "ft-export-tax-rebate",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in export tax rebate policies and declarations, handling rebate method selection, rate queries, document filing, and processing trade verification. It aims to maximize rebate amounts and shorten cycles while ensuring compliance.",
@@ -5748,7 +5748,7 @@
     {
       "id": "local/ft-financial-statement",
       "name": "ft-financial-statement",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Covers the preparation of the three major financial statements, calculation of key financial ratios, cross-validation, and anomaly detection. Provides a quality control framework for bookkeeping outputs.",
@@ -5782,7 +5782,7 @@
     {
       "id": "local/ft-fx-accounting",
       "name": "ft-fx-accounting",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Foreign currency accounting expert responsible for initial recognition, period-end adjustments, exchange gain/loss calculations, and foreign subsidiary statement translation. Core capabilities include functional currency determination and hedge accounting.",
@@ -5816,7 +5816,7 @@
     {
       "id": "local/ft-internal-audit",
       "name": "ft-internal-audit",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Internal audit expert responsible for internal control evaluation, business process auditing, and fraud risk identification. Evaluates control effectiveness based on the COSO framework and provides remediation recommendations.",
       "descriptionZh": "内部审计专家角色，负责企业内控评价、业务流程审计、舞弊风险识别与应对。基于COSO框架评估控制有效性并提出整改建议。",
@@ -5850,7 +5850,7 @@
     {
       "id": "local/ft-international-tax",
       "name": "ft-international-tax",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in cross-border transaction tax processing and compliance, handling non-resident enterprise income tax withholding, tax treaty benefits, foreign tax credits, and transfer pricing.",
@@ -5884,7 +5884,7 @@
     {
       "id": "local/ft-invoice-manager",
       "name": "ft-invoice-manager",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Covers VAT invoice authentication, digital invoice processing, abnormal invoice troubleshooting, and tax refund declarations. Helps accounting agencies manage tax vouchers compliantly to optimize tax burdens and cash flow.",
@@ -5919,7 +5919,7 @@
     {
       "id": "local/ft-legal-counsel",
       "name": "ft-legal-counsel",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in tax dispute resolution and legal risk prevention, specializing in administrative review strategies, tax audit responses, criminal risk assessment, and litigation. Helps enterprises formulate optimal legal strategies to minimize risks.",
@@ -5953,7 +5953,7 @@
     {
       "id": "local/ft-period-calendar",
       "name": "ft-period-calendar",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides tax declaration deadline calculations, holiday extension rules, and reminder generation to help bookkeeping agencies avoid late fees and penalties.",
@@ -5987,7 +5987,7 @@
     {
       "id": "local/ft-regulation-lookup",
       "name": "ft-regulation-lookup",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill acts as a consumer of the Knowledge Graph MCP tool, guiding the model on how to precisely retrieve and return structured regulatory data. It focuses solely on querying and interpreting results, without providing regulatory interpretation or tax planning.",
@@ -6021,7 +6021,7 @@
     {
       "id": "local/ft-risk-assessment",
       "name": "ft-risk-assessment",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Enterprise tax compliance risk assessment expert that conducts industry benchmarking, anomaly detection, and risk quantification to help businesses mitigate potential tax risks.",
@@ -6055,7 +6055,7 @@
     {
       "id": "local/ft-social-insurance",
       "name": "ft-social-insurance",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides expert guidance on social insurance and housing fund calculations, annual base adjustments, work injury claims, and disability fund declarations. Helps enterprises ensure compliance and optimize labor costs through flexible employment schemes.",
@@ -6090,7 +6090,7 @@
     {
       "id": "local/ft-stamp-property-tax",
       "name": "ft-stamp-property-tax",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "The minor tax expert manages the calculation, declaration, and compliance of non-mainstream taxes like stamp duty, property tax, and deed tax. It ensures enterprises navigate complex rules accurately to avoid omissions and maximize tax benefits.",
@@ -6124,7 +6124,7 @@
     {
       "id": "local/ft-subsidy-application",
       "name": "ft-subsidy-application",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Government subsidy application expert responsible for project screening, material preparation, and compliance management of financial subsidies. Covers R&D grants and high-tech enterprise certification while ensuring compliant fund usage.",
@@ -6158,7 +6158,7 @@
     {
       "id": "local/ft-tax-accounting-gap",
       "name": "ft-tax-accounting-gap",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Summarizes the identification, classification, and adjustment directions for over 50 common tax-accounting differences, along with deferred tax calculation methods. It helps finance professionals accurately perform tax adjustments during the annual settlement season to avoid overpaying taxes or facing penalties.",
@@ -6193,7 +6193,7 @@
     {
       "id": "local/ft-tax-advisor",
       "name": "ft-tax-advisor",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Handles the determination, rate application, and filing of 18 tax categories including VAT, corporate, and personal income tax. Converts accounting data into accurate tax returns to ensure compliance and maximize tax benefits.",
@@ -6227,7 +6227,7 @@
     {
       "id": "local/ft-tax-incentive",
       "name": "ft-tax-incentive",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in determining conditions and executing declarations for corporate tax incentive policies. Helps enterprises maximize benefits like HNTE, small/micro enterprise rates, and R&D super deductions compliantly while avoiding underpayment risks.",
@@ -6261,7 +6261,7 @@
     {
       "id": "local/ft-tax-planner",
       "name": "ft-tax-planner",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Expert in corporate tax planning, responsible for matching preferential policies, optimizing organizational tax structures, and calculating tax-saving schemes. Ensures clear boundaries between legal planning and tax evasion to withstand audits.",
@@ -6295,7 +6295,7 @@
     {
       "id": "local/ft-transfer-pricing",
       "name": "ft-transfer-pricing",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Transfer pricing expert role responsible for compliance management of related-party transactions, including applying the arm's length principle, selecting pricing methods, preparing contemporaneous documentation, and APA applications.",
@@ -6431,7 +6431,7 @@
     {
       "id": "local/git-newspaper",
       "name": "git-newspaper",
-      "author": "local",
+      "author": "LordAizen1",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A local CLI tool that transforms a git repository's commit history into a Victorian-era newspaper HTML. Ideal for project retrospectives, launch recaps, and generating shareable marketing content.",
@@ -6465,7 +6465,7 @@
     {
       "id": "local/github-pr-creation",
       "name": "github-pr-creation",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Automates Pull Request creation using the GitHub CLI, featuring task validation, test execution, and Conventional Commits formatting. It verifies branches, analyzes commits, and ensures tests pass before creating the PR.",
       "descriptionZh": "使用 GitHub CLI 自动创建 Pull Request，包含任务验证、测试执行和符合 Conventional Commits 规范的格式化。在创建前会检查分支、分析提交记录并确保测试通过。",
@@ -6502,7 +6502,7 @@
     {
       "id": "local/github-pr-merge",
       "name": "github-pr-merge",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Merges GitHub Pull Requests after validating a pre-merge checklist and handling post-merge cleanup.",
       "descriptionZh": "在验证合并前检查清单并处理合并后清理工作后，合并 GitHub Pull Requests。",
@@ -6539,7 +6539,7 @@
     {
       "id": "local/github-pr-review",
       "name": "github-pr-review",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Automates the resolution of GitHub Pull Request review comments. It prioritizes comments by severity, applies code fixes, and replies to review threads.",
@@ -6573,7 +6573,7 @@
     {
       "id": "local/github-skill-arsenal",
       "name": "github-skill-arsenal",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Systematically encapsulates GitHub open-source projects into reusable Skills and automatically generates related documentation packs. It supports a complete closed-loop management from discovery to solidification.",
       "descriptionZh": "将GitHub开源项目系统化封装为可复用的Skills，并自动生成相关的文档包。支持从发现到固化的完整闭环管理。",
@@ -6748,7 +6748,7 @@
     {
       "id": "local/gsap-core",
       "name": "gsap-core",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Apply when writing or reviewing GSAP animations using the core engine, including tweens, eases, and staggers. Suitable for performant UI animations and timeline control in vanilla JS or frameworks like React and Vue.",
@@ -6782,7 +6782,7 @@
     {
       "id": "local/gsap-frameworks",
       "name": "gsap-frameworks",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Guidelines for writing or reviewing GSAP animation code in lifecycle-based frontend frameworks like Vue and Svelte. Emphasizes creating animations after mounting and using gsap.context() for cleanup and scoping during unmount.",
@@ -6816,7 +6816,7 @@
     {
       "id": "local/gsap-performance",
       "name": "gsap-performance",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides best practices for optimizing GSAP animations to achieve smooth 60fps, reduce layout/paint costs, and prevent jank. Includes techniques like using transforms, opacity, and gsap.quickTo().",
@@ -6850,7 +6850,7 @@
     {
       "id": "local/gsap-plugins",
       "name": "gsap-plugins",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Apply when using or reviewing code that utilizes GSAP plugins, including ScrollTo, FLIP animations, Draggable, SVG, text, physics, and easing plugins.",
@@ -6885,7 +6885,7 @@
     {
       "id": "local/gsap-react",
       "name": "gsap-react",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Guidelines for writing GSAP animation code in React or Next.js frameworks. It covers best practices for using the useGSAP hook, cleaning up effects, avoiding SSR issues, and context-safe callbacks.",
@@ -6920,7 +6920,7 @@
     {
       "id": "local/gsap-scrolltrigger",
       "name": "gsap-scrolltrigger",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Used for implementing scroll-driven animations, including triggering tweens or timelines on scroll, pinning elements, and scrubbing animations to scroll position. It is the recommended GSAP plugin for scroll-based animations and parallax effects.",
@@ -6955,7 +6955,7 @@
     {
       "id": "local/gsap-timeline",
       "name": "gsap-timeline",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Used for building multi-step animations, coordinating several tweens in sequence or parallel, and handling timelines, sequencing, or keyframe-style animation in GSAP.",
@@ -6989,7 +6989,7 @@
     {
       "id": "local/gsap-utils",
       "name": "gsap-utils",
-      "author": "local",
+      "author": "gsap",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides guidelines for using gsap.utils in animations for math, array handling, unit parsing, and value mapping. Covers utility functions like clamp, mapRange, normalize, interpolate, random, and snap.",
@@ -7339,7 +7339,7 @@
     {
       "id": "local/html-ppt",
       "name": "html-ppt",
-      "author": "local",
+      "author": "lewislulu",
       "source": "local",
       "sourceLocal": "claude",
       "description": "HTML PPT Studio is a tool for authoring professional static HTML presentations with various themes, layouts, and animations. It features a presenter mode, speaker notes support, and template-driven generation.",
@@ -7886,7 +7886,7 @@
     {
       "id": "local/ios-dev-pipeline",
       "name": "ios-dev-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides a CLI-first SwiftUI development pipeline using xcodebuild, XcodeBuildMCP, and browser-streamed simulators for iOS and macOS.",
       "descriptionZh": "提供基于命令行的 SwiftUI 开发流水线，结合 xcodebuild、XcodeBuildMCP 和浏览器流式模拟器进行 iOS/macOS 应用开发。",
@@ -7921,7 +7921,7 @@
     {
       "id": "local/ios-device-automation",
       "name": "ios-device-automation",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A tool for automating iOS devices using @midscene/ios. It supports connecting to devices, taking screenshots, and executing complex UI interactions via natural language prompts.",
@@ -8273,7 +8273,7 @@
     {
       "id": "local/ljg-cognitive-swarm",
       "name": "ljg-cognitive-swarm",
-      "author": "local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "The LJG Cognitive System is an 8-layer cognitive skill system based on a SWARM architecture. It provides 29 sub-skills for tasks like concept explanation, article analysis, and knowledge card generation using constraint-driven design.",
       "descriptionZh": "刘力刚认知工具箱是一个基于SWARM架构的8层认知技能系统。它包含29个子技能，涵盖概念解释、文章透视、知识卡片生成等，通过约束驱动和认知碰撞理念来处理复杂任务。",
@@ -8309,7 +8309,7 @@
     {
       "id": "local/lobe-icons",
       "name": "lobe-icons",
-      "author": "local",
+      "author": "lobehub",
       "source": "local",
       "description": "Provides functionality to download, search, and export LobeHub's AI/LLM model icons locally. Supports exporting icons in SVG, PNG, and WebP formats.",
       "descriptionZh": "提供一键下载、搜索和导出 LobeHub 的 AI/LLM 模型图标的功能。支持导出 SVG、PNG 和 WebP 格式的图标资源。",
@@ -8380,7 +8380,7 @@
     {
       "id": "local/loop-execution-evaluator",
       "name": "loop-execution-evaluator",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This agent acts as a dispatcher that determines the track type and routes it to specialized evaluators rather than evaluating directly. It also performs baseline structural checks and aggregates the final execution verdict.",
@@ -8414,7 +8414,7 @@
     {
       "id": "local/loop-fixer",
       "name": "loop-fixer",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Handles the loop-back when an evaluation fails by converting failure reports into fix tasks, executing them, and handing back for re-evaluation.",
       "descriptionZh": "处理评估失败时的循环修复。接收评估者的失败报告，将其转换为修复任务并执行，然后交回评估者重新检查。",
@@ -8450,7 +8450,7 @@
     {
       "id": "local/loop-plan-evaluator",
       "name": "loop-plan-evaluator",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A pre-execution quality gate agent that verifies plan correctness and scope before implementation begins. It prevents duplicate work through scope alignment, overlap detection, dependency checks, and DAG validation.",
       "descriptionZh": "这是一个执行前的质量把控代理工具，用于在实施前验证计划的正确性和范围。它通过范围对齐、重叠检测、依赖检查和DAG验证等步骤，防止代理重复执行已完成的工作。",
@@ -8486,7 +8486,7 @@
     {
       "id": "local/loop-planner",
       "name": "loop-planner",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Creates detailed, scoped execution plans for development tracks, including a dependency DAG for parallel execution. This is Step 1 of the Evaluate-Loop.",
@@ -8692,7 +8692,7 @@
     {
       "id": "local/marknative",
       "name": "marknative",
-      "author": "local",
+      "author": "liyown",
       "source": "local",
       "description": "marknative is a headless Markdown rendering engine with its own document model, layout engine, paginator, and paint backend. It directly renders Markdown into deterministic PNG or SVG outputs without requiring a browser.",
       "descriptionZh": "marknative 是一个无头 Markdown 渲染引擎，拥有独立的文档模型、布局引擎、分页器和绘制后端。它可以将 Markdown 直接渲染为确定性的 PNG 或 SVG 图像，无需依赖浏览器。",
@@ -8941,7 +8941,7 @@
     {
       "id": "local/multi-agent-orchestration",
       "name": "multi-agent-orchestration",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill provides multi-agent and PM2 orchestration commands, enabling dual-model collaborative planning, concurrent execution, and PM2 lifecycle management for multiple services.",
       "descriptionZh": "该技能引入了多智能体和PM2编排命令，支持双模型协同规划、并发执行以及多服务的PM2生命周期管理。",
@@ -8975,7 +8975,7 @@
     {
       "id": "local/multi-role-brainstorm",
       "name": "multi-role-brainstorm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A structured workflow for comprehensive project planning that simulates a cross-functional team brainstorm. It uses parallel role analysis, alignment, and conflict resolution to produce consistent deliverables.",
@@ -9071,7 +9071,7 @@
     {
       "id": "local/nature-citation",
       "name": "nature-citation",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill turns manuscript text into a defensible citation export, such as .enw, .ris, or Zotero .rdf files. It segments the text, searches for candidate papers from Nature, Science, or Cell families, and provides evidence notes to verify support.",
@@ -9106,7 +9106,7 @@
     {
       "id": "local/nature-data",
       "name": "nature-data",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Helps authors turn manuscript supporting data into a Nature-ready data availability package, including statement text, repository plans, and dataset citations.",
@@ -9140,7 +9140,7 @@
     {
       "id": "local/nature-figure",
       "name": "nature-figure",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A guide for producing publication-quality scientific figures that serve as visual arguments. It supports Python and R backends, emphasizing claims, evidence hierarchies, and review-risk checks before plotting.",
@@ -9175,7 +9175,7 @@
     {
       "id": "local/nature-paper2ppt",
       "name": "nature-paper2ppt",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Transforms scientific papers or notes into a complete, figure-integrated Chinese PPTX presentation using Nature-style reporting logic. It extracts key arguments and figures to automatically generate structured slides.",
@@ -9209,7 +9209,7 @@
     {
       "id": "local/nature-polishing",
       "name": "nature-polishing",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill improves scientific writing at two levels: main strategy (paper architecture, logic, reader workflow) and reference support (phrase families, transitions, style checks), following Nature-style academic polishing standards.",
@@ -9243,7 +9243,7 @@
     {
       "id": "local/nature-response",
       "name": "nature-response",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill converts editor decision letters, reviewer comments, and author notes into an auditable point-by-point response package for manuscript revisions. It ensures every reviewer concern is addressed and mapped to concrete manuscript changes or justified responses.",
@@ -9418,7 +9418,7 @@
     {
       "id": "local/notebooklm-pipeline",
       "name": "notebooklm-pipeline",
-      "author": "local",
+      "author": "icebear0828",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A reproducible batch pipeline that converts Markdown source articles into rich-media bundles, including podcasts, mindmaps, flashcards, and chat-generated summaries using NotebookLM.",
@@ -9486,7 +9486,7 @@
     {
       "id": "local/obsidian-visual-skills",
       "name": "obsidian-visual-skills",
-      "author": "local",
+      "author": "Obsidian",
       "source": "local",
       "description": "This skill installs Obsidian visual skill packages (including Excalidraw, Mermaid, and Canvas generators) into a target directory for Claude Code to use on demand.",
       "descriptionZh": "该技能用于将 Obsidian 的可视化技能包（包括 Excalidraw、Mermaid 和 Canvas 生成器）安装到目标目录，供 Claude Code 按需使用。",
@@ -10162,7 +10162,7 @@
     {
       "id": "local/pinchtab",
       "name": "pinchtab",
-      "author": "local",
+      "author": "pinchtab",
       "source": "local",
       "sourceLocal": "claude",
       "description": "PinchTab is a CLI and API tool for browser automation. It allows agents to navigate websites, inspect interactive elements, fill out forms, scrape text, and manage browser instances using token-efficient accessibility references.",
@@ -10230,7 +10230,7 @@
     {
       "id": "local/pixelle-video",
       "name": "pixelle-video",
-      "author": "local",
+      "author": "AIDC-AI",
       "source": "local",
       "description": "Provides a one-click installation and execution entry for Pixelle-Video (an AI automatic short video engine), allowing it to be saved to the project directory for auditing and reuse.",
       "descriptionZh": "提供 Pixelle-Video（AI 全自动短视频引擎）的一键安装与运行入口，支持落盘到项目目录以便于审计和复用。",
@@ -10477,7 +10477,7 @@
     {
       "id": "local/pm-execution-swarm",
       "name": "pm-execution-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A swarm skill group for product execution and delivery, handling PRDs, sprints, user stories, launch plans, release notes, and OKRs. It dynamically selects core skills and generates deliverables in HTML and Markdown formats.",
@@ -10511,7 +10511,7 @@
     {
       "id": "local/pm-research-swarm",
       "name": "pm-research-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A swarm skill group for product research and discovery, covering user research, market analysis, competitive intelligence, personas, and journey maps. It synthesizes selected core skills into unified HTML and Markdown reports.",
@@ -10546,7 +10546,7 @@
     {
       "id": "local/pm-strategy-swarm",
       "name": "pm-strategy-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A swarm skill group for product strategy, business models, pricing, competitive frameworks, and roadmaps. It selects and executes 2-4 core skills to synthesize a unified strategy deliverable and generates an HTML report.",
@@ -10580,7 +10580,7 @@
     {
       "id": "local/podwise-cli",
       "name": "podwise-cli",
-      "author": "local",
+      "author": "hardhackerlabs",
       "source": "local",
       "description": "A CLI tool purpose-built for podcast-to-knowledge pipelines, offering summaries, transcripts, and QA. It exposes both CLI workflows and an MCP server, supporting exports to tools like Obsidian.",
       "descriptionZh": "一个专为播客到知识库工作流构建的命令行工具，支持获取播客摘要、文字稿和问答。它提供稳定的CLI和MCP服务器接口，并支持将内容导出到Obsidian。",
@@ -11044,7 +11044,7 @@
     {
       "id": "local/product-lead",
       "name": "product-lead",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill acts as a Product Lead, making autonomous decisions on scope interpretation, requirement clarification, and task prioritization during project execution. It handles edge cases and microcopy using persona tests, escalating scope changes to the user.",
@@ -11078,7 +11078,7 @@
     {
       "id": "local/product-management-swarm",
       "name": "product-management-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A swarm collection of 97 product management and strategy skills, covering product strategy, user research, market analysis, feature prioritization, business models, and competitive analysis. It dynamically selects parallel expert skills to execute various product tasks.",
@@ -11112,7 +11112,7 @@
     {
       "id": "local/product-name",
       "name": "product-name",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Brainstorm unique, memorable product names with rationale aligned to brand values and target audience. Useful for naming new products or rebranding.",
       "descriptionZh": "构思独特且令人难忘的产品名称，并提供符合品牌价值和目标受众的理由。适用于新产品命名、品牌重塑或探索名称选项。",
@@ -11145,7 +11145,7 @@
     {
       "id": "local/product-strategy",
       "name": "product-strategy",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Generate a comprehensive product strategy using the 9-section Product Strategy Canvas. It covers vision, market segments, costs, value propositions, trade-offs, metrics, growth, capabilities, and defensibility.",
@@ -11179,7 +11179,7 @@
     {
       "id": "local/product-tri-ownership",
       "name": "product-tri-ownership",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Persists the collaboration framework of Product Owner, Tech Owner, Quality Owner, and AI Agents into reusable assets, generating roles, checklists, and story templates to reduce acceptance bottlenecks and improve code quality.",
       "descriptionZh": "将“产品三人组（PO/TO/QO）+ AI Agents 执行”的协作框架转化为可复用资产，生成角色、检查单和用户故事模板，以降低验收瓶颈并提升代码质量。",
@@ -11357,7 +11357,7 @@
     {
       "id": "local/qiaomu-anything-to-notebooklm",
       "name": "qiaomu-anything-to-notebooklm",
-      "author": "local",
+      "author": "joeseesun",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This is a multi-source content processor that automatically uploads content from WeChat articles, web pages, podcasts, PDFs, and more to NotebookLM. It generates podcasts, slide decks, and mind maps based on natural language commands, and supports deep analysis and automatic Feishu document creation.",
@@ -11426,7 +11426,7 @@
     {
       "id": "local/ralph-loop",
       "name": "ralph-loop",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill enables in-session self-looping for Claude/Agent in complex tasks. It initializes a state file to intercept stop events, allowing the AI to iterate continuously until a completion promise or maximum iteration limit is reached.",
       "descriptionZh": "该技能用于在复杂任务中为 Claude/Agent 启用会话内自循环。它通过初始化状态文件来拦截退出事件，让 AI 持续迭代直到完成承诺或达到最大迭代次数。",
@@ -11462,7 +11462,7 @@
     {
       "id": "local/ralph-loop-codex",
       "name": "ralph-loop-codex",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides a Codex equivalent of Claude's Ralph loop by maintaining loop state in a local file, allowing continuous iteration within a session until the completion promise is met.",
@@ -11495,7 +11495,7 @@
     {
       "id": "local/ralph-wiggum",
       "name": "ralph-wiggum",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Fixes the requirements, planning, and build stages of the Ralph Wiggum method into versionable artifacts. It generates directories and templates to avoid temporary processes that only exist in chat.",
@@ -11812,7 +11812,7 @@
     {
       "id": "local/release-notes",
       "name": "release-notes",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Transforms technical tickets, PRDs, or internal changelogs into polished, user-facing release notes.",
       "descriptionZh": "将技术工单、PRD或内部更新日志转化为面向用户的精美发布说明。",
@@ -11943,7 +11943,7 @@
     {
       "id": "local/research-learning-swarm",
       "name": "research-learning-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This is a SWARM skill collection for knowledge learning, paper research, and RSS aggregation. It utilizes 29 sub-skills through dynamic selection of parallel experts for automated iteration and knowledge management.",
       "descriptionZh": "这是一个用于知识学习、论文研究和RSS聚合的SWARM技能集合。它包含29个子技能，通过动态选择并行专家来完成自动迭代和知识管理任务。",
@@ -12158,7 +12158,7 @@
     {
       "id": "local/self-improving-agent",
       "name": "self-improving-agent",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill implements a self-improving agent philosophy by transforming real-time corrections, bug fixes, and user preferences into long-term memory or reusable skills. It solves the pain points of AI agents repeating mistakes and forgetting context across sessions.",
       "descriptionZh": "该技能实现了“自我进化智能体”的核心理念，通过将实时纠错、成功的错误修复和用户偏好转化为长期记忆或可复用的新技能。它解决了AI编程助手重复犯错和遗忘上下文的痛点。",
@@ -12194,7 +12194,7 @@
     {
       "id": "local/self-management",
       "name": "self-management",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Allows the agent to manage its own settings, updates, identity (SOUL.md), user profiles (USER.md), and group participation using the alma CLI.",
@@ -12228,7 +12228,7 @@
     {
       "id": "local/self-reflection",
       "name": "self-reflection",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Alma's daily introspection ritual that gathers group and private chat logs to write a subjective, personal diary entry. It also extracts lessons, updates long-term memory, and sets the base emotion for the next day.",
@@ -12371,7 +12371,7 @@
     {
       "id": "local/serve-sim",
       "name": "serve-sim",
-      "author": "local",
+      "author": "EvanBacon",
       "source": "local",
       "sourceLocal": "claude",
       "description": "serve-sim is a browser bridge for Apple Simulator workflows that exposes simulator video and controls to a web UI. This allows AI assistants and browser automation tools to inspect and operate an iOS simulator through a browser.",
@@ -12405,7 +12405,7 @@
     {
       "id": "local/skill-creator",
       "name": "skill-creator",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A skill designed for creating and iteratively improving new skills. It guides users through drafting, testing, evaluating, and refining skills based on feedback.",
       "descriptionZh": "这是一个用于创建和迭代改进新技能的工具。它通过起草技能、编写测试用例、评估结果并根据反馈进行重写，帮助用户完成技能的开发流程。",
@@ -12441,7 +12441,7 @@
     {
       "id": "local/skill-development",
       "name": "skill-development",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill provides guidance for creating effective skills for Claude Code plugins. It details the anatomy of a skill, bundled resources, and progressive disclosure design principles.",
       "descriptionZh": "该技能为创建高效的 Claude Code 插件技能提供指导。它详细说明了技能的结构、资源打包方式以及渐进式上下文加载的设计原则。",
@@ -12478,7 +12478,7 @@
     {
       "id": "local/skill-from-masters",
       "name": "skill-from-masters",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill abstracts and rebuilds core knowledge from mature GitHub projects into reusable skills. It supports a complete workflow from searching and reading to summarizing, focusing on algorithmic knowledge replication rather than simple CLI wrapping.",
       "descriptionZh": "该技能用于将GitHub上成熟项目的核心知识抽象并重建为可复用的技能。它支持从搜索、阅读到归纳的完整流程，重点在于算法知识的复刻而非简单的工具包装。",
@@ -12513,7 +12513,7 @@
     {
       "id": "local/skill-hub",
       "name": "skill-hub",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Discover, install, and manage skills to extend Alma's capabilities. Supports searching, installing, updating, and creating custom skills for agent self-evolution.",
       "descriptionZh": "用于发现、安装和管理技能，以扩展 Alma 的功能。支持搜索、安装、更新和创建自定义技能，实现智能体的自我进化。",
@@ -12549,7 +12549,7 @@
     {
       "id": "local/skill-ops-pipeline",
       "name": "skill-ops-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill provides a sequential execution pipeline for OpenClaw runtime upgrades, skills supply-chain audits, registry hygiene, and workflow automation. It includes six sub-skills such as finding and writing skills.",
       "descriptionZh": "该技能提供顺序执行的流水线操作，用于OpenClaw运行时升级、技能供应链审计、注册表清理及工作流自动化。它包含寻找技能、编写技能等6个子技能。",
@@ -12583,7 +12583,7 @@
     {
       "id": "local/skill-vetter",
       "name": "skill-vetter",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A security-first vetting protocol for AI agent skills. It provides a standard process for source checking, code review, and risk classification before installing unknown skills.",
       "descriptionZh": "这是一个为AI Agent设计的技能安全审查协议。它提供了一套标准流程，用于在安装未知技能前进行源码检查、权限评估和风险分级。",
@@ -12692,7 +12692,7 @@
     {
       "id": "local/splashboard",
       "name": "splashboard",
-      "author": "local",
+      "author": "unhappychoice",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Splashboard is a developer-infrastructure tool that renders a configurable splash dashboard in the terminal on new interactive shells and directory changes. It supports project-local configurations and various widgets for quick context summaries.",
@@ -13006,7 +13006,7 @@
     {
       "id": "local/subagent-brief",
       "name": "subagent-brief",
-      "author": "local",
+      "author": "LichAmnesia",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill serves as a preflight gate for subagent dispatch, requiring tasks to be compressed into briefs of 200 words or less. It optimizes multi-agent token usage by passing file paths and constraints instead of full context.",
@@ -13436,7 +13436,7 @@
     {
       "id": "local/team-audit",
       "name": "team-audit",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "An audit team router responsible for orchestrating advanced financial tasks such as internal audits, consolidated statements, foreign currency accounting, and transfer pricing. It assigns tasks to expert roles based on business scenarios and monitors the quality and timeliness of the entire audit process.",
@@ -13470,7 +13470,7 @@
     {
       "id": "local/team-finance-tax",
       "name": "team-finance-tax",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A finance and tax expert router that serves as the entry point for all related queries, handling intent classification, expert dispatch, and collaboration orchestration. It routes tasks to single or multiple experts based on user intent and directly answers simple factual questions.",
@@ -13574,7 +13574,7 @@
     {
       "id": "local/test-driven-development",
       "name": "test-driven-development",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Follow Test-Driven Development (TDD) principles by writing and watching a test fail before writing any production code. Utilize the Red-Green-Refactor cycle to write minimal code and ensure reliability.",
       "descriptionZh": "遵循测试驱动开发（TDD）原则，在编写生产代码前先编写并运行失败的测试。通过红-绿-重构循环，编写最简代码以通过测试，确保代码质量并避免过度设计。",
@@ -13610,7 +13610,7 @@
     {
       "id": "local/test-scenarios",
       "name": "test-scenarios",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Creates comprehensive test scenarios from user stories, including test objectives, starting conditions, user roles, step-by-step actions, and expected outcomes.",
@@ -13824,7 +13824,7 @@
     {
       "id": "local/tradingagents-cn",
       "name": "tradingagents-cn",
-      "author": "local",
+      "author": "hsliuping",
       "source": "local",
       "sourceLocal": "claude",
       "description": "TradingAgents-CN is a Chinese-localized multi-agent stock research framework. It features configurable LLM routing and provides open-core interaction surfaces via CLI and Streamlit.",
@@ -13964,7 +13964,7 @@
     {
       "id": "local/ui-skills",
       "name": "ui-skills",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill installs UI Skills as Claude Code Skills to help AI maintain consistent stack selection, interaction, accessibility, and performance disciplines when building frontend interfaces.",
@@ -13998,7 +13998,7 @@
     {
       "id": "local/ui-skills-core",
       "name": "ui-skills-core",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Provides core UI development rules based on Tailwind CSS and React, covering strict constraints for tech stacks, components, interactions, layouts, and animations.",
@@ -14032,7 +14032,7 @@
     {
       "id": "local/ui-ux-pro-max",
       "name": "ui-ux-pro-max",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Solidifies the UI/UX Pro Max multi-platform design system into reusable runbooks and doc packs, covering installation, activation, usage, and acceptance paths.",
       "descriptionZh": "将 UI/UX Pro Max 的多平台设计体系固化为可复用的 runbook 与 doc pack，支持生成安装、启用、使用与验收路径的相关文档。",
@@ -14068,7 +14068,7 @@
     {
       "id": "local/user-personas",
       "name": "user-personas",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Create detailed, actionable user personas from research data, including jobs-to-be-done, pain points, desired outcomes, and behavioral insights to guide product decisions.",
       "descriptionZh": "从研究数据中创建详细且可操作的用户画像，包含待办任务、痛点、期望结果和行为洞察，以指导产品决策。",
@@ -14103,7 +14103,7 @@
     {
       "id": "local/user-segmentation",
       "name": "user-segmentation",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Analyzes diverse user feedback to identify distinct behavioral and needs-based user segments. It surfaces customer groups based on jobs-to-be-done and motivations to enable targeted product strategy.",
       "descriptionZh": "分析多样化的用户反馈，识别至少3个基于行为和需求的用户细分群体。通过关注用户的待办任务、行为和动机而非仅靠人口统计数据，为目标产品策略提供支持。",
@@ -14140,7 +14140,7 @@
     {
       "id": "local/user-stories",
       "name": "user-stories",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Creates user stories following the 3 C's and INVEST criteria. Generates stories with descriptions, design links, and acceptance criteria for feature breakdown and backlog management.",
@@ -14491,7 +14491,7 @@
     {
       "id": "local/video-constrict",
       "name": "video-constrict",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A smart video compression tool based on Constrict that automatically calculates the optimal bitrate, resolution, and framerate to compress videos to a specific target size. Ideal for meeting file size upload limits on platforms like Discord and Telegram.",
       "descriptionZh": "基于 Constrict 的智能视频压缩工具，可自动计算最佳比特率、分辨率和帧率，将视频精确压缩至指定大小。适用于满足 Discord、Telegram 等平台的文件大小上传限制。",
@@ -14528,7 +14528,7 @@
     {
       "id": "local/video-download",
       "name": "video-download",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A tool to download video and audio from URLs directly using yt-dlp. It supports downloading specific resolutions, audio-only, subtitles, and fetching video metadata.",
@@ -14562,7 +14562,7 @@
     {
       "id": "local/video-edit",
       "name": "video-edit",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Edit videos locally by running ffmpeg and ffprobe directly. Supports trimming, concatenating, resizing, speed adjustment, and audio extraction without wrapper scripts.",
       "descriptionZh": "通过直接运行 ffmpeg 和 ffprobe 在本地编辑视频。支持裁剪、拼接、调整大小、变速、提取音频等操作，无需包装脚本。",
@@ -14599,7 +14599,7 @@
     {
       "id": "local/video-media-pipeline",
       "name": "video-media-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A video and media production pipeline supporting HTML-timeline cards, React shorts, and AI video generation, editing, captions, and TTS. It routes requests through Card, Short, or Combo modes based on video requirements.",
       "descriptionZh": "这是一个视频和媒体制作流水线工具，支持基于HTML的时间轴卡片视频、React短视频以及AI视频生成、编辑、字幕和语音合成等功能。它通过三种模式（Card、Short、Combo）路由不同的视频制作需求。",
@@ -14633,7 +14633,7 @@
     {
       "id": "local/video-reader",
       "name": "video-reader",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Extract key frames to \"see\" videos, and extract and transcribe audio to \"hear\" them using ffmpeg and whisper.",
       "descriptionZh": "提取视频关键帧以“观看”视频，并提取和转录音频以“听取”视频内容。支持使用ffmpeg处理视频和whisper转录音频。",
@@ -14670,7 +14670,7 @@
     {
       "id": "local/video-translate",
       "name": "video-translate",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Translate and dub existing videos into multiple languages using the HeyGen API, preserving lip-sync and natural speech patterns. Supports processing directly via video URL or HeyGen video ID.",
       "descriptionZh": "使用 HeyGen API 将现有视频翻译并配音成多种语言，同时保留唇形同步和自然语音模式。支持通过视频 URL 或 HeyGen 视频 ID 直接进行处理。",
@@ -14707,7 +14707,7 @@
     {
       "id": "local/video-understand",
       "name": "video-understand",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A local video understanding tool that uses ffmpeg for frame extraction and Whisper for transcription. It runs fully offline without requiring API keys.",
       "descriptionZh": "使用 ffmpeg 提取视频帧并使用 Whisper 进行语音转录的本地视频理解工具。完全离线运行，无需 API 密钥。",
@@ -14852,7 +14852,7 @@
     {
       "id": "local/web-fetch",
       "name": "web-fetch",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Fetch web content or API data. Recommends using the built-in WebFetch tool, falling back to curl, lynx, or w3m if unavailable.",
@@ -14887,7 +14887,7 @@
     {
       "id": "local/web-interface-guidelines",
       "name": "web-interface-guidelines",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill installs the Vercel Web Interface Guidelines as a Claude Code skill, helping AI follow high-quality standards for accessibility, interaction, performance, and visual details when building frontend interfaces.",
       "descriptionZh": "该技能将 Vercel Web Interface Guidelines 安装为 Claude Code 技能，帮助 AI 在开发前端界面时遵循可访问性、交互、性能和视觉细节的高质量标准。",
@@ -14925,7 +14925,7 @@
     {
       "id": "local/web-interface-guidelines-core",
       "name": "web-interface-guidelines-core",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "A core constraint checklist based on Vercel Web Interface Guidelines, covering frontend development standards for interactions, motion, layout, and performance.",
@@ -14960,7 +14960,7 @@
     {
       "id": "local/web-scraping-pipeline",
       "name": "web-scraping-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This is a sequential execution pipeline for web data collection, multi-platform scraping, social media data extraction, and video downloading. It integrates 18 sub-skills to handle various content extraction tasks.",
       "descriptionZh": "这是一个用于Web数据采集、多平台爬虫、社交媒体数据提取和视频下载的顺序执行流水线。它整合了18个子技能以处理不同类型的内容提取任务。",
@@ -14994,7 +14994,7 @@
     {
       "id": "local/web-search",
       "name": "web-search",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides web search capabilities, preferring the built-in WebSearch tool, with fallbacks to DuckDuckGo or SerpAPI via curl.",
       "descriptionZh": "提供网络搜索功能，优先使用内置的 WebSearch 工具，也可通过 DuckDuckGo 或 SerpAPI 进行搜索。",
@@ -15031,7 +15031,7 @@
     {
       "id": "local/web-search-swarm",
       "name": "web-search-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This is a web search and information retrieval skill collection based on the SWARM architecture. It includes 12 sub-skills for multi-engine retrieval, real-time search, trend querying, and deep research by dynamically selecting parallel experts.",
       "descriptionZh": "这是一个基于SWARM架构的网络搜索与信息检索技能集合。它包含多引擎检索、实时搜索、趋势查询和深度研究等12个子技能，通过动态选择并行专家来完成全网信息聚合。",
@@ -15065,7 +15065,7 @@
     {
       "id": "local/wechat-cn-social-swarm",
       "name": "wechat-cn-social-swarm",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This is a SWARM pipeline for multi-platform IM group digests and Chinese social media management. It integrates 10 sub-skills across platforms like WeChat, WeCom, Feishu, and Xiaohongshu for parallel processing and dynamic task selection.",
       "descriptionZh": "这是一个多平台IM群聊摘要和中国社交平台管理的SWARM管线。它集成了微信、企业微信、飞书、小红书等平台的10个子技能，用于并行处理和动态选择任务。",
@@ -15099,7 +15099,7 @@
     {
       "id": "local/wechat-content-pipeline",
       "name": "wechat-content-pipeline",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A sequential pipeline for WeChat official account content creation, covering hot topic tracking, topic selection, writing, AI-trace removal, formatting, and publishing.",
       "descriptionZh": "这是一个微信公众号内容创作的全流程管道，涵盖从热点追踪、选题、写作、去AI痕迹到排版和推送的顺序执行过程。",
@@ -15275,7 +15275,7 @@
     {
       "id": "local/writing-plans",
       "name": "writing-plans",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Writes thorough, bite-sized implementation plans for software development. Emphasizes Test-Driven Development (TDD), exact file paths, and frequent commits for engineers with zero context.",
       "descriptionZh": "编写详尽的代码实现计划，将任务分解为包含测试、实现和提交的微小步骤。强调测试驱动开发（TDD）、DRY原则和频繁提交。",
@@ -15312,7 +15312,7 @@
     {
       "id": "local/writing-skills",
       "name": "writing-skills",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill applies Test-Driven Development (TDD) principles to writing process documentation and agent skills. It provides guidelines on structuring SKILL.md files, optimizing for Claude Search, and using the red-green-refactor cycle to ensure agents comply with documented rules.",
       "descriptionZh": "该技能将测试驱动开发（TDD）原则应用于流程文档和智能体技能的编写。它提供了关于构建 SKILL.md 文件、优化 Claude 搜索以及使用红绿重构循环来确保智能体遵守规则的指南。",
@@ -15386,7 +15386,7 @@
     {
       "id": "local/x-article-publisher-skill",
       "name": "x-article-publisher-skill",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill is used to install Claude Skills from an upstream repository into your project or personal directory for automatic loading by Claude Code.",
       "descriptionZh": "该 Skill 用于将上游仓库的 Claude Skill 安装到项目或个人目录中，以便 Claude Code 自动加载使用。",
@@ -15422,7 +15422,7 @@
     {
       "id": "local/x-reader",
       "name": "x-reader",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A universal content reader that detects platforms from any URL and fetches content into a unified output. It supports platforms like WeChat, Twitter, and YouTube, and can be used via Python CLI, Claude Code Skills, or an MCP server.",
       "descriptionZh": "一个通用的内容读取工具，支持将任意URL（如微信公众号、Twitter、YouTube等）抓取并转换为统一的输出格式。提供Python CLI、Claude Code Skills和MCP Server三种使用方式。",
@@ -15556,7 +15556,7 @@
     {
       "id": "local/brainstorm-okrs",
       "name": "brainstorm-okrs",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Act as a veteran product leader to define ambitious, measurable OKRs aligned with company strategy. Generates three distinct OKR sets to spark strategic discussion.",
@@ -15738,7 +15738,7 @@
     {
       "id": "local/loop-executor",
       "name": "loop-executor",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Implements tasks defined in a verified plan.md by writing code and creating files. It updates the plan and metadata after every completed task while following strict commit and TDD protocols.",
@@ -15844,7 +15844,7 @@
     {
       "id": "local/product-vision",
       "name": "product-vision",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Brainstorms an inspiring, achievable, and emotional product vision. Useful for defining a north star and aligning teams around a clear vision statement.",
@@ -15869,7 +15869,7 @@
     {
       "id": "local/research-docs",
       "name": "research-docs",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Parses documents with LiteParse to answer questions and generates an HTML report with visual source citations highlighted on page images.",
@@ -15948,7 +15948,7 @@
     {
       "id": "local/video",
       "name": "video",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "Send a video or podcast link to receive a full transcript and a structured summary.",
@@ -16000,7 +16000,7 @@
     {
       "id": "local/writing-rules",
       "name": "writing-rules",
-      "author": "local",
+      "author": "AI-Fleet",
       "source": "local",
       "sourceLocal": "claude",
       "description": "This skill explains how to write Hookify rules using Markdown files with YAML frontmatter to define match patterns and trigger messages. It supports configuring interception and warnings for events like bash, file, and stop.",
@@ -16061,7 +16061,7 @@
     {
       "id": "agent-browser-session",
       "name": "agent-browser-session",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A browser automation CLI tool for AI agents featuring persistent login and multi-tab isolation. It uses Patchright for anti-detection and supports page snapshots, element interaction, and concurrent operations.",
       "descriptionZh": "为AI Agent设计的浏览器自动化命令行工具，支持持久化登录和多标签页隔离。基于Patchright实现防检测，提供页面快照、元素交互和并发操作功能。",
@@ -16096,13 +16096,13 @@
     {
       "id": "agent-browser-electron",
       "name": "agent-browser-electron",
-      "author": "AI-Fleet local",
+      "author": "vercel-labs",
       "source": "local",
       "description": "Automate any Electron-based desktop application via Chrome DevTools Protocol (CDP). It allows agent browsers to connect, interact, and take snapshots of apps like Slack and VS Code.",
       "descriptionZh": "通过 Chrome DevTools Protocol (CDP) 自动化控制任何基于 Electron 的桌面应用程序（如 Slack、VS Code 等）。允许代理浏览器连接并执行点击、输入和截图等交互操作。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/vercel-labs/agent-browser",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -16166,13 +16166,13 @@
     {
       "id": "agent-browser-slack",
       "name": "agent-browser-slack",
-      "author": "AI-Fleet local",
+      "author": "vercel-labs",
       "source": "local",
       "description": "Automate the Slack desktop app using agent-browser and Chrome DevTools Protocol (CDP). Capabilities include sending messages, navigating channels, extracting conversations, searching, and taking screenshots.",
       "descriptionZh": "通过 agent-browser 和 CDP 自动化操作 Slack 桌面应用。支持发送消息、导航频道、提取对话、搜索和截图等功能。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/vercel-labs/agent-browser",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -16201,7 +16201,7 @@
     {
       "id": "agent-fetch",
       "name": "agent-fetch",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "HTTP structured data extraction tool for agents. It fetches web content as clean markdown using multi-strategy extraction, ideal for reading web pages, extracting articles, and scraping structured data.",
       "descriptionZh": "专为Agent设计的HTTP结构化数据提取工具。支持多策略提取网页内容并输出为干净的Markdown格式，适用于网页阅读、文章提取和结构化数据抓取。",
@@ -16236,7 +16236,7 @@
     {
       "id": "agentlens",
       "name": "agentlens",
-      "author": "AI-Fleet local",
+      "author": "nguyenphutrong",
       "source": "local",
       "description": "A hierarchical codebase navigation tool for understanding large projects. It is useful for exploring unfamiliar codebases, mapping dependencies, and navigating monorepos.",
       "descriptionZh": "用于理解大型项目层次结构的代码库导航工具。适用于探索陌生代码库、依赖映射和单体仓库导航。",
@@ -16412,7 +16412,7 @@
     {
       "id": "api-design-reviewer",
       "name": "api-design-reviewer",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Reviews REST and GraphQL API designs for consistency, security, and usability. Ensures API contracts follow best practices for resource naming, HTTP methods, error handling, and versioning.",
       "descriptionZh": "审查REST和GraphQL API设计的连贯性、安全性和可用性。确保API契约在资源命名、HTTP方法、错误处理和版本控制方面符合规范。",
@@ -16448,7 +16448,7 @@
     {
       "id": "apify-ultimate-scraper",
       "name": "apify-ultimate-scraper",
-      "author": "AI-Fleet local",
+      "author": "Apify",
       "source": "local",
       "description": "A universal AI-powered web scraper for extracting data from platforms like Instagram, Facebook, TikTok, YouTube, and Google Maps. Suitable for lead generation, brand monitoring, competitor analysis, and trend research.",
       "descriptionZh": "一个通用的AI驱动网页抓取工具，支持从Instagram、Facebook、TikTok、YouTube、Google Maps等平台提取数据。适用于潜在客户挖掘、品牌监控、竞品分析和趋势研究等任务。",
@@ -16483,7 +16483,7 @@
     {
       "id": "apify-competitor-intelligence",
       "name": "apify-competitor-intelligence",
-      "author": "AI-Fleet local",
+      "author": "Apify",
       "source": "local",
       "description": "Analyze competitor strategies, content, pricing, and market positioning across multiple platforms like Google Maps, Facebook, and Instagram using Apify Actors to extract data.",
       "descriptionZh": "使用Apify Actors跨多个平台（如Google Maps、Facebook、Instagram、YouTube和TikTok）提取数据，以分析竞争对手的策略、内容、定价和市场定位。",
@@ -16553,13 +16553,13 @@
     {
       "id": "ask-search",
       "name": "ask-search",
-      "author": "AI-Fleet local",
+      "author": "ythx-101",
       "source": "local",
       "description": "A web search tool powered by self-hosted SearxNG that aggregates multiple search engines without requiring an API key. It supports filtering by category and language, and can output raw JSON or URLs.",
       "descriptionZh": "使用自托管的 SearxNG 进行网络搜索的工具，无需 API 密钥即可聚合多个搜索引擎的结果。支持按类别、语言过滤以及输出纯 URL 或 JSON 格式。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/ythx-101/ask-search",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -16588,7 +16588,7 @@
     {
       "id": "apify-trend-analysis",
       "name": "apify-trend-analysis",
-      "author": "AI-Fleet local",
+      "author": "Apify",
       "source": "local",
       "description": "Discover and track emerging trends across platforms like Google Trends, Instagram, Facebook, YouTube, and TikTok using Apify Actors to inform content strategy.",
       "descriptionZh": "使用Apify Actors在Google Trends、Instagram、Facebook、YouTube和TikTok等平台上发现和跟踪新兴趋势，以辅助内容策略。",
@@ -16832,7 +16832,7 @@
     {
       "id": "bigdata-core",
       "name": "bigdata-core",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Core big data processing toolkit for data teams, including Polars, Dask, and Vaex for large-scale data processing, ETL pipelines, and distributed computing.",
       "descriptionZh": "大数据团队核心处理工具集，包含Polars、Dask和Vaex等高性能DataFrame库和分布式计算框架，用于大规模数据处理和ETL管道。",
@@ -16868,7 +16868,7 @@
     {
       "id": "bigdata-ml",
       "name": "bigdata-ml",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A machine learning toolkit for big data teams, covering traditional ML to deep learning. It includes scikit-learn, PyTorch Lightning, Transformers, and SHAP for model training, deployment, and interpretation.",
       "descriptionZh": "大数据团队专用的机器学习工具集，涵盖从传统机器学习到深度学习的全流程。包含scikit-learn、PyTorch Lightning、Transformers和SHAP等工具，用于模型训练、部署和解释。",
@@ -16974,7 +16974,7 @@
     {
       "id": "bigdata-viz",
       "name": "bigdata-viz",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A data visualization toolkit for big data teams, including Matplotlib, Seaborn, and Plotly. Ideal for creating static reports, interactive dashboards, and visual data exploration.",
       "descriptionZh": "大数据团队专用的数据可视化工具集，包含Matplotlib、Seaborn和Plotly。适用于创建静态报告、交互式仪表板和数据探索。",
@@ -17046,7 +17046,7 @@
     {
       "id": "capability-evolver",
       "name": "capability-evolver",
-      "author": "AI-Fleet local",
+      "author": "EvoMap",
       "source": "local",
       "description": "A self-evolution engine for AI agents that monitors performance, identifies capability gaps, and generates improvement proposals. It improves agent capabilities over time through a cycle of observation, analysis, proposal, validation, and integration.",
       "descriptionZh": "AI智能体的自我进化引擎，能够监控性能、识别能力差距并生成改进建议。它通过观察、分析、提议、验证和集成循环来不断提升智能体能力。",
@@ -17151,7 +17151,7 @@
     {
       "id": "claude-conductor",
       "name": "claude-conductor",
-      "author": "AI-Fleet local",
+      "author": "Anthropic",
       "source": "local",
       "description": "A planned multi-agent orchestration top-level entry that spawns and coordinates sub-skills to run an end-to-end Claude multi-agent workflow.",
       "descriptionZh": "计划中的多智能体编排顶层入口，用于生成和协调各个子技能以运行端到端的Claude多智能体工作流。",
@@ -17185,13 +17185,13 @@
     {
       "id": "classical-language-safety-audit",
       "name": "classical-language-safety-audit",
-      "author": "AI-Fleet local",
+      "author": "MARUCIE",
       "source": "local",
       "description": "A defensive audit tool to evaluate LLM safety alignment against classical and ancient language bypass attacks. It uses an 8-dimension threat model to identify out-of-distribution vulnerabilities without generating actual harmful content.",
       "descriptionZh": "一款防御性审计工具，用于评估大语言模型在面对文言文等古代语言绕过攻击时的安全对齐情况。它采用8维威胁模型来识别分布外漏洞，而不生成实际的有害内容。",
       "category": "其他",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/MARUCIE/babel-bench",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -17220,13 +17220,13 @@
     {
       "id": "claude-to-im",
       "name": "claude-to-im",
-      "author": "AI-Fleet local",
+      "author": "op7418",
       "source": "local",
       "description": "This skill bridges Claude Code to IM platforms like Telegram, Discord, Feishu, and QQ. It manages a background daemon to forward messages and handles lifecycle commands such as setup, start, stop, and logs.",
       "descriptionZh": "该技能用于将 Claude Code 连接至 Telegram、Discord、飞书和 QQ 等即时通讯平台。它支持通过后台守护进程转发消息，并提供完整的生命周期管理（如启动、停止、配置和日志查看）。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/op7418/Claude-to-IM-skill.git",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -17292,7 +17292,7 @@
     {
       "id": "codex-cloudflare-deploy",
       "name": "codex-cloudflare-deploy",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "This skill is used to deploy applications and infrastructure to Cloudflare using Workers, Pages, and related platform services. It provides decision trees and references for compute, storage, AI, networking, security, and more.",
       "descriptionZh": "该技能用于在Cloudflare平台上部署应用程序和基础设施，涵盖Workers、Pages等服务。它提供了针对计算、存储、AI、网络、安全等不同需求的决策树和参考指南。",
@@ -17398,7 +17398,7 @@
     {
       "id": "codex-doc",
       "name": "codex-doc",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A tool for reading, creating, and editing `.docx` documents with a focus on formatting and layout fidelity, utilizing `python-docx` and visual rendering scripts.",
       "descriptionZh": "用于读取、创建和编辑 `.docx` 文档的工具，侧重于格式和排版保真度，主要使用 `python-docx` 和视觉渲染脚本进行处理。",
@@ -17433,7 +17433,7 @@
     {
       "id": "codex-figma",
       "name": "codex-figma",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Uses the Figma MCP server to fetch design context, screenshots, and assets from Figma, translating Figma nodes into production code.",
       "descriptionZh": "使用 Figma MCP 服务器从 Figma 获取设计上下文、截图和资产，并将 Figma 节点转换为生产代码。",
@@ -17468,7 +17468,7 @@
     {
       "id": "codex-figma-design-rules",
       "name": "codex-figma-design-rules",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Generates custom design system rules for the user's codebase to guide AI coding agents in maintaining consistency during Figma-to-code implementation.",
       "descriptionZh": "生成针对用户代码库的自定义设计系统规则，指导AI编程助手在实现Figma设计时保持代码一致性。",
@@ -17503,7 +17503,7 @@
     {
       "id": "codex-figma-generate-design",
       "name": "codex-figma-generate-design",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Translates code or descriptions into Figma screens by reusing published design system components, variables, and styles. Assembles screens incrementally without hardcoded values.",
       "descriptionZh": "通过复用已发布的Figma设计系统组件、变量和样式，将代码或描述转化为Figma页面设计。支持增量构建屏幕，避免硬编码数值。",
@@ -17538,7 +17538,7 @@
     {
       "id": "codex-figma-generate-library",
       "name": "codex-figma-generate-library",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Build or update a professional-grade design system in Figma from a codebase. Supports creating variables, component libraries, theming, and reconciling code-to-Figma gaps.",
       "descriptionZh": "在Figma中根据代码库构建或更新专业级设计系统。支持创建变量/令牌、构建组件库、设置主题以及协调代码与Figma之间的差异。",
@@ -17573,7 +17573,7 @@
     {
       "id": "codex-figma-implement-design",
       "name": "codex-figma-implement-design",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Translates Figma designs into production-ready application code with 1:1 visual fidelity. It uses the Figma MCP server to fetch design context, screenshots, and assets for pixel-perfect implementation.",
       "descriptionZh": "将Figma设计图转化为具有1:1视觉保真度的生产级应用代码。通过Figma MCP服务器提取设计上下文、截图和资产，并遵循项目规范进行像素级代码实现。",
@@ -17608,7 +17608,7 @@
     {
       "id": "codex-gh-address-comments",
       "name": "codex-gh-address-comments",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Helps address review and issue comments on the open GitHub PR for the current branch using the gh CLI. It verifies authentication, fetches comments, and applies fixes based on user selection.",
       "descriptionZh": "使用gh CLI帮助处理当前分支在GitHub PR上的审查和问题评论。它会验证授权状态，获取评论列表，并根据用户的选择应用代码修复。",
@@ -17643,7 +17643,7 @@
     {
       "id": "codex-frontend-skill",
       "name": "codex-frontend-skill",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A frontend development skill focused on creating visually strong, premium interfaces with restrained composition, strong imagery, and tasteful motion. It provides guidelines for landing pages, apps, and product UIs to ensure high-quality art direction and hierarchy.",
       "descriptionZh": "专注于创建视觉效果出众、具有高级感的前端界面开发技能。它提供关于排版、图像、动效和文案的指导原则，以确保高质量的艺术指导和层级结构。",
@@ -17679,7 +17679,7 @@
     {
       "id": "codex-figma-use",
       "name": "codex-figma-use",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A mandatory prerequisite skill for the use_figma tool, used to execute JavaScript in Figma files via the Plugin API. It supports read and write operations like creating nodes, setting variables, and building components.",
       "descriptionZh": "在调用 use_figma 工具前必须加载的技能，用于通过 Figma 插件 API 在 Figma 文件中执行 JavaScript 代码。支持创建、编辑节点、设置变量和组件等读写操作。",
@@ -17714,13 +17714,13 @@
     {
       "id": "codex-gh-fix-ci",
       "name": "codex-gh-fix-ci",
-      "author": "AI-Fleet local",
+      "author": "org",
       "source": "local",
       "description": "Uses the GitHub CLI (`gh`) to inspect and debug failing PR checks in GitHub Actions. It fetches logs, summarizes the failure context, drafts a fix plan, and implements the fix after explicit approval.",
       "descriptionZh": "使用 GitHub CLI (`gh`) 检查和调试失败的 PR 检查（仅限 GitHub Actions）。它会提取失败日志、总结上下文、起草修复计划，并在获得批准后执行修复。",
       "category": "写代码",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/org/repo/pull/123",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -17750,7 +17750,7 @@
     {
       "id": "codex-jupyter-notebook",
       "name": "codex-jupyter-notebook",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Creates, scaffolds, or edits Jupyter notebooks (.ipynb) for experiments and tutorials. Uses bundled templates and a helper script to generate clean, reproducible notebooks.",
       "descriptionZh": "用于创建、搭建或编辑Jupyter Notebook（.ipynb），支持实验探索和教程编写两种模式。通过内置模板和辅助脚本生成结构清晰、可复现的笔记本。",
@@ -17786,7 +17786,7 @@
     {
       "id": "codex-pdf",
       "name": "codex-pdf",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Used for reading, creating, or reviewing PDF files with a focus on rendering and layout. Supports visual checks via Poppler and utilizes Python tools like reportlab, pdfplumber, and pypdf for generation and extraction.",
       "descriptionZh": "用于读取、创建或审查PDF文件，特别关注渲染和排版。支持使用Poppler进行视觉检查，以及使用reportlab、pdfplumber和pypdf等Python工具进行生成和提取。",
@@ -17821,7 +17821,7 @@
     {
       "id": "codex-review",
       "name": "codex-review",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Uses the Codex CLI (GPT-5.4) to perform independent, cross-model code reviews on Claude's code. It analyzes git diffs and returns structured feedback to create a write-review-fix loop.",
       "descriptionZh": "使用 Codex CLI (GPT-5.4) 对 Claude 编写的代码进行跨模型独立审查。它通过分析 git diff 返回结构化反馈，形成编写与审查的闭环。",
@@ -17856,7 +17856,7 @@
     {
       "id": "codex-security-threat-model",
       "name": "codex-security-threat-model",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A repository-grounded threat modeling tool that enumerates trust boundaries, assets, attacker capabilities, abuse paths, and mitigations to generate a concise Markdown threat model.",
       "descriptionZh": "基于代码仓库的威胁建模工具，用于枚举信任边界、资产、攻击者能力、滥用路径和缓解措施，并生成简洁的Markdown格式威胁模型报告。",
@@ -17891,7 +17891,7 @@
     {
       "id": "codex-security-ownership-map",
       "name": "codex-security-ownership-map",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "Analyzes git repositories to build a security ownership topology mapping people to files. It computes bus factor and sensitive-code ownership, exporting data as CSV/JSON for graph databases and visualization.",
       "descriptionZh": "分析Git仓库历史，构建人员与文件的安全所有权拓扑图。计算核心人员流失风险（bus factor）和敏感代码所有权，并导出CSV/JSON供图数据库和可视化使用。",
@@ -17927,7 +17927,7 @@
     {
       "id": "codex-slides",
       "name": "codex-slides",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A tool for creating and editing presentation slide decks (.pptx) using PptxGenJS. It includes layout helpers, rendering, and validation utilities for building or modifying slides.",
       "descriptionZh": "使用 PptxGenJS 创建和编辑演示文稿（.pptx）的工具。包含布局辅助工具以及渲染和验证实用程序，用于构建、重新创建或修改幻灯片。",
@@ -17962,7 +17962,7 @@
     {
       "id": "codex-spreadsheet",
       "name": "codex-spreadsheet",
-      "author": "AI-Fleet local",
+      "author": "OpenAI Codex CLI",
       "source": "local",
       "description": "A skill for creating, editing, analyzing, and formatting spreadsheets (.xlsx, .csv, .tsv). It supports formula-aware workflows, data visualization, and processing using openpyxl and pandas.",
       "descriptionZh": "用于创建、编辑、分析和格式化电子表格（.xlsx、.csv、.tsv）的技能。支持公式计算、数据可视化以及通过 openpyxl 和 pandas 进行数据处理。",
@@ -18067,7 +18067,7 @@
     {
       "id": "composio-skills",
       "name": "composio-skills",
-      "author": "AI-Fleet local",
+      "author": "ComposioHQ",
       "source": "local",
       "description": "Connect to over 850 SaaS applications like Slack, Notion, and Jira via standardized OAuth. Provides a unified interface to automate cross-app workflows for communication, project management, documentation, and CRM.",
       "descriptionZh": "通过标准化的OAuth连接到850多个SaaS应用程序（如Slack、Notion、Jira等）。提供统一的接口来自动化跨应用的通信、项目管理、文档和CRM工作流。",
@@ -18102,7 +18102,7 @@
     {
       "id": "conductor-agent-factory",
       "name": "conductor-agent-factory",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A planned agent factory pattern that produces specialized Claude sub-agents on demand based on a role, goal, and constraints brief.",
       "descriptionZh": "这是一个计划中的智能体工厂模式，能够根据角色、目标和约束条件按需生成专门的 Claude 子智能体。",
@@ -18136,7 +18136,7 @@
     {
       "id": "conductor-board",
       "name": "conductor-board",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A planned Conductor system dashboard that visualizes active agents, message queues, and outstanding tasks for human supervisors.",
       "descriptionZh": "计划中的Conductor系统仪表板，用于为人类监督员可视化活跃的智能体、消息队列和未完成的任务。",
@@ -18171,7 +18171,7 @@
     {
       "id": "conductor-cto-advisor",
       "name": "conductor-cto-advisor",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A planned CTO-style strategic advisor agent role for the Conductor system that weighs tradeoffs and reviews architecture decisions.",
       "descriptionZh": "计划中的Conductor系统CTO级战略顾问代理角色，用于权衡技术利弊并审查架构决策。",
@@ -18206,7 +18206,7 @@
     {
       "id": "conductor-evaluators",
       "name": "conductor-evaluators",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Planned evaluator agent role for the Conductor system that scores outputs from worker agents and gates merges.",
       "descriptionZh": "Conductor系统的评估器智能体角色，负责对工作智能体的输出进行评分并控制合并。目前处于计划阶段。",
@@ -18241,7 +18241,7 @@
     {
       "id": "conductor-go",
       "name": "conductor-go",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Planned Conductor system Go-language orchestration binding, exposing the same conductor surface for embedding in Go services.",
       "descriptionZh": "计划中的Conductor系统Go语言编排绑定，旨在为Go服务嵌入提供相同的Conductor接口。",
@@ -18275,7 +18275,7 @@
     {
       "id": "conductor-knowledge",
       "name": "conductor-knowledge",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Planned knowledge layer for the Conductor system, designed to provide shared memory and fact retrieval across orchestrated agents.",
       "descriptionZh": "Conductor 系统的知识层，旨在为编排的智能体提供共享记忆和事实检索功能。目前处于计划阶段，尚未实现。",
@@ -18309,7 +18309,7 @@
     {
       "id": "conductor-leads",
       "name": "conductor-leads",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A planned team-leads coordination layer where agents act as functional leads (engineering/design/data) and delegate tasks to specialist workers.",
       "descriptionZh": "这是一个计划中的团队负责人协调层，代理将作为职能负责人（工程/设计/数据）并将任务委派给专业人员。",
@@ -18344,7 +18344,7 @@
     {
       "id": "conductor-message-bus",
       "name": "conductor-message-bus",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Planned inter-agent message bus for the Conductor system that routes structured messages between active agents with replay and audit capabilities.",
       "descriptionZh": "Conductor系统的智能体间消息总线（计划中），用于在活跃的智能体之间路由结构化消息，并支持重放和审计。",
@@ -18379,7 +18379,7 @@
     {
       "id": "conductor-parallel",
       "name": "conductor-parallel",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Planned parallel dispatch pattern for the Conductor system. It fans out the same task to multiple agents in parallel and synthesizes the merged result.",
       "descriptionZh": "Conductor 系统的并行调度模式（计划中）。将同一任务并行分发给多个智能体，并综合合并后的结果。",
@@ -18414,7 +18414,7 @@
     {
       "id": "confidence-check",
       "name": "confidence-check",
-      "author": "AI-Fleet local",
+      "author": "anthropics",
       "source": "local",
       "description": "A self-review validation tool that surfaces assumptions and uncertainties before completing work or committing code. It performs pre-commit sanity checks by evaluating correctness, completeness, and consistency.",
       "descriptionZh": "一种自我审查验证工具，用于在完成工作或提交代码前发现假设和不确定性。通过检查正确性、完整性和一致性来进行提交前的合理性检查。",
@@ -18484,7 +18484,7 @@
     {
       "id": "data-pipeline",
       "name": "data-pipeline",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Design production data pipelines including batch ETL, streaming ELT, and data warehouse architectures. Enforces constraints like idempotency, incremental loading, and data quality monitoring.",
       "descriptionZh": "设计生产级数据管道，包括批处理ETL、流式ELT和数据仓库架构。强调幂等性、增量加载和数据质量监控等约束条件。",
@@ -18555,7 +18555,7 @@
     {
       "id": "database-designer",
       "name": "database-designer",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Designs database schemas, plans migrations, and implements row-level security (RLS) policies. Provides guidance on normalization, indexing strategies, and security constraints.",
       "descriptionZh": "负责数据库模式设计、迁移规划和行级安全性（RLS）策略。提供规范化、索引策略和安全约束指导。",
@@ -18591,7 +18591,7 @@
     {
       "id": "dbs",
       "name": "dbs",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "The main entry point for the dontbesilent business toolkit, responsible for identifying user intent and routing to the appropriate diagnostic skill. It performs routing only and does not provide direct analysis or advice.",
       "descriptionZh": "dontbesilent 商业工具箱的主入口，负责识别用户意图并自动路由到最合适的诊断工具（如商业诊断、对标分析、内容诊断等）。本身不做诊断或分析，仅执行路由功能。",
@@ -18626,7 +18626,7 @@
     {
       "id": "dbs-benchmark",
       "name": "dbs-benchmark",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Conducts benchmark analysis using a five-filter method to help users find profitable business models to imitate, eliminating personal bias and decision noise.",
       "descriptionZh": "使用五重过滤法进行对标分析，帮助用户找到值得模仿的商业对标，排除个人偏好等决策噪音。",
@@ -18661,7 +18661,7 @@
     {
       "id": "dbs-content",
       "name": "dbs-content",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A content creation diagnosis tool that helps users turn confirmed topics into high-quality content. Instead of writing for users, it evaluates content direction, format, and expression across five dimensions.",
       "descriptionZh": "dontbesilent 内容创作诊断工具，帮助用户将已确认的选题转化为优质内容。它不代写内容，而是从文字洁癖、封面标题、表达效率等五个维度提供方向和形式的诊断。",
@@ -18696,7 +18696,7 @@
     {
       "id": "dbs-diagnosis",
       "name": "dbs-diagnosis",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A business model diagnosis tool based on the dontbesilent framework, offering consultation to dissolve invalid questions and checkups to analyze business models.",
       "descriptionZh": "基于dontbesilent框架的商业模式诊断工具，提供问诊（消解错误问题）和体检（拆解商业模式）两种模式。",
@@ -18730,7 +18730,7 @@
     {
       "id": "dbs-deconstruct",
       "name": "dbs-deconstruct",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Deconstructs vague business concepts to an atomic level using Wittgenstein's philosophy of language and Austrian economics.",
       "descriptionZh": "使用维特根斯坦语言哲学与奥派经济学方法，将模糊的商业概念拆解至原子级别，消除语言蛊惑。",
@@ -18765,7 +18765,7 @@
     {
       "id": "dbs-unblock",
       "name": "dbs-unblock",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "An execution block diagnosis tool based on Adlerian psychology, helping users uncover the deep psychological reasons behind procrastination and providing actionable advice.",
       "descriptionZh": "基于阿德勒心理学框架的执行力诊断工具，帮助用户找出“知道该做什么但就是不做”的深层心理原因并提供行动建议。",
@@ -18835,7 +18835,7 @@
     {
       "id": "design-review",
       "name": "design-review",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Reviews a game design document for completeness, internal consistency, implementability, and adherence to project design standards.",
       "descriptionZh": "审查游戏设计文档的完整性、内部一致性、可实现性以及是否符合项目设计标准。建议在将设计文档交付给程序员之前运行此技能。",
@@ -18906,7 +18906,7 @@
     {
       "id": "design-system",
       "name": "design-system",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Guided, section-by-section Game Design Document (GDD) authoring for a single game system. It gathers context, cross-references dependencies, and collaboratively writes the document incrementally.",
       "descriptionZh": "引导式、逐节编写单个游戏系统的游戏设计文档（GDD）。通过收集现有文档上下文、交叉引用依赖关系，协作完成每个部分并逐步写入文件。",
@@ -18941,7 +18941,7 @@
     {
       "id": "docker-optimizer",
       "name": "docker-optimizer",
-      "author": "AI-Fleet local",
+      "author": "wrsmith108",
       "source": "local",
       "description": "Analyzes and optimizes Dockerfiles for production to achieve smaller image sizes, faster builds, and better layer caching. Supports multi-stage builds and security hardening.",
       "descriptionZh": "分析并优化Dockerfile以用于生产环境，实现更小的镜像体积、更快的构建速度和更好的层缓存。支持多阶段构建和安全加固。",
@@ -19153,7 +19153,7 @@
     {
       "id": "fastapi-templates",
       "name": "fastapi-templates",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Provides production-ready FastAPI project templates featuring async support, dependency injection, middleware, and testing. Ideal for starting new FastAPI projects with best practices.",
       "descriptionZh": "提供生产级别的FastAPI项目模板，包含异步处理、依赖注入、中间件和测试功能。适用于启动FastAPI项目并遵循最佳实践。",
@@ -19293,7 +19293,7 @@
     {
       "id": "firecrawl-skill",
       "name": "firecrawl-skill",
-      "author": "AI-Fleet local",
+      "author": "AshutoshBuilds",
       "source": "local",
       "description": "Provides reliable web scraping with JavaScript rendering via the Firecrawl API. Ideal for extracting clean content and structured data from JS-heavy single-page applications.",
       "descriptionZh": "通过 Firecrawl API 提供可靠的网页抓取功能，支持 JavaScript 渲染和结构化数据提取。适用于抓取重度依赖 JS 的单页应用或需要绕过简单 HTTP 限制的网站。",
@@ -19328,7 +19328,7 @@
     {
       "id": "flutter-development",
       "name": "flutter-development",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Cross-platform mobile development using Flutter and Dart. Covers best practices for widgets, state management, navigation, and testing.",
       "descriptionZh": "使用Flutter和Dart进行跨平台移动应用开发。涵盖小部件构建、状态管理、导航和测试等最佳实践。",
@@ -19364,7 +19364,7 @@
     {
       "id": "frontend-testing",
       "name": "frontend-testing",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Validates frontend applications for performance, console errors, responsive design, and E2E functionality using Chrome DevTools and Playwright.",
       "descriptionZh": "用于验证前端应用程序的性能、控制台错误、响应式设计和端到端（E2E）功能。该技能结合使用 Chrome DevTools 和 Playwright 进行全面的前端测试。",
@@ -19470,7 +19470,7 @@
     {
       "id": "gitnexus-debugging",
       "name": "gitnexus-debugging",
-      "author": "AI-Fleet local",
+      "author": "gitnexus",
       "source": "local",
       "description": "Trace bugs through call chains using a knowledge graph, utilizing queries, context, and execution flows to identify root causes.",
       "descriptionZh": "使用知识图谱追踪调用链来调试代码，通过查询错误信息、上下文和执行流来定位问题根源。",
@@ -19505,7 +19505,7 @@
     {
       "id": "gitnexus-exploring",
       "name": "gitnexus-exploring",
-      "author": "AI-Fleet local",
+      "author": "gitnexus",
       "source": "local",
       "description": "Navigate and understand unfamiliar codebases using the GitNexus knowledge graph by querying execution flows and context.",
       "descriptionZh": "使用 GitNexus 知识图谱探索和理解陌生的代码库，通过查询执行流和上下文来分析代码逻辑。",
@@ -19539,7 +19539,7 @@
     {
       "id": "gitnexus-impact-analysis",
       "name": "gitnexus-impact-analysis",
-      "author": "AI-Fleet local",
+      "author": "gitnexus",
       "source": "local",
       "description": "Analyze the blast radius before making code changes by checking dependencies and affected execution flows to assess risk.",
       "descriptionZh": "在修改代码前分析其影响范围（爆炸半径），通过检查依赖关系和受影响的执行流来评估风险。",
@@ -19574,7 +19574,7 @@
     {
       "id": "go-best-practices",
       "name": "go-best-practices",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Provides idiomatic Go patterns from official docs and community best practices, covering error handling, concurrency, interfaces, and testing.",
       "descriptionZh": "提供Go语言的官方文档和社区最佳实践，涵盖错误处理、并发模式、接口和测试等内容。",
@@ -19609,7 +19609,7 @@
     {
       "id": "gitnexus-refactoring",
       "name": "gitnexus-refactoring",
-      "author": "AI-Fleet local",
+      "author": "gitnexus",
       "source": "local",
       "description": "Plan safe code refactors using blast radius and dependency mapping. It supports operations like renaming symbols, extracting modules, and splitting services.",
       "descriptionZh": "使用爆炸半径和依赖映射来规划安全的代码重构。支持重命名符号、提取模块和拆分服务等操作。",
@@ -19714,7 +19714,7 @@
     {
       "id": "gs-brainstorm",
       "name": "gs-brainstorm",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Guides game concept ideation from scratch to a structured document using professional studio techniques, player psychology frameworks, and interactive creative exploration.",
       "descriptionZh": "引导游戏概念构思，从零开始生成结构化的游戏概念文档。利用专业工作室的构思技巧、玩家心理学框架和结构化的创意探索，通过互动问答协助设计核心循环和创意方向。",
@@ -19749,7 +19749,7 @@
     {
       "id": "grok-twitter-search",
       "name": "grok-twitter-search",
-      "author": "AI-Fleet local",
+      "author": "your-repo",
       "source": "local",
       "description": "Intelligently searches Twitter content using xAI Grok's x_search tool, supporting natural language extraction and deep public opinion analysis. Features Fast/Reasoning dual-engine routing and SOCKS5 proxy support.",
       "descriptionZh": "使用 xAI Grok 模型的 x_search 工具智能搜索 Twitter 内容，支持自然语言语义提取与深度舆情分析。具备 Fast/Reasoning 双引擎动态路由，并支持 SOCKS5 代理精准分流。",
@@ -19785,7 +19785,7 @@
     {
       "id": "gs-code-review",
       "name": "gs-code-review",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Performs an architectural and quality code review on specified files, checking for coding standards, SOLID principles, and game-specific performance concerns.",
       "descriptionZh": "对指定文件或目录执行架构和代码质量审查，检查代码规范、SOLID原则以及游戏开发相关的性能和架构问题。",
@@ -19820,7 +19820,7 @@
     {
       "id": "gs-retrospective",
       "name": "gs-retrospective",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a sprint or milestone retrospective by analyzing completed work, velocity, blockers, and patterns to produce actionable insights for the next iteration.",
       "descriptionZh": "生成冲刺或里程碑的回顾报告，通过分析已完成的工作、开发速度、阻碍因素和代码模式，为下一次迭代提供可执行的改进建议。",
@@ -19855,7 +19855,7 @@
     {
       "id": "gs-sprint-plan",
       "name": "gs-sprint-plan",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a new sprint plan or updates an existing one based on milestones, completed work, and capacity. It also supports generating sprint status reports by pulling context from production documents.",
       "descriptionZh": "根据当前里程碑、已完成工作和可用容量，生成新的冲刺计划或更新现有计划。支持生成冲刺状态报告并从生产文档中提取上下文。",
@@ -19961,7 +19961,7 @@
     {
       "id": "html-bloomberg-style",
       "name": "html-bloomberg-style",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A style guide for generating data-dense financial HTML documents like market reports and KPI dashboards. It features a Bloomberg Terminal-inspired design with dark mode, monospace fonts, and signal colors.",
       "descriptionZh": "用于生成高数据密度的金融HTML文档（如市场报告、KPI看板等）的样式指南。采用彭博终端风格，包含暗黑模式、等宽字体和信号色等设计规范。",
@@ -19997,7 +19997,7 @@
     {
       "id": "html-document-style",
       "name": "html-document-style",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "The default style guide for generating standalone single-file HTML deliverables like whitepapers and proposals. It implements a warm academic humanism aesthetic with specific CSS variables, typography rules, and layout frames.",
       "descriptionZh": "用于生成独立单文件HTML交付物（如白皮书、指南、提案等）的默认样式指南。采用“温暖的学术人文主义”设计风格，包含特定的CSS变量、排版规则和布局框架。",
@@ -20032,7 +20032,7 @@
     {
       "id": "html-economist-style",
       "name": "html-economist-style",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A style guide for generating standalone HTML deliverables for evidence-based argumentation, such as research reports and market analyses. It implements an authoritative, flat, and typographically-driven design language inspired by The Economist.",
       "descriptionZh": "用于生成基于证据的论证类独立HTML文档（如研究报告、市场分析等）的样式指南。采用受《经济学人》启发的排版风格，强调权威感、扁平化和排版驱动。",
@@ -20068,7 +20068,7 @@
     {
       "id": "html-hermes-style",
       "name": "html-hermes-style",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates retro-terminal, mythological, or agent-self-portrait HTML documents. Ideal for AI agent introductions, CLI tool stories, and dev-blogs using a retro-pixel, monospace, and amber-on-dark TUI aesthetic.",
       "descriptionZh": "用于生成复古终端、神话风格或AI智能体自画像的HTML文档样式。适用于AI智能体介绍、CLI工具故事或开发博客，采用复古像素、等宽字体和暗黑琥珀色调的TUI美学。",
@@ -20103,7 +20103,7 @@
     {
       "id": "html-mckinsey-style",
       "name": "html-mckinsey-style",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Used to generate strategic or prescriptive HTML documents in a McKinsey management consulting style. Ideal for executive recommendations, strategy plans, and driving C-suite decisions.",
       "descriptionZh": "用于生成具有麦肯锡管理咨询风格的战略性或指导性HTML文档。适用于向高管层提供建议、战略规划或推动决策的场景。",
@@ -20138,13 +20138,13 @@
     {
       "id": "html-slides-router",
       "name": "html-slides-router",
-      "author": "AI-Fleet local",
+      "author": "zarazhangrui",
       "source": "local",
       "description": "Routes HTML slide deck generation requests to the appropriate visual style based on user intent. Triggers before generating any HTML slides, supporting four main styles and the Zara template library.",
       "descriptionZh": "根据用户意图将HTML幻灯片生成请求路由到正确的视觉风格。在生成任何HTML幻灯片或PPT之前触发，支持四种主要风格和Zara模板库。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/zarazhangrui/beautiful-html-templates",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -20173,7 +20173,7 @@
     {
       "id": "html-slides-terracotta",
       "name": "html-slides-terracotta",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate single-file HTML slide decks (PPT-style) using the Terracotta Academic design system.",
       "descriptionZh": "使用Terracotta Academic设计系统生成单文件HTML幻灯片（PPT风格）。",
@@ -20208,7 +20208,7 @@
     {
       "id": "html-slides-swiss-clean",
       "name": "html-slides-swiss-clean",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate single-file HTML slide decks using the Swiss Clean design system. Ideal for corporate decks, business presentations, and formal slides, emphasizing content-first, grid-aligned, and zero-decoration design.",
       "descriptionZh": "生成基于瑞士极简设计风格的单文件HTML幻灯片（PPT样式）。适用于企业汇报、商业演示、战略规划等正式场景，强调内容优先、网格对齐和无装饰设计。",
@@ -20243,7 +20243,7 @@
     {
       "id": "html-slides-aurora-glass",
       "name": "html-slides-aurora-glass",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate single-file HTML slide decks using the Aurora Glass design system. Ideal for design presentations, creative pitches, and brand launches.",
       "descriptionZh": "使用极光玻璃（Aurora Glass）设计系统生成单文件HTML幻灯片（PPT风格）。适用于设计演示、创意提案和品牌发布等场景。",
@@ -20278,7 +20278,7 @@
     {
       "id": "html-slides-midnight-tech",
       "name": "html-slides-midnight-tech",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generate single-file HTML slide decks using the Midnight Tech dark design system. Ideal for developer presentations, product launches, and startup pitches.",
       "descriptionZh": "生成基于 Midnight Tech 暗黑科技风设计系统的单文件 HTML 幻灯片。适用于开发者演示、产品发布和初创公司路演等场景。",
@@ -20348,7 +20348,7 @@
     {
       "id": "ios-swiftui-expert",
       "name": "ios-swiftui-expert",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "CLI-first iOS and macOS SwiftUI development using xcodebuild. Covers building, testing, performance auditing, view refactoring, and Swift concurrency.",
       "descriptionZh": "使用 xcodebuild 进行命令行优先的 iOS 和 macOS SwiftUI 开发。涵盖构建、测试、性能审计、视图重构以及 Swift 并发处理。",
@@ -20383,13 +20383,13 @@
     {
       "id": "html-style-router",
       "name": "html-style-router",
-      "author": "AI-Fleet local",
+      "author": "VoltAgent",
       "source": "local",
       "description": "A style routing tool triggered before generating standalone HTML documents, automatically assigning the correct UI design system based on the document type.",
       "descriptionZh": "在生成独立HTML文档前触发的样式路由工具，根据文档类型自动分配正确的UI设计系统（如麦肯锡、经济学人等）。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/VoltAgent/awesome-design-md",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -20418,7 +20418,7 @@
     {
       "id": "json-canvas",
       "name": "json-canvas",
-      "author": "AI-Fleet local",
+      "author": "kepano",
       "source": "local",
       "description": "This skill enables creating and editing JSON Canvas files (.canvas) with nodes, edges, groups, and connections. It is useful for visual canvases, mind maps, flowcharts, and Obsidian Canvas files.",
       "descriptionZh": "该技能用于创建和编辑 JSON Canvas 文件（.canvas），支持节点、边缘、分组和连接。适用于处理可视化画布、思维导图、流程图或 Obsidian 中的 Canvas 文件。",
@@ -20488,13 +20488,13 @@
     {
       "id": "knowledge-site-creator",
       "name": "knowledge-site-creator",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "Generate a knowledge learning website for any domain with a single prompt. The AI automatically understands the topic, creates content, generates pages with flashcards and quizzes, and deploys the site.",
       "descriptionZh": "一句话生成任何领域的知识学习网站。AI自动理解主题、创作内容、生成页面并部署上线，包含闪卡、测试、进度追踪等功能。",
       "category": "写代码",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/knowledge-site-creator.git",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -20593,7 +20593,7 @@
     {
       "id": "ljg-calendar",
       "name": "ljg-calendar",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Reads and writes macOS Calendar events via AppleScript, supporting event parsing from text or images.",
       "descriptionZh": "通过 AppleScript 读取和写入 macOS 日历事件，支持从文本或图片中解析日程信息并自动添加。",
@@ -20628,7 +20628,7 @@
     {
       "id": "ljg-card",
       "name": "ljg-card",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Transforms text content into PNG visuals using six different molds including long cards, infographics, sketchnotes, comics, and whiteboards.",
       "descriptionZh": "将文本内容转换为PNG视觉卡片，支持长图、信息图、多卡、视觉笔记、漫画和白板六种模具。",
@@ -20664,7 +20664,7 @@
     {
       "id": "ljg-clip",
       "name": "ljg-clip",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "An on-demand content clipper that accepts URLs or raw text to fetch and clean content. It appends the processed content to a local inbox.org file and can optionally chain to xray for deep analysis.",
       "descriptionZh": "这是一个按需内容剪藏工具，支持接收URL或纯文本。它会抓取并清理内容，然后将其作为新标题追加到本地的inbox.org文件中，并支持链式调用xray进行深度分析。",
@@ -20699,7 +20699,7 @@
     {
       "id": "ljg-explain-concept",
       "name": "ljg-explain-concept",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A deep concept anatomist tool that deconstructs ideas through 8 dimensions (history, dialectics, phenomenology, etc.) and compresses insights into an epiphany, outputting an org-mode report.",
       "descriptionZh": "这是一个概念解剖工具，通过历史、辩证、现象学等八个维度深度解析用户输入的概念，并将洞见压缩为顿悟公式，最终生成org-mode格式的报告。",
@@ -20734,7 +20734,7 @@
     {
       "id": "ljg-cards",
       "name": "ljg-cards",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Generates visual reading cards in PNG format from text input. Supports a default auto-height long image mode and a multi-card mode via the -m flag.",
       "descriptionZh": "将文本内容生成视觉阅读卡片（PNG格式）。默认生成自适应高度的长图，支持通过 -m 参数切分为多张固定尺寸卡片。",
@@ -20768,7 +20768,7 @@
     {
       "id": "ljg-explain-words",
       "name": "ljg-explain-words",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A deep-dive English word mastery tool that deconstructs a single word into its core semantics, original imagery, and philosophical epiphany.",
       "descriptionZh": "深入解析单个英文单词的工具，通过解构原始画面、核心意象和深层语义，帮助用户从哲学高度掌握单词的灵魂。",
@@ -20803,7 +20803,7 @@
     {
       "id": "ljg-infograph",
       "name": "ljg-infograph",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Automatically structures user-provided text into visual modules and generates a well-designed infographic in PNG format. Supports metadata extraction, theme color selection, and various visual module types.",
       "descriptionZh": "将用户提供的文本内容自动结构化并生成排版精美的信息图（PNG格式）。支持提取元信息、选择主题色调并划分为多种视觉模块。",
@@ -20838,7 +20838,7 @@
     {
       "id": "ljg-fetch",
       "name": "ljg-fetch",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Fetches target URLs or local files and converts them to local Markdown files. It features auto-degradation through WebFetch, curl, requests, and Playwright, utilizing markitdown for conversion.",
       "descriptionZh": "将目标URL或本地文件抓取并转换为本地Markdown文件。支持通过WebFetch、curl、requests和Playwright进行自动降级抓取，并使用markitdown进行格式转换。",
@@ -20873,7 +20873,7 @@
     {
       "id": "ljg-invest",
       "name": "ljg-invest",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Generates deep investment analysis reports focusing on whether a project is an 'order creation machine'. Evaluates flywheel effects, core algorithms, and provides investment recommendations.",
       "descriptionZh": "生成深度投资分析报告，核心评估项目是否为“秩序创造机器”，而非传统财务分析。包含项目定义、飞轮效应判定、创生公式及投资建议。",
@@ -20908,7 +20908,7 @@
     {
       "id": "ljg-learn",
       "name": "ljg-learn",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A deep concept anatomist tool that deconstructs ideas across 8 dimensions (history, dialectics, etc.) and compresses insights into an epiphany, outputting an org-mode report.",
       "descriptionZh": "深度概念解剖工具，通过历史、辩证、现象等八个维度拆解概念，并将其压缩为深刻的顿悟，最终输出为org-mode格式的报告。",
@@ -20943,7 +20943,7 @@
     {
       "id": "ljg-paper-flow",
       "name": "ljg-paper-flow",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A workflow that reads papers and generates analysis and reading cards in one go. It processes multiple papers in parallel, invoking ljg-paper and ljg-card sequentially for each.",
       "descriptionZh": "一条命令完成读论文并生成解读和卡片的工作流。支持多篇论文并行处理，依次调用 ljg-paper 和 ljg-card 生成 org 分析文件和长图卡片。",
@@ -20978,7 +20978,7 @@
     {
       "id": "ljg-paper",
       "name": "ljg-paper",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Analyzes academic papers to extract core contributions, methodologies, and key concepts. It generates ASCII diagrams, applies the Feynman technique, and simulates an advisor's review to output structured Org-mode notes.",
       "descriptionZh": "读取并深度分析学术论文，提取核心增量、方法机制与关键概念。通过生成ASCII图解、费曼技巧解释以及模拟博导审稿，最终输出符合Denote规范的Org-mode笔记。",
@@ -21014,7 +21014,7 @@
     {
       "id": "ljg-plain",
       "name": "ljg-plain",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Rewrites any content into plain language that a smart 12-year-old can understand. It outputs in Org-mode syntax following Denote file specifications while strictly adhering to writing rules like zero jargon and conversational tone.",
       "descriptionZh": "将任何内容重写为通俗易懂的白话文，确保12岁孩子也能理解。输出格式遵循Org-mode语法和Denote文件规范，并严格遵守无术语、口语化等写作红线。",
@@ -21049,7 +21049,7 @@
     {
       "id": "ljg-rank",
       "name": "ljg-rank",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Performs 'rank reduction' on any domain by extracting dimensions from phenomena and discovering constraints to find its irreducible independent generators. Outputs an analytical report with topology diagrams and counterfactual deductions, updating local concept indexes.",
       "descriptionZh": "对任意领域执行“降秩”操作，通过提取现象维度和发现约束，寻找该领域不可再分的独立生成器。最终输出包含拓扑接线图和反事实推演的分析报告，并更新本地概念索引。",
@@ -21084,7 +21084,7 @@
     {
       "id": "ljg-relationship",
       "name": "ljg-relationship",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A relationship analysis assistant combining a 5-layer structural framework with psychoanalytic methods. It guides users to uncover structural issues and unconscious patterns in their relationships through dialogue.",
       "descriptionZh": "结合五层结构诊断与精神分析方法的关系分析助手。通过对话引导用户看清人际关系中的结构性问题与无意识模式，并生成可视化的关系结构图。",
@@ -21119,7 +21119,7 @@
     {
       "id": "ljg-skill-map",
       "name": "ljg-skill-map",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Scans all ljg-* skills in real-time and generates a pure ASCII topology map organized by CogOS layers. Outputs the skill map and statistics directly to the terminal.",
       "descriptionZh": "实时扫描所有 ljg-* 技能，并按 CogOS 层级生成纯 ASCII 格式的系统拓扑图。直接在终端输出技能地图和统计信息。",
@@ -21154,7 +21154,7 @@
     {
       "id": "ljg-roundtable",
       "name": "ljg-roundtable",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Provides a structured roundtable discussion framework where a moderator guides real historical or contemporary figures in dialectical debate on a specific topic. Features dynamic turns, ASCII framework diagrams, and exports to org-mode files.",
       "descriptionZh": "提供结构化的圆桌讨论框架，由主持人引导多位真实历史或当代代表人物就特定议题展开辩证辩论。支持动态发言、生成ASCII思考框架图，并将讨论结果导出为org-mode文件。",
@@ -21189,7 +21189,7 @@
     {
       "id": "ljg-the-one",
       "name": "ljg-the-one",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Extracts the essential formula from books or concepts using first-principles thinking, falsifies it by identifying boundary conditions, and generates a visual HTML card.",
       "descriptionZh": "使用第一性原理从书籍或概念中提取核心公式，并通过识别边界条件进行证伪，最终生成可视化的HTML卡片。",
@@ -21224,7 +21224,7 @@
     {
       "id": "ljg-title",
       "name": "ljg-title",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Generates five compelling title candidates based on provided content, URLs, or topics using proven copywriting principles. The titles are categorized by strategy, ranked, and explained.",
       "descriptionZh": "根据用户提供的文章、链接或话题，运用特定原则生成5个具有吸引力的候选标题。标题会按不同策略分类，并附带推荐理由和质量检验。",
@@ -21258,7 +21258,7 @@
     {
       "id": "ljg-travel",
       "name": "ljg-travel",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Deep cultural travel research workflow that generates structured org-mode documents and portable reference cards covering historical background, museums, ancient architecture, and archaeological discoveries for a given city.",
       "descriptionZh": "深度文化旅行研究工作流，输入城市名即可自动生成包含历史分层、博物馆重点、古建遗存和考古发现的结构化org文档与便携参考卡片。",
@@ -21293,7 +21293,7 @@
     {
       "id": "ljg-word",
       "name": "ljg-word",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A deep-dive English word mastery tool that deconstructs a single word into its core semantics and epiphany to help users master its deep meaning.",
       "descriptionZh": "深入解析英语单词的工具，将单个单词解构为核心语义和顿悟，帮助用户掌握其深层含义和用法。",
@@ -21328,7 +21328,7 @@
     {
       "id": "ljg-word-flow",
       "name": "ljg-word-flow",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A word card workflow that combines deep semantic analysis and infographic generation. It sequentially runs word analysis and card generation tools for given English words, supporting parallel processing for multiple words.",
       "descriptionZh": "结合深度语义分析与信息图生成的词卡工作流。输入英文单词后，自动串行调用解词与铸卡工具，并支持多词并行处理。",
@@ -21363,7 +21363,7 @@
     {
       "id": "ljg-writes",
       "name": "ljg-writes",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A writing engine that helps users explore and think through a viewpoint while writing, outputting articles in Org-mode and Denote formats.",
       "descriptionZh": "一个写作引擎，帮助用户带着观点出发，在写作过程中深入思考，并输出符合 Org-mode 和 Denote 规范的文章。",
@@ -21397,7 +21397,7 @@
     {
       "id": "ljg-xray-article",
       "name": "ljg-xray-article",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Deeply analyzes non-academic articles to extract the real question, core arguments, and argument skeleton. Generates ASCII-based cognitive collision cards against a personal knowledge base and outputs an Org-mode reading report.",
       "descriptionZh": "深度解析非学术文章（博客、散文等），提取作者的真实问题、核心主张与论证骨架。结合个人认知基线生成ASCII格式的认知碰撞卡片，并输出Org格式的阅读报告。",
@@ -21432,7 +21432,7 @@
     {
       "id": "ljg-x-download",
       "name": "ljg-x-download",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Download images or videos from X (Twitter) links to the local Downloads folder. It automatically parses links and uses yt-dlp to extract media content.",
       "descriptionZh": "从 X (Twitter) 链接下载图片或视频到本地 Downloads 文件夹。支持自动解析链接并使用 yt-dlp 提取媒体内容。",
@@ -21467,7 +21467,7 @@
     {
       "id": "ljg-xray-book",
       "name": "ljg-xray-book",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "A deep book extraction tool based on the Epiplexity principle, utilizing three rounds of cognitive compression to transform book content into structured org-mode notes.",
       "descriptionZh": "基于Epiplexity原理的深度拆书工具，通过三轮认知压缩（骨架扫描、血肉解剖、灵魂提取）将书籍内容转化为结构化的org-mode笔记。",
@@ -21502,7 +21502,7 @@
     {
       "id": "ljg-xray-prompt",
       "name": "ljg-xray-prompt",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Deconstructs user prompts using the Universal Gravity Formula to extract persona, intent, and logic, visualizing the flow topology with ASCII art in a local HTML file.",
       "descriptionZh": "使用“万有引力公式”解构用户提供的提示词，提取人设、意图和逻辑，并在本地HTML文件中生成高保真ASCII拓扑图进行可视化。",
@@ -21537,7 +21537,7 @@
     {
       "id": "ljg-xray-skill",
       "name": "ljg-xray-skill",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Deconstructs skills, tools, or methodologies using the Six-Cut Dissection framework. Outputs structured org-mode analysis reports featuring an essence formula and ASCII topology maps.",
       "descriptionZh": "使用《智慧学九论》的六刀解剖框架对技能、工具或方法论进行深度拆解。输出包含本质公式和纯ASCII拓扑图的结构化Org-mode分析报告。",
@@ -21572,7 +21572,7 @@
     {
       "id": "ljg-xray-paper",
       "name": "ljg-xray-paper",
-      "author": "AI-Fleet local",
+      "author": "ljg (community)",
       "source": "local",
       "description": "Extracts the core problem, perspective, and results from academic papers, generating ASCII art cognitive cards to illustrate personal insights. Supports Arxiv links and PDFs, outputting Org-mode files following Denote conventions.",
       "descriptionZh": "提取学术论文的核心内容（问题、视角、结果），并使用纯ASCII字符绘制认知卡片，展示论文对用户的认知启发。支持解析Arxiv链接或PDF，输出符合Denote规范的Org-mode文件。",
@@ -21818,7 +21818,7 @@
     {
       "id": "marketing-skills",
       "name": "marketing-skills",
-      "author": "AI-Fleet local",
+      "author": "coreyhaines31",
       "source": "local",
       "description": "A comprehensive marketing toolkit featuring over 20 integrated skills including CRO, copywriting, SEO, email sequences, social media, and ads. Ideal for marketing strategy, conversion optimization, and campaign design.",
       "descriptionZh": "包含20多种综合营销技能的工具包，涵盖转化率优化（CRO）、文案撰写、SEO、电子邮件序列、社交媒体和广告。适用于营销策略制定、转化优化和广告文案设计。",
@@ -21959,7 +21959,7 @@
     {
       "id": "multi-search-engine",
       "name": "multi-search-engine",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Integrates 17 domestic and international search engines for web crawling without API keys. Supports cross-region market research, privacy-first search, and WolframAlpha knowledge queries.",
       "descriptionZh": "集成17个国内外搜索引擎（8个国内，9个国际）的网页抓取工具，无需API密钥。支持跨区域市场研究、隐私搜索和WolframAlpha知识查询。",
@@ -21994,7 +21994,7 @@
     {
       "id": "n8n-automation",
       "name": "n8n-automation",
-      "author": "AI-Fleet local",
+      "author": "czlonkowski",
       "source": "local",
       "description": "A complete n8n workflow automation toolkit for designing workflow patterns, writing JavaScript/Python code nodes, and configuring expressions. It includes MCP tools integration and validation for building automated data pipelines.",
       "descriptionZh": "完整的n8n工作流自动化工具集，支持工作流架构设计、JavaScript/Python代码节点编写、节点配置及表达式语法。包含MCP工具集成与工作流验证功能，适用于构建各类自动化数据管道。",
@@ -22136,7 +22136,7 @@
     {
       "id": "obsidian-bases",
       "name": "obsidian-bases",
-      "author": "AI-Fleet local",
+      "author": "kepano",
       "source": "local",
       "description": "This skill enables Claude Code to create and edit Obsidian Bases (.base files), including views, filters, formulas, and summaries.",
       "descriptionZh": "该技能使 Claude Code 能够创建和编辑 Obsidian Bases (.base) 文件，包括视图、过滤器、公式和摘要配置。",
@@ -22243,7 +22243,7 @@
     {
       "id": "obsidian-markdown",
       "name": "obsidian-markdown",
-      "author": "AI-Fleet local",
+      "author": "kepano",
       "source": "local",
       "description": "Enables Claude Code to create and edit Obsidian Flavored Markdown, including wikilinks, embeds, callouts, and properties. Useful for working with .md files and Obsidian-specific syntax.",
       "descriptionZh": "使 Claude Code 能够创建和编辑包含双向链接、嵌入、标注和属性等特定语法的 Obsidian 风格 Markdown 文件。适用于在 Obsidian 中处理 .md 文件或涉及相关特定语法时使用。",
@@ -22383,7 +22383,7 @@
     {
       "id": "pake-native-app",
       "name": "pake-native-app",
-      "author": "AI-Fleet local",
+      "author": "tw93",
       "source": "local",
       "description": "Package any web URL into a lightweight (~4MB) native desktop app using Pake (Rust/Tauri). It supports macOS, Linux, and Windows, allows custom CSS/JS injection, and serves as a lightweight alternative to Electron.",
       "descriptionZh": "使用 Pake (Rust/Tauri) 将任何网页 URL 快速打包成轻量级（约 4MB）的原生桌面应用程序。支持 macOS、Linux 和 Windows 平台，允许注入自定义 CSS/JS，是 Electron 的轻量替代方案。",
@@ -22663,7 +22663,7 @@
     {
       "id": "pm-cmd-analyze-cohorts",
       "name": "pm-cmd-analyze-cohorts",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Perform cohort analysis on user data to generate retention curves, feature adoption trends, and engagement insights. Supports processing uploaded data or generating SQL queries and analysis frameworks.",
       "descriptionZh": "对用户数据进行同期群分析，生成留存曲线、功能采用和参与度趋势。支持处理上传的数据文件或生成SQL查询和分析框架。",
@@ -22734,7 +22734,7 @@
     {
       "id": "pm-cmd-analyze-feedback",
       "name": "pm-cmd-analyze-feedback",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Process large volumes of user feedback to provide sentiment analysis, theme extraction, and segment-level insights, generating structured analysis reports.",
       "descriptionZh": "处理大量用户反馈（如NPS、评论、工单），进行情感分析、主题提取和细分市场洞察，并生成结构化分析报告。",
@@ -22769,7 +22769,7 @@
     {
       "id": "pm-cmd-analyze-test",
       "name": "pm-cmd-analyze-test",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Analyzes A/B test results, including statistical significance and sample size validation, to provide ship, extend, or stop recommendations.",
       "descriptionZh": "分析A/B测试结果，包括统计显著性、样本量验证，并提供发布、延长或停止的决策建议。",
@@ -22803,7 +22803,7 @@
     {
       "id": "pm-cmd-brainstorm",
       "name": "pm-cmd-brainstorm",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Brainstorm product ideas or experiment designs for existing or new products from the perspectives of a PM, Designer, and Engineer.",
       "descriptionZh": "从产品经理、设计师和工程师的视角，为现有或新产品进行头脑风暴，生成产品创意或实验设计。",
@@ -22838,7 +22838,7 @@
     {
       "id": "pm-cmd-battlecard",
       "name": "pm-cmd-battlecard",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a sales-ready competitive battlecard including product positioning, feature comparisons, objection handling, and win strategies.",
       "descriptionZh": "生成用于销售的竞品分析卡（Battlecard），包含产品定位、功能对比、异议处理和赢单策略，帮助团队在竞争中获胜。",
@@ -22873,7 +22873,7 @@
     {
       "id": "pm-cmd-business-model",
       "name": "pm-cmd-business-model",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Explore and analyze business models using Lean Canvas, Business Model Canvas, Startup Canvas, or Value Proposition frameworks. Generates tailored strategy and business model artifacts based on the product stage.",
       "descriptionZh": "使用精益画布、商业模式画布、创业画布或价值主张框架来探索和分析商业模式。支持针对不同产品阶段生成相应的策略和商业模型工件。",
@@ -22908,7 +22908,7 @@
     {
       "id": "pm-cmd-competitive-analysis",
       "name": "pm-cmd-competitive-analysis",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "This skill researches and analyzes the competitive landscape by identifying direct and indirect competitors. It compares strengths, weaknesses, and positioning to surface differentiation opportunities and generate comprehensive competitive analysis reports.",
       "descriptionZh": "该技能用于研究和分析竞争格局，识别直接和间接竞争对手。它通过对比优劣势、定位和功能，帮助发现产品的差异化机会并生成竞争分析报告。",
@@ -22943,7 +22943,7 @@
     {
       "id": "pm-cmd-draft-nda",
       "name": "pm-cmd-draft-nda",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Drafts a customized Non-Disclosure Agreement (NDA) covering information types, jurisdiction, and term, while highlighting clauses that require legal review.",
       "descriptionZh": "起草一份定制的保密协议（NDA），涵盖信息类型、管辖权和期限，并明确标出需要法律审查的条款。",
@@ -22978,7 +22978,7 @@
     {
       "id": "pm-cmd-discover",
       "name": "pm-cmd-discover",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Run a full product discovery cycle, from initial ideation and assumption mapping to experiment design. This skill guides users through a structured workflow moving from divergent thinking to focused validation.",
       "descriptionZh": "运行完整的产品探索周期，涵盖从初步构思、假设映射到实验设计的全过程。该技能通过结构化的工作流，帮助用户完成从发散思维到集中验证的产品探索。",
@@ -23013,7 +23013,7 @@
     {
       "id": "pm-cmd-generate-data",
       "name": "pm-cmd-generate-data",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates realistic dummy datasets for development, testing, or demos, outputting as CSV, JSON, SQL inserts, or Python scripts.",
       "descriptionZh": "生成用于开发、测试或演示的逼真虚拟数据集，支持输出为CSV、JSON、SQL插入语句或Python脚本格式。",
@@ -23049,7 +23049,7 @@
     {
       "id": "pm-cmd-growth-strategy",
       "name": "pm-cmd-growth-strategy",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Design sustainable growth mechanisms, including growth loops and GTM motions for product-led and sales-led strategies. Evaluates various growth loops and GTM approaches to build a balanced acquisition and expansion plan.",
       "descriptionZh": "设计可持续的增长机制，包括产品驱动和销售驱动策略的增长飞轮与进入市场（GTM）动作。评估不同的增长循环和GTM策略，以构建平衡的获客与扩张计划。",
@@ -23084,7 +23084,7 @@
     {
       "id": "pm-cmd-interview",
       "name": "pm-cmd-interview",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides customer interview preparation and summarization, generating structured interview scripts or extracting key insights and action items from transcripts.",
       "descriptionZh": "提供客户访谈准备和总结功能，支持生成结构化的访谈脚本，或从访谈记录中提取关键洞察和待办事项。",
@@ -23119,7 +23119,7 @@
     {
       "id": "pm-cmd-market-product",
       "name": "pm-cmd-market-product",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides a creative marketing toolkit to brainstorm campaign ideas, product positioning, value proposition copy, and product names. Generates comprehensive marketing assets tailored to specific audiences and channels.",
       "descriptionZh": "提供一个创意营销工具箱，用于头脑风暴营销活动创意、产品定位、价值主张文案和产品命名。支持生成针对不同受众和渠道的完整营销资产。",
@@ -23154,7 +23154,7 @@
     {
       "id": "pm-cmd-market-scan",
       "name": "pm-cmd-market-scan",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A comprehensive macro environment analysis tool that combines SWOT, PESTLE, Porter's Five Forces, and Ansoff Matrix to generate strategic market overviews and recommendations.",
       "descriptionZh": "综合宏观环境分析工具，结合SWOT、PESTLE、波特五力模型和安索夫矩阵，生成全面的市场战略概览与建议。",
@@ -23190,7 +23190,7 @@
     {
       "id": "pm-cmd-meeting-notes",
       "name": "pm-cmd-meeting-notes",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Transforms raw meeting transcripts or rough notes into structured meeting minutes, extracting key decisions, action items, and follow-ups.",
       "descriptionZh": "将原始会议记录或粗略笔记转化为结构化的会议纪要，提取关键决策、待办事项和后续跟进任务。",
@@ -23225,7 +23225,7 @@
     {
       "id": "pm-cmd-north-star",
       "name": "pm-cmd-north-star",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Helps define a product's North Star Metric and supporting input metrics. It classifies the business game, validates metrics against best practices, and generates a comprehensive metrics framework.",
       "descriptionZh": "帮助定义产品的北极星指标及支持性输入指标。通过对业务模式进行分类，并根据最佳实践验证指标，生成完整的指标框架。",
@@ -23260,7 +23260,7 @@
     {
       "id": "pm-cmd-plan-launch",
       "name": "pm-cmd-plan-launch",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Builds a complete go-to-market (GTM) strategy, including beachhead segments, ideal customer profiles (ICP), messaging, channels, and launch timelines.",
       "descriptionZh": "帮助构建完整的进入市场（GTM）策略，包括确定滩头细分市场、理想客户画像（ICP）、核心信息、渠道策略及发布时间表。",
@@ -23295,7 +23295,7 @@
     {
       "id": "pm-cmd-plan-okrs",
       "name": "pm-cmd-plan-okrs",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Brainstorms team-level OKRs aligned with company objectives, generating qualitative objectives with measurable key results.",
       "descriptionZh": "帮助团队制定与公司目标对齐的OKR，生成包含定性目标和可衡量关键结果的结构化方案。",
@@ -23330,7 +23330,7 @@
     {
       "id": "pm-cmd-pre-mortem",
       "name": "pm-cmd-pre-mortem",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Run a pre-mortem risk analysis on a PRD, launch plan, or feature to identify potential failures before they happen. It uses the Tigers, Paper Tigers, and Elephants framework to classify risks and create mitigation plans.",
       "descriptionZh": "对产品需求文档（PRD）、发布计划或功能进行事前验尸（pre-mortem）风险分析。使用老虎/纸老虎/大象框架来识别潜在风险并制定缓解计划。",
@@ -23365,7 +23365,7 @@
     {
       "id": "pm-cmd-pricing",
       "name": "pm-cmd-pricing",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Design a pricing strategy by analyzing pricing models, estimating willingness to pay, benchmarking competitors, and designing pricing experiments.",
       "descriptionZh": "设计产品定价策略，包括分析定价模型、估算用户支付意愿、进行竞品基准测试以及设计定价实验。",
@@ -23400,7 +23400,7 @@
     {
       "id": "pm-cmd-proofread",
       "name": "pm-cmd-proofread",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Checks text for grammar, logic, and flow errors. Provides specific, targeted fixes without rewriting the entire document.",
       "descriptionZh": "检查文本中的语法、逻辑和流畅度错误。提供具体的针对性修改建议，而无需重写整个文档。",
@@ -23435,7 +23435,7 @@
     {
       "id": "pm-cmd-privacy-policy",
       "name": "pm-cmd-privacy-policy",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Drafts a comprehensive privacy policy covering data collection, usage, storage, and compliance requirements like GDPR and CCPA, while flagging clauses for legal review.",
       "descriptionZh": "生成涵盖数据收集、使用、存储和合规要求（如GDPR、CCPA）的隐私政策草案，并标记需要法律审查的条款。",
@@ -23470,7 +23470,7 @@
     {
       "id": "pm-cmd-research-users",
       "name": "pm-cmd-research-users",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Synthesizes raw research data into actionable user personas, behavioral segments, and customer journey maps. Generates comprehensive research reports from surveys, interviews, or product descriptions.",
       "descriptionZh": "将原始研究数据转化为可操作的用户画像、行为细分和客户旅程图。支持分析调查数据、访谈记录或产品描述以生成综合研究报告。",
@@ -23505,7 +23505,7 @@
     {
       "id": "pm-cmd-review-resume",
       "name": "pm-cmd-review-resume",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides a comprehensive review of Product Manager resumes against 10 best practices, evaluating structure, impact metrics, and keywords to offer actionable feedback.",
       "descriptionZh": "针对产品经理（PM）简历进行全面审查，评估结构、影响指标、关键词等10项最佳实践，并提供可操作的反馈和改进建议。",
@@ -23540,7 +23540,7 @@
     {
       "id": "pm-cmd-setup-metrics",
       "name": "pm-cmd-setup-metrics",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Design a comprehensive product metrics dashboard framework, including North Star, input, health, and counter-metrics with alert thresholds.",
       "descriptionZh": "设计全面的产品指标看板框架，包含北极星指标、输入指标、健康指标、反向指标以及预警阈值。",
@@ -23575,7 +23575,7 @@
     {
       "id": "pm-cmd-stakeholder-map",
       "name": "pm-cmd-stakeholder-map",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Identify project stakeholders, map them on a Power × Interest grid, and generate a tailored communication plan and RACI matrix.",
       "descriptionZh": "识别项目的所有利益相关者，将他们映射到权力与利益矩阵中，并生成定制的沟通计划和RACI矩阵。",
@@ -23610,7 +23610,7 @@
     {
       "id": "pm-cmd-sprint",
       "name": "pm-cmd-sprint",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides sprint lifecycle management, supporting sprint planning, retrospectives, and release notes generation. Includes plan, retro, and release-notes modes.",
       "descriptionZh": "提供冲刺生命周期管理功能，支持冲刺计划制定、回顾会议总结以及发布说明生成。包含计划、回顾和发布说明三种模式。",
@@ -23645,7 +23645,7 @@
     {
       "id": "pm-cmd-strategy",
       "name": "pm-cmd-strategy",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Creates a comprehensive product strategy document using a 9-section Strategy Canvas. Covers core elements like vision, target segments, value propositions, strategic trade-offs, and defensibility.",
       "descriptionZh": "使用9个部分的策略画布创建全面的产品策略文档。涵盖愿景、目标细分市场、价值主张、战略权衡和防御性等核心要素。",
@@ -23680,7 +23680,7 @@
     {
       "id": "pm-cmd-test-scenarios",
       "name": "pm-cmd-test-scenarios",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates comprehensive test scenarios from user stories or feature specs, covering happy paths, edge cases, and error handling.",
       "descriptionZh": "根据用户故事或功能说明生成全面的测试场景，涵盖正常流程、边缘情况和错误处理。",
@@ -23715,7 +23715,7 @@
     {
       "id": "pm-cmd-tailor-resume",
       "name": "pm-cmd-tailor-resume",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Tailors a Product Manager resume to a specific job description by providing keyword alignment, experience reframing, and gap analysis.",
       "descriptionZh": "根据特定的职位描述（JD）量身定制产品经理简历，提供关键词对齐、经验重构和差距分析。",
@@ -23750,7 +23750,7 @@
     {
       "id": "pm-cmd-transform-roadmap",
       "name": "pm-cmd-transform-roadmap",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Converts a feature-based roadmap into an outcome-focused roadmap that communicates strategic intent and goals.",
       "descriptionZh": "将基于功能的路线图转换为以结果为导向的路线图，从而更好地传达战略意图和目标。",
@@ -23785,7 +23785,7 @@
     {
       "id": "pm-cmd-triage-requests",
       "name": "pm-cmd-triage-requests",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Analyzes, categorizes, and prioritizes batches of feature requests from various sources into an actionable backlog. It clusters requests into themes, assesses strategic alignment, and generates a prioritized triage report.",
       "descriptionZh": "分析、分类并优先处理来自客户或利益相关者的功能请求，将其转化为可执行的待办事项。该技能将请求按主题聚类，评估战略一致性，并生成优先级分类报告。",
@@ -23820,7 +23820,7 @@
     {
       "id": "pm-cmd-value-proposition",
       "name": "pm-cmd-value-proposition",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Design a clear and compelling value proposition for a product or feature using a 6-part Jobs-to-be-Done (JTBD) template.",
       "descriptionZh": "使用包含目标用户、原因、现状、解决方案、结果和替代方案的6部分JTBD模板，为产品或功能设计清晰的价值主张。",
@@ -23854,7 +23854,7 @@
     {
       "id": "pm-cmd-write-prd",
       "name": "pm-cmd-write-prd",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a structured Product Requirements Document (PRD) from a feature idea or problem statement. It gathers context and creates a comprehensive document including objectives, user stories, and success metrics.",
       "descriptionZh": "根据功能想法或问题陈述，通过收集上下文和需求，生成结构化的产品需求文档（PRD）。包含执行摘要、目标、用户故事和成功指标等核心部分。",
@@ -23889,7 +23889,7 @@
     {
       "id": "pm-cmd-write-stories",
       "name": "pm-cmd-write-stories",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Breaks down product features into structured backlog items (user stories, job stories, or WWA format) complete with acceptance criteria.",
       "descriptionZh": "将产品功能拆分为结构化的待办事项（用户故事、任务故事或WWA格式），并生成完整的验收标准。",
@@ -23924,7 +23924,7 @@
     {
       "id": "pm-cmd-write-query",
       "name": "pm-cmd-write-query",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates optimized SQL queries from natural language requests, supporting multiple dialects like BigQuery, PostgreSQL, and MySQL, with the ability to parse uploaded schemas.",
       "descriptionZh": "将自然语言需求转化为优化的SQL查询语句，支持BigQuery、PostgreSQL和MySQL等多种数据库方言，并能解析上传的表结构。",
@@ -23959,7 +23959,7 @@
     {
       "id": "postgresql-best-practices",
       "name": "postgresql-best-practices",
-      "author": "AI-Fleet local",
+      "author": "affaan-m",
       "source": "local",
       "description": "Provides best practices for PostgreSQL query optimization, indexing strategies, and schema design. Useful for resolving slow queries, database tuning, and improving performance.",
       "descriptionZh": "提供PostgreSQL查询优化、索引策略和模式设计的最佳实践。适用于解决慢查询、数据库调优和提升性能等场景。",
@@ -23994,7 +23994,7 @@
     {
       "id": "product-design",
       "name": "product-design",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A design toolkit for product teams that supports creating mockups, prototypes, frontend designs, and brand guidelines.",
       "descriptionZh": "专为产品团队打造的设计工具集，支持原型设计、视觉稿、前端界面设计及品牌规范制定。",
@@ -24135,13 +24135,13 @@
     {
       "id": "qiaomu-design-advisor",
       "name": "qiaomu-design-advisor",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "A paranoid design advisor combining Jobs-style product intuition with Rams-style functional purism. Provides services for page redesigns, UI/UX reviews, interaction optimization, and design decision consulting.",
       "descriptionZh": "偏执型设计顾问，结合乔布斯式产品直觉与拉姆斯式功能纯粹主义。提供页面重新设计、UI/UX方案评审、交互逻辑优化及设计决策咨询服务。",
       "category": "做产品",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/qiaomu-design-advisor",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -24170,13 +24170,13 @@
     {
       "id": "qiaomu-x-article-publisher",
       "name": "qiaomu-x-article-publisher",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "Publish Markdown articles to the X (Twitter) Articles editor with rich text conversion, persistent authentication, and smart title/cover generation.",
       "descriptionZh": "将 Markdown 文章发布到 X (Twitter) Articles 编辑器，支持富文本转换、持久化认证以及智能标题和封面图生成。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/qiaomu-x-article-publisher",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -24205,7 +24205,7 @@
     {
       "id": "qiaomu-x-article-publisher-github",
       "name": "qiaomu-x-article-publisher-github",
-      "author": "AI-Fleet local",
+      "author": "qiaomu (community)",
       "source": "local",
       "description": "Publishes Markdown articles to the X (Twitter) Articles editor while preserving formatting via rich text conversion. Features persistent authentication, smart title generation, and cover image handling, saving as a draft without auto-publishing.",
       "descriptionZh": "将 Markdown 文章发布到 X (Twitter) Articles 编辑器，支持富文本转换和格式保留。提供持久化认证、智能标题生成和封面图生成功能，仅保存草稿不自动发布。",
@@ -24240,7 +24240,7 @@
     {
       "id": "rag-architect",
       "name": "rag-architect",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Design Retrieval-Augmented Generation (RAG) pipelines for codebase and document search. Covers chunking strategies, embedding models, vector stores, and reranking architecture.",
       "descriptionZh": "设计用于代码库和文档搜索的RAG（检索增强生成）流水线。涵盖分块策略、嵌入模型、向量存储和重排等架构设计。",
@@ -24276,13 +24276,13 @@
     {
       "id": "qiaomu-mondo-poster-design",
       "name": "qiaomu-mondo-poster-design",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "Generates master-level Mondo-style posters, book covers, and album art from a single sentence. Supports multiple aspect ratios and includes AI prompt optimization.",
       "descriptionZh": "一句话生成大师级Mondo风格海报、书籍封面和专辑封面。支持多种比例和平台，包含AI提示词优化与图生图转换功能。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/terminal-boost/raw/main/assets/wechat-qr.jpg?raw=true",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -24311,7 +24311,7 @@
     {
       "id": "release-checklist",
       "name": "release-checklist",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates a comprehensive pre-release validation checklist covering build verification, certification requirements, store metadata, and launch readiness, while scanning the codebase for outstanding issues.",
       "descriptionZh": "生成全面的发布前验证清单，涵盖构建验证、平台认证要求、商店元数据和发布准备情况，并扫描代码库中的待办事项。",
@@ -24346,7 +24346,7 @@
     {
       "id": "release-skills",
       "name": "release-skills",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Universal release workflow tool that auto-detects version files and multi-language changelogs for Node.js, Python, Rust, and other projects. It automatically determines version bumps based on commit history and generates changelogs with contributor attribution.",
       "descriptionZh": "通用发布工作流工具，支持自动检测 Node.js、Python、Rust 等项目的版本文件和多语言更新日志。可根据提交记录自动决定版本号并生成包含贡献者信息的更新日志。",
@@ -24415,7 +24415,7 @@
     {
       "id": "research-paper-writing",
       "name": "research-paper-writing",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Improves academic paper writing quality for ML/CV/NLP fields by optimizing section structure and paragraph flow. It provides guidance for drafting, revising, and conducting reviewer-facing self-reviews.",
       "descriptionZh": "提升机器学习、计算机视觉和自然语言处理等领域学术论文的写作质量。提供从摘要到结论的各章节结构优化、段落连贯性检查以及审稿人视角的自我审查功能。",
@@ -24485,7 +24485,7 @@
     {
       "id": "rpi-implement",
       "name": "rpi-implement",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Executes a phased implementation plan based on an existing RPI PLAN.md. It guides through writing code, running validation tests, and updating task statuses phase by phase.",
       "descriptionZh": "用于在已有RPI计划（PLAN.md）的情况下执行分阶段的代码实现。该技能指导逐步完成任务、编写代码、运行测试验证并更新计划状态。",
@@ -24520,7 +24520,7 @@
     {
       "id": "rpi-research",
       "name": "rpi-research",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Conducts Phase 1 research and feasibility analysis for new features or technology choices, producing a structured report with a GO/NO-GO verdict.",
       "descriptionZh": "用于在启动新功能或评估技术选择时进行第一阶段的研究和可行性分析，并输出包含 GO/NO-GO 结论的结构化研究报告。",
@@ -24555,7 +24555,7 @@
     {
       "id": "rust-coding",
       "name": "rust-coding",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Write idiomatic Rust code with proper ownership, lifetimes, error handling, and async patterns. Suitable for writing Rust code and resolving borrow checker issues.",
       "descriptionZh": "编写符合惯用法的 Rust 代码，包括正确的所有权、生命周期、错误处理和异步模式。适用于编写 Rust 代码和解决借用检查器问题。",
@@ -24730,7 +24730,7 @@
     {
       "id": "senior-architect",
       "name": "senior-architect",
-      "author": "AI-Fleet local",
+      "author": "alirezarezvani",
       "source": "local",
       "description": "Reviews system architecture and makes design decisions focusing on scalability, reliability, and maintainability. Useful for database selection and evaluating microservices versus monoliths.",
       "descriptionZh": "负责系统架构审查和设计决策，评估系统的可扩展性、可靠性和可维护性。适用于数据库选择、微服务与单体架构决策等场景。",
@@ -24836,7 +24836,7 @@
     {
       "id": "skill-group-loop",
       "name": "skill-group-loop",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "A loop execution engine for orchestrating skill groups. It sequentially executes configured skills and runs a gate check after each iteration until it passes or hits the max iterations, enabling a multi-skill PDCA loop.",
       "descriptionZh": "用于编排技能组的循环执行引擎。它按顺序执行配置的技能，并在每次迭代后运行门控检查，直到通过或达到最大迭代次数，实现多技能的PDCA循环。",
@@ -24872,7 +24872,7 @@
     {
       "id": "skill-prompt-convert",
       "name": "skill-prompt-convert",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Bidirectionally converts between Skill (SKILL.md) and Prompt formats without losing core information. It automatically adapts the structure and specifications for both formats.",
       "descriptionZh": "在Skill（SKILL.md）与Prompt（聊天框指令）两种格式之间进行双向转换。确保核心信息零丢失，并自动适配两种格式的结构与规范。",
@@ -24906,13 +24906,13 @@
     {
       "id": "skill-publisher",
       "name": "skill-publisher",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "A tool to publish Claude Code Skills to GitHub with one click, automating validation, file completion, repository creation, pushing, and installation verification.",
       "descriptionZh": "一键将 Claude Code Skill 发布到 GitHub，自动完成验证、补全文件、创建仓库、推送并验证可安装的全流程。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/terminal-boost/raw/main/assets/wechat-qr.jpg?raw=true",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -25081,7 +25081,7 @@
     {
       "id": "supermemory",
       "name": "supermemory",
-      "author": "AI-Fleet local",
+      "author": "supermemoryai",
       "source": "local",
       "description": "Provides persistent user memory across sessions with intelligent auto-forgetting and contradiction handling. Used to track user facts, preferences, and decisions while avoiding sensitive data storage.",
       "descriptionZh": "提供跨会话的持久化用户记忆功能，支持智能自动遗忘和矛盾处理。用于跟踪用户事实、偏好和决策，同时避免存储敏感数据。",
@@ -25116,7 +25116,7 @@
     {
       "id": "summarize",
       "name": "summarize",
-      "author": "AI-Fleet local",
+      "author": "az9713",
       "source": "local",
       "description": "Summarizes URLs, PDFs, documents, and videos into concise text with configurable detail levels. Preserves the author's conclusion and includes source attribution.",
       "descriptionZh": "将URL、PDF、文档和视频总结为简明的文本，支持多种详细程度配置。在总结时会保留原作者的结论并包含来源出处。",
@@ -25221,7 +25221,7 @@
     {
       "id": "team-combat",
       "name": "team-combat",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a combat development team including designers, programmers, technical artists, sound designers, and QA testers to design, implement, and validate combat features end-to-end. Manages subagents through a structured pipeline with user decision points.",
       "descriptionZh": "协调战斗开发团队（包括游戏设计师、程序员、技术美术、音效设计师和QA测试员），端到端地设计、实现和验证游戏战斗功能。通过结构化的流水线管理子智能体，并在每个阶段向用户请求决策。",
@@ -25256,7 +25256,7 @@
     {
       "id": "team-audio",
       "name": "team-audio",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a team of subagents including an audio director, sound designer, technical artist, and gameplay programmer. It manages the full audio pipeline from sonic identity design to technical implementation and code integration.",
       "descriptionZh": "协调由音频总监、声音设计师、技术美术和游戏程序员组成的音频团队子代理。覆盖从音频方向设计、音效规格制定到技术实现和代码集成的完整音频工作流。",
@@ -25291,7 +25291,7 @@
     {
       "id": "team-narrative",
       "name": "team-narrative",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a narrative team including a narrative director, writer, world-builder, and level designer to create cohesive story content, world lore, and narrative-driven level design through a structured pipeline.",
       "descriptionZh": "协调叙事团队（包括叙事总监、编剧、世界观构建师和关卡设计师），通过结构化的工作流创建连贯的故事内容、世界观设定和叙事驱动的关卡设计。",
@@ -25327,7 +25327,7 @@
     {
       "id": "team-polish",
       "name": "team-polish",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a polish team including performance analysts, technical artists, sound designers, and QA testers to optimize, polish, and harden a feature for release quality.",
       "descriptionZh": "协调打磨团队（包括性能分析师、技术美术、音效设计师和QA测试员），通过结构化流程对功能或区域进行优化、打磨和加固，以达到发布质量。",
@@ -25362,7 +25362,7 @@
     {
       "id": "team-level",
       "name": "team-level",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a multi-disciplinary team of subagents to design a complete game level or area, delegating tasks across narrative, layout, systems, art, and QA to compile a comprehensive level design document.",
       "descriptionZh": "协调由叙事、世界观、关卡、系统、美术和QA等子代理组成的设计团队，完成完整的游戏区域或关卡创建，并最终生成关卡设计文档。",
@@ -25432,7 +25432,7 @@
     {
       "id": "team-ui",
       "name": "team-ui",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Orchestrates a UI team consisting of a UX designer, UI programmer, and art director to design, implement, and polish user interface features. It manages a structured pipeline from wireframing and visual design to implementation and review.",
       "descriptionZh": "协调用户体验设计师、UI程序员和艺术总监，完成从线框图到最终成品的UI功能设计与实现。通过结构化流程管理UX设计、视觉设计、代码实现及审查优化。",
@@ -25467,7 +25467,7 @@
     {
       "id": "test-runner",
       "name": "test-runner",
-      "author": "AI-Fleet local",
+      "author": "firstloophq",
       "source": "local",
       "description": "Provides a unified test execution interface that auto-detects and runs tests across multiple frameworks like Jest, PyTest, and Mocha. Useful for running tests, analyzing failures, and CI debugging.",
       "descriptionZh": "提供统一的测试执行接口，支持自动检测并运行多种框架（如Jest、PyTest、Mocha等）的测试。适用于运行测试、分析测试失败原因和CI调试。",
@@ -25538,7 +25538,7 @@
     {
       "id": "vphone-cli",
       "name": "vphone-cli",
-      "author": "AI-Fleet local",
+      "author": "Lakr233",
       "source": "local",
       "description": "A CLI tool to boot virtual iPhones on Apple Silicon Macs using Apple's native Virtualization.framework. It supports SSH/VNC access and firmware flashing, designed for iOS security research and reverse engineering.",
       "descriptionZh": "在Apple Silicon Mac上使用原生Virtualization.framework启动虚拟iPhone的命令行工具。支持SSH/VNC访问和固件刷写，主要用于iOS安全研究和逆向工程。",
@@ -25573,7 +25573,7 @@
     {
       "id": "web-multi-search",
       "name": "web-multi-search",
-      "author": "AI-Fleet local",
+      "author": "soxoj",
       "source": "local",
       "description": "Search the web simultaneously across multiple search engines like Bing, Yahoo, and Startpage using async-search-scraper. It supports pagination, deduplication, proxy usage, and outputs results in JSON, CSV, or text formats.",
       "descriptionZh": "使用 async-search-scraper 同时在多个搜索引擎（如 Bing、Yahoo、Startpage 等）上进行网络搜索。支持翻页、结果去重、代理设置，并可输出 JSON、CSV 或文本格式。",
@@ -25608,7 +25608,7 @@
     {
       "id": "rpi-plan",
       "name": "rpi-plan",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Creates a comprehensive implementation plan including PM, UX, and engineering specs after a research phase gives a GO verdict. Generates documents with user stories, UI flows, architecture, and a phased task roadmap.",
       "descriptionZh": "在研究阶段得出可行结论后，创建包含产品、用户体验和工程规范的全面实施计划。生成包含用户故事、UI流程、架构和分阶段任务路线图的文档。",
@@ -25643,7 +25643,7 @@
     {
       "id": "wechat-article-search",
       "name": "wechat-article-search",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Extracts full text and images from WeChat public account article URLs and saves them as clean Markdown files. Bypasses WeChat's bot detection by automatically finding mirror sites.",
       "descriptionZh": "提取微信公众号文章的正文和图片，并将其保存为干净的Markdown文件。通过自动查找镜像站点来绕过微信的反爬虫检测。",
@@ -25678,7 +25678,7 @@
     {
       "id": "wechat-article-writer",
       "name": "wechat-article-writer",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Provides full-process support for WeChat Official Accounts and self-media creation, including article writing, cover and illustration generation, and style extraction. It supports multiple writing styles such as viral, checklist, and personal essay, covering data search, title generation, and layout optimization.",
       "descriptionZh": "提供公众号和自媒体创作的全流程支持，包括文章撰写、封面与插图生成以及写作风格提取。支持爆款、清单体、深度随笔等多种写作风格，并涵盖资料搜索、标题生成与排版优化。",
@@ -25713,7 +25713,7 @@
     {
       "id": "wechat-db",
       "name": "wechat-db",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "WeChat database query and group message summarization tool, supporting group message queries, daily digests for important groups, full-database keyword search, and multi-account management.",
       "descriptionZh": "微信数据库查询与群消息智能总结工具，支持群消息查询、重要群简报生成、全库关键词搜索及多账号管理。",
@@ -25748,7 +25748,7 @@
     {
       "id": "wechat-decrypt",
       "name": "wechat-decrypt",
-      "author": "AI-Fleet local",
+      "author": "ylytdeng",
       "source": "local",
       "description": "A Windows-only tool to decrypt and query WeChat (v4.0) databases. It extracts encryption keys from the running process, decrypts databases, searches messages, and monitors conversations in real-time.",
       "descriptionZh": "在Windows系统上解密和查询微信（v4.0）数据库的工具。支持从运行中的微信进程提取加密密钥、解密数据库、搜索消息以及实时监控对话。",
@@ -25784,13 +25784,13 @@
     {
       "id": "wechat-multi",
       "name": "wechat-multi",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "A macOS WeChat multi-instance tool that enables running multiple WeChat apps by copying the application, modifying the Bundle ID, and resigning it. It supports opening multiple instances, rebuilding after updates, and killing all instances.",
       "descriptionZh": "macOS 微信多开工具（小绿书），通过复制应用、修改 Bundle ID 和重新签名来实现多实例运行。支持双开、多开、更新后重建及关闭所有微信实例。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/terminal-boost/raw/main/assets/wechat-qr.jpg?raw=true",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -25819,7 +25819,7 @@
     {
       "id": "wechat-reader",
       "name": "wechat-reader",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Reads and extracts the full text of WeChat public account articles. It uses browser automation to bypass anti-scraping measures and render JavaScript content.",
       "descriptionZh": "读取并提取微信公众号文章的完整文本内容。该技能使用浏览器自动化技术来解决常规抓取工具无法获取动态渲染内容的问题。",
@@ -25888,7 +25888,7 @@
     {
       "id": "wechat-report",
       "name": "wechat-report",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "Generates beautiful HTML visualization reports from WeChat group chat data using templates. It supports dynamic population of charts, topic sections, and to-do lists, with built-in long image download functionality.",
       "descriptionZh": "将提取的微信群聊数据通过HTML模板生成美观的可视化报告页面。支持动态填充统计图表、话题板块及待办事项，并内置长图下载功能。",
@@ -25958,7 +25958,7 @@
     {
       "id": "wechat-sns",
       "name": "wechat-sns",
-      "author": "AI-Fleet local",
+      "author": "AI-Fleet",
       "source": "local",
       "description": "WeChat Moments query, analysis, and report generation tool. Supports retrieving posts by time, user, or keyword, and generating visual HTML reports or Markdown exports.",
       "descriptionZh": "微信朋友圈查询、分析与报告生成工具，支持按时间、用户或关键词检索动态，并可生成精美的可视化HTML报告或导出Markdown。",
@@ -26028,13 +26028,13 @@
     {
       "id": "wewrite",
       "name": "wewrite",
-      "author": "AI-Fleet local",
+      "author": "oaker-io",
       "source": "local",
       "description": "A full-workflow assistant for WeChat Official Accounts, supporting hotspot fetching, topic selection, outlining, writing, SEO, AI-trace removal, visual AI, and draft publishing.",
       "descriptionZh": "微信公众号内容全流程助手，支持热点抓取、选题、框架生成、写作、SEO优化、去AI痕迹、视觉AI配图及排版推送草稿箱。",
       "category": "做业务",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/oaker-io/wewrite.git",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -26063,13 +26063,13 @@
     {
       "id": "x-tweet-fetcher",
       "name": "x-tweet-fetcher",
-      "author": "AI-Fleet local",
+      "author": "ythx-101",
       "source": "local",
       "description": "Fetch tweets, replies, and user timelines from X/Twitter without login or API keys. It also supports scraping Chinese platforms and includes a zero-cost Google search feature.",
       "descriptionZh": "无需登录或API Key即可抓取X/Twitter的推文、回复和用户时间线。同时支持微博、B站等中文平台数据抓取，并包含免API Key的谷歌搜索功能。",
       "category": "做数据",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/ythx-101/x-tweet-fetcher",
       "stars": 0,
       "downloads": 0,
       "versions": [],
@@ -26098,7 +26098,7 @@
     {
       "id": "xiaohongshu-automation",
       "name": "xiaohongshu-automation",
-      "author": "AI-Fleet local",
+      "author": "white0dew",
       "source": "local",
       "description": "Automate Xiaohongshu account management via CDP, supporting auto-publishing of images and videos, multi-account management, content search, commenting, and analytics export.",
       "descriptionZh": "通过CDP自动化管理小红书账号，支持自动发布图文和视频、多账号管理、内容搜索、评论发布及数据导出。",
@@ -26133,13 +26133,13 @@
     {
       "id": "yt-search-download",
       "name": "yt-search-download",
-      "author": "AI-Fleet local",
+      "author": "joeseesun",
       "source": "local",
       "description": "Integrates YouTube Data API v3 and yt-dlp to provide keyword search, channel browsing, and video details. Supports downloading YouTube videos, extracting audio, and fetching subtitles with timestamps.",
       "descriptionZh": "结合 YouTube Data API v3 和 yt-dlp，提供全站关键词搜索、频道浏览与视频详情查看功能。支持下载 YouTube 视频、提取音频以及获取带时间戳的字幕文件。",
       "category": "Agent 工具",
       "rating": "B",
-      "url": "",
+      "url": "https://github.com/joeseesun/terminal-boost/raw/main/assets/wechat-qr.jpg?raw=true",
       "stars": 0,
       "downloads": 0,
       "versions": [],
