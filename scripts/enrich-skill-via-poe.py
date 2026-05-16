@@ -264,11 +264,21 @@ def validate_enrichment(obj: dict, skill_md_content: str) -> tuple[bool, list[st
     if url is not None:
         if not isinstance(url, str):
             errors.append("upstreamUrl not string or null")
-        elif not (url.startswith("http://") or url.startswith("https://")):
-            errors.append(f"upstreamUrl not http/https: {url[:60]}")
-        elif url not in skill_md_content:
-            # KEY anti-hallucination check: URL must actually appear in source
-            errors.append(f"upstreamUrl HALLUCINATED (not in SKILL.md): {url[:80]}")
+        else:
+            # 2026-05-16: LLM occasionally drops the scheme (e.g. 'github.com/x/y'
+            # or 'www.foo.com'). Auto-prepend https:// if the bare-domain form
+            # appears in the source content. Anti-hallucination is preserved
+            # because we still require the (un-schemed) value to be in source.
+            if not (url.startswith("http://") or url.startswith("https://")):
+                if url in skill_md_content or f"https://{url}" in skill_md_content:
+                    obj["upstreamUrl"] = url = f"https://{url}"
+                else:
+                    errors.append(f"upstreamUrl not http/https and not found bare in source: {url[:60]}")
+            if url.startswith(("http://", "https://")) and url not in skill_md_content:
+                # KEY anti-hallucination check: URL must actually appear in source
+                stripped = url.split("://", 1)[1]
+                if stripped not in skill_md_content:
+                    errors.append(f"upstreamUrl HALLUCINATED (not in SKILL.md): {url[:80]}")
 
     risk = obj.get("hallucinationRisk")
     if risk not in ("low", "medium", "high"):
@@ -326,7 +336,11 @@ def enrich_one(skill_name: str, skill_md_path: Optional[str] = None,
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": build_user_prompt(skill_name, content)},
     ]
-    response = call_poe(messages, max_tokens=1024)
+    # 2026-05-16: bumped 1024→2048 — 20/454 entries hit truncation at 1024 on
+    # long SKILL.md sources, returned partial JSON, exhausted retries with empty
+    # results. 2048 covers the observed worst-case (~1700 token output incl
+    # reasoning). Cost increment per call ≈ \$0.015 max, only paid on long entries.
+    response = call_poe(messages, max_tokens=2048)
     if "_error" in response:
         return {"skill_name": skill_name, "_error": response["_error"], "_raw": response.get("_raw")}
 

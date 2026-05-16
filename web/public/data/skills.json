@@ -1,20 +1,20 @@
 {
   "meta": {
-    "syncedAt": "2026-05-15T23:50:42Z",
+    "syncedAt": "2026-05-16T02:14:38Z",
     "total": 440,
     "sources": {
       "local": 440
     },
     "byCategory": {
-      "Agent 工具": 182,
-      "写代码": 85,
-      "做产品": 55,
-      "做业务": 40,
-      "做研究": 33,
-      "定策略": 31,
-      "做数据": 15,
-      "其他": 7,
-      "场景规划": 7,
+      "Agent 工具": 188,
+      "写代码": 89,
+      "做产品": 51,
+      "做业务": 38,
+      "做研究": 30,
+      "定策略": 30,
+      "做数据": 16,
+      "其他": 8,
+      "场景规划": 5,
       "看数据": 4
     },
     "byRating": {
@@ -40,10 +40,10 @@
     "reTaggedAt": "2026-05-15T11:52:38.210Z",
     "taxonomy": "Job Pack 8 + Agent 工具",
     "enrichmentRun": {
-      "at": "2026-05-15T23:50:42Z",
-      "updated": 409,
-      "appended": 19,
-      "dropped": 31,
+      "at": "2026-05-16T02:14:38Z",
+      "updated": 452,
+      "appended": 0,
+      "dropped": 7,
       "model": "POE Gemini-3.1-Pro"
     }
   },
@@ -84,7 +84,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ab-test-analysis",
@@ -118,7 +118,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/activity-visual-log",
@@ -154,7 +154,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/adapt",
@@ -189,7 +189,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/advertising-swarm",
@@ -223,7 +223,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-browser",
@@ -261,7 +261,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-browser-codex",
@@ -295,7 +295,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-development",
@@ -332,7 +332,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-eval-system",
@@ -368,7 +368,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-factory",
@@ -404,7 +404,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-pack-n-go",
@@ -441,29 +441,32 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-reach",
       "name": "agent-reach",
       "author": "local",
       "source": "local",
-      "description": "Install and configure upstream tools for 12+ platforms. After setup, call them directly — no wrapper layer.",
-      "descriptionZh": "为 12+ 平台安装并配置上游工具。配置完成后直接调用，无中间封装层。",
+      "description": "Install and configure upstream tools for over 12 platforms including Twitter, YouTube, and Xiaohongshu. Allows direct calling of these tools without a wrapper layer after setup.",
+      "descriptionZh": "安装并配置超过12个平台的上游工具（如Twitter、YouTube、小红书等）。配置完成后可直接调用这些工具，无需额外的包装层。",
       "category": "Agent 工具",
       "rating": "C",
-      "url": "file:///Users/mauricewen/.claude/skills/agent-reach",
+      "url": "https://github.com/Panniantong/agent-reach",
       "stars": 688,
       "downloads": 21006,
       "versions": 3,
       "editorialTagline": "",
       "icon": "smart_toy",
       "tags": [
-        "python",
-        "openai",
-        "go"
+        "cli",
+        "twitter",
+        "youtube",
+        "xiaohongshu",
+        "github",
+        "scraper"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 5601,
       "deploySuccessRate": 0.5089766764652459,
       "reviewUp": 944,
@@ -474,7 +477,10 @@
         "network_access": "full",
         "filesystem_access": "write"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agent-teams-swarm",
@@ -510,7 +516,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/agentic-engineering-ceo-mode",
@@ -546,7 +552,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ai-drawio",
@@ -582,7 +588,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ai-flow-contract",
@@ -616,7 +622,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ai-news",
@@ -654,7 +660,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ai-tools-conversation-playbook",
@@ -688,7 +694,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ai-video-gen",
@@ -725,7 +731,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/algorithm-data-swarm",
@@ -759,7 +765,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/analyze-feature-requests",
@@ -794,7 +800,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/analyzer",
@@ -827,7 +833,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/android-device-automation",
@@ -864,7 +870,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/animate",
@@ -898,7 +904,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/animation-swarm",
@@ -933,7 +939,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ansoff-matrix",
@@ -967,7 +973,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/anthropic-official-skills",
@@ -1004,7 +1010,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/antv-infographic",
@@ -1041,7 +1047,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/anything-to-notebooklm",
@@ -1077,7 +1083,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/architecture-lead",
@@ -1111,7 +1117,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/art",
@@ -1147,7 +1153,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/audit",
@@ -1181,7 +1187,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/auto-visual-swarm-review",
@@ -1216,7 +1222,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/autoresearch",
@@ -1224,9 +1230,9 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "|",
-      "descriptionZh": "|",
-      "category": "做研究",
+      "description": "autoresearch is a Bash-based multi-agent orchestrator that autonomously drives a GitHub Issue to a merged PR. It rotates between Claude, Codex, and OpenCode for implementation and review until a target quality score is met.",
+      "descriptionZh": "autoresearch 是一个基于 Bash 的多 Agent 编排工具，能够将 GitHub Issue 全自动转化为已合并的 PR。它通过轮转调用 Claude、Codex 和 OpenCode 进行代码实现与审查，直到代码质量评分达到设定阈值。",
+      "category": "写代码",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/autoresearch",
       "stars": 0,
@@ -1234,14 +1240,24 @@
       "versions": 1,
       "editorialTagline": "|",
       "icon": "science",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "github",
+        "issue",
+        "orchestrator",
+        "multi-agent",
+        "pr",
+        "bash"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/avatar-video",
@@ -1279,7 +1295,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/base-ui",
@@ -1315,7 +1331,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/beachhead-segment",
@@ -1349,7 +1365,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/beautiful-mermaid",
@@ -1385,7 +1401,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/bmad-method",
@@ -1419,7 +1435,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/board-of-directors",
@@ -1456,7 +1472,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/bolder",
@@ -1490,7 +1506,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/bookauthority-reading",
@@ -1525,7 +1541,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorm-experiments-existing",
@@ -1559,7 +1575,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorm-experiments-new",
@@ -1593,7 +1609,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorm-ideas-existing",
@@ -1628,7 +1644,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorm-ideas-new",
@@ -1664,7 +1680,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorming",
@@ -1698,7 +1714,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/browser-automation",
@@ -1736,7 +1752,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/browser-automation-pipeline",
@@ -1770,7 +1786,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/build-mcp-app",
@@ -1808,7 +1824,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/build-mcp-server",
@@ -1842,7 +1858,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/build-mcpb",
@@ -1880,7 +1896,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/business-diagnosis-pipeline",
@@ -1914,7 +1930,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/business-docs-sync",
@@ -1948,7 +1964,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/business-model",
@@ -1985,7 +2001,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cc-design",
@@ -2019,7 +2035,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/chatgpt-pro-relay-pipeline",
@@ -2053,7 +2069,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/check",
@@ -2088,7 +2104,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/chrome-bridge-automation",
@@ -2125,7 +2141,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/clarify",
@@ -2161,7 +2177,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-automation-recommender",
@@ -2198,7 +2214,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-code-best-practices",
@@ -2234,7 +2250,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-code-boris-tips",
@@ -2270,7 +2286,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-code-insights",
@@ -2305,7 +2321,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-hud",
@@ -2342,7 +2358,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-md-improver",
@@ -2379,7 +2395,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-model-bridge",
@@ -2413,7 +2429,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/claude-opus-chatstyle",
@@ -2449,7 +2465,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/clawdbot-codespaces",
@@ -2486,7 +2502,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cli-relay",
@@ -2523,7 +2539,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cli-supervisor",
@@ -2561,7 +2577,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/code-quality-swarm",
@@ -2596,7 +2612,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/code",
@@ -2666,7 +2682,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/codex-relay-pipeline",
@@ -2700,7 +2716,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/codex-result-handling",
@@ -2733,7 +2749,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/coding-agent",
@@ -2769,7 +2785,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cognitive-reflection",
@@ -2803,7 +2819,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cognitive-skeleton",
@@ -2837,7 +2853,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cohort-analysis",
@@ -2874,7 +2890,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/colorize",
@@ -2908,7 +2924,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/command-development",
@@ -2942,7 +2958,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/competitive-battlecard",
@@ -2976,7 +2992,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/competitor-analysis",
@@ -3012,7 +3028,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/compliance",
@@ -3048,7 +3064,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/conductor-orchestrator",
@@ -3085,7 +3101,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/connected-cli-pipeline",
@@ -3120,7 +3136,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/content-creation-swarm",
@@ -3156,7 +3172,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/content-publish-pipeline",
@@ -3192,7 +3208,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/context-driven-development",
@@ -3226,7 +3242,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/context-loader",
@@ -3259,7 +3275,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/continue-workflow",
@@ -3295,7 +3311,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/craft-agents-oss",
@@ -3332,7 +3348,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/create-onboarding-video",
@@ -3340,9 +3356,9 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "Produce a **short, punchy app onboarding video** in Remotion that proves a feature works. The output should feel like an App Store preview zoomed into the moment the feature does its job — NOT a tutorial, NOT a screen recording, NOT a marketing reel.",
-      "descriptionZh": "用 Remotion 制作 **简短有力的 App onboarding（用户引导）视频**，用以证明某项功能确实可用。最终成片应像 App Store 预览片放大到\"功能起作用的那一刻\"——不是教程、不是录屏、也不是营销片。",
-      "category": "定策略",
+      "description": "Produce short, punchy app onboarding videos using Remotion or HyperFrames. It generates code to create App Store-style previews focused on specific feature interactions.",
+      "descriptionZh": "使用 Remotion 或 HyperFrames 制作简短、有冲击力的 App 引导视频。通过编写代码聚焦核心功能的交互瞬间，生成类似 App Store 预览效果的视频项目。",
+      "category": "写代码",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/create-onboarding-video",
       "stars": 0,
@@ -3350,14 +3366,23 @@
       "versions": 1,
       "editorialTagline": "Produce a **short, punchy app onboarding video** in Remotion that proves a featu",
       "icon": "insights",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "remotion",
+        "video",
+        "onboarding",
+        "hyperframes",
+        "animation"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/create-prd",
@@ -3394,7 +3419,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/create-video",
@@ -3432,7 +3457,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/creating-skills",
@@ -3466,7 +3491,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/critique",
@@ -3500,7 +3525,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cto-advisor",
@@ -3538,7 +3563,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/cto-plan-reviewer",
@@ -3574,7 +3599,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/customer-journey-map",
@@ -3610,7 +3635,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/data",
@@ -3646,7 +3671,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/data-analytics-swarm",
@@ -3681,7 +3706,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/deep-learning-pipeline",
@@ -3689,9 +3714,9 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "> Single source of truth for the **深度学习系列** editorial pipeline. Each episode is a topic deep-dive (interview / paper / framework / public debate) shipped with a **signature visual style** (never reused across episodes), a **dedicated CF Pages subdomain**, and a **triple-format poster** (4K master + mobile master + WeChat-friendly JPEG).",
-      "descriptionZh": "> **深度学习系列** 编辑流水线的唯一权威来源。每一期都是一个主题深度（访谈 / 论文 / 框架 / 公开讨论），交付时附带 **专属视觉风格**（不在剧集间复用）、**独立的 CF Pages 子域名**，以及 **三种格式的海报**（4K 主稿 + 移动端主稿 + 微信友好 JPEG）。",
-      "category": "场景规划",
+      "description": "Manages the end-to-end editorial pipeline for the Deep Learning series. It automates a 5-stage process including unique visual style selection, HTML rendering, Cloudflare Pages deployment, multi-format poster generation, and archiving.",
+      "descriptionZh": "管理“深度学习系列”专题文章的端到端发布管线。包含选择独立视觉风格、HTML渲染、部署至Cloudflare Pages、生成多格式海报及云盘归档等五个自动化步骤。",
+      "category": "Agent 工具",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/deep-learning-pipeline",
       "stars": 0,
@@ -3699,14 +3724,23 @@
       "versions": 1,
       "editorialTagline": "> Single source of truth for the **深度学习系列** editorial pipeline. Each episode is ",
       "icon": "account_tree",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "pipeline",
+        "editorial",
+        "cloudflare-pages",
+        "html-rendering",
+        "automation"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.9,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/deep-learning-skill",
@@ -3740,7 +3774,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/deep-research",
@@ -3777,7 +3811,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/delight",
@@ -3811,7 +3845,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/deploy-cn",
@@ -3819,9 +3853,9 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "Use when: user wants to deploy web content accessible from mainland China, mentions China/国内 access, or says '发布到国内/CF/Cloudflare'. Trigger: deploy, 发布, 上线, 国内访问, China accessible, CF Pages, Cloudflare Pages. NOT for: general deployment without China requirement, backend APIs, or non-web content.",
-      "descriptionZh": "使用场景：用户希望部署可从中国大陆访问的 Web 内容、提到\"国内访问\"，或说\"发布到国内/CF/Cloudflare\"。触发词：deploy、发布、上线、国内访问、China accessible、CF Pages、Cloudflare Pages。不适用于：无中国访问要求的通用部署、后端 API、非 Web 内容。",
-      "category": "写代码",
+      "description": "Automated web deployment pipeline to Cloudflare Pages optimized for mainland China accessibility. It features a 6-stage process that localizes external fonts, compresses media, and removes blocked dependencies.",
+      "descriptionZh": "自动化部署网页至 Cloudflare Pages 以优化国内访问速度的工具。包含自动下载外部字体、压缩图片和视频以及移除外部依赖的完整流水线。",
+      "category": "Agent 工具",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/deploy-cn",
       "stars": 0,
@@ -3829,14 +3863,23 @@
       "versions": 1,
       "editorialTagline": "Use when: user wants to deploy web content accessible from mainland China, menti",
       "icon": "code",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "deployment",
+        "cloudflare",
+        "optimization",
+        "china",
+        "pipeline"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/design",
@@ -3870,15 +3913,15 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/design-prompts",
       "name": "design-prompts",
       "author": "local",
       "source": "local",
-      "description": "此 Skill 集成了 [Design Prompts](https://www.designprompts.dev/) 的设计提示词库功能，提供丰富的 UI/UX 设计风格提示词，帮助你快速生成专业的设计方案描述。",
-      "descriptionZh": "此 Skill 集成了 [Design Prompts](https://www.designprompts.dev/) 的设计提示词库功能，提供丰富的 UI/UX 设计风格提示词，帮助你快速生成专业的设计方案描述。",
+      "description": "Integrates a design prompt library offering over 60 UI/UX design style prompts across 8 categories, including UI styles, page types, and color schemes, supporting smart search and combined generation.",
+      "descriptionZh": "集成设计提示词库功能，提供涵盖UI风格、页面类型、配色方案等8大分类的60多种UI/UX设计风格提示词，支持智能搜索与组合生成。",
       "category": "做产品",
       "rating": "C",
       "url": "file:///Users/mauricewen/.claude/skills/design-prompts",
@@ -3888,11 +3931,13 @@
       "editorialTagline": "",
       "icon": "lightbulb",
       "tags": [
-        "python",
-        "claude-code",
-        "go"
+        "ui-design",
+        "ux-design",
+        "prompts",
+        "midjourney",
+        "dall-e"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 10821,
       "deploySuccessRate": 0.6434062818237332,
       "reviewUp": 393,
@@ -3901,7 +3946,10 @@
       "permissionManifest": {
         "network_access": "full"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/design-taste-frontend",
@@ -3938,7 +3986,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/design-ui-swarm",
@@ -3973,7 +4021,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/desktop-computer-automation",
@@ -4007,7 +4055,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/development-ops-swarm",
@@ -4042,7 +4090,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/devops-infra-swarm",
@@ -4077,7 +4125,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/diceui",
@@ -4114,7 +4162,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/discord",
@@ -4151,7 +4199,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/access",
@@ -4241,7 +4289,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/dispatching-parallel-agents",
@@ -4275,7 +4323,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/distill",
@@ -4309,7 +4357,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/dna-inheritance",
@@ -4346,31 +4394,32 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/docling-vlm-pdf",
       "name": "docling-vlm-pdf",
       "author": "local",
       "source": "local",
-      "description": "This skill captures the practical local PDF understanding stack behind the recent \\\"feed the whole paper with charts and formulas into a local VLM\\\" workflow:",
-      "descriptionZh": "本 skill 沉淀了\"把整篇带图表与公式的论文喂给本地 VLM\"工作流背后的实战本地 PDF 理解技术栈：",
-      "category": "做研究",
+      "description": "A local PDF understanding stack using Vision Language Models (VLMs) via Docling to parse documents with charts and formulas. It supports Apple Silicon MLX acceleration and integrates with MLX-VLM and oMLX for direct model experimentation and local serving.",
+      "descriptionZh": "一个基于本地视觉语言模型（VLM）的PDF解析工具栈，主要使用Docling将包含图表和公式的文档转换为结构化格式。支持在Apple Silicon上通过MLX进行加速，并可结合MLX-VLM和oMLX进行模型实验与本地部署。",
+      "category": "做数据",
       "rating": "B",
-      "url": "file:///Users/mauricewen/.claude/skills/docling-vlm-pdf",
+      "url": "https://github.com/docling-project/docling",
       "stars": 367,
       "downloads": 33750,
       "versions": 10,
       "editorialTagline": "Use when the task needs local visual PDF understanding throu...",
       "icon": "science",
       "tags": [
-        "remote",
-        "python",
-        "embedding",
-        "go",
-        "openai"
+        "docling",
+        "vlm",
+        "pdf",
+        "mlx",
+        "apple-silicon",
+        "omlx"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 3338,
       "deploySuccessRate": 0.7473388657426178,
       "reviewUp": 1425,
@@ -4380,7 +4429,10 @@
         "shell_execution": true,
         "network_access": "full"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/document",
@@ -4417,7 +4469,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/document-illustrator",
@@ -4450,7 +4502,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/dot-cloud-morphing",
@@ -4485,7 +4537,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/draft-nda",
@@ -4521,7 +4573,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/dummy-dataset",
@@ -4559,7 +4611,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/dws-cli",
@@ -4597,7 +4649,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ebook-to-notebooklm",
@@ -4633,7 +4685,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ecc-hooks",
@@ -4671,7 +4723,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/eigent",
@@ -4708,7 +4760,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/engineering-protocol",
@@ -4746,7 +4798,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/eval-business-logic",
@@ -4780,7 +4832,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/eval-code-quality",
@@ -4814,7 +4866,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/eval-integration",
@@ -4849,7 +4901,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/eval-ui-ux",
@@ -4886,7 +4938,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/everything-claude-code",
@@ -4922,7 +4974,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/example-command",
@@ -4958,7 +5010,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/example-skill",
@@ -4994,7 +5046,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/executing-plans",
@@ -5030,7 +5082,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/extract",
@@ -5064,7 +5116,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/faceswap",
@@ -5101,7 +5153,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/figma-vectorizer",
@@ -5137,7 +5189,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/finance-tax-swarm",
@@ -5172,7 +5224,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/finishing-a-development-branch",
@@ -5208,7 +5260,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/forge-sota-testing",
@@ -5242,7 +5294,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/fri-portfolio",
@@ -5280,7 +5332,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/frontend-design",
@@ -5315,7 +5367,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/frontend-html-theme",
@@ -5349,7 +5401,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-accountant",
@@ -5357,8 +5409,8 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "凭证录入 / 科目映射 / 期末结账 / 报表编制 / CAS 准则适用。将业务分析师输出的结构化业务事件翻译为准确的会计语言（借贷分录），确保账务处理符合企业会计准则(CAS)。",
-      "descriptionZh": "凭证录入 / 科目映射 / 期末结账 / 报表编制 / CAS 准则适用。将业务分析师输出的结构化业务事件翻译为准确的会计语言（借贷分录），确保账务处理符合企业会计准则(CAS)。",
+      "description": "Translates structured business events into debit and credit entries compliant with Chinese Accounting Standards (CAS), covering voucher entry, account mapping, period-end closing, and report preparation.",
+      "descriptionZh": "将结构化业务事件转化为符合企业会计准则（CAS）的借贷分录，涵盖凭证录入、科目映射、期末结账与报表编制。",
       "category": "做业务",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/ft-accountant",
@@ -5367,14 +5419,23 @@
       "versions": 1,
       "editorialTagline": "凭证录入 / 科目映射 / 期末结账 / 报表编制 / CAS 准则适用。将业务分析师输出的结构化业务事件翻译为准确的会计语言（借贷分录），确保账务处理符合企业",
       "icon": "verified_user",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "accounting",
+        "cas",
+        "bookkeeping",
+        "financial-reporting",
+        "journal-entries"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-business-analyst",
@@ -5408,7 +5469,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-business-registration",
@@ -5442,7 +5503,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-compliance-auditor",
@@ -5476,15 +5537,15 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-compliance-checklist",
       "name": "ft-compliance-checklist",
       "author": "local",
       "source": "local",
-      "description": "按行业+企业规模+纳税人类型自动生成结构化合规检查清单。生成清单后交给 ft-compliance-auditor 执行检查。本技能只负责\\\"列出该查什么\\\"，不负责\\\"实际去查\\\"。",
-      "descriptionZh": "按行业+企业规模+纳税人类型自动生成结构化合规检查清单。生成清单后交给 ft-compliance-auditor 执行检查。本技能只负责\\\"列出该查什么\\\"，不负责\\\"实际去查\\\"。",
+      "description": "Automatically generates structured financial and tax compliance checklists based on industry, enterprise scale, and taxpayer type. It only lists items to check, leaving execution to other agents.",
+      "descriptionZh": "按行业、企业规模和纳税人类型自动生成结构化的财税合规检查清单。本技能仅负责列出检查项，实际检查交由其他Agent执行。",
       "category": "做业务",
       "rating": "A",
       "url": "file:///Users/mauricewen/.claude/skills/ft-compliance-checklist",
@@ -5495,16 +5556,21 @@
       "icon": "verified_user",
       "tags": [
         "compliance",
-        "go"
+        "checklist",
+        "tax",
+        "accounting"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 11414,
       "deploySuccessRate": 0.8752506859686633,
       "reviewUp": 1167,
       "reviewDown": 260,
       "compositeScore": 81.86,
       "permissionManifest": {},
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-consolidation",
@@ -5538,7 +5604,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-cost-accounting",
@@ -5572,7 +5638,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-customs-duty",
@@ -5606,7 +5672,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-digital-asset-tax",
@@ -5614,8 +5680,8 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "数字资产与ESG税务专家角色，负责数据资产入表、AI模型成本归集与资本化判定、碳排放配额会计处理、碳交易损益核算、环保税合规申报，以及ESG信息披露中的税务关联事项。这些是2024-2025年新兴且快速变化的领域，准则和实务都在发展中，需要特别关注政策动态。",
-      "descriptionZh": "数字资产与ESG税务专家角色，负责数据资产入表、AI模型成本归集与资本化判定、碳排放配额会计处理、碳交易损益核算、环保税合规申报，以及ESG信息披露中的税务关联事项。这些是2024-2025年新兴且快速变化的领域，准则和实务都在发展中，需要特别关注政策动态。",
+      "description": "Digital asset and ESG tax expert responsible for data asset capitalization, AI model cost allocation, carbon emission accounting, and environmental tax compliance. Also handles tax-related matters in ESG disclosures to ensure alignment across financial, tax, and ESG data.",
+      "descriptionZh": "数字资产与ESG税务专家，负责数据资产入表、AI模型成本资本化、碳排放会计处理及环保税合规申报。同时处理ESG信息披露中的税务关联事项，确保财务、税务与ESG数据的一致性。",
       "category": "做业务",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/ft-digital-asset-tax",
@@ -5624,14 +5690,24 @@
       "versions": 1,
       "editorialTagline": "数字资产与ESG税务专家角色，负责数据资产入表、AI模型成本归集与资本化判定、碳排放配额会计处理、碳交易损益核算、环保税合规申报，以及ESG信息披露中的税务关联",
       "icon": "verified_user",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "tax",
+        "esg",
+        "digital-assets",
+        "accounting",
+        "carbon-trading",
+        "compliance"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-export-tax-rebate",
@@ -5665,7 +5741,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-financial-statement",
@@ -5699,7 +5775,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-fx-accounting",
@@ -5733,7 +5809,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-internal-audit",
@@ -5767,7 +5843,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-international-tax",
@@ -5775,9 +5851,9 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "跨境交易税务处理与合规专家。负责非居民企业所得税代扣代缴、税收协定优惠适用、境外税收抵免计算、常设机构判定、转让定价同期资料准备。核心能力是在复杂的跨境交易结构中准确识别各方的纳税义务和可享受的协定优惠。",
-      "descriptionZh": "跨境交易税务处理与合规专家。负责非居民企业所得税代扣代缴、税收协定优惠适用、境外税收抵免计算、常设机构判定、转让定价同期资料准备。核心能力是在复杂的跨境交易结构中准确识别各方的纳税义务和可享受的协定优惠。",
-      "category": "做业务",
+      "description": "Expert in cross-border transaction tax processing and compliance, handling non-resident enterprise income tax withholding, tax treaty benefits, foreign tax credits, and transfer pricing.",
+      "descriptionZh": "跨境交易税务处理与合规专家，负责非居民企业所得税代扣代缴、税收协定优惠适用、境外税收抵免计算及转让定价等。",
+      "category": "其他",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/ft-international-tax",
       "stars": 0,
@@ -5785,14 +5861,23 @@
       "versions": 1,
       "editorialTagline": "跨境交易税务处理与合规专家。负责非居民企业所得税代扣代缴、税收协定优惠适用、境外税收抵免计算、常设机构判定、转让定价同期资料准备。核心能力是在复杂的跨境交易结构",
       "icon": "verified_user",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "international-tax",
+        "cross-border",
+        "withholding-tax",
+        "transfer-pricing",
+        "tax-compliance"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-invoice-manager",
@@ -5827,7 +5912,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-legal-counsel",
@@ -5861,7 +5946,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-period-calendar",
@@ -5869,8 +5954,8 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "申报截止日计算/节假日延期规则/提醒生成。代理记账公司最基础也最容易出错的工具——逾期申报的滞纳金和罚款是完全可以避免的损失。",
-      "descriptionZh": "申报截止日计算/节假日延期规则/提醒生成。代理记账公司最基础也最容易出错的工具——逾期申报的滞纳金和罚款是完全可以避免的损失。",
+      "description": "Provides tax declaration deadline calculations, holiday extension rules, and reminder generation to help bookkeeping agencies avoid late fees and penalties.",
+      "descriptionZh": "提供税务申报截止日计算、节假日延期规则及提醒生成功能，帮助代理记账公司避免逾期申报带来的滞纳金和罚款。",
       "category": "做业务",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/ft-period-calendar",
@@ -5879,14 +5964,23 @@
       "versions": 1,
       "editorialTagline": "申报截止日计算/节假日延期规则/提醒生成。代理记账公司最基础也最容易出错的工具——逾期申报的滞纳金和罚款是完全可以避免的损失。",
       "icon": "verified_user",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "tax",
+        "calendar",
+        "deadline",
+        "compliance",
+        "reminder"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-regulation-lookup",
@@ -5920,7 +6014,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-risk-assessment",
@@ -5954,7 +6048,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-social-insurance",
@@ -5989,7 +6083,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-stamp-property-tax",
@@ -6023,7 +6117,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-subsidy-application",
@@ -6057,7 +6151,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-tax-accounting-gap",
@@ -6092,7 +6186,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-tax-advisor",
@@ -6126,7 +6220,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-tax-incentive",
@@ -6134,8 +6228,8 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "企业税收优惠政策条件判定与申报执行专家。负责高新技术企业认定辅导、小型微利企业标准判定、研发费加计扣除范围划定、软件企业增值税即征即退测算、加速折旧方案设计、优惠叠加规则分析。核心能力是在合规前提下帮助企业最大化享受各类优惠政策、避免错享补缴风险。",
-      "descriptionZh": "企业税收优惠政策条件判定与申报执行专家。负责高新技术企业认定辅导、小型微利企业标准判定、研发费加计扣除范围划定、软件企业增值税即征即退测算、加速折旧方案设计、优惠叠加规则分析。核心能力是在合规前提下帮助企业最大化享受各类优惠政策、避免错享补缴风险。",
+      "description": "Expert in determining conditions and executing declarations for corporate tax incentive policies. Helps enterprises maximize benefits like HNTE, small/micro enterprise rates, and R&D super deductions compliantly while avoiding underpayment risks.",
+      "descriptionZh": "企业税收优惠政策条件判定与申报执行专家。在合规前提下帮助企业最大化享受高新技术企业、小微企业、研发费加计扣除等优惠政策，避免错享补缴风险。",
       "category": "做业务",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/ft-tax-incentive",
@@ -6144,14 +6238,23 @@
       "versions": 1,
       "editorialTagline": "企业税收优惠政策条件判定与申报执行专家。负责高新技术企业认定辅导、小型微利企业标准判定、研发费加计扣除范围划定、软件企业增值税即征即退测算、加速折旧方案设计、优",
       "icon": "verified_user",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "税收优惠",
+        "高新技术企业",
+        "小型微利企业",
+        "研发费加计扣除",
+        "加速折旧"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-tax-planner",
@@ -6185,7 +6288,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ft-transfer-pricing",
@@ -6219,7 +6322,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/full-output-enforcement",
@@ -6252,7 +6355,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/game-dev-swarm",
@@ -6286,7 +6389,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/git-commit",
@@ -6321,7 +6424,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/git-newspaper",
@@ -6355,7 +6458,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/github-pr-creation",
@@ -6392,7 +6495,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/github-pr-merge",
@@ -6429,7 +6532,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/github-pr-review",
@@ -6463,7 +6566,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/github-skill-arsenal",
@@ -6499,7 +6602,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/go",
@@ -6532,7 +6635,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gpt-5-4-prompting",
@@ -6568,7 +6671,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/grammar-check",
@@ -6604,7 +6707,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/growth-loops",
@@ -6638,7 +6741,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-core",
@@ -6672,7 +6775,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-frameworks",
@@ -6706,7 +6809,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-performance",
@@ -6740,7 +6843,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-plugins",
@@ -6775,7 +6878,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-react",
@@ -6810,7 +6913,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-scrolltrigger",
@@ -6845,7 +6948,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-timeline",
@@ -6879,7 +6982,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gsap-utils",
@@ -6913,7 +7016,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gtm-motions",
@@ -6948,7 +7051,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/guizang-ppt-skill",
@@ -6982,7 +7085,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hackingtool-architecture-study",
@@ -7015,7 +7118,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/harden",
@@ -7049,7 +7152,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/harmonyos-device-automation",
@@ -7086,7 +7189,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/health",
@@ -7120,7 +7223,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hermes-ecosystem-radar",
@@ -7154,7 +7257,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/heygen",
@@ -7191,7 +7294,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hook-development",
@@ -7229,7 +7332,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/html-ppt",
@@ -7263,7 +7366,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/huashu-design",
@@ -7298,7 +7401,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hunt",
@@ -7332,7 +7435,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hyperframes",
@@ -7366,7 +7469,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hyperframes-cli",
@@ -7400,7 +7503,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hyperframes-registry",
@@ -7434,7 +7537,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/hyperx-trade",
@@ -7469,7 +7572,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/icon-design-swarm",
@@ -7504,7 +7607,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/identify-assumptions-existing",
@@ -7540,7 +7643,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/identify-assumptions-new",
@@ -7573,7 +7676,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/image-gen",
@@ -7610,7 +7713,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/impeccable",
@@ -7671,7 +7774,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/infinisynapse-market",
@@ -7705,7 +7808,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/interview-script",
@@ -7742,7 +7845,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/invoice-ocr",
@@ -7776,7 +7879,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ios-dev-pipeline",
@@ -7811,7 +7914,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ios-device-automation",
@@ -7845,7 +7948,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/jh3y-hover-cards",
@@ -7882,7 +7985,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/job-stories",
@@ -7918,7 +8021,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/kami",
@@ -7952,7 +8055,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/knowledge-manager",
@@ -7986,7 +8089,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/kumo-ui",
@@ -8022,7 +8125,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/lark-suite-swarm",
@@ -8055,7 +8158,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/lean-canvas",
@@ -8092,7 +8195,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/learn",
@@ -8126,7 +8229,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/libtv-skill",
@@ -8163,7 +8266,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ljg-cognitive-swarm",
@@ -8199,7 +8302,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/lobe-icons",
@@ -8236,7 +8339,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/logo-generator",
@@ -8270,7 +8373,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/loop-execution-evaluator",
@@ -8304,7 +8407,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/loop-fixer",
@@ -8340,7 +8443,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/loop-plan-evaluator",
@@ -8376,7 +8479,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/loop-planner",
@@ -8410,7 +8513,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/makepad-skills",
@@ -8443,7 +8546,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/manus-sandbox",
@@ -8479,7 +8582,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/market-segments",
@@ -8513,7 +8616,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/market-sizing",
@@ -8548,7 +8651,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/marketing-ideas",
@@ -8582,7 +8685,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/marknative",
@@ -8620,7 +8723,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/math-olympiad",
@@ -8655,7 +8758,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/mcp-integration",
@@ -8693,7 +8796,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/memory-management",
@@ -8727,7 +8830,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/message-bus",
@@ -8763,7 +8866,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/metrics-dashboard",
@@ -8797,7 +8900,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/monetization-strategy",
@@ -8831,7 +8934,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/multi-agent-orchestration",
@@ -8865,7 +8968,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/multi-role-brainstorm",
@@ -8899,7 +9002,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/music-gen",
@@ -8936,7 +9039,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/Music Listener",
@@ -8996,7 +9099,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nature-data",
@@ -9030,7 +9133,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nature-figure",
@@ -9065,7 +9168,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nature-paper2ppt",
@@ -9099,7 +9202,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nature-polishing",
@@ -9133,7 +9236,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nature-response",
@@ -9167,7 +9270,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/news-aggregator-skill",
@@ -9175,8 +9278,8 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "Fetch real-time hot news from 28 sources, generate deep analysis reports in Chinese.",
-      "descriptionZh": "从 28 个来源抓取实时热点新闻，生成中文深度分析报告。",
+      "description": "Fetches real-time hot news from 28 sources and generates deep analysis reports in Simplified Chinese. Supports multi-source aggregation, keyword filtering, and daily briefings.",
+      "descriptionZh": "从28个信息源获取实时热门新闻，并生成简体中文的深度分析报告。支持多源聚合、关键词过滤及定制化每日简报。",
       "category": "做研究",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/news-aggregator-skill",
@@ -9185,14 +9288,23 @@
       "versions": 1,
       "editorialTagline": "Fetch real-time hot news from 28 sources, generate deep analysis reports in Chin",
       "icon": "science",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "news",
+        "aggregator",
+        "analysis",
+        "report",
+        "python"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/nlp",
@@ -9229,7 +9341,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/normalize",
@@ -9263,7 +9375,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/notebooklm-skill",
@@ -9299,7 +9411,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/notebooklm-pipeline",
@@ -9333,7 +9445,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/notebooklm-upstream",
@@ -9367,7 +9479,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/obsidian-visual-skills",
@@ -9404,7 +9516,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/oc-wrapped",
@@ -9437,7 +9549,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/onboard",
@@ -9471,7 +9583,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/onecontext",
@@ -9505,7 +9617,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ontology-audit-swarm",
@@ -9540,7 +9652,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/openclaw-best-practices",
@@ -9576,7 +9688,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/opencode-glm47-remotion",
@@ -9613,7 +9725,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/opportunity-solution-tree",
@@ -9650,7 +9762,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/optimize",
@@ -9688,7 +9800,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/opus-4.6-chatstyle",
@@ -9722,7 +9834,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/osint-framework",
@@ -9759,7 +9871,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/outcome-roadmap",
@@ -9795,7 +9907,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/parallel-dispatch",
@@ -9829,7 +9941,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pdca-iteration-pipeline",
@@ -9863,7 +9975,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pdf-layout-analysis",
@@ -9899,7 +10011,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pdf2video",
@@ -9935,7 +10047,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pencil-dev",
@@ -9971,7 +10083,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pestle-analysis",
@@ -10008,7 +10120,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pi-mono",
@@ -10043,7 +10155,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pinchtab",
@@ -10077,7 +10189,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pinchtab-browser",
@@ -10111,7 +10223,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pixelle-video",
@@ -10147,7 +10259,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/plan-critiquer",
@@ -10181,7 +10293,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/planning-with-files",
@@ -10218,7 +10330,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/planning-with-files-manus",
@@ -10252,7 +10364,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/playground",
@@ -10286,7 +10398,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/plugin-settings",
@@ -10320,7 +10432,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/plugin-structure",
@@ -10358,7 +10470,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pm-execution-swarm",
@@ -10392,7 +10504,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pm-research-swarm",
@@ -10427,7 +10539,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pm-strategy-swarm",
@@ -10461,7 +10573,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/podwise-cli",
@@ -10498,7 +10610,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/polish",
@@ -10535,7 +10647,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/porters-five-forces",
@@ -10569,7 +10681,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/positioning-ideas",
@@ -10605,7 +10717,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/post-to-wechat",
@@ -10642,7 +10754,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/postmortem",
@@ -10678,7 +10790,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ppt-master",
@@ -10712,7 +10824,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pre-mortem",
@@ -10747,7 +10859,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/pricing-strategy",
@@ -10781,7 +10893,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/prioritization-frameworks",
@@ -10815,7 +10927,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/prioritize-assumptions",
@@ -10851,7 +10963,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/prioritize-features",
@@ -10888,7 +11000,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/privacy-policy",
@@ -10925,7 +11037,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-lead",
@@ -10959,7 +11071,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-management-swarm",
@@ -10993,7 +11105,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-name",
@@ -11026,7 +11138,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-strategy",
@@ -11060,7 +11172,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-tri-ownership",
@@ -11098,7 +11210,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/project-promotion-pipeline",
@@ -11133,7 +11245,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/prompt-engineering-100",
@@ -11168,7 +11280,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/prompt-fill",
@@ -11204,7 +11316,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/qa-lead",
@@ -11238,7 +11350,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/qiaomu-anything-to-notebooklm",
@@ -11273,7 +11385,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/quieter",
@@ -11307,7 +11419,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ralph-loop",
@@ -11343,7 +11455,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ralph-loop-codex",
@@ -11376,7 +11488,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ralph-wiggum",
@@ -11384,24 +11496,33 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "把 Ralph Wiggum 方法的“需求/规划/构建”三阶段固定为可版本化工件，避免只存在于聊天里的临时流程。",
-      "descriptionZh": "把 Ralph Wiggum 方法的“需求/规划/构建”三阶段固定为可版本化工件，避免只存在于聊天里的临时流程。",
-      "category": "场景规划",
+      "description": "Fixes the requirements, planning, and build stages of the Ralph Wiggum method into versionable artifacts. It generates directories and templates to avoid temporary processes that only exist in chat.",
+      "descriptionZh": "将Ralph Wiggum方法的需求、规划和构建三阶段固定为可版本化的工件。该工具负责生成目录与模板，避免临时流程仅存在于聊天记录中。",
+      "category": "Agent 工具",
       "rating": "B",
-      "url": "file:///Users/mauricewen/.claude/skills/ralph-wiggum",
+      "url": "https://www.hegui.com/homePage",
       "stars": 0,
       "downloads": 0,
       "versions": 1,
       "editorialTagline": "把 Ralph Wiggum 方法的“需求/规划/构建”三阶段固定为可版本化工件，避免只存在于聊天里的临时流程。",
       "icon": "account_tree",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "ralph-wiggum",
+        "playbook",
+        "templates",
+        "workflow",
+        "artifacts"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/rateyourmusic-genres",
@@ -11437,7 +11558,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/react-best-practices",
@@ -11471,7 +11592,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/reactions",
@@ -11507,7 +11628,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/read",
@@ -11542,7 +11663,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/readwise-cli",
@@ -11578,7 +11699,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/receiving-code-review",
@@ -11614,7 +11735,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/redesign-existing-projects",
@@ -11648,7 +11769,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/reflection",
@@ -11684,7 +11805,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/release-notes",
@@ -11719,7 +11840,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/remotion-best-practices",
@@ -11755,7 +11876,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/requesting-code-review",
@@ -11790,7 +11911,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/project:research-docs",
@@ -11849,7 +11970,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/retro",
@@ -11883,7 +12004,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/retrospective-agent",
@@ -11919,7 +12040,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/review-resume",
@@ -11956,7 +12077,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/scheduler",
@@ -11993,7 +12114,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/scrapling-crawler",
@@ -12030,7 +12151,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/self-improving-agent",
@@ -12066,7 +12187,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/self-management",
@@ -12100,7 +12221,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/self-reflection",
@@ -12134,7 +12255,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/selfie",
@@ -12170,7 +12291,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/send-file",
@@ -12207,7 +12328,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/sentiment-analysis",
@@ -12243,7 +12364,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/serve-sim",
@@ -12277,7 +12398,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-creator",
@@ -12313,7 +12434,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-development",
@@ -12350,7 +12471,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-from-masters",
@@ -12385,7 +12506,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-hub",
@@ -12421,7 +12542,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-ops-pipeline",
@@ -12455,7 +12576,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skill-vetter",
@@ -12493,7 +12614,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skills-marketplace",
@@ -12501,33 +12622,42 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "此 Skill 集成了 [Skills Marketplace (skillsmp.com)](https://skillsmp.com/)，这是一个拥有 **25,000+** 开源 Claude Skills 的社区市场。支持搜索、浏览、安装各类 Claude 技能。",
-      "descriptionZh": "此 Skill 集成了 [Skills Marketplace (skillsmp.com)](https://skillsmp.com/)，这是一个拥有 **25,000+** 开源 Claude Skills 的社区市场。支持搜索、浏览、安装各类 Claude 技能。",
-      "category": "做研究",
+      "description": "This skill integrates with the Skills Marketplace (skillsmp.com), a community platform featuring over 25,000 open-source Claude Skills. It allows users to search, browse, install, and manage various Claude skills.",
+      "descriptionZh": "该技能集成了拥有超过25,000个开源Claude Skills的社区市场（skillsmp.com）。它支持用户搜索、浏览、一键安装和管理各类Claude技能。",
+      "category": "Agent 工具",
       "rating": "B",
-      "url": "file:///Users/mauricewen/.claude/skills/skills-marketplace",
+      "url": "https://skillsmp.com",
       "stars": 0,
       "downloads": 0,
       "versions": 1,
       "editorialTagline": "此 Skill 集成了 [Skills Marketplace (skillsmp.com)](https://skillsmp.com/)，这是一个拥有 **",
       "icon": "science",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "claude",
+        "skills",
+        "marketplace",
+        "search",
+        "install"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/skills-video",
       "name": "skills-video",
       "author": "local",
       "source": "local",
-      "description": "> **AI 驱动的视频生成系统** - 整合 TTS、AI 图片、字幕、FFmpeg，一句话生成任意主题视频",
-      "descriptionZh": "> **AI 驱动的视频生成系统** - 整合 TTS、AI 图片、字幕、FFmpeg，一句话生成任意主题视频",
-      "category": "做产品",
+      "description": "AI-driven video generation system that integrates TTS, AI images, subtitles, and FFmpeg to generate videos from a single text prompt.",
+      "descriptionZh": "AI驱动的视频生成系统，整合TTS、AI图片、字幕和FFmpeg，支持通过自然语言一句话生成任意主题的视频。",
+      "category": "Agent 工具",
       "rating": "C",
       "url": "file:///Users/mauricewen/.claude/skills/skills-video",
       "stars": 643,
@@ -12536,12 +12666,13 @@
       "editorialTagline": "",
       "icon": "lightbulb",
       "tags": [
-        "anthropic",
-        "python",
-        "openai",
-        "compliance"
+        "video",
+        "tts",
+        "ffmpeg",
+        "whisper",
+        "generator"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 1447,
       "deploySuccessRate": 0.5055019929180301,
       "reviewUp": 605,
@@ -12551,7 +12682,10 @@
         "shell_execution": true,
         "network_access": "full"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.9,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/splashboard",
@@ -12585,7 +12719,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/sprint-plan",
@@ -12621,7 +12755,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/sql-queries",
@@ -12656,7 +12790,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/stakeholder-map",
@@ -12689,7 +12823,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/startup-canvas",
@@ -12726,16 +12860,16 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/stitch-design-pipeline",
       "name": "stitch-design-pipeline",
       "author": "local",
       "source": "local",
-      "description": "Full-auto design pipeline applicable to ALL projects. 8 phases, end-to-end: PRD → Stitch prototype → Icon/Logo → AI compare → Code translation → 3-round UI polish → Product packaging → Architecture docs.",
-      "descriptionZh": "适用于所有项目的全自动设计流水线。8 个阶段端到端：PRD → Stitch 原型 → 图标/logo → AI 对比 → 代码翻译 → 3 轮 UI 打磨 → 产品打包 → 架构文档。",
-      "category": "场景规划",
+      "description": "A fully automated, 8-phase end-to-end design pipeline that transforms PRDs into polished code. It handles Stitch prototyping, icon generation, code translation, and mandatory UI polishing across multiple execution channels.",
+      "descriptionZh": "全自动端到端设计流水线，包含从需求文档到原型设计、图标生成、代码转换及UI打磨的8个阶段。支持通过MCP、CLI或浏览器渠道调用Stitch进行UI生成与多轮优化。",
+      "category": "做产品",
       "rating": "B",
       "url": "file:///Users/mauricewen/.claude/skills/stitch-design-pipeline",
       "stars": 373,
@@ -12744,20 +12878,24 @@
       "editorialTagline": "Full-auto design pipeline applicable to ALL projects. 8 phas...",
       "icon": "account_tree",
       "tags": [
-        "react",
-        "deployment",
-        "translation",
-        "documentation",
-        "gemini"
+        "design",
+        "pipeline",
+        "stitch",
+        "prototype",
+        "ui",
+        "automation"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 14645,
       "deploySuccessRate": 0.6057832163980708,
       "reviewUp": 902,
       "reviewDown": 159,
       "compositeScore": 76.12,
       "permissionManifest": {},
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.9,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/stitch-skills",
@@ -12793,7 +12931,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/story",
@@ -12827,7 +12965,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/structured-web-extraction",
@@ -12861,7 +12999,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/subagent-brief",
@@ -12895,7 +13033,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/subagent-driven-development",
@@ -12931,7 +13069,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/summarize-interview",
@@ -12967,7 +13105,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/summarize-meeting",
@@ -13003,7 +13141,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/superpowers",
@@ -13036,16 +13174,16 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/svgl-shadcn-ui",
       "name": "svgl-shadcn-ui",
       "author": "local",
       "source": "local",
-      "description": "此 Skill 集成了两个强大的前端资源库：",
-      "descriptionZh": "此 Skill 集成了两个强大的前端资源库：",
-      "category": "做产品",
+      "description": "A frontend resource library integrating SVGL and shadcn/ui, providing SVG logo search and React component code snippets with installation commands.",
+      "descriptionZh": "集成SVGL和shadcn/ui的前端资源库，提供SVG Logo搜索与获取，以及React组件的代码片段和安装命令。",
+      "category": "写代码",
       "rating": "D",
       "url": "file:///Users/mauricewen/.claude/skills/svgl-shadcn-ui",
       "stars": 130,
@@ -13054,13 +13192,14 @@
       "editorialTagline": "",
       "icon": "lightbulb",
       "tags": [
-        "redis",
-        "go",
-        "supabase",
-        "javascript",
-        "kubernetes"
+        "svg",
+        "logo",
+        "shadcn",
+        "react",
+        "ui",
+        "components"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 2168,
       "deploySuccessRate": 0.4815812244749731,
       "reviewUp": 82,
@@ -13070,7 +13209,10 @@
         "shell_execution": true,
         "network_access": "full"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.9,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/svglogo-icons",
@@ -13107,7 +13249,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/swot-analysis",
@@ -13141,7 +13283,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/systematic-debugging",
@@ -13176,7 +13318,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tailscale-network",
@@ -13214,7 +13356,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tanstack-start-dashboard",
@@ -13251,7 +13393,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/teach-impeccable",
@@ -13287,7 +13429,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/team-audit",
@@ -13321,7 +13463,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/team-finance-tax",
@@ -13355,7 +13497,7 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tech-lead",
@@ -13363,24 +13505,33 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "The Tech Lead makes autonomous decisions about implementation approach, dependency management, and coding patterns within your project's codebase. Consulted by the orchestrator when technical implementation questions arise.",
-      "descriptionZh": "Tech Lead（技术负责人）在你项目代码库内对实现方案、依赖管理与编码模式做出自主决策。在轨道执行过程中遇到技术实现问题时由 orchestrator（编排器）咨询。",
+      "description": "The Tech Lead agent makes autonomous decisions about implementation approaches, dependency management, and coding patterns within a codebase. It is consulted by the orchestrator for technical implementation questions.",
+      "descriptionZh": "Tech Lead 代理负责在代码库中自主决定实现方法、依赖管理和编码模式。当出现技术实现问题时，由编排器进行咨询。",
       "category": "写代码",
       "rating": "B",
-      "url": "file:///Users/mauricewen/.claude/skills/tech-lead",
+      "url": "https://bundlephobia.com",
       "stars": 0,
       "downloads": 0,
       "versions": 1,
       "editorialTagline": "The Tech Lead makes autonomous decisions about implementation approach, dependen",
       "icon": "code",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "tech-lead",
+        "orchestrator",
+        "dependency-management",
+        "coding-patterns",
+        "implementation"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.9,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/telos-framework",
@@ -13416,7 +13567,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/test-driven-development",
@@ -13452,7 +13603,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/test-scenarios",
@@ -13486,7 +13637,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/testing",
@@ -13523,7 +13674,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/text-to-speech",
@@ -13560,7 +13711,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/think",
@@ -13594,7 +13745,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/thread-management",
@@ -13628,7 +13779,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tmux-bridge",
@@ -13666,7 +13817,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tradingagents-cn",
@@ -13700,7 +13851,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/travel",
@@ -13734,7 +13885,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/tri-ownership",
@@ -13770,7 +13921,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/twitter-web-exporter",
@@ -13806,7 +13957,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ui-skills",
@@ -13814,24 +13965,33 @@
       "author": "local",
       "source": "local",
       "sourceLocal": "claude",
-      "description": "该 Skill 用于把 **UI Skills**（一套面向 agents 的“主观 UI 约束”）安装为 Claude Code Skills，帮助 AI 在做前端界面时保持一致的栈选择、交互、可访问性与性能纪律。",
-      "descriptionZh": "该 Skill 用于把 **UI Skills**（一套面向 agents 的“主观 UI 约束”）安装为 Claude Code Skills，帮助 AI 在做前端界面时保持一致的栈选择、交互、可访问性与性能纪律。",
-      "category": "做产品",
+      "description": "This skill installs UI Skills as Claude Code Skills to help AI maintain consistent stack selection, interaction, accessibility, and performance disciplines when building frontend interfaces.",
+      "descriptionZh": "该Skill用于将UI Skills安装为Claude Code Skills，帮助AI在开发前端界面时保持一致的技术栈选择、交互、可访问性与性能纪律。",
+      "category": "写代码",
       "rating": "B",
-      "url": "file:///Users/mauricewen/.claude/skills/ui-skills",
+      "url": "https://www.ui-skills.com/",
       "stars": 0,
       "downloads": 0,
       "versions": 1,
       "editorialTagline": "该 Skill 用于把 **UI Skills**（一套面向 agents 的“主观 UI 约束”）安装为 Claude Code Skills，帮助 AI 在",
       "icon": "lightbulb",
-      "tags": [],
-      "stale": true,
+      "tags": [
+        "ui",
+        "frontend",
+        "claude code",
+        "accessibility",
+        "performance"
+      ],
+      "stale": false,
       "deployCount": 0,
       "deploySuccessRate": 0,
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ui-skills-core",
@@ -13865,7 +14025,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ui-ux-pro-max",
@@ -13901,7 +14061,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/user-personas",
@@ -13936,7 +14096,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/user-segmentation",
@@ -13973,7 +14133,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/user-stories",
@@ -14007,7 +14167,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/using-git-worktrees",
@@ -14043,7 +14203,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/using-superpowers",
@@ -14079,7 +14239,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/uxc-universal-cli",
@@ -14117,28 +14277,32 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/valq-powerbi-planning",
       "name": "valq-powerbi-planning",
       "author": "local",
       "source": "local",
-      "description": "ValQ 的定位（从官网信息抽象）： - 做 **sales/finance/operations** 场景规划、预算与预测 - 支持 **what-if simulations / forecasts / budgets** - 支持多人 **协作填报与校验** - 支持 **安全写回（write back）** 到目标存储 - 支持为 **CXO/高管** 做“可视化 + 演示级汇报” 来源：[valq.com](https://valq.com/)",
-      "descriptionZh": "ValQ 的定位（从官网信息抽象）： - 做 **sales/finance/operations** 场景规划、预算与预测 - 支持 **what-if simulations / forecasts / budgets** - 支持多人 **协作填报与校验** - 支持 **安全写回（write back）** 到目标存储 - 支持为 **CXO/高管** 做“可视化 + 演示级汇报” 来源：[valq.com](https://valq.com/)",
-      "category": "做业务",
+      "description": "Provides ValQ-style scenario planning, budgeting, and forecasting skills, supporting what-if simulations, collaborative data entry, write-back, and executive reporting. Outputs frontend component specs, ECharts chart specs, planning models, and API contracts.",
+      "descriptionZh": "提供ValQ风格的场景规划、预算与预测技能，支持假设模拟、协作填报、安全写回及高管汇报。可输出前端组件蓝图、ECharts图表协议、规划模型及API契约。",
+      "category": "场景规划",
       "rating": "A",
-      "url": "file:///Users/mauricewen/.claude/skills/valq-powerbi-planning",
+      "url": "https://valq.com",
       "stars": 1330,
       "downloads": 45880,
       "versions": 5,
       "editorialTagline": "把 ValQ 展示出来的“规划/预测/情景模拟/协作填报/安全写回/高管汇报”抽象成前端可复用的组件与图表协议（Comp...",
       "icon": "verified_user",
       "tags": [
-        "python",
-        "go"
+        "planning",
+        "budgeting",
+        "forecasting",
+        "what-if",
+        "echarts",
+        "writeback"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 26303,
       "deploySuccessRate": 0.8608560460168323,
       "reviewUp": 1973,
@@ -14149,7 +14313,10 @@
         "network_access": "full",
         "filesystem_access": "write"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/value-prop-statements",
@@ -14183,7 +14350,7 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/value-proposition",
@@ -14219,7 +14386,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/verification-before-completion",
@@ -14255,7 +14422,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/vibe-debug",
@@ -14292,7 +14459,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/Video & Podcast Digest Skill",
@@ -14324,9 +14491,9 @@
       "name": "video-constrict",
       "author": "local",
       "source": "local",
-      "description": "基于 [Constrict](https://github.com/Wartybix/Constrict) 的视频压缩能力，将视频压缩到指定的目标文件大小。非常适合上传到有文件大小限制的平台（如 Discord 8MB/25MB、Telegram 50MB、Twitter 512MB 等）。",
-      "descriptionZh": "基于 [Constrict](https://github.com/Wartybix/Constrict) 的视频压缩能力，将视频压缩到指定的目标文件大小。非常适合上传到有文件大小限制的平台（如 Discord 8MB/25MB、Telegram 50MB、Twitter 512MB 等）。",
-      "category": "做产品",
+      "description": "A smart video compression tool based on Constrict that automatically calculates the optimal bitrate, resolution, and framerate to compress videos to a specific target size. Ideal for meeting file size upload limits on platforms like Discord and Telegram.",
+      "descriptionZh": "基于 Constrict 的智能视频压缩工具，可自动计算最佳比特率、分辨率和帧率，将视频精确压缩至指定大小。适用于满足 Discord、Telegram 等平台的文件大小上传限制。",
+      "category": "Agent 工具",
       "rating": "C",
       "url": "file:///Users/mauricewen/.claude/skills/video-constrict",
       "stars": 1528,
@@ -14335,11 +14502,13 @@
       "editorialTagline": "",
       "icon": "lightbulb",
       "tags": [
-        "python",
-        "claude-code",
-        "go"
+        "video",
+        "compression",
+        "ffmpeg",
+        "constrict",
+        "cli"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 13732,
       "deploySuccessRate": 0.6054374643616076,
       "reviewUp": 297,
@@ -14349,7 +14518,10 @@
         "shell_execution": true,
         "network_access": "full"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 1.0,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-download",
@@ -14383,7 +14555,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-edit",
@@ -14420,7 +14592,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-media-pipeline",
@@ -14454,7 +14626,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-reader",
@@ -14491,7 +14663,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-translate",
@@ -14528,7 +14700,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video-understand",
@@ -14566,7 +14738,7 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/vmo-wrangler",
@@ -14602,7 +14774,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/voice",
@@ -14638,7 +14810,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/wcdb-decryption-pattern",
@@ -14673,7 +14845,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-fetch",
@@ -14708,28 +14880,32 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-interface-guidelines",
       "name": "web-interface-guidelines",
       "author": "local",
       "source": "local",
-      "description": "该 Skill 用于把 **Vercel Web Interface Guidelines**（一套面向“可访问性/交互/性能/视觉细节”的 UI 规范）安装为 Claude Code Skills，便于 AI 在做前端界面时遵循统一的高质量标准。",
-      "descriptionZh": "该 Skill 用于把 **Vercel Web Interface Guidelines**（一套面向“可访问性/交互/性能/视觉细节”的 UI 规范）安装为 Claude Code Skills，便于 AI 在做前端界面时遵循统一的高质量标准。",
-      "category": "做产品",
+      "description": "This skill installs the Vercel Web Interface Guidelines as a Claude Code skill, helping AI follow high-quality standards for accessibility, interaction, performance, and visual details when building frontend interfaces.",
+      "descriptionZh": "该技能将 Vercel Web Interface Guidelines 安装为 Claude Code 技能，帮助 AI 在开发前端界面时遵循可访问性、交互、性能和视觉细节的高质量标准。",
+      "category": "写代码",
       "rating": "C",
-      "url": "file:///Users/mauricewen/.claude/skills/web-interface-guidelines",
+      "url": "https://vercel.com/design/guidelines",
       "stars": 890,
       "downloads": 23629,
       "versions": 4,
       "editorialTagline": "",
       "icon": "lightbulb",
       "tags": [
-        "rag",
-        "react"
+        "vercel",
+        "ui",
+        "frontend",
+        "guidelines",
+        "accessibility",
+        "claude-code"
       ],
-      "stale": true,
+      "stale": false,
       "deployCount": 6689,
       "deploySuccessRate": 0.40364981949346007,
       "reviewUp": 775,
@@ -14739,7 +14915,10 @@
         "network_access": "full",
         "filesystem_access": "write"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "confidence": 0.95,
+      "hallucinationRisk": "low",
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-interface-guidelines-core",
@@ -14774,7 +14953,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-scraping-pipeline",
@@ -14808,7 +14987,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-search",
@@ -14845,7 +15024,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/web-search-swarm",
@@ -14879,7 +15058,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/wechat-cn-social-swarm",
@@ -14913,7 +15092,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/wechat-content-pipeline",
@@ -14949,7 +15128,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/wecom-cli",
@@ -14985,7 +15164,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/workflow-meta-swarm",
@@ -15020,7 +15199,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/workflow-router",
@@ -15056,7 +15235,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/write",
@@ -15089,7 +15268,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/writing-plans",
@@ -15126,7 +15305,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/writing-skills",
@@ -15163,7 +15342,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/wwas",
@@ -15200,7 +15379,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/x-article-publisher-skill",
@@ -15236,7 +15415,7 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/x-reader",
@@ -15273,7 +15452,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/youtube-clipper-skill",
@@ -15309,7 +15488,7 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/zread-introspection",
@@ -15343,7 +15522,7 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/base",
@@ -15370,7 +15549,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/brainstorm-okrs",
@@ -15396,7 +15575,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/code_gen",
@@ -15422,7 +15601,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/discord-access",
@@ -15448,7 +15627,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/discord-configure",
@@ -15474,7 +15653,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/gtm-strategy",
@@ -15500,7 +15679,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/ideal-customer-profile",
@@ -15526,7 +15705,7 @@
       "stale": false,
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/impeccable",
@@ -15552,7 +15731,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/loop-executor",
@@ -15578,7 +15757,7 @@
       "stale": false,
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/magazine-web-ppt",
@@ -15605,7 +15784,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/music-listener",
@@ -15632,7 +15811,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/north-star-metric",
@@ -15658,7 +15837,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/product-vision",
@@ -15683,7 +15862,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/research-docs",
@@ -15709,7 +15888,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/telegram-access",
@@ -15736,7 +15915,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/track-manager",
@@ -15762,7 +15941,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/video",
@@ -15788,7 +15967,7 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/visual-style",
@@ -15814,7 +15993,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     },
     {
       "id": "local/writing-rules",
@@ -15840,7 +16019,7 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-15T23:50:42Z"
+      "enrichedAt": "2026-05-16T02:14:38Z"
     }
   ]
 }
