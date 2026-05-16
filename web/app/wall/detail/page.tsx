@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://openclaw-foundry-api.maurice-wen.workers.dev';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
 
 function getAnonUid(): string {
   if (typeof window === 'undefined') return '';
