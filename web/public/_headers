@@ -1,0 +1,22 @@
+# Cloudflare Pages _headers — caching and compression directives
+# Format: path on first line, header pairs indented below
+# Reference: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Skill catalog JSON — primary cohort browsing payload (~1MB raw / ~200KB gzip)
+# max-age=3600: browser caches 1 hour (catalog updates ~daily at most)
+# s-maxage=86400: CDN edge caches 24 hours (cohort visits propagate fast across regions)
+# stale-while-revalidate=604800: serve stale up to 7 days while fetching fresh (zero perceived latency on staleness)
+/data/skills.json
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+  Vary: Accept-Encoding
+
+# Categories index (smaller payload, same cohort browsing flow)
+/data/skills-categories.json
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+  Vary: Accept-Encoding
+
+# Static install scripts under /packs/<slug>/install.sh — versioned by manifest
+# 5 min browser cache + 1 hour edge (allows fast manifest bump rollout)
+/packs/*
+  Cache-Control: public, max-age=300, s-maxage=3600
+  Vary: Accept-Encoding
