@@ -4,14 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 
-// T4 IA restructure: home IS the Agent Capability Marketplace, so /explore/skills
-// is dropped from the visible nav (route still alive as alias for old links).
+// 2026-05-16 cohort-focus IA: 3-advisor swarm (Hara + Jobs + Godin) converged
+// unanimously — remove /api-docs, /arena, /explore/platforms from nav. Pages
+// stay live at URLs for admin/dev direct access. Cohort use case = browse +
+// install skills/packs; nav must signal "this is for you" not "this is a
+// developer platform". Audit: outputs/reports/research-learning-swarm/
+// 2026-05-16-skill-pipeline-audit.{md,html}
 const NAV_ITEMS = [
   { href: '/', key: 'nav.home' },
   { href: '/packs', key: 'nav.packs' },
-  { href: '/api-docs', key: 'nav.api' },
-  { href: '/arena', key: 'nav.arena' },
-  { href: '/explore/platforms', key: 'nav.deploy' },
 ];
 
 export function TopNav() {
