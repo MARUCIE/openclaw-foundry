@@ -47,7 +47,8 @@
       "dropped": 0,
       "model": "POE Gemini-3.1-Pro",
       "method": "delta-append (additive, non-destructive)"
-    }
+    },
+    "lastDeployRetry": "2026-05-16T08:59:39Z"
   },
   "total": 459,
   "skills": [
