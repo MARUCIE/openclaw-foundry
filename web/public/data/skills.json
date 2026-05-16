@@ -86,7 +86,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/ab-test-analysis",
@@ -263,7 +264,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/agent-browser-codex",
@@ -297,7 +299,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/agent-development",
@@ -334,7 +337,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/agent-eval-system",
@@ -370,7 +374,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/agent-factory",
@@ -406,7 +411,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/agent-pack-n-go",
@@ -443,7 +449,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/agent-reach",
@@ -482,7 +489,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/agent-teams-swarm",
@@ -518,7 +526,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/agentic-engineering-ceo-mode",
@@ -554,7 +563,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ai-drawio",
@@ -590,7 +600,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/ai-flow-contract",
@@ -696,7 +707,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ai-video-gen",
@@ -733,7 +745,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/algorithm-data-swarm",
@@ -872,7 +885,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/animate",
@@ -1012,7 +1026,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/antv-infographic",
@@ -1049,7 +1064,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/anything-to-notebooklm",
@@ -1085,7 +1101,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/architecture-lead",
@@ -1119,7 +1136,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/art",
@@ -1224,7 +1242,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/autoresearch",
@@ -1297,7 +1316,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/base-ui",
@@ -1403,7 +1423,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/bmad-method",
@@ -1437,7 +1458,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/board-of-directors",
@@ -1754,7 +1776,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/browser-automation-pipeline",
@@ -1788,7 +1811,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/build-mcp-app",
@@ -1826,7 +1850,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/build-mcp-server",
@@ -2071,7 +2096,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/check",
@@ -2143,7 +2169,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/clarify",
@@ -2216,7 +2243,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/claude-code-best-practices",
@@ -2252,7 +2280,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/claude-code-boris-tips",
@@ -2288,7 +2317,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/claude-code-insights",
@@ -2323,7 +2353,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/claude-hud",
@@ -2360,7 +2391,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/claude-md-improver",
@@ -2397,7 +2429,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/claude-model-bridge",
@@ -2431,7 +2464,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/claude-opus-chatstyle",
@@ -2541,7 +2575,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/cli-supervisor",
@@ -2579,7 +2614,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/code-quality-swarm",
@@ -2684,7 +2720,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/codex-relay-pipeline",
@@ -2718,7 +2755,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/codex-result-handling",
@@ -2751,7 +2789,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/coding-agent",
@@ -2821,7 +2860,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/cognitive-skeleton",
@@ -2960,7 +3000,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/competitive-battlecard",
@@ -3103,7 +3144,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/connected-cli-pipeline",
@@ -3138,7 +3180,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/content-creation-swarm",
@@ -3277,7 +3320,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/continue-workflow",
@@ -3313,7 +3357,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/craft-agents-oss",
@@ -3350,7 +3395,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/create-onboarding-video",
@@ -3459,7 +3505,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/creating-skills",
@@ -3493,7 +3540,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/critique",
@@ -3742,7 +3790,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/deep-learning-skill",
@@ -3881,7 +3930,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/design",
@@ -4057,7 +4107,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "local/development-ops-swarm",
@@ -4127,7 +4178,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/diceui",
@@ -4201,7 +4253,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/access",
@@ -4232,7 +4285,8 @@
         "shell_execution": true,
         "filesystem_access": "write"
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/configure",
@@ -4257,7 +4311,8 @@
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "subCategory": "文件处理"
     },
     {
       "id": "local/discover-useful-websites",
@@ -4325,7 +4380,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/distill",
@@ -4396,7 +4452,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/docling-vlm-pdf",
@@ -4471,7 +4528,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/document-illustrator",
@@ -4504,7 +4562,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/dot-cloud-morphing",
@@ -4651,7 +4710,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/ebook-to-notebooklm",
@@ -4762,7 +4822,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/engineering-protocol",
@@ -4834,7 +4895,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/eval-code-quality",
@@ -4903,7 +4965,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/eval-ui-ux",
@@ -4940,7 +5003,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/everything-claude-code",
@@ -4976,7 +5040,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/example-command",
@@ -5012,7 +5077,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/example-skill",
@@ -5048,7 +5114,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/executing-plans",
@@ -5084,7 +5151,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/extract",
@@ -5155,7 +5223,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/figma-vectorizer",
@@ -5191,7 +5260,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/finance-tax-swarm",
@@ -5296,7 +5366,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/fri-portfolio",
@@ -5403,7 +5474,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/ft-accountant",
@@ -6016,7 +6088,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ft-risk-assessment",
@@ -6357,7 +6430,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/game-dev-swarm",
@@ -6391,7 +6465,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/git-commit",
@@ -6460,7 +6535,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/github-pr-creation",
@@ -6604,7 +6680,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/go",
@@ -6637,7 +6714,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/gpt-5-4-prompting",
@@ -6673,7 +6751,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/grammar-check",
@@ -7191,7 +7270,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/health",
@@ -7225,7 +7305,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/hermes-ecosystem-radar",
@@ -7259,7 +7340,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/heygen",
@@ -7296,7 +7378,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/hook-development",
@@ -7334,7 +7417,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/html-ppt",
@@ -7505,7 +7589,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/hyperframes-registry",
@@ -7574,7 +7659,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/icon-design-swarm",
@@ -7715,7 +7801,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/impeccable",
@@ -7810,7 +7897,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/interview-script",
@@ -7950,7 +8038,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/jh3y-hover-cards",
@@ -8091,7 +8180,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/kumo-ui",
@@ -8160,7 +8250,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/lean-canvas",
@@ -8268,7 +8359,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/ljg-cognitive-swarm",
@@ -8304,7 +8396,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/lobe-icons",
@@ -8341,7 +8434,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/logo-generator",
@@ -8409,7 +8503,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/loop-fixer",
@@ -8481,7 +8576,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/loop-planner",
@@ -8725,7 +8821,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/math-olympiad",
@@ -8760,7 +8857,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/mcp-integration",
@@ -8798,7 +8896,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/memory-management",
@@ -8832,7 +8931,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/message-bus",
@@ -8868,7 +8968,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/metrics-dashboard",
@@ -8970,7 +9071,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/multi-role-brainstorm",
@@ -9041,7 +9143,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/Music Listener",
@@ -9413,7 +9516,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/notebooklm-pipeline",
@@ -9518,7 +9622,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/oc-wrapped",
@@ -9619,7 +9724,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ontology-audit-swarm",
@@ -9727,7 +9833,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/opportunity-solution-tree",
@@ -9836,7 +9943,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/osint-framework",
@@ -9943,7 +10051,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/pdca-iteration-pipeline",
@@ -9977,7 +10086,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/pdf-layout-analysis",
@@ -10191,7 +10301,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/pinchtab-browser",
@@ -10225,7 +10336,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "local/pixelle-video",
@@ -10261,7 +10373,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/plan-critiquer",
@@ -10332,7 +10445,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/planning-with-files-manus",
@@ -10366,7 +10480,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/playground",
@@ -10434,7 +10549,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/plugin-structure",
@@ -10472,7 +10588,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/pm-execution-swarm",
@@ -10612,7 +10729,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/polish",
@@ -11282,7 +11400,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/prompt-fill",
@@ -11318,7 +11437,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/qa-lead",
@@ -11387,7 +11507,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/quieter",
@@ -11457,7 +11578,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ralph-loop-codex",
@@ -11490,7 +11612,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/ralph-wiggum",
@@ -11524,7 +11647,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/rateyourmusic-genres",
@@ -11630,7 +11754,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/read",
@@ -11665,7 +11790,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/readwise-cli",
@@ -11701,7 +11827,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/receiving-code-review",
@@ -11807,7 +11934,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/release-notes",
@@ -12042,7 +12170,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/review-resume",
@@ -12116,7 +12245,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/scrapling-crawler",
@@ -12153,7 +12283,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/self-improving-agent",
@@ -12189,7 +12320,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/self-management",
@@ -12223,7 +12355,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/self-reflection",
@@ -12257,7 +12390,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/selfie",
@@ -12293,7 +12427,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/send-file",
@@ -12330,7 +12465,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/sentiment-analysis",
@@ -12400,7 +12536,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "local/skill-creator",
@@ -12436,7 +12573,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/skill-development",
@@ -12473,7 +12611,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/skill-from-masters",
@@ -12508,7 +12647,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/skill-hub",
@@ -12544,7 +12684,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/skill-ops-pipeline",
@@ -12578,7 +12719,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/skill-vetter",
@@ -12616,7 +12758,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/skills-marketplace",
@@ -12650,7 +12793,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/skills-video",
@@ -12687,7 +12831,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/splashboard",
@@ -12967,7 +13112,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/structured-web-extraction",
@@ -13035,7 +13181,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/subagent-driven-development",
@@ -13176,7 +13323,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/svgl-shadcn-ui",
@@ -13251,7 +13399,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/swot-analysis",
@@ -13358,7 +13507,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/tanstack-start-dashboard",
@@ -13465,7 +13615,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/team-finance-tax",
@@ -13499,7 +13650,8 @@
       "permissionManifest": {},
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/tech-lead",
@@ -13569,7 +13721,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/test-driven-development",
@@ -13713,7 +13866,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/think",
@@ -13781,7 +13935,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/tmux-bridge",
@@ -13819,7 +13974,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/tradingagents-cn",
@@ -13853,7 +14009,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/travel",
@@ -13887,7 +14044,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/tri-ownership",
@@ -13959,7 +14117,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/ui-skills",
@@ -14241,7 +14400,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/uxc-universal-cli",
@@ -14279,7 +14439,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/valq-powerbi-planning",
@@ -14523,7 +14684,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/video-download",
@@ -14557,7 +14719,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/video-edit",
@@ -14594,7 +14757,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/video-media-pipeline",
@@ -14628,7 +14792,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/video-reader",
@@ -14665,7 +14830,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/video-translate",
@@ -14702,7 +14868,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/video-understand",
@@ -14740,7 +14907,8 @@
       "sourceLocal": "claude",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/vmo-wrangler",
@@ -14812,7 +14980,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/wcdb-decryption-pattern",
@@ -14882,7 +15051,8 @@
       "permissionManifest": {},
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/web-interface-guidelines",
@@ -15026,7 +15196,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/web-search-swarm",
@@ -15094,7 +15265,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/wechat-content-pipeline",
@@ -15166,7 +15338,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/workflow-meta-swarm",
@@ -15201,7 +15374,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/workflow-router",
@@ -15344,7 +15518,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/wwas",
@@ -15417,7 +15592,8 @@
       "sourceLocal": "claude",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/x-reader",
@@ -15454,7 +15630,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "local/youtube-clipper-skill",
@@ -15490,7 +15667,8 @@
       "sourceLocal": "claude",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/zread-introspection",
@@ -15524,7 +15702,8 @@
       "permissionManifest": {},
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/base",
@@ -15551,7 +15730,8 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/brainstorm-okrs",
@@ -15629,7 +15809,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "local/discord-configure",
@@ -15655,7 +15836,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "local/gtm-strategy",
@@ -15813,7 +15995,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/north-star-metric",
@@ -15917,7 +16100,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/track-manager",
@@ -15943,7 +16127,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "local/video",
@@ -15969,7 +16154,8 @@
       "stale": false,
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "local/visual-style",
@@ -16021,7 +16207,8 @@
       "stale": false,
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T02:14:38Z"
+      "enrichedAt": "2026-05-16T02:14:38Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "advisor-council",
@@ -16091,7 +16278,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agent-browser-session/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:03Z"
+      "enrichedAt": "2026-05-16T07:25:03Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "agent-browser-electron",
@@ -16126,7 +16314,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agent-browser-electron/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:03Z"
+      "enrichedAt": "2026-05-16T07:25:03Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "adversarial-review",
@@ -16196,7 +16385,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agent-browser-slack/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:07Z"
+      "enrichedAt": "2026-05-16T07:25:07Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "agent-fetch",
@@ -16231,7 +16421,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agent-fetch/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:10Z"
+      "enrichedAt": "2026-05-16T07:25:10Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "agentlens",
@@ -16583,7 +16774,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ask-search/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:31Z"
+      "enrichedAt": "2026-05-16T07:25:31Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "apify-trend-analysis",
@@ -16653,7 +16845,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/asset-audit/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:34Z"
+      "enrichedAt": "2026-05-16T07:25:34Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "babysit-pr",
@@ -16722,7 +16915,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/baoyu-translate/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:39Z"
+      "enrichedAt": "2026-05-16T07:25:39Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "balance-check",
@@ -16827,7 +17021,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bestblogs-daily-digest/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:45Z"
+      "enrichedAt": "2026-05-16T07:25:45Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "bigdata-core",
@@ -17076,7 +17271,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/capability-evolver/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:00Z"
+      "enrichedAt": "2026-05-16T07:26:00Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "cc-forge",
@@ -17111,7 +17307,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/cc-forge/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:01Z"
+      "enrichedAt": "2026-05-16T07:26:01Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "changelog",
@@ -17180,7 +17377,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/claude-conductor/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:06Z"
+      "enrichedAt": "2026-05-16T07:26:06Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "classical-language-safety-audit",
@@ -17252,7 +17450,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/claude-to-im/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:10Z"
+      "enrichedAt": "2026-05-16T07:26:10Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "code-review",
@@ -17428,7 +17627,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-doc/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:19Z"
+      "enrichedAt": "2026-05-16T07:26:19Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "codex-figma",
@@ -17568,7 +17768,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma-generate-library/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:27Z"
+      "enrichedAt": "2026-05-16T07:26:27Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "codex-figma-implement-design",
@@ -17816,7 +18017,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-pdf/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:43Z"
+      "enrichedAt": "2026-05-16T07:26:43Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "codex-review",
@@ -17957,7 +18159,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-slides/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:51Z"
+      "enrichedAt": "2026-05-16T07:26:51Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "codex-spreadsheet",
@@ -18097,7 +18300,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/composio-skills/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:59Z"
+      "enrichedAt": "2026-05-16T07:26:59Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "conductor-agent-factory",
@@ -18131,7 +18335,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-agent-factory/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:00Z"
+      "enrichedAt": "2026-05-16T07:27:00Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-board",
@@ -18166,7 +18371,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-board/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:02Z"
+      "enrichedAt": "2026-05-16T07:27:02Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-cto-advisor",
@@ -18236,7 +18442,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-evaluators/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:06Z"
+      "enrichedAt": "2026-05-16T07:27:06Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-go",
@@ -18270,7 +18477,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-go/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:06Z"
+      "enrichedAt": "2026-05-16T07:27:06Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "conductor-knowledge",
@@ -18304,7 +18512,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-knowledge/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:09Z"
+      "enrichedAt": "2026-05-16T07:27:09Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-leads",
@@ -18339,7 +18548,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-leads/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:13Z"
+      "enrichedAt": "2026-05-16T07:27:13Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-message-bus",
@@ -18374,7 +18584,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-message-bus/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:13Z"
+      "enrichedAt": "2026-05-16T07:27:13Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "conductor-parallel",
@@ -18409,7 +18620,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-parallel/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:13Z"
+      "enrichedAt": "2026-05-16T07:27:13Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "confidence-check",
@@ -18479,7 +18691,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/continuous-learning-v2/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:17Z"
+      "enrichedAt": "2026-05-16T07:27:17Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "data-pipeline",
@@ -18550,7 +18763,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/continue/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:20Z"
+      "enrichedAt": "2026-05-16T07:27:20Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "database-designer",
@@ -18901,7 +19115,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/deploy-preview/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:43Z"
+      "enrichedAt": "2026-05-16T07:27:43Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "design-system",
@@ -19007,7 +19222,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/downloadhd/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:49Z"
+      "enrichedAt": "2026-05-16T07:27:49Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "drawio-diagram",
@@ -19078,7 +19294,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/enterprise-agent-ops/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:55Z"
+      "enrichedAt": "2026-05-16T07:27:55Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "estimate",
@@ -19148,7 +19365,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/excalidraw-diagram-skill/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:57Z"
+      "enrichedAt": "2026-05-16T07:27:57Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "fastapi-templates",
@@ -19253,7 +19471,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/find-skills/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:03Z"
+      "enrichedAt": "2026-05-16T07:28:03Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "feishu-group",
@@ -19288,7 +19507,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/feishu-group/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:06Z"
+      "enrichedAt": "2026-05-16T07:28:06Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "firecrawl-skill",
@@ -19323,7 +19543,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/firecrawl-skill/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:08Z"
+      "enrichedAt": "2026-05-16T07:28:08Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "flutter-development",
@@ -19465,7 +19686,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ghost-os-automation/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:16Z"
+      "enrichedAt": "2026-05-16T07:28:16Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "gitnexus-debugging",
@@ -19674,7 +19896,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/goal/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:27Z"
+      "enrichedAt": "2026-05-16T07:28:27Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "grok-search",
@@ -19709,7 +19932,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/grok-search/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:31Z"
+      "enrichedAt": "2026-05-16T07:28:31Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "gs-brainstorm",
@@ -19921,7 +20145,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/harness-engineering/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:40Z"
+      "enrichedAt": "2026-05-16T07:28:40Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "hotfix",
@@ -20168,7 +20393,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-slides-router/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:56Z"
+      "enrichedAt": "2026-05-16T07:28:56Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "html-slides-terracotta",
@@ -20343,7 +20569,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/infra-patrol/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:06Z"
+      "enrichedAt": "2026-05-16T07:29:06Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "ios-swiftui-expert",
@@ -20413,7 +20640,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-style-router/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:07Z"
+      "enrichedAt": "2026-05-16T07:29:07Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "json-canvas",
@@ -20483,7 +20711,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/karpathy-autoresearch/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:15Z"
+      "enrichedAt": "2026-05-16T07:29:15Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "knowledge-site-creator",
@@ -20623,7 +20852,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-calendar/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:21Z"
+      "enrichedAt": "2026-05-16T07:29:21Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "ljg-card",
@@ -20659,7 +20889,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-card/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:23Z"
+      "enrichedAt": "2026-05-16T07:29:23Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "ljg-clip",
@@ -20694,7 +20925,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-clip/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:26Z"
+      "enrichedAt": "2026-05-16T07:29:26Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "ljg-explain-concept",
@@ -20868,7 +21100,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-fetch/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:34Z"
+      "enrichedAt": "2026-05-16T07:29:34Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "ljg-invest",
@@ -21149,7 +21382,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-skill-map/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:51Z"
+      "enrichedAt": "2026-05-16T07:29:51Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "ljg-roundtable",
@@ -21358,7 +21592,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-word-flow/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:59Z"
+      "enrichedAt": "2026-05-16T07:29:59Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "ljg-writes",
@@ -21462,7 +21697,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-x-download/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:06Z"
+      "enrichedAt": "2026-05-16T07:30:06Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "ljg-xray-book",
@@ -21532,7 +21768,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-xray-prompt/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:12Z"
+      "enrichedAt": "2026-05-16T07:30:12Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "ljg-xray-skill",
@@ -21778,7 +22015,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/makeownsrt/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:25Z"
+      "enrichedAt": "2026-05-16T07:30:25Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "map-systems",
@@ -21989,7 +22227,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/multi-search-engine/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:38Z"
+      "enrichedAt": "2026-05-16T07:30:38Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "n8n-automation",
@@ -22025,7 +22264,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/n8n-automation/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:40Z"
+      "enrichedAt": "2026-05-16T07:30:40Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "new-api-endpoint",
@@ -22096,7 +22336,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/nanobanana-image-gen/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:44Z"
+      "enrichedAt": "2026-05-16T07:30:44Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "new-migration",
@@ -22167,7 +22408,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/obsidian-bases/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:48Z"
+      "enrichedAt": "2026-05-16T07:30:48Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "nuwa-world-osint-human-research",
@@ -22273,7 +22515,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/obsidian-markdown/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:53Z"
+      "enrichedAt": "2026-05-16T07:30:53Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "oncall-runner",
@@ -22308,7 +22551,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/oncall-runner/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:55Z"
+      "enrichedAt": "2026-05-16T07:30:55Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "openai-prompt-packs",
@@ -22343,7 +22587,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/openai-prompt-packs/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:56Z"
+      "enrichedAt": "2026-05-16T07:30:56Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "orphan-cleanup",
@@ -22588,7 +22833,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pipeline-triage/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:13Z"
+      "enrichedAt": "2026-05-16T07:31:13Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "playtest-report",
@@ -22658,7 +22904,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/playwright-codex/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:15Z"
+      "enrichedAt": "2026-05-16T07:31:15Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "pm-cmd-analyze-cohorts",
@@ -22729,7 +22976,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/playwright-interactive/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:20Z"
+      "enrichedAt": "2026-05-16T07:31:20Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "pm-cmd-analyze-feedback",
@@ -24060,7 +24308,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pptgen-drawio/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:33Z"
+      "enrichedAt": "2026-05-16T07:32:33Z",
+      "subCategory": "文件处理"
     },
     {
       "id": "project-stage-detect",
@@ -24095,7 +24344,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/project-stage-detect/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:34Z"
+      "enrichedAt": "2026-05-16T07:32:34Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "prototype",
@@ -24200,7 +24450,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/qiaomu-x-article-publisher/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:42Z"
+      "enrichedAt": "2026-05-16T07:32:42Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "qiaomu-x-article-publisher-github",
@@ -24235,7 +24486,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/qiaomu-x-article-publisher-github/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:45Z"
+      "enrichedAt": "2026-05-16T07:32:45Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "rag-architect",
@@ -24306,7 +24558,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/qiaomu-mondo-poster-design/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:51Z"
+      "enrichedAt": "2026-05-16T07:32:51Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "release-checklist",
@@ -24410,7 +24663,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/reports/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:53Z"
+      "enrichedAt": "2026-05-16T07:32:53Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "research-paper-writing",
@@ -24655,7 +24909,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/screenshot-codex/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:15Z"
+      "enrichedAt": "2026-05-16T07:33:15Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "security-best-practices",
@@ -24867,7 +25122,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/skill-group-loop/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:29Z"
+      "enrichedAt": "2026-05-16T07:33:29Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "skill-prompt-convert",
@@ -24901,7 +25157,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/skill-prompt-convert/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:33Z"
+      "enrichedAt": "2026-05-16T07:33:33Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "skill-publisher",
@@ -24936,7 +25193,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/skill-publisher/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:35Z"
+      "enrichedAt": "2026-05-16T07:33:35Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "sprint-pipeline-v2",
@@ -24971,7 +25229,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/sprint-pipeline-v2/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:37Z"
+      "enrichedAt": "2026-05-16T07:33:37Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "standup-post",
@@ -25006,7 +25265,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/standup-post/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:42Z"
+      "enrichedAt": "2026-05-16T07:33:42Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "start",
@@ -25076,7 +25336,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/strategic-compact/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:44Z"
+      "enrichedAt": "2026-05-16T07:33:44Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "supermemory",
@@ -25111,7 +25372,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/supermemory/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:49Z"
+      "enrichedAt": "2026-05-16T07:33:49Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "summarize",
@@ -25146,7 +25408,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/summarize/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:50Z"
+      "enrichedAt": "2026-05-16T07:33:50Z",
+      "subCategory": "通用 Agent 工具"
     },
     {
       "id": "swarm-ops",
@@ -25181,7 +25444,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/swarm-ops/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:51Z"
+      "enrichedAt": "2026-05-16T07:33:51Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "tavily-search",
@@ -25216,7 +25480,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/tavily-search/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:57Z"
+      "enrichedAt": "2026-05-16T07:33:57Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "team-combat",
@@ -25251,7 +25516,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-combat/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:58Z"
+      "enrichedAt": "2026-05-16T07:33:58Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "team-audio",
@@ -25286,7 +25552,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-audio/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:58Z"
+      "enrichedAt": "2026-05-16T07:33:58Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "team-narrative",
@@ -25322,7 +25589,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-narrative/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:05Z"
+      "enrichedAt": "2026-05-16T07:34:05Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "team-polish",
@@ -25357,7 +25625,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-polish/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:06Z"
+      "enrichedAt": "2026-05-16T07:34:06Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "team-level",
@@ -25462,7 +25731,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-ui/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:12Z"
+      "enrichedAt": "2026-05-16T07:34:12Z",
+      "subCategory": "LLM 工作流"
     },
     {
       "id": "test-runner",
@@ -25603,7 +25873,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/web-multi-search/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:28Z"
+      "enrichedAt": "2026-05-16T07:34:28Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "rpi-plan",
@@ -25673,7 +25944,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-article-search/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:32Z"
+      "enrichedAt": "2026-05-16T07:34:32Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "wechat-article-writer",
@@ -25743,7 +26015,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-db/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:40Z"
+      "enrichedAt": "2026-05-16T07:34:40Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "wechat-decrypt",
@@ -25814,7 +26087,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-multi/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:46Z"
+      "enrichedAt": "2026-05-16T07:34:46Z",
+      "subCategory": "桌面自动化"
     },
     {
       "id": "wechat-reader",
@@ -25848,7 +26122,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-reader/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:47Z"
+      "enrichedAt": "2026-05-16T07:34:47Z",
+      "subCategory": "网页抓取"
     },
     {
       "id": "trends24",
@@ -25953,7 +26228,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wecom-db/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:54Z"
+      "enrichedAt": "2026-05-16T07:34:54Z",
+      "subCategory": "API 集成"
     },
     {
       "id": "wechat-sns",
@@ -26128,7 +26404,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/xiaohongshu-automation/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:35:06Z"
+      "enrichedAt": "2026-05-16T07:35:06Z",
+      "subCategory": "浏览器自动化"
     },
     {
       "id": "yt-search-download",
@@ -26164,7 +26441,8 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/yt-search-download/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:35:08Z"
+      "enrichedAt": "2026-05-16T07:35:08Z",
+      "subCategory": "网页抓取"
     }
   ]
 }
