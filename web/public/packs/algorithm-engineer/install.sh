@@ -43,4 +43,22 @@ done < "$TSV"
 
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
-echo "  Restart Claude Code to activate."
+
+# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print it as next-step hint.
+# Fleet-wide leverage point — eliminates the "installed but unusable" UX gap across all 21 packs.
+HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
+import json, sys
+m = json.load(open(sys.argv[1]))
+fud = m.get('first_use_demo') or {}
+cmd = fud.get('command', '').strip()
+if cmd:
+    print(cmd)
+PYEOF2
+)
+if [ -n "$HINT" ]; then
+  echo ""
+  echo "  Now try:"
+  echo "    $HINT"
+else
+  echo "  Restart Claude Code to activate."
+fi

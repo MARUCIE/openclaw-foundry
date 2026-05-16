@@ -112,5 +112,11 @@
       "dst": "agents/advisor-catmull.md",
       "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill test-scenarios < skills/test/test-scenarios/SPEC.md",
+    "expected_output": "Structured test scenarios: objectives + starting conditions + step-by-step actions + expected outcomes for 1 user story",
+    "time_to_value_minutes": 5
+  }
 }

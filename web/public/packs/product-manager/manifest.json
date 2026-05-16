@@ -123,5 +123,11 @@
       "dst": "agents/advisor-catmull.md",
       "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill prototype < skills/design/prototype/SKILL.md",
+    "expected_output": "Clickable HTML prototype scaffold with ≥3 routes (landing/detail/empty) and design-system tokens applied",
+    "time_to_value_minutes": 10
+  }
 }

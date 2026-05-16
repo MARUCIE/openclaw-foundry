@@ -112,5 +112,11 @@
       "dst": "agents/advisor-hara.md",
       "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill design-review < skills/frontend/design-review/SPEC.md",
+    "expected_output": "Design review output: ≥3 specific UX/visual issues identified with screenshot-level evidence and fix prescription",
+    "time_to_value_minutes": 7
+  }
 }

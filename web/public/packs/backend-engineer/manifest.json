@@ -112,5 +112,11 @@
       "dst": "agents/advisor-brooks.md",
       "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill api-design-reviewer < skills/backend/api-design-reviewer/SPEC.md",
+    "expected_output": "Reviewed API contract: 1 endpoint analyzed, ≥3 concerns surfaced (auth scope, idempotency, error envelope) + actionable suggestions",
+    "time_to_value_minutes": 5
+  }
 }

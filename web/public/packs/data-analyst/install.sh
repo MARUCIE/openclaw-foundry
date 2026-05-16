@@ -42,6 +42,25 @@ done < "$TSV"
 
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
+# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print as next-step hint.
+HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
+import json, sys
+try:
+    m = json.load(open(sys.argv[1]))
+    fud = m.get("first_use_demo") or {}
+    cmd = fud.get("command", "").strip()
+    if cmd:
+        print(cmd)
+except Exception:
+    pass
+PYEOF2
+)
+if [ -n "$HINT" ]; then
+  echo ""
+  echo "  Now try:"
+  echo "    $HINT"
+fi
+
 echo ""
 echo "Uninstall:"
 echo "  rm -rf \$HOME/.claude/skills/analyze \\"
