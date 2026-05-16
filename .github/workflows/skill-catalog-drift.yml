@@ -1,0 +1,30 @@
+name: skill-catalog-health
+
+# Weekly catalog internal-consistency check.
+# Validates the published skills.json without needing AI-Fleet local sync.
+# (AI-Fleet drift = Maurice's local concern, runs separately via cron/script.)
+#
+# Fires Mondays 12:00 UTC (= 20:00 China Standard Time).
+# Fails CI on: duplicate names, missing required fields, fields >threshold% empty,
+# stale entries with no enrichedAt timestamp.
+
+on:
+  schedule:
+    - cron: '0 12 * * MON'
+  pull_request:
+    paths:
+      - 'web/public/data/skills.json'
+  workflow_dispatch:
+
+jobs:
+  consistency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Catalog internal consistency
+        run: python3 scripts/check-catalog-health.py --catalog web/public/data/skills.json --strict
