@@ -1,80 +1,26 @@
 #!/bin/bash
-# Agent Foundry - Spellbook Job Pack Installer (manifest-driven)
-# Pack: spellbook-frontend-engineer
-# Source of truth: AI-Fleet/configs/spellbook-packs.json
+# DEPRECATED ALIAS — see deprecated_alias_of in manifest.json
+# Non-destructive: this URL still works for backwards-compat with prior installs and
+# direct links. New installs should use the canonical pack at:
+#   https://openclaw-foundry.pages.dev/packs/frontend-engineer/install.sh
+#
+# spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 frontend-engineer 作为 canonical 入口
 set -euo pipefail
-PACK_ID="spellbook-frontend-engineer"
-# Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
-BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
-echo "Installing Spellbook Job Pack: $PACK_ID"
-echo "  Source: $BASE_URL"
-echo "  Target: $TARGET_DIR"
-echo ""
+LOSER_ID="spellbook-frontend-engineer"
+WINNER_ID="frontend-engineer"
+BASE_URL="${{FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}}"
 
-mkdir -p "$TARGET_DIR"
+cat <<EOF
 
-# Workspace for manifest + TSV
-WORK=$(mktemp -d)
-trap 'rm -rf "$WORK"' EXIT
-MANIFEST="$WORK/manifest.json"
-TSV="$WORK/items.tsv"
+  NOTE  This pack ($LOSER_ID) is now a deprecated alias of: $WINNER_ID
+  ────────────────────────────────────────────────────────────────────
+  spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 frontend-engineer 作为 canonical 入口
 
-echo "  -> Fetching manifest.json"
-curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
+  Redirecting install to canonical pack ...
+  Source: $BASE_URL/packs/$WINNER_ID/install.sh
 
-# Emit TSV: one (src, dst, type) per line. Single-quoted python script means
-# no f-string interpolation collides with the outer bash f-string.
-python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
-import json, sys
-m = json.load(open(sys.argv[1]))
-for item in m['items']:
-    print(item['src'], item['dst'], item['type'], sep='\t')
-PYEOF
+EOF
 
-N=$(wc -l < "$TSV" | tr -d ' ')
-echo "  -> $N artifacts to install"
-echo ""
-
-i=0
-while IFS=$'\t' read -r src dst typ; do
-  i=$((i+1))
-  full_dst="$TARGET_DIR/$dst"
-  mkdir -p "$(dirname "$full_dst")"
-  printf "  [%2d/%d] %-7s %s\n" "$i" "$N" "$typ" "$dst"
-  curl -sfL "$BASE_URL/$src" -o "$full_dst"
-done < "$TSV"
-
-echo ""
-echo "  OK Installed $N artifacts under $TARGET_DIR"
-# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print as next-step hint.
-HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
-import json, sys
-try:
-    m = json.load(open(sys.argv[1]))
-    fud = m.get("first_use_demo") or {}
-    cmd = fud.get("command", "").strip()
-    if cmd:
-        print(cmd)
-except Exception:
-    pass
-PYEOF2
-)
-if [ -n "$HINT" ]; then
-  echo ""
-  echo "  Now try:"
-  echo "    $HINT"
-fi
-
-echo ""
-echo "Next steps:"
-echo "  1. Restart Claude Code"
-echo "  2. Skills auto-trigger by description match"
-echo "  3. Agents:   Task(subagent_type=\"spellbook-<id>\")"
-echo "  4. Commands: /spellbook:<id>"
-echo ""
-echo "Uninstall: rm -rf \$HOME/.claude/skills/spellbook \\"
-echo "                  \$HOME/.claude/agents/spellbook \\"
-echo "                  \$HOME/.claude/commands/spellbook \\"
-echo "                  \$HOME/.claude/configs/lint/spellbook"
+# Execute the canonical installer; passes through env vars (INSTALL_DEST, etc.)
+exec bash -c "curl -fsSL '$BASE_URL/packs/$WINNER_ID/install.sh' | bash"

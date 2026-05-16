@@ -1,0 +1,32 @@
+{
+  "pack": "ab-test-analyst",
+  "version": "1.0.0",
+  "spec_version": "1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    }
+  ],
+  "first_use_demo": {
+    "command": "claude --skill ab-test-analysis 'design experiment for checkout button color change, 10K daily users'",
+    "expected_output": "MDE + sample size table + duration estimate + power analysis + go-live checklist",
+    "time_to_value_minutes": 6
+  }
+}

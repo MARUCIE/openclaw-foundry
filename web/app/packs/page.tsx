@@ -368,9 +368,12 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">{pack.icon}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="font-black text-xl tracking-tight truncate text-balance">
-            {pack.nameZh}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-black text-xl tracking-tight truncate text-balance">
+              {pack.nameZh}
+            </h3>
+            <TierBadge tier={pack.tier} />
+          </div>
           <div className="flex items-center gap-2 mt-1">
             <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40 truncate">{pack.name}</span>
             <span
@@ -478,8 +481,36 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           <span aria-hidden="true" className="material-symbols-outlined text-base font-black">{copied ? 'done_all' : 'content_copy'}</span>
           {copied ? t('packs.copied') : t('packs.copyInstall')}
         </button>
+        <a
+          href={`/packs/${pack.id}/guide.html`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border transition-all hover:bg-[var(--surface-container-low)]"
+          style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}
+        >
+          <span aria-hidden="true" className="material-symbols-outlined text-base">menu_book</span>
+          指导手册
+        </a>
         <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest text-center opacity-30 text-pretty">One-line terminal setup</p>
       </div>
     </div>
+  );
+}
+
+function TierBadge({ tier }: { tier?: 'stub' | 'enriched' | 'certified' }) {
+  if (!tier || tier === 'stub') return null;
+  const isCertified = tier === 'certified';
+  const bg = isCertified ? '#fbbf24' : '#3b82f6';
+  const fg = isCertified ? '#78350f' : '#1e3a8a';
+  const label = isCertified ? '已验证' : '已富化';
+  const titleText = isCertified ? 'Certified — 通过 PACK_SPEC v1.0 四支柱 + 生产 install.sh E2E 验证' : 'Enriched — 申明 spec_version 1.0 且声明 first_use_demo';
+  return (
+    <span
+      title={titleText}
+      className="shrink-0 px-2 py-0.5 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
+      style={{ background: bg, color: fg }}
+    >
+      {label}
+    </span>
   );
 }

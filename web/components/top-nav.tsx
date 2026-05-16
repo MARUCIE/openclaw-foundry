@@ -13,6 +13,10 @@ import { useI18n, LanguageSwitcher } from '@/lib/i18n';
 const NAV_ITEMS = [
   { href: '/', key: 'nav.home' },
   { href: '/packs', key: 'nav.packs' },
+  // 2026-05-16 cohort feedback channel — Before/After workflow stickwall;
+  // anonymous entries + comments, backed by Worker D1 v7. Sits AFTER packs
+  // because the use sequence is install pack → hit blocker → post to wall.
+  { href: '/wall', key: 'nav.wall' },
 ];
 
 export function TopNav() {

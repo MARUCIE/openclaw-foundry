@@ -1,0 +1,32 @@
+{
+  "pack": "investment-analyst",
+  "version": "1.0.0",
+  "spec_version": "1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    }
+  ],
+  "first_use_demo": {
+    "command": "claude --skill valuation 'run DCF on company X with 5y forecast'",
+    "expected_output": "DCF model with assumptions table + sensitivity analysis + memo draft",
+    "time_to_value_minutes": 8
+  }
+}

@@ -104,7 +104,27 @@ CLI 快捷方式（在 shell 里 `AI_FLEET=~/00-AI-Fleet`）：
 - 测试文件里残留的 AI prompt 原文 — commit 前清理
 - Fixture 里写死的生产形态 ID（真实纳税人识别号、真实银行账号）— 仅合成
 
-## 已激活 skill（通过 semantic_skill_router 预加载）
+## QA 工程师必须警告的 3 个真实反模式（不只是关键词，是真实失败）
+
+1. **Anti-pattern · Mock 真实集成边界 / Do not mock the real integration boundary** —
+   把 KSF 发票接口、Stripe webhook、第三方银行 API 替换成 mock，单测 100% 绿但生产首次握手就崩。
+   严禁在 `tests/integration/` 下用 mock 替代真实下游；mock 只能用于 `tests/unit/` 的边界外部件。
+   失败示例（2026-Q1）：业财对账模块所有 unit + integration mocked，上线第一笔真实发票就遇到对方 API 把
+   `amount` 序列化为字符串而非数字，本地测试全 PASS 现网立即 5xx — 因为我们从未真正打过那个接口。
+
+2. **Anti-pattern · 把 flaky test 直接 skip 永久关闭 / Never permanently skip flaky tests** —
+   `@pytest.mark.skip(reason="flaky")` 是承认失败而不是修复；这种 skip 会在 sprint 末累积成数十条
+   "已知未修" 债务，到法务/审计追溯时无法证明该路径曾被验证过。正确处理：先 `xfail(strict=False)` 标
+   记并开 ticket，30 天内必须给出根因或删除测试。避免用 skip 当作"先过了 CI 再说"的逃生口。
+
+3. **Anti-pattern · 在 production-like fixture 里放真实 PII / Forbidden: real PII in fixtures** —
+   即使是"内部测试库"也不能存真实身份证号、真实纳税人识别号、真实银行账号。一旦泄露 = 个保法事件。
+   合规红线：`tests/fixtures/**` 的所有数据必须用 Faker 生成或确认性合成（如纳税人识别号校验位需符合
+   GB 32100 规则但前 14 位是 9 开头的合成段）。这条规则不允许例外，连 "我自己的测试账号" 也不行。
+
+每条都是上一季度（W1-W3 wave）真实复盘里出现过的失败，不是理论。
+
+
 
 完整的策展列表参考 `tool-kit-04-skill-package.md`。QA 工作里最常用的 5 个：
 

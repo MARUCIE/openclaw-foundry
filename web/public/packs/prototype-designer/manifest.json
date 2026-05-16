@@ -1,0 +1,32 @@
+{
+  "pack": "prototype-designer",
+  "version": "1.0.0",
+  "spec_version": "1.0",
+  "items": [
+    {
+      "src": "CLAUDE.md",
+      "dst": "CLAUDE.md",
+      "type": "config"
+    },
+    {
+      "src": "AGENTS.md",
+      "dst": "AGENTS.md",
+      "type": "config"
+    },
+    {
+      "src": "settings.json",
+      "dst": "settings.json",
+      "type": "config"
+    },
+    {
+      "src": "prompts.md",
+      "dst": "prompts.md",
+      "type": "config"
+    }
+  ],
+  "first_use_demo": {
+    "command": "claude --skill stitch-design-pipeline 'help me prototype a 3-step onboarding flow'",
+    "expected_output": "Stitch design pipeline kicks off; generates HTML mock for 3 screens with handoff spec",
+    "time_to_value_minutes": 5
+  }
+}

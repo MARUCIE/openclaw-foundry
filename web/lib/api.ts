@@ -269,6 +269,10 @@ export interface ConfigPack {
     references: number;
   };
   design_augmented?: boolean;
+  tier?: 'stub' | 'enriched' | 'certified';
+  specVersion?: string | null;
+  hasFirstUseDemo?: boolean;
+  hasE2eEvidence?: boolean;
 }
 
 export interface PackLine {
