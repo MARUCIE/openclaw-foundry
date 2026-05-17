@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import useSWR from 'swr';
 import { getPacks, type ConfigPack, type PacksResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
@@ -328,6 +329,33 @@ export default function PacksPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Cohort feedback channel — anchored after packs per user prompt: "岗位配置包后面做单独的一个页签" */}
+      <section className="space-y-8 py-12">
+        <div
+          className="p-10 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row items-start gap-8"
+          style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
+        >
+          <div className="flex-1 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] font-black uppercase tracking-widest" style={{ background: 'var(--primary-container)', color: 'var(--on-primary-container)' }}>
+              <span aria-hidden="true" className="material-symbols-outlined text-sm">forum</span>
+              卡点墙 · 匿名反馈
+            </div>
+            <h2 className="text-3xl font-black tracking-tight text-balance">配置包装上之后，工作流卡在哪里？</h2>
+            <p className="text-base leading-relaxed opacity-80 max-w-2xl">
+              匿名写下你的 Before（卡在哪）/ After（试过的方法）/ 想问的，别人可以评论。同一浏览器认得自己——
+              下载岗位包之后真实工作流的卡点，是我们更新方法论的唯一一手来源。
+            </p>
+          </div>
+          <Link
+            href="/wall"
+            className="px-8 py-4 rounded-2xl font-bold text-sm transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
+            style={{ background: 'var(--primary)', color: 'white' }}
+          >
+            去卡点墙 →
+          </Link>
         </div>
       </section>
     </div>
