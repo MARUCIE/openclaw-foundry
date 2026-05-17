@@ -79,6 +79,68 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
 
   const targets = INSTALL_TARGETS.filter(tgt => isSkill ? tgt.cmdSkill : tgt.cmdMcp);
 
+  // ── Section grouping (Jobs review fix #4): two labelled categories for skills,
+  // two for MCP. Coding agents grouped above autonomous; IDE extensions last.
+  // Order within the grouped object preserves cmdSkill-vs-cmdMcp render priority.
+  const SKILL_SECTIONS: { id: string; label: string; cats: ('coding' | 'autonomous' | 'ide')[] }[] = [
+    { id: 'coding', label: 'CODING AGENTS · 编程 agent', cats: ['coding'] },
+    { id: 'autonomous', label: 'AUTONOMOUS AGENTS · 自主智能体', cats: ['autonomous'] },
+  ];
+  const MCP_SECTIONS: { id: string; label: string; cats: ('coding' | 'autonomous' | 'ide')[] }[] = [
+    { id: 'agents', label: 'MCP-CAPABLE AGENTS · 通过 agent CLI', cats: ['coding', 'autonomous'] },
+    { id: 'ide', label: 'IDE EXTENSIONS · 编辑器配置', cats: ['ide'] },
+  ];
+  const sections = isSkill ? SKILL_SECTIONS : MCP_SECTIONS;
+
+  const renderTargetRow = (tgt: typeof targets[number]) => {
+    const cmd = isSkill ? tgt.cmdSkill?.(installId) : tgt.cmdMcp?.(installId, repoName);
+    if (!cmd) return null;
+    const isMultiline = cmd.includes('\n');
+    const isRecommended = !!tgt.recommended && isSkill;
+    return (
+      <div
+        key={tgt.id}
+        className="rounded-2xl p-4 transition-all hover:bg-[var(--surface-container-high)] relative"
+        style={{
+          background: 'var(--surface-container)',
+          border: isRecommended ? '2px solid var(--primary)' : '2px solid transparent',
+        }}
+      >
+        {isRecommended && (
+          <span
+            className="absolute -top-2.5 left-4 px-2 py-0.5 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
+            style={{ background: 'var(--primary)', color: 'white' }}
+          >
+            RECOMMENDED · 推荐
+          </span>
+        )}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span aria-hidden="true" className="material-symbols-outlined text-lg font-black" style={{ color: 'var(--primary)' }}>{tgt.icon}</span>
+            <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--on-surface)' }}>{tgt.id === 'cli' ? t(tgt.name) : tgt.name}</span>
+          </div>
+          <button
+            onClick={() => copy(cmd, tgt.id)}
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all hover:shadow-lg active:scale-95"
+            style={{
+              background: copied === tgt.id ? 'var(--tertiary)' : 'var(--primary)',
+              color: 'white',
+            }}
+          >
+            <span aria-hidden="true" className="material-symbols-outlined text-sm">{copied === tgt.id ? 'check' : 'content_copy'}</span>
+            {copied === tgt.id ? t('skills.copied') : t('skills.copy')}
+          </button>
+        </div>
+        <pre
+          className={`text-[var(--af-fs-meta)] overflow-x-auto rounded-xl p-3 scrollbar-hide shadow-inner ${isMultiline ? 'whitespace-pre' : 'whitespace-nowrap'}`}
+          style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-code-text)', fontFamily: 'monospace' }}
+        >
+          {cmd}
+        </pre>
+      </div>
+    );
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity" />
@@ -106,44 +168,24 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           {locale === 'zh' && (skill as any).descriptionZh ? (skill as any).descriptionZh : skill.description}
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-balance" style={{ color: 'var(--on-surface-variant)' }}>
             {t('skills.selectTarget')}
           </h4>
-          <div className="space-y-3">
-            {targets.map(tgt => {
-              const cmd = isSkill ? tgt.cmdSkill?.(installId) : tgt.cmdMcp?.(installId, repoName);
-              if (!cmd) return null;
-              const isMultiline = cmd.includes('\n');
-              return (
-                <div key={tgt.id} className="rounded-2xl p-4 transition-all hover:bg-[var(--surface-container-high)]" style={{ background: 'var(--surface-container)' }}>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span aria-hidden="true" className="material-symbols-outlined text-lg font-black" style={{ color: 'var(--primary)' }}>{tgt.icon}</span>
-                      <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--on-surface)' }}>{tgt.id === 'cli' ? t(tgt.name) : tgt.name}</span>
-                    </div>
-                    <button
-                      onClick={() => copy(cmd, tgt.id)}
-                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all hover:shadow-lg active:scale-95"
-                      style={{
-                        background: copied === tgt.id ? 'var(--tertiary)' : 'var(--primary)',
-                        color: 'white',
-                      }}
-                    >
-                      <span aria-hidden="true" className="material-symbols-outlined text-sm">{copied === tgt.id ? 'check' : 'content_copy'}</span>
-                      {copied === tgt.id ? t('skills.copied') : t('skills.copy')}
-                    </button>
-                  </div>
-                  <pre
-                    className={`text-[var(--af-fs-meta)] overflow-x-auto rounded-xl p-3 scrollbar-hide shadow-inner ${isMultiline ? 'whitespace-pre' : 'whitespace-nowrap'}`}
-                    style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-code-text)', fontFamily: 'monospace' }}
-                  >
-                    {cmd}
-                  </pre>
+          {sections.map(section => {
+            const rows = targets.filter(t => section.cats.includes(t.category));
+            if (!rows.length) return null;
+            return (
+              <div key={section.id} className="space-y-2.5">
+                <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-[0.25em] opacity-50 pl-1" style={{ color: 'var(--on-surface-variant)' }}>
+                  {section.label}
+                </p>
+                <div className="space-y-3 pt-2">
+                  {rows.map(renderTargetRow)}
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="pt-4 border-t border-dashed" style={{ borderColor: 'var(--outline-variant)' }}>

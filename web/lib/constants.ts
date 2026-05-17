@@ -62,43 +62,47 @@ export const SEVERITY_STYLES: Record<string, { bg: string; color: string }> = {
 
 // ── Install Targets (verified March 2026) ──
 
+export type InstallCategory = 'coding' | 'autonomous' | 'ide';
+
 export interface InstallTarget {
   id: string;
   name: string;
   icon: string;
+  category: InstallCategory;
+  recommended?: boolean;
   cmdSkill: ((slug: string) => string) | null;
   cmdMcp: ((slug: string, repo: string) => string) | null;
 }
 
 export const INSTALL_TARGETS: InstallTarget[] = [
   // ── Coding agents ──
-  { id: 'claude', name: 'Claude Code', icon: 'terminal',
+  { id: 'claude', name: 'Claude Code', icon: 'terminal', category: 'coding', recommended: true,
     cmdSkill: (s) => `claude plugin install ${s}`,
     cmdMcp: (s, repo) => `claude mcp add ${s} -- npx -y ${repo}` },
-  { id: 'codex', name: 'Codex', icon: 'auto_awesome',
+  { id: 'codex', name: 'Codex', icon: 'terminal', category: 'coding',
     cmdSkill: (s) => `codex plugin marketplace add ${s}`,
     cmdMcp: (s, repo) => `codex mcp add ${s} -- npx -y ${repo}` },
   // ── Autonomous agents ──
-  { id: 'openclaw', name: 'OpenClaw / Lobster', icon: 'smart_toy',
+  { id: 'openclaw', name: 'OpenClaw', icon: 'smart_toy', category: 'autonomous',
     cmdSkill: (s) => `clawhub install ${s}`,
     cmdMcp: null },
-  { id: 'hermes', name: 'Hermes Agent', icon: 'rocket_launch',
+  { id: 'hermes', name: 'Hermes Agent', icon: 'send', category: 'autonomous',
     cmdSkill: (s) => `hermes plugins install ${s}`,
     cmdMcp: (s, repo) => `hermes mcp add ${s} --command npx --args -y ${repo}` },
   // ── IDE / extension MCP integrations ──
-  { id: 'cursor', name: 'Cursor', icon: 'edit',
+  { id: 'cursor', name: 'Cursor', icon: 'edit', category: 'ide',
     cmdSkill: null,
     cmdMcp: (s, repo) => `# .cursor/mcp.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'vscode', name: 'VS Code / Copilot', icon: 'code',
+  { id: 'vscode', name: 'VS Code / Copilot', icon: 'code', category: 'ide',
     cmdSkill: null,
     cmdMcp: (s, repo) => `# .vscode/mcp.json\n{\n  "servers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'windsurf', name: 'Windsurf', icon: 'air',
+  { id: 'windsurf', name: 'Windsurf', icon: 'air', category: 'ide',
     cmdSkill: null,
     cmdMcp: (s, repo) => `# ~/.codeium/windsurf/mcp_config.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cline', name: 'Cline', icon: 'psychology',
+  { id: 'cline', name: 'Cline', icon: 'psychology', category: 'ide',
     cmdSkill: null,
     cmdMcp: (s, repo) => `# cline_mcp_settings.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
-  { id: 'cli', name: 'skills.directRun', icon: 'play_arrow',
+  { id: 'cli', name: 'skills.directRun', icon: 'play_arrow', category: 'ide',
     cmdSkill: null,
     cmdMcp: (_s, repo) => `npx -y ${repo}` },
 ];
