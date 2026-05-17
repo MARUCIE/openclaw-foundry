@@ -71,12 +71,21 @@ export interface InstallTarget {
 }
 
 export const INSTALL_TARGETS: InstallTarget[] = [
+  // ── Coding agents ──
   { id: 'claude', name: 'Claude Code', icon: 'terminal',
     cmdSkill: (s) => `claude plugin install ${s}`,
     cmdMcp: (s, repo) => `claude mcp add ${s} -- npx -y ${repo}` },
+  { id: 'codex', name: 'Codex', icon: 'auto_awesome',
+    cmdSkill: (s) => `codex plugin marketplace add ${s}`,
+    cmdMcp: (s, repo) => `codex mcp add ${s} -- npx -y ${repo}` },
+  // ── Autonomous agents ──
   { id: 'openclaw', name: 'OpenClaw / Lobster', icon: 'smart_toy',
     cmdSkill: (s) => `clawhub install ${s}`,
     cmdMcp: null },
+  { id: 'hermes', name: 'Hermes Agent', icon: 'rocket_launch',
+    cmdSkill: (s) => `hermes plugins install ${s}`,
+    cmdMcp: (s, repo) => `hermes mcp add ${s} --command npx --args -y ${repo}` },
+  // ── IDE / extension MCP integrations ──
   { id: 'cursor', name: 'Cursor', icon: 'edit',
     cmdSkill: null,
     cmdMcp: (s, repo) => `# .cursor/mcp.json\n{\n  "mcpServers": {\n    "${s}": {\n      "command": "npx",\n      "args": ["-y", "${repo}"]\n    }\n  }\n}` },
