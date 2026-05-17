@@ -5,7 +5,7 @@
 // pre-rendering of paths created at runtime in D1.
 
 import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
 
@@ -45,10 +45,33 @@ async function fetcher(url: string): Promise<{ entry: WallEntry; comments: WallC
 
 function WallDetailInner() {
   const sp = useSearchParams();
+  const router = useRouter();
   const id = sp?.get('id') || '';
 
   const [anonUid, setAnonUid] = useState('');
-  useEffect(() => { setAnonUid(getAnonUid()); }, []);
+  // Track the entry point so back-navigation returns where the user came from
+  // (/packs#wall when entered via the inline tab, /wall otherwise).
+  const [backHref, setBackHref] = useState('/wall');
+  useEffect(() => {
+    setAnonUid(getAnonUid());
+    if (typeof document !== 'undefined' && document.referrer) {
+      try {
+        const ref = new URL(document.referrer);
+        if (ref.origin === window.location.origin && (ref.pathname === '/packs' || ref.pathname.startsWith('/packs'))) {
+          setBackHref('/packs#wall');
+        }
+      } catch {
+        // referrer parse failure → keep default /wall
+      }
+    }
+  }, []);
+
+  const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      e.preventDefault();
+      router.back();
+    }
+  };
 
   const apiUrl = id ? `${API_BASE}/api/wall/${id}` : null;
   const { data, error, isLoading } = useSWR<{ entry: WallEntry; comments: WallComment[] }>(apiUrl, fetcher, {
@@ -86,14 +109,14 @@ function WallDetailInner() {
   if (!id) {
     return (
       <div className="page-shell py-12">
-        <p className="text-sm opacity-60">缺少卡点 id。<Link href="/wall" className="underline">回到墙</Link></p>
+        <p className="text-sm opacity-60">缺少卡点 id。<Link href={backHref} onClick={handleBack} className="underline">回到墙</Link></p>
       </div>
     );
   }
 
   return (
     <div className="page-shell py-12 space-y-8">
-      <Link href="/wall" className="inline-flex items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100">
+      <Link href={backHref} onClick={handleBack} className="inline-flex items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100">
         ← 回到墙
       </Link>
 
