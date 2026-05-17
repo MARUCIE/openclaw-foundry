@@ -17,9 +17,17 @@
 
 import { Hono } from 'hono';
 import type { Env } from '../index';
-import { requireAuth, type AuthedUser } from '../lib/auth';
+import { requireAuth, extractBearer, resolveSessionUser, type AuthedUser } from '../lib/auth';
 
 export const wall = new Hono<{ Bindings: Env; Variables: { user: AuthedUser } }>();
+
+// Optional auth — used by GET endpoints to surface per-user `liked` state when a valid
+// Bearer is present, without rejecting anonymous browsers. Returns the user or null.
+async function resolveOptionalUser(c: { req: { header: (k: string) => string | undefined }; env: Env }): Promise<AuthedUser | null> {
+  const bearer = extractBearer(c.req.header('Authorization'));
+  if (!bearer) return null;
+  return await resolveSessionUser(c.env.DB, bearer);
+}
 
 function requirePepper(env: Env & { WALL_PEPPER?: string }): string {
   const p = env.WALL_PEPPER;
@@ -51,9 +59,12 @@ function clampLen(s: unknown, max: number): string {
 }
 
 // GET /api/wall — list recent entries
+// Public read; Bearer optional. When a valid Bearer is present, each row carries a
+// `liked: 0|1` flag indicating whether the calling user has liked it.
 wall.get('/', async (c) => {
   const role = c.req.query('role');
   const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200);
+  const user = await resolveOptionalUser(c);
   const conditions: string[] = ['flagged = 0'];
   const params: (string | number)[] = [];
   if (role) {
@@ -61,25 +72,37 @@ wall.get('/', async (c) => {
     params.push(role);
   }
   const where = `WHERE ${conditions.join(' AND ')}`;
+  // liked subquery returns 0 when user is anonymous (no row in wall_likes matches NULL user_id).
   const sql = `
-    SELECT e.id, e.anon_uid_hash, e.role_slug, e.before_state, e.after_method, e.suggestion, e.created_at,
-           (SELECT COUNT(*) FROM wall_comments c WHERE c.entry_id = e.id AND c.flagged = 0) AS comment_count
+    SELECT e.id, e.anon_uid_hash, e.role_slug, e.before_state, e.after_method, e.suggestion, e.created_at, e.user_id,
+           (SELECT COUNT(*) FROM wall_comments c WHERE c.entry_id = e.id AND c.flagged = 0) AS comment_count,
+           (SELECT COUNT(*) FROM wall_likes l WHERE l.entry_id = e.id) AS like_count,
+           CASE WHEN ? IS NULL THEN 0
+                ELSE (SELECT COUNT(*) FROM wall_likes l WHERE l.entry_id = e.id AND l.user_id = ?)
+           END AS liked
     FROM wall_entries e
     ${where}
     ORDER BY e.created_at DESC
     LIMIT ?
   `;
-  const { results } = await c.env.DB.prepare(sql).bind(...params, limit).all();
+  const userId = user?.id ?? null;
+  const { results } = await c.env.DB.prepare(sql).bind(userId, userId, ...params, limit).all();
   return c.json({ entries: results || [] });
 });
 
-// GET /api/wall/:id — one entry + comments (public read)
+// GET /api/wall/:id — one entry + comments (public read; Bearer optional surfaces `liked`)
 wall.get('/:id', async (c) => {
   const id = c.req.param('id');
+  const user = await resolveOptionalUser(c);
+  const userId = user?.id ?? null;
   const entry = await c.env.DB.prepare(
-    `SELECT id, anon_uid_hash, role_slug, before_state, after_method, suggestion, created_at, user_id
-     FROM wall_entries WHERE id = ? AND flagged = 0`
-  ).bind(id).first();
+    `SELECT e.id, e.anon_uid_hash, e.role_slug, e.before_state, e.after_method, e.suggestion, e.created_at, e.user_id,
+            (SELECT COUNT(*) FROM wall_likes l WHERE l.entry_id = e.id) AS like_count,
+            CASE WHEN ? IS NULL THEN 0
+                 ELSE (SELECT COUNT(*) FROM wall_likes l WHERE l.entry_id = e.id AND l.user_id = ?)
+            END AS liked
+     FROM wall_entries e WHERE e.id = ? AND e.flagged = 0`
+  ).bind(userId, userId, id).first();
   if (!entry) return c.json({ error: 'not found' }, 404);
   const { results: comments } = await c.env.DB.prepare(
     `SELECT id, anon_uid_hash, body, created_at, user_id
@@ -134,6 +157,34 @@ wall.post('/:id/comment', requireAuth(), async (c) => {
      VALUES (?, ?, ?, ?, ?)`
   ).bind(id, entryId, hash, text, user.id).run();
   return c.json({ id, anon_uid_hash: hash, user_id: user.id }, 201);
+});
+
+// POST /api/wall/:id/like — toggle like (requireAuth). Idempotent under double-click:
+// INSERT OR IGNORE for first click (creates row), DELETE for second (removes it).
+// Returns the post-toggle state so the client can render the correct icon + count
+// without an extra GET round-trip.
+wall.post('/:id/like', requireAuth(), async (c) => {
+  const user = c.var.user;
+  const entryId = c.req.param('id');
+  const exists = await c.env.DB.prepare(`SELECT 1 AS ok FROM wall_entries WHERE id = ?`).bind(entryId).first();
+  if (!exists) return c.json({ error: 'entry not found' }, 404);
+  // Check current state to decide INSERT vs DELETE (atomic-enough: D1 is single-writer per row).
+  const current = await c.env.DB.prepare(
+    `SELECT 1 AS liked FROM wall_likes WHERE entry_id = ? AND user_id = ? LIMIT 1`
+  ).bind(entryId, user.id).first();
+  if (current) {
+    await c.env.DB.prepare(`DELETE FROM wall_likes WHERE entry_id = ? AND user_id = ?`).bind(entryId, user.id).run();
+  } else {
+    const id = newId();
+    await c.env.DB.prepare(
+      `INSERT OR IGNORE INTO wall_likes (id, entry_id, user_id) VALUES (?, ?, ?)`
+    ).bind(id, entryId, user.id).run();
+  }
+  // Recount + return fresh state.
+  const countRow = await c.env.DB.prepare(
+    `SELECT COUNT(*) AS like_count FROM wall_likes WHERE entry_id = ?`
+  ).bind(entryId).first() as { like_count: number } | null;
+  return c.json({ liked: current ? 0 : 1, like_count: countRow?.like_count ?? 0 });
 });
 
 // POST /api/wall/:id/flag — community moderation marker

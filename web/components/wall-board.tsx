@@ -53,6 +53,8 @@ interface WallEntry {
   suggestion: string | null;
   created_at: string;
   comment_count: number;
+  like_count: number;
+  liked: 0 | 1;
   anon_uid_hash: string;
   user_id?: string | null;
 }
@@ -78,10 +80,17 @@ const ROLE_OPTIONS = [
   { id: 'internal-control-specialist', label: '内控专家' },
 ];
 
-async function fetcher(url: string): Promise<{ entries: WallEntry[] }> {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.json();
+// Fetcher accepts an optional Bearer so the GET /api/wall endpoint can return
+// per-user `liked` state. Anonymous browsers still see counts; they just see
+// `liked: 0` for every row.
+function makeFetcher(token: string) {
+  return async (url: string): Promise<{ entries: WallEntry[] }> => {
+    const headers: Record<string, string> = {};
+    if (token) headers.Authorization = `Bearer ${token}`;
+    const r = await fetch(url, { headers });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  };
 }
 
 export default function WallBoard() {
@@ -118,9 +127,53 @@ export default function WallBoard() {
     })();
   }, []);
 
-  const { data, error, isLoading } = useSWR<{ entries: WallEntry[] }>(`${API_BASE}/api/wall?limit=50`, fetcher, {
-    refreshInterval: 30000,
-  });
+  const swrKey = `${API_BASE}/api/wall?limit=50`;
+  const { data, error, isLoading } = useSWR<{ entries: WallEntry[] }>(
+    swrKey,
+    makeFetcher(sessionToken),
+    { refreshInterval: 30000 },
+  );
+
+  // Toggle like — optimistic update + revalidate. Anonymous users get redirected
+  // to login via the same return-path pattern as the entry form.
+  const [likePending, setLikePending] = useState<Record<string, boolean>>({});
+  async function handleLike(entryId: string) {
+    if (!sessionToken) {
+      const ret = typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/packs#wall';
+      window.location.href = `/login?return=${encodeURIComponent(ret)}`;
+      return;
+    }
+    if (likePending[entryId]) return;
+    setLikePending(prev => ({ ...prev, [entryId]: true }));
+    // Optimistic: flip liked + adjust count immediately.
+    mutate(swrKey, (curr: { entries: WallEntry[] } | undefined) => {
+      if (!curr) return curr;
+      return {
+        entries: curr.entries.map(e => e.id !== entryId ? e : {
+          ...e,
+          liked: (e.liked ? 0 : 1) as 0 | 1,
+          like_count: e.like_count + (e.liked ? -1 : 1),
+        }),
+      };
+    }, { revalidate: false });
+    try {
+      const r = await fetch(`${API_BASE}/api/wall/${entryId}/like`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${sessionToken}` },
+      });
+      if (r.status === 401) {
+        clearSession();
+        setSessionToken('');
+        setUser(null);
+      }
+      // Revalidate from server to reconcile concurrent likes from other users.
+      mutate(swrKey);
+    } catch {
+      mutate(swrKey); // rollback by re-fetching truth
+    } finally {
+      setLikePending(prev => { const n = { ...prev }; delete n[entryId]; return n; });
+    }
+  }
 
   const [role, setRole] = useState('');
   const [before, setBefore] = useState('');
@@ -285,37 +338,60 @@ export default function WallBoard() {
         )}
         <div className="space-y-4">
           {(data?.entries || []).map(entry => (
-            <Link
+            <article
               key={entry.id}
-              href={`/wall/detail?id=${entry.id}`}
-              className="block p-6 rounded-[1.5rem] transition-all hover:shadow-lg hover:-translate-y-0.5"
+              className="rounded-[1.5rem] transition-all hover:shadow-lg hover:-translate-y-0.5"
               style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
             >
-              <div className="flex items-center gap-3 text-xs opacity-60 mb-2 font-bold uppercase tracking-widest">
-                <span>#{entry.id.slice(0, 6)}</span>
-                <span>·</span>
-                <span>{new Date(entry.created_at).toLocaleString('zh-CN')}</span>
-                {entry.role_slug && (
-                  <>
-                    <span>·</span>
-                    <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>{entry.role_slug}</span>
-                  </>
-                )}
-                <span>·</span>
-                <span>匿名{user && entry.user_id && entry.user_id === user.id ? '（你发的）' : ''}</span>
-              </div>
-              <div className="text-sm space-y-2">
-                <div>
-                  <span className="font-bold opacity-70">Before：</span>
-                  {entry.before_state.slice(0, 200)}{entry.before_state.length > 200 ? '...' : ''}
+              <Link href={`/wall/detail?id=${entry.id}`} className="block p-6 pb-3">
+                <div className="flex items-center gap-3 text-xs opacity-60 mb-2 font-bold uppercase tracking-widest">
+                  <span>#{entry.id.slice(0, 6)}</span>
+                  <span>·</span>
+                  <span>{new Date(entry.created_at).toLocaleString('zh-CN')}</span>
+                  {entry.role_slug && (
+                    <>
+                      <span>·</span>
+                      <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>{entry.role_slug}</span>
+                    </>
+                  )}
+                  <span>·</span>
+                  <span>匿名{user && entry.user_id && entry.user_id === user.id ? '（你发的）' : ''}</span>
                 </div>
-                <div>
-                  <span className="font-bold opacity-70">After：</span>
-                  {entry.after_method.slice(0, 200)}{entry.after_method.length > 200 ? '...' : ''}
+                <div className="text-sm space-y-2">
+                  <div>
+                    <span className="font-bold opacity-70">Before：</span>
+                    {entry.before_state.slice(0, 200)}{entry.before_state.length > 200 ? '...' : ''}
+                  </div>
+                  <div>
+                    <span className="font-bold opacity-70">After：</span>
+                    {entry.after_method.slice(0, 200)}{entry.after_method.length > 200 ? '...' : ''}
+                  </div>
                 </div>
+              </Link>
+              <div className="flex items-center gap-6 px-6 pb-4 pt-1 text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => handleLike(entry.id)}
+                  disabled={likePending[entry.id]}
+                  aria-pressed={entry.liked === 1}
+                  aria-label={entry.liked === 1 ? '取消点赞' : '点赞'}
+                  className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg transition-all hover:bg-[var(--surface-container)] disabled:opacity-50"
+                  style={{ color: entry.liked ? 'var(--primary)' : 'inherit', opacity: entry.liked ? 1 : 0.6 }}
+                >
+                  <span aria-hidden="true" className="material-symbols-outlined text-base" style={{ fontVariationSettings: entry.liked ? "'FILL' 1" : "'FILL' 0" }}>
+                    favorite
+                  </span>
+                  <span>{entry.like_count || 0}</span>
+                </button>
+                <Link
+                  href={`/wall/detail?id=${entry.id}`}
+                  className="inline-flex items-center gap-1.5 opacity-60 hover:opacity-100"
+                >
+                  <span aria-hidden="true" className="material-symbols-outlined text-base">comment</span>
+                  <span>{entry.comment_count} 条评论 →</span>
+                </Link>
               </div>
-              <div className="mt-3 text-xs font-bold opacity-50">{entry.comment_count} 条评论 →</div>
-            </Link>
+            </article>
           ))}
         </div>
       </section>
