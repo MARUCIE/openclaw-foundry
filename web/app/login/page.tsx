@@ -81,45 +81,87 @@ function LoginInner() {
       </div>
 
       {!sent && (
-        <section className="p-8 rounded-[2rem] space-y-6" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
-          <div className="space-y-2">
-            <h2 className="text-xl font-black tracking-tight">输入邮箱，发送登陆链接</h2>
-            <p className="text-sm opacity-70 leading-relaxed">
-              我们会发送一封含登陆链接的邮件到你的邮箱，点击即完成登陆——无需设置密码。链接 15 分钟内有效，仅限单次使用。
-            </p>
-          </div>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-black uppercase tracking-widest opacity-60 mb-2">邮箱</label>
-              <input
-                type="email" autoComplete="email" required
-                value={email} onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border bg-[var(--surface-container-lowest)] text-base"
-                style={{ borderColor: 'var(--outline-variant)' }}
-                placeholder="你的邮箱地址"
-              />
+        <>
+          <section className="p-8 rounded-[2rem] space-y-6" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
+            <div className="space-y-2">
+              <h2 className="text-xl font-black tracking-tight">输入邮箱，发送登陆链接</h2>
+              <p className="text-sm opacity-70 leading-relaxed">
+                我们会发送一封含登陆链接的邮件到你的邮箱，点击即完成登陆——无需设置密码。链接 15 分钟内有效，仅限单次使用。
+              </p>
             </div>
-            {error && (
-              <div className="text-sm px-4 py-3 rounded-xl flex items-start gap-3" style={{ background: '#fee2e2', color: '#991b1b' }}>
-                <span aria-hidden="true" className="material-symbols-outlined text-base">error</span>
-                <span>{error}</span>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-black uppercase tracking-widest opacity-60 mb-2">邮箱</label>
+                <input
+                  type="email" autoComplete="email" required
+                  value={email} onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border bg-[var(--surface-container-lowest)] text-base"
+                  style={{ borderColor: 'var(--outline-variant)' }}
+                  placeholder="你的邮箱地址"
+                />
               </div>
-            )}
-            <div className="flex items-center gap-4">
-              <button
-                type="submit" disabled={submitting || !email.trim()}
-                className="px-6 py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-50 flex items-center gap-2"
-                style={{ background: 'var(--primary)', color: 'white' }}
+              {error && (
+                <div className="text-sm px-4 py-3 rounded-xl flex items-start gap-3" style={{ background: '#fee2e2', color: '#991b1b' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-base">error</span>
+                  <span>{error}</span>
+                </div>
+              )}
+              <div className="flex items-center gap-4">
+                <button
+                  type="submit" disabled={submitting || !email.trim()}
+                  className="px-6 py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-50 flex items-center gap-2"
+                  style={{ background: 'var(--primary)', color: 'white' }}
+                >
+                  <span aria-hidden="true" className="material-symbols-outlined text-base">send</span>
+                  {submitting ? '正在发送...' : '发送登陆链接'}
+                </button>
+                <Link href={returnTo} className="text-sm font-bold opacity-50 hover:opacity-100">
+                  ← 返回
+                </Link>
+              </div>
+            </form>
+          </section>
+
+          {/* Divider with "或" */}
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px" style={{ background: 'var(--outline-variant)' }} />
+            <span className="text-xs font-black uppercase tracking-widest opacity-40">或</span>
+            <div className="flex-1 h-px" style={{ background: 'var(--outline-variant)' }} />
+          </div>
+
+          {/* Enterprise WeChat scan login (cohort-friendly, no email roundtrip) */}
+          <section
+            className="p-8 rounded-[2rem] space-y-5"
+            style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
+          >
+            <div className="flex items-start gap-4">
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+                style={{ background: '#07C160', color: 'white' }}
               >
-                <span aria-hidden="true" className="material-symbols-outlined text-base">send</span>
-                {submitting ? '正在发送...' : '发送登陆链接'}
-              </button>
-              <Link href={returnTo} className="text-sm font-bold opacity-50 hover:opacity-100">
-                ← 返回
-              </Link>
+                <span aria-hidden="true" className="material-symbols-outlined">qr_code_scanner</span>
+              </div>
+              <div className="space-y-1">
+                <h2 className="text-xl font-black tracking-tight">企业微信扫码登陆</h2>
+                <p className="text-sm opacity-70 leading-relaxed">
+                  用你本人的微信扫码（自建应用授权，限训战群成员）。无需邮箱，无需密码，3 秒到位。
+                </p>
+              </div>
             </div>
-          </form>
-        </section>
+            <a
+              href={`${API_BASE}/api/auth/wechat/start?return=${encodeURIComponent(returnTo)}`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all"
+              style={{ background: '#07C160', color: 'white' }}
+            >
+              <span aria-hidden="true" className="material-symbols-outlined text-base">login</span>
+              企业微信授权登陆
+            </a>
+            <p className="text-xs opacity-50 leading-relaxed">
+              首次使用：管理员需先把你加入企业微信训战群（30 秒一次性邀请）。<br />
+              未配置时按钮会返回 503 — 提示管理员补 <code>wrangler secret put WECHAT_CORP_ID/AGENT_ID/SECRET</code>。
+            </p>
+          </section>
+        </>
       )}
 
       {sent && (

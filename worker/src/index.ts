@@ -12,6 +12,7 @@ import { packs } from './routes/packs';
 import { deploy } from './routes/deploy';
 import { wall } from './routes/wall';
 import { auth } from './routes/auth';
+import { wechatAuth } from './routes/auth-wechat';
 import { authMiddleware } from './middleware/auth';
 
 export interface Env {
@@ -24,6 +25,11 @@ export interface Env {
   RESEND_API_KEY?: string;
   MAGIC_LINK_BASE_URL?: string;
   RESEND_FROM?: string;
+  // Enterprise WeChat (企业微信) self-built app OAuth — set via `wrangler secret put`
+  WECHAT_CORP_ID?: string;
+  WECHAT_AGENT_ID?: string;
+  WECHAT_SECRET?: string;
+  PAGES_BASE_URL?: string;
 }
 
 const app = new Hono<{ Bindings: Env }>();
@@ -67,6 +73,7 @@ app.route('/api/packs', packs);
 app.route('/api/deploy', deploy);
 app.route('/api/wall', wall);
 app.route('/api/auth', auth);
+app.route('/api/auth/wechat', wechatAuth);
 
 // Tenant registration is public
 app.route('/api/tenants', tenants);
