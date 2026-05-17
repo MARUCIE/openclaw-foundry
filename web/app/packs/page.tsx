@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { getPacks, type ConfigPack, type PacksResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
+import WallBoard from '@/components/wall-board';
 
 // Question tree answers map to lines + sub-options
 const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: string; options: { labelKey: string; packId: string }[] }[] = [
@@ -103,35 +103,35 @@ export default function PacksPage() {
   const { data, isLoading } = useSWR<PacksResponse>('packs', getPacks);
   const allPacks = data?.packs || [];
 
+  type PageTab = 'packs' | 'wall';
   type Step = 'q1' | 'q2' | 'result' | 'browse';
+  const [pageTab, setPageTab] = useState<PageTab>('packs');
   const [step, setStep] = useState<Step>('q1');
   const [selectedLine, setSelectedLine] = useState<string | null>(null);
   const [recommendedPack, setRecommendedPack] = useState<string | null>(null);
   const [browseTab, setBrowseTab] = useState('all');
 
-  const filteredPacks = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
-  const recommended = allPacks.find(p => p.id === recommendedPack);
+  // Hash-sync the top-level tab so /packs#wall opens directly on the stickwall.
+  // Honors Maurice's "岗位配置包后面做单独的一个页签" — wall is a sibling tab, not a separate route.
+  useEffect(() => {
+    const apply = () => {
+      const h = (typeof window !== 'undefined' ? window.location.hash : '').replace(/^#/, '');
+      if (h === 'wall') setPageTab('wall');
+      else if (h === 'packs') setPageTab('packs');
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    return () => window.removeEventListener('hashchange', apply);
+  }, []);
 
-  const handleQ1 = (lineId: string) => {
-    setSelectedLine(lineId);
-    const lineOptions = QUESTION_TREE.find(q => q.id === lineId)?.options || [];
-    if (lineOptions.length === 1) {
-      setRecommendedPack(lineOptions[0].packId);
-      setStep('result');
-    } else {
-      setStep('q2');
+  const switchTab = (next: PageTab) => {
+    setPageTab(next);
+    if (typeof window !== 'undefined') {
+      const newHash = `#${next}`;
+      if (window.location.hash !== newHash) {
+        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${newHash}`);
+      }
     }
-  };
-
-  const handleQ2 = (packId: string) => {
-    setRecommendedPack(packId);
-    setStep('result');
-  };
-
-  const resetTree = () => {
-    setStep('q1');
-    setSelectedLine(null);
-    setRecommendedPack(null);
   };
 
   return (
@@ -167,6 +167,120 @@ export default function PacksPage() {
         </div>
       </div>
 
+      {/* Top-level tab bar — packs ⇄ stickwall. Two sibling tabs as per "岗位配置包后面做单独的一个页签". */}
+      <div
+        role="tablist"
+        aria-label="页面页签"
+        className="flex gap-2 p-2 rounded-2xl w-fit"
+        style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
+      >
+        {([
+          { id: 'packs' as const, label: '岗位配置包', icon: 'inventory_2' },
+          { id: 'wall' as const, label: '卡点墙', icon: 'forum' },
+        ]).map(tab => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={pageTab === tab.id}
+            onClick={() => switchTab(tab.id)}
+            className="px-6 py-3 rounded-xl text-sm font-black tracking-tight transition-all flex items-center gap-2"
+            style={{
+              background: pageTab === tab.id ? 'var(--primary)' : 'transparent',
+              color: pageTab === tab.id ? 'white' : 'var(--on-surface-variant)',
+            }}
+          >
+            <span aria-hidden="true" className="material-symbols-outlined text-base">{tab.icon}</span>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {pageTab === 'wall' ? (
+        // Stickwall tab — inline render of the shared WallBoard component.
+        // /wall route still exists for direct links + sharing; this is the embedded mount.
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-balance">配置包装上之后，工作流卡在哪里？</h2>
+            <p className="text-sm md:text-base leading-relaxed opacity-70 mt-2 max-w-3xl">
+              匿名写下你的 Before（卡在哪）/ After（试过的方法）/ 想问的，别人可以评论。同一浏览器认得自己——
+              下载岗位包之后真实工作流的卡点，是我们更新方法论的唯一一手来源。
+            </p>
+          </div>
+          <WallBoard />
+        </section>
+      ) : (
+        <PacksTabBody
+          t={t}
+          allPacks={allPacks}
+          isLoading={isLoading}
+          step={step}
+          setStep={setStep}
+          selectedLine={selectedLine}
+          setSelectedLine={setSelectedLine}
+          recommendedPack={recommendedPack}
+          setRecommendedPack={setRecommendedPack}
+          browseTab={browseTab}
+          setBrowseTab={setBrowseTab}
+        />
+      )}
+    </div>
+  );
+}
+
+interface PacksTabBodyProps {
+  t: (key: string) => string;
+  allPacks: ConfigPack[];
+  isLoading: boolean;
+  step: 'q1' | 'q2' | 'result' | 'browse';
+  setStep: (s: 'q1' | 'q2' | 'result' | 'browse') => void;
+  selectedLine: string | null;
+  setSelectedLine: (s: string | null) => void;
+  recommendedPack: string | null;
+  setRecommendedPack: (s: string | null) => void;
+  browseTab: string;
+  setBrowseTab: (s: string) => void;
+}
+
+function PacksTabBody({
+  t,
+  allPacks,
+  isLoading,
+  step,
+  setStep,
+  selectedLine,
+  setSelectedLine,
+  recommendedPack,
+  setRecommendedPack,
+  browseTab,
+  setBrowseTab,
+}: PacksTabBodyProps) {
+  const filteredPacks = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
+  const recommended = allPacks.find(p => p.id === recommendedPack);
+
+  const handleQ1 = (lineId: string) => {
+    setSelectedLine(lineId);
+    const lineOptions = QUESTION_TREE.find(q => q.id === lineId)?.options || [];
+    if (lineOptions.length === 1) {
+      setRecommendedPack(lineOptions[0].packId);
+      setStep('result');
+    } else {
+      setStep('q2');
+    }
+  };
+
+  const handleQ2 = (packId: string) => {
+    setRecommendedPack(packId);
+    setStep('result');
+  };
+
+  const resetTree = () => {
+    setStep('q1');
+    setSelectedLine(null);
+    setRecommendedPack(null);
+  };
+
+  return (
+    <div className="space-y-12">
       {/* Hero Section */}
       <div
         className="p-10 rounded-[3rem] flex flex-col md:flex-row items-center gap-10 relative overflow-hidden group"
@@ -332,32 +446,6 @@ export default function PacksPage() {
         </div>
       </section>
 
-      {/* Cohort feedback channel — anchored after packs per user prompt: "岗位配置包后面做单独的一个页签" */}
-      <section className="space-y-8 py-12">
-        <div
-          className="p-10 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row items-start gap-8"
-          style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
-        >
-          <div className="flex-1 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.7rem] font-black uppercase tracking-widest" style={{ background: 'var(--primary-container)', color: 'var(--on-primary-container)' }}>
-              <span aria-hidden="true" className="material-symbols-outlined text-sm">forum</span>
-              卡点墙 · 匿名反馈
-            </div>
-            <h2 className="text-3xl font-black tracking-tight text-balance">配置包装上之后，工作流卡在哪里？</h2>
-            <p className="text-base leading-relaxed opacity-80 max-w-2xl">
-              匿名写下你的 Before（卡在哪）/ After（试过的方法）/ 想问的，别人可以评论。同一浏览器认得自己——
-              下载岗位包之后真实工作流的卡点，是我们更新方法论的唯一一手来源。
-            </p>
-          </div>
-          <Link
-            href="/wall"
-            className="px-8 py-4 rounded-2xl font-bold text-sm transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 whitespace-nowrap"
-            style={{ background: 'var(--primary)', color: 'white' }}
-          >
-            去卡点墙 →
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }
