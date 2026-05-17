@@ -135,11 +135,6 @@ function LoginInner() {
           </p>
           <div className="space-y-3 text-xs opacity-60">
             <p>没收到？检查垃圾邮件文件夹，或 <button onClick={() => setSent(null)} className="underline font-bold opacity-100 hover:text-[var(--primary)]">用别的邮箱试试</button>。</p>
-            {sent.delivered_via === 'console_fallback' && (
-              <p className="px-3 py-2 rounded-lg" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}>
-                <strong>dev notice:</strong> RESEND_API_KEY 暂未配置，邮件改写到 worker 日志。Maurice 上线时 `wrangler secret put RESEND_API_KEY` 后即恢复真实邮件投递。
-              </p>
-            )}
           </div>
         </section>
       )}
