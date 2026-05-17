@@ -3,6 +3,7 @@ import './globals.css';
 import { TopNav } from '@/components/top-nav';
 import { Footer } from '@/components/footer';
 import { I18nProvider } from '@/lib/i18n';
+import { SiteGuard } from '@/components/site-guard';
 
 export const metadata: Metadata = {
   title: 'Agent Foundry — The Curated AI Agent Skill Marketplace',
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <I18nProvider>
           <TopNav />
           <main className="pt-20 min-h-dvh">
-            {children}
+            <SiteGuard>{children}</SiteGuard>
           </main>
           <Footer />
         </I18nProvider>
