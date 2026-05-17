@@ -1,19 +1,25 @@
 // /api/wall — Before/After 工作流卡点登记墙
-// Anonymous model: client sends X-Anon-UID header (UUID v4 from localStorage);
-// server hashes with WALL_PEPPER env var to defeat raw-uuid correlation if data leaks.
-// All endpoints are public — no auth, by design (cohort-feedback channel).
+// Read endpoints: public (browsing the wall has zero friction).
+// Write endpoints: requireAuth() — only verified-email users can post entries + comments.
+// This is the "完整功能" line per the email-auth-wall goal (v8 migration).
+//
+// Anonymity is preserved on the privacy layer: anon_uid_hash is still derived
+// from the user's stable identifier (user.id + WALL_PEPPER) so the public list
+// never exposes the email; only the row owner sees "(you sent it)" via user_id
+// match on the client. Legacy pre-v8 entries keep their hash unchanged.
 //
 // Endpoints:
-//   GET  /api/wall?role=<slug>&limit=50           list recent entries
-//   GET  /api/wall/:id                             one entry + its comments
-//   POST /api/wall                                 create entry (X-Anon-UID required)
-//   POST /api/wall/:id/comment                    add comment (X-Anon-UID required)
-//   POST /api/wall/:id/flag                        community moderation marker
+//   GET  /api/wall?role=<slug>&limit=50           list recent entries (public)
+//   GET  /api/wall/:id                             one entry + its comments (public)
+//   POST /api/wall                                 create entry (requireAuth)
+//   POST /api/wall/:id/comment                    add comment (requireAuth)
+//   POST /api/wall/:id/flag                        community moderation marker (public)
 
 import { Hono } from 'hono';
 import type { Env } from '../index';
+import { requireAuth, type AuthedUser } from '../lib/auth';
 
-export const wall = new Hono<{ Bindings: Env }>();
+export const wall = new Hono<{ Bindings: Env; Variables: { user: AuthedUser } }>();
 
 function requirePepper(env: Env & { WALL_PEPPER?: string }): string {
   const p = env.WALL_PEPPER;
@@ -67,28 +73,25 @@ wall.get('/', async (c) => {
   return c.json({ entries: results || [] });
 });
 
-// GET /api/wall/:id — one entry + comments
+// GET /api/wall/:id — one entry + comments (public read)
 wall.get('/:id', async (c) => {
   const id = c.req.param('id');
   const entry = await c.env.DB.prepare(
-    `SELECT id, anon_uid_hash, role_slug, before_state, after_method, suggestion, created_at
+    `SELECT id, anon_uid_hash, role_slug, before_state, after_method, suggestion, created_at, user_id
      FROM wall_entries WHERE id = ? AND flagged = 0`
   ).bind(id).first();
   if (!entry) return c.json({ error: 'not found' }, 404);
   const { results: comments } = await c.env.DB.prepare(
-    `SELECT id, anon_uid_hash, body, created_at
+    `SELECT id, anon_uid_hash, body, created_at, user_id
      FROM wall_comments WHERE entry_id = ? AND flagged = 0
      ORDER BY created_at ASC`
   ).bind(id).all();
   return c.json({ entry, comments: comments || [] });
 });
 
-// POST /api/wall — create entry
-wall.post('/', async (c) => {
-  const anonUid = c.req.header('X-Anon-UID');
-  if (!anonUid || anonUid.length < 8) {
-    return c.json({ error: 'X-Anon-UID header required (≥8 chars)' }, 400);
-  }
+// POST /api/wall — create entry (requireAuth: only verified-email users can post)
+wall.post('/', requireAuth(), async (c) => {
+  const user = c.var.user;
   const body = await c.req.json<{
     role_slug?: string | null;
     before_state: string;
@@ -102,37 +105,35 @@ wall.post('/', async (c) => {
   if (!before.trim() || !after.trim()) {
     return c.json({ error: 'before_state and after_method required' }, 400);
   }
+  // Derive anon_uid_hash from user.id + pepper — deterministic per user, so the
+  // public list can still de-correlate identities without ever exposing the email.
   const pepper = requirePepper(c.env as Env & { WALL_PEPPER?: string });
-  const hash = await hashAnonUid(anonUid, pepper);
+  const hash = await hashAnonUid(user.id, pepper);
   const id = newId();
   await c.env.DB.prepare(
-    `INSERT INTO wall_entries (id, anon_uid_hash, role_slug, before_state, after_method, suggestion)
-     VALUES (?, ?, ?, ?, ?, ?)`
-  ).bind(id, hash, roleSlug, before, after, suggestion).run();
-  return c.json({ id, anon_uid_hash: hash }, 201);
+    `INSERT INTO wall_entries (id, anon_uid_hash, role_slug, before_state, after_method, suggestion, user_id)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).bind(id, hash, roleSlug, before, after, suggestion, user.id).run();
+  return c.json({ id, anon_uid_hash: hash, user_id: user.id }, 201);
 });
 
-// POST /api/wall/:id/comment — add comment
-wall.post('/:id/comment', async (c) => {
+// POST /api/wall/:id/comment — add comment (requireAuth)
+wall.post('/:id/comment', requireAuth(), async (c) => {
+  const user = c.var.user;
   const entryId = c.req.param('id');
-  const anonUid = c.req.header('X-Anon-UID');
-  if (!anonUid || anonUid.length < 8) {
-    return c.json({ error: 'X-Anon-UID header required (≥8 chars)' }, 400);
-  }
   const body = await c.req.json<{ body: string }>();
   const text = clampLen(body.body, 1500);
   if (!text.trim()) return c.json({ error: 'body required' }, 400);
-  // Ensure entry exists
   const exists = await c.env.DB.prepare(`SELECT 1 AS ok FROM wall_entries WHERE id = ?`).bind(entryId).first();
   if (!exists) return c.json({ error: 'entry not found' }, 404);
   const pepper = requirePepper(c.env as Env & { WALL_PEPPER?: string });
-  const hash = await hashAnonUid(anonUid, pepper);
+  const hash = await hashAnonUid(user.id, pepper);
   const id = newId();
   await c.env.DB.prepare(
-    `INSERT INTO wall_comments (id, entry_id, anon_uid_hash, body)
-     VALUES (?, ?, ?, ?)`
-  ).bind(id, entryId, hash, text).run();
-  return c.json({ id, anon_uid_hash: hash }, 201);
+    `INSERT INTO wall_comments (id, entry_id, anon_uid_hash, body, user_id)
+     VALUES (?, ?, ?, ?, ?)`
+  ).bind(id, entryId, hash, text, user.id).run();
+  return c.json({ id, anon_uid_hash: hash, user_id: user.id }, 201);
 });
 
 // POST /api/wall/:id/flag — community moderation marker

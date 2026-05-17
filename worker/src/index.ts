@@ -11,6 +11,7 @@ import { arena } from './routes/arena';
 import { packs } from './routes/packs';
 import { deploy } from './routes/deploy';
 import { wall } from './routes/wall';
+import { auth } from './routes/auth';
 import { authMiddleware } from './middleware/auth';
 
 export interface Env {
@@ -18,6 +19,11 @@ export interface Env {
   STORAGE: R2Bucket;
   CACHE: KVNamespace;
   ENVIRONMENT: string;
+  // Auth-related env (v8): set via `wrangler secret put` post-merge
+  WALL_PEPPER?: string;
+  RESEND_API_KEY?: string;
+  MAGIC_LINK_BASE_URL?: string;
+  RESEND_FROM?: string;
 }
 
 const app = new Hono<{ Bindings: Env }>();
@@ -60,6 +66,7 @@ app.route('/api/arena', arena);
 app.route('/api/packs', packs);
 app.route('/api/deploy', deploy);
 app.route('/api/wall', wall);
+app.route('/api/auth', auth);
 
 // Tenant registration is public
 app.route('/api/tenants', tenants);

@@ -5,7 +5,9 @@
 // 2. /packs as an inline tab ("岗位配置包后面做单独的一个页签")
 //
 // Backend: Worker /api/wall (see worker/src/routes/wall.ts).
-// Anonymity: UUID v4 in localStorage; sent as X-Anon-UID; Worker hashes with WALL_PEPPER.
+// Auth gate (v8): POST endpoints require Bearer session — only verified-email users
+// can post entries + comments. GET endpoints stay public. Identity is derived from
+// the Bearer session; the WallBoard reads `openclaw_session_token` from localStorage.
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -13,14 +15,34 @@ import useSWR, { mutate } from 'swr';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
 
-function getAnonUid(): string {
-  if (typeof window === 'undefined') return '';
-  let id = window.localStorage.getItem('openclaw_wall_anon_uid');
-  if (!id) {
-    id = (crypto.randomUUID && crypto.randomUUID()) || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-    window.localStorage.setItem('openclaw_wall_anon_uid', id);
+interface SessionUser {
+  id: string;
+  email: string;
+  display_name: string | null;
+  email_verified_at: string;
+}
+
+function readSession(): { token: string; user: SessionUser | null } {
+  if (typeof window === 'undefined') return { token: '', user: null };
+  let token = '';
+  let user: SessionUser | null = null;
+  try {
+    token = window.localStorage.getItem('openclaw_session_token') || '';
+    const raw = window.localStorage.getItem('openclaw_session_user');
+    if (raw) user = JSON.parse(raw) as SessionUser;
+  } catch {
+    // localStorage unavailable — treat as signed out
   }
-  return id;
+  return { token, user };
+}
+
+function clearSession() {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem('openclaw_session_token');
+    window.localStorage.removeItem('openclaw_session_user');
+    window.localStorage.removeItem('openclaw_session_expires');
+  } catch { /* ignore */ }
 }
 
 interface WallEntry {
@@ -32,6 +54,7 @@ interface WallEntry {
   created_at: string;
   comment_count: number;
   anon_uid_hash: string;
+  user_id?: string | null;
 }
 
 const ROLE_OPTIONS = [
@@ -62,8 +85,38 @@ async function fetcher(url: string): Promise<{ entries: WallEntry[] }> {
 }
 
 export default function WallBoard() {
-  const [anonUid, setAnonUid] = useState('');
-  useEffect(() => { setAnonUid(getAnonUid()); }, []);
+  const [sessionToken, setSessionToken] = useState('');
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+
+  // Restore session from localStorage + verify against /api/auth/me on mount.
+  useEffect(() => {
+    const { token, user: cached } = readSession();
+    if (!token) {
+      setAuthReady(true);
+      return;
+    }
+    // Optimistic: show cached identity, then re-validate server-side
+    setSessionToken(token);
+    setUser(cached);
+    (async () => {
+      try {
+        const r = await fetch(`${API_BASE}/api/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
+        if (!r.ok) {
+          clearSession();
+          setSessionToken('');
+          setUser(null);
+        } else {
+          const data = await r.json() as { user: SessionUser };
+          if (data.user) setUser(data.user);
+        }
+      } catch {
+        // Network issue — keep cached identity; submit will reveal real auth state
+      } finally {
+        setAuthReady(true);
+      }
+    })();
+  }, []);
 
   const { data, error, isLoading } = useSWR<{ entries: WallEntry[] }>(`${API_BASE}/api/wall?limit=50`, fetcher, {
     refreshInterval: 30000,
@@ -78,6 +131,10 @@ export default function WallBoard() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!sessionToken) {
+      setSubmitError('请先登陆后再发布');
+      return;
+    }
     if (!before.trim() || !after.trim()) {
       setSubmitError('Before 和 After 都不能为空');
       return;
@@ -87,9 +144,15 @@ export default function WallBoard() {
     try {
       const r = await fetch(`${API_BASE}/api/wall`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Anon-UID': anonUid },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${sessionToken}` },
         body: JSON.stringify({ role_slug: role || null, before_state: before, after_method: after, suggestion: suggestion || null }),
       });
+      if (r.status === 401) {
+        clearSession();
+        setSessionToken('');
+        setUser(null);
+        throw new Error('登陆已失效，请重新登陆');
+      }
       if (!r.ok) {
         const t = await r.text();
         throw new Error(`HTTP ${r.status}: ${t.slice(0, 200)}`);
@@ -103,11 +166,46 @@ export default function WallBoard() {
     }
   }
 
+  const emailPrefix = user?.email?.split('@')[0] || '';
+
   return (
     <div className="space-y-10">
-      {/* Submit form */}
+      {/* Submit form OR logged-out CTA */}
+      {authReady && !sessionToken && (
+        <section className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: 'var(--primary)', color: 'white' }}>
+              <span aria-hidden="true" className="material-symbols-outlined">lock</span>
+            </div>
+            <div className="flex-1 space-y-2">
+              <h2 className="text-xl font-black tracking-tight">登陆后发布卡点</h2>
+              <p className="text-sm leading-relaxed opacity-80">
+                只有验证邮箱的成员可以发布卡点和评论。浏览墙面无需登陆——读完整功能需登陆，是为了让你的贡献不被冒名。
+              </p>
+            </div>
+          </div>
+          <div>
+            <Link
+              href={`/login?return=${encodeURIComponent(typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/packs#wall')}`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg hover:shadow-xl"
+              style={{ background: 'var(--primary)', color: 'white' }}
+            >
+              <span aria-hidden="true" className="material-symbols-outlined text-base">mail</span>
+              邮箱登陆
+            </Link>
+          </div>
+        </section>
+      )}
+      {sessionToken && (
       <section className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
-        <h2 className="text-xl font-black tracking-tight">提交新卡点</h2>
+        <div className="flex items-center justify-between gap-4">
+          <h2 className="text-xl font-black tracking-tight">提交新卡点</h2>
+          {user && (
+            <span className="text-xs font-bold opacity-70 px-3 py-1.5 rounded-full" style={{ background: 'var(--surface-container)' }}>
+              {emailPrefix}@···（已验证）
+            </span>
+          )}
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-black uppercase tracking-widest opacity-60 mb-2">岗位（可选）</label>
@@ -163,10 +261,11 @@ export default function WallBoard() {
             >
               {submitting ? '提交中...' : '匿名发布'}
             </button>
-            <span className="text-xs opacity-50">匿名 ID 仅哈希存储；本地 localStorage 保留以便你识别自己的条目。</span>
+            <span className="text-xs opacity-50">已验证邮箱发布，identity 仅以哈希形式公开，仅你本人能看到"（你发的）"标记。</span>
           </div>
         </form>
       </section>
+      )}
 
       {/* List */}
       <section className="space-y-4">
@@ -203,7 +302,7 @@ export default function WallBoard() {
                   </>
                 )}
                 <span>·</span>
-                <span>匿名{entry.anon_uid_hash === anonUid ? '（你发的）' : ''}</span>
+                <span>匿名{user && entry.user_id && entry.user_id === user.id ? '（你发的）' : ''}</span>
               </div>
               <div className="text-sm space-y-2">
                 <div>

@@ -1,8 +1,41 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n, LanguageSwitcher } from '@/lib/i18n';
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
+
+interface SessionUser {
+  id: string;
+  email: string;
+  display_name: string | null;
+}
+
+function readSessionUser(): SessionUser | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem('openclaw_session_user');
+    return raw ? (JSON.parse(raw) as SessionUser) : null;
+  } catch {
+    return null;
+  }
+}
+
+function readSessionToken(): string {
+  if (typeof window === 'undefined') return '';
+  try { return window.localStorage.getItem('openclaw_session_token') || ''; } catch { return ''; }
+}
+
+function clearSession() {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem('openclaw_session_token');
+    window.localStorage.removeItem('openclaw_session_user');
+    window.localStorage.removeItem('openclaw_session_expires');
+  } catch { /* ignore */ }
+}
 
 // 2026-05-16 cohort-focus IA: 3-advisor swarm (Hara + Jobs + Godin) converged
 // unanimously — remove /api-docs, /arena, /explore/platforms from nav. Pages
@@ -24,6 +57,39 @@ export function TopNav() {
   const { t } = useI18n();
   const ctaHref = '/explore/platforms';
   const ctaLabel = t('nav.getStarted');
+
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+  useEffect(() => {
+    setUser(readSessionUser());
+    setAuthReady(true);
+    // Listen for cross-tab login/logout so badge updates without page reload.
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'openclaw_session_user' || e.key === 'openclaw_session_token') {
+        setUser(readSessionUser());
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  async function handleLogout() {
+    const token = readSessionToken();
+    if (token) {
+      try {
+        await fetch(`${API_BASE}/api/auth/logout`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch { /* network may fail; clearSession still applies locally */ }
+    }
+    clearSession();
+    setUser(null);
+    // Soft refresh — keep current page but UI updates immediately
+    if (typeof window !== 'undefined') window.location.assign(window.location.pathname + window.location.hash);
+  }
+
+  const emailPrefix = user?.email?.split('@')[0] || '';
 
   return (
     <nav
@@ -65,9 +131,42 @@ export function TopNav() {
           })}
         </div>
 
-        {/* CTA */}
-        <div className="flex items-center gap-4">
+        {/* CTA + auth badge */}
+        <div className="flex items-center gap-3">
           <LanguageSwitcher />
+          {authReady && !user && (
+            <Link
+              href="/login?return=/packs#wall"
+              className="px-4 py-2 rounded-xl font-bold text-[13px] transition-all"
+              style={{
+                background: 'var(--surface-container)',
+                color: 'var(--on-surface)',
+                fontFamily: 'Inter, system-ui, sans-serif',
+              }}
+            >
+              登陆
+            </Link>
+          )}
+          {user && (
+            <div
+              className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] font-bold"
+              style={{
+                background: 'var(--surface-container)',
+                color: 'var(--on-surface)',
+                fontFamily: 'Inter, system-ui, sans-serif',
+              }}
+              title={user.email}
+            >
+              <span className="opacity-85">{emailPrefix}@···</span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="opacity-60 hover:opacity-100 ml-1 underline-offset-2 hover:underline"
+              >
+                退出
+              </button>
+            </div>
+          )}
           <Link
             href={ctaHref}
             className="px-6 py-2.5 rounded-xl font-bold text-sm active:scale-95 transition-all duration-150"
