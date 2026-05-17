@@ -12,6 +12,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
+import { ROLE_OPTIONS } from '@/components/wall-board';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
 
@@ -225,7 +226,9 @@ function WallDetailInner() {
             {data.entry.role_slug && (
               <>
                 <span>·</span>
-                <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>{data.entry.role_slug}</span>
+                <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>
+                  {ROLE_OPTIONS.find(o => o.id === data.entry.role_slug)?.label || data.entry.role_slug}
+                </span>
               </>
             )}
             <span>·</span>

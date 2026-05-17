@@ -59,7 +59,7 @@ interface WallEntry {
   user_id?: string | null;
 }
 
-const ROLE_OPTIONS = [
+export const ROLE_OPTIONS = [
   { id: '', label: '不指定岗位' },
   { id: 'backend-engineer', label: '后端工程师' },
   { id: 'frontend-engineer', label: '前端工程师' },
@@ -334,7 +334,9 @@ export default function WallBoard() {
           </div>
         )}
         {!isLoading && data?.entries.length === 0 && (
-          <p className="text-sm opacity-60">还没有卡点。第一个分享你工作流里的卡点 ↑</p>
+          <p className="text-sm opacity-60">
+            还没有卡点。{sessionToken ? '第一个分享你工作流里的卡点 ↑' : '登陆后第一个来分享你工作流里的卡点。'}
+          </p>
         )}
         <div className="space-y-4">
           {(data?.entries || []).map(entry => (
@@ -351,7 +353,9 @@ export default function WallBoard() {
                   {entry.role_slug && (
                     <>
                       <span>·</span>
-                      <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>{entry.role_slug}</span>
+                      <span className="px-2 py-0.5 rounded" style={{ background: 'var(--surface-container)' }}>
+                        {ROLE_OPTIONS.find(o => o.id === entry.role_slug)?.label || entry.role_slug}
+                      </span>
                     </>
                   )}
                   <span>·</span>
