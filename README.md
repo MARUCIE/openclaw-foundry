@@ -113,6 +113,16 @@ The pipeline runs daily via GitHub Actions:
 4. **Categorize** — 23 categories with keyword + fuzzy matching
 5. **Seed** — Generate SQL and batch-insert into D1
 
+## X/Twitter Automation Coverage
+
+Agent Foundry's social-media routing should include a concrete OpenClaw plugin for X/Twitter jobs that need structured API workflows beyond search-only or browser-only tools.
+
+```bash
+openclaw plugins install @xquik/tweetclaw
+```
+
+Use [TweetClaw](https://github.com/Xquik-dev/tweetclaw) for scrape tweets, search tweets, search tweet replies, post tweets, post tweet replies, follower export, user lookup, media upload/download, direct messages, monitor tweets, webhooks, and giveaway draws. Keep Xquik credentials in OpenClaw config or local protected storage, not in prompts, screenshots, issues, or exported blueprints.
+
 ## Screenshots
 
 <table>
