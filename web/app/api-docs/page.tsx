@@ -1,7 +1,7 @@
+
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useI18n } from '@/lib/i18n';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
 
@@ -143,8 +143,8 @@ const SECTIONS: { title: string; desc: string; endpoints: Endpoint[] }[] = [
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
+
   const copy = useCallback(() => {
-    // @auth-surface-allowlist: api-docs example with placeholder API key 'ocf_YOUR_KEY' for developer onboarding; copying is the documented action BEFORE signup, not an install payload
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -153,249 +153,197 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={copy}
-      className="shrink-0 px-2 py-1 rounded text-[10px] font-bold transition-all"
+      className="shrink-0 flex items-center gap-1 px-3 py-1 rounded-lg text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all"
       style={{
-        background: copied ? '#22c55e' : 'var(--surface-container)',
-        color: copied ? '#fff' : 'var(--on-surface-variant)',
+        background: copied ? 'var(--tertiary)' : 'var(--surface-container-high)',
+        color: copied ? 'white' : 'var(--on-surface-variant)',
       }}
     >
+      <span className="material-symbols-outlined text-[var(--af-fs-caption)] font-black">{copied ? 'check' : 'content_copy'}</span>
       {copied ? 'Copied' : 'Copy'}
     </button>
   );
 }
 
 export default function ApiDocsPage() {
-  const { t } = useI18n();
   const [expandedSection, setExpandedSection] = useState<number>(0);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="page-shell py-12 space-y-16">
       {/* Hero */}
-      <div className="pb-10 space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
+      <div className="space-y-8">
+        <div className="flex items-center gap-4">
+          <div className="w-2 h-12 rounded-full" style={{ background: 'var(--primary)' }} />
           <div>
-            <h1
-              className="text-3xl md:text-4xl font-extrabold"
-              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-            >
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
               Arsenal API
             </h1>
-            <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>
-              Programmatic access to 37,000+ curated skills with quality ratings, permission manifests, and deploy feedback.
+            <p className="text-lg font-medium opacity-60 max-w-3xl leading-relaxed mt-1 text-pretty">
+              Programmatic access to the curated Maurice-verified skill catalog with quality ratings, permission manifests, and deploy feedback.
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-3">
-          <span className="px-3 py-1.5 rounded-lg text-xs font-bold" style={{ background: 'var(--tertiary-fixed)', color: 'var(--on-tertiary-fixed)' }}>
-            REST API
-          </span>
-          <span className="px-3 py-1.5 rounded-lg text-xs font-bold" style={{ background: 'var(--secondary-fixed)', color: 'var(--on-secondary-fixed)' }}>
-            JSON responses
-          </span>
-          <span className="px-3 py-1.5 rounded-lg text-xs font-bold" style={{ background: 'var(--primary-fixed)', color: 'var(--on-primary-fixed-variant)' }}>
-            Free tier: 100 req/day
-          </span>
-        </div>
-      </div>
-
-      {/* Quick start */}
-      <div
-        className="p-6 rounded-2xl mb-10"
-        style={{ background: 'var(--surface-container-low)', border: '1px solid rgba(195, 198, 215, 0.3)' }}
-      >
-        <h2 className="font-bold text-lg mb-4" style={{ color: 'var(--on-surface)' }}>Quick Start</h2>
-        <div className="space-y-3">
-          <div>
-            <p className="text-sm font-medium mb-1" style={{ color: 'var(--on-surface-variant)' }}>1. Register for an API key (free)</p>
-            <div className="flex items-center gap-2">
-              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
-                {`curl -X POST '${API_BASE}/api/tenants/register' \\\n  -H 'Content-Type: application/json' \\\n  -d '{"name":"my-app"}'`}
-              </pre>
-              <CopyButton text={`curl -X POST '${API_BASE}/api/tenants/register' -H 'Content-Type: application/json' -d '{"name":"my-app"}'`} />
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-medium mb-1" style={{ color: 'var(--on-surface-variant)' }}>2. Use the API key to search skills</p>
-            <div className="flex items-center gap-2">
-              <pre className="flex-1 text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
-                {`curl -H 'Authorization: Bearer ocf_YOUR_KEY' \\\n  '${API_BASE}/api/arsenal/search?q=browser&rating=S'`}
-              </pre>
-              <CopyButton text={`curl -H 'Authorization: Bearer ocf_YOUR_KEY' '${API_BASE}/api/arsenal/search?q=browser&rating=S'`} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Pricing tiers */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-        {[
-          { name: 'Free', price: '$0', limit: '100 req/day', features: ['Public endpoints', 'Arsenal search', 'Compatibility matrix'] },
-          { name: 'Arsenal', price: '$19/mo', limit: '1,000 req/day', features: ['Everything in Free', 'Change alerts email', 'Bulk export', 'Priority support'], popular: true },
-          { name: 'Arsenal Pro', price: '$49/mo', limit: '10,000 req/day', features: ['Everything in Arsenal', 'Blueprint AI generation', 'Arena battles', 'Custom webhooks'] },
-        ].map(tier => (
-          <div
-            key={tier.name}
-            className="p-5 rounded-2xl relative"
-            style={{
-              background: tier.popular ? 'var(--primary-fixed)' : 'var(--surface-container-lowest)',
-              border: tier.popular ? '2px solid var(--primary)' : '1px solid rgba(195, 198, 215, 0.3)',
-            }}
-          >
-            {tier.popular && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold"
-                style={{ background: 'var(--primary)', color: 'white' }}>
-                POPULAR
-              </span>
-            )}
-            <h3 className="font-bold text-lg" style={{ color: 'var(--on-surface)' }}>{tier.name}</h3>
-            <p className="text-2xl font-extrabold mt-1" style={{ color: 'var(--primary)' }}>{tier.price}</p>
-            <p className="text-xs mt-1 mb-4" style={{ color: 'var(--on-surface-variant)' }}>{tier.limit}</p>
-            <ul className="space-y-2">
-              {tier.features.map(f => (
-                <li key={f} className="text-sm flex items-center gap-2" style={{ color: 'var(--on-surface-variant)' }}>
-                  <span className="material-symbols-outlined text-sm" style={{ color: 'var(--primary)' }}>check</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      {/* Endpoint sections */}
-      {SECTIONS.map((section, si) => (
-        <div key={si} className="mb-8">
-          <button
-            onClick={() => setExpandedSection(expandedSection === si ? -1 : si)}
-            className="w-full flex items-center justify-between py-4 border-b"
-            style={{ borderColor: 'var(--outline-variant)' }}
-          >
-            <div className="text-left">
-              <h2 className="font-bold text-lg" style={{ color: 'var(--on-surface)' }}>{section.title}</h2>
-              <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{section.desc}</p>
-            </div>
-            <span
-              className="material-symbols-outlined transition-transform"
-              style={{ color: 'var(--on-surface-variant)', transform: expandedSection === si ? 'rotate(180deg)' : '' }}
-            >
-              expand_more
+        <div className="flex flex-wrap gap-2">
+          {['REST API', 'JSON responses', 'Rate limited', 'OpenAPI 3.0'].map(tag => (
+            <span key={tag} className="px-4 py-1.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] border border-[var(--outline-variant)] bg-[var(--surface-container-low)]">
+              {tag}
             </span>
-          </button>
+          ))}
+        </div>
+      </div>
 
-          {expandedSection === si && (
-            <div className="space-y-6 pt-4">
-              {section.endpoints.map((ep, ei) => (
-                <div
-                  key={ei}
-                  className="rounded-xl p-5"
-                  style={{ background: 'var(--surface-container-lowest)', border: '1px solid rgba(195, 198, 215, 0.2)' }}
-                >
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        {/* Navigation Sidebar */}
+        <aside className="hidden lg:block space-y-8 sticky top-28 self-start">
+          <div className="space-y-1">
+            <h3 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] mb-4 opacity-40 text-balance">Documentation</h3>
+            {SECTIONS.map((s, i) => (
+              <button
+                key={i}
+                onClick={() => setExpandedSection(i)}
+                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${expandedSection === i ? 'bg-[var(--primary-container)] text-[var(--on-primary-container)] shadow-sm' : 'opacity-60 hover:opacity-100 hover:bg-[var(--surface-container-low)]'}`}
+              >
+                {s.title}
+              </button>
+            ))}
+          </div>
+          
+          <div className="p-6 rounded-[2rem] bg-[var(--surface-container-low)] border border-[var(--outline-variant)] space-y-4">
+            <span className="material-symbols-outlined font-black text-[var(--primary)]">support_agent</span>
+            <p className="text-xs font-bold leading-relaxed text-pretty">Need help with implementation? Contact our developer support team.</p>
+            <a href="#" className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-[var(--primary)] hover:underline">Get Support →</a>
+          </div>
+        </aside>
+
+        {/* Content */}
+        <div className="lg:col-span-3 space-y-12">
+          {/* Quick start */}
+          <section className="p-10 rounded-[2.5rem] bg-[var(--surface-container-lowest)] border border-[var(--outline-variant)] shadow-sm space-y-8">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined font-black text-[var(--primary)]">bolt</span>
+              <h2 className="text-xl font-black uppercase tracking-widest text-balance">Quick Start</h2>
+            </div>
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <p className="text-xs font-black uppercase tracking-widest opacity-40 text-pretty">1. Register for an API key</p>
+                <div className="relative group">
+                  <pre className="text-[var(--af-fs-meta)] font-bold overflow-x-auto rounded-2xl p-5 shadow-inner text-pretty" style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-code-text)' }}>
+                    {`curl -X POST '${API_BASE}/api/tenants/register' \\\n  -H 'Content-Type: application/json' \\\n  -d '{"name":"my-app"}'`}
+                  </pre>
+                  <div className="absolute top-4 right-4"><CopyButton text={`curl -X POST '${API_BASE}/api/tenants/register' -H 'Content-Type: application/json' -d '{"name":"my-app"}'`} /></div>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <p className="text-xs font-black uppercase tracking-widest opacity-40 text-pretty">2. Use the API key to search skills</p>
+                <div className="relative group">
+                  <pre className="text-[var(--af-fs-meta)] font-bold overflow-x-auto rounded-2xl p-5 shadow-inner text-pretty" style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-code-text)' }}>
+                    {`curl -H 'Authorization: Bearer ocf_YOUR_KEY' \\\n  '${API_BASE}/api/arsenal/search?q=browser&rating=S'`}
+                  </pre>
+                  <div className="absolute top-4 right-4"><CopyButton text={`curl -H 'Authorization: Bearer ocf_YOUR_KEY' '${API_BASE}/api/arsenal/search?q=browser&rating=S'`} /></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Endpoint blocks */}
+          <div className="space-y-6">
+            {SECTIONS[expandedSection]?.endpoints.map((ep, ei) => (
+              <div
+                key={ei}
+                className="rounded-[2rem] border border-[var(--outline-variant)] bg-[var(--surface-container-lowest)] shadow-sm overflow-hidden"
+              >
+                <div className="p-8 space-y-6">
                   {/* Method + Path */}
-                  <div className="flex items-center gap-3 mb-3">
+                  <div className="flex items-center gap-4 flex-wrap">
                     <span
-                      className="px-2 py-0.5 rounded text-[10px] font-bold"
+                      className="px-3 py-1 rounded-lg text-[var(--af-fs-meta)] font-black uppercase tracking-widest"
                       style={{
-                        background: ep.method === 'POST' ? '#dbeafe' : '#dcfce7',
-                        color: ep.method === 'POST' ? '#1d4ed8' : '#166534',
+                        background: ep.method === 'POST' ? 'var(--primary-container)' : 'var(--tertiary-container)',
+                        color: ep.method === 'POST' ? 'var(--on-primary-container)' : 'var(--on-tertiary-container)',
                       }}
                     >
                       {ep.method}
                     </span>
-                    <code className="text-sm font-mono font-bold" style={{ color: 'var(--on-surface)' }}>{ep.path}</code>
+                    <code className="text-base font-black tracking-tight" style={{ color: 'var(--on-surface)' }}>{ep.path}</code>
                     {ep.auth && (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold" style={{ background: '#fef3c7', color: '#92400e' }}>
+                      <span className="px-2.5 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest bg-amber-100 text-amber-800 shadow-sm">
                         AUTH {ep.tier || ''}
                       </span>
                     )}
                   </div>
-                  <p className="text-sm mb-3" style={{ color: 'var(--on-surface-variant)' }}>{ep.desc}</p>
+                  <p className="text-sm font-medium leading-relaxed opacity-70 text-pretty">{ep.desc}</p>
 
-                  {/* Parameters */}
+                  {/* Parameters Table */}
                   {ep.params && ep.params.length > 0 && (
-                    <div className="mb-3">
-                      <h4 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--on-surface-variant)' }}>Parameters</h4>
-                      <div className="space-y-1">
-                        {ep.params.map(p => (
-                          <div key={p.name} className="flex items-start gap-2 text-xs">
-                            <code className="font-mono font-bold shrink-0" style={{ color: 'var(--primary)' }}>{p.name}</code>
-                            <span className="shrink-0 px-1 py-0.5 rounded" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', fontSize: '10px' }}>{p.type}</span>
-                            {p.required && <span className="shrink-0 text-[10px] font-bold" style={{ color: '#dc2626' }}>required</span>}
-                            <span style={{ color: 'var(--on-surface-variant)' }}>{p.desc}</span>
-                          </div>
-                        ))}
+                    <div className="space-y-4">
+                      <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 text-balance">Parameters</h4>
+                      <div className="rounded-2xl border border-[var(--outline-variant)] overflow-hidden">
+                        <table className="w-full text-left text-xs border-collapse">
+                          <thead className="bg-[var(--surface-container-low)]">
+                            <tr>
+                              <th className="p-4 font-black uppercase tracking-widest opacity-60">Name</th>
+                              <th className="p-4 font-black uppercase tracking-widest opacity-60">Type</th>
+                              <th className="p-4 font-black uppercase tracking-widest opacity-60">Description</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-[var(--outline-variant)] font-medium">
+                            {ep.params.map(p => (
+                              <tr key={p.name} className="hover:bg-black/5 transition-colors">
+                                <td className="p-4"><code className="font-black text-[var(--primary)]">{p.name}</code> {p.required && <span className="ml-1 text-[var(--af-fs-micro)] font-black text-[var(--error)] uppercase">Req</span>}</td>
+                                <td className="p-4"><span className="px-2 py-0.5 rounded-md bg-[var(--surface-container-high)] opacity-60 font-black">{p.type}</span></td>
+                                <td className="p-4 opacity-70">{p.desc}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   )}
 
-                  {/* Example */}
-                  {ep.example && (
-                    <div className="mb-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--on-surface-variant)' }}>Example</h4>
-                        <CopyButton text={ep.example} />
+                  {/* Example + Response Tabs */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 text-balance">Request Example</h4>
+                      {ep.example && <CopyButton text={ep.example} />}
+                    </div>
+                    <pre className="text-[var(--af-fs-meta)] font-bold overflow-x-auto rounded-2xl p-5 shadow-inner text-pretty" style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-code-text)' }}>
+                      {ep.example}
+                    </pre>
+                    
+                    {ep.response && (
+                      <div className="space-y-4 mt-6">
+                        <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 text-balance">Response</h4>
+                        <pre className="text-[var(--af-fs-meta)] font-bold overflow-x-auto rounded-2xl p-5 shadow-inner text-pretty" style={{ background: 'var(--af-code-bg-dark)', color: 'var(--af-mint-bg)' }}>
+                          {ep.response}
+                        </pre>
                       </div>
-                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface)' }}>
-                        {ep.example}
-                      </pre>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                  {/* Response */}
-                  {ep.response && (
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: 'var(--on-surface-variant)' }}>Response</h4>
-                      <pre className="text-xs overflow-x-auto rounded-lg p-3" style={{ background: 'var(--surface-container-high)', color: 'var(--tertiary)' }}>
-                        {ep.response}
-                      </pre>
-                    </div>
-                  )}
+          {/* Pricing Grid */}
+          <section className="space-y-8">
+            <h2 className="text-xl font-black uppercase tracking-widest text-center text-balance">API Tiers & Quotas</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { name: 'Free', price: '$0', limit: '100 req/day', color: 'var(--on-surface-variant)' },
+                { name: 'Arsenal', price: '$19/mo', limit: '1,000 req/day', color: 'var(--primary)', popular: true },
+                { name: 'Arsenal Pro', price: '$49/mo', limit: '10,000 req/day', color: 'var(--secondary)' },
+              ].map(tier => (
+                <div key={tier.name} className={`p-8 rounded-[2.5rem] text-center border-2 transition-all ${tier.popular ? 'border-[var(--primary)] shadow-xl scale-105 relative' : 'border-[var(--outline-variant)] opacity-80 hover:opacity-100'}`}>
+                  {tier.popular && <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-[0.2em] bg-[var(--primary)] text-white shadow-lg">Most Popular</span>}
+                  <h3 className="text-sm font-black uppercase tracking-widest opacity-40 text-balance">{tier.name}</h3>
+                  <p className="text-4xl font-black my-4 text-pretty" style={{ color: tier.color }}>{tier.price}</p>
+                  <p className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-60 mb-6 text-pretty">{tier.limit}</p>
+                  <button className="w-full py-3 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border border-[var(--outline-variant)] transition-all hover:bg-[var(--surface-container-high)]">Select Plan</button>
                 </div>
               ))}
             </div>
-          )}
+          </section>
         </div>
-      ))}
-
-      {/* Rate limits */}
-      <div className="p-6 rounded-2xl mt-8" style={{ background: 'var(--surface-container-low)', border: '1px solid rgba(195, 198, 215, 0.3)' }}>
-        <h2 className="font-bold text-lg mb-3" style={{ color: 'var(--on-surface)' }}>Rate Limits</h2>
-        <table className="w-full text-sm">
-          <thead>
-            <tr style={{ color: 'var(--on-surface-variant)' }}>
-              <th className="text-left py-2 font-medium">Tier</th>
-              <th className="text-left py-2 font-medium">Daily Limit</th>
-              <th className="text-left py-2 font-medium">Reset</th>
-            </tr>
-          </thead>
-          <tbody style={{ color: 'var(--on-surface)' }}>
-            <tr className="border-t" style={{ borderColor: 'rgba(195, 198, 215, 0.2)' }}>
-              <td className="py-2">Public (no auth)</td>
-              <td>Unlimited</td>
-              <td>--</td>
-            </tr>
-            <tr className="border-t" style={{ borderColor: 'rgba(195, 198, 215, 0.2)' }}>
-              <td className="py-2">Free</td>
-              <td>100 requests</td>
-              <td>00:00 UTC</td>
-            </tr>
-            <tr className="border-t" style={{ borderColor: 'rgba(195, 198, 215, 0.2)' }}>
-              <td className="py-2">Arsenal ($19/mo)</td>
-              <td>1,000 requests</td>
-              <td>00:00 UTC</td>
-            </tr>
-            <tr className="border-t" style={{ borderColor: 'rgba(195, 198, 215, 0.2)' }}>
-              <td className="py-2">Arsenal Pro ($49/mo)</td>
-              <td>10,000 requests</td>
-              <td>00:00 UTC</td>
-            </tr>
-            <tr className="border-t" style={{ borderColor: 'rgba(195, 198, 215, 0.2)' }}>
-              <td className="py-2">Partner</td>
-              <td>Unlimited</td>
-              <td>--</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   );

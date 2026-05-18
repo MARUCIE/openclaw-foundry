@@ -48,9 +48,16 @@
       "model": "POE Gemini-3.1-Pro",
       "method": "delta-append (additive, non-destructive)"
     },
-    "lastDeployRetry": "2026-05-16T08:59:39Z"
+    "lastDeployRetry": "2026-05-16T08:59:39Z",
+    "reconciledAt": "2026-05-18T12:11:59.225146+00:00",
+    "reconcileSummary": {
+      "phantomsMarked": 295,
+      "skeletonsAdded": 10,
+      "urlProblems": 1,
+      "catalogTotal": 758
+    }
   },
-  "total": 459,
+  "total": 758,
   "skills": [
     {
       "id": "local/PPT",
@@ -2684,7 +2691,9 @@
       "permissionManifest": {
         "shell_execution": true
       },
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.223642+00:00"
     },
     {
       "id": "local/codex-cli-runtime",
@@ -4287,7 +4296,9 @@
         "filesystem_access": "write"
       },
       "sourceLocal": "claude",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.223925+00:00"
     },
     {
       "id": "local/configure",
@@ -4313,7 +4324,9 @@
       "reviewDown": 0,
       "compositeScore": 0,
       "permissionManifest": {},
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.223928+00:00"
     },
     {
       "id": "local/discover-useful-websites",
@@ -7830,7 +7843,9 @@
       "reviewDown": 386,
       "compositeScore": 72.06,
       "permissionManifest": {},
-      "sourceLocal": "claude"
+      "sourceLocal": "claude",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224074+00:00"
     },
     {
       "id": "local/impeccable-pipeline",
@@ -9170,7 +9185,9 @@
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224130+00:00"
     },
     {
       "id": "local/nature-citation",
@@ -12067,7 +12084,9 @@
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224267+00:00"
     },
     {
       "id": "local/research-learning-swarm",
@@ -14648,7 +14667,9 @@
       "reviewUp": 0,
       "reviewDown": 0,
       "compositeScore": 0,
-      "permissionManifest": {}
+      "permissionManifest": {},
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224402+00:00"
     },
     {
       "id": "local/video-constrict",
@@ -16244,7 +16265,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/advisor-council/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:24:59Z"
+      "enrichedAt": "2026-05-16T07:24:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224490+00:00"
     },
     {
       "id": "agent-browser-session",
@@ -16280,7 +16303,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:03Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224491+00:00"
     },
     {
       "id": "agent-browser-electron",
@@ -16316,7 +16341,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:03Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224492+00:00"
     },
     {
       "id": "adversarial-review",
@@ -16351,7 +16378,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/adversarial-review/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:03Z"
+      "enrichedAt": "2026-05-16T07:25:03Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224493+00:00"
     },
     {
       "id": "agent-browser-slack",
@@ -16387,7 +16416,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:07Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224498+00:00"
     },
     {
       "id": "agent-fetch",
@@ -16423,7 +16454,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:10Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224499+00:00"
     },
     {
       "id": "agentlens",
@@ -16458,7 +16491,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agentlens/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:12Z"
+      "enrichedAt": "2026-05-16T07:25:12Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224500+00:00"
     },
     {
       "id": "ak-rss-digest",
@@ -16493,7 +16528,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ak-rss-digest/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:15Z"
+      "enrichedAt": "2026-05-16T07:25:15Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224501+00:00"
     },
     {
       "id": "algo-core",
@@ -16529,7 +16566,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/algo-core/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:19Z"
+      "enrichedAt": "2026-05-16T07:25:19Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224502+00:00"
     },
     {
       "id": "agentic-seo",
@@ -16564,7 +16603,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/agentic-seo/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:19Z"
+      "enrichedAt": "2026-05-16T07:25:19Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224503+00:00"
     },
     {
       "id": "algo-dl",
@@ -16599,7 +16640,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/algo-dl/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:21Z"
+      "enrichedAt": "2026-05-16T07:25:21Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224505+00:00"
     },
     {
       "id": "api-design-reviewer",
@@ -16635,7 +16678,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/api-design-reviewer/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:22Z"
+      "enrichedAt": "2026-05-16T07:25:22Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224506+00:00"
     },
     {
       "id": "apify-ultimate-scraper",
@@ -16670,7 +16715,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/apify-ultimate-scraper/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:24Z"
+      "enrichedAt": "2026-05-16T07:25:24Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224507+00:00"
     },
     {
       "id": "apify-competitor-intelligence",
@@ -16705,7 +16752,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/apify-competitor-intelligence/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:26Z"
+      "enrichedAt": "2026-05-16T07:25:26Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224508+00:00"
     },
     {
       "id": "architecture-decision",
@@ -16740,7 +16789,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/architecture-decision/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:29Z"
+      "enrichedAt": "2026-05-16T07:25:29Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224509+00:00"
     },
     {
       "id": "ask-search",
@@ -16776,7 +16827,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:31Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224510+00:00"
     },
     {
       "id": "apify-trend-analysis",
@@ -16811,7 +16864,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/apify-trend-analysis/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:32Z"
+      "enrichedAt": "2026-05-16T07:25:32Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224515+00:00"
     },
     {
       "id": "asset-audit",
@@ -16847,7 +16902,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:34Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224516+00:00"
     },
     {
       "id": "babysit-pr",
@@ -16882,7 +16939,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/babysit-pr/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:37Z"
+      "enrichedAt": "2026-05-16T07:25:37Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224517+00:00"
     },
     {
       "id": "baoyu-translate",
@@ -16917,7 +16976,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:39Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224519+00:00"
     },
     {
       "id": "balance-check",
@@ -16952,7 +17013,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/balance-check/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:41Z"
+      "enrichedAt": "2026-05-16T07:25:41Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224520+00:00"
     },
     {
       "id": "better-icons",
@@ -16987,7 +17050,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/better-icons/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:45Z"
+      "enrichedAt": "2026-05-16T07:25:45Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224521+00:00"
     },
     {
       "id": "bestblogs-daily-digest",
@@ -17023,7 +17088,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:25:45Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224522+00:00"
     },
     {
       "id": "bigdata-core",
@@ -17059,7 +17126,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bigdata-core/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:46Z"
+      "enrichedAt": "2026-05-16T07:25:46Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224523+00:00"
     },
     {
       "id": "bigdata-ml",
@@ -17095,7 +17164,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bigdata-ml/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:50Z"
+      "enrichedAt": "2026-05-16T07:25:50Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224525+00:00"
     },
     {
       "id": "bug-report",
@@ -17130,7 +17201,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bug-report/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:54Z"
+      "enrichedAt": "2026-05-16T07:25:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224526+00:00"
     },
     {
       "id": "bug-hunt",
@@ -17165,7 +17238,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bug-hunt/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:54Z"
+      "enrichedAt": "2026-05-16T07:25:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224531+00:00"
     },
     {
       "id": "bigdata-viz",
@@ -17201,7 +17276,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/bigdata-viz/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:54Z"
+      "enrichedAt": "2026-05-16T07:25:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224532+00:00"
     },
     {
       "id": "canvas-design",
@@ -17237,7 +17314,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/canvas-design/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:25:57Z"
+      "enrichedAt": "2026-05-16T07:25:57Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224533+00:00"
     },
     {
       "id": "capability-evolver",
@@ -17273,7 +17352,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:00Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224535+00:00"
     },
     {
       "id": "cc-forge",
@@ -17309,7 +17390,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:01Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224536+00:00"
     },
     {
       "id": "changelog",
@@ -17344,7 +17427,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/changelog/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:04Z"
+      "enrichedAt": "2026-05-16T07:26:04Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224537+00:00"
     },
     {
       "id": "claude-conductor",
@@ -17379,7 +17464,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:06Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224538+00:00"
     },
     {
       "id": "classical-language-safety-audit",
@@ -17414,7 +17501,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/classical-language-safety-audit/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:08Z"
+      "enrichedAt": "2026-05-16T07:26:08Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224539+00:00"
     },
     {
       "id": "claude-to-im",
@@ -17452,7 +17541,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:10Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224540+00:00"
     },
     {
       "id": "code-review",
@@ -17487,7 +17578,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/code-review/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:11Z"
+      "enrichedAt": "2026-05-16T07:26:11Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224541+00:00"
     },
     {
       "id": "codex-cloudflare-deploy",
@@ -17523,7 +17616,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-cloudflare-deploy/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:13Z"
+      "enrichedAt": "2026-05-16T07:26:13Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224543+00:00"
     },
     {
       "id": "codegen-diagram",
@@ -17558,7 +17653,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codegen-diagram/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:13Z"
+      "enrichedAt": "2026-05-16T07:26:13Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224544+00:00"
     },
     {
       "id": "codegen-doc",
@@ -17593,7 +17690,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codegen-doc/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:16Z"
+      "enrichedAt": "2026-05-16T07:26:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224549+00:00"
     },
     {
       "id": "codex-doc",
@@ -17629,7 +17728,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:19Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224550+00:00"
     },
     {
       "id": "codex-figma",
@@ -17664,7 +17765,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:21Z"
+      "enrichedAt": "2026-05-16T07:26:21Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224551+00:00"
     },
     {
       "id": "codex-figma-design-rules",
@@ -17699,7 +17802,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma-design-rules/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:21Z"
+      "enrichedAt": "2026-05-16T07:26:21Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224552+00:00"
     },
     {
       "id": "codex-figma-generate-design",
@@ -17734,7 +17839,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma-generate-design/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:26Z"
+      "enrichedAt": "2026-05-16T07:26:26Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224554+00:00"
     },
     {
       "id": "codex-figma-generate-library",
@@ -17770,7 +17877,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:27Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224555+00:00"
     },
     {
       "id": "codex-figma-implement-design",
@@ -17805,7 +17914,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma-implement-design/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:30Z"
+      "enrichedAt": "2026-05-16T07:26:30Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224556+00:00"
     },
     {
       "id": "codex-gh-address-comments",
@@ -17840,7 +17951,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-gh-address-comments/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:33Z"
+      "enrichedAt": "2026-05-16T07:26:33Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224557+00:00"
     },
     {
       "id": "codex-frontend-skill",
@@ -17876,7 +17989,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-frontend-skill/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:34Z"
+      "enrichedAt": "2026-05-16T07:26:34Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224559+00:00"
     },
     {
       "id": "codex-figma-use",
@@ -17911,7 +18026,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-figma-use/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:35Z"
+      "enrichedAt": "2026-05-16T07:26:35Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224560+00:00"
     },
     {
       "id": "codex-gh-fix-ci",
@@ -17947,7 +18064,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-gh-fix-ci/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:40Z"
+      "enrichedAt": "2026-05-16T07:26:40Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224561+00:00"
     },
     {
       "id": "codex-jupyter-notebook",
@@ -17983,7 +18102,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-jupyter-notebook/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:41Z"
+      "enrichedAt": "2026-05-16T07:26:41Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224562+00:00"
     },
     {
       "id": "codex-pdf",
@@ -18019,7 +18140,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:43Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224565+00:00"
     },
     {
       "id": "codex-review",
@@ -18054,7 +18177,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-review/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:44Z"
+      "enrichedAt": "2026-05-16T07:26:44Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224566+00:00"
     },
     {
       "id": "codex-security-threat-model",
@@ -18089,7 +18214,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-security-threat-model/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:48Z"
+      "enrichedAt": "2026-05-16T07:26:48Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224567+00:00"
     },
     {
       "id": "codex-security-ownership-map",
@@ -18125,7 +18252,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-security-ownership-map/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:49Z"
+      "enrichedAt": "2026-05-16T07:26:49Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224568+00:00"
     },
     {
       "id": "codex-slides",
@@ -18161,7 +18290,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:51Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224570+00:00"
     },
     {
       "id": "codex-spreadsheet",
@@ -18197,7 +18328,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/codex-spreadsheet/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:53Z"
+      "enrichedAt": "2026-05-16T07:26:53Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224571+00:00"
     },
     {
       "id": "commit-helper",
@@ -18231,7 +18364,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/commit-helper/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:55Z"
+      "enrichedAt": "2026-05-16T07:26:55Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224572+00:00"
     },
     {
       "id": "compliance-docs",
@@ -18266,7 +18401,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/compliance-docs/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:26:58Z"
+      "enrichedAt": "2026-05-16T07:26:58Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224573+00:00"
     },
     {
       "id": "composio-skills",
@@ -18302,7 +18439,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:26:59Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224575+00:00"
     },
     {
       "id": "conductor-agent-factory",
@@ -18337,7 +18476,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:00Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224576+00:00"
     },
     {
       "id": "conductor-board",
@@ -18373,7 +18514,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:02Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224577+00:00"
     },
     {
       "id": "conductor-cto-advisor",
@@ -18408,7 +18551,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/conductor-cto-advisor/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:05Z"
+      "enrichedAt": "2026-05-16T07:27:05Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224581+00:00"
     },
     {
       "id": "conductor-evaluators",
@@ -18444,7 +18589,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:06Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224582+00:00"
     },
     {
       "id": "conductor-go",
@@ -18479,7 +18626,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:06Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224584+00:00"
     },
     {
       "id": "conductor-knowledge",
@@ -18514,7 +18663,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:09Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224585+00:00"
     },
     {
       "id": "conductor-leads",
@@ -18550,7 +18701,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:13Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224586+00:00"
     },
     {
       "id": "conductor-message-bus",
@@ -18586,7 +18739,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:13Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224588+00:00"
     },
     {
       "id": "conductor-parallel",
@@ -18622,7 +18777,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:13Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224589+00:00"
     },
     {
       "id": "confidence-check",
@@ -18657,7 +18814,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/confidence-check/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:16Z"
+      "enrichedAt": "2026-05-16T07:27:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224590+00:00"
     },
     {
       "id": "continuous-learning-v2",
@@ -18693,7 +18852,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:17Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224592+00:00"
     },
     {
       "id": "data-pipeline",
@@ -18729,7 +18890,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/data-pipeline/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:20Z"
+      "enrichedAt": "2026-05-16T07:27:20Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224593+00:00"
     },
     {
       "id": "continue",
@@ -18765,7 +18928,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:20Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224595+00:00"
     },
     {
       "id": "database-designer",
@@ -18801,7 +18966,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/database-designer/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:23Z"
+      "enrichedAt": "2026-05-16T07:27:23Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224596+00:00"
     },
     {
       "id": "dbs",
@@ -18836,7 +19003,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:24Z"
+      "enrichedAt": "2026-05-16T07:27:24Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224598+00:00"
     },
     {
       "id": "dbs-benchmark",
@@ -18871,7 +19040,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs-benchmark/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:28Z"
+      "enrichedAt": "2026-05-16T07:27:28Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224600+00:00"
     },
     {
       "id": "dbs-content",
@@ -18906,7 +19077,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs-content/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:33Z"
+      "enrichedAt": "2026-05-16T07:27:33Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224601+00:00"
     },
     {
       "id": "dbs-diagnosis",
@@ -18940,7 +19113,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs-diagnosis/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:33Z"
+      "enrichedAt": "2026-05-16T07:27:33Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224602+00:00"
     },
     {
       "id": "dbs-deconstruct",
@@ -18975,7 +19150,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs-deconstruct/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:34Z"
+      "enrichedAt": "2026-05-16T07:27:34Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224604+00:00"
     },
     {
       "id": "dbs-unblock",
@@ -19010,7 +19187,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/dbs-unblock/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:38Z"
+      "enrichedAt": "2026-05-16T07:27:38Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224605+00:00"
     },
     {
       "id": "defuddle",
@@ -19045,7 +19224,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/defuddle/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:40Z"
+      "enrichedAt": "2026-05-16T07:27:40Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224606+00:00"
     },
     {
       "id": "design-review",
@@ -19080,7 +19261,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/design-review/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:41Z"
+      "enrichedAt": "2026-05-16T07:27:41Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224608+00:00"
     },
     {
       "id": "deploy-preview",
@@ -19117,7 +19300,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:43Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224609+00:00"
     },
     {
       "id": "design-system",
@@ -19152,7 +19337,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/design-system/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:47Z"
+      "enrichedAt": "2026-05-16T07:27:47Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224611+00:00"
     },
     {
       "id": "docker-optimizer",
@@ -19187,7 +19374,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/docker-optimizer/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:48Z"
+      "enrichedAt": "2026-05-16T07:27:48Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224612+00:00"
     },
     {
       "id": "downloadhd",
@@ -19224,7 +19413,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:49Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224615+00:00"
     },
     {
       "id": "drawio-diagram",
@@ -19259,7 +19450,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/drawio-diagram/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:54Z"
+      "enrichedAt": "2026-05-16T07:27:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224617+00:00"
     },
     {
       "id": "enterprise-agent-ops",
@@ -19296,7 +19489,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:55Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224618+00:00"
     },
     {
       "id": "estimate",
@@ -19331,7 +19526,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/estimate/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:27:56Z"
+      "enrichedAt": "2026-05-16T07:27:56Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224619+00:00"
     },
     {
       "id": "excalidraw-diagram-skill",
@@ -19367,7 +19564,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:27:57Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224621+00:00"
     },
     {
       "id": "fastapi-templates",
@@ -19402,7 +19601,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/fastapi-templates/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:01Z"
+      "enrichedAt": "2026-05-16T07:28:01Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224622+00:00"
     },
     {
       "id": "excel-analysis",
@@ -19437,7 +19638,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/excel-analysis/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:02Z"
+      "enrichedAt": "2026-05-16T07:28:02Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224624+00:00"
     },
     {
       "id": "find-skills",
@@ -19473,7 +19676,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:03Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224625+00:00"
     },
     {
       "id": "feishu-group",
@@ -19509,7 +19714,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:06Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224626+00:00"
     },
     {
       "id": "firecrawl-skill",
@@ -19545,7 +19752,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:08Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224628+00:00"
     },
     {
       "id": "flutter-development",
@@ -19581,7 +19790,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/flutter-development/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:09Z"
+      "enrichedAt": "2026-05-16T07:28:09Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224629+00:00"
     },
     {
       "id": "frontend-testing",
@@ -19617,7 +19828,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/frontend-testing/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:10Z"
+      "enrichedAt": "2026-05-16T07:28:10Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224631+00:00"
     },
     {
       "id": "gate-check",
@@ -19652,7 +19865,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gate-check/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:14Z"
+      "enrichedAt": "2026-05-16T07:28:14Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224632+00:00"
     },
     {
       "id": "ghost-os-automation",
@@ -19688,7 +19903,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:16Z",
-      "subCategory": "桌面自动化"
+      "subCategory": "桌面自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224634+00:00"
     },
     {
       "id": "gitnexus-debugging",
@@ -19723,7 +19940,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gitnexus-debugging/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:17Z"
+      "enrichedAt": "2026-05-16T07:28:17Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224635+00:00"
     },
     {
       "id": "gitnexus-exploring",
@@ -19757,7 +19976,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gitnexus-exploring/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:19Z"
+      "enrichedAt": "2026-05-16T07:28:19Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224637+00:00"
     },
     {
       "id": "gitnexus-impact-analysis",
@@ -19792,7 +20013,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gitnexus-impact-analysis/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:22Z"
+      "enrichedAt": "2026-05-16T07:28:22Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224638+00:00"
     },
     {
       "id": "go-best-practices",
@@ -19827,7 +20050,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/go-best-practices/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:23Z"
+      "enrichedAt": "2026-05-16T07:28:23Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224640+00:00"
     },
     {
       "id": "gitnexus-refactoring",
@@ -19862,7 +20087,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gitnexus-refactoring/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:24Z"
+      "enrichedAt": "2026-05-16T07:28:24Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224641+00:00"
     },
     {
       "id": "goal",
@@ -19898,7 +20125,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:27Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224643+00:00"
     },
     {
       "id": "grok-search",
@@ -19934,7 +20163,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:31Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224644+00:00"
     },
     {
       "id": "gs-brainstorm",
@@ -19969,7 +20200,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gs-brainstorm/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:32Z"
+      "enrichedAt": "2026-05-16T07:28:32Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224646+00:00"
     },
     {
       "id": "grok-twitter-search",
@@ -20005,7 +20238,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/grok-twitter-search/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:33Z"
+      "enrichedAt": "2026-05-16T07:28:33Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224649+00:00"
     },
     {
       "id": "gs-code-review",
@@ -20040,7 +20275,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gs-code-review/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:35Z"
+      "enrichedAt": "2026-05-16T07:28:35Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224650+00:00"
     },
     {
       "id": "gs-retrospective",
@@ -20075,7 +20312,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gs-retrospective/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:38Z"
+      "enrichedAt": "2026-05-16T07:28:38Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224652+00:00"
     },
     {
       "id": "gs-sprint-plan",
@@ -20110,7 +20349,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/gs-sprint-plan/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:40Z"
+      "enrichedAt": "2026-05-16T07:28:40Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224653+00:00"
     },
     {
       "id": "harness-engineering",
@@ -20147,7 +20388,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:40Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224655+00:00"
     },
     {
       "id": "hotfix",
@@ -20182,7 +20425,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/hotfix/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:42Z"
+      "enrichedAt": "2026-05-16T07:28:42Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224656+00:00"
     },
     {
       "id": "html-bloomberg-style",
@@ -20218,7 +20463,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-bloomberg-style/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:49Z"
+      "enrichedAt": "2026-05-16T07:28:49Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224658+00:00"
     },
     {
       "id": "html-document-style",
@@ -20253,7 +20500,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-document-style/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:49Z"
+      "enrichedAt": "2026-05-16T07:28:49Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224659+00:00"
     },
     {
       "id": "html-economist-style",
@@ -20289,7 +20538,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-economist-style/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:51Z"
+      "enrichedAt": "2026-05-16T07:28:51Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224661+00:00"
     },
     {
       "id": "html-hermes-style",
@@ -20324,7 +20575,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-hermes-style/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:51Z"
+      "enrichedAt": "2026-05-16T07:28:51Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224662+00:00"
     },
     {
       "id": "html-mckinsey-style",
@@ -20359,7 +20612,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-mckinsey-style/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:55Z"
+      "enrichedAt": "2026-05-16T07:28:55Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224667+00:00"
     },
     {
       "id": "html-slides-router",
@@ -20395,7 +20650,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:28:56Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224668+00:00"
     },
     {
       "id": "html-slides-terracotta",
@@ -20430,7 +20687,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-slides-terracotta/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:59Z"
+      "enrichedAt": "2026-05-16T07:28:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224670+00:00"
     },
     {
       "id": "html-slides-swiss-clean",
@@ -20465,7 +20724,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-slides-swiss-clean/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:59Z"
+      "enrichedAt": "2026-05-16T07:28:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224671+00:00"
     },
     {
       "id": "html-slides-aurora-glass",
@@ -20500,7 +20761,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-slides-aurora-glass/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:28:59Z"
+      "enrichedAt": "2026-05-16T07:28:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224673+00:00"
     },
     {
       "id": "html-slides-midnight-tech",
@@ -20535,7 +20798,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/html-slides-midnight-tech/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:01Z"
+      "enrichedAt": "2026-05-16T07:29:01Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224674+00:00"
     },
     {
       "id": "infra-patrol",
@@ -20571,7 +20836,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:06Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224676+00:00"
     },
     {
       "id": "ios-swiftui-expert",
@@ -20606,7 +20873,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ios-swiftui-expert/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:06Z"
+      "enrichedAt": "2026-05-16T07:29:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224678+00:00"
     },
     {
       "id": "html-style-router",
@@ -20642,7 +20911,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:07Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224679+00:00"
     },
     {
       "id": "json-canvas",
@@ -20677,7 +20948,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/json-canvas/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:09Z"
+      "enrichedAt": "2026-05-16T07:29:09Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224681+00:00"
     },
     {
       "id": "karpathy-autoresearch",
@@ -20713,7 +20986,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:15Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224683+00:00"
     },
     {
       "id": "knowledge-site-creator",
@@ -20748,7 +21023,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/knowledge-site-creator/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:16Z"
+      "enrichedAt": "2026-05-16T07:29:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224685+00:00"
     },
     {
       "id": "launch-checklist",
@@ -20783,7 +21060,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/launch-checklist/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:16Z"
+      "enrichedAt": "2026-05-16T07:29:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224686+00:00"
     },
     {
       "id": "learning-digest-v2",
@@ -20818,7 +21097,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/learning-digest-v2/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:19Z"
+      "enrichedAt": "2026-05-16T07:29:19Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224688+00:00"
     },
     {
       "id": "ljg-calendar",
@@ -20854,7 +21135,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:21Z",
-      "subCategory": "桌面自动化"
+      "subCategory": "桌面自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224690+00:00"
     },
     {
       "id": "ljg-card",
@@ -20891,7 +21174,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:23Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224691+00:00"
     },
     {
       "id": "ljg-clip",
@@ -20927,7 +21212,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:26Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224693+00:00"
     },
     {
       "id": "ljg-explain-concept",
@@ -20962,7 +21249,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-explain-concept/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:26Z"
+      "enrichedAt": "2026-05-16T07:29:26Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224695+00:00"
     },
     {
       "id": "ljg-cards",
@@ -20996,7 +21285,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-cards/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:27Z"
+      "enrichedAt": "2026-05-16T07:29:27Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224696+00:00"
     },
     {
       "id": "ljg-explain-words",
@@ -21031,7 +21322,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-explain-words/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:30Z"
+      "enrichedAt": "2026-05-16T07:29:30Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224698+00:00"
     },
     {
       "id": "ljg-infograph",
@@ -21066,7 +21359,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-infograph/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:34Z"
+      "enrichedAt": "2026-05-16T07:29:34Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224699+00:00"
     },
     {
       "id": "ljg-fetch",
@@ -21102,7 +21397,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:34Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224701+00:00"
     },
     {
       "id": "ljg-invest",
@@ -21137,7 +21434,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-invest/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:36Z"
+      "enrichedAt": "2026-05-16T07:29:36Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224703+00:00"
     },
     {
       "id": "ljg-learn",
@@ -21172,7 +21471,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-learn/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:36Z"
+      "enrichedAt": "2026-05-16T07:29:36Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224705+00:00"
     },
     {
       "id": "ljg-paper-flow",
@@ -21207,7 +21508,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-paper-flow/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:40Z"
+      "enrichedAt": "2026-05-16T07:29:40Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224706+00:00"
     },
     {
       "id": "ljg-paper",
@@ -21243,7 +21546,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-paper/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:43Z"
+      "enrichedAt": "2026-05-16T07:29:43Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224708+00:00"
     },
     {
       "id": "ljg-plain",
@@ -21278,7 +21583,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-plain/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:43Z"
+      "enrichedAt": "2026-05-16T07:29:43Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224710+00:00"
     },
     {
       "id": "ljg-rank",
@@ -21313,7 +21620,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-rank/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:46Z"
+      "enrichedAt": "2026-05-16T07:29:46Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224711+00:00"
     },
     {
       "id": "ljg-relationship",
@@ -21348,7 +21657,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-relationship/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:47Z"
+      "enrichedAt": "2026-05-16T07:29:47Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224713+00:00"
     },
     {
       "id": "ljg-skill-map",
@@ -21384,7 +21695,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:51Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224715+00:00"
     },
     {
       "id": "ljg-roundtable",
@@ -21419,7 +21732,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-roundtable/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:52Z"
+      "enrichedAt": "2026-05-16T07:29:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224718+00:00"
     },
     {
       "id": "ljg-the-one",
@@ -21454,7 +21769,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-the-one/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:52Z"
+      "enrichedAt": "2026-05-16T07:29:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224720+00:00"
     },
     {
       "id": "ljg-title",
@@ -21488,7 +21805,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-title/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:56Z"
+      "enrichedAt": "2026-05-16T07:29:56Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224722+00:00"
     },
     {
       "id": "ljg-travel",
@@ -21523,7 +21842,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-travel/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:58Z"
+      "enrichedAt": "2026-05-16T07:29:58Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224723+00:00"
     },
     {
       "id": "ljg-word",
@@ -21558,7 +21879,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-word/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:29:58Z"
+      "enrichedAt": "2026-05-16T07:29:58Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224725+00:00"
     },
     {
       "id": "ljg-word-flow",
@@ -21594,7 +21917,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:29:59Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224727+00:00"
     },
     {
       "id": "ljg-writes",
@@ -21628,7 +21953,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-writes/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:05Z"
+      "enrichedAt": "2026-05-16T07:30:05Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224728+00:00"
     },
     {
       "id": "ljg-xray-article",
@@ -21663,7 +21990,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-xray-article/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:06Z"
+      "enrichedAt": "2026-05-16T07:30:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224730+00:00"
     },
     {
       "id": "ljg-x-download",
@@ -21699,7 +22028,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:06Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224732+00:00"
     },
     {
       "id": "ljg-xray-book",
@@ -21734,7 +22065,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-xray-book/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:10Z"
+      "enrichedAt": "2026-05-16T07:30:10Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224735+00:00"
     },
     {
       "id": "ljg-xray-prompt",
@@ -21770,7 +22103,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:12Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224737+00:00"
     },
     {
       "id": "ljg-xray-skill",
@@ -21805,7 +22140,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-xray-skill/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:14Z"
+      "enrichedAt": "2026-05-16T07:30:14Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224738+00:00"
     },
     {
       "id": "ljg-xray-paper",
@@ -21840,7 +22177,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/ljg-xray-paper/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:14Z"
+      "enrichedAt": "2026-05-16T07:30:14Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224740+00:00"
     },
     {
       "id": "localize",
@@ -21875,7 +22214,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/localize/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:17Z"
+      "enrichedAt": "2026-05-16T07:30:17Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224742+00:00"
     },
     {
       "id": "lovable-ai-builder",
@@ -21910,7 +22251,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/lovable-ai-builder/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:21Z"
+      "enrichedAt": "2026-05-16T07:30:21Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224744+00:00"
     },
     {
       "id": "macos-icon-gen",
@@ -21945,7 +22288,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/macos-icon-gen/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:23Z"
+      "enrichedAt": "2026-05-16T07:30:23Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224745+00:00"
     },
     {
       "id": "maestro-e2e",
@@ -21980,7 +22325,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/maestro-e2e/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:24Z"
+      "enrichedAt": "2026-05-16T07:30:24Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224747+00:00"
     },
     {
       "id": "makeownsrt",
@@ -22017,7 +22364,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:25Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224749+00:00"
     },
     {
       "id": "map-systems",
@@ -22052,7 +22401,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/map-systems/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:28Z"
+      "enrichedAt": "2026-05-16T07:30:28Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224751+00:00"
     },
     {
       "id": "marketing-skills",
@@ -22088,7 +22439,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/marketing-skills/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:30Z"
+      "enrichedAt": "2026-05-16T07:30:30Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224752+00:00"
     },
     {
       "id": "milestone-review",
@@ -22123,7 +22476,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/milestone-review/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:31Z"
+      "enrichedAt": "2026-05-16T07:30:31Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224754+00:00"
     },
     {
       "id": "md-report-summary",
@@ -22158,7 +22513,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/md-report-summary/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:34Z"
+      "enrichedAt": "2026-05-16T07:30:34Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224756+00:00"
     },
     {
       "id": "motionsites-landing",
@@ -22193,7 +22550,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/motionsites-landing/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:35Z"
+      "enrichedAt": "2026-05-16T07:30:35Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224758+00:00"
     },
     {
       "id": "multi-search-engine",
@@ -22229,7 +22588,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:38Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224760+00:00"
     },
     {
       "id": "n8n-automation",
@@ -22266,7 +22627,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:40Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224761+00:00"
     },
     {
       "id": "new-api-endpoint",
@@ -22302,7 +22665,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/new-api-endpoint/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:43Z"
+      "enrichedAt": "2026-05-16T07:30:43Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224763+00:00"
     },
     {
       "id": "nanobanana-image-gen",
@@ -22338,7 +22703,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:44Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224765+00:00"
     },
     {
       "id": "new-migration",
@@ -22373,7 +22740,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/new-migration/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:45Z"
+      "enrichedAt": "2026-05-16T07:30:45Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224768+00:00"
     },
     {
       "id": "obsidian-bases",
@@ -22410,7 +22779,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:48Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224770+00:00"
     },
     {
       "id": "nuwa-world-osint-human-research",
@@ -22445,7 +22816,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/nuwa-world-osint-human-research/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:48Z"
+      "enrichedAt": "2026-05-16T07:30:48Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224772+00:00"
     },
     {
       "id": "observability-setup",
@@ -22481,7 +22854,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/observability-setup/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:50Z"
+      "enrichedAt": "2026-05-16T07:30:50Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224773+00:00"
     },
     {
       "id": "obsidian-markdown",
@@ -22517,7 +22892,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:53Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224775+00:00"
     },
     {
       "id": "oncall-runner",
@@ -22553,7 +22930,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:55Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224777+00:00"
     },
     {
       "id": "openai-prompt-packs",
@@ -22589,7 +22968,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:30:56Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224779+00:00"
     },
     {
       "id": "orphan-cleanup",
@@ -22624,7 +23005,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/orphan-cleanup/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:30:58Z"
+      "enrichedAt": "2026-05-16T07:30:58Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224781+00:00"
     },
     {
       "id": "pake-native-app",
@@ -22659,7 +23042,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pake-native-app/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:02Z"
+      "enrichedAt": "2026-05-16T07:31:02Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224783+00:00"
     },
     {
       "id": "paper-write",
@@ -22694,7 +23079,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/paper-write/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:04Z"
+      "enrichedAt": "2026-05-16T07:31:04Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224785+00:00"
     },
     {
       "id": "patch-notes",
@@ -22729,7 +23116,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/patch-notes/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:05Z"
+      "enrichedAt": "2026-05-16T07:31:05Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224787+00:00"
     },
     {
       "id": "pdf-processing",
@@ -22764,7 +23153,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pdf-processing/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:06Z"
+      "enrichedAt": "2026-05-16T07:31:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224788+00:00"
     },
     {
       "id": "perf-profile",
@@ -22799,7 +23190,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/perf-profile/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:11Z"
+      "enrichedAt": "2026-05-16T07:31:11Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224790+00:00"
     },
     {
       "id": "pipeline-triage",
@@ -22835,7 +23228,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:31:13Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224792+00:00"
     },
     {
       "id": "playtest-report",
@@ -22870,7 +23265,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/playtest-report/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:14Z"
+      "enrichedAt": "2026-05-16T07:31:14Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224794+00:00"
     },
     {
       "id": "playwright-codex",
@@ -22906,7 +23303,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:31:15Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224796+00:00"
     },
     {
       "id": "pm-cmd-analyze-cohorts",
@@ -22941,7 +23340,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-analyze-cohorts/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:20Z"
+      "enrichedAt": "2026-05-16T07:31:20Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224798+00:00"
     },
     {
       "id": "playwright-interactive",
@@ -22978,7 +23379,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:31:20Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224800+00:00"
     },
     {
       "id": "pm-cmd-analyze-feedback",
@@ -23013,7 +23416,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-analyze-feedback/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:22Z"
+      "enrichedAt": "2026-05-16T07:31:22Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224802+00:00"
     },
     {
       "id": "pm-cmd-analyze-test",
@@ -23047,7 +23452,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-analyze-test/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:22Z"
+      "enrichedAt": "2026-05-16T07:31:22Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224804+00:00"
     },
     {
       "id": "pm-cmd-brainstorm",
@@ -23082,7 +23489,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-brainstorm/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:27Z"
+      "enrichedAt": "2026-05-16T07:31:27Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224805+00:00"
     },
     {
       "id": "pm-cmd-battlecard",
@@ -23117,7 +23526,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-battlecard/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:28Z"
+      "enrichedAt": "2026-05-16T07:31:28Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224807+00:00"
     },
     {
       "id": "pm-cmd-business-model",
@@ -23152,7 +23563,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-business-model/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:30Z"
+      "enrichedAt": "2026-05-16T07:31:30Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224809+00:00"
     },
     {
       "id": "pm-cmd-competitive-analysis",
@@ -23187,7 +23600,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-competitive-analysis/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:30Z"
+      "enrichedAt": "2026-05-16T07:31:30Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224811+00:00"
     },
     {
       "id": "pm-cmd-draft-nda",
@@ -23222,7 +23637,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-draft-nda/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:33Z"
+      "enrichedAt": "2026-05-16T07:31:33Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224813+00:00"
     },
     {
       "id": "pm-cmd-discover",
@@ -23257,7 +23674,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-discover/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:35Z"
+      "enrichedAt": "2026-05-16T07:31:35Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224815+00:00"
     },
     {
       "id": "pm-cmd-generate-data",
@@ -23293,7 +23712,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-generate-data/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:37Z"
+      "enrichedAt": "2026-05-16T07:31:37Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224817+00:00"
     },
     {
       "id": "pm-cmd-growth-strategy",
@@ -23328,7 +23749,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-growth-strategy/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:38Z"
+      "enrichedAt": "2026-05-16T07:31:38Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224819+00:00"
     },
     {
       "id": "pm-cmd-interview",
@@ -23363,7 +23786,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-interview/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:40Z"
+      "enrichedAt": "2026-05-16T07:31:40Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224821+00:00"
     },
     {
       "id": "pm-cmd-market-product",
@@ -23398,7 +23823,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-market-product/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:42Z"
+      "enrichedAt": "2026-05-16T07:31:42Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224823+00:00"
     },
     {
       "id": "pm-cmd-market-scan",
@@ -23434,7 +23861,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-market-scan/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:45Z"
+      "enrichedAt": "2026-05-16T07:31:45Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224825+00:00"
     },
     {
       "id": "pm-cmd-meeting-notes",
@@ -23469,7 +23898,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-meeting-notes/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:46Z"
+      "enrichedAt": "2026-05-16T07:31:46Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224826+00:00"
     },
     {
       "id": "pm-cmd-north-star",
@@ -23504,7 +23935,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-north-star/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:48Z"
+      "enrichedAt": "2026-05-16T07:31:48Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224829+00:00"
     },
     {
       "id": "pm-cmd-plan-launch",
@@ -23539,7 +23972,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-plan-launch/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:52Z"
+      "enrichedAt": "2026-05-16T07:31:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224831+00:00"
     },
     {
       "id": "pm-cmd-plan-okrs",
@@ -23574,7 +24009,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-plan-okrs/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:52Z"
+      "enrichedAt": "2026-05-16T07:31:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224833+00:00"
     },
     {
       "id": "pm-cmd-pre-mortem",
@@ -23609,7 +24046,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-pre-mortem/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:54Z"
+      "enrichedAt": "2026-05-16T07:31:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224835+00:00"
     },
     {
       "id": "pm-cmd-pricing",
@@ -23644,7 +24083,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-pricing/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:54Z"
+      "enrichedAt": "2026-05-16T07:31:54Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224837+00:00"
     },
     {
       "id": "pm-cmd-proofread",
@@ -23679,7 +24120,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-proofread/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:59Z"
+      "enrichedAt": "2026-05-16T07:31:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224839+00:00"
     },
     {
       "id": "pm-cmd-privacy-policy",
@@ -23714,7 +24157,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-privacy-policy/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:31:59Z"
+      "enrichedAt": "2026-05-16T07:31:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224846+00:00"
     },
     {
       "id": "pm-cmd-research-users",
@@ -23749,7 +24194,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-research-users/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:00Z"
+      "enrichedAt": "2026-05-16T07:32:00Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224848+00:00"
     },
     {
       "id": "pm-cmd-review-resume",
@@ -23784,7 +24231,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-review-resume/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:03Z"
+      "enrichedAt": "2026-05-16T07:32:03Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224850+00:00"
     },
     {
       "id": "pm-cmd-setup-metrics",
@@ -23819,7 +24268,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-setup-metrics/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:06Z"
+      "enrichedAt": "2026-05-16T07:32:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224852+00:00"
     },
     {
       "id": "pm-cmd-stakeholder-map",
@@ -23854,7 +24305,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-stakeholder-map/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:07Z"
+      "enrichedAt": "2026-05-16T07:32:07Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224854+00:00"
     },
     {
       "id": "pm-cmd-sprint",
@@ -23889,7 +24342,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-sprint/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:09Z"
+      "enrichedAt": "2026-05-16T07:32:09Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224856+00:00"
     },
     {
       "id": "pm-cmd-strategy",
@@ -23924,7 +24379,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-strategy/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:10Z"
+      "enrichedAt": "2026-05-16T07:32:10Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224858+00:00"
     },
     {
       "id": "pm-cmd-test-scenarios",
@@ -23959,7 +24416,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-test-scenarios/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:13Z"
+      "enrichedAt": "2026-05-16T07:32:13Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224860+00:00"
     },
     {
       "id": "pm-cmd-tailor-resume",
@@ -23994,7 +24453,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-tailor-resume/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:15Z"
+      "enrichedAt": "2026-05-16T07:32:15Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224863+00:00"
     },
     {
       "id": "pm-cmd-transform-roadmap",
@@ -24029,7 +24490,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-transform-roadmap/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:16Z"
+      "enrichedAt": "2026-05-16T07:32:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224865+00:00"
     },
     {
       "id": "pm-cmd-triage-requests",
@@ -24064,7 +24527,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-triage-requests/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:16Z"
+      "enrichedAt": "2026-05-16T07:32:16Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224867+00:00"
     },
     {
       "id": "pm-cmd-value-proposition",
@@ -24098,7 +24563,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-value-proposition/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:20Z"
+      "enrichedAt": "2026-05-16T07:32:20Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224869+00:00"
     },
     {
       "id": "pm-cmd-write-prd",
@@ -24133,7 +24600,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-write-prd/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:21Z"
+      "enrichedAt": "2026-05-16T07:32:21Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224871+00:00"
     },
     {
       "id": "pm-cmd-write-stories",
@@ -24168,7 +24637,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-write-stories/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:23Z"
+      "enrichedAt": "2026-05-16T07:32:23Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224873+00:00"
     },
     {
       "id": "pm-cmd-write-query",
@@ -24203,7 +24674,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/pm-cmd-write-query/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:25Z"
+      "enrichedAt": "2026-05-16T07:32:25Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224875+00:00"
     },
     {
       "id": "postgresql-best-practices",
@@ -24238,7 +24711,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/postgresql-best-practices/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:28Z"
+      "enrichedAt": "2026-05-16T07:32:28Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224877+00:00"
     },
     {
       "id": "product-design",
@@ -24274,7 +24749,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/product-design/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:31Z"
+      "enrichedAt": "2026-05-16T07:32:31Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224880+00:00"
     },
     {
       "id": "pptgen-drawio",
@@ -24310,7 +24787,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:33Z",
-      "subCategory": "文件处理"
+      "subCategory": "文件处理",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224882+00:00"
     },
     {
       "id": "project-stage-detect",
@@ -24346,7 +24825,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:34Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224884+00:00"
     },
     {
       "id": "prototype",
@@ -24381,7 +24862,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/prototype/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:35Z"
+      "enrichedAt": "2026-05-16T07:32:35Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224886+00:00"
     },
     {
       "id": "qiaomu-design-advisor",
@@ -24416,7 +24899,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/qiaomu-design-advisor/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:39Z"
+      "enrichedAt": "2026-05-16T07:32:39Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224888+00:00"
     },
     {
       "id": "qiaomu-x-article-publisher",
@@ -24452,7 +24937,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:42Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224890+00:00"
     },
     {
       "id": "qiaomu-x-article-publisher-github",
@@ -24488,7 +24975,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:45Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224892+00:00"
     },
     {
       "id": "rag-architect",
@@ -24524,7 +25013,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/rag-architect/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:46Z"
+      "enrichedAt": "2026-05-16T07:32:46Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224894+00:00"
     },
     {
       "id": "qiaomu-mondo-poster-design",
@@ -24560,7 +25051,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:51Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224897+00:00"
     },
     {
       "id": "release-checklist",
@@ -24595,7 +25088,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/release-checklist/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:51Z"
+      "enrichedAt": "2026-05-16T07:32:51Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224899+00:00"
     },
     {
       "id": "release-skills",
@@ -24630,7 +25125,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/release-skills/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:52Z"
+      "enrichedAt": "2026-05-16T07:32:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224902+00:00"
     },
     {
       "id": "reports",
@@ -24665,7 +25162,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:32:53Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224904+00:00"
     },
     {
       "id": "research-paper-writing",
@@ -24700,7 +25199,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/research-paper-writing/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:32:59Z"
+      "enrichedAt": "2026-05-16T07:32:59Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224906+00:00"
     },
     {
       "id": "reverse-document",
@@ -24735,7 +25236,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/reverse-document/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:00Z"
+      "enrichedAt": "2026-05-16T07:33:00Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224908+00:00"
     },
     {
       "id": "rpi-implement",
@@ -24770,7 +25273,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/rpi-implement/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:00Z"
+      "enrichedAt": "2026-05-16T07:33:00Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224910+00:00"
     },
     {
       "id": "rpi-research",
@@ -24805,7 +25310,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/rpi-research/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:06Z"
+      "enrichedAt": "2026-05-16T07:33:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224912+00:00"
     },
     {
       "id": "rust-coding",
@@ -24840,7 +25347,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/rust-coding/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:08Z"
+      "enrichedAt": "2026-05-16T07:33:08Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224915+00:00"
     },
     {
       "id": "scope-check",
@@ -24875,7 +25384,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/scope-check/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:09Z"
+      "enrichedAt": "2026-05-16T07:33:09Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224917+00:00"
     },
     {
       "id": "screenshot-codex",
@@ -24911,7 +25422,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:15Z",
-      "subCategory": "桌面自动化"
+      "subCategory": "桌面自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224919+00:00"
     },
     {
       "id": "security-best-practices",
@@ -24946,7 +25459,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/security-best-practices/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:17Z"
+      "enrichedAt": "2026-05-16T07:33:17Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224921+00:00"
     },
     {
       "id": "search-first",
@@ -24981,7 +25496,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/search-first/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:18Z"
+      "enrichedAt": "2026-05-16T07:33:18Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224923+00:00"
     },
     {
       "id": "senior-architect",
@@ -25016,7 +25533,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/senior-architect/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:25Z"
+      "enrichedAt": "2026-05-16T07:33:25Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224926+00:00"
     },
     {
       "id": "simplify-forge",
@@ -25051,7 +25570,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/simplify-forge/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:27Z"
+      "enrichedAt": "2026-05-16T07:33:27Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224928+00:00"
     },
     {
       "id": "setup-engine",
@@ -25087,7 +25608,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/setup-engine/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:28Z"
+      "enrichedAt": "2026-05-16T07:33:28Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224930+00:00"
     },
     {
       "id": "skill-group-loop",
@@ -25124,7 +25647,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:29Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224933+00:00"
     },
     {
       "id": "skill-prompt-convert",
@@ -25159,7 +25684,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:33Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224935+00:00"
     },
     {
       "id": "skill-publisher",
@@ -25195,7 +25722,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:35Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224937+00:00"
     },
     {
       "id": "sprint-pipeline-v2",
@@ -25231,7 +25760,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:37Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224939+00:00"
     },
     {
       "id": "standup-post",
@@ -25267,7 +25798,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:42Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224942+00:00"
     },
     {
       "id": "start",
@@ -25302,7 +25835,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/start/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:33:43Z"
+      "enrichedAt": "2026-05-16T07:33:43Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224948+00:00"
     },
     {
       "id": "strategic-compact",
@@ -25374,7 +25909,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:49Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224951+00:00"
     },
     {
       "id": "summarize",
@@ -25410,7 +25947,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:50Z",
-      "subCategory": "通用 Agent 工具"
+      "subCategory": "通用 Agent 工具",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224954+00:00"
     },
     {
       "id": "swarm-ops",
@@ -25446,7 +25985,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:51Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224956+00:00"
     },
     {
       "id": "tavily-search",
@@ -25482,7 +26023,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:57Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224958+00:00"
     },
     {
       "id": "team-combat",
@@ -25518,7 +26061,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:58Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224960+00:00"
     },
     {
       "id": "team-audio",
@@ -25554,7 +26099,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:33:58Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224962+00:00"
     },
     {
       "id": "team-narrative",
@@ -25591,7 +26138,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:05Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224965+00:00"
     },
     {
       "id": "team-polish",
@@ -25627,7 +26176,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:06Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224967+00:00"
     },
     {
       "id": "team-level",
@@ -25662,7 +26213,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/team-level/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:06Z"
+      "enrichedAt": "2026-05-16T07:34:06Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224969+00:00"
     },
     {
       "id": "tech-debt",
@@ -25697,7 +26250,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/tech-debt/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:12Z"
+      "enrichedAt": "2026-05-16T07:34:12Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224971+00:00"
     },
     {
       "id": "team-ui",
@@ -25733,7 +26288,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:12Z",
-      "subCategory": "LLM 工作流"
+      "subCategory": "LLM 工作流",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224974+00:00"
     },
     {
       "id": "test-runner",
@@ -25769,7 +26326,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/test-runner/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:14Z"
+      "enrichedAt": "2026-05-16T07:34:14Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224976+00:00"
     },
     {
       "id": "verification-loop",
@@ -25804,7 +26363,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/verification-loop/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:20Z"
+      "enrichedAt": "2026-05-16T07:34:20Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224978+00:00"
     },
     {
       "id": "vphone-cli",
@@ -25839,7 +26400,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/vphone-cli/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:22Z"
+      "enrichedAt": "2026-05-16T07:34:22Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224981+00:00"
     },
     {
       "id": "web-multi-search",
@@ -25875,7 +26438,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:28Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224983+00:00"
     },
     {
       "id": "rpi-plan",
@@ -25910,7 +26475,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/rpi-plan/SPEC.md",
       "confidence": 0.9,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:31Z"
+      "enrichedAt": "2026-05-16T07:34:31Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224985+00:00"
     },
     {
       "id": "wechat-article-search",
@@ -25946,7 +26513,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:32Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224987+00:00"
     },
     {
       "id": "wechat-article-writer",
@@ -25981,7 +26550,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-article-writer/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:39Z"
+      "enrichedAt": "2026-05-16T07:34:39Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224990+00:00"
     },
     {
       "id": "wechat-db",
@@ -26017,7 +26588,9 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:40Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224992+00:00"
     },
     {
       "id": "wechat-decrypt",
@@ -26053,7 +26626,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-decrypt/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:41Z"
+      "enrichedAt": "2026-05-16T07:34:41Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224994+00:00"
     },
     {
       "id": "wechat-multi",
@@ -26089,7 +26664,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:46Z",
-      "subCategory": "桌面自动化"
+      "subCategory": "桌面自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224997+00:00"
     },
     {
       "id": "wechat-reader",
@@ -26124,7 +26701,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:47Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.224999+00:00"
     },
     {
       "id": "trends24",
@@ -26159,7 +26738,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/trends24/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:50Z"
+      "enrichedAt": "2026-05-16T07:34:50Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225001+00:00"
     },
     {
       "id": "wechat-report",
@@ -26194,7 +26775,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-report/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:52Z"
+      "enrichedAt": "2026-05-16T07:34:52Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225004+00:00"
     },
     {
       "id": "wecom-db",
@@ -26230,7 +26813,9 @@
       "confidence": 0.9,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:34:54Z",
-      "subCategory": "API 集成"
+      "subCategory": "API 集成",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225006+00:00"
     },
     {
       "id": "wechat-sns",
@@ -26265,7 +26850,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wechat-sns/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:34:57Z"
+      "enrichedAt": "2026-05-16T07:34:57Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225008+00:00"
     },
     {
       "id": "weekly-recap",
@@ -26300,7 +26887,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/weekly-recap/SPEC.md",
       "confidence": 0.95,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:35:00Z"
+      "enrichedAt": "2026-05-16T07:35:00Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225011+00:00"
     },
     {
       "id": "wewrite",
@@ -26335,7 +26924,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/wewrite/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:35:02Z"
+      "enrichedAt": "2026-05-16T07:35:02Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225013+00:00"
     },
     {
       "id": "x-tweet-fetcher",
@@ -26370,7 +26961,9 @@
       "sourceLocal": "/Users/mauricewen/00-AI-Fleet/state/skill-catalog-integration/staging-20260516T152213/x-tweet-fetcher/SPEC.md",
       "confidence": 1.0,
       "hallucinationRisk": "low",
-      "enrichedAt": "2026-05-16T07:35:05Z"
+      "enrichedAt": "2026-05-16T07:35:05Z",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225015+00:00"
     },
     {
       "id": "xiaohongshu-automation",
@@ -26406,7 +26999,9 @@
       "confidence": 0.95,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:35:06Z",
-      "subCategory": "浏览器自动化"
+      "subCategory": "浏览器自动化",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225018+00:00"
     },
     {
       "id": "yt-search-download",
@@ -26443,7 +27038,159 @@
       "confidence": 1.0,
       "hallucinationRisk": "low",
       "enrichedAt": "2026-05-16T07:35:08Z",
-      "subCategory": "网页抓取"
+      "subCategory": "网页抓取",
+      "phantom": true,
+      "phantomDetectedAt": "2026-05-18T12:11:59.225020+00:00"
+    },
+    {
+      "id": "local/_lib",
+      "name": "_lib",
+      "slug": "_lib",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/_lib",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225074+00:00"
+    },
+    {
+      "id": "local/agency-agents",
+      "name": "agency-agents",
+      "slug": "agency-agents",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/agency-agents",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225091+00:00"
+    },
+    {
+      "id": "local/cardputer-buddy",
+      "name": "cardputer-buddy",
+      "slug": "cardputer-buddy",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/cardputer-buddy",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225100+00:00"
+    },
+    {
+      "id": "local/imessage-access",
+      "name": "imessage-access",
+      "slug": "imessage-access",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/imessage-access",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225106+00:00"
+    },
+    {
+      "id": "local/imessage-configure",
+      "name": "imessage-configure",
+      "slug": "imessage-configure",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/imessage-configure",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225111+00:00"
+    },
+    {
+      "id": "local/m5-onboard",
+      "name": "m5-onboard",
+      "slug": "m5-onboard",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/m5-onboard",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225121+00:00"
+    },
+    {
+      "id": "local/session-report",
+      "name": "session-report",
+      "slug": "session-report",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/session-report",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225126+00:00"
+    },
+    {
+      "id": "local/telegram-configure",
+      "name": "telegram-configure",
+      "slug": "telegram-configure",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/telegram-configure",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225135+00:00"
+    },
+    {
+      "id": "local/vlm-consistency-judge",
+      "name": "vlm-consistency-judge",
+      "slug": "vlm-consistency-judge",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/vlm-consistency-judge",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225140+00:00"
+    },
+    {
+      "id": "local/xiaoyunque-video",
+      "name": "xiaoyunque-video",
+      "slug": "xiaoyunque-video",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/xiaoyunque-video",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-18T12:11:59.225145+00:00"
     }
   ]
 }
