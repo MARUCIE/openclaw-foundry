@@ -17,7 +17,7 @@
 ## 把这个包跑起来的真实建议
 
 - 第一次跑前，先把 `CLAUDE.md` 里的 `[PROJECT]` 替换成你实际项目名
-- 第一次跑后，把发现的"卡点"提到 https://openclaw-foundry.pages.dev/wall
+- 第一次跑后，把发现的"卡点"提到 https://agent-foundry.pages.dev/wall
 
 ---
 

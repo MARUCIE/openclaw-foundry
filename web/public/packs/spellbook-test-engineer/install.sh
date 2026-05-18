@@ -2,14 +2,14 @@
 # DEPRECATED ALIAS — see deprecated_alias_of in manifest.json
 # Non-destructive: this URL still works for backwards-compat with prior installs and
 # direct links. New installs should use the canonical pack at:
-#   https://openclaw-foundry.pages.dev/packs/test-engineer/install.sh
+#   https://agent-foundry.pages.dev/packs/test-engineer/install.sh
 #
 # spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 test-engineer 作为 canonical 入口
 set -euo pipefail
 
 LOSER_ID="spellbook-test-engineer"
 WINNER_ID="test-engineer"
-BASE_URL="${{FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}}"
+BASE_URL="${{FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}}"
 
 cat <<EOF
 

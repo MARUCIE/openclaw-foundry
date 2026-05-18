@@ -431,7 +431,7 @@ def render_install_sh(pack_id: str) -> str:
 set -euo pipefail
 PACK_ID="spellbook-{pack_id}"
 # Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
-BASE_URL="${{FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}}/packs/$PACK_ID"
+BASE_URL="${{FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}}/packs/$PACK_ID"
 TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing Spellbook Job Pack: $PACK_ID"

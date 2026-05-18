@@ -2,7 +2,7 @@
 # Agent Foundry - Data Analyst Pack Installer (manifest-driven)
 set -euo pipefail
 PACK_ID="data-analyst"
-BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
+BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
 TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing Data Analyst Pack: $PACK_ID"

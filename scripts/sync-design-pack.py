@@ -62,7 +62,7 @@ def render_install_sh() -> str:
 # OpenClaw Foundry — Product Manager Pack Installer (manifest-driven, design-augmented)
 set -euo pipefail
 PACK_ID="product-manager"
-BASE_URL="${FOUNDRY_BASE_URL:-https://openclaw-foundry.pages.dev}/packs/$PACK_ID"
+BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
 TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
 echo "Installing OpenClaw Job Pack: $PACK_ID (with design augment)"

@@ -3,7 +3,7 @@
 // filing on the callback domain, which is structurally impossible for
 // `.pages.dev` Cloudflare-owned subdomains. Enterprise WeChat self-built app
 // uses a trusted-domain (可信域名) verification file instead of ICP, so it
-// works on openclaw-foundry.pages.dev.
+// works on agent-foundry.pages.dev.
 //
 // Cohort fit: Maurice's PMs all have personal WeChat. The setup asks Maurice
 // to (a) create a free Enterprise WeChat corp, (b) create a self-built app,
@@ -15,7 +15,7 @@
 //   wrangler secret put WECHAT_CORP_ID    # corp ID from "我的企业 → 企业信息"
 //   wrangler secret put WECHAT_AGENT_ID   # self-built app ID from "应用管理 → 自建"
 //   wrangler secret put WECHAT_SECRET     # app Secret from same panel
-//   wrangler secret put PAGES_BASE_URL    # https://openclaw-foundry.pages.dev (no trailing slash)
+//   wrangler secret put PAGES_BASE_URL    # https://agent-foundry.pages.dev (no trailing slash)
 // Plus: drop the WW_verify_<token>.txt file from WeChat admin into web/public/
 
 import { Hono } from 'hono';
@@ -32,7 +32,7 @@ interface WechatEnv extends Env {
 export const wechatAuth = new Hono<{ Bindings: WechatEnv }>();
 
 function pagesBase(env: WechatEnv): string {
-  return (env.PAGES_BASE_URL || 'https://openclaw-foundry.pages.dev').replace(/\/$/, '');
+  return (env.PAGES_BASE_URL || 'https://agent-foundry.pages.dev').replace(/\/$/, '');
 }
 
 function configured(env: WechatEnv): boolean {

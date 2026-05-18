@@ -14,7 +14,7 @@ The OpenClaw ecosystem has 250K stars and just had a malicious skill crisis.
 I built the curated alternative. 37,000+ vetted AI agent skills. S/A/B/C quality ratings. Zero VPS — runs on Cloudflare free tier. MIT.
 
 GitHub: github.com/MARUCIE/openclaw-foundry
-Live: openclaw-foundry.pages.dev
+Live: agent-foundry.pages.dev
 
 Thread below with details:
 ```
@@ -74,7 +74,7 @@ Daily sync means skills added upstream today show up here tomorrow.
 
 ```
 github.com/MARUCIE/openclaw-foundry
-Live: openclaw-foundry.pages.dev
+Live: agent-foundry.pages.dev
 
 MIT. Self-hostable on any Cloudflare account.
 The rating rubric is in the repo. Disagree with a rating? Open a PR.
@@ -108,7 +108,7 @@ Technical decisions I made and why:
 What I am still figuring out: the rating rubric is manual right now. I want to automate the B/C tier scoring using static analysis and dependency scanning, but I have not gotten there yet. Pull requests welcome.
 
 GitHub: https://github.com/MARUCIE/openclaw-foundry
-Live: https://openclaw-foundry.pages.dev
+Live: https://agent-foundry.pages.dev
 MIT license.
 ```
 
@@ -155,7 +155,7 @@ The OpenClaw ecosystem had a security incident — malicious skills were found i
 **Links**
 
 - GitHub: https://github.com/MARUCIE/openclaw-foundry (MIT)
-- Live demo: https://openclaw-foundry.pages.dev
+- Live demo: https://agent-foundry.pages.dev
 
 The rating rubric is documented in the repo. Happy to answer questions about the Cloudflare architecture.
 ```
@@ -201,7 +201,7 @@ Zero VPS: Cloudflare Pages + Workers + D1 + GitHub Actions. Daily auto-sync from
 **Links**
 
 - GitHub: https://github.com/MARUCIE/openclaw-foundry (MIT)
-- Live: https://openclaw-foundry.pages.dev
+- Live: https://agent-foundry.pages.dev
 
 Would genuinely welcome feedback from people doing serious local agent work on whether the rating categories map to how you actually evaluate skills.
 ```

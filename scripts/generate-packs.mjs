@@ -12,7 +12,7 @@ const ROOT = join(__dirname, '..');
 const DATA_DIR = join(ROOT, 'data', 'job-packs');
 const PUBLIC_PACKS = join(ROOT, 'web', 'public', 'packs');
 const PUBLIC_DATA = join(ROOT, 'web', 'public', 'data');
-const SITE_URL = 'https://openclaw-foundry.pages.dev';
+const SITE_URL = 'https://agent-foundry.pages.dev';
 
 function deepMerge(target, source) {
   if (!source) return target;

@@ -6,7 +6,7 @@
 // POST /api/auth/logout    Authorization: Bearer <t>  → 200 {revoked: true} | 401
 //
 // Magic-link URL points at the Pages domain (not the Worker), e.g.
-// https://openclaw-foundry.pages.dev/auth/callback?token=<plaintext>
+// https://agent-foundry.pages.dev/auth/callback?token=<plaintext>
 // The Pages page reads the token and POSTs to /api/auth/consume itself, which avoids
 // the cross-domain cookie problem (CF Pages + CF Worker are different subdomains).
 
@@ -17,7 +17,7 @@ import { sha256Hex, randomToken, resolveSessionUser, extractBearer, type AuthedU
 interface Env {
   DB: D1Database;
   RESEND_API_KEY?: string;
-  MAGIC_LINK_BASE_URL?: string;   // defaults to https://openclaw-foundry.pages.dev
+  MAGIC_LINK_BASE_URL?: string;   // defaults to https://agent-foundry.pages.dev
   RESEND_FROM?: string;            // defaults to onboarding@resend.dev
 }
 
@@ -62,7 +62,7 @@ auth.post('/request', async (c) => {
      VALUES (?, ?, ?, ?, ?)`,
   ).bind(hash, email, expiresAt, ip, ua).run();
 
-  const base = c.env.MAGIC_LINK_BASE_URL || 'https://openclaw-foundry.pages.dev';
+  const base = c.env.MAGIC_LINK_BASE_URL || 'https://agent-foundry.pages.dev';
   const link = `${base.replace(/\/$/, '')}/auth/callback?token=${encodeURIComponent(plaintext)}`;
 
   const result = await sendMagicLink({

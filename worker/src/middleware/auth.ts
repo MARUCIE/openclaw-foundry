@@ -4,13 +4,18 @@
 import type { Context, Next } from 'hono';
 import type { TenantRow } from '../types';
 
+type AuthContext = Context<{
+  Bindings: { DB: D1Database };
+  Variables: { tenant: TenantRow };
+}>;
+
 const TIER_LIMITS: Record<string, number> = {
   free: 100,
   pro: 1000,
   partner: -1, // unlimited
 };
 
-export async function authMiddleware(c: Context<any>, next: Next) {
+export async function authMiddleware(c: AuthContext, next: Next) {
   const token = c.req.header('Authorization')?.replace('Bearer ', '');
   if (!token) {
     return c.json({ error: 'Missing Authorization header' }, 401);

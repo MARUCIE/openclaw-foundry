@@ -5,7 +5,7 @@
 
 export interface SendMagicLinkInput {
   to: string;                  // recipient email
-  link: string;                // full https://openclaw-foundry.pages.dev/auth/callback?token=...
+  link: string;                // full https://agent-foundry.pages.dev/auth/callback?token=...
   expires_minutes: number;     // for display in the email body
   apiKey: string | undefined;  // Worker env binding c.env.RESEND_API_KEY
   fromOverride?: string;       // optional sender; defaults to onboarding@resend.dev (Resend's shared dev sender)

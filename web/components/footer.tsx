@@ -52,7 +52,7 @@ const ECOSYSTEM_SITES: EcosystemSite[] = [
     number: '04',
     stage: '实战',
     name: 'Agent Foundry',
-    url: 'openclaw-foundry.pages.dev',
+    url: 'agent-foundry.pages.dev',
     href: '/',
     description: '当前站点：岗位 Agent 工具包一键安装',
     audience: '实战派 / 想立刻装上跑起来的人',

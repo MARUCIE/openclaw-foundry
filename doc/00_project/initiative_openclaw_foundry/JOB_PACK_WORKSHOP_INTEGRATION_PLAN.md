@@ -117,7 +117,7 @@ Replicate the 6-axis verification from `_template/CANONICAL.md` (AI-workshop), a
 - WORKSHOP_PLAN: `/Users/mauricewen/Projects/AI-workshop/WORKSHOP_PLAN.md`
 - W3 source content: `/Users/mauricewen/Projects/AI-workshop/workshops/W3-第3周-业务分析场景规划岗/`
 - Generation: `/Users/mauricewen/Projects/22-openclaw-foundry/scripts/generate-packs.mjs`
-- Install (production URL): `https://openclaw-foundry.pages.dev/packs/<pack-id>/install.sh`
+- Install (production URL): `https://agent-foundry.pages.dev/packs/<pack-id>/install.sh`
 
 ---
 

@@ -169,7 +169,7 @@ The audit script (NOT YET BUILT, scheduled as part of next session's product-man
 
 ## 6. Failure to comply
 
-If a pack ships at the cohort URL (`https://openclaw-foundry.pages.dev/packs/<pack>/`) without meeting at least `enriched` tier, the install script must print a one-line WARN before doing anything else:
+If a pack ships at the cohort URL (`https://agent-foundry.pages.dev/packs/<pack>/`) without meeting at least `enriched` tier, the install script must print a one-line WARN before doing anything else:
 
 ```
 WARN: <pack> is currently at tier=stub. Expect skeleton-only install. Tracking: PACK_SPEC.md §4.

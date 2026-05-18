@@ -11,7 +11,7 @@
 
 Agent Foundry aggregates skills from multiple sources (ClawHub, MCP Registry), rates them with a percentile-based S/A/B/C system, and lets you browse, search, and install them to any AI agent platform in one click. Built as the open-the-box toolkit for internal AI workshops.
 
-**Live site:** [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev) (production URL migration to `agent-foundry.pages.dev` is HITL-tracked separately)
+**Live site:** [agent-foundry.pages.dev](https://agent-foundry.pages.dev) (production URL migration to `agent-foundry.pages.dev` is HITL-tracked separately)
 
 <p align="center">
   <img src="doc/screenshots/sitemap-01-landing.png" width="80%" alt="Agent Foundry — Landing" />
@@ -53,7 +53,7 @@ Agent Foundry aggregates skills from multiple sources (ClawHub, MCP Registry), r
 
 ### Option 1: Use the live site
 
-Visit [openclaw-foundry.pages.dev](https://openclaw-foundry.pages.dev) — no setup needed.
+Visit [agent-foundry.pages.dev](https://agent-foundry.pages.dev) — no setup needed.
 
 ### Option 2: Self-host (< 5 minutes)
 

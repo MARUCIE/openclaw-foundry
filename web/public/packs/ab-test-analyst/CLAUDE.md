@@ -35,7 +35,7 @@ claude --skill ab-test-analysis 'design experiment for checkout button color cha
   出→排错"）
 - 加 ≥3 个反模式信号到本文件（让 pack-spec-audit.py 的 P2 通过）
 - 加 baseline.csv 让 cohort 自评 before/after
-- 跑 `pack-spec-audit.py --e2e --http-url https://openclaw-foundry.pages.dev` 产出 e2e
+- 跑 `pack-spec-audit.py --e2e --http-url https://agent-foundry.pages.dev` 产出 e2e
   evidence → 升 certified
 
 ---

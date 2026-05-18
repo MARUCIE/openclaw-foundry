@@ -87,4 +87,4 @@ Push to main:
 - Branch: main
 - Latest: be0ddf8
 - CI: sync-data/deploy-frontend/deploy-worker GREEN, seed-db KNOWN ISSUE
-- Production: openclaw-foundry.pages.dev LIVE
+- Production: agent-foundry.pages.dev LIVE

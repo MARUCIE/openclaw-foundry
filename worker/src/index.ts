@@ -39,7 +39,7 @@ app.use('*', cors({
   origin: (origin) => {
     if (!origin) return undefined;
     const allowed = [
-      'https://openclaw-foundry.pages.dev',
+      'https://agent-foundry.pages.dev',
       'http://localhost:3200',
       'http://localhost:3000',
     ];

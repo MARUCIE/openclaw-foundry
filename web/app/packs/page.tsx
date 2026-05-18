@@ -488,7 +488,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
       window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
       return;
     }
-    navigator.clipboard.writeText(`curl -sL https://openclaw-foundry.pages.dev/packs/${pack.id}/install.sh | bash`);
+    navigator.clipboard.writeText(`curl -sL https://agent-foundry.pages.dev/packs/${pack.id}/install.sh | bash`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };

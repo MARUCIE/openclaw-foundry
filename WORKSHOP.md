@@ -131,7 +131,7 @@ agent-foundry/
 
 **Known unverified**: API routes (`/api/providers`, `/api/packs`, `/api/skills`) return 500 on the local dev server because the Cloudflare Workers backend isn't running locally. The frontend handles missing data gracefully (loading skeletons + empty states render). For a workshop demo, use the static `web/public/data/*.json` mock files (already populated, 718K of skills).
 
-**Known HITL deferred**: production URL (`openclaw-foundry.pages.dev`) and GitHub repo slug (`MARUCIE/openclaw-foundry`) remain on the OpenClaw branding — both require Maurice to perform the rename via Cloudflare Pages settings + GitHub repo settings. Until then, the clone command in §"60-second path" still uses `openclaw-foundry`.
+**Known HITL deferred**: production URL (`agent-foundry.pages.dev`) and GitHub repo slug (`MARUCIE/openclaw-foundry`) remain on the OpenClaw branding — both require Maurice to perform the rename via Cloudflare Pages settings + GitHub repo settings. Until then, the clone command in §"60-second path" still uses `openclaw-foundry`.
 
 ## What this toolkit is NOT
 
