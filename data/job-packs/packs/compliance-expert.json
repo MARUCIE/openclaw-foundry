@@ -13,7 +13,8 @@
     "line-business",
     "role-compliance"
   ],
-  "version": "4.1.0",
+  "version": "4.2.0",
+  "preserveContent": true,
   "artifacts": {
     "skills": 8,
     "agents": 3,
