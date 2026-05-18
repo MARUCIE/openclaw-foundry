@@ -92,7 +92,9 @@
 
   "skills.title": "Agent 能力市场",
   "skills.subtitle": "Skills & MCP Servers，一键安装到任意工具",
-  "skills.synced": "同步",
+  "skills.synced": "快照",
+  "skills.localPrivateBanner": "本地私有 · 此 skill 仅在源机器可装。下方命令仅供参考。",
+  "skills.viewCommands": "查看命令",
   "skills.searchPlaceholder": "搜索 Skills 或 MCP Servers...",
   "skills.categories": "分类",
   "skills.collapse": "收起",

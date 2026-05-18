@@ -185,6 +185,21 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           {locale === 'zh' && (skill as any).descriptionZh ? (skill as any).descriptionZh : skill.description}
         </p>
 
+        {(() => {
+          const isPrivateLocal = skill.source === 'local' && !deriveExternalSource(skill);
+          if (!isPrivateLocal) return null;
+          return (
+            <div
+              className="flex items-start gap-2 p-3 rounded-2xl text-xs leading-relaxed"
+              style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', border: '1px solid var(--outline-variant)' }}
+              role="note"
+            >
+              <span aria-hidden="true" className="material-symbols-outlined text-base mt-0.5" style={{ color: 'var(--on-surface-variant)' }}>info</span>
+              <span>{t('skills.localPrivateBanner')}</span>
+            </div>
+          );
+        })()}
+
         <div className="space-y-5">
           <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-balance" style={{ color: 'var(--on-surface-variant)' }}>
             {t('skills.selectTarget')}
@@ -241,7 +256,12 @@ function CurationBadges({ skill, compact = false }: { skill: ClawHubSkill; compa
   const stale = (skill as any).stale;
   const pm = (skill as any).permissionManifest || {};
 
-  const hasDeployData = rate >= 0 && count > 0;
+  // Hide deploy telemetry chips for source=local skills: those counts are
+  // synthetic LLM-enrichment artifacts (per 2026-05-18 marketplace integrity
+  // audit, Munger F3) — no real submitFeedback round-trip backs them.
+  // Stale + permissions chips still render (those are static-analysis facts).
+  const isSyntheticTelemetry = skill.source === 'local';
+  const hasDeployData = !isSyntheticTelemetry && rate >= 0 && count > 0;
   const hasPermissions = pm.network_access || pm.filesystem_access || pm.shell_execution || pm.data_sensitivity;
 
   if (!hasDeployData && !stale && !hasPermissions) return null;
@@ -681,7 +701,7 @@ export function MarketplaceShell() {
                         className="px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-white transition-all hover:shadow-xl active:scale-95"
                         style={{ background: isSkill ? 'var(--primary)' : 'var(--tertiary)' }}
                       >
-                        Install
+                        {(skill.source === 'local' && !deriveExternalSource(skill)) ? t('skills.viewCommands') : 'Install'}
                       </button>
                     </div>
                   </div>
