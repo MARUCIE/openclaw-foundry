@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useCallback, Suspense } from 'react';
@@ -56,10 +57,10 @@ function SkillDetailContent() {
   if (!skillId) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <span className="material-symbols-outlined text-6xl mb-4 block" style={{ color: 'var(--outline)' }}>error</span>
-        <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--on-surface)' }}>{t('skill.noId')}</h2>
-        <p className="text-sm mb-6" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.noIdDesc')}</p>
-        <Link href="/explore/skills" className="px-5 py-2.5 rounded-xl text-sm font-bold" style={{ background: 'var(--primary)', color: 'white' }}>
+        <span className="material-symbols-outlined text-6xl mb-4 block opacity-20" style={{ color: 'var(--on-surface)' }}>error</span>
+        <h2 className="text-2xl font-black mb-2 text-balance" style={{ color: 'var(--on-surface)' }}>{t('skill.noId')}</h2>
+        <p className="text-sm mb-8 opacity-60 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.noIdDesc')}</p>
+        <Link href="/explore/skills" className="px-8 py-3 rounded-2xl text-sm font-black uppercase tracking-widest text-white transition-all hover:shadow-xl active:scale-95" style={{ background: 'var(--primary)' }}>
           {t('skill.browseAll')}
         </Link>
       </div>
@@ -68,13 +69,13 @@ function SkillDetailContent() {
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto px-6 py-12 space-y-6">
-        <div className="h-10 w-64 rounded-xl skeleton-shimmer" />
-        <div className="h-6 w-96 rounded-lg skeleton-shimmer" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[0, 1, 2].map(i => <div key={i} className="h-32 rounded-2xl skeleton-shimmer" />)}
+      <div className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+        <div className="h-10 w-64 rounded-2xl animate-pulse bg-[var(--surface-container-low)]" />
+        <div className="h-6 w-96 rounded-xl animate-pulse bg-[var(--surface-container-low)]" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[0, 1, 2].map(i => <div key={i} className="h-40 rounded-[2rem] animate-pulse bg-[var(--surface-container-low)]" />)}
         </div>
-        <div className="h-48 rounded-2xl skeleton-shimmer" />
+        <div className="h-64 rounded-[2.5rem] animate-pulse bg-[var(--surface-container-low)]" />
       </div>
     );
   }
@@ -82,10 +83,10 @@ function SkillDetailContent() {
   if (!skill) {
     return (
       <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <span className="material-symbols-outlined text-6xl mb-4 block" style={{ color: 'var(--outline)' }}>search_off</span>
-        <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--on-surface)' }}>{t('skill.notFound')}</h2>
-        <p className="text-sm mb-6" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.notFoundDesc', { id: skillId })}</p>
-        <Link href="/explore/skills" className="px-5 py-2.5 rounded-xl text-sm font-bold" style={{ background: 'var(--primary)', color: 'white' }}>
+        <span className="material-symbols-outlined text-6xl mb-4 block opacity-20" style={{ color: 'var(--on-surface)' }}>search_off</span>
+        <h2 className="text-2xl font-black mb-2 text-balance" style={{ color: 'var(--on-surface)' }}>{t('skill.notFound')}</h2>
+        <p className="text-sm mb-8 opacity-60 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.notFoundDesc', { id: skillId })}</p>
+        <Link href="/explore/skills" className="px-8 py-3 rounded-2xl text-sm font-black uppercase tracking-widest text-white transition-all hover:shadow-xl active:scale-95" style={{ background: 'var(--primary)' }}>
           {t('skill.browseAll')}
         </Link>
       </div>
@@ -108,7 +109,7 @@ function SkillDetailContent() {
   const reviewDown = statsData?.stats?.review_down?.count ?? (skill as any).reviewDown ?? 0;
   const compositeScore = (skill as any).compositeScore ?? skill.score ?? 0;
 
-  // Scenarios (placeholder until payload populates)
+  // Scenarios
   const scenarios = [
     { icon: SCENARIO_ICONS[0], title: t('skill.scenarioIntegrate'), desc: t('skill.scenarioIntegrateDesc', { name: skill.name }) },
     { icon: SCENARIO_ICONS[1], title: t('skill.scenarioAutomate'), desc: t('skill.scenarioAutomateDesc', { name: skill.name }) },
@@ -132,70 +133,82 @@ function SkillDetailContent() {
   const deployRate = rate ?? 0;
 
   return (
-    <div className="max-w-4xl mx-auto px-6 pb-40">
+    <div className="max-w-4xl mx-auto px-6 pb-64">
 
       {/* ═══ Zone 1: Hero ═══ */}
-      <section className="pt-8 pb-6">
+      <section className="pt-12 pb-10">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm mb-6" style={{ color: 'var(--on-surface-variant)' }}>
-          <Link href="/explore/skills" className="hover:underline">{t('skill.breadcrumb')}</Link>
-          <span className="material-symbols-outlined text-sm">chevron_right</span>
-          <span style={{ color: 'var(--on-surface)' }}>{skill.name}</span>
+        <div className="flex items-center gap-2 mb-8">
+          <Link href="/explore/skills" className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity">
+            {t('skill.breadcrumb')}
+          </Link>
+          <span className="material-symbols-outlined text-xs font-black opacity-20">chevron_right</span>
+          <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-80">{skill.name}</span>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-start gap-4">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 flex-wrap mb-3">
-              <h1 className="text-3xl md:text-4xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
+        <div className="flex flex-col md:flex-row md:items-start gap-10">
+          <div className="flex-1 space-y-6">
+            <div className="flex items-center gap-4 flex-wrap">
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
                 {skill.name}
               </h1>
               <span
-                className="px-3 py-1 text-sm font-bold rounded-full"
+                className="px-4 py-1.5 text-xs font-black rounded-full shadow-sm"
                 style={{ background: ratingStyle.bg, color: ratingStyle.text }}
               >
-                {skill.rating}
+                {skill.rating} RATING
               </span>
             </div>
 
-            <p className="text-base mb-4 max-w-2xl" style={{ color: 'var(--on-surface-variant)' }}>
-              {skill.editorialTagline || (skill.description && skill.description.length > 80 ? skill.description.slice(0, 80) + '...' : skill.description)}
+            <p className="text-lg md:text-xl font-medium leading-relaxed opacity-80 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>
+              {skill.editorialTagline || skill.description}
             </p>
 
-            <div className="flex items-center gap-3 flex-wrap mb-4">
-              <span className="text-sm font-medium" style={{ color: 'var(--on-surface-variant)' }}>@{skill.author}</span>
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-sm font-bold opacity-60">by @{skill.author}</span>
+              <span className="w-1 h-1 rounded-full bg-[var(--outline)] opacity-20" />
               <span
-                className="px-3 py-1 text-xs font-bold rounded-full"
-                style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)' }}
+                className="px-3 py-1 text-[var(--af-fs-meta)] font-black uppercase tracking-widest rounded-full"
+                style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface-variant)' }}
               >
                 {skill.category}
               </span>
               <span
-                className="px-2 py-0.5 text-[10px] font-bold rounded-full"
-                style={{ background: isSkillType ? '#dbeafe' : '#d1fae5', color: isSkillType ? '#1e40af' : '#065f46' }}
+                className="px-3 py-1 text-[var(--af-fs-meta)] font-black uppercase tracking-widest rounded-full"
+                style={{ background: isSkillType ? 'var(--primary-container)' : 'var(--tertiary-container)', color: isSkillType ? 'var(--on-primary-container)' : 'var(--on-tertiary-container)' }}
               >
                 {isSkillType ? 'Skill' : 'MCP Server'}
               </span>
             </div>
 
             {/* Stats row */}
-            <div className="flex items-center gap-5 text-sm" style={{ color: 'var(--on-surface-variant)' }}>
+            <div className="flex items-center gap-8 pt-2">
               {skill.downloads > 0 && (
-                <span className="flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-base">download</span>
-                  {skill.downloadsDisplay || formatNum(skill.downloads)}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 mb-1">Downloads</span>
+                  <div className="flex items-center gap-1.5 font-black text-lg">
+                    <span className="material-symbols-outlined text-xl font-black opacity-40">download</span>
+                    {skill.downloadsDisplay || formatNum(skill.downloads)}
+                  </div>
+                </div>
               )}
               {skill.stars > 0 && (
-                <span className="flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-base" style={{ color: '#f59e0b', fontVariationSettings: "'FILL' 1" }}>star</span>
-                  {skill.starsDisplay || formatNum(skill.stars)}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 mb-1">Github Stars</span>
+                  <div className="flex items-center gap-1.5 font-black text-lg">
+                    <span className="material-symbols-outlined text-xl font-black text-amber-500 fill-1">star</span>
+                    {skill.starsDisplay || formatNum(skill.stars)}
+                  </div>
+                </div>
               )}
               {skill.versions > 0 && (
-                <span className="flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-base">history</span>
-                  {t('skill.versions', { count: skill.versions })}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 mb-1">Versions</span>
+                  <div className="flex items-center gap-1.5 font-black text-lg">
+                    <span className="material-symbols-outlined text-xl font-black opacity-40">history</span>
+                    {skill.versions}
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -206,269 +219,267 @@ function SkillDetailContent() {
               href={skill.url || skill.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all hover:opacity-80"
-              style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}
+              className="shrink-0 flex items-center justify-center gap-2 px-8 py-4 rounded-[1.5rem] text-sm font-black uppercase tracking-widest transition-all hover:shadow-xl hover:-translate-y-1 active:scale-95 shadow-md"
+              style={{ background: 'var(--surface-container-high)', color: 'var(--primary)' }}
             >
-              <span className="material-symbols-outlined text-base">open_in_new</span>
+              <span className="material-symbols-outlined font-black">open_in_new</span>
               {t('skill.viewSource')}
             </a>
           )}
         </div>
       </section>
 
-      {/* ═══ Zone 2: Scenarios ═══ */}
-      <section className="py-6">
-        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-          {t('skill.scenarios')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {scenarios.map((s, i) => (
-            <div
-              key={i}
-              className="p-5 rounded-2xl"
-              style={{ background: 'var(--surface-container-low)' }}
-            >
-              <span className="material-symbols-outlined text-2xl mb-3 block" style={{ color: 'var(--primary)' }}>{s.icon}</span>
-              <h3 className="font-bold text-sm mb-1.5" style={{ color: 'var(--on-surface)' }}>{s.title}</h3>
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{s.desc}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-10 border-t border-[var(--outline-variant)]">
+        {/* Left: Main Content */}
+        <div className="lg:col-span-2 space-y-16">
+          {/* ═══ Zone 2: Scenarios ═══ */}
+          <section className="space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1.5 h-6 rounded-full" style={{ background: 'var(--primary)' }} />
+              <h2 className="text-xl font-black uppercase tracking-widest text-balance" style={{ color: 'var(--on-surface)' }}>
+                {t('skill.scenarios')}
+              </h2>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══ Zone 3: Combo Recommendations ═══ */}
-      <section className="py-6">
-        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-          {t('skill.combos')}
-        </h2>
-        {recs.length > 0 ? (
-          <div className="flex gap-4 overflow-x-auto pb-2" style={{ scrollbarWidth: 'thin' }}>
-            {recs.map(r => {
-              const rs = RATING_COLORS[r.rating] || RATING_COLORS.C;
-              return (
-                <Link
-                  key={r.id}
-                  href={`/skill?id=${encodeURIComponent(r.id)}`}
-                  className="shrink-0 w-52 p-4 rounded-2xl transition-all card-hover"
-                  style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <h4 className="font-bold text-sm truncate flex-1" style={{ color: 'var(--on-surface)' }}>{r.name}</h4>
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-full shrink-0" style={{ background: rs.bg, color: rs.text }}>{r.rating}</span>
-                  </div>
-                  <p className="text-xs line-clamp-2 mb-3" style={{ color: 'var(--on-surface-variant)' }}>
-                    {r.description ? (r.description.length > 60 ? r.description.slice(0, 60) + '...' : r.description) : ''}
-                  </p>
-                  <span className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--primary)' }}>
-                    <span className="material-symbols-outlined text-sm">add_circle</span>
-                    {t('skill.installTogether')}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="py-8 text-center rounded-2xl" style={{ background: 'var(--surface-container-low)' }}>
-            <span className="material-symbols-outlined text-3xl mb-2 block" style={{ color: 'var(--outline)' }}>group</span>
-            <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.combosEmpty')}</p>
-          </div>
-        )}
-      </section>
-
-      {/* ═══ Zone 4: Battle Record Testimonials ═══ */}
-      <section className="py-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-            {t('skill.testimonials')}
-          </h2>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all hover:opacity-80"
-            style={{ background: 'var(--primary)', color: 'white' }}
-          >
-            <span className="material-symbols-outlined text-base">{showForm ? 'close' : 'add'}</span>
-            {showForm ? t('skill.collapse') : t('skill.submitRecord')}
-          </button>
-        </div>
-
-        {showForm && (
-          <div className="mb-4">
-            <TestimonialForm
-              skillId={skillId}
-              onDone={() => setShowForm(false)}
-            />
-          </div>
-        )}
-
-        {(reviewUp > 0 || reviewDown > 0) ? (
-          <div className="flex items-center gap-4 py-6 px-5 rounded-2xl" style={{ background: 'var(--surface-container-low)' }}>
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-xl" style={{ color: '#16a34a', fontVariationSettings: "'FILL' 1" }}>thumb_up</span>
-              <span className="text-2xl font-bold" style={{ color: 'var(--on-surface)' }}>{reviewUp}</span>
-              <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.recommend')}</span>
-            </div>
-            <div className="w-px h-8" style={{ background: 'var(--outline-variant)' }} />
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-xl" style={{ color: '#dc2626', fontVariationSettings: "'FILL' 1" }}>thumb_down</span>
-              <span className="text-2xl font-bold" style={{ color: 'var(--on-surface)' }}>{reviewDown}</span>
-              <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.notRecommend')}</span>
-            </div>
-          </div>
-        ) : (
-          <div className="py-8 text-center rounded-2xl" style={{ background: 'var(--surface-container-low)' }}>
-            <span className="material-symbols-outlined text-3xl mb-2 block" style={{ color: 'var(--outline)' }}>military_tech</span>
-            <p className="text-sm mb-1" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.noRecords')}</p>
-            {!showForm && (
-              <button
-                onClick={() => setShowForm(true)}
-                className="text-sm font-bold mt-2"
-                style={{ color: 'var(--primary)' }}
-              >
-                {t('skill.beFirst')}
-              </button>
-            )}
-          </div>
-        )}
-      </section>
-
-      {/* ═══ Zone 6: Permissions ═══ */}
-      <section className="py-6">
-        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-          {t('skill.permissions')}
-        </h2>
-        <PermissionDisplay permItems={permItems} />
-      </section>
-
-      {/* ═══ Zone 7: Activity ═══ */}
-      <section className="py-6">
-        <h2 className="text-lg font-bold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
-          {t('skill.activity')}
-        </h2>
-        <div className="p-5 rounded-2xl space-y-4" style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}>
-          {/* Deploy success rate */}
-          {hasDeployData && (
-            <div>
-              <div className="flex items-center justify-between text-sm mb-2">
-                <span style={{ color: 'var(--on-surface-variant)' }}>{t('skill.deployRate')}</span>
-                <span className="font-bold" style={{ color: deployRate >= 0.7 ? '#16a34a' : deployRate >= 0.4 ? '#ca8a04' : '#dc2626' }}>
-                  {Math.round(deployRate * 100)}% ({deployCount} 次)
-                </span>
-              </div>
-              <div className="h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface-container)' }}>
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+              {scenarios.map((s, i) => (
                 <div
-                  className="h-full rounded-full transition-all"
-                  style={{
-                    width: `${Math.round(deployRate * 100)}%`,
-                    background: deployRate >= 0.7 ? '#16a34a' : deployRate >= 0.4 ? '#ca8a04' : '#dc2626',
-                  }}
+                  key={i}
+                  className="flex gap-6 p-8 rounded-[2rem] transition-all hover:bg-[var(--surface-container-low)] border border-[var(--outline-variant)]"
+                  style={{ background: 'var(--surface-container-lowest)' }}
+                >
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-inner" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
+                    <span className="material-symbols-outlined text-2xl font-black">{s.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-black text-base mb-2 text-balance" style={{ color: 'var(--on-surface)' }}>{s.title}</h3>
+                    <p className="text-sm leading-relaxed opacity-70 text-pretty">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ═══ Zone 6: Permissions ═══ */}
+          <section className="space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1.5 h-6 rounded-full" style={{ background: 'var(--error)' }} />
+              <h2 className="text-xl font-black uppercase tracking-widest text-balance" style={{ color: 'var(--on-surface)' }}>
+                {t('skill.permissions')}
+              </h2>
+            </div>
+            <div className="rounded-[2.5rem] overflow-hidden border border-[var(--outline-variant)]">
+              <PermissionDisplay permItems={permItems} />
+            </div>
+          </section>
+
+          {/* ═══ Zone 4: Testimonials ═══ */}
+          <section className="space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-6 rounded-full" style={{ background: 'var(--tertiary)' }} />
+                <h2 className="text-xl font-black uppercase tracking-widest text-balance" style={{ color: 'var(--on-surface)' }}>
+                  {t('skill.testimonials')}
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowForm(!showForm)}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all hover:shadow-lg active:scale-95"
+                style={{ background: showForm ? 'var(--surface-container-high)' : 'var(--primary)', color: showForm ? 'var(--on-surface)' : 'white' }}
+              >
+                <span className="material-symbols-outlined text-sm font-black">{showForm ? 'close' : 'add'}</span>
+                {showForm ? t('skill.collapse') : t('skill.submitRecord')}
+              </button>
+            </div>
+
+            {showForm && (
+              <div className="scale-in">
+                <TestimonialForm
+                  skillId={skillId}
+                  onDone={() => setShowForm(false)}
                 />
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Composite score */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.compositeScore')}</span>
-            <span className="text-lg font-bold" style={{ color: 'var(--on-surface)' }}>{compositeScore}</span>
-          </div>
-
-          {/* Review summary */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.userReviews')}</span>
-            <div className="flex items-center gap-3 text-sm">
-              <span className="flex items-center gap-1" style={{ color: '#16a34a' }}>
-                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>thumb_up</span>
-                {reviewUp}
-              </span>
-              <span className="flex items-center gap-1" style={{ color: '#dc2626' }}>
-                <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>thumb_down</span>
-                {reviewDown}
-              </span>
-            </div>
-          </div>
-
-          {/* Stale warning */}
-          {stale && (
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: '#fee2e2', color: '#991b1b' }}>
-              <span className="material-symbols-outlined text-base">schedule</span>
-              <span className="text-sm font-bold">{t('skill.staleWarning')}</span>
-            </div>
-          )}
-
-          {/* Last sync */}
-          {syncedAt && (
-            <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: 'var(--outline-variant)' }}>
-              <span className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.lastSync')}</span>
-              <span className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>
-                {new Date(syncedAt).toLocaleDateString('zh-CN')}
-              </span>
-            </div>
-          )}
+            {(reviewUp > 0 || reviewDown > 0) ? (
+              <div className="grid grid-cols-2 gap-4 p-8 rounded-[2.5rem] bg-[var(--surface-container-low)] border border-[var(--outline-variant)]">
+                <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--surface-container-lowest)] shadow-sm">
+                  <span className="material-symbols-outlined text-3xl font-black mb-3" style={{ color: 'var(--tertiary)', fontVariationSettings: "'FILL' 1" }}>thumb_up</span>
+                  <span className="text-4xl font-black" style={{ color: 'var(--on-surface)' }}>{reviewUp}</span>
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40 mt-1">{t('skill.recommend')}</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--surface-container-lowest)] shadow-sm">
+                  <span className="material-symbols-outlined text-3xl font-black mb-3" style={{ color: 'var(--error)', fontVariationSettings: "'FILL' 1" }}>thumb_down</span>
+                  <span className="text-4xl font-black" style={{ color: 'var(--on-surface)' }}>{reviewDown}</span>
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40 mt-1">{t('skill.notRecommend')}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="py-16 text-center rounded-[2.5rem] bg-[var(--surface-container-low)] border border-dashed border-[var(--outline-variant)]">
+                <span className="material-symbols-outlined text-5xl mb-4 block opacity-20" style={{ color: 'var(--on-surface)' }}>military_tech</span>
+                <p className="text-sm font-bold opacity-40 text-pretty">{t('skill.noRecords')}</p>
+                {!showForm && (
+                  <button onClick={() => setShowForm(true)} className="text-xs font-black uppercase tracking-widest mt-4 text-[var(--primary)] hover:underline">
+                    {t('skill.beFirst')}
+                  </button>
+                )}
+              </div>
+            )}
+          </section>
         </div>
-      </section>
+
+        {/* Right: Sidebar */}
+        <aside className="space-y-12">
+          {/* ═══ Zone 7: Activity ═══ */}
+          <section className="space-y-6">
+            <h2 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-50 text-balance">Market Activity</h2>
+            <div className="p-8 rounded-[2.5rem] bg-[var(--surface-container-lowest)] border border-[var(--outline-variant)] shadow-sm space-y-8">
+              {/* Composite score */}
+              <div className="text-center pb-6 border-b border-dashed border-[var(--outline-variant)]">
+                <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 block mb-2">{t('skill.compositeScore')}</span>
+                <span className="text-6xl font-black tracking-tight" style={{ color: 'var(--on-surface)' }}>{compositeScore}</span>
+              </div>
+
+              {/* Deploy success rate */}
+              {hasDeployData && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-60">{t('skill.deployRate')}</span>
+                    <span className="text-xs font-black" style={{ color: deployRate >= 0.7 ? 'var(--tertiary)' : deployRate >= 0.4 ? 'var(--af-yellow-fg)' : 'var(--error)' }}>
+                      {Math.round(deployRate * 100)}% ({deployCount})
+                    </span>
+                  </div>
+                  <div className="h-3 rounded-full overflow-hidden bg-[var(--surface-container)] shadow-inner">
+                    <div
+                      className="h-full rounded-full transition-all duration-1000"
+                      style={{
+                        width: `{Math.round(deployRate * 100)}%`,
+                        background: deployRate >= 0.7 ? 'var(--tertiary)' : deployRate >= 0.4 ? 'var(--af-yellow-fg)' : 'var(--error)',
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Stale warning */}
+              {stale && (
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-[var(--error-container)] text-[var(--on-error-container)]">
+                  <span className="material-symbols-outlined font-black">schedule</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{t('skill.staleWarning')}</span>
+                </div>
+              )}
+
+              {/* Sync info */}
+              {syncedAt && (
+                <div className="flex items-center justify-between pt-4 opacity-40">
+                  <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest">{t('skill.lastSync')}</span>
+                  <span className="text-[var(--af-fs-meta)] font-black">{new Date(syncedAt).toLocaleDateString('zh-CN')}</span>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* ═══ Zone 3: Combo Recommendations ═══ */}
+          <section className="space-y-6">
+            <h2 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-50 text-balance">{t('skill.combos')}</h2>
+            {recs.length > 0 ? (
+              <div className="space-y-4">
+                {recs.slice(0, 3).map(r => {
+                  const rs = RATING_COLORS[r.rating] || RATING_COLORS.C;
+                  return (
+                    <Link
+                      key={r.id}
+                      href={`/skill?id=${encodeURIComponent(r.id)}`}
+                      className="group flex flex-col p-6 rounded-[2rem] transition-all hover:bg-[var(--surface-container-low)] border border-[var(--outline-variant)] bg-[var(--surface-container-lowest)]"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-black text-sm truncate flex-1 pr-2 text-balance" style={{ color: 'var(--on-surface)' }}>{r.name}</h4>
+                        <span className="px-2 py-0.5 text-[var(--af-fs-micro)] font-black uppercase tracking-widest rounded-full shrink-0" style={{ background: rs.bg, color: rs.text }}>{r.rating}</span>
+                      </div>
+                      <p className="text-xs opacity-60 line-clamp-2 leading-relaxed mb-4 text-pretty">{r.description}</p>
+                      <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-1.5 text-[var(--primary)] group-hover:underline">
+                        <span className="material-symbols-outlined text-sm font-black">add_circle</span>
+                        {t('skill.installTogether')}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="p-10 text-center rounded-[2rem] bg-[var(--surface-container-low)] border border-dashed border-[var(--outline-variant)] opacity-40">
+                <span className="material-symbols-outlined text-3xl mb-2 block font-black">group</span>
+                <p className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-pretty">{t('skill.combosEmpty')}</p>
+              </div>
+            )}
+          </section>
+        </aside>
+      </div>
 
       {/* ═══ Zone 5: Install Command (STICKY) ═══ */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-40 border-t"
+        className="fixed bottom-0 left-0 right-0 z-40 border-t-2"
         style={{
           background: 'var(--surface-container-lowest)',
           borderColor: 'var(--outline-variant)',
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.08)',
+          boxShadow: '0 -10px 40px rgba(0,0,0,0.1)',
         }}
       >
-        <div className="max-w-4xl mx-auto px-6 py-4">
+        <div className="max-w-4xl mx-auto px-6 py-6 space-y-4">
           {/* Platform tabs */}
-          <div className="flex gap-1 mb-3 overflow-x-auto pb-1" style={{ scrollbarWidth: 'thin' }}>
+          <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
             {availableTargets.map(tgt => (
               <button
                 key={tgt.id}
                 onClick={() => setActiveTab(tgt.id)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap shrink-0"
+                className="flex items-center gap-2 px-5 py-2 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0"
                 style={{
                   background: activeTab === tgt.id ? 'var(--primary)' : 'var(--surface-container)',
                   color: activeTab === tgt.id ? 'white' : 'var(--on-surface-variant)',
+                  transform: activeTab === tgt.id ? 'scale(1.05)' : 'scale(1)',
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>{tgt.icon}</span>
+                <span className="material-symbols-outlined text-sm font-black">{tgt.icon}</span>
                 {tgt.name}
               </button>
             ))}
           </div>
 
           {/* Command + copy */}
-          {installCmd && (
-            <div className="flex items-start gap-3">
-              <pre
-                className="flex-1 text-xs overflow-x-auto rounded-xl p-3"
-                style={{
-                  background: '#1e1e2e',
-                  color: '#cdd6f4',
-                  fontFamily: 'monospace',
-                  whiteSpace: installCmd.includes('\n') ? 'pre' : 'nowrap',
-                  maxHeight: '120px',
-                }}
-              >
-                {installCmd}
-              </pre>
+          {installCmd ? (
+            <div className="flex items-stretch gap-3">
+              <div className="flex-1 relative group">
+                <pre
+                  className="w-full text-xs font-bold overflow-x-auto rounded-2xl p-5 scrollbar-hide shadow-inner transition-all group-hover:shadow-md text-pretty"
+                  style={{
+                    background: 'var(--af-code-bg-dark)',
+                    color: 'var(--af-code-text)',
+                    fontFamily: 'monospace',
+                    whiteSpace: installCmd.includes('\n') ? 'pre' : 'nowrap',
+                    maxHeight: '150px',
+                  }}
+                >
+                  {installCmd}
+                </pre>
+                <div className="absolute top-3 right-3 px-2 py-0.5 rounded bg-white/5 text-[var(--af-fs-micro)] font-black uppercase tracking-widest text-white/40">Bash</div>
+              </div>
               <button
                 onClick={() => copy(installCmd, 'install')}
-                className="shrink-0 flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all"
+                className="shrink-0 flex flex-col items-center justify-center gap-1 px-8 rounded-2xl font-black uppercase tracking-widest text-white transition-all hover:shadow-2xl active:scale-95 shadow-lg"
                 style={{
-                  background: copied === 'install' ? '#22c55e' : 'var(--primary)',
-                  color: 'white',
+                  background: copied === 'install' ? 'var(--tertiary)' : 'var(--primary)',
                 }}
               >
-                <span className="material-symbols-outlined text-base">
+                <span className="material-symbols-outlined text-xl font-black">
                   {copied === 'install' ? 'check' : 'content_copy'}
                 </span>
-                {copied === 'install' ? t('skill.copied') : t('skill.copy')}
+                <span className="text-[var(--af-fs-micro)]">{copied === 'install' ? t('skill.copied') : t('skill.copy')}</span>
               </button>
             </div>
-          )}
-          {!installCmd && (
-            <p className="text-xs py-2" style={{ color: 'var(--on-surface-variant)' }}>
-              {t('skill.platformUnsupported')}
-            </p>
+          ) : (
+            <div className="p-6 rounded-2xl bg-[var(--surface-container-low)] text-center border-2 border-dashed border-[var(--outline-variant)]">
+              <p className="text-xs font-black uppercase tracking-[0.2em] opacity-40 text-pretty">
+                {t('skill.platformUnsupported')}
+              </p>
+            </div>
           )}
         </div>
       </div>
@@ -476,15 +487,15 @@ function SkillDetailContent() {
   );
 }
 
-// ── Page export with Suspense (required for useSearchParams in static export) ──
+// ── Page export with Suspense ──
 
 export default function SkillDetailPage() {
   return (
     <Suspense fallback={
-      <div className="max-w-4xl mx-auto px-6 py-12 space-y-6">
-        <div className="h-10 w-64 rounded-xl skeleton-shimmer" />
-        <div className="h-6 w-96 rounded-lg skeleton-shimmer" />
-        <div className="h-48 rounded-2xl skeleton-shimmer" />
+      <div className="max-w-4xl mx-auto px-6 py-12 space-y-8">
+        <div className="h-10 w-64 rounded-2xl animate-pulse bg-[var(--surface-container-low)]" />
+        <div className="h-6 w-96 rounded-xl animate-pulse bg-[var(--surface-container-low)]" />
+        <div className="h-64 rounded-[2.5rem] animate-pulse bg-[var(--surface-container-low)]" />
       </div>
     }>
       <SkillDetailContent />

@@ -77,7 +77,7 @@ export interface ClawHubSkill {
   score: number;
   rating: 'S' | 'A' | 'B' | 'C' | 'D';
   url: string;
-  source?: 'clawhub' | 'mcp-registry';
+  source?: 'clawhub' | 'mcp-registry' | 'local';
   sourceUrl?: string;
   repositoryUrl?: string;
   remoteUrl?: string;

@@ -114,10 +114,10 @@ function LoginInner() {
         <div className="w-2 h-12 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
-            登陆
+            注册 / 登陆
           </h1>
           <p className="text-sm font-bold uppercase tracking-widest opacity-50 mt-1">
-            Sign in · 邮箱注册即登陆，无需密码
+            Sign up or sign in · 支持邮箱注册和微信扫码注册
           </p>
         </div>
       </div>
@@ -126,9 +126,9 @@ function LoginInner() {
         <>
           <section className="p-8 rounded-[2rem] space-y-6" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
             <div className="space-y-2">
-              <h2 className="text-xl font-black tracking-tight">输入邮箱，发送登陆链接</h2>
+              <h2 className="text-xl font-black tracking-tight">邮箱注册 / 登陆</h2>
               <p className="text-sm opacity-70 leading-relaxed">
-                我们会发送一封含登陆链接的邮件到你的邮箱，点击即完成登陆——无需设置密码。链接 15 分钟内有效，仅限单次使用。
+                输入邮箱后会收到一次性链接。首次点击即完成注册，老用户点击即完成登陆——无需设置密码。链接 15 分钟内有效，仅限单次使用。
               </p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -177,7 +177,7 @@ function LoginInner() {
             <div className="flex-1 h-px" style={{ background: 'var(--outline-variant)' }} />
           </div>
 
-          {/* Enterprise WeChat scan login (cohort-friendly, no email roundtrip) */}
+          {/* Enterprise WeChat scan registration/login (cohort-friendly, no email roundtrip) */}
           <section
             className="p-8 rounded-[2rem] space-y-5"
             style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}
@@ -190,9 +190,9 @@ function LoginInner() {
                 <span aria-hidden="true" className="material-symbols-outlined">qr_code_scanner</span>
               </div>
               <div className="space-y-1">
-                <h2 className="text-xl font-black tracking-tight">企业微信扫码登陆</h2>
+                <h2 className="text-xl font-black tracking-tight">微信扫码注册 / 登陆</h2>
                 <p className="text-sm opacity-70 leading-relaxed">
-                  用你本人的微信扫码（自建应用授权，限训战群成员）。无需邮箱，无需密码，3 秒到位。
+                  用你本人的微信扫码完成企业微信自建应用授权。首次授权即注册，之后扫码即登陆；无需邮箱，无需密码。
                 </p>
               </div>
             </div>

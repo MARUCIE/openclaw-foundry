@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+  generated-by: html-style-router
+  style: claude-warm-academic-humanism
+  doc-class: operational-guide
+-->
+<html lang="zh-CN" data-style-id="claude-warm-academic">
+<head>
+<meta charset="UTF-8">
+<title>登陆系统真实打通指南 · OpenClaw Foundry</title>
+<style>
+  /* html-style-router :: claude-warm-academic-humanism token set */
+  :root {
+    --claude-bg: #F3F0E9;
+    --claude-surface: #ffffff;
+    --claude-surface-low: #ECE7DD;
+    --claude-on-surface: #1c1917;
+    --claude-on-muted: #57534e;
+    --claude-primary: #D67052;
+    --claude-accent: #7C6F5D;
+    --claude-outline: #D7D0C2;
+    --claude-page-max: 1040px;
+    --claude-page-gutter: clamp(16px, 3vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--claude-bg); }
+  body {
+    margin: 0;
+    background: var(--claude-bg);
+    color: var(--claude-on-surface);
+    font-family: -apple-system, "Source Han Serif SC", "Songti SC", "PingFang SC", Georgia, serif;
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .claude-frame {
+    width: min(var(--claude-page-max), calc(100% - var(--claude-page-gutter) * 2));
+    margin-inline: auto;
+    padding: 64px 0;
+  }
+  header.claude-hero {
+    border-bottom: 2px solid var(--claude-primary);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+  }
+  header .claude-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 12px;
+    color: var(--claude-accent);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: 36px;
+    line-height: 1.25;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--claude-outline);
+    color: var(--claude-on-surface);
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 17px;
+    margin: 28px 0 12px;
+    color: var(--claude-accent);
+    font-weight: 700;
+  }
+  p { margin: 0 0 18px; }
+  ol, ul { padding-left: 1.4em; margin: 0 0 22px; }
+  li { margin: 6px 0; }
+  code {
+    font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    background: var(--claude-surface-low);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--claude-on-surface);
+  }
+  pre {
+    background: var(--claude-surface);
+    border: 1px solid var(--claude-outline);
+    border-radius: 12px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    line-height: 1.6;
+  }
+  pre code { background: transparent; padding: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14.5px;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--claude-outline);
+    vertical-align: top;
+  }
+  th { background: var(--claude-surface-low); font-weight: 700; }
+  .claude-note {
+    background: var(--claude-surface);
+    border-left: 4px solid var(--claude-primary);
+    padding: 16px 20px;
+    margin: 24px 0;
+    border-radius: 6px;
+  }
+  footer.claude-footer {
+    margin-top: 80px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #9B9B9D;
+    font-size: 13px;
+    line-height: 2.2;
+    border-top: 1px solid var(--claude-outline);
+  }
+  .claude-meta { color: var(--claude-on-muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main class="claude-frame">
+
+<header class="claude-hero">
+  <p class="claude-eyebrow">openclaw-foundry · auth wire-up</p>
+  <h1>登陆系统真实打通指南</h1>
+  <p class="claude-meta">配套文档：<code>state/openclaw-foundry-audit/auth-deploy-manifest.md</code>（操作命令清单）+ <code>state/openclaw-foundry-audit/verify_auth_e2e.sh</code>（部署后探针脚本）。本文档是面向人类阅读的中文版；机器读取请使用同目录 <code>AUTH_WIRING_GUIDE.md</code> 英文版。</p>
+</header>
+
+<h2>总览</h2>
+
+<p>openclaw-foundry 当前支持两种登陆方式，代码层已完整实现：</p>
+
+<table>
+<thead><tr><th>登陆方式</th><th>前端入口</th><th>代码路径</th><th>需要的外部基础设施</th></tr></thead>
+<tbody>
+<tr>
+  <td>邮箱魔法链接</td>
+  <td><code>/login</code> 邮箱表单</td>
+  <td><code>worker/src/routes/auth.ts</code>、<code>worker/src/lib/email.ts</code>、<code>web/app/auth/callback/page.tsx</code></td>
+  <td>Resend 账号 + API key</td>
+</tr>
+<tr>
+  <td>企业微信自建应用扫码</td>
+  <td><code>/login</code> 微信扫码区块</td>
+  <td><code>worker/src/routes/auth-wechat.ts</code>、<code>web/app/auth/wechat-landing/page.tsx</code></td>
+  <td>企业微信公司主体 + 自建应用 + 可信域名校验文件</td>
+</tr>
+</tbody>
+</table>
+
+<p>两种方式都签发存放在浏览器 <code>localStorage</code> 的 Bearer token（键 <code>openclaw_session_token</code>）。所有后续 API 调用（卡点墙发帖、装包下载、评论）都使用同一个 Bearer。<code>/api/auth/config</code> 端点会探测 worker secret 状态，把 <code>email.enabled</code> 与 <code>wechat.enabled</code> 暴露给前端，UI 在 secret 缺失时直接显示禁用按钮——不会让用户碰到 broken 端点。</p>
+
+<div class="claude-note">
+  <strong>当前阻塞点 → 只剩外部基础设施 + 部署</strong><br>
+  所有代码合并冲突已解决（middleware/auth、skill 页、login 页 ×2、packs 页、generate-pack-guides 脚本，加上 marketplace-shell 的类型扩展）。worker TypeScript 干净、Next.js 构建通过（12 个静态路由）。剩下的工作全部是 HITL：申请企业微信应用、注册 Resend、运行 wrangler 部署。
+</div>
+
+<h2>第一阶段 · 企业微信自建应用</h2>
+
+<p>选择企业微信而非个人微信网页登陆，是因为个人微信要求回调域已完成 ICP 备案。<code>agent-foundry.pages.dev</code> 是 Cloudflare 自有子域名——ICP 备案在结构上不可能。企业微信自建应用走的是"可信域名校验文件"流程，把一个 <code>WW_verify_*.txt</code> 文件放进 <code>web/public/</code>，由 Cloudflare Pages 在根路径直接 serve，就能完成验证。</p>
+
+<p>训战群成员都有个人微信。本流程一次性的工作是 Maurice 创建公司 + 应用，然后把每位成员邀请进公司（每人 30 秒）。邀请完成后，成员用本人微信扫码即可，因为公司邀请已经把个人微信和公司绑定了。</p>
+
+<h3>步骤</h3>
+
+<ol>
+<li>在 <a href="https://work.weixin.qq.com/">work.weixin.qq.com</a> 免费注册企业，用 Maurice 个人微信扫码注册。</li>
+<li>管理后台 → "我的企业 → 企业信息"，复制 <code>企业 ID</code>（<code>ww...........</code> 格式），这是 worker secret <code>WECHAT_CORP_ID</code>。</li>
+<li>"应用管理 → 自建 → 创建应用"，名字 <code>OpenClaw Foundry Login</code>。保存后应用详情页展示 <code>AgentId</code>（数字，<code>WECHAT_AGENT_ID</code>）和 <code>Secret</code>（点击展开，<code>WECHAT_SECRET</code>）。</li>
+<li>应用页 → "网页授权及 JS-SDK" → "可信域名" → 输入 <code>agent-foundry.pages.dev</code>。微信会给一个 <code>WW_verify_&lt;token&gt;.txt</code> 文件名和一段载荷字符串。</li>
+<li>把 <code>WW_verify_&lt;token&gt;.txt</code>（载荷作为唯一内容）放到 <code>web/public/WW_verify_&lt;token&gt;.txt</code>。Cloudflare Pages 自动在根 URL serve <code>public/</code> 下的文件，所以解析为 <code>https://agent-foundry.pages.dev/WW_verify_&lt;token&gt;.txt</code>。commit 后 push。</li>
+<li>回到微信后台 → "申请域名校验"。微信抓取该文件一次，秒级把域名标记为已验证。</li>
+<li>同一面板，"网页授权回调域" → 输入 <code>agent-foundry.pages.dev</code>。OAuth 流程的目标已写死为 <code>/auth/wechat-landing</code>。</li>
+<li>"通讯录 → 添加成员"，输入成员姓名 + 个人微信号。成员收到微信邀请，30 秒内可接受。</li>
+</ol>
+
+<p>第 8 步完成后，成员用本人微信扫描 <code>/login</code> 页面上的二维码即可登陆——因为成员的个人微信已通过公司邀请绑定。</p>
+
+<h2>第二阶段 · Resend 邮件服务</h2>
+
+<p>选择 Resend 作为魔法链接邮件投递方案的理由：(a) 首次部署可零配置使用共享发件人 <code>onboarding@resend.dev</code>；(b) 定价覆盖训战群规模；(c) REST API 一次 POST 即可发送。</p>
+
+<h3>步骤</h3>
+
+<ol>
+<li>用 Maurice 主邮箱在 <a href="https://resend.com/signup">resend.com/signup</a> 注册。</li>
+<li>一键验证注册邮件。</li>
+<li>控制台 → "API Keys → Create API Key"。名字 <code>openclaw-foundry-prod</code>，权限 <code>Sending access</code>（不要 <code>Full access</code>——最小权限原则）。</li>
+<li>立即复制 <code>re_…</code> token。Resend 只会展示一次。这是 worker secret <code>RESEND_API_KEY</code>。</li>
+<li>（可选，上线后再做）验证自有发件域名。Resend 给 3-4 条 DNS 记录加到域名注册商。验证后设置 <code>RESEND_FROM=login@&lt;your-domain&gt;</code>，邮件就从品牌域名发出，不再使用 <code>onboarding@resend.dev</code>。训战群人数 ≤10 之前可跳过。</li>
+</ol>
+
+<h2>第三阶段 · 部署执行</h2>
+
+<p>完整命令清单见 <code>state/openclaw-foundry-audit/auth-deploy-manifest.md</code>。流程：</p>
+
+<ol>
+<li><code>npx wrangler whoami</code> — 确认 wrangler 已登录。如返回 <code>code: 10000</code>，运行 <code>npx wrangler login</code>。</li>
+<li><code>npx wrangler secret put RESEND_API_KEY</code> — 粘贴 <code>re_…</code> token。</li>
+<li><code>npx wrangler secret put WALL_PEPPER</code> — 粘贴 <code>openssl rand -hex 32</code> 的输出（卡点墙匿名作者哈希盐）。</li>
+<li><code>npx wrangler secret put WECHAT_CORP_ID</code> / <code>WECHAT_AGENT_ID</code> / <code>WECHAT_SECRET</code> — 依次粘贴第一阶段获得的三个值。</li>
+<li><code>npx wrangler d1 execute openclaw-foundry --remote --file=src/migration-v8.sql</code>（以及 v9、v10）— 幂等迁移，如表已存在则跳过创建。</li>
+<li><code>npx wrangler deploy</code> — 部署 worker，返回新的部署 ID 与 URL。</li>
+<li><code>git push origin main</code> — Pages 从 main 分支自动构建。在 Pages 仪表盘观察构建成功。</li>
+</ol>
+
+<p>每一步都可逆：secret 有 <code>wrangler secret delete</code>，部署有 <code>wrangler rollback</code>，迁移 v8/v9/v10 都是 <code>CREATE TABLE IF NOT EXISTS</code>，重复运行安全。</p>
+
+<h2>第四阶段 · 验证</h2>
+
+<pre><code>bash state/openclaw-foundry-audit/verify_auth_e2e.sh</code></pre>
+
+<p>脚本探测：</p>
+
+<ul>
+<li><code>GET /api/health</code> 返回 200</li>
+<li><code>GET /api/auth/config</code> 返回 200，<code>email.enabled=true</code> + <code>wechat.enabled=true</code></li>
+<li><code>POST /api/auth/request</code> 携带邮箱返回 200 + <code>sent:true</code>（生产环境下 <code>delivered_via=resend</code>）</li>
+<li><code>GET /api/auth/wechat/start?return=/packs</code> 返回 302，跳转到 <code>open.weixin.qq.com</code> 或 <code>login.work.weixin.qq.com</code></li>
+<li><code>GET /api/auth/me</code> 无 Authorization 返回 401</li>
+</ul>
+
+<p>脚本无法自动化的两个流程（邮箱点击、微信扫码），Maurice 需手动验证一次。两者都应该最终落在 <code>/packs#wall</code> 且已登录状态。</p>
+
+<p>全部 5 个自动探针 + 2 个手动流程通过后，写入收据文件：</p>
+
+<pre><code>{
+  echo "deploy_completed_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "email_e2e=PASS"
+  echo "wechat_e2e=PASS"
+} &gt; state/openclaw-foundry-audit/auth-deploy-receipt.txt</code></pre>
+
+<p>Goal-gate <code>T10</code> 检查该文件存在后才允许 <code>/goal complete</code>。</p>
+
+<h2>故障模式与处置</h2>
+
+<table>
+<thead><tr><th>症状</th><th>原因</th><th>处置</th></tr></thead>
+<tbody>
+<tr><td><code>wrangler secret put</code> 返回 <code>code: 10000</code></td><td>token scope 或会话过期</td><td><code>npx wrangler login</code>（交互式 OAuth）</td></tr>
+<tr><td><code>wrangler d1 execute</code> 返回 <code>code: 7403</code></td><td>token 缺少 D1:Edit 权限</td><td>同上 — <code>wrangler login</code></td></tr>
+<tr><td>部署后 <code>/login</code> 仍显示"未配置"</td><td>Pages 构建尚未部署</td><td>查看 <a href="https://dash.cloudflare.com/">Cloudflare 仪表盘</a> 中 Pages 构建状态</td></tr>
+<tr><td><code>/api/auth/request</code> 返回 502</td><td>RESEND_API_KEY 错误或被撤销</td><td>用新 key 重新 <code>wrangler secret put RESEND_API_KEY</code></td></tr>
+<tr><td><code>/api/auth/wechat/start</code> 返回 503</td><td>CORP_ID/AGENT_ID/SECRET 其一缺失</td><td><code>wrangler secret list</code> 确认；补齐缺失的</td></tr>
+<tr><td>微信 OAuth 落地 400 "state expired"</td><td>用户扫码后超过 10 分钟才完成交换</td><td>重新发起流程；这是安全特性，不是 bug</td></tr>
+<tr><td>微信 OAuth 落地从腾讯返回 <code>code: 60011</code></td><td>训战群成员未加入公司</td><td>"通讯录 → 添加成员" 邀请；让成员重新扫码</td></tr>
+</tbody>
+</table>
+
+</main>
+
+<footer class="claude-footer">
+  <p>openclaw-foundry v11 · 登陆系统真实打通指南</p>
+  <p>Maurice | maurice_wen@proton.me</p>
+  <p style="font-size:12px; margin-top:8px;">生成于 2026-05-18 · 数据源：本仓库代码 + 部署文档</p>
+</footer>
+
+</body>
+</html>

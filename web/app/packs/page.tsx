@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { getPacks, type ConfigPack, type PacksResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
+import { copyProtectedPackInstallCommand, downloadProtectedPackFile } from '@/lib/protected-downloads';
 import WallBoard from '@/components/wall-board';
 
 // Question tree answers map to lines + sub-options
@@ -255,8 +256,13 @@ function PacksTabBody({
   browseTab,
   setBrowseTab,
 }: PacksTabBodyProps) {
-  const filteredPacks = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
-  const recommended = allPacks.find(p => p.id === recommendedPack);
+  // R3.3 (audit F10): hide stub packs from public listing. Stubs render identically
+  // to certified packs (same install button, same TierBadge stripped) which creates
+  // false equivalence. Surface them as a single static "X 配置包即将上线" notice.
+  const lineFiltered = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
+  const filteredPacks = lineFiltered.filter(p => p.tier !== 'stub');
+  const stubCount = lineFiltered.length - filteredPacks.length;
+  const recommended = allPacks.find(p => p.id === recommendedPack && p.tier !== 'stub');
 
   const handleQ1 = (lineId: string) => {
     setSelectedLine(lineId);
@@ -413,11 +419,18 @@ function PacksTabBody({
               {[1, 2, 3].map(i => <div key={i} className="h-96 rounded-[3rem] animate-pulse bg-[var(--surface-container-low)]" />)}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPacks.map(pack => (
-                <PackCard key={pack.id} pack={pack} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPacks.map(pack => (
+                  <PackCard key={pack.id} pack={pack} />
+                ))}
+              </div>
+              {stubCount > 0 && (
+                <p className="mt-8 text-center text-sm text-[var(--on-surface-variant)] opacity-70" role="note">
+                  {t('packs.upcomingNotice').replace('{count}', String(stubCount))}
+                </p>
+              )}
+            </>
           )}
         </section>
       )}
@@ -454,6 +467,8 @@ function PacksTabBody({
 function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boolean }) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
+  const [busyFile, setBusyFile] = useState('');
+  const [actionError, setActionError] = useState('');
   // Browse stays public; install/download requires login (v6 auth gate).
   // Reads session on mount + listens for cross-tab login/logout so the
   // install button label updates without page reload.
@@ -472,25 +487,35 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
   }, []);
   const isLoggedIn = authReady && user !== null;
 
-  const handleDownload = (filename: string) => {
+  const handleDownload = async (filename: string) => {
+    setActionError('');
     if (!isLoggedIn) {
       window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
       return;
     }
-    const a = document.createElement('a');
-    a.href = `/packs/${pack.id}/${filename}`;
-    a.download = filename;
-    a.click();
+    setBusyFile(filename);
+    try {
+      await downloadProtectedPackFile(pack.id, filename, `/packs#install-${pack.id}`);
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : '下载失败，请稍后重试');
+    } finally {
+      setBusyFile('');
+    }
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
+    setActionError('');
     if (!isLoggedIn) {
       window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
       return;
     }
-    navigator.clipboard.writeText(`curl -sL https://agent-foundry.pages.dev/packs/${pack.id}/install.sh | bash`);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await copyProtectedPackInstallCommand(pack.id, `/packs#install-${pack.id}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      setActionError(err instanceof Error ? err.message : '复制失败，请稍后重试');
+    }
   };
 
   return (
@@ -603,10 +628,11 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           <button
             key={file}
             onClick={() => handleDownload(file)}
+            disabled={busyFile === file}
             className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-[var(--outline-variant)] transition-all hover:bg-[var(--surface-container-low)] hover:shadow-md group text-center"
           >
               <span aria-hidden="true" className="material-symbols-outlined text-lg opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all">
-              {file === 'CLAUDE.md' ? 'description' : file === 'AGENTS.md' ? 'groups' : file === 'settings.json' ? 'hub' : 'chat'}
+              {busyFile === file ? 'hourglass_empty' : file === 'CLAUDE.md' ? 'description' : file === 'AGENTS.md' ? 'groups' : file === 'settings.json' ? 'hub' : 'chat'}
             </span>
             <span className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest opacity-60 group-hover:opacity-100 truncate w-full">{file}</span>
           </button>
@@ -626,6 +652,11 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           </span>
           {!authReady ? '...' : !isLoggedIn ? '登录后获取安装命令' : copied ? t('packs.copied') : t('packs.copyInstall')}
         </button>
+        {actionError && (
+          <p className="text-xs font-bold text-center leading-relaxed" style={{ color: 'var(--error)' }}>
+            {actionError}
+          </p>
+        )}
         <a
           href={`/packs/${pack.id}/guide.html`}
           target="_blank"

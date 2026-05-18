@@ -234,8 +234,8 @@ ls -la ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/settings.json ~/.claude
 # 2. 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来
 claude --help | head -3
 
-# 3. （若本包 tier=certified）查看生产 E2E 证据
-curl -fsSL https://agent-foundry.pages.dev/packs/${esc(ctx.slug)}/install.sh | head -20
+# 3. 回到 /packs，登录后复制本包安装命令
+#    公开直连 /packs/${esc(ctx.slug)}/install.sh 已关闭，安装脚本由 Worker 校验后发放
 </code></pre>
 </section>
 
