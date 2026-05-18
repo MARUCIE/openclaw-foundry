@@ -168,7 +168,8 @@ jobs:
       - name: Build legacy Pages redirect
         run: |
           mkdir -p /tmp/openclaw-foundry-redirect
-          printf '%s\n' '/* https://agent-foundry.pages.dev/:splat 301' > /tmp/openclaw-foundry-redirect/_redirects
+          printf '%s\n' '/explore/platforms https://agent-foundry.pages.dev/packs 301' > /tmp/openclaw-foundry-redirect/_redirects
+          printf '%s\n' '/* https://agent-foundry.pages.dev/:splat 301' >> /tmp/openclaw-foundry-redirect/_redirects
           printf '%s\n' '<!doctype html><meta http-equiv="refresh" content="0;url=https://agent-foundry.pages.dev/"><link rel="canonical" href="https://agent-foundry.pages.dev/">' > /tmp/openclaw-foundry-redirect/index.html
 
       - name: Redirect legacy CF Pages host
