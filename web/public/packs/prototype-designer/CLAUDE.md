@@ -17,6 +17,21 @@
   - `executive-strategist`（设计 → 商业语言）
 - **Coverage**: PRD 解析 / clickable HTML prototype / token system / mobile responsive / aesthetic self-review / handoff spec
 
+### PM-mode 适用说明（cohort persona alignment）
+
+本 pack 默认按"中级设计师"角色撰写。但 openclaw-foundry cohort 真实用户大多是业务 / 合规 / 财税 PM 做流程图草稿，而非专职设计师做完整产品原型。
+
+**PM 模式建议聚焦 prompt**：
+- ✅ `S1-P1` PRD 收敛 check（PM 最常用 — 先帮自己想清楚需求）
+- ✅ `S1-P2` 3 屏 clickable HTML（PM 最高频 deliverable — 给老板/客户看的快速原型）
+- ✅ `S3-P1` Aesthetic probe 7 维自审（PM 自我把关，避免"好看了"自评通胀）
+
+**PM 模式可降优先级**：
+- ⏳ `S2-P1/P2/P3` Token system + brand swap（PM 用 stripe-minimal 默认就行，不需深挖 token）
+- ⏳ `S3-P3` Mobile responsive 改造（如果原型给老板而非生产，1440px 足够）
+
+合规 PM 做流程图草稿，请优先用上面 3 条；不需要为"完整设计师工作流"焦虑。
+
 ---
 
 ## Core decision frameworks（核心决策框架，3 选 1 触发）

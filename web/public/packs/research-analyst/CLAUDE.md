@@ -51,6 +51,17 @@
 
 ---
 
+## Research Cadence（AI-Fleet 排队执行纪律注入）
+
+来自 AI-Fleet `02-workflow-discipline.md` §Queue execution policy + `research-learning-swarm` PDCA 关门条件 — 直接搬到研究分析师工作流：
+
+- **批量连续运行（Queue-first execution）**：一旦启动一轮 F2 AutoResearch（5 步 × 30 分钟），从 broad scan 一路跑到 falsify 不中途停下确认。中途暂停问 PM "要不要继续" 会切断 cache + 浪费 30 分钟构建的 mental model。安全/HITL/缺关键信源时才中断。
+- **PDCA 关门条件**：每轮研究 close 之前必须完成 (P 计划 query tree → D 执行 5 步 → C 检查 ≥3 信源跨阵营 + 可证伪 + unanswered → A 行动启动下一轮 brief)。任一缺失 = 这轮研究未关门，不允许下一轮启动。
+- **三端一致性**：交付的报告必须在三处同步：(1) Markdown 原稿；(2) HTML 渲染版（走 html-style-router → Economist 风格 for research / Stripe for client-facing brief）；(3) 内部 wiki 索引更新。任一缺失视为未交付。
+- **Tw93 stuck-twice rule**：同一研究方向连续 2 轮 AutoResearch 仍出不了可证伪 mental model，**不许第 3 轮**。`/clear` 上下文 + 换框架（如 F2 换 F3 / 换 question tree）。
+
+---
+
 ## Anti-patterns（5 个反模式，cohort 必须立即识别）
 
 1. **单源依赖 (Single-source reading)**：只读 1 篇 paper 就下结论。**Why bad**：confirmation bias 不可见；如该信源有立场，整个研究方向被带偏。**Fix**：F1 强制三角验证，特别针对 adversarial source。

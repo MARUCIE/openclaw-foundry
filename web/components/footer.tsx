@@ -6,7 +6,6 @@ import { useI18n } from '@/lib/i18n';
 const FOOTER_LINKS = [
   { href: '/docs', key: 'footer.docs' },
   { href: 'https://github.com/mauricewen/openclaw-foundry', key: null, label: 'GitHub' },
-  { href: '/', key: null, label: 'Marketplace' },
   { href: 'mailto:maurice_wen@proton.me', key: 'footer.contact' },
 ];
 
@@ -74,7 +73,14 @@ export function Footer() {
       }}
     >
       <div className="page-shell flex flex-col items-center gap-12">
-        <section className="w-full flex flex-col items-center gap-6">
+        <section
+          className="w-full flex flex-col items-center gap-6 px-4 py-8 rounded-2xl"
+          style={{
+            background: 'var(--surface-container-highest, rgba(220, 220, 235, 0.35))',
+            borderTop: '2px solid var(--surface-tint, #6750A4)',
+            borderTopColor: 'rgba(103, 80, 164, 0.45)',
+          }}
+        >
           <div className="flex flex-col items-center gap-2">
             <span
               className="text-xs uppercase tracking-[0.2em] font-semibold"
