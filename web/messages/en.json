@@ -384,6 +384,7 @@
   "packs.step3Desc": "Your AI is now a domain expert — try a starter prompt",
   "packs.copyInstall": "Copy Install Command",
   "packs.copied": "Copied!",
+  "packs.upcomingNotice": "{count} more packs coming soon (under validation, not yet released)",
   "packs.questionMain": "What do you mainly use AI Coding Agent for?",
   "packs.questionSub": "Which direction?",
   "packs.recommendation": "Recommended for you",

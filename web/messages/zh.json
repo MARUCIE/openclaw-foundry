@@ -384,6 +384,7 @@
   "packs.step3Desc": "你的 AI 已经是行业专家——试试启动提示词",
   "packs.copyInstall": "复制安装命令",
   "packs.copied": "已复制",
+  "packs.upcomingNotice": "另有 {count} 个配置包即将上线（验证中，暂未开放）",
   "packs.questionMain": "你主要用 AI Coding Agent 做什么？",
   "packs.questionSub": "具体方向是？",
   "packs.recommendation": "为你推荐",

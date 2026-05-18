@@ -429,6 +429,11 @@ export function MarketplaceShell() {
   });
 
   const allSkills = data?.skills || [];
+  // R3.1 (audit F5): Gate "MCP Servers" source tab behind mcp-registry count > 0.
+  // Hickey F4 + Munger F4 convergence: surfacing an MCP filter for an empty MCP
+  // catalog is a schema lie — it implies coverage that doesn't exist.
+  const mcpCount = allSkills.filter((s: ClawHubSkill) => s.source === 'mcp-registry').length;
+  const availableSourceKeys = SOURCE_KEYS.filter(k => k !== 'MCP Servers' || mcpCount > 0);
   const categories = catData?.categories || data?.meta?.byCategory || {};
   const sortedCats = Object.entries(categories)
     .sort(([, a], [, b]) => (b as number) - (a as number))
@@ -462,6 +467,15 @@ export function MarketplaceShell() {
     setActiveRating(prev => (prev === nextRating ? prev : nextRating));
     setPage(0);
   }, [requestedRating]);
+
+  // R3.1: auto-degrade activeSource if the user previously picked "MCP Servers"
+  // and the catalog now reports 0 mcp-registry entries. Prevents stuck empty grid.
+  useEffect(() => {
+    if (activeSource === 'MCP Servers' && mcpCount === 0) {
+      setActiveSource('all');
+      setPage(0);
+    }
+  }, [activeSource, mcpCount]);
 
   const filtered = useMemo(() => {
     return allSkills.filter((s: ClawHubSkill) => {
@@ -523,7 +537,7 @@ export function MarketplaceShell() {
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
         <div className="flex gap-1 p-1.5 rounded-2xl bg-[var(--surface-container)] border border-[var(--outline-variant)]">
-          {SOURCE_KEYS.map(src => (
+          {availableSourceKeys.map(src => (
             <button
               key={src}
               onClick={() => { setActiveSource(src); setPage(0); }}

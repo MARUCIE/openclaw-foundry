@@ -52,6 +52,14 @@ set -euo pipefail
 PACK_ID="${packId}"
 BASE_URL="${SITE_URL}/packs/${packId}"
 TARGET_DIR="\${INSTALL_DEST:-\$HOME/.claude}"
+# R3.2 (audit F9): warn if Claude Code dir missing — install will succeed
+# mechanically but produce no usable agent surface. Soft-fail, do not block.
+if [ -z "\${INSTALL_DEST:-}" ] && [ ! -d "\$HOME/.claude" ]; then
+  echo "  WARN: \$HOME/.claude does not exist (Claude Code not detected)"
+  echo "        Install Claude Code first: https://claude.com/code"
+  echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
+  echo ""
+fi
 echo "Installing OpenClaw Job Pack: \$PACK_ID..."
 mkdir -p "\$TARGET_DIR"
 for f in CLAUDE.md AGENTS.md settings.json prompts.md; do
@@ -105,6 +113,15 @@ echo "Installing OpenClaw Job Pack: \$PACK_ID (manifest-driven)"
 echo "  Source: \$BASE_URL"
 echo "  Target: \$TARGET_DIR"
 echo ""
+
+# R3.2 (audit F9): warn if Claude Code dir missing — install will succeed
+# mechanically but produce no usable agent surface. Soft-fail, do not block.
+if [ -z "\${INSTALL_DEST:-}" ] && [ ! -d "\$HOME/.claude" ]; then
+  echo "  WARN: \$HOME/.claude does not exist (Claude Code not detected)"
+  echo "        Install Claude Code first: https://claude.com/code"
+  echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
+  echo ""
+fi
 
 mkdir -p "\$TARGET_DIR"
 

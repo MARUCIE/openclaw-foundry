@@ -11,6 +11,15 @@ echo "  Source: $BASE_URL"
 echo "  Target: $TARGET_DIR"
 echo ""
 
+# R3.2 (audit F9): warn if Claude Code dir missing — install will succeed
+# mechanically but produce no usable agent surface. Soft-fail, do not block.
+if [ -z "${INSTALL_DEST:-}" ] && [ ! -d "$HOME/.claude" ]; then
+  echo "  WARN: $HOME/.claude does not exist (Claude Code not detected)"
+  echo "        Install Claude Code first: https://claude.com/code"
+  echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
+  echo ""
+fi
+
 mkdir -p "$TARGET_DIR"
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
