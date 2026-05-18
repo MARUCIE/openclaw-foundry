@@ -1,81 +1,33 @@
 {
   "pack": "research-analyst",
-  "version": "1.0.0",
+  "version": "4.2.0",
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill deep-research < skills/research/deep-research/SKILL.md",
+    "expected_output": "初步研究 brief · 5 信源 + 3 atomic claims + 1 mental model 草图 + Top 3 unanswered",
+    "time_to_value_minutes": 10
+  },
   "items": [
-    {
-      "src": "CLAUDE.md",
-      "dst": "CLAUDE.md",
-      "type": "config"
-    },
-    {
-      "src": "AGENTS.md",
-      "dst": "AGENTS.md",
-      "type": "config"
-    },
-    {
-      "src": "settings.json",
-      "dst": "settings.json",
-      "type": "config"
-    },
-    {
-      "src": "prompts.md",
-      "dst": "prompts.md",
-      "type": "config"
-    },
-    {
-      "src": "skills/deep-research/SKILL.md",
-      "dst": "skills/research/deep-research/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/multi-search-engine/SKILL.md",
-      "dst": "skills/research/multi-search-engine/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/search-first/SKILL.md",
-      "dst": "skills/research/search-first/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/tavily-search/SKILL.md",
-      "dst": "skills/research/tavily-search/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/ljg-paper-flow/SKILL.md",
-      "dst": "skills/research/ljg-paper-flow/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/paper-write/SKILL.md",
-      "dst": "skills/research/paper-write/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/web-multi-search/SKILL.md",
-      "dst": "skills/research/web-multi-search/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/karpathy-autoresearch/SKILL.md",
-      "dst": "skills/research/karpathy-autoresearch/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "agents/research-analyst.md",
-      "dst": "agents/research-analyst.md",
-      "type": "agent"
-    },
-    {
-      "src": "agents/advisor-orwell.md",
-      "dst": "agents/advisor-orwell.md",
-      "type": "agent"
-    },
-    {
-      "src": "agents/advisor-drucker.md",
-      "dst": "agents/advisor-drucker.md",
-      "type": "agent"
-    }
+    { "src": "CLAUDE.md", "dst": "CLAUDE.md", "type": "config" },
+    { "src": "AGENTS.md", "dst": "AGENTS.md", "type": "config" },
+    { "src": "settings.json", "dst": "settings.json", "type": "config" },
+    { "src": "prompts.md", "dst": "prompts.md", "type": "config" },
+    { "src": "tool-kit-03-sop-flowchart.md", "dst": "tool-kit-03-sop-flowchart.md", "type": "config" },
+    { "src": "tool-kit-05-document-templates.md", "dst": "tool-kit-05-document-templates.md", "type": "config" },
+    { "src": "baseline-before-after.md", "dst": "baseline-before-after.md", "type": "config" },
+    { "src": "checklist-delivery.md", "dst": "checklist-delivery.md", "type": "config" },
+    { "src": "data-collection/baseline-actual.csv", "dst": "data-collection/baseline-actual.csv", "type": "data" },
+    { "src": "data-collection/cohort-feedback-form.md", "dst": "data-collection/cohort-feedback-form.md", "type": "data" },
+    { "src": "skills/deep-research/SKILL.md", "dst": "skills/research/deep-research/SKILL.md", "type": "skill" },
+    { "src": "skills/multi-search-engine/SKILL.md", "dst": "skills/research/multi-search-engine/SKILL.md", "type": "skill" },
+    { "src": "skills/search-first/SKILL.md", "dst": "skills/research/search-first/SKILL.md", "type": "skill" },
+    { "src": "skills/tavily-search/SKILL.md", "dst": "skills/research/tavily-search/SKILL.md", "type": "skill" },
+    { "src": "skills/ljg-paper-flow/SKILL.md", "dst": "skills/research/ljg-paper-flow/SKILL.md", "type": "skill" },
+    { "src": "skills/paper-write/SKILL.md", "dst": "skills/research/paper-write/SKILL.md", "type": "skill" },
+    { "src": "skills/web-multi-search/SKILL.md", "dst": "skills/research/web-multi-search/SKILL.md", "type": "skill" },
+    { "src": "skills/karpathy-autoresearch/SKILL.md", "dst": "skills/research/karpathy-autoresearch/SKILL.md", "type": "skill" },
+    { "src": "agents/research-analyst.md", "dst": "agents/research-analyst.md", "type": "agent" },
+    { "src": "agents/advisor-orwell.md", "dst": "agents/advisor-orwell.md", "type": "agent" },
+    { "src": "agents/advisor-drucker.md", "dst": "agents/advisor-drucker.md", "type": "agent" }
   ]
 }

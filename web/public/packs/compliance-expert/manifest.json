@@ -1,81 +1,33 @@
 {
   "pack": "compliance-expert",
-  "version": "4.1.0",
+  "version": "4.2.0",
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "cd ~/.claude && claude --skill ft-compliance-checklist < skills/compliance/ft-compliance-checklist/SKILL.md",
+    "expected_output": "12-条代账客户合规体检 checklist + 每项取证要求 + 失效信号",
+    "time_to_value_minutes": 5
+  },
   "items": [
-    {
-      "src": "CLAUDE.md",
-      "dst": "CLAUDE.md",
-      "type": "config"
-    },
-    {
-      "src": "AGENTS.md",
-      "dst": "AGENTS.md",
-      "type": "config"
-    },
-    {
-      "src": "settings.json",
-      "dst": "settings.json",
-      "type": "config"
-    },
-    {
-      "src": "prompts.md",
-      "dst": "prompts.md",
-      "type": "config"
-    },
-    {
-      "src": "skills/compliance/ft-business-analyst/SKILL.md",
-      "dst": "skills/compliance/ft-business-analyst/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-compliance-auditor/SKILL.md",
-      "dst": "skills/compliance/ft-compliance-auditor/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-compliance-checklist/SKILL.md",
-      "dst": "skills/compliance/ft-compliance-checklist/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-internal-audit/SKILL.md",
-      "dst": "skills/compliance/ft-internal-audit/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-risk-assessment/SKILL.md",
-      "dst": "skills/compliance/ft-risk-assessment/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-tax-advisor/SKILL.md",
-      "dst": "skills/compliance/ft-tax-advisor/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/ft-tax-planner/SKILL.md",
-      "dst": "skills/compliance/ft-tax-planner/SKILL.md",
-      "type": "skill"
-    },
-    {
-      "src": "skills/compliance/compliance-docs/SPEC.md",
-      "dst": "skills/compliance/compliance-docs/SPEC.md",
-      "type": "skill"
-    },
-    {
-      "src": "agents/advisor-drucker.md",
-      "dst": "agents/advisor-drucker.md",
-      "type": "agent"
-    },
-    {
-      "src": "agents/advisor-buffett.md",
-      "dst": "agents/advisor-buffett.md",
-      "type": "agent"
-    },
-    {
-      "src": "agents/advisor-munger.md",
-      "dst": "agents/advisor-munger.md",
-      "type": "agent"
-    }
+    { "src": "CLAUDE.md", "dst": "CLAUDE.md", "type": "config" },
+    { "src": "AGENTS.md", "dst": "AGENTS.md", "type": "config" },
+    { "src": "settings.json", "dst": "settings.json", "type": "config" },
+    { "src": "prompts.md", "dst": "prompts.md", "type": "config" },
+    { "src": "tool-kit-03-sop-flowchart.md", "dst": "tool-kit-03-sop-flowchart.md", "type": "config" },
+    { "src": "tool-kit-05-document-templates.md", "dst": "tool-kit-05-document-templates.md", "type": "config" },
+    { "src": "baseline-before-after.md", "dst": "baseline-before-after.md", "type": "config" },
+    { "src": "checklist-delivery.md", "dst": "checklist-delivery.md", "type": "config" },
+    { "src": "data-collection/baseline-actual.csv", "dst": "data-collection/baseline-actual.csv", "type": "data" },
+    { "src": "data-collection/cohort-feedback-form.md", "dst": "data-collection/cohort-feedback-form.md", "type": "data" },
+    { "src": "skills/compliance/ft-business-analyst/SKILL.md", "dst": "skills/compliance/ft-business-analyst/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-compliance-auditor/SKILL.md", "dst": "skills/compliance/ft-compliance-auditor/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-compliance-checklist/SKILL.md", "dst": "skills/compliance/ft-compliance-checklist/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-internal-audit/SKILL.md", "dst": "skills/compliance/ft-internal-audit/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-risk-assessment/SKILL.md", "dst": "skills/compliance/ft-risk-assessment/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-tax-advisor/SKILL.md", "dst": "skills/compliance/ft-tax-advisor/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/ft-tax-planner/SKILL.md", "dst": "skills/compliance/ft-tax-planner/SKILL.md", "type": "skill" },
+    { "src": "skills/compliance/compliance-docs/SPEC.md", "dst": "skills/compliance/compliance-docs/SPEC.md", "type": "skill" },
+    { "src": "agents/advisor-drucker.md", "dst": "agents/advisor-drucker.md", "type": "agent" },
+    { "src": "agents/advisor-buffett.md", "dst": "agents/advisor-buffett.md", "type": "agent" },
+    { "src": "agents/advisor-munger.md", "dst": "agents/advisor-munger.md", "type": "agent" }
   ]
 }

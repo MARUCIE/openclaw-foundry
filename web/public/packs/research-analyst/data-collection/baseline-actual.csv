@@ -1,0 +1,11 @@
+scenario_id,scenario_name,current_time_min,expected_time_min,current_quality,expected_quality,evidence_link
+S1-1,政策三角验证摘要,150,30,adv 信源 0,adv 信源 1+,
+S1-2,政策 question tree,180,30,MECE 50%,MECE 100%,
+S1-3,月度政策报告,480,120,unanswered 0,unanswered 3+,
+S2-1,竞品深度扫描,360,90,5 维 50%,5 维 100%,
+S2-2,行业 trend 1-pager,600,150,adv 信源 0,adv 信源 1+,
+S2-3,客户行业研究,300,60,切入点 1,切入点 2+,
+S3-1,SOTA paper 5 分钟摘要,60,6,evidence eval 0,evidence eval 100%,
+S3-2,跨 paper synthesis,480,120,收敛/分歧识别 50%,收敛/分歧 100%,
+S3-3,SOTA 工程落地评估,360,90,falsification 0%,falsification 100%,
+S3-4,AutoResearch 1 轮,120,30,跨阵营 1,跨阵营 3+,

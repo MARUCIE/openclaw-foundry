@@ -1,0 +1,11 @@
+scenario_id,scenario_name,current_time_min,expected_time_min,current_quality,expected_quality,evidence_link
+S1-1,PRD → 3 屏 clickable HTML,240,30,占位 mock,真实 mock,
+S1-2,PRD → 5 屏 clickable HTML,480,60,硬编码 50%,硬编码 20%,
+S1-3,设计 → handoff spec,120,30,4 列 50%,4 列 100%,
+S2-1,单页 token set CSS 生成,90,12,字号 5+,字号 ≤3,
+S2-2,现有原型 token 重构,240,60,score 不变,score +0.5,
+S2-3,Brand swap,360,90,替换 60%,替换 100%,
+S3-1,Aesthetic probe 自审,60,12,3 维打分,7 维打分,
+S3-2,Top 3 改进落地,180,48,执行 1 个,执行 3 个,
+S3-3,Mobile responsive 改造,240,60,desktop only,3 size,
+S3-4,季度 SOTA refresh,720,240,自评,Hara+Jobs 审,
