@@ -96,7 +96,8 @@ If 0/4 signals pass by 2026-06-18, the invariants in §2 + §3 are not load-bear
 |---|---|---|---|
 | R1 (P0 blockers) | `a156bd3` (deploy.yml + lie-removal) + reconciler run | F1 + F3 + F4 + earlier install-link fix | `state/openclaw-foundry-audit/verify_round1_marketplace.sh` (12/12 PASS) |
 | R2 (P0 semantic + P1) | `53e2128` | F2 + F6 + F7 + F8 (local-private banner + verb honesty + 同步→快照 + synthetic telemetry strip) | `state/openclaw-foundry-audit/verify_round2_marketplace.sh` (15/15 PASS) |
-| R3 (P1 carryover + P2 + closeout) | this commit | F5 + F9 + F10 + this invariant doc | `state/openclaw-foundry-audit/verify_round3_marketplace.sh` (TBD) |
+| R3 (P1 carryover + P2 + closeout) | `0810705` | F5 + F9 + F10 + this invariant doc | `state/openclaw-foundry-audit/verify_round3_marketplace.sh` (25/25 PASS) |
+| T5 (E2E fresh-clone install) | n/a | 3-axis live verification: skill (N/A — 0 publicly-installable), MCP (N/A — mcpCount=0), pack (real curl-pipe-bash on `agent-foundry.pages.dev/packs/backend-engineer/install.sh` in /tmp sandbox, 22/22 manifest items installed with parity confirmed) | `state/openclaw-foundry-audit/verify_e2e_marketplace_pipeline.sh` (6/6 PASS, 3 SKIP for structural N/A) |
 
 Full audit report: `outputs/reports/auto-visual-swarm-review/2026-05-18-marketplace-integrity-audit.md` (20 raw findings → 7 deduped ranked → 3 convergent P0 cores).
 
