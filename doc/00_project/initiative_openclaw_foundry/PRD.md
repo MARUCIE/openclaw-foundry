@@ -65,6 +65,10 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-12 | Web Console: one-click deploy wizard with async job tracking and real-time log streaming | v3.0 |
 | FR-13 | Web Console: arena mode — same blueprint dispatched to 2-5 providers in parallel, auto-scoring and winner determination | v3.0 |
 | FR-14 | Web Console: dashboard with aggregate stats, recent deploys, recent arena matches, system health | v3.0 |
+| FR-15 | Auth wall: normal browsing and Skill install-command copy remain public; job-pack copy/download requires registered session | Implemented |
+| FR-16 | Passwordless login: email success state is only shown after real Resend delivery; production config gaps fail closed and surface actionable UI | Implemented |
+| FR-17 | WeChat login: Enterprise WeChat CTA is configuration-driven and disabled when OAuth secrets are absent | Implemented |
+| FR-18 | Retired route handling: `/explore/platforms` is no longer a product page and redirects to `/packs` | Implemented |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -85,3 +89,4 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. `pipeline-manual.html` is large static content with unclear ownership relative to product requirements
 4. Exported installer behavior is not fully equivalent to local execution for AI-Fleet-linked skills
 5. Toolchain doctor evidence is incomplete due timeout in current non-interactive path
+6. Email and Enterprise WeChat production login still require Cloudflare secrets/provider setup; code now fails visibly when those secrets are absent

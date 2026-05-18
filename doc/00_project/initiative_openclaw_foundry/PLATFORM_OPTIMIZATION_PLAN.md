@@ -25,6 +25,8 @@
 | OPT-12 | P0 | Arena Engine | No cross-platform comparison capability | Parallel deploy+test with auto-scoring | v3.0 |
 | OPT-13 | P1 | Frontend perf | Web Console must handle 13 platform cards + real-time polling | SWR caching, 60s stale-while-revalidate, skeleton loading | v3.0 |
 | OPT-14 | P1 | Deploy UX | Deploy is sync-only (blocks until done) | Async job model with polling + cancel | v3.0 |
+| OPT-15 | P0 | Auth correctness | Login UI could show “sent” when Worker only logged a console fallback | Production email auth fails closed unless Resend delivery is configured | Completed |
+| OPT-16 | P0 | IA cleanup | Retired `/explore/platforms` page remained reachable through CTA/direct URL | CTA targets `/packs`; legacy URL redirects to `/packs` | Completed |
 
 ## Next Execution Order
 1. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine
@@ -34,6 +36,7 @@
 5. Make health-check and verification paths deterministic
 6. Clarify static UX surface ownership
 7. Improve persistence and operator usability
+8. Provision production auth secrets (`RESEND_API_KEY`, optional `RESEND_FROM`, `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, `WECHAT_SECRET`) and verify `/api/auth/config`
 
 ## Success Signal
 1. Documentation and code entrypoints stay synchronized

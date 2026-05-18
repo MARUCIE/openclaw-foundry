@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-03-21`
+- Updated: `2026-05-18`
 
 ## Primary User Types
 1. Local builder:
@@ -42,6 +42,10 @@
 | **Console Catalog** | `/catalog` (web) | Browse/filter 13 platforms, view details |
 | **Console Deploy** | `/deploy` (web) | 4-step deploy wizard with log streaming |
 | **Console Arena** | `/arena` (web) | Multi-claw comparison battlefield |
+| **Job Packs** | `/packs` (web) | Main “Start Using” target; job-pack copy/download requires registration |
+| **Skill Marketplace** | `/skill` (web) | Public Skill install-command browsing and copy |
+| **Login** | `/login` (web) | Email magic link and Enterprise WeChat login, both driven by `/api/auth/config` |
+| **Retired Platform Overview** | `/explore/platforms` (web) | Removed product page; Cloudflare Pages redirects to `/packs` |
 | Deploy API | `POST /api/deploy` | Start async deploy job |
 | Deploy Status | `GET /api/deploy/:jobId` | Poll deploy progress |
 | Arena API | `POST /api/arena` | Create multi-provider match |
@@ -94,6 +98,15 @@
 6. Each lane shows: deploy steps → test results → timing
 7. When all lanes complete: scoring table + winner badge
 8. User can "导出报告" or "再来一局"
+
+### Journey 7: Registration Wall And Login Capability Check
+1. User can browse public pages and copy Skill install commands without signing in
+2. User reaches a job-pack copy/download action and is sent to `/login?return=/packs#wall`
+3. Login page calls `/api/auth/config` before rendering provider actions
+4. If email delivery is configured, the user submits an email and only sees “已发送” after `delivered_via=resend`
+5. If email delivery is not configured, the email CTA is disabled or the request fails with a visible setup message
+6. If Enterprise WeChat OAuth is configured, the WeChat CTA links to `/api/auth/wechat/start`
+7. If Enterprise WeChat OAuth is not configured, the WeChat CTA stays disabled and no broken OAuth jump is exposed
 
 ## UX Gaps
 1. ~~No authenticated web operator console~~ **Resolved by v3.0 Web Console** — customer management still API-only

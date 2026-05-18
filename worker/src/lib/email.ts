@@ -1,7 +1,7 @@
 // Email delivery — Resend API integration for passwordless magic-link auth.
-// Falls back to console.log when RESEND_API_KEY env binding is missing so dev
-// and first-deploy work without a secret; production cohort use requires
-// Maurice to provision the secret via `wrangler secret put RESEND_API_KEY`.
+// Falls back to console.log only when the caller explicitly allows it for
+// local/non-production testing. Production must fail closed if the Resend
+// secret is missing so the UI cannot claim that an email was sent.
 
 export interface SendMagicLinkInput {
   to: string;                  // recipient email
@@ -9,11 +9,12 @@ export interface SendMagicLinkInput {
   expires_minutes: number;     // for display in the email body
   apiKey: string | undefined;  // Worker env binding c.env.RESEND_API_KEY
   fromOverride?: string;       // optional sender; defaults to onboarding@resend.dev (Resend's shared dev sender)
+  allowConsoleFallback?: boolean;
 }
 
 export interface SendMagicLinkResult {
   ok: boolean;
-  delivered_via: 'resend' | 'console_fallback';
+  delivered_via: 'resend' | 'console_fallback' | 'unconfigured';
   message_id?: string;
   error?: string;
 }
@@ -53,11 +54,13 @@ ${link}
 }
 
 export async function sendMagicLink(input: SendMagicLinkInput): Promise<SendMagicLinkResult> {
-  const { to, link, expires_minutes, apiKey, fromOverride } = input;
+  const { to, link, expires_minutes, apiKey, fromOverride, allowConsoleFallback } = input;
 
-  // Dev / first-deploy path: no secret yet → log instead of send so the auth
-  // flow can still be exercised end-to-end (the token is in the URL).
   if (!apiKey) {
+    if (!allowConsoleFallback) {
+      console.error('[email] RESEND_API_KEY not set; refusing to report delivery.');
+      return { ok: false, delivered_via: 'unconfigured', error: 'RESEND_API_KEY not configured' };
+    }
     console.warn(`[email] RESEND_API_KEY not set; logging magic link instead of sending. to=${to} link=${link}`);
     return { ok: true, delivered_via: 'console_fallback' };
   }

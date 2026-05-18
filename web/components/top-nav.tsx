@@ -38,10 +38,9 @@ function clearSession() {
 }
 
 // 2026-05-16 cohort-focus IA: 3-advisor swarm (Hara + Jobs + Godin) converged
-// unanimously — remove /api-docs, /arena, /explore/platforms from nav. Pages
-// stay live at URLs for admin/dev direct access. Cohort use case = browse +
-// install skills/packs; nav must signal "this is for you" not "this is a
-// developer platform". Audit: outputs/reports/research-learning-swarm/
+// unanimously — remove /api-docs, /arena, /explore/platforms from nav. Cohort
+// use case = browse + install skills/packs; nav must signal "this is for you"
+// not "this is a developer platform". Audit: outputs/reports/research-learning-swarm/
 // 2026-05-16-skill-pipeline-audit.{md,html}
 const NAV_ITEMS = [
   { href: '/', key: 'nav.home' },
@@ -61,7 +60,7 @@ const NAV_ITEMS = [
 export function TopNav() {
   const pathname = usePathname();
   const { t } = useI18n();
-  const ctaHref = '/explore/platforms';
+  const ctaHref = '/packs';
   const ctaLabel = t('nav.getStarted');
 
   const [user, setUser] = useState<SessionUser | null>(null);

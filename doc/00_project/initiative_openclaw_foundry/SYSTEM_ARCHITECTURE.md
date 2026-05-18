@@ -427,11 +427,13 @@ Tier 1 全自动 (7)              Tier 2 半自动 (3)            Tier 3 引导�
 │   ├── /deploy/[provider]     平台专属页 (12个, 各含部署向导)
 │   └── /deploy/history        部署历史
 │
+├── /packs                     岗位配置包 (主 CTA; copy/download 需要注册)
+├── /skill                     Skill 市场 (安装命令复制公开)
+├── /login                     注册/登陆 (邮箱 magic link + 企业微信 OAuth; 配置驱动)
 ├── /explore                   导航发现
-│   ├── /explore/platforms     平台目录 (12平台, Tier/Type 筛选, 对比工具)
+│   ├── /explore/platforms     已废弃: Pages `_redirects` 301 到 /packs
 │   ├── /explore/skills        ClawHub Skill 市场 (搜索/分类/一键安装)
-│   ├── /explore/mcp           MCP 服务器目录
-│   └── /explore/compare       平台对比 (2-3 平台并排)
+│   └── /explore/mcp           MCP 服务器目录
 │
 ├── /news                      资讯中心
 │   ├── /news/feed             信息流 (RSS 聚合)
@@ -448,13 +450,29 @@ Tier 1 全自动 (7)              Tier 2 半自动 (3)            Tier 3 引导�
 | v3.0 Page | v4.0 Page | 变化 |
 |-----------|-----------|------|
 | `/` Dashboard (内部统计) | `/` Hero Landing (公开) | 管理后台 → 公开入口 |
-| `/catalog` (平台列表) | `/explore/platforms` (导航+对比) | +Tier 徽章 +价格 +对比 |
+| `/catalog` (平台列表) | `/packs` + `/skill` (岗位包 + Skill 市场) | 平台总览页废弃；主 CTA 回到岗位配置包 |
 | `/deploy` (4步向导) | `/deploy/[provider]` (专属页) | 每平台独立 |
 | `/arena` (竞技场) | `/arena` (保留增强) | +评分维度 |
 | — | `/explore/skills` | 新增 ClawHub |
 | — | `/explore/mcp` | 新增 MCP 目录 |
 | — | `/news` | 新增资讯聚合 |
 | — | `/pricing` | 新增商业化 |
+
+### Auth Capability Surface (2026-05-18)
+
+```text
+Pages /login
+  └─ GET Worker /api/auth/config
+       ├─ email.enabled = true only when Resend is configured
+       └─ wechat.enabled = true only when Enterprise WeChat secrets are configured
+
+Pages /login email submit
+  └─ POST Worker /api/auth/request
+       ├─ production without RESEND_API_KEY -> 503, no fake sent state
+       └─ delivered_via=resend -> UI may show "已发送，请查收邮箱"
+```
+
+Production rule: `console_fallback` is allowed only outside `ENVIRONMENT=production`. The Worker must not create an apparent successful login email flow when the email provider is unconfigured.
 
 ### 新增数据模型
 

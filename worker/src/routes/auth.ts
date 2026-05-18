@@ -1,5 +1,6 @@
 // Auth routes — passwordless magic-link flow.
 //
+// GET  /api/auth/config    public capability flags for login UI
 // POST /api/auth/request   body: {email}             → 200 {sent: true, delivered_via}
 // GET  /api/auth/consume   ?token=<plaintext>         → 200 {bearer_token, user} | 400/410
 // GET  /api/auth/me        Authorization: Bearer <t>  → 200 {user} | 401
@@ -16,9 +17,13 @@ import { sha256Hex, randomToken, resolveSessionUser, extractBearer, type AuthedU
 
 interface Env {
   DB: D1Database;
+  ENVIRONMENT?: string;
   RESEND_API_KEY?: string;
   MAGIC_LINK_BASE_URL?: string;   // defaults to https://agent-foundry.pages.dev
   RESEND_FROM?: string;            // defaults to onboarding@resend.dev
+  WECHAT_CORP_ID?: string;
+  WECHAT_AGENT_ID?: string;
+  WECHAT_SECRET?: string;
 }
 
 const MAGIC_LINK_TTL_MIN = 15;
@@ -29,6 +34,41 @@ const RATE_LIMIT_MAX = 3;          // max 3 magic-link requests per email per mi
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const auth = new Hono<{ Bindings: Env; Variables: { user: AuthedUser } }>();
+
+function canUseConsoleEmailFallback(env: Env): boolean {
+  return env.ENVIRONMENT !== 'production';
+}
+
+function emailDeliveryState(env: Env) {
+  const hasResend = !!env.RESEND_API_KEY;
+  const allowConsoleFallback = canUseConsoleEmailFallback(env);
+  return {
+    enabled: hasResend || allowConsoleFallback,
+    delivered_via: hasResend ? 'resend' : allowConsoleFallback ? 'console_fallback' : 'unconfigured',
+    reason: hasResend
+      ? null
+      : allowConsoleFallback
+        ? 'development console fallback enabled'
+        : 'RESEND_API_KEY is not configured',
+  };
+}
+
+function wechatOAuthState(env: Env) {
+  const enabled = !!(env.WECHAT_CORP_ID && env.WECHAT_AGENT_ID && env.WECHAT_SECRET);
+  return {
+    enabled,
+    provider: 'wecom',
+    reason: enabled ? null : 'WECHAT_CORP_ID, WECHAT_AGENT_ID, and WECHAT_SECRET are not configured',
+  };
+}
+
+// GET /api/auth/config — public feature flags for rendering only real login methods.
+auth.get('/config', (c) => {
+  return c.json({
+    email: emailDeliveryState(c.env),
+    wechat: wechatOAuthState(c.env),
+  });
+});
 
 // POST /api/auth/request — accept email, mint single-use token, mail (or log) the magic link.
 auth.post('/request', async (c) => {
@@ -41,6 +81,14 @@ auth.post('/request', async (c) => {
   const email = (body.email || '').trim().toLowerCase();
   if (!email || !EMAIL_RX.test(email) || email.length > 254) {
     return c.json({ error: 'valid email required' }, 400);
+  }
+
+  const delivery = emailDeliveryState(c.env);
+  if (!delivery.enabled) {
+    return c.json({
+      error: '邮箱服务未配置，请联系管理员配置 RESEND_API_KEY 后再试',
+      delivered_via: delivery.delivered_via,
+    }, 503);
   }
 
   // Rate-limit: max 3 in last 1 minute for this email
@@ -71,6 +119,7 @@ auth.post('/request', async (c) => {
     expires_minutes: MAGIC_LINK_TTL_MIN,
     apiKey: c.env.RESEND_API_KEY,
     fromOverride: c.env.RESEND_FROM,
+    allowConsoleFallback: canUseConsoleEmailFallback(c.env),
   });
 
   if (!result.ok) {

@@ -1,9 +1,9 @@
 'use client';
 
 // /login — passwordless email magic-link request page.
-// On submit: POST /api/auth/request with {email}. On success: show "已发送，请查收邮箱"
-// state with delivery hint. Magic link points to /auth/callback?token=... (handled
-// in web/app/auth/callback/page.tsx).
+// On submit: POST /api/auth/request with {email}. Only confirmed Resend delivery
+// may show "已发送，请查收邮箱"; console fallbacks are treated as not delivered.
+// Magic link points to /auth/callback?token=... (handled in web/app/auth/callback/page.tsx).
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -12,6 +12,19 @@ import Link from 'next/link';
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
 
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface AuthConfig {
+  email: {
+    enabled: boolean;
+    delivered_via: 'resend' | 'console_fallback' | 'unconfigured';
+    reason: string | null;
+  };
+  wechat: {
+    enabled: boolean;
+    provider: 'wecom';
+    reason: string | null;
+  };
+}
 
 function LoginInner() {
   const sp = useSearchParams();
@@ -22,6 +35,28 @@ function LoginInner() {
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState<{ delivered_via: string; expires_minutes: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [authConfig, setAuthConfig] = useState<AuthConfig | null>(null);
+
+  const emailDisabled = authConfig?.email.enabled === false;
+  const wechatEnabled = authConfig?.wechat.enabled === true;
+  const wechatHref = `${API_BASE}/api/auth/wechat/start?return=${encodeURIComponent(returnTo)}`;
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadConfig() {
+      try {
+        const r = await fetch(`${API_BASE}/api/auth/config`);
+        const data = await r.json().catch(() => null);
+        if (!cancelled && r.ok && data?.email && data?.wechat) {
+          setAuthConfig(data as AuthConfig);
+        }
+      } catch {
+        // Keep email submit available; the request endpoint is the final guard.
+      }
+    }
+    loadConfig();
+    return () => { cancelled = true; };
+  }, []);
 
   // Reset error banner on email edit
   useEffect(() => { if (error) setError(null); }, [email]);
@@ -43,6 +78,10 @@ function LoginInner() {
       setError('请输入有效的邮箱地址');
       return;
     }
+    if (emailDisabled) {
+      setError('邮箱服务未配置，请联系管理员配置 RESEND_API_KEY 后再试');
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -54,6 +93,9 @@ function LoginInner() {
       const data = await r.json().catch(() => ({}));
       if (!r.ok) {
         throw new Error(data.error || `HTTP ${r.status}`);
+      }
+      if (data.delivered_via !== 'resend') {
+        throw new Error('邮件服务未配置，未真实发送邮件');
       }
       // Persist return URL for the callback to redirect to
       try { window.localStorage.setItem('openclaw_login_return', returnTo); } catch { /* localStorage may be unavailable */ }
@@ -106,14 +148,20 @@ function LoginInner() {
                   <span>{error}</span>
                 </div>
               )}
+              {emailDisabled && !error && (
+                <div className="text-sm px-4 py-3 rounded-xl flex items-start gap-3" style={{ background: '#fff7ed', color: '#9a3412' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-base">admin_panel_settings</span>
+                  <span>邮箱服务未配置，管理员配置 Resend 后才会发送真实邮件。</span>
+                </div>
+              )}
               <div className="flex items-center gap-4">
                 <button
-                  type="submit" disabled={submitting || !email.trim()}
+                  type="submit" disabled={submitting || !email.trim() || emailDisabled}
                   className="px-6 py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-50 flex items-center gap-2"
                   style={{ background: 'var(--primary)', color: 'white' }}
                 >
                   <span aria-hidden="true" className="material-symbols-outlined text-base">send</span>
-                  {submitting ? '正在发送...' : '发送登陆链接'}
+                  {emailDisabled ? '邮箱服务未配置' : submitting ? '正在发送...' : '发送登陆链接'}
                 </button>
                 <Link href={returnTo} className="text-sm font-bold opacity-50 hover:opacity-100">
                   ← 返回
@@ -148,17 +196,32 @@ function LoginInner() {
                 </p>
               </div>
             </div>
-            <a
-              href={`${API_BASE}/api/auth/wechat/start?return=${encodeURIComponent(returnTo)}`}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all"
-              style={{ background: '#07C160', color: 'white' }}
-            >
-              <span aria-hidden="true" className="material-symbols-outlined text-base">login</span>
-              企业微信授权登陆
-            </a>
+            {wechatEnabled ? (
+              <a
+                href={wechatHref}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all"
+                style={{ background: '#07C160', color: 'white' }}
+              >
+                <span aria-hidden="true" className="material-symbols-outlined text-base">login</span>
+                企业微信授权登陆
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm opacity-60"
+                style={{ background: '#94a3b8', color: 'white' }}
+              >
+                <span aria-hidden="true" className="material-symbols-outlined text-base">lock</span>
+                {authConfig ? '企业微信暂未配置' : '正在检测企业微信配置'}
+              </button>
+            )}
             <p className="text-xs opacity-50 leading-relaxed">
-              首次使用：管理员需先把你加入企业微信训战群（30 秒一次性邀请）。<br />
-              未配置时按钮会返回 503 — 提示管理员补 <code>wrangler secret put WECHAT_CORP_ID/AGENT_ID/SECRET</code>。
+              {wechatEnabled ? (
+                <>首次使用：管理员需先把你加入企业微信训战群（30 秒一次性邀请）。</>
+              ) : (
+                <>管理员配置 <code>WECHAT_CORP_ID</code> / <code>WECHAT_AGENT_ID</code> / <code>WECHAT_SECRET</code> 后，企业微信登陆会自动开放。</>
+              )}
             </p>
           </section>
         </>
