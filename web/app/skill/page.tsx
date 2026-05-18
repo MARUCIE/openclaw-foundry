@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, Suspense } from 'react';
+import { useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import useSWR from 'swr';
 import Link from 'next/link';
@@ -9,7 +9,6 @@ import { useI18n } from '@/lib/i18n';
 import { RATING_COLORS, INSTALL_TARGETS, formatNum, getInstallId, getRepoName } from '@/lib/constants';
 import { TestimonialForm } from '@/components/testimonial-form';
 import { parsePermissions, PermissionDisplay } from '@/components/permission-display';
-import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 
 const SCENARIO_ICONS = ['rocket_launch', 'build', 'psychology'];
 
@@ -45,31 +44,12 @@ function SkillDetailContent() {
     () => getRecommendations(skillId),
   );
 
-  // v6 browse-open / install-auth-gated parity — see AUTH_SURFACE_INVARIANT.md
-  const [user, setUser] = useState<SessionUser | null>(null);
-  const [authReady, setAuthReady] = useState(false);
-  useEffect(() => {
-    setUser(readSession().user);
-    setAuthReady(true);
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === 'openclaw_session_token' || e.key === 'openclaw_session_user') {
-        setUser(readSession().user);
-      }
-    };
-    window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
-  }, []);
-  const isLoggedIn = authReady && user !== null;
-
   const copy = useCallback((text: string, id: string) => {
-    if (!isLoggedIn) {
-      window.location.assign(loginRedirect());
-      return;
-    }
+    // @auth-surface-allowlist: Skill install command copy is public; only Job Pack payloads require registration
     navigator.clipboard.writeText(text);
     setCopied(id);
     setTimeout(() => setCopied(''), 2000);
-  }, [isLoggedIn]);
+  }, []);
 
   // ── Loading / Not Found ──
 

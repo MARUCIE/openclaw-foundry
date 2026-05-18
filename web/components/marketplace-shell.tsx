@@ -7,7 +7,6 @@ import { type ClawHubSkill, submitFeedback } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 import { RATING_BADGE_CLASSES, INSTALL_TARGETS } from '@/lib/constants';
 import { localizeSkillCategory } from '@/lib/skill-categories';
-import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 
 const SOURCE_KEYS = ['all', 'Skills', 'MCP Servers'] as const;
 const RATING_KEYS = ['all', 'S', 'A', 'B', 'C', 'D'];
@@ -72,33 +71,12 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
   const installId = getInstallId(skill);
   const repoName = getRepoName(skill);
 
-  // v6 browse-open / install-auth-gated parity: modal opens for everyone
-  // (browse transparency) but copy actions require login (consistent with
-  // /packs PackCard gate in app/packs/page.tsx).
-  const [user, setUser] = useState<SessionUser | null>(null);
-  const [authReady, setAuthReady] = useState(false);
-  useEffect(() => {
-    setUser(readSession().user);
-    setAuthReady(true);
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === 'openclaw_session_token' || e.key === 'openclaw_session_user') {
-        setUser(readSession().user);
-      }
-    };
-    window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
-  }, []);
-  const isLoggedIn = authReady && user !== null;
-
   const copy = useCallback((text: string, id: string) => {
-    if (!isLoggedIn) {
-      window.location.assign(loginRedirect());
-      return;
-    }
+    // @auth-surface-allowlist: Skill/MCP install command copy is public; only Job Pack payloads require registration
     navigator.clipboard.writeText(text);
     setCopied(id);
     setTimeout(() => setCopied(''), 2000);
-  }, [isLoggedIn]);
+  }, []);
 
   const targets = INSTALL_TARGETS.filter(tgt => isSkill ? tgt.cmdSkill : tgt.cmdMcp);
 
@@ -144,15 +122,15 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           </div>
           <button
             onClick={() => copy(cmd, tgt.id)}
-            aria-label={!isLoggedIn ? '登录后获取安装命令' : (copied === tgt.id ? t('skills.copied') : t('skills.copy'))}
+            aria-label={copied === tgt.id ? t('skills.copied') : t('skills.copy')}
             className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all hover:shadow-lg active:scale-95"
             style={{
               background: copied === tgt.id ? 'var(--tertiary)' : 'var(--primary)',
               color: 'white',
             }}
           >
-            <span aria-hidden="true" className="material-symbols-outlined text-sm">{!isLoggedIn ? 'lock' : (copied === tgt.id ? 'check' : 'content_copy')}</span>
-            {!isLoggedIn ? '登录后获取安装命令' : (copied === tgt.id ? t('skills.copied') : t('skills.copy'))}
+            <span aria-hidden="true" className="material-symbols-outlined text-sm">{copied === tgt.id ? 'check' : 'content_copy'}</span>
+            {copied === tgt.id ? t('skills.copied') : t('skills.copy')}
           </button>
         </div>
         <pre
