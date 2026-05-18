@@ -50,6 +50,12 @@ const NAV_ITEMS = [
   // anonymous entries + comments, backed by Worker D1 v7. Sits AFTER packs
   // because the use sequence is install pack → hit blocker → post to wall.
   { href: '/wall', key: 'nav.wall' },
+  // 2026-05-18 蜕变墙 (Breakthroughs) — same data model as /wall, inverted
+  // visual hierarchy (after_method hero, before_state recedes). Pairs with
+  // /wall: cohort posts stuck-points there → solved entries become public
+  // breakthroughs here. Sits AFTER wall because the narrative arc is
+  // problem → transformation.
+  { href: '/breakthroughs', key: 'nav.breakthroughs' },
 ];
 
 export function TopNav() {
