@@ -223,9 +223,9 @@ export default function WallBoard() {
 
   return (
     <div className="space-y-10">
-      {/* Submit form OR logged-out CTA */}
+      {/* Submit form OR logged-out CTA — #post scroll target for header CTA */}
       {authReady && !sessionToken && (
-        <section className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
+        <section id="post" className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: 'var(--primary)', color: 'white' }}>
               <span aria-hidden="true" className="material-symbols-outlined">lock</span>
@@ -250,7 +250,7 @@ export default function WallBoard() {
         </section>
       )}
       {sessionToken && (
-      <section className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
+      <section id="post" className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
         <div className="flex items-center justify-between gap-4">
           <h2 className="text-xl font-black tracking-tight">提交新卡点</h2>
           {user && (
@@ -398,6 +398,13 @@ export default function WallBoard() {
             </article>
           ))}
         </div>
+        {/* Cross-link to /breakthroughs — solved entries become public breakthroughs */}
+        <p className="text-center text-sm opacity-70 pt-6">
+          想看大家解决了什么？去{' '}
+          <Link href="/breakthroughs" className="font-bold underline" style={{ color: 'var(--primary)' }}>
+            蜕变墙
+          </Link>
+        </p>
       </section>
     </div>
   );

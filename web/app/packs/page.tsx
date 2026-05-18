@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { getPacks, type ConfigPack, type PacksResponse } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
+import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 import WallBoard from '@/components/wall-board';
 
 // Question tree answers map to lines + sub-options
@@ -453,8 +454,29 @@ function PacksTabBody({
 function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boolean }) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
+  // Browse stays public; install/download requires login (v6 auth gate).
+  // Reads session on mount + listens for cross-tab login/logout so the
+  // install button label updates without page reload.
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [authReady, setAuthReady] = useState(false);
+  useEffect(() => {
+    setUser(readSession().user);
+    setAuthReady(true);
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'openclaw_session_token' || e.key === 'openclaw_session_user') {
+        setUser(readSession().user);
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+  const isLoggedIn = authReady && user !== null;
 
   const handleDownload = (filename: string) => {
+    if (!isLoggedIn) {
+      window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
+      return;
+    }
     const a = document.createElement('a');
     a.href = `/packs/${pack.id}/${filename}`;
     a.download = filename;
@@ -462,6 +484,10 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
   };
 
   const handleCopy = () => {
+    if (!isLoggedIn) {
+      window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
+      return;
+    }
     navigator.clipboard.writeText(`curl -sL https://openclaw-foundry.pages.dev/packs/${pack.id}/install.sh | bash`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -587,15 +613,18 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
         ))}
       </div>
 
-      {/* Install command */}
-      <div className="space-y-4 pt-6 border-t border-dashed border-[var(--outline-variant)]">
+      {/* Install command — auth-gated (browse public, install login-required) */}
+      <div id={`install-${pack.id}`} className="space-y-4 pt-6 border-t border-dashed border-[var(--outline-variant)]">
         <button
           onClick={handleCopy}
+          aria-label={isLoggedIn ? '复制一键安装命令' : '登录后获取安装命令'}
           className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[var(--af-fs-meta)] text-white transition-all hover:shadow-2xl active:scale-95 shadow-lg"
-          style={{ background: pack.color }}
+          style={{ background: pack.color, opacity: authReady ? 1 : 0.6 }}
         >
-          <span aria-hidden="true" className="material-symbols-outlined text-base font-black">{copied ? 'done_all' : 'content_copy'}</span>
-          {copied ? t('packs.copied') : t('packs.copyInstall')}
+          <span aria-hidden="true" className="material-symbols-outlined text-base font-black">
+            {!authReady ? 'hourglass_empty' : !isLoggedIn ? 'lock' : copied ? 'done_all' : 'content_copy'}
+          </span>
+          {!authReady ? '...' : !isLoggedIn ? '登录后获取安装命令' : copied ? t('packs.copied') : t('packs.copyInstall')}
         </button>
         <a
           href={`/packs/${pack.id}/guide.html`}
