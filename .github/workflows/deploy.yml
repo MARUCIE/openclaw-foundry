@@ -165,6 +165,19 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy web/out --project-name agent-foundry --branch main --commit-dirty=true
 
+      - name: Build legacy Pages redirect
+        run: |
+          mkdir -p /tmp/openclaw-foundry-redirect
+          printf '%s\n' '/* https://agent-foundry.pages.dev/:splat 301' > /tmp/openclaw-foundry-redirect/_redirects
+          printf '%s\n' '<!doctype html><meta http-equiv="refresh" content="0;url=https://agent-foundry.pages.dev/"><link rel="canonical" href="https://agent-foundry.pages.dev/">' > /tmp/openclaw-foundry-redirect/index.html
+
+      - name: Redirect legacy CF Pages host
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy /tmp/openclaw-foundry-redirect --project-name openclaw-foundry --branch main --commit-dirty=true
+
   # ── Step 3: Deploy worker ──
   deploy-worker:
     runs-on: ubuntu-latest
