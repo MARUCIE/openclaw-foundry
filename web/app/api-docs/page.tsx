@@ -144,6 +144,7 @@ const SECTIONS: { title: string; desc: string; endpoints: Endpoint[] }[] = [
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
   const copy = useCallback(() => {
+    // @auth-surface-allowlist: api-docs example with placeholder API key 'ocf_YOUR_KEY' for developer onboarding; copying is the documented action BEFORE signup, not an install payload
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
