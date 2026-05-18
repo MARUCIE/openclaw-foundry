@@ -106,6 +106,8 @@
   "skills.copied": "已复制",
   "skills.copy": "复制",
   "skills.viewDetails": "在 {source} 查看详情",
+  "skills.localOnly": "本地技能 · 无远程详情页",
+  "skills.local": "本地",
   "skills.versions": "版本",
   "skills.details": "详情",
   "skills.install": "安装",

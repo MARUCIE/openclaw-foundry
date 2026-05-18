@@ -64,6 +64,21 @@ function getRepoName(skill: ClawHubSkill): string {
   return skill.slug || skill.name;
 }
 
+function deriveExternalSource(skill: ClawHubSkill): { href: string; label: string } | null {
+  const href = skill.url || skill.sourceUrl;
+  if (!href || !/^https?:\/\//i.test(href)) return null;
+  let label = (skill.source || 'clawhub') !== 'mcp-registry' ? 'ClawHub' : 'MCP Registry';
+  try {
+    const host = new URL(href).hostname.replace(/^www\./, '');
+    if (host === 'github.com' || host === 'raw.githubusercontent.com') label = 'GitHub';
+    else if (host === 'gitlab.com') label = 'GitLab';
+    else if (host.endsWith('clawhub.com') || host.endsWith('clawhub.tech')) label = 'ClawHub';
+    else if (host.endsWith('modelcontextprotocol.io')) label = 'MCP Registry';
+    else label = host;
+  } catch {}
+  return { href, label };
+}
+
 function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => void }) {
   const { t, locale } = useI18n();
   const [copied, setCopied] = useState('');
@@ -191,16 +206,29 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
         </div>
 
         <div className="pt-4 border-t border-dashed" style={{ borderColor: 'var(--outline-variant)' }}>
-          <a
-            href={skill.url || skill.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-2 transition-all hover:text-[var(--primary)] group"
-            style={{ color: 'var(--on-surface-variant)' }}
-          >
-            <span aria-hidden="true" className="material-symbols-outlined text-sm font-black transition-transform group-hover:translate-x-0.5">open_in_new</span>
-            {t('skills.viewDetails', { source: isSkill ? 'ClawHub' : 'MCP Registry' })}
-          </a>
+          {(() => {
+            const ext = deriveExternalSource(skill);
+            if (!ext) {
+              return (
+                <p className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-2 opacity-60" style={{ color: 'var(--on-surface-variant)' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-sm font-black">folder</span>
+                  {t('skills.localOnly')}
+                </p>
+              );
+            }
+            return (
+              <a
+                href={ext.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-2 transition-all hover:text-[var(--primary)] group"
+                style={{ color: 'var(--on-surface-variant)' }}
+              >
+                <span aria-hidden="true" className="material-symbols-outlined text-sm font-black transition-transform group-hover:translate-x-0.5">open_in_new</span>
+                {t('skills.viewDetails', { source: ext.label })}
+              </a>
+            );
+          })()}
         </div>
       </div>
     </div>
@@ -627,14 +655,27 @@ export function MarketplaceShell() {
                         the card is for discovery, not for asking "did you try it?" */}
 
                     <div className="flex items-center justify-between pt-4 border-t border-dashed" style={{ borderColor: 'var(--outline-variant)' }}>
-                      <a
-                        href={skill.url || skill.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity"
-                      >
-                        Details
-                      </a>
+                      {(() => {
+                        const ext = deriveExternalSource(skill);
+                        return ext ? (
+                          <a
+                            href={ext.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`${ext.label} · ${ext.href}`}
+                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity"
+                          >
+                            {ext.label}
+                          </a>
+                        ) : (
+                          <span
+                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-30"
+                            title={t('skills.localOnly')}
+                          >
+                            {t('skills.local')}
+                          </span>
+                        );
+                      })()}
                       <button
                         onClick={() => setInstallSkill(skill)}
                         className="px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-white transition-all hover:shadow-xl active:scale-95"

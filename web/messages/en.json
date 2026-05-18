@@ -106,6 +106,8 @@
   "skills.copied": "Copied",
   "skills.copy": "Copy",
   "skills.viewDetails": "View Details on {source}",
+  "skills.localOnly": "Local Skill · No Remote Details",
+  "skills.local": "Local",
   "skills.versions": "Versions",
   "skills.details": "Details",
   "skills.install": "Install",
