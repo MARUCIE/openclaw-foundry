@@ -193,36 +193,46 @@ function BreakthroughCard({ entry, sessionToken, isOwn, onLike, likePending }: B
         </div>
       )}
 
-      {/* Inline top-3 comments — only when worker returns top_comments */}
-      {topComments.length > 0 && (
+      {/* Inline top-3 comments — present only when worker returns top_comments key.
+          Kill-list patch 1: "前 N 条" → "最新 N 条" (semantic precision — sort is created_at DESC).
+          Kill-list patch 2: when worker returned the key but with empty array (entry has 0
+          comments), still render a small placeholder so users do not wonder why the comment
+          area silently disappeared on some cards. */}
+      {entry.top_comments !== undefined && !isSeed && (
         <div className="space-y-2 pt-1">
           <div className="text-[11px] font-bold uppercase tracking-widest opacity-50">
-            评论 · 前 {topComments.length} 条
+            {topComments.length > 0 ? `评论 · 最新 ${topComments.length} 条` : '评论'}
           </div>
-          <ul className="space-y-2">
-            {topComments.map((c) => (
-              <li
-                key={c.id}
-                className="text-sm rounded-lg p-2.5 leading-relaxed"
-                style={{ background: 'var(--surface-container)', opacity: 0.92 }}
-              >
-                <div className="flex items-center gap-2 text-[11px] font-bold opacity-50 mb-1">
-                  <span>匿名</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{timeAgo(c.created_at)}</span>
-                </div>
-                <p className="whitespace-pre-wrap">{c.body}</p>
-              </li>
-            ))}
-          </ul>
-          {entry.comment_count > topComments.length && (
-            <Link
-              href={detailHref}
-              className="text-xs font-bold inline-flex items-center gap-1 opacity-70 hover:opacity-100"
-              style={{ color: 'var(--primary)' }}
-            >
-              查看全部 {entry.comment_count} 条评论 →
-            </Link>
+          {topComments.length === 0 ? (
+            <p className="text-xs opacity-40">暂无评论</p>
+          ) : (
+            <>
+              <ul className="space-y-2">
+                {topComments.map((c) => (
+                  <li
+                    key={c.id}
+                    className="text-sm rounded-lg p-2.5 leading-relaxed"
+                    style={{ background: 'var(--surface-container)', opacity: 0.92 }}
+                  >
+                    <div className="flex items-center gap-2 text-[11px] font-bold opacity-50 mb-1">
+                      <span>匿名</span>
+                      <span aria-hidden="true">·</span>
+                      <span>{timeAgo(c.created_at)}</span>
+                    </div>
+                    <p className="whitespace-pre-wrap">{c.body}</p>
+                  </li>
+                ))}
+              </ul>
+              {entry.comment_count > topComments.length && (
+                <Link
+                  href={detailHref}
+                  className="text-xs font-bold inline-flex items-center gap-1 opacity-70 hover:opacity-100"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  查看全部 {entry.comment_count} 条评论 →
+                </Link>
+              )}
+            </>
           )}
         </div>
       )}
