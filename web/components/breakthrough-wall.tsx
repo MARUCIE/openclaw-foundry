@@ -165,14 +165,22 @@ function BreakthroughCard({ entry }: BreakthroughCardProps) {
         </div>
       )}
 
-      {/* Footer row — reactions */}
+      {/* Footer row — reactions. Mock cycle: no-op handler so the a11y contract
+          (aria-pressed + aria-label) is in place from day one; live wiring happens
+          when component switches from MOCK_BREAKTHROUGHS to /api/wall. */}
       <div className="flex items-center gap-6 pt-2 text-xs font-bold opacity-60">
-        <span className="inline-flex items-center gap-1.5">
+        <button
+          type="button"
+          aria-pressed={false}
+          aria-label="点赞（示例数据，暂未启用）"
+          disabled
+          className="inline-flex items-center gap-1.5 disabled:cursor-not-allowed"
+        >
           <span aria-hidden="true" className="material-symbols-outlined text-base">
             favorite
           </span>
           <span>{entry.like_count}</span>
-        </span>
+        </button>
         <span className="inline-flex items-center gap-1.5">
           <span aria-hidden="true" className="material-symbols-outlined text-base">
             comment

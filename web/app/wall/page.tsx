@@ -17,7 +17,7 @@ export default function WallPage() {
             卡点墙
           </h1>
           <p className="text-sm font-bold uppercase tracking-widest opacity-50 mt-1">
-            Workflow Stickwall · 匿名登记你工作流里的卡点，别人可以回复
+            匿名登记你工作流里的卡点，别人可以回复
           </p>
         </div>
       </div>

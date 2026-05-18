@@ -24,7 +24,7 @@ export default function BreakthroughsPage() {
             蜕变墙
           </h1>
           <p className="text-sm font-bold uppercase tracking-widest opacity-50 mt-1">
-            Breakthroughs · cohort 公开的 before/after 蜕变案例 — 同伴在这里把卡点翻成蜕变
+            同伴公开的蜕变案例 — 把卡点翻成蜕变
           </p>
         </div>
       </div>
