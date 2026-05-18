@@ -64,6 +64,7 @@ function clampLen(s: unknown, max: number): string {
 wall.get('/', async (c) => {
   const role = c.req.query('role');
   const limit = Math.min(parseInt(c.req.query('limit') || '50'), 200);
+  const includeTopComments = Math.min(Math.max(parseInt(c.req.query('include_top_comments') || '0'), 0), 5);
   const user = await resolveOptionalUser(c);
   const conditions: string[] = ['flagged = 0'];
   const params: (string | number)[] = [];
@@ -87,7 +88,32 @@ wall.get('/', async (c) => {
   `;
   const userId = user?.id ?? null;
   const { results } = await c.env.DB.prepare(sql).bind(userId, userId, ...params, limit).all();
-  return c.json({ entries: results || [] });
+  const entries = (results || []) as Record<string, unknown>[];
+
+  // include_top_comments=N: batch-fetch top-N (newest-first) comments per entry in a
+  // single round-trip. Grouped client-side to avoid D1 window-function dependency.
+  // Caps N at 5 to bound payload; default 0 preserves existing response shape.
+  if (includeTopComments > 0 && entries.length > 0) {
+    const ids = entries.map((e) => e.id as string);
+    const placeholders = ids.map(() => '?').join(',');
+    const { results: comments } = await c.env.DB.prepare(
+      `SELECT id, entry_id, anon_uid_hash, body, created_at, user_id
+       FROM wall_comments
+       WHERE entry_id IN (${placeholders}) AND flagged = 0
+       ORDER BY entry_id, created_at DESC`
+    ).bind(...ids).all();
+    const byEntry: Record<string, unknown[]> = {};
+    for (const row of (comments || []) as Record<string, unknown>[]) {
+      const eid = row.entry_id as string;
+      if (!byEntry[eid]) byEntry[eid] = [];
+      if (byEntry[eid].length < includeTopComments) byEntry[eid].push(row);
+    }
+    for (const e of entries) {
+      e.top_comments = byEntry[e.id as string] || [];
+    }
+  }
+
+  return c.json({ entries });
 });
 
 // GET /api/wall/:id — one entry + comments (public read; Bearer optional surfaces `liked`)
