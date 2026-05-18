@@ -55,7 +55,7 @@ export default function BreakthroughsPage() {
         <Link href="/wall" className="font-bold underline" style={{ color: 'var(--primary)' }}>
           卡点墙
         </Link>{' '}
-        —— 先公开你的卡点，解决之后会自动汇聚到这里。
+        —— 先公开你的卡点，解决之后会自动汇聚到这里。点击「提交你的蜕变」后，你会先填写一个卡点 —— 解决后它就自动出现在这里。
       </p>
 
       <BreakthroughWall />

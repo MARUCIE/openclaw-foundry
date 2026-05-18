@@ -252,9 +252,14 @@ export default function WallBoard() {
       {sessionToken && (
       <section id="post" className="p-8 rounded-[2rem] space-y-5" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-black tracking-tight">提交新卡点</h2>
+          <div>
+            <h2 className="text-xl font-black tracking-tight">提交新卡点</h2>
+            <p className="text-xs opacity-60 mt-1 leading-relaxed">
+              下面的条目有示例也有真实卡点 —— 加上你自己的，你的 After 越多，方法论更新越快。
+            </p>
+          </div>
           {user && (
-            <span className="text-xs font-bold opacity-70 px-3 py-1.5 rounded-full" style={{ background: 'var(--surface-container)' }}>
+            <span className="text-xs font-bold opacity-70 px-3 py-1.5 rounded-full shrink-0" style={{ background: 'var(--surface-container)' }}>
               {emailPrefix}@···（已验证）
             </span>
           )}
