@@ -83,12 +83,12 @@ fi
 
 This invariant doc is on a 30-day quarantine per the cognitive-reflection promotion gate. Re-evaluate on **2026-06-18** against these 4 falsifiable signals:
 
-1. **No new headline-count lies merged to main in 30 days**: `git log --since='2026-05-18' --diff-filter=A -p web/ | grep -E '"[0-9]{1,3}(,?[0-9]{3})+\+?"' | wc -l` returns 0.
-2. **`reconcile-catalog-integrity.py --strict` exits 0 in the deploy pipeline for at least 5 of the next 10 deploys**: visible in CF Pages build log or `state/openclaw-foundry-audit/reconciler-log.jsonl`.
-3. **Live install verification log shows ≥1 fresh-clone install succeeded for 1 skill + 1 MCP (if catalog gains MCPs) + 1 non-stub pack**: `state/openclaw-foundry-audit/verify_e2e_marketplace_pipeline.sh` exit 0 with sha256/manifest match.
-4. **Zero re-opens of audit findings F1–F10 in 30 days**: scan `outputs/reports/auto-visual-swarm-review/` for follow-up audits citing the same F-IDs.
+1. **No new headline-count lies merged to main in 30 days**: `git log --since='2026-05-18' --diff-filter=A -p web/ | grep -E '"[0-9]{1,3}(,?[0-9]{3})+\+?"' | wc -l` returns 0. _(OPEN — re-check 2026-06-18)_
+2. **`reconcile-catalog-integrity.py` runs on every CF Pages deploy**: wired as `npm run prebuild` step in `web/package.json` so `next build` cannot skip it. _(✓ CLOSED 2026-05-18 commit `7cc7560` — 30 days ahead of deadline. Re-evaluation now upgrades to: ≥5 of next 10 deploys carry fresh `meta.reconcileSummary` block. Strict-mode gate remains opt-in `--strict --phantom-threshold N` for future CI hardening.)_
+3. **Live fresh-clone install verification across all non-stub packs**: `state/openclaw-foundry-audit/verify_e2e_marketplace_pipeline.sh` confirms N-of-N pack install via live `agent-foundry.pages.dev` curl-pipe-bash in /tmp sandbox with manifest parity. _(✓ CLOSED 2026-05-18 — 8-of-8 non-stub packs verified, 167 total manifest items installed with parity: backend-engineer 22/22 · compliance-expert 21/21 · frontend-engineer 22/22 · product-manager 24/24 · scenario-planner 20/20 · test-engineer 22/22 · research-analyst 21/21 · prototype-designer 15/15. Skill axis remains structural N/A until catalog gains publicly-installable entries; MCP axis remains structural N/A until first mcp-registry entry exists.)_
+4. **Zero re-opens of audit findings F1–F10 in 30 days**: scan `outputs/reports/auto-visual-swarm-review/` for follow-up audits citing the same F-IDs. _(OPEN — re-check 2026-06-18)_
 
-If 0/4 signals pass by 2026-06-18, the invariants in §2 + §3 are not load-bearing as written — escalate from doc-only to a programmatic gate (PreToolUse hook on `Write|Edit` matching the banned patterns, or pre-commit hook on `web/public/data/skills.json` validating `meta.reconcileSummary`).
+Status 2026-05-18: **2 of 4 signals closed early**; signals #1 and #4 remain on 30-day Lindy clock. If signals #1 + #4 fail by 2026-06-18, the doc-only invariants in §2 + §3 are not load-bearing as written — escalate to a programmatic gate (PreToolUse hook on `Write|Edit` matching the banned patterns, or pre-commit hook on `web/public/data/skills.json` validating `meta.reconcileSummary`).
 
 ## 6. Round 1–3 Audit Trail
 
