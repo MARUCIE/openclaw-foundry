@@ -1,118 +1,73 @@
-# Auth-Surface Invariant — Design Contract
+# Auth-Surface Invariant — Job Pack Gate Contract
 
-> openclaw-foundry shipped the v6 design contract on 2026-05-18:
-> **整个网站可以打开，但是如果要下载任何内容需要完整注册登陆**
-> (whole site browseable, install/copy/download requires login).
->
-> This document defines the contract, why it kept breaking, and the
-> mechanical gate that now enforces it.
+## Current Contract (v12, 2026-05-18)
 
-## The contract (one sentence)
+1. The whole site stays browseable.
+2. Skill, MCP, API documentation, and browser-wizard copy actions are public.
+3. Only Job Pack payload delivery requires registration/login:
+   - `/packs` install command copy
+   - `/packs` generated config/file download buttons
+   - Worker-served pack files and install scripts
+4. Registration/login is provided through email magic-link and WeChat OAuth.
+5. Public Pages output may contain Job Pack `guide.html` only. Install scripts, manifests, generated config files, and other pack payloads must be uploaded to R2 and served by Worker auth/token routes.
 
-Every UI surface that delivers an install / copy / download payload to the
-user MUST adjoin a session check from `@/lib/session` — either an active
-auth-gate (`loginRedirect` on the action when `!isLoggedIn`) or an explicit
-`@auth-surface-allowlist: <reason>` opt-out comment.
+## Decision Log
 
-## Why the contract exists
-
-| Date | Commit | Surface that broke | Lesson |
+| Date | Version | Surface | Lesson |
 |---|---|---|---|
-| 2026-05-17 | `0d2d1b8` | `components/site-guard.tsx` route-layer wrap (whole-site auth wall) | Route guards are too coarse — they break browse transparency |
-| 2026-05-18 | `28c0356` (v6) | `/packs` PackCard install button | Component-level gate works ; this became the canonical pattern |
-| 2026-05-18 | `1ddf40e` (v8) | Removed SiteGuard from v6 pivot | Route-guard from previous cycle survived pivot — Maurice screenshot triggered fix |
-| 2026-05-18 | `960b5e7` (v9) | Marketplace `InstallModal` copy button | Same v6 design intent, different component, not covered by v6 decomposition |
-| 2026-05-18 | v10 (this) | `skill/page.tsx` + `explore/mcp/page.tsx` copy buttons | Found by `audit-auth-surfaces.sh` BEFORE Maurice screenshot — promotion to hook closes the recurrence class |
+| 2026-05-17 | pre-v6 | `components/site-guard.tsx` route-layer wrap | Route guards are too coarse; they break browse transparency |
+| 2026-05-18 | v6-v11 | `/packs` PackCard and pack payload delivery | Job Pack install/download payloads need action-level auth plus Worker/R2 protection |
+| 2026-05-18 | v12 | Skill/MCP/API copy buttons | These are discovery/onboarding actions, not Job Pack payload delivery; locking them makes logged-out and logged-in UX look identical |
 
-Pattern: three regressions in six hours, all root-caused to *v6 cycle
-decomposition scope < design intent demanded*. The hook makes the audit
-mechanical so the next regression is caught at `git commit`, not at user
-screenshot.
-
-## The mechanism
+## Enforcement Mechanism
 
 ```
-scripts/audit-auth-surfaces.sh   ←  the audit logic (single source of truth)
-scripts/pre-commit-hook.sh       ←  thin wrapper invoked by git
-scripts/install-hooks.sh         ←  idempotent symlink installer
+scripts/audit-auth-surfaces.sh   ← job-pack boundary audit
+scripts/pre-commit-hook.sh       ← thin wrapper invoked by git
+scripts/install-hooks.sh         ← idempotent symlink installer
 ```
 
-### What the audit scans
+The audit no longer scans every clipboard call. It checks the Job Pack boundary:
 
-| Surface pattern | Where it appears |
-|---|---|
-| `navigator.clipboard.writeText` | copy install commands |
-| `clipboard.writeText` | same, with destructured/aliased clipboard |
-| `a.download = …` (programmatic) | `<a>` download attribute set in JS |
-| `<a … download …>` (JSX) | static download links |
+1. `web/lib/protected-downloads.ts` imports `@/lib/session` and calls `requireRegistered`.
+2. `web/app/packs/page.tsx` uses `copyProtectedPackInstallCommand` and `downloadProtectedPackFile`.
+3. `web/public/_headers` caches only `/packs/*/guide.html`, not all `/packs/*`.
+4. `.github/workflows/deploy.yml` uploads protected pack payloads to R2, prunes `web/out/packs`, and deploys Pages only after Worker deploy plus D1 migrations.
 
-Scanned directories: `web/components/`, `web/app/`, `web/lib/`. Extensions:
-`.ts`, `.tsx`, `.js`, `.jsx`.
-
-### What the audit demands
-
-For every match above, the SAME file must satisfy BOTH:
-
-1. `import … from '@/lib/session'` — single source of truth for session state
-2. Reference at least one of `loginRedirect` / `isLoggedIn` / `readSession`
-
-OR the matching line carries `@auth-surface-allowlist: <reason>` on the
-same line or the line immediately above.
-
-### The canonical gate pattern
-
-Lifted from `web/app/packs/page.tsx` PackCard (v6 commit `28c0356`):
+## Canonical Job Pack Gate
 
 ```tsx
-import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
+import { copyProtectedPackInstallCommand, downloadProtectedPackFile } from '@/lib/protected-downloads';
 
-// inside the component:
-const [user, setUser] = useState<SessionUser | null>(null);
-const [authReady, setAuthReady] = useState(false);
-useEffect(() => {
-  setUser(readSession().user);
-  setAuthReady(true);
-  const onStorage = (e: StorageEvent) => {
-    if (e.key === 'openclaw_session_token' || e.key === 'openclaw_session_user') {
-      setUser(readSession().user);
-    }
-  };
-  window.addEventListener('storage', onStorage);
-  return () => window.removeEventListener('storage', onStorage);
-}, []);
-const isLoggedIn = authReady && user !== null;
-
-const copy = useCallback((text: string) => {
-  if (!isLoggedIn) {
-    window.location.assign(loginRedirect());
-    return;
-  }
-  navigator.clipboard.writeText(text);
-  // …
-}, [isLoggedIn]);
+await copyProtectedPackInstallCommand(pack.id, `/packs#install-${pack.id}`);
+await downloadProtectedPackFile(pack.id, filename, `/packs#install-${pack.id}`);
 ```
 
-Optional UI swap when `!isLoggedIn`: lock icon + `登录后获取安装命令` label
-(consistent with PackCard + InstallModal so users recognize the gate
-across surfaces).
+`web/lib/protected-downloads.ts` performs the registered-session check and redirects to `/login?return=...` when needed. Do not duplicate this logic in Skill/MCP/API copy surfaces.
 
-### When to allowlist
+## Public Copy Surfaces
 
-Public documentation that intentionally shows payload BEFORE signup:
+These actions are intentionally open:
 
-```tsx
-const copy = useCallback(() => {
-  // @auth-surface-allowlist: api-docs example with placeholder API key, shown before signup
-  navigator.clipboard.writeText(text);
-  // …
-}, [text]);
-```
+1. Skill install command copy in `web/components/marketplace-shell.tsx`
+2. Skill detail sticky install command copy in `web/app/skill/page.tsx`
+3. MCP install command copy in `web/app/explore/mcp/page.tsx`
+4. API docs example copy in `web/app/api-docs/page.tsx`
+5. Legacy browser-wizard blueprint/install copy in `client/index.html`
 
-Hard rule: every allowlist must carry a one-sentence reason. Bare
-`@auth-surface-allowlist` with no reason is rejected by the audit (future
-extension).
+If one of these starts showing `登录后复制` / lock icons, that is a regression against v12.
 
-## Install + run
+## Protected Payload Delivery
+
+1. Pack `guide.html` pages may remain public static assets.
+2. Pack install scripts, manifests, zip/json payloads, and generated config files must not ship as public static Pages files.
+3. CI uploads protected pack payloads to R2 via `scripts/upload-protected-packs-to-r2.mjs`.
+4. Static export is pruned via `scripts/prune-public-pack-downloads.mjs` before Pages deploy.
+5. Registered users receive payloads through Worker routes:
+   - `POST /api/packs/:id/download-token`
+   - `GET /api/packs/:id/file?path=...`
+
+## Install + Run
 
 ```bash
 # One-time per fresh clone:
@@ -122,39 +77,15 @@ bash scripts/install-hooks.sh
 bash scripts/audit-auth-surfaces.sh
 
 # Bypass (use sparingly, log reason in commit message):
-git commit --no-verify -m "…"
+git commit --no-verify -m "..."
 ```
-
-The hook is a symlink — pulling a `scripts/audit-auth-surfaces.sh` update
-takes effect on the next commit without re-running the installer.
-
-## Why this lives in the project (not the harness)
-
-| Layer | Coverage | Limitation |
-|---|---|---|
-| AI-Fleet harness PreToolUse hook | Only Claude Code edits | Misses Maurice's manual cursor/iTerm/VS Code edits |
-| GitHub Actions CI | All PRs | Lag — only catches after push |
-| `.git/hooks/pre-commit` in project (this) | All commits from any tool by any contributor | Local — installer must run once |
-
-The pre-commit layer is the only one that protects all three vectors
-(manual edits + AI agent edits + future contributor edits) at the
-earliest possible moment.
 
 ## verify_by 2026-06-18
 
-Falsifiable signals (any failure = re-evaluate the mechanism, not the discipline):
-
-1. Zero new v6-class regressions reach `origin/main` over 30 days (auditable
-   via `git log --grep='auth-gate'` count = 0)
-2. `bash scripts/audit-auth-surfaces.sh` exits 0 on `origin/main` HEAD at
-   any time during the 30-day window
-3. At least one developer (Maurice or future contributor) successfully
-   uses the allowlist comment for a legitimate public surface
-4. Any new copy/download/share surface added during the window is either
-   gated or allowlisted — no surface ships bare
-
-If 0/4 satisfied by 2026-06-18 → strengthen audit (stricter pattern set,
-require non-empty allowlist reason, extend to `postMessage`/`window.open`).
+1. `bash scripts/audit-auth-surfaces.sh` exits 0 on `origin/main`.
+2. Logged-out Skill install modal shows direct copy buttons, not login-lock buttons.
+3. Logged-out `/packs` install/download actions redirect to `/login?return=/packs#install-<pack>`.
+4. Deployed Pages output does not expose `/packs/<pack>/install.sh` as a public static file.
 
 ---
 

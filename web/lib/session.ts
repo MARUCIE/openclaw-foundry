@@ -27,6 +27,14 @@ export function readSession(): SessionState {
   let token = '';
   let user: SessionUser | null = null;
   try {
+    const expiresRaw = window.localStorage.getItem('openclaw_session_expires');
+    if (expiresRaw) {
+      const expiresAt = Date.parse(expiresRaw);
+      if (Number.isFinite(expiresAt) && expiresAt <= Date.now()) {
+        clearSession();
+        return { token: '', user: null };
+      }
+    }
     token = window.localStorage.getItem('openclaw_session_token') || '';
     const raw = window.localStorage.getItem('openclaw_session_user');
     if (raw) user = JSON.parse(raw) as SessionUser;
@@ -48,7 +56,8 @@ export function clearSession(): void {
 }
 
 export function isLoggedIn(): boolean {
-  return readSession().user !== null;
+  const session = readSession();
+  return !!(session.token && session.user);
 }
 
 // Helper for components that need to gate an action behind login.
@@ -60,4 +69,13 @@ export function loginRedirect(returnPath?: string): string {
     returnPath ||
     window.location.pathname + window.location.search + window.location.hash;
   return `/login?return=${encodeURIComponent(r)}`;
+}
+
+export function requireRegistered(returnPath?: string): SessionState | null {
+  const session = readSession();
+  if (session.token && session.user) return session;
+  if (typeof window !== 'undefined') {
+    window.location.assign(loginRedirect(returnPath));
+  }
+  return null;
 }
