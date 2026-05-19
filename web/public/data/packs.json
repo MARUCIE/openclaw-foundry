@@ -1,6 +1,6 @@
 {
   "total": 25,
-  "generated": "2026-05-18T02:27:43.996Z",
+  "generated": "2026-05-19T08:29:19.603Z",
   "packs": [
     {
       "id": "algorithm-engineer",
@@ -130,7 +130,8 @@
         "line-business",
         "role-compliance"
       ],
-      "version": "4.1.0",
+      "version": "4.2.0",
+      "preserveContent": true,
       "artifacts": {
         "skills": 8,
         "agents": 3,
@@ -144,9 +145,9 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -748,9 +749,9 @@
         "agents": 3,
         "references": 0
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -808,7 +809,7 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": false
@@ -893,9 +894,9 @@
     }
   ],
   "tierSummary": {
-    "stub": 20,
-    "enriched": 0,
+    "stub": 17,
+    "enriched": 3,
     "certified": 5
   },
-  "tierInjectedAt": "2026-05-18T02:27:44.139Z"
+  "tierInjectedAt": "2026-05-19T08:29:19.766Z"
 }

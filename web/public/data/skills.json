@@ -49,15 +49,15 @@
       "method": "delta-append (additive, non-destructive)"
     },
     "lastDeployRetry": "2026-05-16T08:59:39Z",
-    "reconciledAt": "2026-05-18T12:11:59.225146+00:00",
+    "reconciledAt": "2026-05-19T08:29:20.019597+00:00",
     "reconcileSummary": {
-      "phantomsMarked": 295,
-      "skeletonsAdded": 10,
-      "urlProblems": 1,
-      "catalogTotal": 758
+      "phantomsMarked": 0,
+      "skeletonsAdded": 1,
+      "urlProblems": 0,
+      "catalogTotal": 760
     }
   },
-  "total": 758,
+  "total": 760,
   "skills": [
     {
       "id": "local/PPT",
@@ -27191,6 +27191,36 @@
       "stars": 0,
       "versions": 1,
       "skeletonAddedAt": "2026-05-18T12:11:59.225145+00:00"
+    },
+    {
+      "id": "local/learning-intake-pipeline",
+      "name": "learning-intake-pipeline",
+      "slug": "learning-intake-pipeline",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/learning-intake-pipeline",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-19T07:08:39.756056+00:00"
+    },
+    {
+      "id": "local/_external",
+      "name": "_external",
+      "slug": "_external",
+      "author": "local",
+      "source": "local",
+      "description": "(skeleton — enrich via resync-skills-from-local.mjs)",
+      "url": "file:///Users/mauricewen/.claude/skills/_external",
+      "category": "Uncategorized",
+      "rating": "C",
+      "downloads": 0,
+      "stars": 0,
+      "versions": 1,
+      "skeletonAddedAt": "2026-05-19T08:29:20.019454+00:00"
     }
   ]
 }

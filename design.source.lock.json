@@ -1,0 +1,33 @@
+{
+  "upstream": {
+    "owner": "material-components",
+    "repo": "material-components-web",
+    "commit": "6ceadb81df508ac08ab007c52c4d3dc1d811cc15",
+    "files": [
+      "packages/mdc-layout-grid/README.md",
+      "packages/mdc-layout-grid/_variables.scss",
+      "packages/mdc-layout-grid/mdc-layout-grid.scss"
+    ]
+  },
+  "document": {
+    "path": "design.md",
+    "sha256": "d62912715729b014f7b9c1f662c9cadfcf68cce0da2d47f74cc8ac1a2d4c5707"
+  },
+  "files": [
+    {
+      "path": "packages/mdc-layout-grid/README.md",
+      "url": "https://raw.githubusercontent.com/material-components/material-components-web/6ceadb81df508ac08ab007c52c4d3dc1d811cc15/packages/mdc-layout-grid/README.md",
+      "sha256": "f385f6c5893476208a2607fbf40164464dcf2e6f583fc8e64db4215ce6296977"
+    },
+    {
+      "path": "packages/mdc-layout-grid/_variables.scss",
+      "url": "https://raw.githubusercontent.com/material-components/material-components-web/6ceadb81df508ac08ab007c52c4d3dc1d811cc15/packages/mdc-layout-grid/_variables.scss",
+      "sha256": "4ab8710818c44459bafca886b98c92964a763ce773f3995cf632af30166088f0"
+    },
+    {
+      "path": "packages/mdc-layout-grid/mdc-layout-grid.scss",
+      "url": "https://raw.githubusercontent.com/material-components/material-components-web/6ceadb81df508ac08ab007c52c4d3dc1d811cc15/packages/mdc-layout-grid/mdc-layout-grid.scss",
+      "sha256": "d87724a7c50e71faf790968dfb4fbf6444a4e7e33c70855d5a9b01f9ed924612"
+    }
+  ]
+}
