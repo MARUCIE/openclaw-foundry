@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.707Z
+  generated-at: 2026-05-19T07:24:16.631Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/prototype-designer/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -113,6 +129,97 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-stitch-prototype">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">stitch-prototype</div>
+    <code class="skill-card-path">skills/design/stitch-prototype/SPEC.md</code>
+  </div>
+  
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一套把 PRD / 用户故事快速翻译成&quot;单文件可点击 HTML 原型&quot;的轻量管线，让需求方在评审会上就能点开屏间跳转看真实交互，而不是隔着 Figma 静态图猜体验，把&quot;看起来对&quot;和&quot;用起来对&quot;两件事提前一周对齐。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把 PRD 拆成 ≤5 屏的核心 flow，让原型的边界一开始就是收敛的而不是越做越大。</li><li>根据品牌氛围（brand vibe）选 token 集，让视觉风格不靠当场拍脑袋而是有版可依。</li><li>每屏先用文字写清&quot;布局 / 层级 / 数据&quot;，让原型动手前先过一遍语义而不是直接堆 UI 组件。</li><li>用 HTML + Tailwind + 一点原生 JS 生成单文件，让 cohort 双击就能看而不需要本地起服务。</li><li>在底部加 handoff 表（屏 / 组件 / 状态 / 数据形状），让设计交付到前端开发的那一刻每个组件都有明确的状态契约（state contract）。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[PRD/用户故事] --&gt; B[屏列表拆解]
+    B --&gt; C[Token 选型]
+    C --&gt; D[单文件 HTML]
+    D --&gt; E[屏间跳转]
+    E --&gt; F[Handoff 表]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-design-tokens">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">design-tokens</div>
+    <code class="skill-card-path">skills/design/design-tokens/SPEC.md</code>
+  </div>
+  
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一套把品牌风格沉淀成&quot;可复用变量&quot;的设计令牌（design tokens）系统，让颜色、字号、间距、圆角、阴影变成命名清晰的 CSS 变量或 Tailwind 配置，避免一个原型里出现 3 套配色、5 种字号的失控状态，也让品牌色一改全站联动而不是全文替换。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先确认这次原型要走哪个风格（如 stripe-minimal / claude-warm / 自定义品牌），让&quot;风格选型&quot;成为一次决定而不是每个组件重复做一次。</li><li>通过 html-style-router 找到对应 token 集，让风格落地不靠工程师个人审美，而是有版可依。</li><li>把 token 写进 `:root` 的 CSS 变量或 tailwind extend 配置，让组件层只引用变量名而不接触原始值。</li><li>输出一份 token cheatsheet（token 名 / 值 / 何时使用三列），让需求方和开发对齐&quot;什么场景用哪个 token&quot;，减少口头沟通误差。</li><li>产出 1 段示例 HTML 展示 token 真实应用效果，让评审方一眼看到&quot;换品牌色后整页是什么样&quot;，而不是只看抽象色卡。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[品牌风格] --&gt; B[Style Router 选型]
+    B --&gt; C[CSS 变量集]
+    C --&gt; D[原型组件层]
+    C --&gt; E[Cheatsheet 对齐文档]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-aesthetic-probe">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">aesthetic-probe</div>
+    <code class="skill-card-path">skills/design/aesthetic-probe/SPEC.md</code>
+  </div>
+  
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一套原型交付前的视觉自审清单，把&quot;看起来还行&quot;翻译成 7 个可打分的设计维度，让交付前的主观感受变成可复盘的客观证据，避免视觉债务在 cohort 评审时才被发现。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把待审原型打开在桌面端 + 手机端两个尺寸，让响应式（responsive）问题在第一眼就暴露而不是上线后才被截图吐槽。</li><li>跑一遍 token 审计（design tokens 一致性检查），把硬编码的颜色 / 字号 / 间距标红，确认是不是真的在用统一设计系统。</li><li>用 7 维评分表（token 一致、层级清晰、留白、字体协调、配色克制、可点击识别、响应式）打分，让&quot;哪里不对劲&quot;变成&quot;第 3 维只有 2 分&quot;的具体诊断。</li><li>把 Top 3 改进项按 (5−当前分) × 业务影响排序，让有限的时间花在最值钱的地方而不是先改最容易的。</li><li>最后产出「保留 vs 改 vs 新增」三列清单，让需求方一眼看清这一轮原型评审的边界，避免下一轮再来一次。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[原型 HTML] --&gt; B[Token 审计]
+    A --&gt; C[7 维评分]
+    B --&gt; D[Top 3 改进]
+    C --&gt; D
+    D --&gt; E[保留改新增清单]</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
@@ -151,8 +258,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 原型设计师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>

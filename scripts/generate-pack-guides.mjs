@@ -78,6 +78,119 @@ function buildAdvisorList(manifest) {
   return `<ul class="kit-list">${items.map(it => `<li><code>${esc(it.dst || it.src)}</code></li>`).join('')}</ul>`;
 }
 
+// Extract the 3 polished sections (是什么 / 怎么用 / 架构图) from a SKILL.md or
+// SPEC.md file. Returns {what, how, archMermaid, name, description} where:
+//   - what:         body of `## 是什么` heading (markdown text, may contain newlines)
+//   - how:          body of `## 怎么用` heading (numbered list as markdown)
+//   - archMermaid:  contents of the ```mermaid fenced block under `## 架构图`
+//   - name:         frontmatter `name:` field (skill slug)
+//   - description:  frontmatter `description:` field (1-line)
+// Missing sections return empty strings. The polish ran 2026-05-19 (goal da73c5);
+// every SKILL.md/SPEC.md in the repo should now have all 3 sections.
+function extractSkillSections(filePath) {
+  let content = '';
+  try { content = readFileSync(filePath, 'utf-8'); } catch { return null; }
+
+  // Frontmatter (between two `---` lines)
+  let name = '';
+  let description = '';
+  const fmMatch = content.match(/^---\s*\n([\s\S]+?)\n---\s*\n/);
+  if (fmMatch) {
+    const fm = fmMatch[1];
+    const nm = fm.match(/^name:\s*(.+?)\s*$/m);
+    if (nm) name = nm[1].replace(/^["']|["']$/g, '');
+    const dm = fm.match(/^description:\s*(.+?)\s*$/m);
+    if (dm) description = dm[1].replace(/^["']|["']$/g, '');
+  }
+
+  function section(heading) {
+    const re = new RegExp(`^## ${heading}\\s*\\n([\\s\\S]+?)(?=^##\\s|\\Z)`, 'm');
+    const m = content.match(re);
+    return m ? m[1].trim() : '';
+  }
+  const what = section('是什么');
+  const how = section('怎么用');
+
+  // 架构图 body contains a ```mermaid ... ``` fenced block; extract its inner text
+  let archMermaid = '';
+  const archMatch = content.match(/^## 架构图\s*\n[\s\S]*?```mermaid\s*\n([\s\S]+?)\n```/m);
+  if (archMatch) archMermaid = archMatch[1].trim();
+
+  return { what, how, archMermaid, name, description };
+}
+
+// Minimal markdown → HTML for the 怎么用 numbered list block. Preserves line
+// breaks inside list items; does not implement full CommonMark.
+function mdNumberedToHtml(md) {
+  if (!md) return '';
+  const lines = md.split('\n');
+  const items = [];
+  let current = null;
+  for (const line of lines) {
+    const m = line.match(/^(\d+)\.\s+(.+)$/);
+    if (m) {
+      if (current) items.push(current);
+      current = m[2];
+    } else if (current !== null && line.trim()) {
+      current += ' ' + line.trim();
+    }
+  }
+  if (current) items.push(current);
+  if (items.length === 0) {
+    // Fallback: render as a paragraph
+    return `<p>${esc(md)}</p>`;
+  }
+  return `<ol>${items.map(it => `<li>${esc(it)}</li>`).join('')}</ol>`;
+}
+
+// Build the rich "工具详解" section: one card per skill with 3 sub-sections.
+// Mermaid blocks are emitted as <pre class="mermaid">…</pre>; the page's
+// mermaid init script (added at end of body) will render them client-side.
+function buildSkillDetailCards(packDir, manifest) {
+  const items = (manifest?.items || []).filter(it => it.type === 'skill');
+  if (items.length === 0) return '<p class="muted">本包暂未带 skill 资源。</p>';
+  const cards = [];
+  for (const it of items) {
+    const rel = it.src || it.dst;
+    if (!rel) continue;
+    const skillPath = join(packDir, rel);
+    if (!existsSync(skillPath)) continue;
+    const sec = extractSkillSections(skillPath);
+    if (!sec) continue;
+    // If all 3 sections missing, render a stub card with the file path only
+    const slugBits = rel.split('/');
+    const skillSlug = slugBits[slugBits.length - 2] || sec.name || 'skill';
+    const cardId = `skill-${skillSlug}`;
+    const has3 = sec.what && sec.how && sec.archMermaid;
+    const cardClass = has3 ? 'skill-card' : 'skill-card skill-card-stub';
+    cards.push(`
+<div class="${cardClass}" id="${esc(cardId)}">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">${esc(skillSlug)}</div>
+    <code class="skill-card-path">${esc(rel)}</code>
+  </div>
+  ${sec.description ? `<p class="skill-card-desc">${esc(sec.description)}</p>` : ''}
+  ${sec.what ? `
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>${esc(sec.what).replace(/\n+/g, '</p><p>')}</p>
+  </div>` : ''}
+  ${sec.how ? `
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    ${mdNumberedToHtml(sec.how)}
+  </div>` : ''}
+  ${sec.archMermaid ? `
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">${esc(sec.archMermaid)}</pre>
+  </div>` : ''}
+  ${!has3 ? `<p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>` : ''}
+</div>`);
+  }
+  return cards.join('\n');
+}
+
 function extractAntiPatternsFromClaude(claudeMd) {
   // Pull bullet lines that look like anti-pattern guidance (start with - and contain a stop-word).
   const lines = claudeMd.split('\n');
@@ -159,6 +272,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -212,6 +341,12 @@ ${buildAdvisorList(ctx.manifest)}
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 ${ctx.antiPatterns.length > 0 ? `
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
@@ -254,9 +389,25 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — ${esc(ctx.nameZh)} 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：${new Date().toISOString().slice(0, 19).replace('T', ' ')} UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：${new Date().toISOString().slice(0, 19).replace('T', ' ')} UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>
 `;
@@ -287,6 +438,7 @@ function main() {
     const fud = extractFirstUseDemo(manifest);
     const ctx = {
       slug,
+      packDir,
       name: header?.name || slug,
       nameZh: header?.nameZh || slug,
       description: header?.description || '',

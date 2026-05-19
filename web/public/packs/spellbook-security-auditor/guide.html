@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.712Z
+  generated-at: 2026-05-19T07:24:16.643Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/spellbook-security-auditor/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -112,6 +128,127 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-security">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">security</div>
+    <code class="skill-card-path">skills/security/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when implementing authentication, authorization, input validation, or secrets management — or when auditing an existing service against OWASP Top 10 risks, configuring security headers, or running a STRIDE threat model.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一份后端安全综合规范，覆盖鉴权、授权、输入校验、密钥管理、OWASP（开放式 Web 应用安全项目）Top 10 风险、STRIDE（六类威胁建模方法）威胁建模、安全响应头等核心控制点，让团队从写代码起就具备防护意识，而不是上线后再补救。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>新功能立项时按 STRIDE 框架做威胁建模，把潜在攻击面在设计阶段就列清楚。</li><li>写鉴权和会话管理代码时套用文档的标准模板，密码哈希、Token 签发、退出失效一次到位。</li><li>处理用户输入时按白名单校验、参数化查询、输出编码三件套防御，杜绝注入和 XSS（跨站脚本攻击）。</li><li>上线前对照 OWASP Top 10 清单逐项自检，特别是访问控制、安全配置、依赖漏洞三大重灾区。</li><li>配置 Content-Security-Policy（内容安全策略）等安全响应头时按文档基线套用，逐步收紧不一刀切。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[功能设计] --&gt; B[STRIDE 建模]
+    B --&gt; C[安全编码]
+    C --&gt; D[OWASP 自检]
+    D --&gt; E[依赖扫描]
+    E --&gt; F[上线放行]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-aws">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">aws</div>
+    <code class="skill-card-path">skills/aws/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when writing boto3 or AWS SDK v3 code — configuring IAM auth, reading/writing S3, designing DynamoDB access patterns, writing Lambda handlers, processing SQS batches, or troubleshooting credential and throttling errors.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一份 AWS SDK（亚马逊云开发工具包）安全使用规范，覆盖 IAM（身份与访问管理）鉴权、S3 对象存储读写、DynamoDB 访问模式、Lambda 处理器、SQS 批量消费等常用接口，让团队写云上代码时不会留下密钥泄漏、权限过大、节流失控等审计风险。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>写 boto3 或 AWS SDK v3 代码前，按本文档的 IAM 角色与 STS（安全令牌服务）模板取临时凭证，禁止把 access key 写进代码或环境变量。</li><li>设计 S3 读写时按规范配 bucket policy（桶策略）和 KMS（密钥管理服务）加密，敏感对象必须开启版本化和 MFA delete。</li><li>设计 DynamoDB 访问模式时套用单表设计指引，避免扫描全表带来的成本和限流风险。</li><li>写 Lambda 处理器时按超时、重试、幂等三件套模板编码，防止瞬时故障被放大成数据错乱。</li><li>处理 SQS 批量消息时按文档的可见超时、批大小、并发上限建议配置，避免重复消费或队列堆积。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[应用代码] --&gt; B[STS 临时凭证]
+    B --&gt; C[IAM 角色]
+    C --&gt; D[S3 与 DynamoDB]
+    C --&gt; E[Lambda 处理]
+    E --&gt; F[SQS 队列]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-containerization">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">containerization</div>
+    <code class="skill-card-path">skills/containerization/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when writing Dockerfiles, setting up docker-compose for local dev, configuring Kubernetes resources (Deployment, Service, Ingress, HPA), sizing pod resource limits, or packaging a service with Helm.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一份容器化安全规范，从审计视角覆盖 Dockerfile 安全基线、Kubernetes（K8s，容器编排平台）RBAC（基于角色的访问控制）、镜像签名、运行时隔离、网络策略等关键控制点，让团队上容器时不留下 root 运行、特权挂载、未签名镜像等高危漏洞。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>审计 Dockerfile 时按非 root 用户、最小基础镜像、构建参数清理三条基线逐项检查，发现违规直接打回。</li><li>审计 K8s 部署清单时重点看 securityContext（安全上下文）、resource limits、ReadOnlyRootFilesystem 三项配置是否合规。</li><li>镜像入仓前必须过 Trivy 或 Snyk 等漏洞扫描，按文档约定的 CVE（公共漏洞披露）阈值卡严重等级。</li><li>集群层面按 RBAC 最小权限模板配 Role 与 RoleBinding，避免 default ServiceAccount 拿到全局权限。</li><li>网络层启用 NetworkPolicy（网络策略）默认拒绝，按白名单逐步放开服务间通信，缩小横向移动面。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[Dockerfile 审计] --&gt; B[镜像漏洞扫描]
+    B --&gt; C[签名入仓]
+    C --&gt; D[K8s RBAC 校验]
+    D --&gt; E[NetworkPolicy 隔离]
+    E --&gt; F[运行时监控]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-observability">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">observability</div>
+    <code class="skill-card-path">skills/observability/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when adding structured logging, instrumenting Prometheus metrics, wiring up distributed tracing with OpenTelemetry, writing alerting rules, defining SLOs and error budgets, or building a Grafana golden-signals dashboard.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一份从安全审计角度切入的可观测性规范，覆盖审计日志结构化、安全事件指标、可追溯链路、异常行为告警，让团队具备发生事故时可追责、可回溯、可取证的能力，而不是事后翻不到证据。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>审计敏感操作（登录、授权变更、数据导出）必须按文档模板打结构化日志，含 user_id、ip、operation 字段。</li><li>给鉴权失败、限流命中、异常访问三类事件配 Prometheus（监控指标系统）计数指标，超阈值立刻告警。</li><li>接入 OpenTelemetry（开放遥测标准）分布式追踪时，关键调用链必须打上 trace_id 并保留 30 天以上以备审计。</li><li>告警规则按合规要求（数据脱敏、最小披露）配置内容模板，避免告警本身泄漏敏感信息。</li><li>定期用安全大盘审视失败率与异常访问趋势，发现可疑模式立刻按事故响应流程介入。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务操作] --&gt; B[审计日志]
+    A --&gt; C[安全指标]
+    A --&gt; D[追踪链路]
+    B &amp; C &amp; D --&gt; E[安全大盘]
+    E --&gt; F[异常告警]</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
@@ -149,8 +286,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 安全审计师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>

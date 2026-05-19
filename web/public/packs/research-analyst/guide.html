@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.708Z
+  generated-at: 2026-05-19T07:24:16.632Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/research-analyst/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -113,6 +129,249 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-deep-research">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">deep-research</div>
+    <code class="skill-card-path">skills/deep-research/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when task requires multi-step information synthesis across sources, not answerable in one search. Runs 7-stage research pipeline with sub-agents. NOT for quick lookups or single-source questions. Trigger: research, comprehensive analysis, literature review.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把&quot;一个模糊的研究问题&quot;拆成多智能体并行检索 + 来源分级 + 交叉验证的七阶段流水线，帮你在几小时内把碎片信息汇成一份带可追溯引用的研究报告，而不是攒一堆链接自己头大。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把研究问题、成功标准、输出格式说清楚（这一步省了，后面整份报告都会跑偏）。</li><li>把大问题拆成 3-5 个子问题，每个子问题指定优先来源类型（学术 / 行业 / 一手数据）。</li><li>让多个子智能体并行去查，每条结论必须挂上 A-E 来源分级（A 同行评议 / E 道听途说）。</li><li>进入交叉验证阶段，把不同来源的冲突结论摆出来调和，B 级以下的结论必须标注不确定性。</li><li>最后做合成 + 引用核查 + 报告封装，交付带执行摘要、参考文献、不确定性说明的成品。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[研究问题] --&gt; B[子问题拆解]
+  B --&gt; C[多智能体并行检索]
+  C --&gt; D[来源 A-E 分级]
+  D --&gt; E[交叉验证]
+  E --&gt; F[合成报告 + 引用核查]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-multi-search-engine">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">multi-search-engine</div>
+    <code class="skill-card-path">skills/multi-search-engine/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when searching across both Chinese and international sources simultaneously (17 engines: 8 CN + 9 Global). Trigger: &#39;search Baidu and Google&#39;, &#39;Chinese + English sources&#39;, cross-region market research, privacy-first search, WolframAlpha knowledge queries. NOT for: single-engine queries (use ask-search), real-time finance data, or when speed is critical (parallel requests are slower).</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把 17 个中外搜索引擎（百度 / 搜狗 / 微信 / Google / Bing / DuckDuckGo / WolframAlpha 等）做成一个&quot;无需 API Key 的并行抓取入口&quot;，帮你在跨境市场调研、隐私敏感检索、知识计算这类场景里同时拿到中文 + 国际 + 隐私三类信源的原始结果。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>想清楚检索意图属于哪一类（行业市场 / 政策法规 / 学术 / 隐私敏感 / 数学计算），决定要不要全引擎并行。</li><li>用 web_fetch 直接拼搜索 URL，国内信源用百度 + 搜狗微信，国际用 Google + DuckDuckGo + Brave。</li><li>善用高级算子：`site:` 限定站内、`filetype:pdf` 找报告、`&quot;&quot;` 精确匹配、`tbs=qdr:w` 限定一周内的内容。</li><li>隐私敏感场景优先 DuckDuckGo + Startpage + Brave + Qwant；数字 / 单位换算 / 股价直接走 WolframAlpha。</li><li>并行结果记得做去重和交叉验证，不同引擎对同一关键词的排序差异本身就是信号。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[检索意图] --&gt; B[引擎分组]
+  B --&gt; C[国内 8 引擎]
+  B --&gt; D[国际 9 引擎]
+  C --&gt; E[结果汇总去重]
+  D --&gt; E
+  E --&gt; F[交叉验证]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-search-first">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">search-first</div>
+    <code class="skill-card-path">skills/search-first/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Research-before-coding workflow. Search for existing tools, libraries, and patterns before writing custom code. Invokes the researcher agent.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>在动手写代码之前，先把 npm / PyPI / MCP 服务器 / Claude 技能库 / GitHub 翻一遍，帮你在 15 分钟里判断&quot;这事到底是装一个包、套个壳、还是真的得自己造&quot;，把&quot;重复造轮子&quot;的概率压到最低。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先做需求拆解：把&quot;我要的能力&quot;用一句话写清楚，标注语言 / 框架 / 许可 / 维护活跃度的硬约束。</li><li>并行检索四路：包管理器（npm / PyPI）+ MCP 服务器 + 本地 skills 目录 + GitHub 仓库 / 模板搜索。</li><li>用打分矩阵评候选（功能匹配 / 维护活跃 / 社区规模 / 文档完整 / 许可 / 依赖体积）。</li><li>做决策：完全匹配就直接 Adopt；部分匹配就 Extend 写薄壳；多个弱匹配就 Compose 组合；都不行才 Build。</li><li>实施时优先 install + 最小配置，自己写的代码越少越好，最后回头把研究结论沉淀进项目文档。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[需求拆解] --&gt; B[并行检索 npm/PyPI/MCP/GitHub]
+  B --&gt; C[候选打分矩阵]
+  C --&gt; D{匹配程度}
+  D --&gt;|完全| E[Adopt 直接装]
+  D --&gt;|部分| F[Extend 薄壳]
+  D --&gt;|弱匹配| G[Compose 组合]
+  D --&gt;|无| H[Build 自己造]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-tavily-search">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">tavily-search</div>
+    <code class="skill-card-path">skills/tavily-search/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Tavily API ile güvenli web arama ve URL içerik çıkarma yap. Use when: hızlı web araştırması, kaynaklı sonuç toplama, belirli URL&#39;lerden metin çekme ve özetleme gerektiğinde.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把 Tavily API 包装成一条&quot;安全检索 + 指定 URL 抽正文&quot;的轻量通道，帮你在写报告前几分钟就拿到一组带来源的检索结果，或者把若干指定网页的正文一次性提取出来做摘要，而不必逐个手动复制粘贴。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先确认环境里有 `TAVILY_API_KEY`，绝不要把它写进文件、提交到仓库、或者出现在任何输出里。</li><li>普通检索调用 `search.mjs`，传入查询词；要扩大召回用 `-n 8`，要更深的来源走 `--deep`。</li><li>新闻类话题用 `--topic news --days 3` 限定近 3 天，避免拿到过期素材污染分析。</li><li>已知 URL 的正文抽取走 `extract.mjs`，可以一次传多个 URL，按需做并行摘要。</li><li>严格遵守安全护栏：只接受 http / https，拒绝 localhost、私有 IP、`.local` / `.internal` 域名，单次请求 URL 数量控制在脚本默认上限内。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[查询词或 URL 列表] --&gt; B{任务类型}
+  B --&gt;|检索| C[search.mjs]
+  B --&gt;|抽正文| D[extract.mjs]
+  C --&gt; E[Tavily API + 安全过滤]
+  D --&gt; E
+  E --&gt; F[带来源的结果]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-ljg-paper-flow">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">ljg-paper-flow</div>
+    <code class="skill-card-path">skills/ljg-paper-flow/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Paper workflow: read papers + cast cards in one go. Takes one or more arxiv links, paper URLs, PDFs, or paper names. For each paper, runs ljg-paper (generates org analysis) then ljg-card -l (generates long reading card PNG). Use when user says &#39;论文流&#39;, &#39;paper flow&#39;, &#39;读论文并做卡片&#39;, &#39;论文卡片&#39;, or provides multiple papers wanting both analysis and cards.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>一条指令把&quot;读论文 → 出深度解读 → 铸成可分享卡片&quot;串成流水线，多篇论文还能并行跑，帮你在一杯咖啡的时间内把一摞 arXiv 链接变成一组可发圈的研究卡片。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>把论文来源（arXiv 链接 / PDF 路径 / 论文名）一次性丢给流水线，不用一篇一篇发。</li><li>选卡片模具：默认长图、`-c` 多卡、`-i` 信息图（按你要分享的渠道决定）。</li><li>流水线为每篇论文起一个子智能体，串行执行&quot;读论文 → 铸卡片&quot;两步。</li><li>多篇论文之间并行，互不阻塞，等所有子智能体收工。</li><li>最后看汇总报告，每篇论文都带 org 解读路径 + PNG 卡片路径，可直接转发或归档。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[论文清单] --&gt; B[并行分发]
+  B --&gt; C[读论文 ljg-paper]
+  C --&gt; D[生成 org 解读]
+  D --&gt; E[铸卡片 ljg-card]
+  E --&gt; F[PNG + 汇总报告]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-paper-write">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">paper-write</div>
+    <code class="skill-card-path">skills/paper-write/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">本科与硕士学位论文全流程撰写辅助。支持大纲审核（理工科/文科）、结构仿写（通用章节/实验章节/绪论/摘要）、参考文献获取、融合、润色、缩写、扩写、防 AIGC、中英互译、结构化信息提取。当用户提到论文撰写、大纲审核、论文章节仿写、参考文献、论文润色、防 AIGC、论文翻译时使用。</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把本硕学位论文从大纲审核、章节仿写、参考文献整理、润色防 AIGC 到中英互译的一整套任务，做成一组可按场景调用的子流程，帮你在动笔前先拿到一份结构稳、引用全、AI 痕迹低的写作底盘，而不是从零和 Word 死磕。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先识别任务类型（大纲审核 / 章节仿写 / 引用 / 润色 / 翻译 / 信息提取），从映射表里找到对应的 reference 文件。</li><li>按任务类型收集输入：多输入任务（如绪论仿写）需要补齐【参考范文】【论文大纲】【个人草稿】三件套；单输入任务直接粘贴正文即可。</li><li>读取对应 reference 中的 Prompt，按 Role / Task / Constraints / Output Format 执行，不要跳过 Output Format。</li><li>遵守 Word 排版底线：严禁 Markdown、中英文 / 数字 / 公式之间加空格、用全角中文标点。</li><li>撰写顺序遵循&quot;先做后写、由内向外&quot;：先完成方法章和实验章节，再写绪论和摘要，最后做防 AIGC 改写。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务类型识别] --&gt; B[输入收齐]
+  B --&gt; C[读取 reference Prompt]
+  C --&gt; D[按 Role/Task/Constraints 执行]
+  D --&gt; E[Word 排版校对]
+  E --&gt; F[防 AIGC 终稿]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-web-multi-search">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">web-multi-search</div>
+    <code class="skill-card-path">skills/web-multi-search/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Search the web using multiple search engines simultaneously (Bing, Yahoo, Startpage, Aol, Ask) via async-search-scraper, iterating through result pages.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把 Bing / Yahoo / Startpage / Aol / Ask 五个还能正常抓取的搜索引擎并起来跑分页检索，帮你在做 OSINT 调研、跨引擎信源比对、市场扫描时一次拿到 5 路 × 多页的原始结果集，而不是一个引擎一个引擎手动翻。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先安装好依赖（pip 不可用时走 apt 系统包），库必须从 GitHub URL 装 `--no-deps`，PyPI 那个包名是错的。</li><li>用 `python3 web_multi_search.py &quot;查询词&quot;` 起一次默认 3 页 × 5 引擎的搜集。</li><li>按需要剪裁引擎和页数：`--engines bing,yahoo --pages 5` 拿更深，`--proxy` 走代理穿透限速。</li><li>输出格式按下游选：写脚本就 `--output json`，存表格就 `csv`，看就 `text`；要去重加 `--unique-urls` 或 `--unique-domains`。</li><li>拿到 JSON 后用 Python 一行解析出 link + title + snippet，下一步交给摘要、抓正文或人工筛选。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[查询词 + 参数] --&gt; B[并行启动 5 引擎]
+  B --&gt; C[Bing / Yahoo / Startpage / Aol / Ask]
+  C --&gt; D[多页抓取]
+  D --&gt; E[结果汇总 + 去重]
+  E --&gt; F[JSON / CSV / text 输出]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-karpathy-autoresearch">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">karpathy-autoresearch</div>
+    <code class="skill-card-path">skills/karpathy-autoresearch/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">&gt;-</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把&quot;改一处 → 打分 → 好的留下、差的扔掉 → 再改下一处&quot;做成一个能自己跑下去的迭代框架，帮你在睡觉时把任何&quot;可以打分的东西&quot;（代码 / 文案 / Prompt / 定价策略）持续优化到当前能力上限。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把研究对象的基线跑通，明确单一核心指标（越小越好或越大越好，二选一）。</li><li>划定改动边界：哪些文件可改、哪些只读（评估器永远只读，改了就没法和历史结果比较了）。</li><li>进入循环：每轮只改一处 → 提交 → 跑评估 → 记一行到 results.tsv（不入 git，避免 reset 丢日志）。</li><li>按规则裁决：指标更好就留，更差或崩溃就 git reset 回滚；连续 3 次回滚就换策略方向。</li><li>卡住时按&quot;微调 → 替换组件 → 简化删除 → 组合近似成功 → 激进重构&quot;的优先级换打法，连续 5 次崩溃才停下来写 HANDOFF。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[基线 + 指标] --&gt; B[改一处]
+  B --&gt; C[评估打分]
+  C --&gt; D{比上一轮好?}
+  D --&gt;|是| E[KEEP 留下]
+  D --&gt;|否| F[DISCARD 回滚]
+  E --&gt; B
+  F --&gt; B</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
@@ -153,8 +412,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 研究分析师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>

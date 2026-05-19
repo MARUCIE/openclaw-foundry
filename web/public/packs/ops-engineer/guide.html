@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.706Z
+  generated-at: 2026-05-19T07:24:16.624Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/ops-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -112,6 +128,161 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-infra-patrol">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">infra-patrol</div>
+    <code class="skill-card-path">skills/ops/infra-patrol/SPEC.md</code>
+  </div>
+  <p class="skill-card-desc">Infrastructure patrol combining CLI tools (trivy, terraform, cloudflared, wrangler) for security scanning, IaC validation, and tunnel health checks. Use when performing infrastructure audits, security scans, or pre-deployment checks.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把&quot;扫漏洞 + 验 IaC（基础设施即代码）+ 查隧道&quot;三件事打包成一次例行巡检：用 trivy（安全扫描）、terraform（IaC 校验）、cloudflared（隧道）、wrangler（边缘部署）四条 CLI 串成 L1/L2/L3 三档巡检流程。让基础设施问题在发布前被拦截，故障恢复时间（MTTR）从&quot;线上爆炸后追查&quot;提前到&quot;每周一次主动发现&quot;。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>每天开工前跑一次 L1 快扫（30 秒内出结果），看有没有新出现的高危漏洞或泄露的密钥。</li><li>每周做一次 L2 标准巡检（2 分钟内），把漏洞 + 密钥 + 配置错误 + Terraform 校验 + 隧道状态全跑一遍，结果落到周报。</li><li>上线前对发布的项目跑 L3 深度审计（10 分钟内），包含 SBOM（软件物料清单）+ Terraform plan 差异检测 + DNS/SSL 证书检查。</li><li>把 L1 接到 PreToolUse hook（前置钩子），让 `terraform apply` 和 `wrangler deploy` 之前自动触发安全扫描，发现问题直接 block。</li><li>把安全发现自动写入 DNA capsule（基因胶囊），让其他 Agent（智能体）继承同类问题的修复经验，避免同一类漏洞在多个项目重复出现。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  Trigger[每日 / 每周 / 发布前] --&gt; L1[L1 快扫 30s]
+  Trigger --&gt; L2[L2 标准 2min]
+  Trigger --&gt; L3[L3 深度 10min]
+  L1 --&gt; Verdict[PASS / WARN / FAIL]
+  L2 --&gt; Verdict
+  L3 --&gt; Verdict
+  Verdict --&gt; DNA[DNA 胶囊沉淀]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-observability-setup">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">observability-setup</div>
+    <code class="skill-card-path">skills/ops/observability-setup/SPEC.md</code>
+  </div>
+  <p class="skill-card-desc">Use when adding monitoring, logging, metrics, or alerting to a project. Trigger: &#39;add monitoring&#39;, &#39;set up Grafana&#39;, &#39;add health check&#39;, &#39;configure alerts&#39;, &#39;add logging&#39;, &#39;set up uptime monitoring&#39;, &#39;add metrics endpoint&#39;, &#39;observability&#39;. NOT for: performance profiling (use perf-profile), infrastructure security scanning (use infra-patrol), or pipeline failure diagnosis (use pipeline-triage).</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把&quot;健康检查 + 指标 + 日志 + 告警&quot;四件套一次性接进项目，把&quot;线上有没有挂&quot;从靠用户反馈，升级到自己 60 秒内主动发现。让产品同学在发布后不用反复刷网页验证，故障平均恢复时间（MTTR）从&quot;等用户投诉&quot;压到&quot;机器人推送 + 仪表盘秒级回报&quot;。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>给每个服务加一个 `/health` 端点（endpoint），不需要鉴权，让监控工具能直接探活。</li><li>接入结构化日志（structured logging），用 pino 或 structlog 输出 JSON，自动带上时间戳 + 等级 + requestId（请求标识），别再用 `console.log`。</li><li>暴露 `/metrics` 端点采集 Prometheus（指标系统）数据，重点看 RED 三件套：请求量、错误率、响应耗时（p50/p95/p99）。</li><li>把 `/health` 接到 Uptime Kuma（开源监控，AI-Fleet 标准）上，间隔 60 秒一探，连续失败 3 次推 Telegram 告警。</li><li>告警只看现象不看原因（&quot;错误率超过 5%&quot;而不是&quot;磁盘满了&quot;），每条告警必须配运行手册（runbook）链接，避免告警疲劳。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  Service[业务服务] --&gt; Health[/health 端点]
+  Service --&gt; Metrics[/metrics 端点]
+  Service --&gt; Logs[结构化日志 JSON]
+  Health --&gt; Kuma[Uptime Kuma 探活]
+  Metrics --&gt; Grafana[Grafana 仪表盘]
+  Kuma --&gt; Alert[Telegram 告警]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-enterprise-agent-ops">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">enterprise-agent-ops</div>
+    <code class="skill-card-path">skills/ops/enterprise-agent-ops/SPEC.md</code>
+  </div>
+  <p class="skill-card-desc">Use when managing cloud-hosted or long-running agent workloads that need observability, security boundaries, and lifecycle controls. Trigger: agent runtime operations, deployment monitoring, agent health checks, security boundary configuration, or when scaling agent infrastructure. NOT for single-session Claude Code tasks — those don&#39;t need lifecycle management.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是给&quot;常驻云端、长跑型&quot;Agent（智能体）准备的运维操作手册：从启动停止、权限边界，到日志、指标、回滚审计，把单次 CLI 跑通的脚本，升级成可以 7×24 跑、可以追责、可以一键熔断的企业级服务。让 Agent 在生产环境里能像普通后端服务一样被监控、被审计、被回滚，故障恢复时间（MTTR）从&quot;靠人翻日志&quot;压到&quot;看仪表盘判断&quot;。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>把发布物固化成不可变制品（immutable artifact），每次上线只换版本号、不改运行时，确保回滚永远有一个干净的&quot;上一版&quot;。</li><li>用最小权限（least privilege）发放凭据，密钥从环境变量注入而不是写进代码，杜绝&quot;在仓库里搜出 Token&quot;的事故。</li><li>给每个 Agent 调用设硬超时和重试预算（retry budget），避免一个慢下游拖垮整个 Agent 矩阵。</li><li>把成功率、平均重试次数、平均恢复时间、每次成功任务成本、失败类型分布这五个指标接进监控，每周看一次趋势。</li><li>失败暴增就走预案：先冻结新发布，再抓代表性 trace（执行轨迹），定位问题路由，打最小补丁后跑回归 + 安全检查，再分批放量回到生产。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  Artifact[不可变制品] --&gt; Runtime[Agent 运行时]
+  Secrets[环境注入密钥] --&gt; Runtime
+  Runtime --&gt; Telemetry[日志 + 指标 + Trace]
+  Telemetry --&gt; Dashboard[监控仪表盘]
+  Dashboard --&gt; KillSwitch[熔断 + 回滚]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-swarm-ops">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">swarm-ops</div>
+    <code class="skill-card-path">skills/ops/swarm-ops/SPEC.md</code>
+  </div>
+  <p class="skill-card-desc">Operate the Agent Matrix Swarm -- status, health, discover agents, allocate tasks, circuit breaker. Use when user mentions swarm, hive, pheromone, agent allocation, or 蜂群.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把 Agent Matrix Swarm（233 个 Agent × 9 个领域的蜂群）的状态、健康、能力发现、任务分配、熔断这些操作集成成一组 `ai swarm` CLI 子命令。让产品同学不用进代码也能看清&quot;现在有多少 Agent 在跑、负载分布健不健康、需不需要切到 cron 兜底&quot;，故障恢复时间（MTTR）从&quot;看日志猜哪个 Agent 卡了&quot;压到&quot;一行命令出真相&quot;。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>每天先跑 `ai swarm status`，看注册 Agent 数、空闲/忙碌比、收敛指标，识别是否有领域负载倾斜。</li><li>用 `ai swarm health` 跑收敛健康检查（Gini 系数 + 熵 + 负载标准差），数值异常说明分配机制出问题，先看再调。</li><li>用 `ai a2a discover &quot;税务 申报&quot;` 做语义能力搜索，找出适合处理某类任务的 Agent，避免随机分配。</li><li>用 `ai swarm allocate` 跑一次分配周期，把 pending（等待中）任务推给对应 Agent，看完成情况。</li><li>出大事就拉熔断：`ai swarm circuit-open` 立刻把所有任务切到 cron（定时任务）兜底，问题修完再 `ai swarm circuit-close` 恢复蜂群调度。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  CLI[ai swarm CLI] --&gt; Status[状态 + 健康]
+  CLI --&gt; Discover[a2a 能力发现]
+  CLI --&gt; Allocate[任务分配周期]
+  CLI --&gt; Circuit[熔断开关]
+  Circuit --&gt; Cron[cron 兜底链路]
+  Allocate --&gt; Pheromone[信息素场反馈]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-deploy-preview">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">deploy-preview</div>
+    <code class="skill-card-path">skills/ops/deploy-preview/SPEC.md</code>
+  </div>
+  <p class="skill-card-desc">Preview deployment pipeline combining Vercel (frontend), Wrangler (Workers/edge), and gh (PR status). Use when preparing or reviewing deployments, creating preview URLs, or validating CI/CD status before production.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>把前端（Vercel）、边缘 Worker（Cloudflare Wrangler）和 CI/CD（GitHub Actions）三条预览发布链路串成一份可读的就绪清单。让产品同学在上线前一眼判断&quot;现在能不能合并、能不能 promote 到生产&quot;，把平均故障恢复时间（MTTR）压缩到看一眼预览链接的距离。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先看代码是不是干净（git working tree 无未提交改动），有脏文件就先收尾，否则预览链接就和本地状态对不上。</li><li>拉一下 PR 的 CI（持续集成）状态和 review 状态，确认所有红灯都已经变绿、所有 reviewer 都已经签字。</li><li>打开 Vercel 预览链接，至少跑一遍核心流程（登录、关键页面、关键写入），确认前端体感和测试环境一致。</li><li>在边缘 Worker 上跑 `wrangler deploy --dry-run` 做一次预演，把鉴权、路由、环境变量这些容易踩雷的地方提前暴露出来。</li><li>走 HITL（人工介入）门禁：只有 Maurice 或受权 owner 拍板才能 promote 到生产，预览阶段任何人都可以试，生产发布只有人能按。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  Dev[本地改动] --&gt; PR[PR + CI 检查]
+  PR --&gt; VercelPreview[Vercel 前端预览]
+  PR --&gt; WorkerDryRun[Wrangler 边缘预演]
+  VercelPreview --&gt; Gate{HITL 审批}
+  WorkerDryRun --&gt; Gate
+  Gate --&gt; Prod[生产发布]</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
@@ -149,8 +320,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 运维工程师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>

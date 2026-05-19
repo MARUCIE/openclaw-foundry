@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.703Z
+  generated-at: 2026-05-19T07:24:16.616Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/data-analyst/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -112,6 +128,257 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-bigdata-core">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">bigdata-core</div>
+    <code class="skill-card-path">skills/bigdata-core/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Core big data processing toolkit for data teams. Includes Polars, Dask, Vaex for large-scale data processing, ETL pipelines, and distributed computing. Use when working with datasets larger than memory, building data pipelines, or optimizing data processing performance.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把跑不动的超大原始表（GB 到 TB 级）变成一张能给业务回答问题的干净宽表。让分析不再被&quot;内存不够、跑一晚没出&quot;这种工程坑卡住，决策节奏从&quot;等数据工程师&quot;变成&quot;自己今天就能看&quot;。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先判断数据规模：10GB 以内挑 Polars（极速 DataFrame，单机就够），10–100GB 看是否需要分布式（分散到多台机器），超过 100GB 上 Dask 或 Vaex（内存映射，把硬盘当内存用）。</li><li>把原始日志、订单、行为表导入成统一的列式格式（Parquet，列存压缩，比 CSV 快 10 倍），作为后续所有分析的单一可信源。</li><li>写一段最小可跑的 ETL（抽取-清洗-装载）脚本，跑出第一张宽表，先验证业务字段对得上，再补复杂逻辑。</li><li>上抽样（先 1% 数据跑通流程），确认逻辑正确再切全量，避免一次跑 8 小时才发现字段错。</li><li>把成品宽表落到固定路径，下游图表、模型、看板都从这一张表取数，杜绝口径打架。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[原始数据&lt;br/&gt;日志/订单] --&gt; B{规模判断}
+    B --&gt;|&lt;10GB| C[Polars&lt;br/&gt;单机极速]
+    B --&gt;|10-100GB| D[Dask&lt;br/&gt;分布式]
+    B --&gt;|&gt;100GB| E[Vaex&lt;br/&gt;内存映射]
+    C --&gt; F[宽表 Parquet]
+    D --&gt; F
+    E --&gt; F
+    F --&gt; G[业务可用]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-bigdata-viz">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">bigdata-viz</div>
+    <code class="skill-card-path">skills/bigdata-viz/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Data visualization toolkit for big data teams. Includes Matplotlib, Seaborn, Plotly for static and interactive charts. Use when creating dashboards, reports, or exploring data visually.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把一张冷冰冰的数据表，变成业务方一眼能看出&quot;哪里出问题&quot;的图。让周报、复盘、向上汇报这种沟通环节，从&quot;我念数字&quot;升级到&quot;我讲故事&quot;，决策会议的对齐效率直接翻倍。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先想清楚这张图要回答的业务问题（趋势变化？结构对比？异常定位？），问题不清楚就别动手做图。</li><li>静态出图（周报截图、PPT 嵌入）走 Matplotlib + Seaborn（Python 经典绘图库组合，发表级别质量），导出 PNG/SVG 即可。</li><li>交互探索（看板、给业务方自己拖拽）走 Plotly（交互式图表库，鼠标 hover 显示明细），输出 HTML 直接发邮件。</li><li>配色和坐标轴必须为业务读者优化：异常色固定红、正常色固定蓝绿、Y 轴从 0 起步避免误读趋势幅度。</li><li>每张图自带一句结论文字（标题或副标题），让接收方不用看图就知道你想说什么，看图只是验证你的结论。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务问题] --&gt; B{出图目的}
+    B --&gt;|静态报告| C[Matplotlib&lt;br/&gt;+ Seaborn]
+    B --&gt;|交互探索| D[Plotly&lt;br/&gt;HTML]
+    C --&gt; E[PNG/SVG]
+    D --&gt; F[嵌入看板]
+    E --&gt; G[一句话结论]
+    F --&gt; G</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-bigdata-ml">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">bigdata-ml</div>
+    <code class="skill-card-path">skills/bigdata-ml/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把&quot;凭直觉判断&quot;的业务环节，变成&quot;用历史数据训练出来的可解释模型&quot;，让流失预警、风险评分、需求预测这种事不再靠 PM 拍脑袋。配合 SHAP（特征贡献度解释，告诉你模型为什么这么判）让模型结果可向业务方解释，不再是黑盒。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把业务问题翻译成&quot;输入特征 → 预测目标&quot;的样子，比如&quot;过去 30 天行为 → 下月是否流失&quot;，目标含糊就先不要训。</li><li>用 scikit-learn（传统机器学习库，覆盖 90% 业务场景）先跑一个最简单的基线模型，看预测准度有没有比拍脑袋强。</li><li>数据量大或要做深度学习（图像/文本/复杂序列）再上 PyTorch Lightning（深度学习训练框架，把样板代码消掉）。</li><li>模型上线前必跑 SHAP 解释，挑 3–5 个特征贡献度最高的因子让业务方过目，确认没有反常识的逻辑。</li><li>留好&quot;模型版本-训练数据-评估指标&quot;三件套留档，下次模型衰减时能立刻定位是数据漂移还是逻辑过期。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务问题] --&gt; B[特征工程]
+    B --&gt; C[scikit-learn&lt;br/&gt;基线模型]
+    C --&gt; D{效果够?}
+    D --&gt;|否| E[PyTorch Lightning&lt;br/&gt;深度学习]
+    D --&gt;|是| F[SHAP 解释]
+    E --&gt; F
+    F --&gt; G[业务方过目]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-metrics-dashboard">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">metrics-dashboard</div>
+    <code class="skill-card-path">skills/metrics-dashboard/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Define and design a product metrics dashboard with key metrics, data sources, visualization types, and alert thresholds. Use when creating a metrics dashboard, defining KPIs, setting up product analytics, or building a data monitoring plan.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把&quot;我感觉最近用户在掉&quot;这种模糊判断，变成&quot;一个北极星指标 + 5 个输入指标 + 3 个健康度指标&quot;组成的看板，让每周复盘都能直接看图说话，团队对齐节奏从月度提升到天级。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先选一个北极星指标（North Star Metric，业务最关心的单一价值指标，比如周活跃用户、订单 GMV），其他都是它的支撑指标。</li><li>给北极星指标找 3–5 个输入指标（驱动它涨跌的杠杆变量，比如新注册数、留存率、人均下单），方便日常发力。</li><li>加 2–3 个健康度指标（产品基础体验信号，比如崩溃率、加载时长、客诉数），防止北极星涨了但根基出问题。</li><li>每个指标定义清楚口径（怎么算、从哪取、谁负责），写进数据字典，不然 3 个月后没人记得&quot;活跃&quot;到底是日活还是周活。</li><li>设阈值告警（低于 X、高于 Y、环比降</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务目标] --&gt; B[北极星指标]
+    B --&gt; C[输入指标 ×3-5]
+    B --&gt; D[健康度指标 ×2-3]
+    C --&gt; E[数据源]
+    D --&gt; E
+    E --&gt; F[看板可视化]
+    F --&gt; G[阈值告警]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-sql-queries">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">sql-queries</div>
+    <code class="skill-card-path">skills/sql-queries/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Generate SQL queries from natural language descriptions. Supports BigQuery, PostgreSQL, MySQL, and other dialects. Reads database schemas from uploaded diagrams or documentation. Use when writing SQL, building data reports, exploring databases, or translating business questions into queries.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把&quot;过去 7 天每个城市的下单 Top10 用户&quot;这种业务自然语言，翻译成可以直接跑的 SQL（结构化查询语言，数据库取数标准）。让 PM 自己就能取数，不用每次找数据工程师排队两天。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先上传或描述数据库 Schema（表结构和字段定义），不给 Schema 写出来的 SQL 一定是猜的，业务字段对不上。</li><li>用一句完整业务问题描述需求（包含时间窗口、分组维度、过滤条件、排序方式），别只给一个名词。</li><li>选 SQL 方言（BigQuery / PostgreSQL / MySQL 等不同数据库的 SQL 语法略有差异），方言错了语句跑不通。</li><li>拿到 SQL 后先在测试库（或加 LIMIT 10）跑一下，确认数据量级和字段对得上，再去全量跑或接看板。</li><li>复杂查询要求带注释（CTE / WITH 子句拆分，每段加 -- 说明），方便下次复用或交给同事维护。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务问题描述] --&gt; B[Schema 解析]
+    B --&gt; C[方言选择]
+    C --&gt; D[SQL 生成]
+    D --&gt; E[LIMIT 10 试跑]
+    E --&gt; F[全量执行/落看板]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-north-star-metric">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">north-star-metric</div>
+    <code class="skill-card-path">skills/north-star-metric/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Define a North Star Metric and 3-5 supporting input metrics that form a metrics constellation. Classify the business game (Attention, Transaction, Productivity) and validate against 7 criteria for an effective North Star. Use when choosing a North Star Metric, setting up a metrics framework, learning about the North Star Framework, or deciding what to measure.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你从&quot;老板要 GMV、市场要新增、客服要满意度&quot;的多头目标中收敛出一个真正能代表&quot;客户价值&quot;的单一指标，让全公司朝同一个方向使劲。区分清楚北极星不是营收（那是结果不是杠杆），不是 OKR（那是目标设定方式），而是产品价值的领先指标。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先判断业务在玩哪种游戏：注意力（用户停留时长）、交易（成交金额）、生产力（任务完成数），三种游戏的北极星指标长得不一样。</li><li>候选指标过 7 条标准（反映客户价值 / 反映长期增长 / 可执行 / 可理解 / 是领先指标 / 客户为中心 / 可衡量），全过才能定。</li><li>拒绝任何&quot;营收 / LTV（客户终身价值）类&quot;候选，营收是结果，北极星是驱动结果的客户价值锚点。</li><li>给北极星配 3–5 个输入指标（构成&quot;指标星座&quot;，从不同侧面驱动北极星涨跌），缺一个都不算完整框架。</li><li>用 OKR 来表达期望的北极星涨幅（OKR 是手段，北极星是靶心），别把它们搞混了。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务类型判断] --&gt; B{游戏类型}
+    B --&gt;|注意力| C[停留/活跃]
+    B --&gt;|交易| D[GMV/订单]
+    B --&gt;|生产力| E[任务完成]
+    C --&gt; F[7 条标准校验]
+    D --&gt; F
+    E --&gt; F
+    F --&gt; G[输入指标 ×3-5]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-pm-cmd-setup-metrics">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">pm-cmd-setup-metrics</div>
+    <code class="skill-card-path">skills/pm-cmd-setup-metrics/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Design a product metrics dashboard with North Star metric, input metrics, health metrics, and alert thresholds</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你用一条命令把&quot;产品该度量什么&quot;这件事一次性想清楚：北极星指标、输入指标、健康度指标、告警阈值全部出齐。让新功能上线第二天就能看到数据信号，不用再等三周才搭好看板。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>给一句话产品或功能定位（比如&quot;SaaS 项目管理工具&quot;或&quot;新上线的支付流程&quot;），命令会顺着这个语境推荐指标。</li><li>命令先帮你定北极星指标（产品最核心的客户价值衡量），再配 3–5 个输入指标作为日常驱动杠杆。</li><li>自动补 2–3 个健康度指标（崩溃率、加载时长、客诉率这种基础体验信号），防止只盯北极星而忽略地基。</li><li>每个指标自带建议阈值（什么算正常、什么算预警、什么算告警），不用从零拍脑袋定。</li><li>输出可以直接交给开发做埋点（数据采集代码）、交给数据团队建表，PM 不用再写指标定义文档。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[产品定位输入] --&gt; B[北极星推荐]
+    B --&gt; C[输入指标 ×3-5]
+    B --&gt; D[健康度 ×2-3]
+    C --&gt; E[阈值建议]
+    D --&gt; E
+    E --&gt; F[埋点 + 看板]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-database-designer">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">database-designer</div>
+    <code class="skill-card-path">skills/database-designer/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Database schema design, migration planning, and RLS policies. Use when: schema design, &#39;design database&#39;, table relationships, row-level security. NOT for: query optimization (use postgresql-best-practices).</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>帮你把&quot;业务流程&quot;翻译成一张张数据表和它们之间的关系，让产品上线一年后再加功能，也不会因为最初表设计错了就要重写。同时把租户隔离（同一套系统不同客户看自己的数据）、字段规范、删除策略这些容易踩坑的事一次性定清楚。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把核心业务实体列出来（用户、订单、商品……），每一个对应一张表，关系用主外键（一张表的字段指向另一张表的 ID，建立连接）连接。</li><li>每张表强制带 id（UUID，全局唯一标识符，避免自增 ID 冲突）、created_at、updated_at 三列，后期审计、回滚、增量同步全靠它们。</li><li>列举的有限值（订单状态、用户角色）用 ENUM（枚举类型，约束只能取固定几个值），少于 20 项时优先 ENUM 而不是另开一张表。</li><li>多租户业务必开 RLS（行级安全策略，让数据库自己控制&quot;用户 A 只能查自己的数据&quot;），默认拒绝再加白名单。</li><li>外键关系必须明确写 ON DELETE 行为（删主表时子表怎么办：级联删 / 置空 / 拒绝），别留默认值，否则线上误删一发不可收拾。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[业务流程] --&gt; B[实体抽取]
+    B --&gt; C[3NF 范式表]
+    C --&gt; D[加 id/时间戳]
+    D --&gt; E[ENUM 受限字段]
+    E --&gt; F[RLS 租户隔离]
+    F --&gt; G[ON DELETE 策略]</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
@@ -149,8 +416,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 数据分析师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>

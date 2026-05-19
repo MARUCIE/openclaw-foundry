@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:08:39.703Z
+  generated-at: 2026-05-19T07:24:16.618Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/executive-strategist/{manifest.json,CLAUDE.md,prompts.md}
@@ -64,6 +64,22 @@ pre code { background: transparent; color: inherit; padding: 0; }
 .kbd-row a:hover { background: var(--accent-light); }
 ol { padding-left: 20px; }
 ol li { margin-bottom: 8px; }
+
+/* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
+.skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.skill-card-stub { background: var(--bg-warm); }
+.skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+.skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
+.skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
+.skill-card-desc { color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 18px; max-width: none; }
+.skill-card-section { margin-top: 18px; }
+.skill-card-section h4 { font-family: var(--font-serif); font-weight: 700; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+.skill-card-section p { margin: 0 0 8px; max-width: none; color: var(--text-primary); }
+.skill-card-section ol { padding-left: 22px; margin: 6px 0; }
+.skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
+.skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
+.skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
+.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -112,6 +128,258 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
+<h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+
+<div class="skill-card" id="skill-swot-analysis">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">swot-analysis</div>
+    <code class="skill-card-path">skills/swot-analysis/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Perform a detailed SWOT analysis — strengths, weaknesses, opportunities, and threats with actionable recommendations. Use when doing strategic assessment, competitive analysis, or evaluating a product or business position.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>SWOT 分析把&quot;我们今天到底强在哪、弱在哪、机会在哪、威胁在哪&quot;这四个最常被员工各执一词的问题，强制放到同一张矩阵上对照，让战略讨论从拍脑袋升级到证据齐备的对照决策。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把分析对象定义清楚，是公司层面、业务线层面还是单一产品，不同对象会得出完全不同的 SWOT。</li><li>在每个象限列出 3–5 条具体陈述，每条都要附一个可验证的证据（数据、客户原话、竞品案例）。</li><li>把内部因素（优势/劣势）和外部因素（机会/威胁）做两两交叉，形成 SO/ST/WO/WT 四类战略动作。</li><li>给每个战略动作设负责人、时间窗、预算上限，未指派的动作不进战略清单。</li><li>季度复盘一次：哪些劣势已经修复、哪些威胁已经发生、哪些机会窗口已关闭。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[分析对象定义] --&gt; B[内部 优势 劣势]
+  A --&gt; C[外部 机会 威胁]
+  B --&gt; D[SO ST WO WT 交叉]
+  C --&gt; D
+  D --&gt; E[战略动作清单与责任人]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-pestle-analysis">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">pestle-analysis</div>
+    <code class="skill-card-path">skills/pestle-analysis/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Perform a PESTLE analysis covering Political, Economic, Social, Technological, Legal, and Environmental factors. Use when assessing the macro environment, doing strategic planning, or evaluating external factors affecting your business.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>PESTLE 分析把&quot;外部环境&quot;这个最容易被忽视的变量，拆成政治、经济、社会、技术、法律、环保六个维度，帮你在做市场进入、战略调整或重大投资前看清宏观环境正在如何挤压或助推你的业务。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>锁定分析对象的业务范围和时间窗口，避免把全球趋势和本地业务混在一起讲。</li><li>对每个维度列出 2–4 条具体影响因素，每条都要能回答&quot;它如何影响我们的收入或成本&quot;。</li><li>给每条因素打两个分：影响强度 1–5 和发生概率 1–5，相乘得到优先级。</li><li>把高优先级因素翻译成战略选择，例如新合规要求触发的产品调整或地区进退。</li><li>季度复盘一次，标注哪些假设已被市场证伪、哪些需要继续跟踪。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[业务范围与窗口] --&gt; B[六维度扫描]
+  B --&gt; C[政治 经济 社会]
+  B --&gt; D[技术 法律 环保]
+  C --&gt; E[影响 × 概率打分]
+  D --&gt; E
+  E --&gt; F[战略选项与监控指标]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-porters-five-forces">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">porters-five-forces</div>
+    <code class="skill-card-path">skills/porters-five-forces/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Perform Porter&#39;s Five Forces analysis — competitive rivalry, supplier power, buyer power, threat of substitutes, and threat of new entrants. Use when analyzing industry dynamics, assessing competitive forces, or evaluating market attractiveness.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Porter&#39;s Five Forces（波特五力模型）帮你看清一个行业到底&quot;好不好赚钱&quot;，把竞争、议价、替代、新进入者五种压力放在一张图上，让你在进入新市场或调整战略前，先看清这条赛道的天花板。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先定清楚分析的行业边界和地理范围，&quot;中国&quot; 和 &quot;中国一线城市&quot; 是两条完全不同的赛道。</li><li>对每一力列出 3–5 条具体压力点，要能说出谁、对谁、施加了什么压力。</li><li>给每一力打分（低/中/高），并写出关键证据，避免凭印象拍。</li><li>综合五力得出行业吸引力判断，并对应到自家公司的相对位置。</li><li>把判断落到战略动作：是否值得进入、如何提高自身议价、如何降低替代威胁。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[行业与边界定义] --&gt; B[五力扫描]
+  B --&gt; C[现有竞争]
+  B --&gt; D[供应商议价]
+  B --&gt; E[买方议价]
+  B --&gt; F[替代品威胁]
+  B --&gt; G[新进入者]
+  C --&gt; H[行业吸引力判断]
+  D --&gt; H
+  E --&gt; H
+  F --&gt; H
+  G --&gt; H
+  H --&gt; I[战略动作选择]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-business-model">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">business-model</div>
+    <code class="skill-card-path">skills/business-model/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Generate a Business Model Canvas with all 9 building blocks. Use when creating a business model, documenting how a business creates value, or analyzing an existing business model.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Business Model Canvas（商业模式画布）把&quot;我们怎么赚钱&quot;这件事，拆成 9 块互相支撑的拼图，让一家公司的价值创造、价值交付和价值获取一页纸看清，避免战略讨论沦为各部门各讲一段。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把客户细分（Customer Segments，客户分层）写清楚，没有具体客户的商业模式都是自我感动。</li><li>把对每个细分客户的核心价值主张（Value Proposition，价值主张）写成一句客户会复述的话。</li><li>顺着右半边把渠道、客户关系补完，确认价值真的能送达和持续。</li><li>左半边的关键活动、资源、合作伙伴只填&quot;如果缺了就跑不通&quot;的那几项，避免堆砌。</li><li>用底部成本结构和收入流跑一次单位经济（Unit Economics，单位经济模型），确认 LTV（Lifetime Value，客户终身价值）至少是 CAC（Customer Acquisition Cost，获客成本）的 3 倍以上。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[客户细分] --&gt; B[价值主张]
+  B --&gt; C[渠道与客户关系]
+  C --&gt; D[收入流]
+  E[关键活动资源伙伴] --&gt; B
+  E --&gt; F[成本结构]
+  D --&gt; G[单位经济验证]
+  F --&gt; G</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-lean-canvas">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">lean-canvas</div>
+    <code class="skill-card-path">skills/lean-canvas/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when exploring startup hypotheses, testing business model viability, or comparing venture ideas on a single page. Trigger: user says &#39;lean canvas&#39;, &#39;business model&#39;, &#39;startup hypothesis&#39;, &#39;one-page business plan&#39;, or when validating whether an idea is worth pursuing before building anything.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Lean Canvas（精益画布）是给早期创业项目用的一页式假设清单，让你把&quot;问题、客户、解决方案、不公平优势&quot;这四件事写到能被反驳的颗粒度，避免在还没验证就开始烧钱建团队。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先写问题和目标客户，问题写不出三个具体场景就说明对客户理解不够。</li><li>用一句话写价值主张（UVP，Unique Value Proposition，独特价值主张），能让陌生人听懂为止。</li><li>配上解决方案、渠道、关键指标，确认每个假设都有可被验证的下一步动作。</li><li>跑一遍成本结构和收入流，看清商业模式能否在小规模时就为正。</li><li>把&quot;不公平优势&quot;留到最后，没有它就承认目前还没有，逼自己继续找。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[问题] --&gt; B[目标客户]
+  B --&gt; C[价值主张 UVP]
+  C --&gt; D[解决方案与渠道]
+  D --&gt; E[关键指标]
+  E --&gt; F[成本与收入]
+  F --&gt; G[不公平优势]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-value-proposition">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">value-proposition</div>
+    <code class="skill-card-path">skills/value-proposition/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Design a detailed value proposition using a 6-part JTBD template — Who, Why, What before, How, What after, Alternatives. Use when creating a value proposition, analyzing customer value delivery, or articulating why customers should choose your product.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Value Proposition（价值主张）用 JTBD（Jobs To Be Done，待办任务）的视角把&quot;客户为什么要选我们&quot;写成一句不靠形容词撑场的承诺，让全公司在销售、产品、市场口径上回答同一个问题。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先写&quot;谁&quot;：目标客户的具体画像，不是&quot;中小企业&quot;，而是&quot;30 人左右、刚拿到 A 轮的 SaaS 公司财务负责人&quot;。</li><li>再写&quot;为什么&quot;：客户当前在用什么方案、付出了什么代价、有什么没满足的诉求。</li><li>写出&quot;使用前 / 使用后&quot;的状态对比，让价值差异具体到可量化的指标。</li><li>列出 2–3 个竞争替代方案，并说明客户为什么会从那些方案转过来，而不是泛泛地说&quot;我们更好&quot;。</li><li>用一句客户能复述的话总结主张，没复述出来就说明还不到位。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[目标客户画像] --&gt; B[现状与未满足诉求]
+  B --&gt; C[使用前后状态对比]
+  C --&gt; D[与替代方案差异]
+  D --&gt; E[一句话价值主张]</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-ansoff-matrix">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">ansoff-matrix</div>
+    <code class="skill-card-path">skills/ansoff-matrix/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Generate an Ansoff Matrix analysis mapping growth strategies across market penetration, market development, product development, and diversification. Use when considering growth options, planning market expansion, or evaluating strategic growth paths.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Ansoff 矩阵（Ansoff Matrix，增长方向矩阵）帮你把&quot;我们下一步往哪儿长&quot;这个最容易拍脑袋的决定，拆成产品 × 市场的四个象限，让增长路径从直觉变成可对比、可分配预算的战略选项。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把现有产品和现有市场写清楚，不允许混淆&quot;我以为的市场&quot;和&quot;客户真实在用的市场&quot;。</li><li>在四个象限里各列 2–3 条增长机会，给每条机会标上市场规模和资源投入的量级。</li><li>用风险-回报和资源紧约束（Resource Constraint，资源紧约束）做排序，挑出 1–2 个主攻象限。</li><li>把主攻象限的机会翻译成季度 KPI（Key Performance Indicator，关键绩效指标）和负责人。</li><li>在董事会节奏（季度或半年度）复盘一次象限假设是否仍然成立。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[现有产品市场] --&gt; B[四象限分析]
+  B --&gt; C[市场渗透]
+  B --&gt; D[市场开发]
+  B --&gt; E[产品开发]
+  B --&gt; F[多元化]
+  C --&gt; G[增长路径与资源分配]
+  D --&gt; G
+  E --&gt; G
+  F --&gt; G</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-product-strategy">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">product-strategy</div>
+    <code class="skill-card-path">skills/product-strategy/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Create a comprehensive product strategy using the 9-section Product Strategy Canvas — vision, segments, costs, value propositions, trade-offs, metrics, growth, capabilities, and defensibility. Use when building a product strategy, creating a strategic plan, or defining product direction.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Product Strategy Canvas（产品战略画布）把&quot;我们这家公司接下来三年要做什么、不做什么&quot;这一类高层决策，拆成 9 个互相支撑的格子，让产品战略从口号变成可分配预算、可分配人头的具体路线图。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把愿景和北极星指标（North Star Metric，北极星指标）写清楚，没有它，下面 8 个格子都会漂移。</li><li>列出目标客户分层和对应的价值主张，确认每一类客户都能匹配到一条清晰的价值线。</li><li>明确&quot;我们故意不做什么&quot;（Trade-offs，取舍），这是聚焦能否守得住的关键。</li><li>把关键指标和能力（Capabilities，能力建设）写到下一财年要投入的颗粒度。</li><li>用&quot;防御性&quot;（Defensibility，防御性）这一格压力测试：12 个月后竞争对手能复制几成？</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[愿景与北极星] --&gt; B[目标客户分层]
+  B --&gt; C[价值主张组合]
+  C --&gt; D[取舍 不做什么]
+  D --&gt; E[关键指标]
+  E --&gt; F[能力建设与增长引擎]
+  F --&gt; G[防御性压力测试]</pre>
+  </div>
+  
+</div>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
 <p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
@@ -149,8 +417,24 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 高管战略顾问 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:24:16 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#FAF8F4',
+      primaryTextColor: '#2C2C2E',
+      primaryBorderColor: '#D67052',
+      lineColor: '#5C5C5E',
+      secondaryColor: '#EDE8DD',
+      tertiaryColor: '#FFFFFF',
+      fontFamily: "'Source Sans 3','Noto Sans SC',sans-serif"
+    }
+  });
+</script>
 </body>
 </html>
