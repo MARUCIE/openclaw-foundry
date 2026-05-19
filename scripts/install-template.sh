@@ -1,6 +1,6 @@
 #!/bin/bash
 # OpenClaw Foundry — Job Pack Installer (v5.0, manifest-driven, multi-agent)
-# Pack: spellbook-onboarding
+# Pack: __PACK_ID__
 #
 # Single-source-of-truth template. Regenerated for every pack via:
 #   node scripts/regenerate-install-scripts.mjs
@@ -17,7 +17,7 @@
 #   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini)
 #   5. Default: ~/.claude
 set -euo pipefail
-PACK_ID="spellbook-onboarding"
+PACK_ID="__PACK_ID__"
 BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
 
 # ---- parse --agent flag ----

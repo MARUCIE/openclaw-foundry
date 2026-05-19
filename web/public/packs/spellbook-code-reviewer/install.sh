@@ -1,21 +1,81 @@
 #!/bin/bash
-# Agent Foundry - Spellbook Job Pack Installer (manifest-driven)
+# OpenClaw Foundry — Job Pack Installer (v5.0, manifest-driven, multi-agent)
 # Pack: spellbook-code-reviewer
-# Source of truth: AI-Fleet/configs/spellbook-packs.json
+#
+# Single-source-of-truth template. Regenerated for every pack via:
+#   node scripts/regenerate-install-scripts.mjs
+#
+# Multi-agent install matrix:
+#   Claude Code → ~/.claude/   (default)
+#   Codex CLI   → ~/.codex/
+#   Gemini CLI  → ~/.gemini/
+#
+# Selection precedence:
+#   1. INSTALL_DEST env-var (explicit override)
+#   2. --agent=<claude|codex|gemini> flag
+#   3. OPENCLAW_AGENT env-var
+#   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini)
+#   5. Default: ~/.claude
 set -euo pipefail
 PACK_ID="spellbook-code-reviewer"
-# Production URL; override via FOUNDRY_BASE_URL=http://localhost:3200 for local testing.
 BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
-echo "Installing Spellbook Job Pack: $PACK_ID"
+# ---- parse --agent flag ----
+AGENT="${OPENCLAW_AGENT:-}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --agent=*) AGENT="${1#--agent=}"; shift ;;
+    --agent) AGENT="${2:-}"; shift 2 ;;
+    -h|--help)
+      echo "Usage: install.sh [--agent=claude|codex|gemini]"
+      echo "  Env overrides: INSTALL_DEST=<path>  OPENCLAW_AGENT=<agent>  FOUNDRY_BASE_URL=<url>"
+      exit 0 ;;
+    *) shift ;;
+  esac
+done
+
+# ---- auto-detect if not explicitly set ----
+if [ -z "$AGENT" ]; then
+  if [ -d "$HOME/.claude" ]; then AGENT="claude"
+  elif [ -d "$HOME/.codex" ]; then AGENT="codex"
+  elif [ -d "$HOME/.gemini" ]; then AGENT="gemini"
+  else AGENT="claude"
+  fi
+fi
+
+# ---- map agent → default destination ----
+case "$AGENT" in
+  claude) DEFAULT_DEST="$HOME/.claude" ;;
+  codex)  DEFAULT_DEST="$HOME/.codex" ;;
+  gemini) DEFAULT_DEST="$HOME/.gemini" ;;
+  *)
+    echo "ERROR: unknown agent '$AGENT'. Supported: claude | codex | gemini"
+    echo "       Override with INSTALL_DEST=<path> for any other CLI."
+    exit 1 ;;
+esac
+
+TARGET_DIR="${INSTALL_DEST:-$DEFAULT_DEST}"
+
+echo "Installing OpenClaw Job Pack: $PACK_ID"
+echo "  Agent:  $AGENT"
 echo "  Source: $BASE_URL"
 echo "  Target: $TARGET_DIR"
 echo ""
 
+# WARN if agent dir missing — install will succeed mechanically but produce no usable agent surface.
+if [ -z "${INSTALL_DEST:-}" ] && [ ! -d "$TARGET_DIR" ]; then
+  echo "  WARN: $TARGET_DIR does not exist ($AGENT CLI not detected)"
+  case "$AGENT" in
+    claude) echo "        Install Claude Code first: https://claude.com/code" ;;
+    codex)  echo "        Install Codex CLI first: https://github.com/openai/codex" ;;
+    gemini) echo "        Install Gemini CLI first: https://github.com/google/gemini-cli" ;;
+  esac
+  echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
+  echo ""
+fi
+
 mkdir -p "$TARGET_DIR"
 
-# Workspace for manifest + TSV
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 MANIFEST="$WORK/manifest.json"
@@ -24,8 +84,6 @@ TSV="$WORK/items.tsv"
 echo "  -> Fetching manifest.json"
 curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
 
-# Emit TSV: one (src, dst, type) per line. Single-quoted python script means
-# no f-string interpolation collides with the outer bash f-string.
 python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
 import json, sys
 m = json.load(open(sys.argv[1]))
@@ -42,13 +100,14 @@ while IFS=$'\t' read -r src dst typ; do
   i=$((i+1))
   full_dst="$TARGET_DIR/$dst"
   mkdir -p "$(dirname "$full_dst")"
-  printf "  [%2d/%d] %-7s %s\n" "$i" "$N" "$typ" "$dst"
+  printf "  [%2d/%d] %-10s %s\n" "$i" "$N" "$typ" "$dst"
   curl -sfL "$BASE_URL/$src" -o "$full_dst"
 done < "$TSV"
 
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
-# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print as next-step hint.
+
+# Jobs-fix: surface first_use_demo command as a next-step hint.
 HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
 import json, sys
 try:
@@ -65,16 +124,10 @@ if [ -n "$HINT" ]; then
   echo ""
   echo "  Now try:"
   echo "    $HINT"
+else
+  case "$AGENT" in
+    claude) echo "  Restart Claude Code to activate." ;;
+    codex)  echo "  Restart Codex CLI to activate." ;;
+    gemini) echo "  Restart Gemini CLI to activate." ;;
+  esac
 fi
-
-echo ""
-echo "Next steps:"
-echo "  1. Restart Claude Code"
-echo "  2. Skills auto-trigger by description match"
-echo "  3. Agents:   Task(subagent_type=\"spellbook-<id>\")"
-echo "  4. Commands: /spellbook:<id>"
-echo ""
-echo "Uninstall: rm -rf \$HOME/.claude/skills/spellbook \\"
-echo "                  \$HOME/.claude/agents/spellbook \\"
-echo "                  \$HOME/.claude/commands/spellbook \\"
-echo "                  \$HOME/.claude/configs/lint/spellbook"

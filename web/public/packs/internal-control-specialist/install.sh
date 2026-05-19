@@ -1,17 +1,81 @@
 #!/bin/bash
-# OpenClaw Foundry — Job Pack Installer (v4.1, manifest-driven)
+# OpenClaw Foundry — Job Pack Installer (v5.0, manifest-driven, multi-agent)
 # Pack: internal-control-specialist
+#
+# Single-source-of-truth template. Regenerated for every pack via:
+#   node scripts/regenerate-install-scripts.mjs
+#
+# Multi-agent install matrix:
+#   Claude Code → ~/.claude/   (default)
+#   Codex CLI   → ~/.codex/
+#   Gemini CLI  → ~/.gemini/
+#
+# Selection precedence:
+#   1. INSTALL_DEST env-var (explicit override)
+#   2. --agent=<claude|codex|gemini> flag
+#   3. OPENCLAW_AGENT env-var
+#   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini)
+#   5. Default: ~/.claude
 set -euo pipefail
 PACK_ID="internal-control-specialist"
 BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
-TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
-echo "Installing OpenClaw Job Pack: $PACK_ID (manifest-driven)"
+# ---- parse --agent flag ----
+AGENT="${OPENCLAW_AGENT:-}"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --agent=*) AGENT="${1#--agent=}"; shift ;;
+    --agent) AGENT="${2:-}"; shift 2 ;;
+    -h|--help)
+      echo "Usage: install.sh [--agent=claude|codex|gemini]"
+      echo "  Env overrides: INSTALL_DEST=<path>  OPENCLAW_AGENT=<agent>  FOUNDRY_BASE_URL=<url>"
+      exit 0 ;;
+    *) shift ;;
+  esac
+done
+
+# ---- auto-detect if not explicitly set ----
+if [ -z "$AGENT" ]; then
+  if [ -d "$HOME/.claude" ]; then AGENT="claude"
+  elif [ -d "$HOME/.codex" ]; then AGENT="codex"
+  elif [ -d "$HOME/.gemini" ]; then AGENT="gemini"
+  else AGENT="claude"
+  fi
+fi
+
+# ---- map agent → default destination ----
+case "$AGENT" in
+  claude) DEFAULT_DEST="$HOME/.claude" ;;
+  codex)  DEFAULT_DEST="$HOME/.codex" ;;
+  gemini) DEFAULT_DEST="$HOME/.gemini" ;;
+  *)
+    echo "ERROR: unknown agent '$AGENT'. Supported: claude | codex | gemini"
+    echo "       Override with INSTALL_DEST=<path> for any other CLI."
+    exit 1 ;;
+esac
+
+TARGET_DIR="${INSTALL_DEST:-$DEFAULT_DEST}"
+
+echo "Installing OpenClaw Job Pack: $PACK_ID"
+echo "  Agent:  $AGENT"
 echo "  Source: $BASE_URL"
 echo "  Target: $TARGET_DIR"
 echo ""
 
+# WARN if agent dir missing — install will succeed mechanically but produce no usable agent surface.
+if [ -z "${INSTALL_DEST:-}" ] && [ ! -d "$TARGET_DIR" ]; then
+  echo "  WARN: $TARGET_DIR does not exist ($AGENT CLI not detected)"
+  case "$AGENT" in
+    claude) echo "        Install Claude Code first: https://claude.com/code" ;;
+    codex)  echo "        Install Codex CLI first: https://github.com/openai/codex" ;;
+    gemini) echo "        Install Gemini CLI first: https://github.com/google/gemini-cli" ;;
+  esac
+  echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
+  echo ""
+fi
+
 mkdir -p "$TARGET_DIR"
+
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 MANIFEST="$WORK/manifest.json"
@@ -23,29 +87,37 @@ curl -sfL "$BASE_URL/manifest.json" -o "$MANIFEST"
 python3 - "$MANIFEST" <<'PYEOF' > "$TSV"
 import json, sys
 m = json.load(open(sys.argv[1]))
-for it in m.get("items", []):
-    print(f"{it['src']}\t{it['dst']}")
+for item in m['items']:
+    print(item['src'], item['dst'], item['type'], sep='\t')
 PYEOF
 
-N=0
-while IFS=$'\t' read -r SRC DST; do
-  TARGET="$TARGET_DIR/$DST"
-  mkdir -p "$(dirname "$TARGET")"
-  curl -sfL "$BASE_URL/$SRC" -o "$TARGET"
-  N=$((N+1))
+N=$(wc -l < "$TSV" | tr -d ' ')
+echo "  -> $N artifacts to install"
+echo ""
+
+i=0
+while IFS=$'\t' read -r src dst typ; do
+  i=$((i+1))
+  full_dst="$TARGET_DIR/$dst"
+  mkdir -p "$(dirname "$full_dst")"
+  printf "  [%2d/%d] %-10s %s\n" "$i" "$N" "$typ" "$dst"
+  curl -sfL "$BASE_URL/$src" -o "$full_dst"
 done < "$TSV"
 
+echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
 
-# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print the
-# concrete next-step command so the user knows what to do once Claude restarts.
+# Jobs-fix: surface first_use_demo command as a next-step hint.
 HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
 import json, sys
-m = json.load(open(sys.argv[1]))
-fud = m.get('first_use_demo') or {}
-cmd = fud.get('command', '').strip()
-if cmd:
-    print(cmd)
+try:
+    m = json.load(open(sys.argv[1]))
+    fud = m.get("first_use_demo") or {}
+    cmd = fud.get("command", "").strip()
+    if cmd:
+        print(cmd)
+except Exception:
+    pass
 PYEOF2
 )
 if [ -n "$HINT" ]; then
@@ -53,5 +125,9 @@ if [ -n "$HINT" ]; then
   echo "  Now try:"
   echo "    $HINT"
 else
-  echo "  Restart Claude Code to activate."
+  case "$AGENT" in
+    claude) echo "  Restart Claude Code to activate." ;;
+    codex)  echo "  Restart Codex CLI to activate." ;;
+    gemini) echo "  Restart Gemini CLI to activate." ;;
+  esac
 fi

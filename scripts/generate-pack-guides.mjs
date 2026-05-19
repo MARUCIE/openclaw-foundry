@@ -347,6 +347,26 @@ ${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
 </section>
 
 <section>
+<h2>多 CLI 安装支持（Claude Code / Codex / Gemini）</h2>
+<p>install.sh v5.0 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到三个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
+<table style="width:100%; border-collapse:collapse; margin:12px 0;">
+  <thead><tr style="background:#F4F1EB; text-align:left;">
+    <th style="padding:8px 12px;">CLI Agent</th>
+    <th style="padding:8px 12px;">默认目录</th>
+    <th style="padding:8px 12px;">安装命令</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code>INSTALL_DEST=/your/dir curl -fsSL ... | bash</code></td></tr>
+  </tbody>
+</table>
+<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> 顺序）→ 默认 claude。</p>
+<p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini 上是惰性文件（不读取，也无害）。</p>
+</section>
+
+<section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 ${ctx.antiPatterns.length > 0 ? `
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
@@ -362,14 +382,20 @@ ${ctx.antiPatterns.map(ap => `<li>${esc(ap)}</li>`).join('\n')}
 
 <section>
 <h2>验证标准 / Validation</h2>
-<p>装包之后想确认它"真装上了 + 真能用"，跑这三条命令：</p>
-<pre><code># 1. 确认 ~/.claude 下有本包安装的产物
+<p>装包之后想确认它"真装上了 + 真能用"，按你用的 CLI 跑对应命令：</p>
+<pre><code># Claude Code（默认）— 确认 ~/.claude 下有本包安装的产物
 ls -la ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/settings.json ~/.claude/prompts.md
 
-# 2. 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来
+# Codex CLI — 确认 ~/.codex 下有本包安装的产物
+ls -la ~/.codex/AGENTS.md ~/.codex/settings.json ~/.codex/skills/
+
+# Gemini CLI — 确认 ~/.gemini 下有本包安装的产物
+ls -la ~/.gemini/AGENTS.md ~/.gemini/settings.json ~/.gemini/skills/
+
+# 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来（Claude 示例）
 claude --help | head -3
 
-# 3. 回到 /packs，登录后复制本包安装命令
+# 回到 /packs，登录后复制本包安装命令
 #    公开直连 /packs/${esc(ctx.slug)}/install.sh 已关闭，安装脚本由 Worker 校验后发放
 </code></pre>
 </section>
