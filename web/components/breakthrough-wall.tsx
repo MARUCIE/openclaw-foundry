@@ -21,8 +21,7 @@ import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
 import { ROLE_OPTIONS } from '@/components/wall-board';
 import { readSession, clearSession, loginRedirect } from '@/lib/session';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
+import { API_BASE } from '@/lib/api-base';
 
 interface BreakthroughComment {
   id: string;

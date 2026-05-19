@@ -2,8 +2,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
+import { API_BASE } from '@/lib/api-base';
 
 interface Endpoint {
   method: 'GET' | 'POST';

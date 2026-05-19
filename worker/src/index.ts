@@ -56,9 +56,67 @@ app.onError((err, c) => {
   return c.json({ error: 'Internal Server Error' }, 500);
 });
 
-// Health
+// Health — surface-level (cheap, used by uptime probes)
 app.get('/api/health', (c) => {
   return c.json({ status: 'ok', version: '5.0.0-arsenal', runtime: 'cloudflare-workers' });
+});
+
+// Deep health — exercises D1 + KV + last-cron-heartbeat
+// Returns degraded JSON (not 500) so external monitors can see WHICH component failed
+app.get('/api/health/deep', async (c) => {
+  const checks: Record<string, { ok: boolean; latency_ms?: number; detail?: string }> = {};
+  let allOk = true;
+
+  // D1 probe
+  const t0 = Date.now();
+  try {
+    await c.env.DB.prepare('SELECT 1 as x').first();
+    checks.d1 = { ok: true, latency_ms: Date.now() - t0 };
+  } catch (err: any) {
+    checks.d1 = { ok: false, latency_ms: Date.now() - t0, detail: String(err?.message || err).slice(0, 200) };
+    allOk = false;
+  }
+
+  // KV probe (write-read round trip with unique key)
+  const t1 = Date.now();
+  try {
+    const key = `healthcheck:${Date.now()}`;
+    await c.env.CACHE.put(key, 'ok', { expirationTtl: 60 });
+    const v = await c.env.CACHE.get(key);
+    checks.kv = { ok: v === 'ok', latency_ms: Date.now() - t1 };
+    if (v !== 'ok') allOk = false;
+  } catch (err: any) {
+    checks.kv = { ok: false, latency_ms: Date.now() - t1, detail: String(err?.message || err).slice(0, 200) };
+    allOk = false;
+  }
+
+  // Last cron run heartbeat (from KV)
+  try {
+    const last = await c.env.CACHE.get('cron:last_run', 'json') as { ts?: string; status?: string; rows?: number } | null;
+    if (last && last.ts) {
+      const ageMs = Date.now() - new Date(last.ts).getTime();
+      const ageHours = ageMs / 3_600_000;
+      checks.cron = {
+        ok: ageHours < 25 && last.status === 'success',
+        latency_ms: 0,
+        detail: `last_run=${last.ts} age_h=${ageHours.toFixed(1)} status=${last.status} rows=${last.rows ?? 0}`
+      };
+      if (!checks.cron.ok) allOk = false;
+    } else {
+      checks.cron = { ok: false, detail: 'never-run-or-heartbeat-missing' };
+      allOk = false;
+    }
+  } catch (err: any) {
+    checks.cron = { ok: false, detail: String(err?.message || err).slice(0, 200) };
+    allOk = false;
+  }
+
+  return c.json({
+    status: allOk ? 'ok' : 'degraded',
+    version: '5.0.0-arsenal',
+    checks,
+    probed_at: new Date().toISOString(),
+  }, allOk ? 200 : 200); // 200 even on degraded — monitors should parse JSON for granular signal
 });
 
 // ═══ Public routes (no auth) ═══
@@ -174,7 +232,19 @@ export default {
   fetch: app.fetch,
 
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-    console.log(`Cron triggered at ${new Date(event.scheduledTime).toISOString()}`);
+    const startedAt = new Date(event.scheduledTime).toISOString();
+    console.log(`Cron triggered at ${startedAt}`);
+
+    // Heartbeat (write-then-read pattern so /api/health/deep can prove the cron ran)
+    // Status flips to 'success' at the end; failure leaves it 'running' so deep-health surfaces it.
+    await env.CACHE.put('cron:last_run', JSON.stringify({
+      ts: startedAt,
+      status: 'running',
+      rows: 0,
+    }), { expirationTtl: 86400 * 7 });
+
+    let rowsTouched = 0;
+    let finalStatus: 'success' | 'partial' | 'failed' = 'success';
 
     ctx.waitUntil((async () => {
       try {
@@ -253,9 +323,26 @@ export default {
         console.log('Step 5: composite_score done');
 
         console.log('Cron: all 5 steps completed successfully');
+
+        // Approximate rowsTouched via a SUM probe over the skills table
+        try {
+          const r = await env.DB.prepare('SELECT COUNT(*) as n FROM skills').first<{ n: number }>();
+          rowsTouched = r?.n ?? 0;
+        } catch {
+          rowsTouched = -1;
+        }
       } catch (err) {
         console.error('Cron aggregation failed:', err);
+        finalStatus = 'failed';
       }
+
+      // Final heartbeat — surfaces the true outcome to /api/health/deep
+      await env.CACHE.put('cron:last_run', JSON.stringify({
+        ts: startedAt,
+        status: finalStatus,
+        rows: rowsTouched,
+        completed_at: new Date().toISOString(),
+      }), { expirationTtl: 86400 * 7 });
     })());
   },
 };

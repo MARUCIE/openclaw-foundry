@@ -1,9 +1,8 @@
 import { clearSession, requireRegistered } from '@/lib/session';
+import { API_BASE } from '@/lib/api-base';
 
-export const PROTECTED_API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ||
-  process.env.NEXT_PUBLIC_API_BASE ||
-  'https://openclaw-foundry-api.maoyuan-wen-683.workers.dev';
+// Back-compat alias — new code should import API_BASE from '@/lib/api-base' directly.
+export const PROTECTED_API_BASE = API_BASE;
 
 interface DownloadTokenResponse {
   token: string;
