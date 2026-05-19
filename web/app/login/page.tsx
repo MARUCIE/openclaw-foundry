@@ -213,14 +213,14 @@ function LoginInner() {
                 style={{ background: '#94a3b8', color: 'white' }}
               >
                 <span aria-hidden="true" className="material-symbols-outlined text-base">lock</span>
-                {authConfig ? '企业微信暂未配置' : '正在检测企业微信配置'}
+                {authConfig ? '微信扫码 · 下个 Wave 上线' : '正在检测企业微信配置'}
               </button>
             )}
             <p className="text-xs opacity-50 leading-relaxed">
               {wechatEnabled ? (
                 <>首次使用：管理员需先把你加入企业微信训战群（30 秒一次性邀请）。</>
               ) : (
-                <>管理员配置 <code>WECHAT_CORP_ID</code> / <code>WECHAT_AGENT_ID</code> / <code>WECHAT_SECRET</code> 后，企业微信登陆会自动开放。</>
+                <>企业微信可信域名受腾讯主体备案规则限制，需 ICP 备案的自有域名。本 Wave 邮箱登陆已就绪，微信扫码 Wave 2+ 上线。</>
               )}
             </p>
           </section>

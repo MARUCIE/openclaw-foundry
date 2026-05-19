@@ -1,15 +1,23 @@
 // /api/auth/wechat — Enterprise WeChat (企业微信) self-built app OAuth 2.0
-// Personal WeChat web login is intentionally NOT supported — it requires ICP
-// filing on the callback domain, which is structurally impossible for
-// `.pages.dev` Cloudflare-owned subdomains. Enterprise WeChat self-built app
-// uses a trusted-domain (可信域名) verification file instead of ICP, so it
-// works on agent-foundry.pages.dev.
 //
-// Cohort fit: Maurice's PMs all have personal WeChat. The setup asks Maurice
-// to (a) create a free Enterprise WeChat corp, (b) create a self-built app,
-// (c) invite cohort members to the corp (one-time, takes ~30s per person).
-// Login UX = one scan via the cohort member's personal WeChat (corp invite
-// links their personal WX to the corp).
+// STATUS 2026-05-19: WIRED BUT BLOCKED. Tencent enforces 主体 (subject) match
+// on enterprise 可信域名 since ~2024 — the trusted-domain panel rejects any
+// host whose ICP filing subject does not match (or relate to) the corp's
+// registered entity. `.pages.dev` is Cloudflare-owned, structurally cannot be
+// ICP-filed by any third party. The previous claim that enterprise WeChat
+// bypassed ICP via verify-file alone is OBSOLETE under current Tencent policy.
+// Pre-flight tested against 猪哥云 corp 2026-05-19: rejected with
+// `域名主体校验未通过，需配置备案主体与当前企业主体相同或有关联关系的域名`.
+//
+// Path forward when reactivating: bind a custom domain to CF Pages where the
+// custom domain has ICP filing matching the corp's subject (e.g. an internal
+// subdomain provisioned by the corp's IT), update PAGES_BASE_URL accordingly,
+// then re-submit through 可信域名 → verify-file flow. Until then this whole
+// route is disabled-by-default (config.wechat.enabled=false when secrets unset)
+// and the login UI hides the button via /api/auth/config probe.
+//
+// Personal WeChat web login is also intentionally NOT supported — same ICP
+// constraint applies at the OAuth-domain layer, no asymmetric escape.
 //
 // HITL provisioning (one-time):
 //   wrangler secret put WECHAT_CORP_ID    # corp ID from "我的企业 → 企业信息"
