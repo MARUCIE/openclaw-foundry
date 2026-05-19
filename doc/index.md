@@ -7,7 +7,7 @@
 - Server Entry: `src/server.ts`
 - Shared Types: `src/types.ts`
 - Static Client: `client/`
-- Legacy Design Notes: `docs/plans/`
+
 - Profiles: `profiles/`
 - Build Output: `dist/`
 - Legacy Git Root Note: parent git root currently resolves to `/Users/mauricewen/Projects`
@@ -31,5 +31,5 @@
 - Analyzer normalization fix bundle: `outputs/doc-bootstrap/doc-bootstrap-20260311-analyzer-fix/`
 
 ## Legacy Reference
-- Historical design seed: `docs/plans/2026-03-10-openclaw-foundry-design.md`
-- Historical `docs/` content is reference material only and should not replace the `doc/` tree.
+
+

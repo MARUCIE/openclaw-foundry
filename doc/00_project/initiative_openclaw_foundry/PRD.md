@@ -3,6 +3,10 @@
 ## Product Summary
 OpenClaw Foundry v3.0 is a **universal AI Agent deployment platform** that turns a user profile into a deployable Agent environment across **13 platforms** (Desktop/SaaS/Cloud/Mobile/Remote). One Blueprint, any platform. It supports local CLI, remote client-server flow, thin bootstrap scripts, a browser wizard, and a **full Web Console** with platform catalog, one-click deploy, and multi-claw arena comparison.
 
+As of the 2026-04-23 architecture decision, Foundry is also the single product surface for skill discovery. External skill-intelligence logic from `sota-skill-library` is treated as an upstream factory for artifacts and heuristics, not as a second runtime or second public UI.
+
+As of the 2026-05-18 auth-wall correction, Foundry keeps public browsing and ordinary Skill/MCP/API copy actions open. Only Job Pack payload delivery (pack install command copy, pack file download, protected pack artifacts) is a registered-user action. Registration/login is supported through email magic-link and WeChat OAuth surfaces.
+
 ## Problem Statement
 The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkBuddy, DuClaw, Kimi Claw, etc.), each with its own setup flow, IM integration, and model routing. Users must learn each platform's configuration separately. Foundry v2 standardizes deployment across all platforms through a single Blueprint contract + Provider abstraction layer.
 
@@ -18,11 +22,14 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. Deploy to any of 13 platforms via Provider abstraction (deploy/test/repair/uninstall/diagnose)
 4. Offer a server mode with platform discovery, catalog scanning, blueprint generation, and LLM proxying
 5. Support IM channel integration (Feishu/WeCom/QQ/DingTalk/Telegram/Discord/Slack)
+6. Converge skill discovery on one Foundry-owned catalog artifact contract, even when scoring, deduplication, and bundle heuristics originate from external pipeline logic
 
 ## Non-Goals
 1. Full billing workflow with payment integration
 2. Production-grade secret vault and enterprise policy engine
 3. Multi-tenant isolation (Web Console is single-operator)
+4. Directly merging SOTA local runtime concerns (`~/.clawhub-skills`, local telemetry DB, local MCP installer) into Foundry public/runtime paths
+5. Running two public marketplaces or two competing catalog truths in parallel
 
 ## Primary Product Surfaces
 1. Local CLI:
@@ -65,10 +72,16 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-12 | Web Console: one-click deploy wizard with async job tracking and real-time log streaming | v3.0 |
 | FR-13 | Web Console: arena mode — same blueprint dispatched to 2-5 providers in parallel, auto-scoring and winner determination | v3.0 |
 | FR-14 | Web Console: dashboard with aggregate stats, recent deploys, recent arena matches, system health | v3.0 |
+<<<<<<< Updated upstream
 | FR-15 | Auth wall: normal browsing and Skill install-command copy remain public; job-pack copy/download requires registered session | Implemented |
 | FR-16 | Passwordless login: email success state is only shown after real Resend delivery; production config gaps fail closed and surface actionable UI | Implemented |
 | FR-17 | WeChat login: Enterprise WeChat CTA is configuration-driven and disabled when OAuth secrets are absent | Implemented |
 | FR-18 | Retired route handling: `/explore/platforms` is no longer a product page and redirects to `/packs` | Implemented |
+=======
+| FR-15 | Catalog ingestion must converge on one canonical artifact contract for skills, ratings, taxonomy, and bundle candidates | Planned |
+| FR-16 | Recommendation / JIT planning capabilities must be rebuilt against Foundry-owned schema and kept out of the critical public path until proven stable | Planned |
+| FR-17 | Public pages and ordinary Skill/MCP/API copy actions remain open, while Job Pack install/download payloads require a registered session through email magic-link or WeChat OAuth | Implemented 2026-05-18 |
+>>>>>>> Stashed changes
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -76,6 +89,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. Graceful degradation when external APIs are unavailable
 4. Traceability through manifest, snapshots, and audit-style logs
 5. Documentation must stay synchronized with actual entrypoints
+6. Protected Job Pack payload delivery must avoid public static direct links; pack install files are served through Worker auth/token routes and static Pages output is pruned after build
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -89,4 +103,9 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. `pipeline-manual.html` is large static content with unclear ownership relative to product requirements
 4. Exported installer behavior is not fully equivalent to local execution for AI-Fleet-linked skills
 5. Toolchain doctor evidence is incomplete due timeout in current non-interactive path
+<<<<<<< Updated upstream
 6. Email and Enterprise WeChat production login still require Cloudflare secrets/provider setup; code now fails visibly when those secrets are absent
+=======
+6. Skill catalog truth is still split across curated web JSON, unified index data, and emerging external skill-factory inputs
+7. Protected pack payload deployment depends on Cloudflare R2 upload during CI; local static export verification can prove pruning, but remote R2 object presence is verified only in the deploy environment
+>>>>>>> Stashed changes

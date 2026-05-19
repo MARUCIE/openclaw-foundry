@@ -47,3 +47,74 @@
 
 ### Act
 - [x] Sync notes, deliverable, architecture, optimization plan, and rolling ledger
+
+## 2026-04-03 Continuation Update (Phase 1 & 2 Hardening)
+
+### Plan
+- [x] Align model routing with actual upstream support (OpenAI)
+- [x] Validate lifecycle paths (doctor, repair, rollback)
+- [x] Clarify UX surface relationships (wizard vs manual)
+- [x] Add explicit operator/admin UI for customer management
+
+### Do
+- [x] Implement OpenAI upstream caller in `src/llm-proxy.ts`
+- [x] Update model defaults in `src/analyzer.ts`
+- [x] Interlink `index.html` and `pipeline-manual.html`
+- [x] Add Customer Management APIs to `web/lib/api.ts`
+- [x] Create Admin Customer Management page in `web/app/admin/customers`
+- [x] Align versions to 4.0.0 across `cli.ts` and `server.ts`
+
+### Check
+- [x] `npm run build` (root) passed
+- [x] `npm run ocf -- doctor` passed
+- [x] `npm run ocf -- rollback` verified working
+- [x] `npm run build` (web) passed
+
+### Act
+- [x] Update `ROLLING_REQUIREMENTS_AND_PROMPTS.md` with REQ-006, REQ-007, REQ-008
+- [x] Update `EXECUTION_ROADMAP.md` status
+- [x] Sync task progress in `PDCA_ITERATION_CHECKLIST.md`
+
+## 2026-04-03 Phase 3 Completion (Delivery & Discipline)
+
+### Plan
+- [x] Add reproducible verification commands into canonical docs
+- [x] Define round-based acceptance against UX map
+- [x] Archive legacy references and eliminate documentation drift
+
+### Do
+- [x] Create `VERIFICATION.md` with build/doctor/smoke test commands
+- [x] Append Round-Based Acceptance Criteria to `USER_EXPERIENCE_MAP.md`
+- [x] Cleanup dead references in `doc/index.md`
+- [x] Mark Phase 3 as completed in `EXECUTION_ROADMAP.md`
+
+### Check
+- [x] `doc/index.md` matches current project structure
+- [x] `VERIFICATION.md` contains actionable commands
+- [x] No `docs/` folder remaining in project root
+
+### Act
+- [x] Sync documentation baseline for next major feature development
+
+## 2026-04-23 Continuation Update (Skill Intelligence Boundary Unbraiding)
+
+### Plan
+- [x] Compare `22-openclaw-foundry` and `sota-skill-library` as bounded contexts rather than as flat repositories
+- [x] Identify current catalog truth drift across web JSON, unified index data, and external local-state pipelines
+- [x] Decide whether the merge target is runtime-level or artifact-level
+
+### Do
+- [x] Record the architecture decision in `SYSTEM_ARCHITECTURE.md`
+- [x] Add PRD and optimization-plan alignment for canonical artifact convergence
+- [x] Add PDCA iteration and roadmap items for artifact cutover and optional sidecar isolation
+- [ ] Build the actual artifact adapter from SOTA outputs into Foundry schema
+
+### Check
+- [ ] Shadow-run current Foundry catalog vs SOTA-derived artifact
+- [ ] Measure ID churn, category spread, rating spread, and broken-reference rate
+- [ ] Verify stale-data serving behavior when upstream skill sync fails
+
+### Act
+- [ ] Freeze canonical artifact contract in code and seed pipeline
+- [ ] Demote duplicate catalog paths to cache/staging only
+- [ ] Decide whether recommendation / JIT remains sidecar-only or becomes internal API

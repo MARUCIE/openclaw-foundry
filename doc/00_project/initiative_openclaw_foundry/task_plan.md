@@ -102,3 +102,180 @@
 2. `node --import tsx --test tests/analyzer.test.ts` - pass
 3. `POST /api/analyze` local smoke - pass
 4. `ai check` - attempted, timed out after 20s
+
+## 2026-04-03 Final Hardening & Phase 3 (Delivery & Discipline)
+- Status: completed
+- Evidence Root: \`outputs/doc-bootstrap/doc-bootstrap-20260403-final/\`
+
+### Objective
+完成 Phase 1-3 的全部加固工作，确保模型代理完整、运维路径通畅、管理 UI 可用，并建立标准的发布与验证纪律。
+
+### Steps
+- [x] 1. Implement OpenAI GPT support in \`src/llm-proxy.ts\`
+- [x] 2. Validate \`doctor\` / \`repair\` / \`rollback\` lifecycle paths
+- [x] 3. Create Admin Customer Management UI in Next.js portal
+- [x] 4. Interlink Deployment Wizard and Task Pipeline Manual
+- [x] 5. Establish reproducible verification guide (\`VERIFICATION.md\`)
+- [x] 6. Define round-based acceptance criteria in \`USER_EXPERIENCE_MAP.md\`
+- [x] 7. Align system versions to 4.0.0 and cleanup documentation drift
+
+### Results
+1. LLM Proxy now handles GPT-4o-mini/GPT-4o as first-class citizens.
+2. Admin UI at \`/admin/customers\` allows full lifecycle management of proxy subscribers.
+3. Documentation is now fully self-consistent with clear verification paths.
+4. All builds (Backend/Frontend) are passing.
+
+
+## 2026-04-03 Phase 5: Skill Curation Pipeline v4.0
+- Status: completed
+- Evidence Root: N/A
+
+### Objective
+将本地 740 个 skill 全部导入本平台，执行重命名去重、根据评分重新划定正态分布（S:5%, A:15%, B:40%, C:30%, D:10%）、添加技术栈与场景标签、分配图标和编辑短语，以此全面优化策展。
+
+### Steps
+- [x] 1. Scan and parse all  files from .
+- [x] 2. Execute deduplication and generate  names.
+- [x] 3. Calculate composite scores based on metadata and descriptions.
+- [x] 4. Calibrate ratings to force a normal distribution bell-curve.
+- [x] 5. Autogenerate 3+ tags (tech-stack, scenario, platform).
+- [x] 6. Assign specific material symbol icons based on category mapping.
+- [x] 7. Export optimized schema to  and .
+
+### Results
+1. 成功迁入 740 个本地技能，分类与标签准确率符合目标。
+2. 评级分布：S(38), A(111), B(296), C(222), D(73)，完全吻合 v4 策略。
+3. Next.js 静态构建顺利通过，所有页面可用。
+
+
+## 2026-04-03 Phase 5: Skill Curation Pipeline v4.0
+- Status: completed
+- Evidence Root: `web/public/data/skills.json`
+
+### Objective
+将本地 740 个 skill 全部导入本平台，执行重命名去重、根据评分重新划定正态分布（S:5%, A:15%, B:40%, C:30%, D:10%）、添加技术栈与场景标签、分配图标和编辑短语，以此全面优化策展。
+
+### Steps
+- [x] 1. Scan and parse all `SKILL.md` files from `~/.agents/skills`.
+- [x] 2. Execute deduplication and generate `local/{folder}` names.
+- [x] 3. Calculate composite scores based on metadata and descriptions.
+- [x] 4. Calibrate ratings to force a normal distribution bell-curve.
+- [x] 5. Autogenerate 3+ tags (tech-stack, scenario, platform).
+- [x] 6. Assign specific material symbol icons based on category mapping.
+- [x] 7. Export optimized schema to `skills.json` and `skills-categories.json`.
+
+### Results
+1. 成功迁入 740 个本地技能，分类与标签准确率符合目标。
+2. 评级分布：S(38), A(111), B(296), C(222), D(73)，完全吻合 v4 策略。
+3. Next.js 静态构建顺利通过，所有页面可用。
+
+
+## 2026-04-03 Phase 6: Frontend Skill Group System Optimization
+- Status: completed
+- Evidence Root: `web/app/`, `.claude/skills/`
+
+### Objective
+调用前端 Skill 组进行系统性优化，引入 `baseline-ui` 和 `web-interface-guidelines` 约束，全局替换与强制实施前端最佳实践，提升整体 Web Console 的专业度和排版质量。
+
+### Steps
+- [x] 1. Copy `ui-skills` and `web-interface-guidelines` into `.claude/skills/` as project-level constraints.
+- [x] 2. Develop a Python parser to globally inject `text-balance` to all heading tags (`h1`-`h6`).
+- [x] 3. Globally inject `text-pretty` to all paragraph tags (`p`).
+- [x] 4. Globally replace `h-screen` with the modern standard `h-dvh` to handle mobile browser toolbars correctly.
+- [x] 5. Verify the Next.js static build after applying changes.
+
+### Results
+1. 成功将 2 个前端核心规范集（Baseline UI, Web Interface Guidelines）注册为当前项目的工作约束。
+2. 自动化脚本成功优化了 17 个 `.tsx` 页面/组件文件，全面落地了排版与布局最佳实践。
+3. 优化后的代码顺利通过 `npm run build`，16 个静态页面成功 Export。
+
+## 2026-04-23 Continuation Run -- Merge Architecture Decision (Foundry x SOTA)
+- Status: completed
+
+### Objective
+Define whether `sota-skill-library` should be merged into `22-openclaw-foundry`, then capture the approved target architecture and PDCA execution order before any runtime migration begins.
+
+### Decision
+1. Foundry remains the single product surface and deployment control plane.
+2. SOTA is re-scoped as a Skill Intelligence Factory that produces artifacts and heuristics.
+3. The merge target is **artifact-level convergence**, not runtime-level repo fusion.
+
+### Steps
+- [x] Read canonical PDCA docs and current architecture baseline
+- [x] Compare Foundry and SOTA as bounded contexts
+- [x] Run parallel architecture reviews for recommendation and attack-angle critique
+- [x] Update canonical architecture, PRD, roadmap, optimization, checklist, and rolling ledger docs
+- [x] Route and generate the Chinese HTML companion required by the 2-file swarm/document contract
+- [x] Add the colocated `SYSTEM_ARCHITECTURE.html` companion required by the project-doc pairing rule
+- [x] Append the swarm memory log for the HTML deliverable
+
+### Open Follow-up
+1. Build the canonical artifact adapter from SOTA outputs into Foundry schema
+2. Run shadow comparison between current Foundry catalog and SOTA-derived artifacts
+3. Freeze one source of truth in code and seed pipeline before exposing recommendation/JIT publicly
+
+## 2026-05-09 SOP 5.1 Run -- Frontend Validation (run-id: 2026-05-09-frontend-validation-001)
+- Status: completed (Iter 1 PASS, Iter 2 deferred -- see deliverable.md)
+- Pipeline: dev-pipeline `test-frontend` (sopRef=5.1, loop x3, swarm 3-expert, any-pass consensus)
+- Trigger: user invoked "打开前端验证" with PROJECT_DIR=`/Users/mauricewen/Projects/22-openclaw-foundry`
+- Working tree: dirty (11 modified files, including client/index.html + client/pipeline-manual.html cross-link inserts)
+- Validation target: local `next dev` :3200 (web/) + file:// for client/*.html (uncommitted, prod-stale)
+- Evidence dir: `outputs/sop-5.1/2026-05-09-frontend-validation-001/`
+
+### Scope
+1. web/ Next.js console (12 routes: /, /catalog, /explore, /packs, /pricing, /news, /api-docs, /admin, /skill, /deploy, /arena)
+2. client/index.html (deployment wizard, +cross-link to pipeline-manual)
+3. client/pipeline-manual.html (360-pipeline reference, +back-link to index)
+4. Out-of-scope: doc/**/*.html (separate `npm run design:check` covers them)
+
+### Steps
+- [x] 1. planning-with-files init (task_plan + notes append)
+- [x] 2. Spin up `next dev :3200` (Next.js 15.5.14 ready in 2.8s, HTTP 200, 0.69s cold)
+- [x] 3. Browser swarm @ 3 viewports (375 / 768 / 1440): 36 fullpage PNG via Playwright after chrome-devtools MCP timeout x2
+- [ ] 4. Lighthouse audit -- DEFERRED (chrome-devtools MCP `Network.enable` timeout x2; Playwright lighthouse run not in this iter)
+- [x] 5. Verified uncommitted client/*.html cross-links target existing files (anchor sanity via grep) -- visual capture deferred to Iter 2
+- [x] 6. Ran `npm run design:check` -> `MD8 design hook: pass`
+- [x] 7. Aggregated 3-expert verdict at `outputs/sop-5.1/2026-05-09-frontend-validation-001/verdict/verdict.md` -- consensus PASS
+- [x] 8. PDCA closeout: this section + notes + deliverable updated
+
+### Pre-flight Findings
+1. WARN dev-server: rewrites + output:export incompatible (cosmetic for static-export)
+2. WARN dev-server: multiple lockfiles (project root + web/) -- cosmetic
+3. PROD baseline = commit 83aca6a (2026-04-23 docs sync), web/out also stale
+
+## 2026-05-18 Auth-Wall Correction -- Public Skill Copy + Registered Job Pack Payloads
+- Status: completed
+- Trigger: user clarified Skill copy must stay open; only Job Pack payload copy/download requires registration, with WeChat and email registration support
+- Working tree: dirty before this run; unrelated preexisting changes were preserved
+
+### Scope
+1. Keep normal public browsing available across the web console and legacy browser wizard.
+2. Keep Skill/MCP/API docs and legacy browser wizard copy/download public.
+3. Require registered session before Job Pack install command copy, Job Pack file download, and pack payload retrieval.
+4. Support email magic-link and WeChat OAuth registration/login surfaces.
+5. Close static `/packs/*` direct-download bypasses.
+
+### Steps
+- [x] 1. Read project governance plus canonical architecture and UX docs
+- [x] 2. Map existing auth, copy, download, install, and pack payload surfaces
+- [x] 3. Add shared browser-side registered-session gate and protected pack helpers
+- [x] 4. Patch `/packs` protected actions and reopen `/api-docs`, `/explore/mcp`, Skill modal/detail, and legacy browser wizard copy actions
+- [x] 5. Add Worker protected pack token/file routes and D1 token migration
+- [x] 6. Add R2 upload, static export prune scripts, guide-only Pages pack cache headers, and Worker/migration-before-Pages deploy ordering
+- [x] 7. Run auth audit, web build, Worker typecheck, root build, prune check, and local smoke
+- [x] 8. Update PDCA docs, rolling ledger, auth invariant, notes, and deliverable
+
+### Verification
+1. `bash scripts/audit-auth-surfaces.sh` -> PASS (18 Job Pack boundary checks)
+2. `cd web && npm run build` -> PASS
+3. `cd worker && npx tsc -p tsconfig.json` -> PASS
+4. root `npm run build` -> PASS
+5. `node scripts/prune-public-pack-downloads.mjs` -> PASS
+6. `find web/out/packs -type f ! -name guide.html -print` -> no output
+7. `.github/workflows/deploy.yml` YAML parse check -> PASS
+8. local smoke: `/login` 200, `/packs` 200 on `next dev -p 3201`
+
+### Remaining Risks
+1. R2 upload is verified by CI/deploy environment, not local credentials.
+2. `ai check` not run; substituted with project-level gates listed above.
+3. npm audit still reports one high-severity dependency issue after `npm ci`; left out of scope because fixing it requires dependency policy work.

@@ -39,6 +39,8 @@ body {
   background: var(--white);
   line-height: 1.7;
   font-size: 15px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .container { width: 92%; max-width: 1040px; margin: 0 auto; }
@@ -133,7 +135,7 @@ tr:hover td { background: var(--gray-50); }
 .phase-dot-red { background: var(--red); }
 .phase-dot-amber { background: var(--amber); }
 .phase-dot-blue { background: var(--blue-700); }
-.phase-line { width: 2px; flex: 1; background: var(--gray-300); margin-top: 4px; }
+.phase-line { width: 4px; flex: 1; background: var(--gray-300); margin-top: 4px; }
 .phase-content { flex: 1; padding-bottom: 8px; }
 .phase-title { font-size: 16px; font-weight: 800; color: var(--gray-900); margin-bottom: 4px; }
 .phase-desc { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; }
@@ -161,7 +163,7 @@ tr:hover td { background: var(--gray-50); }
 .decision-why { font-size: 12px; color: var(--gray-500); margin-top: 8px; font-style: italic; }
 
 /* Badge */
-.badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; vertical-align: middle; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 4px; vertical-align: middle; }
 .badge-red { background: var(--red-bg); color: var(--red); }
 .badge-amber { background: var(--amber-bg); color: var(--amber); }
 .badge-blue { background: var(--blue-100); color: var(--blue-700); }

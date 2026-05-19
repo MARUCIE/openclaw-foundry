@@ -3,17 +3,85 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-03-22`
+- Updated: `2026-05-18`
 
 ## System Boundary
-OpenClaw Foundry v4.0 升维为**一键部署 + 导航 + 资讯站 + 商业化平台**，支持 **12 platforms** across 3 Tiers (全自动/半自动/引导式)。从内部 Console 升级为公开 Portal。
+OpenClaw Foundry 当前是统一的技能发现与部署控制产品面，支持 **13 platforms** across desktop / saas / cloud / mobile / remote modes. 当前 canonical 边界只覆盖已经存在的发现、部署、管理与比武能力；未来 Portal/资讯/商业化探索不属于本次已批准架构。
 
 Runtime styles:
 1. local execution through the `ocf` CLI
 2. remote execution through an Express server plus static browser/bootstrap clients
 3. multi-platform deployment via Provider dispatch
+4. public web discovery with registered-session gates only for Job Pack payload delivery
 
 The shared contract is `Blueprint v2.0`, a typed JSON document now including a `target` field for platform routing.
+
+## 2026-04-23 Architecture Decision - Foundry x SOTA Skill Library
+
+### Decision Summary
+OpenClaw Foundry remains the single product surface, deployment control plane, and public catalog entrypoint.
+`sota-skill-library` is not merged as a second runtime or second public site. Its durable value is re-scoped into a **Skill Intelligence Factory** that produces versioned artifacts, scoring heuristics, taxonomy maps, and bundle candidates for Foundry to consume.
+
+### Not Chosen
+1. No wholesale repository merge with Python runtime, local telemetry DBs, and local MCP installer paths moved directly into Foundry.
+2. No second public dashboard or parallel marketplace UI.
+3. No JIT/MCP runtime in the critical path of public catalog, deploy, or arena flows.
+
+### Bounded Contexts
+| Context | Responsibility | Current Anchors | Target Role |
+| --- | --- | --- | --- |
+| Skill Intelligence Factory | ingest, validate, dedup, categorize, score, bundle generation | `scripts/*.mjs` in Foundry plus selected SOTA heuristics | offline artifact producer |
+| Discovery Plane | public browse/search/filter/detail UX and catalog APIs | `web/`, `worker/` | sole public skill marketplace |
+| Deploy Control Plane | blueprint generation, provider dispatch, lifecycle commands | `src/cli.ts`, `src/server.ts`, `src/providers/*` | sole deployment runtime |
+| Job Pack Auth / Payload Gate | email + WeChat registration/login, protected pack token minting, protected file delivery | `web/lib/session.ts`, `web/lib/protected-downloads.ts`, `worker/src/routes/auth*.ts`, `worker/src/routes/packs.ts` | preserve public browsing and Skill copy while gating Job Pack install/download payloads |
+| Optional Intelligence Adapter | related skills, route planning, future JIT assembly | future internal service built from SOTA ideas | optional sidecar, non-critical |
+
+### Source-of-Truth Matrix
+| Domain | Current State | Target State |
+| --- | --- | --- |
+| Skill catalog | split across `web/public/data/skills.json`, `data/unified-index.json`, D1 seeds, and external SOTA-local state | one canonical versioned artifact imported into D1 and exported to web cache |
+| Bundle / pack candidates | `web/public/data/packs.json`, `collections.json`, SOTA `bundles.json` | one normalized bundle artifact with Foundry-owned schema |
+| Deploy state | `~/.openclaw/*`, manifest, snapshots | unchanged |
+| Customer / operator state | JSON + Worker/D1 split | explicit control-plane-owned persistence path |
+| Recommendation / route planning | ad hoc / external prototypes | internal API or sidecar after artifact contract stabilizes |
+
+### Target Topology
+```mermaid
+flowchart LR
+  subgraph SIF[Skill Intelligence Factory]
+    A[Source ingestion]
+    B[Validation and purification]
+    C[Dedup and taxonomy mapping]
+    D[Scoring and bundle generation]
+    E[Versioned artifacts]
+    A --> B --> C --> D --> E
+  end
+
+  subgraph F[OpenClaw Foundry]
+    F1[Worker + D1 catalog APIs]
+    F2[Next.js discovery plane]
+    F3[CLI / Server deploy control plane]
+    F4[Optional intelligence adapter]
+  end
+
+  E --> F1
+  E --> F2
+  E --> F3
+  E -. optional .-> F4
+```
+
+### Migration Phases
+1. **Contract freeze**
+   - define canonical skill schema, taxonomy semantics, rating semantics, dedup semantics, and bundle schema
+2. **Shadow run**
+   - compare current Foundry artifacts vs SOTA-derived artifacts on total count, ID churn, category spread, and score distribution
+3. **Artifact cutover**
+   - switch Foundry seed/build pipeline to the canonical artifact without changing public UX flows
+4. **Intelligence opt-in**
+   - rebuild recommendation / route-planning capabilities against Foundry-owned schema only after artifact stability is proven
+
+### Rollback Rule
+Rollback is artifact-level, not repo-level: the system must be able to restore the previous catalog/bundle artifact version without rewriting deploy state or provider code.
 
 ## High-Level Modules
 | Module | Files | Responsibility |
@@ -28,8 +96,30 @@ The shared contract is `Blueprint v2.0`, a typed JSON document now including a `
 | LLM gateway | `src/llm-proxy.ts` | Customer-authenticated OpenAI-compatible chat proxy |
 | Static client | `client/` | Browser wizard with platform selection, bootstrap scripts |
 | **Web Console** | `web/` (Next.js 15) | **v3.0: Visual management — Platform Catalog, One-Click Deploy, Arena** |
+| Web session helper | `web/lib/session.ts`, `web/lib/protected-downloads.ts` | Browser-side registered-session checks plus Worker-backed protected copy/download helpers |
+| Worker auth + pack payload API | `worker/src/routes/auth.ts`, `worker/src/routes/auth-wechat.ts`, `worker/src/routes/packs.ts`, `worker/src/migration-v10.sql` | Email/WeChat auth, short-lived pack download tokens, protected pack files backed by D1/R2 |
 | **Deploy Manager** | `src/deploy-manager.ts` | **v3.0: Async deploy job lifecycle (create/poll/cancel)** |
 | **Arena Engine** | `src/arena-engine.ts` | **v3.0: Multi-provider parallel execution + scoring** |
+
+## Job Pack Auth and Protected Payload Architecture (2026-05-18)
+
+The web product uses component/action-level auth gates, not a whole-site route wall. This keeps public discovery and ordinary Skill/MCP/API copy available while requiring a registered user for Job Pack payloads.
+
+```mermaid
+flowchart LR
+  A[Anonymous visitor] --> B[Public web pages]
+  B --> C{Copy / download / install?}
+  C -- no --> B
+  C -- Job Pack payload --> D[requireRegistered in web/lib/session.ts]
+  D -->|no session| E[/login email magic-link or WeChat OAuth]
+  E --> F[Registered session in localStorage]
+  D -->|valid session| G[Worker protected pack routes]
+  F --> G
+  G --> H[D1 download token / R2 pack payload]
+  H --> I[Clipboard command or file download]
+```
+
+Static Pages output keeps public Job Pack `guide.html` files only. Protected pack payloads are uploaded to R2 by CI and served through `POST /api/packs/:id/download-token` plus `GET /api/packs/:id/file?path=...`. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public.
 
 ## Provider Architecture (v2.0)
 ```
@@ -378,9 +468,10 @@ flowchart LR
 6. Documentation split:
    - `docs/` historical material can drift unless future changes only update `doc/`
 7. Arena concurrency:
-   - Parallel provider.deploy() calls share the same process; a slow/hanging provider blocks the event loop
-   - Mitigation: per-lane timeout (60s) + AbortController
+    - Parallel provider.deploy() calls share the same process; a slow/hanging provider blocks the event loop
+    - Mitigation: per-lane timeout (60s) + AbortController
 8. Web Console coupling:
+<<<<<<< Updated upstream
    - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
    - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy
 
@@ -558,6 +649,16 @@ interface PricingTier {
 | R1 | 首页 Hero + 快速部署 | 3 方案 → 选 Winner |
 | R2 | Skill 市场 + MCP 目录 | 3 方案 → 选 Winner |
 | R3 | 资讯中心 + 定价页 | 3 方案 → 选 Winner |
+=======
+    - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
+    - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy
+9. Catalog truth drift:
+    - skill data currently has multiple effective truth sources (`web/public/data/skills.json`, `data/unified-index.json`, D1 seed inputs, and external SOTA-local state)
+    - Mitigation: freeze one canonical artifact contract and demote all other paths to cache, staging, or legacy input only
+10. Runtime complection risk:
+    - directly importing SOTA runtime concerns (local telemetry DB, MCP router, local installer) into Foundry would couple portal, deploy runtime, and local agent execution too tightly
+    - Mitigation: import heuristics and artifacts first; keep JIT/MCP as optional adapter or sidecar
+>>>>>>> Stashed changes
 
 ### 实施路线
 

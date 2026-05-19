@@ -3,6 +3,8 @@
 > Map AI-workshop v7 sessions (W1-W15) to openclaw-foundry Job Packs.
 > Source: `/Users/mauricewen/Projects/AI-workshop/WORKSHOP_PLAN.md` v7 + this repo's `web/public/packs/*`.
 > Generated: 2026-05-15.
+>
+> **Authority contract**: every pack listed below MUST conform to `PACK_SPEC.md` v1.0 (four-pillar: 工具包 + 方法论 + 工作流 + 开卷必有益). Stub packs are explicitly flagged with `tier=stub` and gated against cohort promise. Source signal: Maurice 2026-05-15 "每个岗位准备：工具包，方法论，工作流，确保开卷必有益".
 
 ## What this document is
 

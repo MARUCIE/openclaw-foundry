@@ -31,6 +31,15 @@
 12. `doc/00_project/initiative_openclaw_foundry/deliverable.md`
 13. `doc/00_project/initiative_openclaw_foundry/PDCA_ITERATION_CHECKLIST.md`
 
+## Human-Facing Companion Outputs
+1. `outputs/reports/workflow-meta-swarm/2026-04-23-foundry-sota-merge-architecture.html`
+   - Purpose: Chinese human-facing companion for the 2026-04-23 Foundry x SOTA merge architecture decision
+   - Style route: McKinsey Blue
+2. `doc/00_project/initiative_openclaw_foundry/SYSTEM_ARCHITECTURE.html`
+   - Purpose: colocated human-facing companion for `SYSTEM_ARCHITECTURE.md`
+   - Style route: McKinsey Blue
+   - Pairing note: canonical source remains `doc/00_project/initiative_openclaw_foundry/SYSTEM_ARCHITECTURE.md`
+
 ## Verification For This Task
 1. History lookup attempted via `aline search` and recorded
 2. Documentation coverage checked by enumerating the created `doc/` files
@@ -54,6 +63,13 @@
 3. Legacy `docs/` content was not migrated; it remains a reference source
 4. `ai check` did not produce a pass/fail result in either verification bundle because it timed out
 
+## 2026-04-23 Architecture Companion Closeout
+1. 2-file delivery for the merge-architecture decision is now complete:
+   - Canonical machine-readable side: updated PDCA `.md` files
+   - Human-facing side: routed swarm report + colocated `SYSTEM_ARCHITECTURE.html`
+2. Style routing rationale and report path are recorded in `notes.md`
+3. Swarm memory log was appended under `state/memory/2026-04-23.md`
+
 ## Analyzer Fix Summary
 1. Fixed system-controlled blueprint fields being overwritten by AI output
 2. Added catalog-based skill filtering and source re-partitioning
@@ -71,3 +87,110 @@
 
 ## Status
 Completed for the documentation-bootstrap scope.
+
+---
+
+## 2026-05-09 SOP 5.1 Frontend Validation -- Iter 1 Delivery
+
+### Scope
+Frontend validation of `web/` Next.js console (12 routes) on local `next dev :3200` against the dirty working tree. Per dev-pipeline `test-frontend` (sopRef=5.1): loop x3, swarm 3-expert, any-pass consensus.
+
+### Verdict
+**PASS** (any-pass consensus: 2 of 3 experts pass).
+
+### Delivered Artefacts
+| Path | Type | Notes |
+|---|---|---|
+| `outputs/sop-5.1/2026-05-09-frontend-validation-001/verdict/verdict.md` | Verdict (canonical) | Full findings, severity-ordered, with concrete target file paths and an Evidence Manifest |
+| `outputs/sop-5.1/2026-05-09-frontend-validation-001/verdict/playwright-report.json` | Machine-readable report | Per-route metrics, console errors, network 4xx/5xx, overflow elements, screenshot paths |
+| `outputs/sop-5.1/2026-05-09-frontend-validation-001/screenshots/` | 36 PNG (~21 MB) | 3 viewports x 12 routes, fullpage |
+| `outputs/sop-5.1/2026-05-09-frontend-validation-001/run-playwright.cjs` | Replay script | Reproducible: `cd PROJECT_DIR && NODE_PATH=$(npm root -g) node outputs/sop-5.1/.../run-playwright.cjs` |
+
+### Findings Summary
+| Severity | Issue | Concrete target file |
+|---|---|---|
+| P0 | `/explore/skills` overflows mobile-375 + tablet-768 (`docW=2572` vs viewport) | `web/app/explore/skills/page.tsx` |
+| P1 | 9/12 routes hit `/api/*` returning 500 then load `/data/*.json` succeeding 200 | `web/lib/api.ts` (`fetchJSON`, lines 17-32) |
+| P2 | `favicon.ico` 404 every route | `web/app/favicon.ico` (new file) |
+| P3 | Initial 1440 overflow (claude-in-chrome) was a `resize_window` artefact, invalidated by Playwright ground truth | -- |
+
+### Iter 2 Scope (deferred, awaits user direction)
+1. Fix P0 overflow (single Tailwind class addition in `web/app/explore/skills/page.tsx`)
+2. Fix P1 wasted-fetch path (single function edit in `web/lib/api.ts`)
+3. Add favicon (1 binary asset)
+4. Re-run Playwright walk; diff `playwright-report.json` against Iter 1
+
+Loop did not advance to Iter 2 because (a) Iter 1 gate already PASSed under any-pass consensus, and (b) all P0/P1 fixes are user-visible code changes outside the autonomous-extension reversible scope.
+
+### Tooling Notes
+1. `mcp__chrome-devtools__list_pages` failed twice with `Network.enable` timeout; pivoted to Playwright + claude-in-chrome MCP (Tw93 stuck-rule applied).
+2. Lighthouse audit deferred -- chrome-devtools MCP was the configured carrier; Playwright equivalent not run in this iter.
+3. Dev server (next dev :3200) was started, exercised across 3 viewports x 12 routes, then stopped (`pkill -f 'next dev -p 3200'`).
+4. Project-level HTML guard `npm run design:check` -> `MD8 design hook: pass`.
+
+---
+
+## 2026-05-18 Auth-Wall Correction Delivery
+
+### Scope
+Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy remains open, and only Job Pack copy/download/install payload actions require registration/login through email magic-link or WeChat OAuth.
+
+### Delivered
+1. Public copy reopened:
+   - `web/components/marketplace-shell.tsx`
+   - `web/app/skill/page.tsx`
+   - `web/app/explore/mcp/page.tsx`
+   - `web/app/api-docs/page.tsx`
+   - `client/index.html`
+2. Job Pack session enforcement:
+   - `web/lib/session.ts`
+   - `web/lib/protected-downloads.ts`
+3. Gated Job Pack UI/action surfaces:
+   - `web/app/packs/page.tsx`
+4. Registration/login copy:
+   - `web/app/login/page.tsx`
+   - `web/components/top-nav.tsx`
+5. Protected backend payload delivery:
+   - `worker/src/routes/packs.ts`
+   - `worker/src/middleware/auth.ts`
+   - `worker/src/migration-v10.sql`
+6. Deployment hardening:
+   - `.github/workflows/deploy.yml`
+   - `web/public/_headers`
+   - `scripts/upload-protected-packs-to-r2.mjs`
+   - `scripts/prune-public-pack-downloads.mjs`
+   - `scripts/generate-pack-guides.mjs`
+   - `scripts/audit-auth-surfaces.sh`
+7. Documentation closeout:
+   - `AUTH_SURFACE_INVARIANT.md`
+   - PRD / UX map / system architecture / optimization plan / rolling ledger / task plan / notes / deliverable
+
+### Verification
+1. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 Job Pack boundary checks
+2. `cd web && npm run build` -> PASS
+3. `cd worker && npx tsc -p tsconfig.json` -> PASS
+4. root `npm run build` -> PASS
+5. `node scripts/prune-public-pack-downloads.mjs` -> PASS; only public guide files remain under `web/out/packs`
+6. `find web/out/packs -type f ! -name guide.html -print` -> no output
+7. `web/out/_headers` now caches only `/packs/*/guide.html`, not all `/packs/*`
+8. `.github/workflows/deploy.yml` YAML parse check -> PASS
+9. Local smoke on `next dev -p 3201`:
+   - `/login` HTTP 200
+   - `/packs` HTTP 200
+   - login page contains `注册 / 登陆`, email registration, and WeChat registration copy
+
+### Closeout
+1. Skills update: N/A - this was project-specific auth and deployment hardening, not a reusable cross-project workflow.
+2. PDCA four-doc sync: completed in PRD, UX map, system architecture, and platform optimization plan.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global rule beyond existing auth invariant.
+4. Rolling ledger: updated with REQ-013 and anti-regression Q&A for public Skill copy + protected Job Packs.
+5. Three-end consistency:
+   - Local project: verified by builds, typecheck, auth audit, prune check, and local smoke.
+   - GitHub: workflow updated; not pushed/deployed in this run.
+   - VPS/Production: N/A for this Pages/Worker/R2 deploy path; production R2 object verification remains deploy-environment work.
+
+### Remaining Risks
+1. R2 upload requires Cloudflare credentials and was not executed locally.
+2. `ai check` was not run; project-level verification gates were used instead.
+3. Existing unrelated dirty worktree state was preserved.
+4. npm audit reports one high-severity dependency issue after `npm ci`; dependency remediation is outside this auth-wall scope.

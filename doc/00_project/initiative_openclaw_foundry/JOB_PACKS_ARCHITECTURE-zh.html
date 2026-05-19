@@ -39,6 +39,8 @@ body {
   background: var(--white);
   line-height: 1.7;
   font-size: 15px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .container { width: 92%; max-width: 1040px; margin: 0 auto; }
@@ -264,7 +266,7 @@ tr:hover td { background: var(--gray-50); }
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--blue-500);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .flow-node-title {
   font-size: 15px;
@@ -280,7 +282,7 @@ tr:hover td { background: var(--gray-50); }
 .flow-node-active {
   background: var(--blue-50);
   border-color: var(--blue-500);
-  border-width: 2px;
+  border-width: 4px;
 }
 
 /* Org mapping cards */
@@ -326,7 +328,7 @@ tr:hover td { background: var(--gray-50); }
   padding: 0;
 }
 .org-card li {
-  padding: 6px 0;
+  padding: 8px 0;
   font-size: 13px;
   color: var(--gray-700);
   border-bottom: 1px solid var(--gray-100);
@@ -338,8 +340,8 @@ tr:hover td { background: var(--gray-50); }
 .org-tag {
   font-size: 11px;
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 .org-tag-blue { background: var(--blue-100); color: var(--blue-700); }
 .org-tag-green { background: var(--green-bg); color: var(--green); }
@@ -444,7 +446,7 @@ tr:hover td { background: var(--gray-50); }
   justify-content: center;
 }
 .phase-line {
-  width: 2px;
+  width: 4px;
   flex: 1;
   background: var(--gray-300);
   margin-top: 4px;
@@ -533,8 +535,8 @@ tr:hover td { background: var(--gray-50); }
   display: inline-block;
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 4px 8px;
+  border-radius: 4px;
   vertical-align: middle;
 }
 .badge-blue { background: var(--blue-100); color: var(--blue-700); }
@@ -549,7 +551,7 @@ tr:hover td { background: var(--gray-50); }
   .flow-row { flex-wrap: wrap; }
   .flow-node::after { display: none; }
   .qtree-options { grid-template-columns: repeat(2, 1fr); }
-  .layer-label { width: 70px; font-size: 10px; }
+  .layer-label { width: 72px; font-size: 10px; }
 }
 
 footer {

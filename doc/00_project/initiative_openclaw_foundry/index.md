@@ -5,6 +5,7 @@
 - `notes.md`
 - `deliverable.md`
 - `PDCA_ITERATION_CHECKLIST.md`
+- `VERIFICATION.md`
 
 ## PDCA Source of Truth
 - `PRD.md`
@@ -20,7 +21,7 @@
 ## Current Project Reality
 - Product form: TypeScript CLI + Express server + static browser wizard.
 - Primary contract: `Blueprint` JSON generated from wizard answers and catalog data.
-- Existing historical reference: `docs/plans/2026-03-10-openclaw-foundry-design.md`.
+- Existing historical reference: N/A (Cleaned up).
 
 ## Verification Status
 - Documentation baseline bootstrap: completed on 2026-03-11.
@@ -33,3 +34,8 @@
   - `/api/analyze` smoke: `outputs/doc-bootstrap/doc-bootstrap-20260311-analyzer-fix/logs/api-analyze.json`
   - `ai check`: attempted, timed out in `outputs/doc-bootstrap/doc-bootstrap-20260311-analyzer-fix/logs/ai-check.log`
 - Product-level Round 2 UX simulation: pending future implementation task.
+
+- Final hardening & Phase 3 (2026-04-03):
+  - Verified build, doctor, and rollback lifecycle.
+  - Implemented OpenAI upstream support.
+  - Established \`VERIFICATION.md\` and round-based criteria.

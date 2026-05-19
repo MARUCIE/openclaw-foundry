@@ -164,3 +164,108 @@
 - Arena 评分: deploySpeed(20%) + testPassRate(40%) + featureSupport(25%) + platformReach(15%)
 - tsc PASS, next build PASS, 4K screenshots captured
 - GitHub: MARUCIE/openclaw-foundry, commit 4fbea02 (+4,530 lines, 31 files)
+
+## 2026-04-23 HTML Companion Routing -- Foundry x SOTA Merge Architecture
+
+### Trigger
+1. The architecture decision was already written to canonical `.md` PDCA documents.
+2. A follow-up review identified a delivery gap: the task had not completed the required 2-file contract (`.md` + `.html`) for architecture/planning/swarm output.
+
+### Routing Decision
+1. Router source:
+   - `/Users/mauricewen/00-AI-Fleet/knowledge/facts/engineering-baseline/09-output-format.md`
+   - `/Users/mauricewen/00-AI-Fleet/skills/shared/html-style-router/SPEC.md`
+2. Chosen swarm group:
+   - `workflow-meta-swarm`
+3. Chosen style:
+   - `html-mckinsey-style` / McKinsey Blue
+4. Reason:
+   - The document is strategy / architecture / executive decision oriented
+   - The dominant verb is RECOMMEND / STRATEGIZE / DECIDE, not ANALYZE / ARGUE
+   - The audience is internal decision-makers, not a public editorial readership
+
+### Human-Facing Output
+1. HTML report path:
+   - `outputs/reports/workflow-meta-swarm/2026-04-23-foundry-sota-merge-architecture.html`
+2. Colocated project-doc companion:
+   - `doc/00_project/initiative_openclaw_foundry/SYSTEM_ARCHITECTURE.html`
+3. Browser open action:
+   - required by global router rule; executed after file write
+4. Memory trace:
+   - `state/memory/2026-04-23.md`
+
+### Constraint Note
+1. The shared `html-style-router` exists as a spec under `00-AI-Fleet/skills/shared/`, but it is not exposed as a directly invokable loaded skill in the current CLI environment.
+2. Routing was therefore executed manually against the canonical shared router spec rather than skipped.
+
+## 2026-05-09 SOP 5.1 Run -- Frontend Validation Iter 1
+
+### Trigger
+1. User prompt "打开前端验证" with explicit PROJECT_DIR=`/Users/mauricewen/Projects/22-openclaw-foundry`
+2. Hook `[SOP-RECOMMEND]` matched SOP 3.1 (sop-registry phase=TEST), but dev-pipeline-registry maps "前端验证与性能检查" to pipeline `test-frontend` (sopRef=5.1) -- the runtime-canonical config with claude-in-chrome + chrome-devtools MCP wired and viewports 375/768/1440 declared.
+
+### Pre-flight State
+1. Working tree: 11 files modified (uncommitted), no staged changes, branch `main`
+2. client/*.html diff: trivial (4 lines total) -- cross-link inserts between deployment wizard and pipeline manual
+3. `web/out/` last touched 2026-04-23 (stale relative to working tree)
+4. `:3200` not in use; spawned `npm run dev` in background, ready in 2.8s
+5. prod URL `openclaw-foundry.pages.dev` reachable HTTP 200 but represents commit 83aca6a (~2 weeks old)
+6. `ai check` does NOT run cleanly outside AI-Fleet root (exit 1) -- substituted with project-level gate `npm run design:check`
+
+### Iter 1 Decisions
+1. Validation target = local dev (working tree dirty + prod stale)
+2. Evidence dir = `outputs/sop-5.1/2026-05-09-frontend-validation-001/{screenshots,console,network,lighthouse,verdict}/`
+3. Tool stack: chrome-devtools MCP for Lighthouse + screenshot; claude-in-chrome MCP for DOM walk + console + network (paired, not substituted)
+4. Run-id naming: `YYYY-MM-DD-frontend-validation-NNN`
+
+### Tool Failures
+1. `mcp__chrome-devtools__list_pages` -- timeout on Network.enable (2 attempts). Pivoted to Playwright 1.59.1 global install + claude-in-chrome MCP for DOM probing.
+
+### Iter 1 Closeout Summary
+1. Coverage: 12 routes x 3 viewports = 36 fullpage PNG (21 MB) at `outputs/sop-5.1/2026-05-09-frontend-validation-001/screenshots/`
+2. Walk errors: 0 / 36 (all routes loaded under 20s timeout)
+3. h1 missing: 0 routes
+4. Broken images: 0 routes
+5. Real-overflow finding: `/explore/skills` only, mobile-375 + tablet-768; root cause traced to `web/lib` chip rail leaking width to ancestor `flex-1 space-y-8` -- target file `web/app/explore/skills/page.tsx`
+6. Wasted-network finding: 9 / 12 routes hit `/api/*` returning 500, then load `/data/*.json` succeeding 200; target file `web/lib/api.ts` (function `fetchJSON` lines 17-32)
+7. Cosmetic: `favicon.ico` 404 every route
+8. Earlier 1440-overflow signal (claude-in-chrome) was invalidated by Playwright ground truth -- it was a `resize_window` artefact; recorded as P3 in verdict
+9. Project-level HTML guard `npm run design:check` PASS (md8-design-hook.mjs)
+10. Consensus (any-pass): PASS -- 2 of 3 experts pass; Performance auditor deferred (Lighthouse tooling failure, not site failure)
+11. Iter 2/3 NOT executed: gate already passed; remaining P0/P1 fixes are user-visible code changes outside autonomous-extension reversible scope; logged to deliverable.md as scoped follow-ups
+
+## 2026-05-18 Auth-Wall Correction -- Public Skill Copy + Registered Job Pack Payloads
+
+### Trigger
+Maurice first requested normal site access plus registration-gated copy/download, then clarified the final boundary: Skill copy must stay open; only Job Pack payloads require login. Registration supports WeChat and email.
+
+### Pre-flight Findings
+1. Existing auth design intent already existed in `AUTH_SURFACE_INVARIANT.md`, but enforcement was incomplete.
+2. The real bypass was static Job Pack payload delivery, not ordinary Skill/MCP/API copy.
+3. Whole-site route guards were the wrong fix because they break public browsing.
+
+### Implementation Notes
+1. Added reusable registered-session enforcement in `web/lib/session.ts` and protected pack helpers in `web/lib/protected-downloads.ts`.
+2. Kept Skill/MCP/API docs and legacy browser wizard copy/download actions public.
+3. Gated only Job Pack copy/download/install actions in `/packs`.
+4. Updated `/login` wording to present email registration/login and WeChat registration/login as supported paths.
+5. Added Worker protected pack token/file delivery routes and D1 token migration.
+6. Added CI scripts to upload protected pack payloads to R2 and prune static Pages payloads after build.
+7. Changed deploy ordering so Pages waits for Worker deploy plus D1 migrations before publishing frontend routes that depend on protected pack APIs.
+8. Narrowed Pages `_headers` so only public pack guides get static pack caching headers.
+9. Updated `AUTH_SURFACE_INVARIANT.md` to v12: Skill copy public, Job Pack payloads protected.
+
+### Verification Evidence
+1. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 Job Pack boundary checks, 0 violations.
+2. `cd web && npm run build` -> PASS, Next.js static export completed.
+3. `cd worker && npx tsc -p tsconfig.json` -> PASS after tightening auth middleware D1 typing.
+4. Root `npm run build` -> PASS after installing existing lockfile dependencies with `npm ci`.
+5. `node scripts/prune-public-pack-downloads.mjs` -> PASS, protected files removed from `web/out/packs`, public `guide.html` files retained.
+6. `find web/out/packs -type f ! -name guide.html -print` -> no output.
+7. `.github/workflows/deploy.yml` YAML parse check -> PASS.
+8. Local smoke on `http://localhost:3201`: `/login` 200, `/packs` 200, login copy confirms `注册 / 登陆`, email registration, and WeChat registration text present.
+
+### Known Gaps / Follow-up
+1. Cloudflare R2 upload was not run locally because it needs deploy credentials; CI now runs the upload before Pages deploy.
+2. `ai check` was not used as the completion gate in this run; project-level build, Worker typecheck, auth-surface audit, prune check, and local smoke were used instead.
+3. Existing worktree already contained unrelated dirty files; this run did not revert or normalize unrelated changes.

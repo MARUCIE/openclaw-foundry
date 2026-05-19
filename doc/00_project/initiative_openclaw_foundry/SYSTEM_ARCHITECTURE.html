@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Foundry × SOTA Skill Library 架构决策报告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-900: #002855;
+      --blue-700: #003A70;
+      --blue-100: #E8F0FE;
+      --blue-50: #F4F7FB;
+      --green: #1B7F4B;
+      --green-light: #E6F4EC;
+      --amber: #D4850D;
+      --amber-light: #FEF3E0;
+      --red: #C4281C;
+      --red-light: #FDECEB;
+      --ink: #1A1A2E;
+      --body: #2D2D3F;
+      --secondary: #5A5A72;
+      --rule: #D4D4DC;
+      --bg: #FFFFFF;
+      --bg-gray: #F5F5F8;
+      --max-width: 1020px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--body);
+      overflow-x: hidden;
+      font-family: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p, li, td, th, .subtitle, .meta, .kpi-value, .kpi-label {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #002855 0%, #003A70 100%);
+      color: #fff;
+      padding: 56px 0;
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      max-width: 860px;
+      color: #fff;
+      font-size: 2.45rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.08rem;
+    }
+
+    .meta {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+    }
+
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    section.alt {
+      max-width: none;
+      background: var(--bg-gray);
+      padding: 40px 0;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-num {
+      margin-bottom: 8px;
+      color: var(--blue-700);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    h3 {
+      margin: 0 0 12px;
+      color: var(--ink);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .key-message {
+      margin: 24px 0;
+      padding: 16px 24px;
+      background: var(--blue-700);
+      color: #fff;
+      font-size: 1.02rem;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .summary-list {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .summary-list li + li { margin-top: 12px; }
+
+    .kpi-grid,
+    .phase-grid,
+    .next-actions {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+    .phase-grid { grid-template-columns: repeat(4, 1fr); }
+    .next-actions { grid-template-columns: repeat(3, 1fr); }
+
+    .kpi,
+    .pillar,
+    .card,
+    .phase,
+    .implication {
+      min-width: 0;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--blue-700);
+      padding: 24px 20px;
+    }
+
+    .kpi-value {
+      color: var(--ink);
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+
+    .kpi-label {
+      margin-top: 8px;
+      color: var(--secondary);
+      font-size: 0.92rem;
+    }
+
+    .pillar-grid,
+    .card-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .pillar-grid { grid-template-columns: repeat(3, 1fr); }
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .pillar-num {
+      margin-bottom: 8px;
+      color: var(--blue-700);
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .implication {
+      margin-top: 20px;
+      background: var(--blue-50);
+    }
+
+    .phase-header {
+      margin: -24px -20px 16px;
+      padding: 12px 16px;
+      background: var(--blue-100);
+      color: var(--blue-900);
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .phase ul,
+    .card ul,
+    .pillar ul,
+    .implication ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .phase li + li,
+    .card li + li,
+    .pillar li + li,
+    .implication li + li { margin-top: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: #fff;
+      border: 1px solid var(--rule);
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      text-align: left;
+      font-size: 0.94rem;
+    }
+
+    th {
+      color: var(--ink);
+      background: var(--blue-50);
+      font-weight: 700;
+    }
+
+    th:first-child,
+    td:first-child { width: 120px; }
+
+    .status-tag {
+      display: inline-block;
+      min-width: 40px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .status-green { color: var(--green); background: var(--green-light); }
+    .status-amber { color: var(--amber); background: var(--amber-light); }
+    .status-red { color: var(--red); background: var(--red-light); }
+
+    .action-meta {
+      margin-top: 12px;
+      color: var(--secondary);
+      font-size: 0.88rem;
+    }
+
+    .source-list {
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+
+    .source-list li + li { margin-top: 8px; }
+
+    .risk-table th:nth-child(1),
+    .risk-table td:nth-child(1) {
+      width: 28%;
+      white-space: normal;
+    }
+
+    .risk-table th:nth-child(2),
+    .risk-table td:nth-child(2) {
+      width: 104px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .status-cell {
+      vertical-align: middle;
+    }
+
+    .risk-title {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .risk-caption {
+      margin-top: 4px;
+      color: var(--secondary);
+      font-size: 0.88rem;
+    }
+
+    .term-token {
+      display: inline-block;
+      margin: 0 4px;
+      padding: 0 8px;
+      border: 1px solid var(--rule);
+      background: var(--blue-50);
+      color: var(--blue-900);
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .site-footer {
+      margin-top: 24px;
+      border-top: 3px solid var(--blue-900);
+      padding: 28px 20px 40px;
+      text-align: center;
+      color: #9B9B9D;
+      font-size: 13px;
+      line-height: 2.2;
+    }
+
+    .site-footer p { margin: 0; }
+
+    @media (max-width: 960px) {
+      .kpi-grid,
+      .phase-grid,
+      .next-actions { grid-template-columns: repeat(2, 1fr); }
+
+      .pillar-grid,
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 32px 0; }
+      .hero h1 { font-size: 1.9rem; }
+      .kpi-grid,
+      .phase-grid,
+      .next-actions { grid-template-columns: 1fr; }
+      th:first-child,
+      td:first-child { width: 96px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">WORKFLOW-META-SWARM | 2026-04-23 | Style: McKinsey Blue</div>
+      <h1>OpenClaw Foundry × SOTA Skill Library 架构决策报告</h1>
+      <div class="subtitle">结论先行：Foundry 继续作为唯一产品面与部署控制平面，SOTA 不作为第二运行时或第二公开站点接入，而是收敛为上游 Skill Intelligence Factory，向 Foundry 输出版本化 artifact 与启发式结果。</div>
+      <div class="meta">参与方：Primary Synthesizer、advisor-hickey、bmad-architect</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-num">01</div>
+    <h2>执行摘要</h2>
+    <div class="key-message">本次不是“把两个项目硬拼成一个仓库”，而是先完成职责去缠绕：产品面、公开入口、部署运行时只保留 Foundry 一套；分类、打分、去重、bundle 候选生成则沉到 SOTA 派生的离线工厂层。</div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-value">13个平台</div>
+        <div class="kpi-label">统一产品面仍由 Foundry 承接，不拆分平台入口</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">1个公开站点</div>
+        <div class="kpi-label">不保留第二商城、不保留第二并行推荐站</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">0个新增关键路径运行时</div>
+        <div class="kpi-label">JIT/MCP 本地运行时不进入公开目录、部署、比武主链路</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-value">4个迁移阶段</div>
+        <div class="kpi-label">先冻结 contract，再 shadow run，再 artifact cutover，最后按需启用智能侧车</div>
+      </div>
+    </div>
+    <ul class="summary-list">
+      <li>推荐方案是 <strong>artifact-level convergence</strong>，不是 repo-level 或 runtime-level fusion。这样既能吸收 SOTA 的高价值能力，又不会把本地状态、遥测、安装器路径污染到 Foundry 的公开产品面。</li>
+      <li>Foundry 的唯一职责被进一步收紧为：发现、比较、部署、管理，以及围绕 13 个平台的一致化控制平面；SOTA 的耐久价值被重定义为：技能工厂、评分规则、taxonomy 映射、bundle 候选生产。</li>
+      <li>系统的真正切换点是“单一 artifact contract”是否成立，而不是代码是否搬进同一个目录。只要 schema、taxonomy、评分语义、bundle 语义未冻结，就不能宣称完成合并。</li>
+      <li>回滚策略必须是 artifact 级别：回滚 catalog / bundle 版本即可，不触碰 deploy state、provider 实现与用户机器上的安装态。</li>
+    </ul>
+  </section>
+
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-num">02</div>
+      <h2>综合结论</h2>
+      <div class="key-message">两边确实有“技能目录、分类、推荐、bundle”上的能力重叠，但它们不该以平级产品的方式继续生长；应改成“上游工厂 + 下游产品面”的单向依赖关系。</div>
+      <div class="pillar-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h3>为什么不做整仓硬合并</h3>
+          <ul>
+            <li>SOTA 带着本地 telemetry、安装器路径、MCP/JIT 运行时假设，这些都不适合进入 Foundry 的公开关键路径。</li>
+            <li>如果现在强行整合，最终会得到两个事实源、两套路由语义、两套用户入口，产品边界反而更模糊。</li>
+            <li>用户真正需要的是一个稳定一致的入口，而不是第二个“更聪明但更脆弱”的公开站点。</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h3>为什么选 artifact 收敛</h3>
+          <ul>
+            <li>artifact 是最小耦合面：可以承载 catalog、rating、taxonomy、bundle，而不引入额外线上运行时。</li>
+            <li>Foundry 现有 Web、Worker、CLI、Server 都可以消费 artifact，却不必感知 SOTA 的本地实现细节。</li>
+            <li>这种路径天然支持 shadow run，可对比总量、ID churn、分类分布、评分分布，风险可控。</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h3>目标边界是什么</h3>
+          <ul>
+            <li>公开浏览、筛选、详情、部署、比武、管理等用户链路只出现在 Foundry 名下。</li>
+            <li>Recommendation / route planning 未来可以回来，但必须建立在 Foundry 拥有的 schema 上，并作为可选 sidecar。</li>
+            <li>“是否合并完成”的标准不是 Python 文件是否搬家，而是 Foundry 是否只依赖一套版本化 artifact truth。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="implication">
+        <h3>管理含义</h3>
+        <ul>
+          <li>短期内不做用户可感知的大迁移，先把内部 contract、seed、artifact 管线打通。</li>
+          <li>所有后续推荐能力都以“Foundry 公开产品稳定性优先”为门槛，不能为了智能度牺牲入口一致性。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">03</div>
+    <h2>目标拓扑与职责切分</h2>
+    <div class="key-message">未来状态不是“双头架构”，而是一个明确的上游到下游链路：Skill Intelligence Factory 产出版本化 artifact，Foundry 统一消费并对外提供发现、部署与运营体验。</div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Skill Intelligence Factory</h3>
+        <ul>
+          <li>负责 ingest、validate、dedup、categorize、score、bundle generation。</li>
+          <li>可以吸收 SOTA 的启发式、分类规则和 pipeline 资产。</li>
+          <li>输出必须是版本化 artifact，而不是让下游依赖其本地状态目录。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Discovery Plane</h3>
+        <ul>
+          <li>由 Foundry 的 `web/` 与 `worker/` 承接公开浏览、搜索、筛选、详情与目录 API。</li>
+          <li>它是唯一公开商城与唯一产品面，不再接受第二前台。</li>
+          <li>任何推荐结果展示都必须挂在 Foundry 自有路由与 schema 下。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Deploy Control Plane</h3>
+        <ul>
+          <li>继续由 Foundry 的 CLI、Server、Provider 系统承接。</li>
+          <li>部署态、用户机器状态、manifest、snapshot 与 provider 实现保持不变。</li>
+          <li>它不应被 SOTA 的本地 MCP/JIT 运行时反向侵入。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Optional Intelligence Adapter</h3>
+        <ul>
+          <li>只在 artifact contract 稳定后才考虑启用。</li>
+          <li>面向 related skills、route planning、future JIT assembly 等增强能力。</li>
+          <li>必须是非关键路径 sidecar，可关闭、可回退、不可绑死主站运行。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-num">04</div>
+      <h2>迁移路径与里程碑</h2>
+      <div class="key-message">迁移顺序必须先收口语义，再验证差异，最后才允许切换生产 artifact；任何先上推荐、后补 schema 的路径都会把未来维护成本放大。</div>
+      <div class="phase-grid">
+        <div class="phase">
+          <div class="phase-header">Phase 1 | Contract Freeze</div>
+          <ul>
+            <li>冻结 skill schema、taxonomy 语义、rating 语义、bundle schema。</li>
+            <li>明确 ID 规范与 dedup 规则。</li>
+            <li>形成唯一 artifact contract。</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-header">Phase 2 | Shadow Run</div>
+          <ul>
+            <li>对比现有 Foundry artifact 与 SOTA 派生产物。</li>
+            <li>重点看 total count、ID churn、category spread、score distribution。</li>
+            <li>不改变任何公开入口。</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-header">Phase 3 | Artifact Cutover</div>
+          <ul>
+            <li>仅切换 seed/build pipeline 到 canonical artifact。</li>
+            <li>Foundry 的公开 UX、CLI、API 路径保持稳定。</li>
+            <li>回滚单位为 artifact version。</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-header">Phase 4 | Intelligence Opt-In</div>
+          <ul>
+            <li>在 Foundry 自有 schema 上重建 recommendation / route planning。</li>
+            <li>以 sidecar 形式试点，不进入关键路径。</li>
+            <li>先验证，再逐步暴露到产品面。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="implication">
+        <h3>执行纪律</h3>
+        <ul>
+          <li>禁止把“未来可能有价值的 SOTA runtime”直接塞进 Foundry 主链路做一次性大合并。</li>
+          <li>禁止在 contract 未冻结前引入第二公开 UI 或第二 catalog truth。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">05</div>
+    <h2>证据与评审归因</h2>
+    <div class="key-message">当前结论并非拍脑袋决定，而是同时来自 canonical 文档基线、路线/入口事实，以及两路架构批判的交叉收敛。</div>
+    <table>
+      <thead>
+        <tr>
+          <th>来源</th>
+          <th>关键事实</th>
+          <th>对结论的影响</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>System Architecture</td>
+          <td>`SYSTEM_ARCHITECTURE.md` 已将目标拓扑明确为 Foundry 单一产品面 + SIF 上游工厂，并定义 4 个 bounded contexts。</td>
+          <td>证明目标态是“单向依赖”而非“双站并行”。</td>
+        </tr>
+        <tr>
+          <td>PRD</td>
+          <td>`PRD.md` 的 FR-15 / FR-16 已把单一 artifact contract 与 recommendation critical path 隔离写成正式要求。</td>
+          <td>把架构边界从建议升级为产品级需求约束。</td>
+        </tr>
+        <tr>
+          <td>UX Map</td>
+          <td>`USER_EXPERIENCE_MAP.md` 明确 SOTA 不是 canonical user-facing route/page/marketplace。</td>
+          <td>防止未来重新长出第二入口、第二站点。</td>
+        </tr>
+        <tr>
+          <td>advisor-hickey</td>
+          <td>批判焦点是不要把 public runtime 与 local intelligence runtime complect 在一起，先拆边界再谈吸收。</td>
+          <td>支撑“不做整仓硬合并”的否决结论。</td>
+        </tr>
+        <tr>
+          <td>bmad-architect</td>
+          <td>执行视角强调先定义 canonical artifact contract，再做 shadow comparison 与 cutover。</td>
+          <td>支撑“四阶段迁移路径”与 artifact-level rollback。</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="source-list">
+      <li>`doc/00_project/initiative_openclaw_foundry/SYSTEM_ARCHITECTURE.md`</li>
+      <li>`doc/00_project/initiative_openclaw_foundry/PRD.md`</li>
+      <li>`doc/00_project/initiative_openclaw_foundry/USER_EXPERIENCE_MAP.md`</li>
+      <li>本轮并行架构评审：`advisor-hickey`、`bmad-architect`</li>
+    </ul>
+  </section>
+
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-num">06</div>
+      <h2>风险与缓释</h2>
+      <div class="key-message">最大的风险不是“合并太慢”，而是“边界没拆干净就开始上线新智能能力”，这样会同时制造产品漂移、事实源分裂和回滚困难。</div>
+      <table class="risk-table">
+        <thead>
+          <tr>
+            <th>风险</th>
+            <th>状态</th>
+            <th>缓释动作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="risk-title">双重 <span class="term-token">catalog truth</span></div>
+              <div class="risk-caption">持续存在</div>
+            </td>
+            <td class="status-cell"><span class="status-tag status-red">高</span></td>
+            <td>先冻结 schema 与 artifact contract，再统一 seed/build import 路径。</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="risk-title">第二公开 UI</div>
+              <div class="risk-caption">再次长出</div>
+            </td>
+            <td class="status-cell"><span class="status-tag status-red">高</span></td>
+            <td>在 PRD、Architecture、UX Map 中写死“不引入第二 runtime/UI”护栏。</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="risk-title"><span class="term-token">Shadow run</span> 指标</div>
+              <div class="risk-caption">不充分</div>
+            </td>
+            <td class="status-cell"><span class="status-tag status-amber">中</span></td>
+            <td>至少比较 total count、ID churn、category spread、score distribution 四项。</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="risk-title">推荐能力</div>
+              <div class="risk-caption">过早进入关键路径</div>
+            </td>
+            <td class="status-cell"><span class="status-tag status-amber">中</span></td>
+            <td>只允许以 optional sidecar 方式试点，并保留一键关闭能力。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">07</div>
+    <h2>决策与下一步动作</h2>
+    <div class="key-message">现在的决策已经足够进入执行准备，但仍然是“先 contract，后 cutover”的执行范式；任何跳步都会破坏本次架构收口的价值。</div>
+    <div class="next-actions">
+      <div class="card">
+        <h3>动作 1：定义 canonical artifact adapter</h3>
+        <p>把 SOTA 输出转换为 Foundry 拥有的 schema，形成可版本化输入。</p>
+        <div class="action-meta">Owner: Foundry maintainers | Priority: P0 | Type: Contract</div>
+      </div>
+      <div class="card">
+        <h3>动作 2：执行 shadow comparison</h3>
+        <p>在不改公开 UX 的前提下，对比当前 artifact 与 SOTA 派生 artifact 的分布差异。</p>
+        <div class="action-meta">Owner: Data / catalog pipeline | Priority: P0 | Type: Evidence</div>
+      </div>
+      <div class="card">
+        <h3>动作 3：冻结唯一事实源</h3>
+        <p>在代码与 seed pipeline 中显式标定唯一 catalog truth，禁止双轨继续增长。</p>
+        <div class="action-meta">Owner: Platform architecture | Priority: P1 | Type: Governance</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-num">08</div>
+      <h2>2026-05-18 岗位配置包登录边界</h2>
+      <div class="key-message">站点入口、Skill/MCP/API 文档复制继续公开；只有岗位配置包的安装命令、文件下载与 pack payload 交付进入注册态动作，避免把普通 Skill 复制也误锁住。</div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>前端边界</h3>
+          <ul>
+            <li>Skill install modal、Skill detail、MCP 列表、API docs 示例复制全部保持公开。</li>
+            <li>`web/lib/protected-downloads.ts` 只服务岗位配置包安装命令复制与文件下载。</li>
+            <li>`/packs` 的安装/下载动作调用 protected helper，缺少 session 时回跳登录。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>后端边界</h3>
+          <ul>
+            <li>邮箱 magic-link 与微信 OAuth 共同作为注册/登录入口。</li>
+            <li>Worker 通过 `POST /api/packs/:id/download-token` 签发短期 token。</li>
+            <li>Worker 通过 `GET /api/packs/:id/file?path=...` 读取 D1/R2 payload 并禁止公共缓存。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>发布边界</h3>
+          <ul>
+            <li>`guide.html` 可继续作为公开说明页发布。</li>
+            <li>install script、manifest、json/zip/config payload 不再作为 public Pages 文件发布。</li>
+            <li>CI 先上传 protected payload 到 R2，再 prune `web/out/packs` 后部署 Pages。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>OpenClaw Foundry v3.0 — 架构决策报告</p>
+    <p>Maurice | maurice_wen@proton.me</p>
+    <p class="attr">CONFIDENTIAL -- For internal use only | Generated on 2026-04-23 | Auth-wall companion updated on 2026-05-18</p>
+  </footer>
+</body>
+</html>

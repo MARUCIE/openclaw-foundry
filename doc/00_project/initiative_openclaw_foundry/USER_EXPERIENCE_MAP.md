@@ -14,31 +14,49 @@
    - wants to inspect catalog, profiles, customers, and model access
 4. **Platform evaluator** (v3.0):
    - wants to compare multiple Claw platforms side-by-side before committing to one
+5. Anonymous browser:
+   - wants to browse public skill, MCP, pack, pricing, news, and API documentation pages before registration
+6. Registered operator:
+   - wants to install/download Job Pack payloads after email or WeChat registration/login
 
 ## Entry Channels
 | Channel | Entry | User Intent | Current State |
 | --- | --- | --- | --- |
 | Local CLI | `ocf init` | Wizard -> blueprint -> local install | Implemented |
 | Thin client | `foundry.sh` / `foundry.ps1` | Remote analysis with local execution | Implemented |
-| Browser wizard | `/` -> `client/index.html` | Fill wizard in browser and copy install command | Implemented |
+| Browser wizard | legacy static `/` -> `client/index.html` | Fill wizard in browser and copy install command | Implemented |
 | Static manual | `/pipeline-manual.html` | Browse role/pipeline examples | Implemented |
 | Operator API | `/api/*`, `/llm/v1/*` | Inspect server state and use managed proxy | Implemented |
-| **Web Console** | `web/` (Next.js) | Visual management: catalog, deploy, arena | v3.0 |
+| **Web Console** | canonical app root in `web/` (Next.js) | Visual management: catalog, deploy, arena | v3.0 |
+| Registration/Login | `/login` (web) | Email magic-link registration/login and WeChat scan registration/login | Implemented 2026-05-18 |
+
+## 2026-04-23 Boundary Decision
+1. Users discover, compare, and deploy through Foundry surfaces only.
+2. `sota-skill-library` is not a canonical user-facing route, page, or parallel marketplace.
+3. Any future recommendation or JIT planning experience must appear behind Foundry-owned routes and schema, not as a second public product entry.
+
+## 2026-05-18 Auth-Wall Boundary Decision
+1. Public browsing is allowed across the web console and legacy browser wizard.
+2. Ordinary Skill/MCP/API documentation copy actions are public and must not display login locks.
+3. Job Pack install/download payload delivery is not public browsing; those actions require a registered session.
+4. Supported registration/login routes are email magic-link and WeChat OAuth.
+5. Pack payload files are not served as public static assets; `guide.html` remains public, while install scripts and payload files are served through Worker auth/token APIs.
 
 ## Route / Page Map
 | Surface | Path or Command | Purpose |
 | --- | --- | --- |
-| Browser wizard | `/` | Multi-step configuration form and blueprint preview |
+| Browser wizard | legacy static `/` | Multi-step configuration form and blueprint preview |
 | Pipeline manual | `/pipeline-manual.html` | Reference matrix of roles and pipeline examples |
 | Shell bootstrap | `/foundry.sh` | macOS/Linux install, uninstall, repair bootstrap |
 | PowerShell bootstrap | `/foundry.ps1` | Windows install, uninstall, repair bootstrap |
+| Registration/Login | `/login` (web) | Email magic-link and WeChat scan registration/login |
 | Health API | `/api/health` | Server reachability check |
 | Analyze API | `/api/analyze` | Generate blueprint from wizard answers |
 | Catalog API | `/api/catalog` | Browse skill catalog |
 | Profiles API | `/api/profiles` | Read reusable preset profiles |
 | Customers API | `/api/customers` | Manage managed-LLM customers |
 | LLM proxy | `/llm/v1/models`, `/llm/v1/chat/completions` | Tier-gated model access |
-| **Console Dashboard** | `/` (web) | Platform stats, recent deploys, arena matches |
+| **Console Dashboard** | canonical `/` (web) | Platform stats, recent deploys, arena matches |
 | **Console Catalog** | `/catalog` (web) | Browse/filter 13 platforms, view details |
 | **Console Deploy** | `/deploy` (web) | 4-step deploy wizard with log streaming |
 | **Console Arena** | `/arena` (web) | Multi-claw comparison battlefield |
@@ -50,6 +68,8 @@
 | Deploy Status | `GET /api/deploy/:jobId` | Poll deploy progress |
 | Arena API | `POST /api/arena` | Create multi-provider match |
 | Arena Status | `GET /api/arena/:matchId` | Poll arena match + results |
+| Pack Download Token API | `POST /api/packs/:id/download-token` | Registered-session token mint for protected pack install/download |
+| Pack File API | `GET /api/packs/:id/file?path=...` | Protected pack file delivery by bearer session or short-lived token |
 
 ## Core Journeys
 ### Journey 1: Local CLI Bootstrap
@@ -99,6 +119,7 @@
 7. When all lanes complete: scoring table + winner badge
 8. User can "导出报告" or "再来一局"
 
+<<<<<<< Updated upstream
 ### Journey 7: Registration Wall And Login Capability Check
 1. User can browse public pages and copy Skill install commands without signing in
 2. User reaches a job-pack copy/download action and is sent to `/login?return=/packs#wall`
@@ -107,6 +128,16 @@
 5. If email delivery is not configured, the email CTA is disabled or the request fails with a visible setup message
 6. If Enterprise WeChat OAuth is configured, the WeChat CTA links to `/api/auth/wechat/start`
 7. If Enterprise WeChat OAuth is not configured, the WeChat CTA stays disabled and no broken OAuth jump is exposed
+=======
+### Journey 7: Public Skill Copy, Registered Job Pack Access
+1. Anonymous user opens public pages such as `/packs`, `/api-docs`, `/explore/mcp`, or the legacy browser wizard
+2. User can read, search, filter, and inspect public information without being blocked by a route wall
+3. User copies Skill, MCP, API-doc, or browser-wizard commands directly without registration
+4. User clicks a Job Pack install/download action on `/packs`
+5. If no active registered session exists, the UI redirects to `/login?return=/packs#install-<pack>`
+6. User registers or logs in through email magic-link or WeChat OAuth
+7. Frontend requests Worker-protected pack token/file routes and writes the gated Job Pack command to clipboard
+>>>>>>> Stashed changes
 
 ## UX Gaps
 1. ~~No authenticated web operator console~~ **Resolved by v3.0 Web Console** — customer management still API-only
@@ -114,3 +145,13 @@
 3. Error/empty states for unsupported model routes are API-level rather than explanatory product UX
 4. `pipeline-manual.html` is discoverable as static content but not clearly tied to the main browser-wizard journey
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
+6. Remote production verification must confirm CI uploaded protected pack payloads to R2 before Pages output is considered fully deploy-ready
+
+## Round-Based Acceptance Criteria
+
+| Stage | Focus | Criteria | Tooling |
+|-------|-------|----------|---------|
+| **Round 1** | Integrity | Build pass, Doctor green, API health OK | \`npm run build\`, \`ocf doctor\` |
+| **Round 2** | Journeys | Essential user journeys (CLI, Web, Admin) verified | \`VERIFICATION.md#Round-2\` |
+| **Round 3** | Performance | Web Console LCP < 2.5s, Server response < 5s | Chrome DevTools |
+| **Round 4** | Compliance | Policy alignment, data protection, no mock in prod | \`PRD.md\` Checklist |

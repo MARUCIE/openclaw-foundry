@@ -35,6 +35,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body { overflow-x: hidden; }
+
 body {
   font-family: var(--font-body);
   color: var(--body);
@@ -88,7 +90,7 @@ section:last-of-type { border-bottom: none; }
   font-weight: 700;
   color: var(--blue-700);
   letter-spacing: 2px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 h2 {
@@ -117,7 +119,7 @@ h4 {
   margin-bottom: 8px;
 }
 
-p { margin-bottom: 14px; }
+p { margin-bottom: 16px; }
 p:last-child { margin-bottom: 0; }
 
 /* Key Message */
@@ -190,8 +192,8 @@ p:last-child { margin-bottom: 0; }
   padding-bottom: 8px;
   margin-bottom: 12px;
 }
-.pillar ul { padding-left: 18px; margin-top: 8px; }
-.pillar li { font-size: 14px; margin-bottom: 6px; color: var(--body); }
+.pillar ul { padding-left: 20px; margin-top: 8px; }
+.pillar li { font-size: 14px; margin-bottom: 8px; color: var(--body); }
 
 /* Cards */
 .card {
@@ -302,7 +304,7 @@ tr:nth-child(even) td { background: var(--blue-50); }
 .phase-header {
   background: var(--blue-700);
   color: #fff;
-  padding: 10px 16px;
+  padding: 12px 16px;
   font-weight: 700;
   font-size: 14px;
   margin: -24px -24px 20px;
@@ -310,8 +312,8 @@ tr:nth-child(even) td { background: var(--blue-50); }
 .phase-header.p2 { background: var(--blue-500); }
 .phase-header.p3 { background: #0088CC; }
 .phase-header.p4 { background: #00A3BF; }
-.phase ul { padding-left: 18px; }
-.phase li { font-size: 14px; margin-bottom: 6px; }
+.phase ul { padding-left: 20px; }
+.phase li { font-size: 14px; margin-bottom: 8px; }
 .phase .timeline { font-size: 12px; color: var(--secondary); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
 
 /* Pyramid */
@@ -322,10 +324,10 @@ tr:nth-child(even) td { background: var(--blue-50); }
 .pyramid-layer {
   display: flex;
   align-items: center;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 .pyramid-block {
-  padding: 14px 20px;
+  padding: 16px 20px;
   color: #fff;
   font-weight: 700;
   font-size: 14px;
@@ -333,7 +335,7 @@ tr:nth-child(even) td { background: var(--blue-50); }
   flex: 1;
 }
 .pyramid-desc {
-  padding: 14px 20px;
+  padding: 16px 20px;
   font-size: 13px;
   color: var(--secondary);
   flex: 1.5;
@@ -345,7 +347,7 @@ code {
   font-family: var(--font-mono);
   font-size: 13px;
   background: var(--bg-gray);
-  padding: 2px 6px;
+  padding: 4px 8px;
   color: var(--blue-700);
 }
 pre {
@@ -430,12 +432,12 @@ pre {
 .swarm-cell .advisor-verdict {
   font-weight: 700;
   font-size: 13px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* List styling */
 ul, ol { padding-left: 20px; margin: 12px 0; }
-li { margin-bottom: 6px; }
+li { margin-bottom: 8px; }
 
 /* Schema block */
 .schema-block {
@@ -453,7 +455,7 @@ li { margin-bottom: 6px; }
 .schema-field {
   font-family: var(--font-mono);
   font-size: 13px;
-  padding: 3px 0;
+  padding: 4px 0;
   color: var(--body);
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
