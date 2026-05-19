@@ -14,7 +14,7 @@ import type { Customer } from './types.js';
 import { log } from './utils.js';
 import { getProvider, listProviders, getProviderStats } from './providers/index.js';
 
-const VERSION = '2.0.0';
+const VERSION = '4.0.0';
 
 const program = new Command()
   .name('ocf')

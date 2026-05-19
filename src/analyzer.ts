@@ -302,7 +302,7 @@ function buildLlmConfig(answers: WizardAnswers): Blueprint['llm'] {
     const modelDefaults: Record<string, string> = {
       google: 'gemini-2.5-flash',
       anthropic: 'claude-sonnet-4-6',
-      openai: 'gpt-4.1-mini',
+      openai: 'gpt-4o-mini',
     };
     return {
       mode: 'byok',

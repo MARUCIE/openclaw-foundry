@@ -8,6 +8,7 @@ import { getFullCatalog } from './catalog.js';
 import { listProfiles, loadProfile } from './profiles.js';
 import { createLlmProxy } from './llm-proxy.js';
 import { createCustomer, listCustomers, getCustomer, updateTier, deactivateCustomer, getUsageSummary } from './customers.js';
+import { migrateFromJson } from "./customers.js";
 import { log } from './utils.js';
 import { listProviders, getProvider, getProviderStats } from './providers/index.js';
 import type { ProviderId } from './types.js';
@@ -51,7 +52,7 @@ app.use('/api', (req, res, next) => {
 
 // --- Health check ---
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', version: '2.0.0', uptime: process.uptime(), providers: getProviderStats() });
+  res.json({ status: 'ok', version: '4.0.0', uptime: process.uptime(), providers: getProviderStats() });
 });
 
 // --- Providers: list and query supported platforms ---
@@ -372,7 +373,8 @@ app.get('/foundry.ps1', async (req, res) => {
 });
 
 // --- Start ---
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, '0.0.0.0', async () => {
+  await migrateFromJson();
   const stats = getProviderStats();
   const totalProviders = listProviders().length;
   log.ok(`Foundry Server v3.0 running on http://0.0.0.0:${PORT}`);

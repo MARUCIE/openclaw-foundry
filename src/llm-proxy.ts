@@ -7,6 +7,8 @@ import { log } from './utils.js';
 const GOOGLE_KEY = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || '';
 const GEMINI_BASE = process.env.GEMINI_BASE_URL;
 const ANTHROPIC_KEY = process.env.UPSTREAM_ANTHROPIC_KEY || '';
+const OPENAI_KEY = process.env.UPSTREAM_OPENAI_KEY || process.env.OPENAI_API_KEY || '';
+const OPENAI_BASE = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
 const DEFAULT_MODEL = process.env.OCF_DEFAULT_MODEL || 'gemini-2.5-flash';
 
 // --- Model routing table ---
@@ -137,6 +139,9 @@ export function createLlmProxy(): Router {
         case 'anthropic':
           response = await callAnthropic(body, route.actualModel);
           break;
+        case 'openai':
+          response = await callOpenAi(body, route.actualModel);
+          break;
         default:
           res.status(400).json({ error: { message: `Provider '${route.provider}' not yet supported`, type: 'invalid_request' } });
           return;
@@ -217,7 +222,7 @@ async function callAnthropic(req: ChatRequest, model: string): Promise<ChatRespo
     .filter(m => m.role !== 'system')
     .map(m => ({ role: m.role, content: m.content }));
 
-  // Direct Anthropic API call (no SDK dependency needed)
+  // Direct Anthropic API call
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -263,13 +268,41 @@ async function callAnthropic(req: ChatRequest, model: string): Promise<ChatRespo
   };
 }
 
+// --- Upstream: OpenAI GPT ---
+
+async function callOpenAi(req: ChatRequest, model: string): Promise<ChatResponse> {
+  if (!OPENAI_KEY) throw new Error('UPSTREAM_OPENAI_KEY not configured on server');
+
+  const resp = await fetch(`${OPENAI_BASE}/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_KEY}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages: req.messages,
+      temperature: req.temperature,
+      max_tokens: req.max_tokens,
+      stream: false,
+    }),
+  });
+
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`OpenAI API error: ${resp.status} ${err}`);
+  }
+
+  return await resp.json() as ChatResponse;
+}
+
 // --- Helpers ---
 
 function getAvailableModels(tier: string): string[] {
   const tierModels: Record<string, string[]> = {
-    basic:      ['gemini-2.5-flash'],
-    pro:        ['gemini-2.5-flash', 'gemini-2.5-pro', 'claude-sonnet-4-6'],
-    enterprise: ['gemini-2.5-flash', 'gemini-2.5-pro', 'claude-sonnet-4-6', 'claude-opus-4-6'],
+    basic:      ['gemini-2.5-flash', 'gpt-4o-mini'],
+    pro:        ['gemini-2.5-flash', 'gemini-2.5-pro', 'claude-sonnet-4-6', 'gpt-4o-mini', 'gpt-4o'],
+    enterprise: ['gemini-2.5-flash', 'gemini-2.5-pro', 'claude-sonnet-4-6', 'claude-opus-4-6', 'gpt-4o-mini', 'gpt-4o'],
   };
   return tierModels[tier] || tierModels['basic']!;
 }
