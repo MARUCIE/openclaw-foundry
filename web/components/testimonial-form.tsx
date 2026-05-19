@@ -52,8 +52,8 @@ export function TestimonialForm({ skillId, onDone }: { skillId: string; onDone: 
               onClick={() => setIsUp(up)}
               className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-bold transition-all"
               style={{
-                background: isUp === up ? (up ? '#dcfce7' : '#fee2e2') : 'var(--surface-container)',
-                color: isUp === up ? (up ? '#166534' : '#991b1b') : 'var(--on-surface-variant)',
+                background: isUp === up ? (up ? 'var(--af-emerald-bg)' : 'var(--af-red-bg)') : 'var(--surface-container)',
+                color: isUp === up ? (up ? 'var(--af-emerald-fg)' : 'var(--af-red-fg)') : 'var(--on-surface-variant)',
               }}
             >
               <span className="material-symbols-outlined text-base">{up ? 'thumb_up' : 'thumb_down'}</span>

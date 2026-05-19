@@ -65,12 +65,12 @@ function CatalogContent() {
   const statusLabels: Record<string, string> = { all: t('catalog.all'), stable: t('catalog.stable'), beta: t('catalog.beta'), preview: t('catalog.preview') };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+    <div className="page-shell py-12 space-y-8">
       <div className="flex items-center gap-3">
         <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
-          <h1 className="text-3xl font-extrabold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{t('catalog.title')}</h1>
-          <p className="text-sm mt-1" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
+          <h1 className="text-3xl font-extrabold text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}>{t('catalog.title')}</h1>
+          <p className="text-sm mt-1 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
         </div>
       </div>
 
@@ -121,7 +121,7 @@ function CatalogContent() {
       </div>
 
       {/* Results count */}
-      <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
+      <p className="text-sm text-pretty" style={{ color: 'var(--on-surface-variant)' }}>
         {filtered.length} / {t('catalog.count', { count: providers.length })}
       </p>
 
@@ -155,7 +155,7 @@ function CatalogContent() {
 function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
   const { t } = useI18n();
   const icon = TYPE_ICONS[p.type] || 'devices';
-  const color = TYPE_COLORS[p.type] || '#616161';
+  const color = TYPE_COLORS[p.type] || 'var(--af-grey-mid)';
 
   return (
     <div
@@ -174,8 +174,8 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
           <span className="material-symbols-outlined text-xl">{icon}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm truncate" style={{ fontFamily: 'Manrope, sans-serif' }}>{p.name}</h3>
-          <p className="text-xs truncate" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
+          <h3 className="font-semibold text-sm truncate text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>{p.name}</h3>
+          <p className="text-xs truncate text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
         </div>
       </div>
 
@@ -184,7 +184,7 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
         <StatusBadge status={p.status} />
       </div>
 
-      <p className="text-xs line-clamp-2" style={{ color: 'var(--on-surface-variant)' }}>
+      <p className="text-xs line-clamp-2 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>
         {p.description}
       </p>
 
@@ -205,7 +205,7 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
         <Link
           href={`/deploy?provider=${p.id}`}
           className="flex-1 text-center py-2 rounded-lg text-xs font-bold text-white transition-opacity hover:opacity-90"
-          style={{ background: 'linear-gradient(135deg, #497cff, #0053db)' }}
+          style={{ background: 'linear-gradient(135deg, var(--af-brand-bright), var(--surface-tint))' }}
         >
           {t('catalog.deploy')}
         </Link>

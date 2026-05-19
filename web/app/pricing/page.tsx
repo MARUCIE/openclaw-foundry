@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -10,7 +11,8 @@ import { PRICING_META } from '@/lib/pricing-data';
 const RECOMMENDATIONS = [
   {
     icon: 'person',
-    bg: 'var(--primary-fixed)',
+    bg: 'var(--primary-container)',
+    color: 'var(--primary)',
     titleKey: 'pricing.individual',
     subtitle: 'OpenClaw + QClaw',
     descKey: 'pricing.individual.desc',
@@ -18,7 +20,8 @@ const RECOMMENDATIONS = [
   },
   {
     icon: 'groups',
-    bg: 'var(--secondary-fixed)',
+    bg: 'var(--secondary-container)',
+    color: 'var(--secondary)',
     titleKey: 'pricing.team',
     subtitle: 'HiClaw + ArkClaw',
     descKey: 'pricing.team.desc',
@@ -27,7 +30,8 @@ const RECOMMENDATIONS = [
   },
   {
     icon: 'apartment',
-    bg: 'var(--tertiary-fixed)',
+    bg: 'var(--tertiary-container)',
+    color: 'var(--tertiary)',
     titleKey: 'pricing.enterprise',
     subtitle: 'Huawei Cloud + Alibaba Cloud',
     descKey: 'pricing.enterprise.desc',
@@ -35,7 +39,6 @@ const RECOMMENDATIONS = [
   },
 ];
 
-/* ── Merged type for table rendering ── */
 interface PricingRow {
   id: string;
   name: string;
@@ -73,178 +76,126 @@ export default function PricingPage() {
   const platforms = data ? mergeData(data.providers) : [];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="page-shell py-12 space-y-20">
       {/* Header */}
-      <div className="text-center mb-16 space-y-4">
-        <h1
-          className="text-3xl md:text-4xl font-extrabold"
-          style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-        >
+      <div className="text-center space-y-6">
+        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
           {t('pricing.title')}
         </h1>
-        <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--on-surface-variant)' }}>
+        <p className="text-xl font-medium opacity-60 max-w-2xl mx-auto leading-relaxed text-pretty">
           {t('pricing.subtitle', { count: platforms.length || 12 })}
         </p>
       </div>
 
       {/* Comparison Table */}
       {isLoading ? (
-        <div className="h-64 rounded-2xl animate-pulse mb-20" style={{ background: 'var(--surface-container)' }} />
+        <div className="h-96 rounded-[3rem] animate-pulse bg-[var(--surface-container-low)]" />
       ) : (
-        <section className="mb-20">
-          <div className="md:hidden text-center mb-3 text-xs font-medium flex items-center justify-center gap-1" style={{ color: 'var(--on-surface-variant)' }}>
-            <span className="material-symbols-outlined text-sm">swipe</span>
+        <section className="space-y-8">
+          <div className="md:hidden flex items-center justify-center gap-2 text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40">
+            <span className="material-symbols-outlined text-lg">swipe</span>
             {t('pricing.swipeHint')}
           </div>
-          <div className="overflow-x-auto rounded-2xl" style={{ border: '1px solid rgba(195, 198, 215, 0.3)' }}>
-          <table className="w-full text-sm" style={{ minWidth: `${100 + platforms.length * 120}px` }}>
-            <thead>
-              <tr style={{ background: 'var(--surface-container)' }}>
-                <th className="text-left p-4 font-bold sticky left-0 z-10 text-xs uppercase tracking-wider" style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', minWidth: '100px' }}>
-                  {t('pricing.comparison')}
-                </th>
-                {platforms.map(p => (
-                  <th key={p.id} className="p-4 text-center font-bold relative" style={{ color: 'var(--on-surface)', minWidth: '110px', background: p.recommended ? 'rgba(0, 62, 168, 0.1)' : undefined }}>
-                    {p.name}
-                    {p.recommended && (
-                      <span className="block text-[9px] font-bold mt-1 px-2 py-0.5 rounded-full mx-auto w-fit" style={{ background: 'var(--primary)', color: 'var(--on-primary)' }}>
-                        {t('pricing.recommended')}
-                      </span>
-                    )}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {/* Type */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.type')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.type}</td>
-                ))}
-              </tr>
-              {/* Tier */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.tier')}</td>
-                {platforms.map(p => {
-                  const tierInfo = TIER_CONFIG[p.tier] || TIER_CONFIG.guided;
-                  return (
-                    <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
-                      <span className="inline-flex items-center gap-1.5 text-xs">
-                        <span className="w-2 h-2 rounded-full" style={{ background: tierInfo.dot }} />
-                        {t(tierInfo.labelKey)}
-                      </span>
-                    </td>
-                  );
-                })}
-              </tr>
-              {/* Price */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.price')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--primary)' }}>{p.price}</td>
-                ))}
-              </tr>
-              {/* Model */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.model')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.model}</td>
-                ))}
-              </tr>
-              {/* Skills */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.skills')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs font-bold" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.skills}</td>
-                ))}
-              </tr>
-              {/* IM */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.im')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center text-xs" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)', color: 'var(--on-surface)' }}>{p.im}</td>
-                ))}
-              </tr>
-              {/* Open Source */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 font-bold text-xs uppercase tracking-wider sticky left-0" style={{ background: 'var(--surface-container-lowest)', color: 'var(--on-surface-variant)' }}>{t('pricing.openSource')}</td>
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
-                    <span className="material-symbols-outlined text-lg" style={{ color: p.opensource ? 'var(--on-tertiary-container)' : 'var(--outline-variant)', fontVariationSettings: "'FILL' 1" }}>
+          
+          <div className="rounded-[2.5rem] border border-[var(--outline-variant)] bg-[var(--surface-container-lowest)] shadow-sm overflow-hidden">
+            <div className="overflow-x-auto scrollbar-hide">
+              <table className="w-full text-left border-collapse" style={{ minWidth: `${200 + platforms.length * 160}px` }}>
+                <thead>
+                  <tr>
+                    <th className="p-8 sticky left-0 z-20 bg-[var(--surface-container-lowest)] border-b border-[var(--outline-variant)]">
+                      <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40">{t('pricing.comparison')}</span>
+                    </th>
+                    {platforms.map(p => (
+                      <th key={p.id} className={`p-8 border-b border-[var(--outline-variant)] relative ${p.recommended ? 'bg-[var(--primary-container)]/20' : ''}`}>
+                        <div className="space-y-2">
+                          <span className="block text-sm font-black tracking-tight">{p.name}</span>
+                          {p.recommended && (
+                            <span className="inline-block text-[var(--af-fs-micro)] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-[var(--primary)] text-white">
+                              {t('pricing.recommended')}
+                            </span>
+                          )}
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[var(--outline-variant)]">
+                  <TableRow label={t('pricing.type')} data={platforms.map(p => p.type)} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.tier')} data={platforms.map(p => {
+                    const tierInfo = TIER_CONFIG[p.tier] || TIER_CONFIG.guided;
+                    return (
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full" style={{ background: tierInfo.dot }} />
+                        <span className="font-bold">{t(tierInfo.labelKey)}</span>
+                      </div>
+                    );
+                  })} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.price')} data={platforms.map(p => <span className="font-black text-[var(--primary)]">{p.price}</span>)} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.model')} data={platforms.map(p => p.model)} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.skills')} data={platforms.map(p => <span className="font-bold">{p.skills}</span>)} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.im')} data={platforms.map(p => p.im)} recommendedIndices={platforms.map(p => p.recommended)} />
+                  <TableRow label={t('pricing.openSource')} data={platforms.map(p => (
+                    <span className={`material-symbols-outlined font-black ${p.opensource ? 'text-[var(--tertiary)]' : 'opacity-20'}`}>
                       {p.opensource ? 'check_circle' : 'cancel'}
                     </span>
-                  </td>
-                ))}
-              </tr>
-              {/* Actions */}
-              <tr style={{ borderTop: '1px solid rgba(195, 198, 215, 0.2)' }}>
-                <td className="p-4 sticky left-0" style={{ background: 'var(--surface-container-lowest)' }} />
-                {platforms.map(p => (
-                  <td key={p.id} className="p-4 text-center" style={{ background: p.recommended ? 'rgba(0, 62, 168, 0.07)' : 'var(--surface-container-lowest)' }}>
-                    <Link
-                      href={`/deploy?provider=${p.id}`}
-                      className="inline-block px-3 py-1.5 rounded-lg text-xs font-bold transition-opacity hover:opacity-90"
-                      style={{
-                        background: p.recommended ? 'var(--primary-container)' : 'var(--surface-container)',
-                        color: p.recommended ? 'var(--on-primary)' : 'var(--on-surface-variant)',
-                      }}
-                    >
-                      {p.recommended ? t('pricing.useNow') : t('pricing.learnMore')}
-                    </Link>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
+                  ))} recommendedIndices={platforms.map(p => p.recommended)} />
+                  {/* Actions */}
+                  <tr>
+                    <td className="p-8 sticky left-0 z-10 bg-[var(--surface-container-lowest)]" />
+                    {platforms.map(p => (
+                      <td key={p.id} className={`p-8 ${p.recommended ? 'bg-[var(--primary-container)]/10' : ''}`}>
+                        <Link
+                          href={`/deploy?provider=${p.id}`}
+                          className="inline-flex px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all hover:shadow-lg active:scale-95 whitespace-nowrap"
+                          style={{
+                            background: p.recommended ? 'var(--primary)' : 'var(--surface-container-high)',
+                            color: p.recommended ? 'white' : 'var(--on-surface-variant)',
+                          }}
+                        >
+                          {p.recommended ? t('pricing.useNow') : t('pricing.learnMore')}
+                        </Link>
+                      </td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       )}
 
       {/* Recommendation Cards */}
-      <section className="mb-20">
-        <h2
-          className="text-3xl font-extrabold text-center mb-12"
-          style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-        >
+      <section className="space-y-12">
+        <h2 className="text-3xl md:text-4xl font-black text-center tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
           {t('pricing.notSure')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {RECOMMENDATIONS.map(rec => (
             <div
               key={rec.titleKey}
-              className="p-8 rounded-2xl relative transition-all card-hover"
-              style={{
-                background: 'var(--surface-container-lowest)',
-                border: '1px solid rgba(195, 198, 215, 0.3)',
-              }}
+              className={`p-10 rounded-[3rem] relative transition-all border-2 group hover:shadow-2xl hover:-translate-y-1 ${rec.popular ? 'border-[var(--primary)] shadow-xl' : 'border-[var(--outline-variant)] bg-[var(--surface-container-lowest)]'}`}
             >
               {rec.popular && (
-                <span
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                  style={{ background: 'var(--secondary)', color: 'var(--on-secondary)' }}
-                >
-                  Popular
-                </span>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-6 py-1.5 rounded-full text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] shadow-lg" style={{ background: 'var(--primary)', color: 'white' }}>
+                  Best Value
+                </div>
               )}
               <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
-                style={{ background: rec.bg }}
+                className="w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-inner transition-transform group-hover:scale-110 group-hover:rotate-3"
+                style={{ background: rec.bg, color: rec.color }}
               >
-                <span className="material-symbols-outlined text-3xl" style={{ color: 'var(--on-surface)' }}>{rec.icon}</span>
+                <span className="material-symbols-outlined text-4xl font-black">{rec.icon}</span>
               </div>
-              <h3
-                className="text-xl font-bold mb-2"
-                style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
-              >
-                {t(rec.titleKey)}
-              </h3>
-              <p className="text-sm font-bold mb-3" style={{ color: 'var(--primary)' }}>{rec.subtitle}</p>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{t(rec.descKey)}</p>
+              <h3 className="text-2xl font-black mb-2 tracking-tight text-balance">{t(rec.titleKey)}</h3>
+              <p className="text-sm font-black uppercase tracking-widest mb-4 opacity-40 text-pretty">{rec.subtitle}</p>
+              <p className="text-base font-medium leading-relaxed mb-10 opacity-70 text-pretty">{t(rec.descKey)}</p>
               <Link
-                href="/deploy"
-                className="block w-full text-center py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90"
-                style={{ background: 'var(--primary-container)', color: 'var(--on-primary)' }}
+                href="/explore/platforms"
+                className="block w-full text-center py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all hover:shadow-xl active:scale-95 shadow-md"
+                style={{ 
+                  background: rec.popular ? 'var(--primary)' : 'var(--surface-container-high)',
+                  color: rec.popular ? 'white' : 'var(--on-surface)'
+                }}
               >
                 {t(rec.ctaKey)}
               </Link>
@@ -255,29 +206,40 @@ export default function PricingPage() {
 
       {/* Enterprise CTA */}
       <section
-        className="rounded-2xl p-12 md:p-20 text-center space-y-6"
-        style={{ background: 'linear-gradient(135deg, var(--primary), var(--secondary), var(--primary-container))' }}
+        className="rounded-[4rem] p-16 md:p-24 text-center space-y-8 relative overflow-hidden group shadow-2xl"
+        style={{ background: 'linear-gradient(135deg, var(--primary), var(--secondary), var(--surface-tint))' }}
       >
-        <h2
-          className="text-2xl md:text-3xl font-extrabold text-white"
-          style={{ fontFamily: 'Manrope, sans-serif' }}
-        >
-          {t('pricing.enterpriseCTA')}
-        </h2>
-        <p className="text-lg text-white/80 max-w-2xl mx-auto">
-          {t('pricing.enterpriseDesc')}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-          <a
-            href="mailto:maurice_wen@proton.me?subject=OpenClaw%20Enterprise%20Inquiry"
-            className="px-10 py-3 rounded-xl font-bold text-sm transition-all hover:bg-blue-50 inline-flex items-center gap-2"
-            style={{ background: 'white', color: 'var(--primary)', fontFamily: 'Manrope, sans-serif' }}
-          >
-            <span className="material-symbols-outlined text-sm">mail</span>
-            {t('pricing.getSolution')}
-          </a>
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transition-transform group-hover:scale-150" />
+        <div className="relative z-10 space-y-6">
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight text-balance">{t('pricing.enterpriseCTA')}</h2>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-medium leading-relaxed text-pretty">{t('pricing.enterpriseDesc')}</p>
+          <div className="pt-6">
+            <a
+              href="mailto:maurice_wen@proton.me?subject=OpenClaw%20Enterprise%20Inquiry"
+              className="px-12 py-5 rounded-[2rem] font-black text-sm uppercase tracking-[0.2em] transition-all hover:bg-white hover:scale-105 active:scale-95 shadow-2xl inline-flex items-center gap-3"
+              style={{ background: 'rgba(255,255,255,0.9)', color: 'var(--primary)' }}
+            >
+              <span className="material-symbols-outlined font-black">mail</span>
+              {t('pricing.getSolution')}
+            </a>
+          </div>
         </div>
       </section>
     </div>
+  );
+}
+
+function TableRow({ label, data, recommendedIndices }: { label: string; data: any[]; recommendedIndices: boolean[] }) {
+  return (
+    <tr>
+      <td className="p-8 sticky left-0 z-10 bg-[var(--surface-container-lowest)] border-r border-[var(--outline-variant)]">
+        <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40">{label}</span>
+      </td>
+      {data.map((val, i) => (
+        <td key={i} className={`p-8 text-sm ${recommendedIndices[i] ? 'bg-[var(--primary-container)]/5' : ''}`}>
+          {val}
+        </td>
+      ))}
+    </tr>
   );
 }

@@ -37,7 +37,7 @@ export function PermissionDisplay({ permItems }: { permItems: PermItem[] }) {
     return (
       <div className="py-6 text-center rounded-2xl" style={{ background: 'var(--surface-container-low)' }}>
         <span className="material-symbols-outlined text-2xl mb-2 block" style={{ color: 'var(--outline)' }}>info</span>
-        <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.permissionsEmpty')}</p>
+        <p className="text-sm text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('skill.permissionsEmpty')}</p>
       </div>
     );
   }

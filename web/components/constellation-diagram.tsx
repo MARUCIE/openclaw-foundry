@@ -24,7 +24,7 @@ const CONNECTIONS = [
 
 export function ConstellationDiagram() {
   return (
-    <div className="flex-1 w-full max-w-xl hidden md:block">
+    <div className="flex-1 w-full max-w-xl block md:opacity-100 opacity-60 scale-75 md:scale-100">
       <div className="relative group">
         <div className="absolute -inset-4 bg-white/10 rounded-[2.5rem] blur-2xl opacity-50" />
         <div className="relative bg-white/5 p-4 rounded-[2.5rem] shadow-2xl border border-white/20 overflow-hidden backdrop-blur-md">

@@ -149,7 +149,7 @@ export function TopNav() {
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
             >
-              登陆
+              注册 / 登陆
             </Link>
           )}
           {user && (
