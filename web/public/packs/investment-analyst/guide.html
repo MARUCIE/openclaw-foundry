@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-19T07:43:03.743Z
+  generated-at: 2026-05-19T08:06:41.353Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/investment-analyst/{manifest.json,CLAUDE.md,prompts.md}
@@ -135,8 +135,8 @@ footer p { max-width: none; margin: 4px 0; }
 </section>
 
 <section>
-<h2>多 CLI 安装支持（Claude Code / Codex / Gemini）</h2>
-<p>install.sh v5.0 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到三个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
+<h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
+<p>install.sh v5.1 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到五个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
     <th style="padding:8px 12px;">CLI Agent</th>
@@ -147,11 +147,13 @@ footer p { max-width: none; margin: 4px 0; }
     <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/investment-analyst/install.sh | bash</code></td></tr>
     <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/investment-analyst/install.sh | bash -s -- --agent=codex</code></td></tr>
     <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/investment-analyst/install.sh | bash -s -- --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/investment-analyst/install.sh | bash -s -- --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/investment-analyst/install.sh | bash -s -- --agent=openclaw</code></td></tr>
     <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code>INSTALL_DEST=/your/dir curl -fsSL ... | bash</code></td></tr>
   </tbody>
 </table>
-<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> 顺序）→ 默认 claude。</p>
-<p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini 上是惰性文件（不读取，也无害）。</p>
+<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> → <code>~/.hermes</code> → <code>~/.openclaw</code> 顺序）→ 默认 claude。</p>
+<p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini + Hermes + OpenClaw 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini/Hermes/OpenClaw 上是惰性文件（不读取，也无害）。</p>
 </section>
 
 <section>
@@ -199,7 +201,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 投资分析师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:43:03 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 08:06:41 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

@@ -347,8 +347,8 @@ ${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
 </section>
 
 <section>
-<h2>多 CLI 安装支持（Claude Code / Codex / Gemini）</h2>
-<p>install.sh v5.0 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到三个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
+<h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
+<p>install.sh v5.1 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到五个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
     <th style="padding:8px 12px;">CLI Agent</th>
@@ -359,11 +359,13 @@ ${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
     <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash</code></td></tr>
     <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=codex</code></td></tr>
     <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=openclaw</code></td></tr>
     <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code>INSTALL_DEST=/your/dir curl -fsSL ... | bash</code></td></tr>
   </tbody>
 </table>
-<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> 顺序）→ 默认 claude。</p>
-<p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini 上是惰性文件（不读取，也无害）。</p>
+<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> → <code>~/.hermes</code> → <code>~/.openclaw</code> 顺序）→ 默认 claude。</p>
+<p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini + Hermes + OpenClaw 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini/Hermes/OpenClaw 上是惰性文件（不读取，也无害）。</p>
 </section>
 
 <section>

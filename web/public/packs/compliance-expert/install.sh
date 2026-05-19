@@ -1,20 +1,22 @@
 #!/bin/bash
-# OpenClaw Foundry — Job Pack Installer (v5.0, manifest-driven, multi-agent)
+# OpenClaw Foundry — Job Pack Installer (v5.1, manifest-driven, multi-agent)
 # Pack: compliance-expert
 #
 # Single-source-of-truth template. Regenerated for every pack via:
 #   node scripts/regenerate-install-scripts.mjs
 #
 # Multi-agent install matrix:
-#   Claude Code → ~/.claude/   (default)
-#   Codex CLI   → ~/.codex/
-#   Gemini CLI  → ~/.gemini/
+#   Claude Code  → ~/.claude/    (default)
+#   Codex CLI    → ~/.codex/
+#   Gemini CLI   → ~/.gemini/
+#   Hermes agent → ~/.hermes/
+#   OpenClaw     → ~/.openclaw/
 #
 # Selection precedence:
 #   1. INSTALL_DEST env-var (explicit override)
-#   2. --agent=<claude|codex|gemini> flag
+#   2. --agent=<claude|codex|gemini|hermes|openclaw> flag
 #   3. OPENCLAW_AGENT env-var
-#   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini)
+#   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini, ~/.hermes, ~/.openclaw)
 #   5. Default: ~/.claude
 set -euo pipefail
 PACK_ID="compliance-expert"
@@ -27,7 +29,7 @@ while [ $# -gt 0 ]; do
     --agent=*) AGENT="${1#--agent=}"; shift ;;
     --agent) AGENT="${2:-}"; shift 2 ;;
     -h|--help)
-      echo "Usage: install.sh [--agent=claude|codex|gemini]"
+      echo "Usage: install.sh [--agent=claude|codex|gemini|hermes|openclaw]"
       echo "  Env overrides: INSTALL_DEST=<path>  OPENCLAW_AGENT=<agent>  FOUNDRY_BASE_URL=<url>"
       exit 0 ;;
     *) shift ;;
@@ -39,17 +41,21 @@ if [ -z "$AGENT" ]; then
   if [ -d "$HOME/.claude" ]; then AGENT="claude"
   elif [ -d "$HOME/.codex" ]; then AGENT="codex"
   elif [ -d "$HOME/.gemini" ]; then AGENT="gemini"
+  elif [ -d "$HOME/.hermes" ]; then AGENT="hermes"
+  elif [ -d "$HOME/.openclaw" ]; then AGENT="openclaw"
   else AGENT="claude"
   fi
 fi
 
 # ---- map agent → default destination ----
 case "$AGENT" in
-  claude) DEFAULT_DEST="$HOME/.claude" ;;
-  codex)  DEFAULT_DEST="$HOME/.codex" ;;
-  gemini) DEFAULT_DEST="$HOME/.gemini" ;;
+  claude)   DEFAULT_DEST="$HOME/.claude" ;;
+  codex)    DEFAULT_DEST="$HOME/.codex" ;;
+  gemini)   DEFAULT_DEST="$HOME/.gemini" ;;
+  hermes)   DEFAULT_DEST="$HOME/.hermes" ;;
+  openclaw) DEFAULT_DEST="$HOME/.openclaw" ;;
   *)
-    echo "ERROR: unknown agent '$AGENT'. Supported: claude | codex | gemini"
+    echo "ERROR: unknown agent '$AGENT'. Supported: claude | codex | gemini | hermes | openclaw"
     echo "       Override with INSTALL_DEST=<path> for any other CLI."
     exit 1 ;;
 esac
@@ -66,9 +72,11 @@ echo ""
 if [ -z "${INSTALL_DEST:-}" ] && [ ! -d "$TARGET_DIR" ]; then
   echo "  WARN: $TARGET_DIR does not exist ($AGENT CLI not detected)"
   case "$AGENT" in
-    claude) echo "        Install Claude Code first: https://claude.com/code" ;;
-    codex)  echo "        Install Codex CLI first: https://github.com/openai/codex" ;;
-    gemini) echo "        Install Gemini CLI first: https://github.com/google/gemini-cli" ;;
+    claude)   echo "        Install Claude Code first: https://claude.com/code" ;;
+    codex)    echo "        Install Codex CLI first: https://github.com/openai/codex" ;;
+    gemini)   echo "        Install Gemini CLI first: https://github.com/google/gemini-cli" ;;
+    hermes)   echo "        Install Hermes agent first (AI-Fleet internal); see ~/.hermes/ docs" ;;
+    openclaw) echo "        Install OpenClaw first: https://openclaw.dev (or use OpenClaw foundry pack)" ;;
   esac
   echo "        Or set INSTALL_DEST=/your/agent/dir and re-run"
   echo ""
@@ -126,8 +134,10 @@ if [ -n "$HINT" ]; then
   echo "    $HINT"
 else
   case "$AGENT" in
-    claude) echo "  Restart Claude Code to activate." ;;
-    codex)  echo "  Restart Codex CLI to activate." ;;
-    gemini) echo "  Restart Gemini CLI to activate." ;;
+    claude)   echo "  Restart Claude Code to activate." ;;
+    codex)    echo "  Restart Codex CLI to activate." ;;
+    gemini)   echo "  Restart Gemini CLI to activate." ;;
+    hermes)   echo "  Restart Hermes agent to activate (reload ~/.hermes/ config)." ;;
+    openclaw) echo "  Restart OpenClaw to activate (reload ~/.openclaw/agents/ + ~/.openclaw/skills/)." ;;
   esac
 fi
