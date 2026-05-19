@@ -3,6 +3,29 @@ name: containerization
 description: "Use when writing Dockerfiles, setting up docker-compose for local dev, configuring Kubernetes resources (Deployment, Service, Ingress, HPA), sizing pod resource limits, or packaging a service with Helm."
 ---
 
+## 是什么
+
+这是一份容器化规范，覆盖 Dockerfile 编写、docker-compose 本地编排、Kubernetes（K8s，容器编排平台）部署清单、HPA（水平自动伸缩）配置、Helm（包管理工具）打包，让服务从本地开发到线上托管的全生命周期都有可复现路径。
+
+## 怎么用
+
+1. 给服务写 Dockerfile 时，按本规范的多阶段构建模板套用，镜像体积通常能砍掉一半以上。
+2. 本地起多服务联调时，用文档约定的 docker-compose 结构，端口、网络、卷映射一次配好不易翻车。
+3. 上 K8s 时按 Deployment、Service、Ingress、HPA 四件套模板配置，确保每个服务都有最小可观测性。
+4. 申请 CPU、内存 limit 时套用资源测算公式，避免拍脑袋导致 OOM（内存溢出）或资源浪费。
+5. 多环境部署用 Helm chart 抽象差异，values.yaml 按环境拆分，让线上线下配置一脉相承。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[本地代码] --> B[Dockerfile 构建]
+    B --> C[镜像仓库]
+    C --> D[Helm 打包]
+    D --> E[K8s 部署]
+    E --> F[HPA 自动伸缩]
+```
+
 # Containerization
 
 Package and orchestrate services with Docker and Kubernetes using production-ready patterns for image builds, local development, cluster deployments, and autoscaling.

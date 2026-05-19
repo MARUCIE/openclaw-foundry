@@ -3,6 +3,31 @@ name: accessibility
 description: Use when building or reviewing UI components for keyboard and screen reader compatibility, adding ARIA to custom widgets, auditing a page for WCAG AA conformance, or preparing for a formal accessibility review.
 ---
 
+## 是什么
+
+Accessibility（无障碍，A11y）是让残障用户与辅助技术（如读屏、键盘、语音）都能顺畅使用产品的工程实践。
+用它的效果是：合规风险降低、用户群体扩大、整体交互质量提升（健全用户也受益）。
+
+## 怎么用
+
+1. 先用语义化 HTML 表达页面结构，让读屏软件能正确朗读层级与角色。
+2. 为所有交互元素提供键盘可达路径，让不用鼠标的用户也能完成关键流程。
+3. 用 ARIA（Accessible Rich Internet Applications）属性补齐动态组件的语义，让自定义控件不丢失可访问性。
+4. 在颜色与字号上对照 WCAG 标准做对比度检查，让弱视用户也能舒服阅读。
+5. 把无障碍检查接入 CI 自动化，让回归在合并前被发现而不是等用户投诉。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  设计稿 --> 语义HTML
+  语义HTML --> 键盘可达
+  键盘可达 --> ARIA语义
+  ARIA语义 --> 对比度校验
+  对比度校验 --> CI门禁
+```
+
+
 # Accessibility
 
 Build UIs that work for everyone — keyboard users, screen reader users, users with motor impairments, low-vision users, and users in constrained environments.

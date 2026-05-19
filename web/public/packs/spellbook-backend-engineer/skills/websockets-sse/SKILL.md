@@ -3,6 +3,31 @@ name: websockets-sse
 description: Use when building real-time features in FastAPI — choosing between WebSockets and SSE, implementing connection management, scaling broadcasts across workers with Redis, or debugging connection drops and missed events.
 ---
 
+## 是什么
+
+WebSocket 与 Server-Sent Events（SSE）是把服务端实时数据推送到前端的两种主流通道。
+用它的效果是：用户不必反复刷新，进度条、聊天、行情、协作编辑都能秒级同步。
+
+## 怎么用
+
+1. 先判断是单向推送还是双向通信，让单向场景用 SSE 而双向场景用 WebSocket。
+2. 在连接建立时做鉴权与心跳约定，让无效连接能被及时清理而不耗资源。
+3. 用消息编号与重连补发让网络抖动后客户端能续上中断点。
+4. 在服务端用消息总线扇出（Fan-out），让多个连接共享同一份事件源。
+5. 对生产流量做并发与延迟压测，让上线后 SLA 心里有数。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  事件源 --> 消息总线
+  消息总线 --> 连接管理
+  连接管理 --> 前端客户端
+  前端客户端 --> 心跳检测
+  心跳检测 --> 连接管理
+```
+
+
 # WebSockets and SSE Patterns
 
 Real-time communication patterns for FastAPI: WebSockets for bidirectional, SSE for server-push.

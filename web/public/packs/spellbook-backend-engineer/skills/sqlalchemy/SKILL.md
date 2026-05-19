@@ -3,6 +3,31 @@ name: sqlalchemy
 description: Use when using async SQLAlchemy 2.0 — defining models, writing queries, managing async sessions, loading relationships without N+1, or setting up and debugging Alembic migrations.
 ---
 
+## 是什么
+
+SQLAlchemy 是 Python 生态里最成熟的 ORM 与 SQL 工具包，既能写对象映射也能写原生 SQL。
+用它的效果是：业务代码读起来像在操作对象，运行起来却能拿到接近手写 SQL 的可控性。
+
+## 怎么用
+
+1. 先用声明式（Declarative）方式建模实体，让表结构与领域模型在同一个文件里成对出现。
+2. 通过 Session 管理事务边界，让一次业务操作的所有写入要么全部成功要么全部回滚。
+3. 在复杂查询场景下用 Core 层写显式 SQL 表达式，让性能与可读性都不妥协。
+4. 用 Alembic 管理迁移脚本，让 schema 演进与代码版本一一对应。
+5. 通过 eager loading（饥饿加载）解决 N+1 问题，让接口响应时间稳定可预期。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  领域模型 --> 声明映射
+  声明映射 --> 会话事务
+  会话事务 --> SQL生成
+  SQL生成 --> 数据库
+  数据库 --> 对象返回
+```
+
+
 # SQLAlchemy 2.0 — Async Patterns
 
 Modern SQLAlchemy 2.0 with full async support (asyncpg) and Alembic migrations.

@@ -4,6 +4,29 @@ description: "Use when adding a new REST or GraphQL API endpoint to an existing 
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
+## 是什么
+
+帮你在已有后端里新增一个接口端点时，从识别项目框架、复用现有约定，到生成路由、校验、类型、测试一步到位，让新接口对前端来说看起来像本来就在那里，而不是一处"风格突变"。
+
+## 怎么用
+
+1. 把项目根目录交给本技能，先让它识别框架（Next.js（React 服务端框架）、Express（Node.js Web 框架）、FastAPI、Flask、Gin（Go Web 框架）等）和已有命名风格。
+2. 让本技能读 2–3 个现有端点，提取鉴权、校验、错误结构、响应包络等约定，作为新接口的硬约束。
+3. 按本技能的脚手架生成 route + schema + service + test 四件套，并按 HTTP 方法语义对齐状态码（创建 201、读取 200、删除 204）。
+4. 对照本技能给出的完成度清单逐项打勾：路由可达、鉴权挂上、入参校验、错误结构一致、测试覆盖至少一条异常路径。
+5. 合并前在本地用真实请求或集成测试跑通一次，并确认与已有路由不冲突。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[新增接口需求] --> B[识别框架与约定]
+  B --> C[生成路由 校验 测试]
+  C --> D[完成度清单]
+  D --> E[集成验证]
+  E --> F[上线发布]
+```
+
 # New API Endpoint
 
 Scaffolding and validation workflow for adding API endpoints to existing backends.

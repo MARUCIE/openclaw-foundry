@@ -3,6 +3,32 @@ name: complex-doc-rag
 description: Use when building a RAG pipeline that ingests PDFs, Excel, CSV, or images — especially when debugging silent data loss, choosing between OCR tools, or handling edge cases like scanned pages, merged cells, or embedded charts.
 ---
 
+## 是什么
+
+Complex Doc RAG 是给复杂文档（合同、年报、技术规范）做高保真检索增强生成的工程模板。
+用它的效果是：模型回答能引用到具体段落而不是泛泛而谈，把幻觉风险压到可控范围。
+
+## 怎么用
+
+1. 先按文档结构（章节、表格、附录）做语义切片，让检索粒度匹配业务问题颗粒度。
+2. 在切片层叠加元数据（来源、版本、章节路径），让检索结果天然带上溯源信息。
+3. 用向量库与稀疏索引混合检索，把语义相似与关键词命中两条召回链路都打开。
+4. 在生成阶段做引用拼接与置信度标注，让回答自带可核验的页码与原文片段。
+5. 上线前用真实业务问答集跑回归，确保版本切换不会让答案质量倒退。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  原始文档 --> 语义切片
+  语义切片 --> 向量索引
+  语义切片 --> 关键词索引
+  向量索引 --> 混合检索
+  关键词索引 --> 混合检索
+  混合检索 --> 引用生成
+```
+
+
 # Complex Document RAG
 
 RAG pipelines for documents that mix text, tables, images, and layout structure.

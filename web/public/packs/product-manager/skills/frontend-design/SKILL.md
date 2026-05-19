@@ -4,6 +4,28 @@ description: "Use when building web UI from scratch: components, pages, landing 
 license: Complete terms in LICENSE.txt
 ---
 
+## 是什么
+
+帮你从一张白纸起步，做出一个有判断力、有审美决策、不像 AI 默认输出的前端界面。它适合做新的组件、新的落地页、新的看板，把"我想要一个像样的页面"变成"可以直接发布的代码"。
+
+## 怎么用
+
+1. 把目标用户、使用场景、品牌调性先讲清楚一句，让它知道这次的脾气是哪种。
+2. 让它先给一稿视觉方向的判断，包括字体、配色、节奏，确认大方向再动手写代码。
+3. 拿到第一版代码后，先在大屏和手机上各跑一遍，重点看响应式是不是真的能撑住。
+4. 把中文、英文、长文案、空状态都喂进去看一眼，确认极端内容不会让排版崩。
+5. 上线前让 design-taste-frontend 再过一遍品味体检，作为第二道把关。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[场景与调性] --> B[视觉方向判断]
+  B --> C[组件与页面落地]
+  C --> D[多端与极端内容验证]
+  D --> E[可发布的前端代码]
+```
+
 This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
 
 The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.

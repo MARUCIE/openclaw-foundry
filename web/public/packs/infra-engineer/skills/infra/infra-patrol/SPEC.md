@@ -4,6 +4,30 @@ description: Infrastructure patrol combining CLI tools (trivy, terraform, cloudf
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
+## 是什么
+
+一套定期巡检脚手架：把漏洞扫描（Trivy）、IaC（Infrastructure as Code，基础设施即代码）校验（Terraform）、隧道与边缘健康检查（cloudflared + wrangler）串成一条流水线，让团队每天能用 3 分钟拿到一份红黄绿的基础设施健康报告，提前暴露未修复的 CVE 与配置漂移。
+
+## 怎么用
+
+1. 用 `trivy fs .` 扫整库依赖与机密信息，先关掉高危项再说优化。
+2. 用 `terraform plan` 对比线上态与代码态，确认没有人手工改过生产配置（配置漂移）。
+3. 用 `cloudflared tunnel list` 与 `wrangler deployments list` 核对隧道与 Workers 是否仍在跑预期版本。
+4. 把每一步的退出码汇总成一份巡检报告，红色项进 Issue，黄色项进周会跟进。
+5. 把巡检脚本挂到每日定时任务（cron）或 CI，让异常自己冒出来而不是靠人想起来查。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  巡检触发 --> 漏洞扫描
+  巡检触发 --> IaC配置核对
+  巡检触发 --> 隧道与边缘检查
+  漏洞扫描 --> 健康报告
+  IaC配置核对 --> 健康报告
+  隧道与边缘检查 --> 健康报告
+```
+
 # Infrastructure Patrol
 
 Multi-CLI infrastructure health check combining security scanning, IaC validation, and network tunnel verification.

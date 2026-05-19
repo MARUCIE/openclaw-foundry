@@ -2,6 +2,34 @@
 name: ansoff-matrix
 description: "Generate an Ansoff Matrix analysis mapping growth strategies across market penetration, market development, product development, and diversification. Use when considering growth options, planning market expansion, or evaluating strategic growth paths."
 ---
+
+## 是什么
+
+Ansoff 矩阵（Ansoff Matrix，增长方向矩阵）帮你把"我们下一步往哪儿长"这个最容易拍脑袋的决定，拆成产品 × 市场的四个象限，让增长路径从直觉变成可对比、可分配预算的战略选项。
+
+## 怎么用
+
+1. 先把现有产品和现有市场写清楚，不允许混淆"我以为的市场"和"客户真实在用的市场"。
+2. 在四个象限里各列 2–3 条增长机会，给每条机会标上市场规模和资源投入的量级。
+3. 用风险-回报和资源紧约束（Resource Constraint，资源紧约束）做排序，挑出 1–2 个主攻象限。
+4. 把主攻象限的机会翻译成季度 KPI（Key Performance Indicator，关键绩效指标）和负责人。
+5. 在董事会节奏（季度或半年度）复盘一次象限假设是否仍然成立。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[现有产品市场] --> B[四象限分析]
+  B --> C[市场渗透]
+  B --> D[市场开发]
+  B --> E[产品开发]
+  B --> F[多元化]
+  C --> G[增长路径与资源分配]
+  D --> G
+  E --> G
+  F --> G
+```
+
 # Ansoff Matrix
 
 ## Metadata

@@ -3,6 +3,30 @@ name: multi-search-engine
 description: "Use when searching across both Chinese and international sources simultaneously (17 engines: 8 CN + 9 Global). Trigger: 'search Baidu and Google', 'Chinese + English sources', cross-region market research, privacy-first search, WolframAlpha knowledge queries. NOT for: single-engine queries (use ask-search), real-time finance data, or when speed is critical (parallel requests are slower)."
 ---
 
+## 是什么
+
+把 17 个中外搜索引擎（百度 / 搜狗 / 微信 / Google / Bing / DuckDuckGo / WolframAlpha 等）做成一个"无需 API Key 的并行抓取入口"，帮你在跨境市场调研、隐私敏感检索、知识计算这类场景里同时拿到中文 + 国际 + 隐私三类信源的原始结果。
+
+## 怎么用
+
+1. 想清楚检索意图属于哪一类（行业市场 / 政策法规 / 学术 / 隐私敏感 / 数学计算），决定要不要全引擎并行。
+2. 用 web_fetch 直接拼搜索 URL，国内信源用百度 + 搜狗微信，国际用 Google + DuckDuckGo + Brave。
+3. 善用高级算子：`site:` 限定站内、`filetype:pdf` 找报告、`""` 精确匹配、`tbs=qdr:w` 限定一周内的内容。
+4. 隐私敏感场景优先 DuckDuckGo + Startpage + Brave + Qwant；数字 / 单位换算 / 股价直接走 WolframAlpha。
+5. 并行结果记得做去重和交叉验证，不同引擎对同一关键词的排序差异本身就是信号。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[检索意图] --> B[引擎分组]
+  B --> C[国内 8 引擎]
+  B --> D[国际 9 引擎]
+  C --> E[结果汇总去重]
+  D --> E
+  E --> F[交叉验证]
+```
+
 # Multi Search Engine v2.0.1
 
 Integration of 17 search engines for web crawling without API keys.

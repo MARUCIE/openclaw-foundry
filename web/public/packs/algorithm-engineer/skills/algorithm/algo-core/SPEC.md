@@ -3,6 +3,30 @@ name: algorithm-toolkit
 description: Core algorithm toolkit for algorithm teams. Includes graph algorithms, symbolic math, optimization, simulation, and probabilistic programming. Use when designing algorithms, mathematical modeling, or solving optimization problems.
 ---
 
+## 是什么
+
+让算法团队把图算法（networkx）、符号数学（sympy）、多目标优化（pymoo）、离散仿真（simpy）、统计建模（statsmodels）、贝叶斯推断（pymc）整合成一套统一工具集，帮你把"业务问题（如路径规划、参数调优、不确定性量化）"翻译成"可复现、可解释的数学模型与最优解"，把决策从经验拍脑袋升级到结构化结论。
+
+## 怎么用
+
+1. 先把业务问题归类到 6 个原型之一（图、符号、优化、仿真、统计、贝叶斯），让选型不再靠工程师个人偏好。
+2. 用 networkx 把"关系数据"（社交、知识图谱、供应链）转成图结构，让 PageRank、社区发现、最短路径一键产出业务洞察。
+3. 用 pymoo 在"成本、收益、风险"等多目标之间求 Pareto 前沿（帕累托前沿），帮决策者看清"取舍空间"而不是只给一个推荐解。
+4. 用 simpy 在不烧真金白银的前提下模拟排队、客服、生产节拍，让上线前先看清吞吐瓶颈。
+5. 用 pymc 给关键指标加上"置信区间 + 后验分布"，让 A/B 测试结论从"涨了 2%"升级到"涨幅 95% 概率落在 1.2%–2.8%"。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务问题] --> B[选型路由]
+    B --> C[图/符号/优化]
+    B --> D[仿真/统计/贝叶斯]
+    C --> E[结构化结论]
+    D --> E
+    E --> F[决策与落地]
+```
+
 # Algorithm Team Core Toolkit
 
 ## Overview

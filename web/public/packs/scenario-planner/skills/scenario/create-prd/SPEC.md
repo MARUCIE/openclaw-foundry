@@ -3,6 +3,30 @@ name: create-prd
 description: "Create a Product Requirements Document using a comprehensive 8-section template covering problem, objectives, segments, value propositions, solution, and release planning. Use when writing a PRD, documenting product requirements, preparing a feature spec, or reviewing an existing PRD."
 ---
 
+## 是什么
+
+帮你把脑子里那份"我们要做的产品"翻译成一份八段式产品需求文档（PRD，Product Requirements Document），让工程、设计、业务、老板看完之后对"为什么做、做给谁、做成什么样"有一致的理解。
+
+## 怎么用
+
+1. 先把问题陈述写透，把"我们到底在解决谁的什么痛"说成一句话，避免方案先行。
+2. 顺着目标、客户细分、价值主张三段对齐"做这件事的理由"。
+3. 在解决方案段落里只写必要的功能范围，把"可有可无"的需求挪到后续版本。
+4. 用发布计划段落把首版范围和上线节奏定下来，让工程能据此排期。
+5. 写完后做一遍同行评审，把每段读不通顺的地方改清楚，再交给跨职能干系人对齐。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[问题陈述] --> B[目标与客户细分]
+  B --> C[价值主张]
+  C --> D[解决方案范围]
+  D --> E[发布计划]
+  E --> F[同行评审与对齐]
+```
+
+
 # Create a Product Requirements Document
 
 ## Purpose

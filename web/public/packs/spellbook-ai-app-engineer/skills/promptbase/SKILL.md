@@ -3,6 +3,31 @@ name: promptbase
 description: Use when writing, reviewing, or adapting a Claude Code skill for sale on PromptBase — checking scope, audience breadth, rejection risk, description quality, examples, and setup instructions.
 ---
 
+## 是什么
+
+Promptbase 是把提示词（Prompt）当代码管理的工程实践：版本化、可测试、可灰度。
+用它的效果是：提示词的每次改动都有 diff、有评测、有回滚，不再靠口口相传。
+
+## 怎么用
+
+1. 把每个提示词独立成文件，让 Git 历史记录每次表达调整的来龙去脉。
+2. 为每个提示词配套 golden 测试集，让效果变化在合并前就被自动发现。
+3. 用模板变量隔离稳定文案与动态参数，让提示词可以被多场景复用。
+4. 通过灰度发布在小流量上验证新版本，让大盘风险被控制在可承受的范围内。
+5. 把每次 A/B 实验的结论写回提示词的 changelog，让团队沉淀经验而非重复造轮。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  提示词草稿 --> 版本仓库
+  版本仓库 --> 评测套件
+  评测套件 --> 灰度发布
+  灰度发布 --> 生产流量
+  生产流量 --> 经验回写
+```
+
+
 # PromptBase Skill Publishing
 
 Patterns for writing Claude Code skills that pass PromptBase review and sell well.

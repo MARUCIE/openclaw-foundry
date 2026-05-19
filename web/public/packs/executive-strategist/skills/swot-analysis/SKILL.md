@@ -2,6 +2,30 @@
 name: swot-analysis
 description: "Perform a detailed SWOT analysis — strengths, weaknesses, opportunities, and threats with actionable recommendations. Use when doing strategic assessment, competitive analysis, or evaluating a product or business position."
 ---
+
+## 是什么
+
+SWOT 分析把"我们今天到底强在哪、弱在哪、机会在哪、威胁在哪"这四个最常被员工各执一词的问题，强制放到同一张矩阵上对照，让战略讨论从拍脑袋升级到证据齐备的对照决策。
+
+## 怎么用
+
+1. 先把分析对象定义清楚，是公司层面、业务线层面还是单一产品，不同对象会得出完全不同的 SWOT。
+2. 在每个象限列出 3–5 条具体陈述，每条都要附一个可验证的证据（数据、客户原话、竞品案例）。
+3. 把内部因素（优势/劣势）和外部因素（机会/威胁）做两两交叉，形成 SO/ST/WO/WT 四类战略动作。
+4. 给每个战略动作设负责人、时间窗、预算上限，未指派的动作不进战略清单。
+5. 季度复盘一次：哪些劣势已经修复、哪些威胁已经发生、哪些机会窗口已关闭。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[分析对象定义] --> B[内部 优势 劣势]
+  A --> C[外部 机会 威胁]
+  B --> D[SO ST WO WT 交叉]
+  C --> D
+  D --> E[战略动作清单与责任人]
+```
+
 # SWOT Analysis
 
 ## Metadata

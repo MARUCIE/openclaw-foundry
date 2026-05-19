@@ -3,6 +3,31 @@ name: tailwind
 description: Use when composing Tailwind utilities, building responsive or dark-mode layouts, defining component variants with cva, resolving conflicting classes with tailwind-merge, or configuring a custom theme.
 ---
 
+## 是什么
+
+Tailwind CSS 是 utility-first（工具类优先）的 CSS 框架，把样式写在标签上而不是另起一个 .css 文件。
+用它的效果是：开发与设计的距离被拉到最近，重构样式时不再担心牵一发动全身。
+
+## 怎么用
+
+1. 先把设计语言（颜色、间距、字号）配置进 tailwind.config，让设计 token 由配置而非约定承载。
+2. 用响应式前缀（sm: md: lg:）一行写完多端布局，让媒体查询不再四处散落。
+3. 通过 dark: 变体处理深色模式，让主题切换的成本接近为零。
+4. 用 cva（class-variance-authority）封装组件变体，让重复的类名组合变成可命名的 API。
+5. 用 tailwind-merge 解决类名冲突，让覆盖与合并的优先级可预期。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  设计token --> 配置文件
+  配置文件 --> 工具类
+  工具类 --> 响应式变体
+  响应式变体 --> 深色模式
+  深色模式 --> 组件变体
+```
+
+
 # Tailwind CSS Patterns
 
 Utility-first CSS with Tailwind v3/v4, component variants, and the cn() pattern.

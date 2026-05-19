@@ -3,6 +3,31 @@ name: mongodb
 description: Use when writing async MongoDB queries with Motor, designing aggregation pipelines, creating indexes, running multi-document transactions, or working with adk.state in Agentex agents.
 ---
 
+## 是什么
+
+MongoDB 是面向文档（Document）的 NoSQL 数据库，适合结构灵活、写入密集、聚合复杂的场景。
+用它的效果是：业务字段可以快速演进，无需为每次结构调整付出 schema 迁移成本。
+
+## 怎么用
+
+1. 先按查询路径设计文档结构，让常用读取一次命中而不是反复 join。
+2. 在高频字段与组合查询上建立合适的索引，让查询从全表扫描变成毫秒级响应。
+3. 用聚合管道（Aggregation Pipeline）做服务端计算，把数据汇总下沉到数据库内部。
+4. 通过副本集（Replica Set）与分片（Sharding）规划高可用与水平扩展。
+5. 定期监控慢查询日志，让性能退化在用户感知前就被发现并修复。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  应用 --> 主节点
+  主节点 --> 副本节点
+  主节点 --> 索引
+  索引 --> 聚合管道
+  聚合管道 --> 应用
+```
+
+
 # MongoDB — Async Patterns with Motor
 
 Async MongoDB via Motor, aggregation pipelines, and index design.

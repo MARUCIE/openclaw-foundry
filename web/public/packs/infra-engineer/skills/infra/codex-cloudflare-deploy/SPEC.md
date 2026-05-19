@@ -3,6 +3,28 @@ name: cloudflare-deploy
 description: Deploy applications and infrastructure to Cloudflare using Workers, Pages, and related platform services. Use when the user asks to deploy, host, publish, or set up a project on Cloudflare.
 ---
 
+## 是什么
+
+把应用一键部署到 Cloudflare 全球边缘网络（Workers + Pages + R2 + KV 等托管产品），让产品在用户最近的节点上就近响应，把首字节时间（TTFB，首字节响应时间）从数百毫秒压到几十毫秒，同时按调用次数计费，闲时近零成本。
+
+## 怎么用
+
+1. 先用 `wrangler whoami` 确认登录状态，避免后面 Deploy 卡在鉴权环节浪费排查时间。
+2. 根据项目形态选产品：纯静态站走 Pages，需要服务端逻辑走 Workers，需要对象存储走 R2，需要键值缓存走 KV。
+3. 在 `wrangler.toml`（Workers 配置文件）里固定生产/预览环境的绑定，避免人肉切环境出事故。
+4. 用 `wrangler deploy --dry-run` 先做一次仿真发布，看产物体积和绑定是否符合预期。
+5. 正式发布后用 `wrangler tail` 观察实时日志，确认线上请求成功率符合 SLO（Service Level Objective，服务质量目标）。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  开发本地 --> Wrangler命令行
+  Wrangler命令行 --> Cloudflare边缘网络
+  Cloudflare边缘网络 --> 全球用户
+  Cloudflare边缘网络 --> R2与KV存储
+```
+
 # Cloudflare Deploy
 
 Consolidated skill for building on the Cloudflare platform. Use decision trees below to find the right product, then load detailed references.

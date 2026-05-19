@@ -4,6 +4,29 @@ description: Explore business models using Lean Canvas, Business Model Canvas, S
 argument-hint: "[lean|full|startup|value-prop] <product or business>"
 ---
 
+## 是什么
+
+把四张主流商业模式框架——精益画布（Lean Canvas）、商业模式画布（Business Model Canvas，BMC）、创业画布（Startup Canvas）、价值主张画布（Value Proposition Canvas，VPC）——收成一条命令，让你按业务所处阶段挑最合适的那张图来梳理生意。
+
+## 怎么用
+
+1. 先判断业务阶段：早期未验证选 lean，相对成熟选 full，融资讲故事选 startup，需要打磨产品与客户匹配选 value-prop。
+2. 用对应模式调用本命令，给出业务一句话描述，让模型先产出第一版画布。
+3. 拿到画布后，把每一格里"自己其实没想清楚"的内容标出来，列入待验证清单。
+4. 找业务方和销售一起对一遍，把听上去顺但缺证据的格子降级为假设。
+5. 选一到两个最关键假设，安排访谈或小范围试点验证后再回来更新画布。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[业务阶段判断] --> B[选择四种画布之一]
+  B --> C[首版画布生成]
+  C --> D[假设标注与降级]
+  D --> E[关键假设验证]
+  E --> F[画布迭代]
+```
+
 # /business-model -- Business Model Exploration
 
 Build and analyze business models using four complementary frameworks. Choose one or run all for a complete picture.

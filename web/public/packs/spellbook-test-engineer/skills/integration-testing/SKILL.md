@@ -3,6 +3,29 @@ name: integration-testing
 description: "Use when writing tests that hit a real database or broker, setting up Testcontainers for a project, testing HTTP endpoints end-to-end within the service boundary, or implementing contract tests between two services."
 ---
 
+## 是什么
+
+这是一份集成测试规范，覆盖真实数据库与消息队列接入、Testcontainers（一次性测试容器）配置、服务边界内端到端测试、服务间契约测试，让团队在上线前就发现单元测试覆盖不到的接口契约和数据集成问题。
+
+## 怎么用
+
+1. 新模块开发时优先用 Testcontainers 启真实数据库或 Kafka（分布式消息队列），让测试和生产用相同中间件版本。
+2. 接口写完单测后立刻补 HTTP 端到端测试，验证完整请求路径包括序列化、鉴权、错误处理。
+3. 跨服务调用按文档的契约测试模板编写，消费方和提供方一致才能合并主干。
+4. CI（持续集成）流水线把集成测试和单元测试分阶段跑，单测过了再跑集成测试节约资源。
+5. 测试用例每月评审一次，移除冗余案例，新增覆盖盲点，让测试套件保持精干。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务代码] --> B[Testcontainers 启依赖]
+    B --> C[端到端请求]
+    C --> D[契约校验]
+    D --> E[测试报告]
+    E --> F[CI 流水线]
+```
+
 # Integration Testing
 
 Integration tests verify that components work correctly together — real databases, real HTTP routing, real serialization — catching the bugs that unit tests cannot.

@@ -3,6 +3,29 @@ name: system-design
 description: Use when designing a new service from scratch, writing a tech spec or RFC, selecting a database or communication pattern, estimating capacity, or reviewing a design for scalability and reliability gaps.
 ---
 
+## 是什么
+
+这是一份系统设计规范，覆盖容量评估、数据库选型、通信模式、可用性设计等核心环节，让架构师在写技术方案时少踩规模化、单点故障、强一致性等典型坑。
+
+## 怎么用
+
+1. 接到新业务设计需求时，按本文档章节顺序产出 RFC（架构提案）初稿，确保关键决策点都有依据。
+2. 容量评估时套用文档中的 QPS（每秒请求数）和存储测算公式，给出 6 个月、12 个月两档预测。
+3. 选数据库时对照 OLTP（在线事务）/OLAP（在线分析）/KV/搜索四象限决策表，避免拍脑袋选型。
+4. Review 同事方案时，重点检查可用性章节的故障域隔离和回退路径是否覆盖完整。
+5. 上线后用文档中的指标体系（可用率、P99 延迟、容量水位）持续跟踪设计是否符合预期。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务需求] --> B[容量评估]
+    B --> C[数据库选型]
+    C --> D[通信模式]
+    D --> E[可用性设计]
+    E --> F[RFC 评审]
+```
+
 # System Design
 
 A structured end-to-end guide for designing systems from scratch, making architecture decisions, estimating capacity, and building for scalability and reliability.

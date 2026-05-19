@@ -3,6 +3,29 @@ name: containerization
 description: "Use when writing Dockerfiles, setting up docker-compose for local dev, configuring Kubernetes resources (Deployment, Service, Ingress, HPA), sizing pod resource limits, or packaging a service with Helm."
 ---
 
+## 是什么
+
+这是一份容器化安全规范，从审计视角覆盖 Dockerfile 安全基线、Kubernetes（K8s，容器编排平台）RBAC（基于角色的访问控制）、镜像签名、运行时隔离、网络策略等关键控制点，让团队上容器时不留下 root 运行、特权挂载、未签名镜像等高危漏洞。
+
+## 怎么用
+
+1. 审计 Dockerfile 时按非 root 用户、最小基础镜像、构建参数清理三条基线逐项检查，发现违规直接打回。
+2. 审计 K8s 部署清单时重点看 securityContext（安全上下文）、resource limits、ReadOnlyRootFilesystem 三项配置是否合规。
+3. 镜像入仓前必须过 Trivy 或 Snyk 等漏洞扫描，按文档约定的 CVE（公共漏洞披露）阈值卡严重等级。
+4. 集群层面按 RBAC 最小权限模板配 Role 与 RoleBinding，避免 default ServiceAccount 拿到全局权限。
+5. 网络层启用 NetworkPolicy（网络策略）默认拒绝，按白名单逐步放开服务间通信，缩小横向移动面。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[Dockerfile 审计] --> B[镜像漏洞扫描]
+    B --> C[签名入仓]
+    C --> D[K8s RBAC 校验]
+    D --> E[NetworkPolicy 隔离]
+    E --> F[运行时监控]
+```
+
 # Containerization
 
 Package and orchestrate services with Docker and Kubernetes using production-ready patterns for image builds, local development, cluster deployments, and autoscaling.

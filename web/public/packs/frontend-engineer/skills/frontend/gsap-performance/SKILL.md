@@ -4,6 +4,28 @@ description: Official GSAP skill for performance — prefer transforms, avoid la
 license: MIT
 ---
 
+## 是什么
+
+帮你把网页上 GSAP（GreenSock Animation Platform，业界主流网页动画库）做的动画从卡顿、掉帧调到顺滑 60 帧，让用户在低端机和老浏览器上也感觉得到"丝滑"。
+
+## 怎么用
+
+1. 把动画卡顿的页面截图或链接发给它，告诉它具体在哪一段觉得卡。
+2. 它先看你的动画在改什么属性，把"会引起重排"的项替换成 GPU（图形处理器）友好的位移和透明度。
+3. 它给频繁动的元素加上 will-change（提前提示浏览器优化）的开关，用完即关，避免内存浪费。
+4. 它会把一堆零散动画合并成一条时间线，减少浏览器调度成本。
+5. 改完后它会让你在 DevTools（开发者工具）里看一眼帧率曲线，确认掉帧的红条没了。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[卡顿动画] --> B[替换为位移与透明度]
+  B --> C[按需 will-change]
+  C --> D[合并为时间线]
+  D --> E[帧率曲线复核]
+```
+
 # GSAP Performance
 
 ## When to Use This Skill

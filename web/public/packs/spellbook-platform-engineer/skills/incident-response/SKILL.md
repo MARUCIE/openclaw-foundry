@@ -3,6 +3,29 @@ name: incident-response
 description: Use when triaging a production alert, writing a postmortem, creating or updating a runbook, classifying incident severity, or setting up on-call escalation paths.
 ---
 
+## 是什么
+
+这是一份事故响应规范，覆盖告警分级、值班轮换、应急处置、复盘流程，让团队遇到生产事故时不再手忙脚乱，而是按既定 runbook（应急手册）分钟级介入，事后还能沉淀成可复用的预防机制。
+
+## 怎么用
+
+1. 接到告警时，先按严重度分级表（P0/P1/P2/P3）判断响应等级，确定要不要拉群、要不要通知客户。
+2. 处置过程套用文档里的诊断模板，先稳定再修复，避免越查越乱。
+3. 同类问题第二次出现时，立刻把处置步骤沉淀成 runbook，下次同事看一眼就能处理。
+4. 事故关闭后 48 小时内按本文档的复盘模板写 postmortem（事故复盘），重点找系统性根因不是怪个人。
+5. 每月统计 MTTR（平均恢复时长）和复发率两个指标，超阈值就组织专项治理。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[告警触发] --> B[分级判断]
+    B --> C[值班介入]
+    C --> D[按 Runbook 处置]
+    D --> E[业务恢复]
+    E --> F[复盘沉淀]
+```
+
 # Incident Response
 
 Incident response is the structured process of detecting, mitigating, communicating, and learning from production failures to minimise user impact and prevent recurrence.

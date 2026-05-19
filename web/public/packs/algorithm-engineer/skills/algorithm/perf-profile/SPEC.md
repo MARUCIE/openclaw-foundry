@@ -5,6 +5,30 @@ argument-hint: "[system-name or 'full']"
 user-invocable: true
 allowed-tools: Read, Glob, Grep, Bash
 ---
+
+## 是什么
+
+把性能调优从"凭直觉改代码"升级成"先量预算、再找热点、再排优先级"的结构化流程，帮你把"模型/系统跑得慢"翻译成"哪一段超了多少预算、改什么收益最大、风险多大"，让性能优化每一步都有可对照的目标和可量化的收益。
+
+## 怎么用
+
+1. 先把性能预算写清楚：帧时间（如 16.67ms = 60fps）、内存上限、加载时长、Draw Call（绘制调用）、网络带宽，让"快不快"有可量化的判定线。
+2. 再扫描 CPU 热点：每帧循环、嵌套大集合、热路径字符串拼接、物理射线查询，列出最贵的前几个函数，让优化对象不再凭感觉拍。
+3. 同步扫描内存与渲染：大对象增长曲线、纹理占用、对象池 vs 频繁创建销毁、Overdraw（过度绘制）、缺失 LOD（多层细节）/Occlusion Culling（遮挡剔除），让 GPU/内存瓶颈一并暴露。
+4. 把结果写成"预算表 + 热点表 + 优先级表"三张表，让业务方一眼看到现状对预算超了多少、改哪几条收益最大。
+5. 给出 Quick Wins（1 小时内可做完的小优化）和"需要 runtime profiling（运行时分析）才能定量"的待办，让团队既有立即能动的清单，也有下一步深入方向。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[性能预算] --> B[静态扫描]
+    B --> C[CPU/内存/渲染热点]
+    C --> D[优先级排序]
+    D --> E[Quick Wins + 深入项]
+    E --> F[运行时验证]
+```
+
 When this skill is invoked:
 
 1. **Determine scope** from the argument:

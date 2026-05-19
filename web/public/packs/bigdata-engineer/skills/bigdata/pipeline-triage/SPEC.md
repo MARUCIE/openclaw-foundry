@@ -3,6 +3,30 @@ name: pipeline-triage
 description: "Diagnose a failed or degraded AI-Fleet pipeline. Use when: a pipeline health check fails, a cron job stops producing output, a LaunchAgent doesn't fire, the user reports 'X pipeline is broken', or you see non-zero exit codes in pipeline logs. Also trigger when ai harness health shows RED/ORANGE status for any pipeline. NOT for writing new pipelines — use sprint-pipeline-v2 for that."
 ---
 
+## 是什么
+
+AI-Fleet 数据管道的故障排查手册（runbook），把症状 → 定位 → 修复的诊断流程固化成 4 个阶段，让 LaunchAgent（macOS 启动代理）、cron（定时任务）、webhook（回调钩子）三类调度的失败都能按层定位，避免凭直觉乱改而把好的也带坏。
+
+## 怎么用
+
+1. 先在 `configs/pipeline-registry.json` 解析出 pipeline 的 ID、脚本路径、调度方式、`defaultDevice`（默认执行设备），不要用脚本名当 ID 找。
+2. 按 5 层依次排查：触发层（调度是否真的触发）→ 环境层（依赖、API key、Tailscale）→ 脚本层（手动跑能否成功）→ 输出层（产物是否生成）→ 投递层（产物是否到达目的地）。
+3. 检查 `failoverChain`（故障转移链）是否把任务从 VPS（虚拟专用服务器）静默漂到 mini，错把"在跑"当成"健康"。
+4. 健康检查脚本本身可能是坏的，需要交叉看 `outputs/<pipeline-id>/` 实际产物文件大小与时间戳，再下结论。
+5. 输出结构化 triage（分诊）报告：Broken Layer、Root Cause、Evidence、Fix、Prevention、Related，关键链路或动到生产数据时必须升级到 HITL（人在回路）。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[症状: 管道无输出] --> B[Phase1 定位 Pipeline ID]
+  B --> C[Phase2 5层逐层排查]
+  C --> D[Phase3 交叉比对]
+  D --> E{是否生产数据}
+  E -->|否| F[Phase4 输出报告 + 修复]
+  E -->|是| G[升级 HITL 人工审核]
+```
+
 # Pipeline Triage Runbook
 
 Symptom in → structured diagnosis out. Do NOT guess fixes before completing Phase 1.

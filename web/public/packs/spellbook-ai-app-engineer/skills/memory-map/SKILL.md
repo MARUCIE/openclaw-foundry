@@ -3,6 +3,32 @@ name: memory-map
 description: Use when installing or configuring memory_map, writing CLAUDE.md session-setup instructions, choosing what to save in memory vs history, managing cross-project memory, tuning compression, or troubleshooting why Claude isn't loading context at session start.
 ---
 
+## 是什么
+
+Memory Map 是给智能体安装长期记忆与情景记忆（Episodic Memory）的工程脚手架。
+用它的效果是：智能体跨会话也能记住用户偏好、历史决策、未完成事项，告别金鱼脑。
+
+## 怎么用
+
+1. 先按记忆类型（事实型、偏好型、事件型）分库存储，让检索时按需取用而不是混在一起。
+2. 在写入时做去重与冲突检测，让相同信息不会被反复落库污染检索质量。
+3. 为每条记忆打上时效性标签（永久、季度、单次），让过期信息能自动降权或淘汰。
+4. 在调用模型前根据当前上下文做记忆召回，把最相关的 3-5 条注入到提示里。
+5. 定期做记忆审计，让无效或敏感的记忆能被人工标记后清理。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  用户输入 --> 记忆召回
+  记忆召回 --> 模型生成
+  模型生成 --> 记忆写入
+  记忆写入 --> 事实库
+  记忆写入 --> 偏好库
+  记忆写入 --> 事件库
+```
+
+
 # memory_map
 
 Persistent memory and conversation history MCP server for Claude Code — key-value context store, rolling history, and cross-project recall across sessions.

@@ -3,6 +3,29 @@ name: caching
 description: Use when adding or debugging caching in a service — choosing a cache strategy, designing TTLs, preventing stampedes, reasoning about invalidation, or configuring HTTP Cache-Control headers.
 ---
 
+## 是什么
+
+这是一份缓存设计规范，帮团队判断什么场景该加缓存、用哪种缓存策略、怎么避免脏数据，让接口响应时间从几百毫秒降到几十毫秒，同时不会因为缓存失效带来线上故障。
+
+## 怎么用
+
+1. 接口变慢或数据库压力大时，先按本规范判断属于读多写少还是热点数据，再决定加哪一层缓存。
+2. 设计缓存键命名和 TTL（过期时间）时，遵循本文档约定，避免 key 冲突和无限堆积导致内存爆炸。
+3. 选用 Cache-Aside（旁路缓存）、Read-Through（读穿透）、Write-Through（写穿透）等模式前，对照失效场景小节评估数据一致性风险。
+4. Code Review 时检查同事的缓存改动是否覆盖了缓存击穿、雪崩、穿透三大经典问题。
+5. 上线后通过命中率指标验证缓存效果，命中率低于 80% 说明策略需要回炉。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[请求到达] --> B{命中缓存?}
+    B -->|是| C[直接返回]
+    B -->|否| D[回源数据库]
+    D --> E[写入缓存]
+    E --> C
+```
+
 # Caching Patterns
 
 Strategies and implementation patterns for application-level, distributed, and HTTP caching.

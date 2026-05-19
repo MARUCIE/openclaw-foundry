@@ -4,6 +4,30 @@ description: Preview deployment pipeline combining Vercel (frontend), Wrangler (
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
+## 是什么
+
+把前端（Vercel）、边缘（Cloudflare Workers）和 CI（GitHub Actions，持续集成）三段流水线串起来，给每个 PR（Pull Request，合并请求）出一个可点击的预览地址，让产品、设计、利益相关方能在合并前真实点一遍，把生产事故拦在合并之前。
+
+## 怎么用
+
+1. 在 PR 提交后用 `gh pr status` 看 CI 是否绿灯，红的先修，不要急着点 Merge。
+2. 用 `vercel ls` 拿到本次 PR 的前端预览 URL，把它扔进 PR 评论区让评审人直接点开。
+3. 若涉及边缘逻辑，用 `wrangler deploy --env preview` 出一份带版本号的 Workers 预览。
+4. 把前端预览 URL 与 Workers 预览端点串通走一次关键链路，验证端到端可用而不是只看截图。
+5. 验证通过再合并，并在合并后 5 分钟内复查生产指标曲线，确认没有回归。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  开发推送PR --> GitHub仓库
+  GitHub仓库 --> CI自动构建
+  CI自动构建 --> Vercel前端预览
+  CI自动构建 --> Workers边缘预览
+  Vercel前端预览 --> 评审点击验证
+  Workers边缘预览 --> 评审点击验证
+```
+
 # Deploy Preview
 
 Multi-CLI deployment preview pipeline combining frontend (Vercel), edge (Cloudflare Workers), and CI/CD (GitHub Actions) status.

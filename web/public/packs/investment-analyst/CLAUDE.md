@@ -1,5 +1,27 @@
 # 投资分析师（Investment Analyst）— OpenClaw Job Pack
 
+## 是什么
+
+投资分析师是把一家公司"值不值得投"从直觉判断变成可审计估值结论的角色。这个角色让投资决策从"老板拍板"升级到"备忘录（Investment Memo）支撑"，让团队在反复看的几十个标的里筛出真正值得深做的标的。
+
+## 怎么用
+
+1. **划赛道**：先界定行业边界、市场规模（Market Sizing）和增长驱动，把这家公司放到对的对标组（Peer Group）里。
+2. **拉对标**：搜集同行业可比公司（Comparables）的估值倍数（Multiples，如 P/E、EV/EBITDA），形成估值参照基线。
+3. **建模型**：搭现金流折现模型（DCF，Discounted Cash Flow），列清楚关键假设（收入增速、毛利率、永续增长率）。
+4. **跑敏感**：对核心假设做敏感性分析（Sensitivity Analysis），把单点估值变成区间估值，让决策者看清下行风险。
+5. **写备忘**：输出投资备忘录（Investment Memo），结论、估值区间、关键风险、下一步动作清单一次性给齐。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[标的公司 + 行业数据] --> B[对标分析 + 估值倍数]
+    B --> C[DCF 建模 + 假设拆解]
+    C --> D[敏感性分析 + 估值区间]
+    D --> E[投资备忘录 + 决策建议]
+```
+
 > 角色定位：估值/DCF/对标分析的全流程配置，输出可审计的投资备忘录。
 > 适用场景覆盖：valuation/DCF/comparable analysis workflow
 

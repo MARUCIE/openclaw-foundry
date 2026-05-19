@@ -2,6 +2,31 @@
 name: lean-canvas
 description: "Use when exploring startup hypotheses, testing business model viability, or comparing venture ideas on a single page. Trigger: user says 'lean canvas', 'business model', 'startup hypothesis', 'one-page business plan', or when validating whether an idea is worth pursuing before building anything."
 ---
+
+## 是什么
+
+Lean Canvas（精益画布）是给早期创业项目用的一页式假设清单，让你把"问题、客户、解决方案、不公平优势"这四件事写到能被反驳的颗粒度，避免在还没验证就开始烧钱建团队。
+
+## 怎么用
+
+1. 先写问题和目标客户，问题写不出三个具体场景就说明对客户理解不够。
+2. 用一句话写价值主张（UVP，Unique Value Proposition，独特价值主张），能让陌生人听懂为止。
+3. 配上解决方案、渠道、关键指标，确认每个假设都有可被验证的下一步动作。
+4. 跑一遍成本结构和收入流，看清商业模式能否在小规模时就为正。
+5. 把"不公平优势"留到最后，没有它就承认目前还没有，逼自己继续找。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[问题] --> B[目标客户]
+  B --> C[价值主张 UVP]
+  C --> D[解决方案与渠道]
+  D --> E[关键指标]
+  E --> F[成本与收入]
+  F --> G[不公平优势]
+```
+
 # Lean Canvas
 
 ## Metadata

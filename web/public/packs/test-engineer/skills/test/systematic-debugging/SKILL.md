@@ -5,6 +5,29 @@ description: 'Use when encountering a bug, test failure, crash, or unexpected be
 name: systematic-debugging
 ---
 
+## 是什么
+
+这是一个面向 bug、测试失败、崩溃、回归的系统化排查能力，先定位根因再动手修复，避免"症状级补丁"留下二次故障与隐性回归。
+
+## 怎么用
+
+1. 先复述缺陷现象、复现路径、影响范围，把"我看到什么"和"我猜原因"严格区分，避免被先入为主带偏。
+2. 按系统的每一层边界（输入 / 中间态 / 输出）注入诊断信号，让证据指向某一层，而不是凭经验猜测某个组件。
+3. 列出至少两个候选根因假设，分别给出"如果是这个原因，会观察到什么现象"，再用日志或断点逐一证伪。
+4. 找到根因后再写修复方案，把"修复了什么、为什么这样修、回归测试覆盖什么场景"三件事一起写进 PR（Pull Request，合并请求）。
+5. 修复合并后补一条回归测试用例进 CI（持续集成）流水线，防止同一缺陷因后续重构再次复发。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[现象描述] --> B[分层注入诊断]
+    B --> C[候选根因假设]
+    C --> D[证据逐一证伪]
+    D --> E[根因定位+修复方案]
+    E --> F[回归测试入库]
+```
+
 # Systematic Debugging
 
 **NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST.**

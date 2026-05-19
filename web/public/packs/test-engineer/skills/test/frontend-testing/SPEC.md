@@ -4,6 +4,30 @@ description: Validates frontend applications for performance, console errors, re
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
+## 是什么
+
+这是一个面向前端 Web 应用的端到端质量验证能力，覆盖性能指标、控制台报错、响应式布局与 E2E（端到端）功能链路，目标是在上线前把用户能感知到的明显缺陷拦在测试阶段，避免用户成为线上 bug 的第一发现人。
+
+## 怎么用
+
+1. 用 Lighthouse（性能与可访问性审计工具）跑出 LCP（最大内容渲染时间）、CLS（累计布局偏移）、TBT（总阻塞时间）三项核心指标，作为本次发布的性能基线。
+2. 用 Playwright（端到端测试框架）覆盖关键用户路径，例如登录、下单、提交表单，确保主流程在 Chromium、WebKit、Firefox 三个引擎下都通过。
+3. 在多种视口（移动 / 平板 / 桌面）下截图比对，发现响应式布局错位、文字溢出、按钮被遮挡这类视觉缺陷。
+4. 监听浏览器 Console（控制台）的 error、warning、network failure，任何一条都视为质量缺陷登记入册，禁止"上线先不管"的处理方式。
+5. 把性能指标、E2E 通过率、Console 异常数汇总成一份发布质量报告，作为产品团队判断"能否发布"的事实依据。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[本地或预发环境] --> B[Lighthouse 性能审计]
+    A --> C[Playwright 端到端跑批]
+    A --> D[多视口截图比对]
+    B --> E[质量门禁报告]
+    C --> E
+    D --> E
+```
+
 # Testing Frontend
 
 ## Quick Start

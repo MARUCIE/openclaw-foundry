@@ -3,6 +3,32 @@ name: fastapi
 description: Use when structuring a FastAPI application, designing dependency injection chains, defining Pydantic v2 schemas, adding JWT authentication, or writing async route tests with httpx.
 ---
 
+## 是什么
+
+FastAPI 是基于类型注解与异步（Async）的现代 Python Web 框架，把接口契约与运行性能一起拉高。
+用它的效果是：接口文档自动生成、请求参数自动校验、并发能力天然在线。
+
+## 怎么用
+
+1. 先用 Pydantic 模型定义请求与响应结构，让接口契约由代码而不是文档定义。
+2. 通过依赖注入（Depends）组装鉴权、数据库会话、配置等横切关注点，让路由保持纯净。
+3. 把业务逻辑放在领域层（Use Case）而不是路由函数里，让 API 层只负责协议转换。
+4. 用 async 处理 IO 密集任务，把吞吐量提到同步框架达不到的水位。
+5. 上线前用 httpx 写覆盖核心路径的异步测试，让回归在 CI 里发现而不是在生产。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  请求 --> 路由层
+  路由层 --> 依赖注入
+  依赖注入 --> 领域服务
+  领域服务 --> 数据访问
+  数据访问 --> 响应模型
+  响应模型 --> 返回
+```
+
+
 # FastAPI Patterns
 
 Modern FastAPI (0.100+) with Pydantic v2, async-first, and typed throughout.

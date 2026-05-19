@@ -3,6 +3,29 @@ name: aws
 description: Use when writing boto3 or AWS SDK v3 code — configuring IAM auth, reading/writing S3, designing DynamoDB access patterns, writing Lambda handlers, processing SQS batches, or troubleshooting credential and throttling errors.
 ---
 
+## 是什么
+
+这是一份 AWS SDK（亚马逊云开发工具包）安全使用规范，覆盖 IAM（身份与访问管理）鉴权、S3 对象存储读写、DynamoDB 访问模式、Lambda 处理器、SQS 批量消费等常用接口，让团队写云上代码时不会留下密钥泄漏、权限过大、节流失控等审计风险。
+
+## 怎么用
+
+1. 写 boto3 或 AWS SDK v3 代码前，按本文档的 IAM 角色与 STS（安全令牌服务）模板取临时凭证，禁止把 access key 写进代码或环境变量。
+2. 设计 S3 读写时按规范配 bucket policy（桶策略）和 KMS（密钥管理服务）加密，敏感对象必须开启版本化和 MFA delete。
+3. 设计 DynamoDB 访问模式时套用单表设计指引，避免扫描全表带来的成本和限流风险。
+4. 写 Lambda 处理器时按超时、重试、幂等三件套模板编码，防止瞬时故障被放大成数据错乱。
+5. 处理 SQS 批量消息时按文档的可见超时、批大小、并发上限建议配置，避免重复消费或队列堆积。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[应用代码] --> B[STS 临时凭证]
+    B --> C[IAM 角色]
+    C --> D[S3 与 DynamoDB]
+    C --> E[Lambda 处理]
+    E --> F[SQS 队列]
+```
+
 # AWS SDK Patterns
 
 Production patterns for AWS services using boto3 (Python) and AWS SDK v3 (TypeScript).

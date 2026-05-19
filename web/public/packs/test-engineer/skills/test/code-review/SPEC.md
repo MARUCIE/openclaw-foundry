@@ -4,6 +4,28 @@ description: "Use when asked to review a PR, diff, or file for bugs, security is
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
+## 是什么
+
+这是一个针对 PR（Pull Request，合并请求）和 diff（差异变更）的代码评审能力，用来在合并入库前把可能引发线上故障或安全漏洞的变更拦在评审环节，提高发布稳定性与质量门槛。
+
+## 怎么用
+
+1. 评审范围聚焦在本次 diff 内的新增与修改行，避免对未变更代码提出意见，减少作者的返工与情绪成本。
+2. 按 CRITICAL（阻断合并）、MAJOR（强烈建议修复）、MINOR（优化建议）、NITPICK（风格偏好）四档标注，让作者清楚知道哪些必须改、哪些可以下次处理。
+3. 对任何涉及用户输入、凭据、权限、加密的变更逐行核对 OWASP（开放式 Web 应用安全项目）十大风险，发现一处记一处，绝不放过安全类问题。
+4. 对每条 CRITICAL 与 MAJOR 给出复现路径或风险场景，让作者能在本地验证，避免“凭感觉改”导致的二次返工。
+5. 评审结论按"必修 / 建议 / 可选"分组输出，作者依照优先级分批提交，缩短合并周期，提升团队节奏。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[拉取 diff] --> B[按文件分块]
+    B --> C[安全/逻辑/风格三类检查]
+    C --> D[四级严重度标注]
+    D --> E[评审结论分组输出]
+```
+
 # Code Reviewing
 
 ## Quick Start

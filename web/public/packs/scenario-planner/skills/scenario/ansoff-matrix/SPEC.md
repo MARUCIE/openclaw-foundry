@@ -2,6 +2,29 @@
 name: ansoff-matrix
 description: "Generate an Ansoff Matrix analysis mapping growth strategies across market penetration, market development, product development, and diversification. Use when considering growth options, planning market expansion, or evaluating strategic growth paths."
 ---
+
+## 是什么
+
+帮你把增长选项放进安索夫四象限（Ansoff Matrix，市场渗透 / 市场开发 / 产品开发 / 多元化），把"我们接下来该往哪长"这种含糊讨论，拆成四条清晰可对比的路径。
+
+## 怎么用
+
+1. 把现有产品和现有市场说清楚，避免后面把"新功能"误判成"新产品"。
+2. 给四个象限各列 2–3 条候选增长动作，让团队看到完整选择面。
+3. 用风险、所需能力、潜在收入三个维度给每条动作打分，让取舍有依据。
+4. 选 1–2 个象限作为主战场，剩下的列入观察池，避免战略稀释。
+5. 把选定的方向拆成 90 天内可验证的具体行动，交给业务方认领。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[业务现状盘点] --> B[安索夫四象限分类]
+  B --> C[象限内候选动作打分]
+  C --> D[主战场与观察池]
+  D --> E[90 天行动清单]
+```
+
 # Ansoff Matrix
 
 ## Metadata

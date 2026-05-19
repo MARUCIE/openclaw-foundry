@@ -3,6 +3,29 @@ name: observability
 description: "Use when adding structured logging, instrumenting Prometheus metrics, wiring up distributed tracing with OpenTelemetry, writing alerting rules, defining SLOs and error budgets, or building a Grafana golden-signals dashboard."
 ---
 
+## 是什么
+
+这是一份从安全审计角度切入的可观测性规范，覆盖审计日志结构化、安全事件指标、可追溯链路、异常行为告警，让团队具备发生事故时可追责、可回溯、可取证的能力，而不是事后翻不到证据。
+
+## 怎么用
+
+1. 审计敏感操作（登录、授权变更、数据导出）必须按文档模板打结构化日志，含 user_id、ip、operation 字段。
+2. 给鉴权失败、限流命中、异常访问三类事件配 Prometheus（监控指标系统）计数指标，超阈值立刻告警。
+3. 接入 OpenTelemetry（开放遥测标准）分布式追踪时，关键调用链必须打上 trace_id 并保留 30 天以上以备审计。
+4. 告警规则按合规要求（数据脱敏、最小披露）配置内容模板，避免告警本身泄漏敏感信息。
+5. 定期用安全大盘审视失败率与异常访问趋势，发现可疑模式立刻按事故响应流程介入。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务操作] --> B[审计日志]
+    A --> C[安全指标]
+    A --> D[追踪链路]
+    B & C & D --> E[安全大盘]
+    E --> F[异常告警]
+```
+
 # Observability
 
 Observability is the practice of instrumenting systems so you can understand their internal state from external outputs — logs, metrics, and traces.

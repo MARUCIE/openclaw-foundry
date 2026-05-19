@@ -51,7 +51,7 @@ export default function BreakthroughsPage() {
 
       {/* Cohort-intent context — bridge to /wall posting flow */}
       <p className="text-sm opacity-70 leading-relaxed">
-        ↓ 下面是 cohort 同伴的蜕变案例（含示例 + 真实）。蜕变的起点是{' '}
+        ↓ 下面是工作坊战友的蜕变案例（含示例 + 真实）。蜕变的起点是{' '}
         <Link href="/wall" className="font-bold underline" style={{ color: 'var(--primary)' }}>
           卡点墙
         </Link>{' '}

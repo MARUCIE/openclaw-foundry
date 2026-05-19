@@ -4,6 +4,30 @@ description: "Use when adding monitoring, logging, metrics, or alerting to a pro
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
+## 是什么
+
+把"健康检查 + 指标 + 日志 + 告警"四件套一次性接进项目，把"线上有没有挂"从靠用户反馈，升级到自己 60 秒内主动发现。让产品同学在发布后不用反复刷网页验证，故障平均恢复时间（MTTR）从"等用户投诉"压到"机器人推送 + 仪表盘秒级回报"。
+
+## 怎么用
+
+1. 给每个服务加一个 `/health` 端点（endpoint），不需要鉴权，让监控工具能直接探活。
+2. 接入结构化日志（structured logging），用 pino 或 structlog 输出 JSON，自动带上时间戳 + 等级 + requestId（请求标识），别再用 `console.log`。
+3. 暴露 `/metrics` 端点采集 Prometheus（指标系统）数据，重点看 RED 三件套：请求量、错误率、响应耗时（p50/p95/p99）。
+4. 把 `/health` 接到 Uptime Kuma（开源监控，AI-Fleet 标准）上，间隔 60 秒一探，连续失败 3 次推 Telegram 告警。
+5. 告警只看现象不看原因（"错误率超过 5%"而不是"磁盘满了"），每条告警必须配运行手册（runbook）链接，避免告警疲劳。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  Service[业务服务] --> Health[/health 端点]
+  Service --> Metrics[/metrics 端点]
+  Service --> Logs[结构化日志 JSON]
+  Health --> Kuma[Uptime Kuma 探活]
+  Metrics --> Grafana[Grafana 仪表盘]
+  Kuma --> Alert[Telegram 告警]
+```
+
 # Observability Setup
 
 Configure monitoring, logging, metrics collection, and alerting for a project.

@@ -3,6 +3,29 @@ name: unit-testing
 description: Use when writing unit tests for a function or module, mocking external dependencies, practising TDD on new business logic, or enforcing a coverage target across a codebase in Python, TypeScript, or Go.
 ---
 
+## 是什么
+
+这是一份单元测试规范，覆盖 Arrange-Act-Assert（准备-执行-断言）测试结构、依赖打桩、参数化测试、TDD（测试驱动开发）流程、覆盖率策略、用例组织方式，让团队在 Python、TypeScript、Go 三种语言下都能写出快、稳、清晰的单测。
+
+## 怎么用
+
+1. 写新函数或模块时按 AAA 三段式编排测试，让每个用例的输入、行为、断言一眼能看清。
+2. 涉及外部依赖（数据库、HTTP、文件系统）时按文档的打桩与 mock 模板隔离，让单测保持毫秒级。
+3. 同一逻辑多组输入用参数化测试代替复制粘贴，按规范的命名约定让失败时看得出是哪组输入挂了。
+4. 新业务实践 TDD 时按红绿重构三阶段循环走，先写失败测试再写实现，让设计跟着测试演进。
+5. 配覆盖率目标时按业务等级分档执行，关键模块卡 80% 以上行覆盖加分支覆盖双指标。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[需求或缺陷] --> B[写失败测试]
+    B --> C[最小实现]
+    C --> D[测试通过]
+    D --> E[重构优化]
+    E --> F[覆盖率验证]
+```
+
 # Unit Testing
 
 Structured guidance for writing reliable, maintainable unit tests — covering test anatomy, mocking strategies, parameterized tests, TDD workflow, coverage strategy, and test organization across Python, TypeScript, and Go.

@@ -3,6 +3,31 @@ name: angular
 description: Use when building or refactoring Angular applications — choosing between signals, RxJS, and NgRx for state, configuring routing with guards and lazy loading, optimizing change detection, or writing TestBed component tests.
 ---
 
+## 是什么
+
+Angular 是 Google 出品的企业级前端框架，自带依赖注入（Dependency Injection）、路由、表单、HTTP 一整套能力。
+用它的效果是：大型团队协作时约定多过自由发挥，新人接手老项目的学习成本被显著压低。
+
+## 怎么用
+
+1. 先按业务领域划分模块（Module）与路由，让代码结构对应组织结构。
+2. 用依赖注入管理服务与状态，让组件保持轻薄而业务逻辑可被独立测试。
+3. 通过响应式表单（Reactive Forms）处理复杂校验，让表单逻辑显式而不藏在模板里。
+4. 用 RxJS 编排异步流，让数据流与副作用都有统一的描述方式。
+5. 通过 Angular CLI 与 Schematics 做工程化约束，让规范由工具而不是口头传达。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  路由模块 --> 组件
+  组件 --> 服务注入
+  服务注入 --> 状态管理
+  状态管理 --> 响应式流
+  响应式流 --> 视图渲染
+```
+
+
 # Angular Patterns
 
 Modern Angular (v17+) conventions using standalone components, signals, and typed forms.

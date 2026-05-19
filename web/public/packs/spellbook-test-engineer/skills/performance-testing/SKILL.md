@@ -3,6 +3,29 @@ name: performance-testing
 description: Use when load testing a service before launch or after a significant traffic change — writing k6 or Locust scripts, setting SLO-based pass/fail thresholds, diagnosing bottlenecks under load, or integrating performance tests into CI.
 ---
 
+## 是什么
+
+这是一份性能测试规范，覆盖 k6 与 Locust（两款主流压测工具）脚本编写、SLO（服务等级目标）阈值判定、压测瓶颈诊断、CI（持续集成）流水线集成，让团队在大促或流量翻倍前提前压出系统极限，而不是在线上被流量打挂。
+
+## 怎么用
+
+1. 新接口上线前按本文档的压测三段式（基线、阶梯加压、长稳压测）跑一遍，确定容量底线。
+2. 压测脚本里把 SLO 阈值写成判定逻辑，超出 P95 延迟或错误率自动失败，让流水线把把关。
+3. 压测时配合可观测性大盘抓 CPU、内存、慢 SQL、连接池四类瓶颈，按文档诊断流程逐项定位。
+4. 重大版本发布前必跑压测，结果归档到性能趋势库，对比上一版本看是否出现回退。
+5. 压测环境数据规模必须和生产同量级，否则结论失真，按文档建议做数据脱敏后复制。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[压测脚本] --> B[基线压测]
+    B --> C[阶梯加压]
+    C --> D[瓶颈定位]
+    D --> E{SLO 达标?}
+    E -->|否| F[回归优化]
+```
+
 # Performance Testing
 
 Load and performance testing validates that your system meets latency and throughput requirements under realistic and extreme traffic conditions.

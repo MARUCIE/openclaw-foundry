@@ -3,6 +3,32 @@ name: azure-service-bus
 description: Use when implementing reliable message processing with Azure Service Bus — choosing between queues and topics, configuring peek-lock settlement, handling dead-lettered messages, or enforcing ordered processing with sessions.
 ---
 
+## 是什么
+
+Azure Service Bus 是企业级消息中间件，提供队列、主题订阅、死信处理等一整套异步通信能力。
+用它的效果是：上下游系统不再强耦合，高峰期流量可被吸收，失败消息有兜底处理路径。
+
+## 怎么用
+
+1. 先按业务边界规划队列与主题，让生产者与消费者各自只看到自己关心的消息。
+2. 在客户端用会话（Session）与分区键控制消息顺序，让有顺序要求的业务不会乱序。
+3. 为每条消息设置合理的重试与死信策略，让暂时失败有机会恢复、彻底失败被隔离。
+4. 用监控指标观察队列深度与处理延迟，让性能问题在 SLA 失守前被发现。
+5. 定期做消息回放演练，让灾难恢复路径处于可用而不是只在文档里。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  生产者 --> 消息队列
+  消息队列 --> 消费者
+  消费者 --> 业务处理
+  业务处理 --> 失败兜底
+  失败兜底 --> 死信队列
+  死信队列 --> 人工介入
+```
+
+
 # Azure Service Bus
 
 Production patterns for Azure Service Bus using the `azure-servicebus` Python SDK.

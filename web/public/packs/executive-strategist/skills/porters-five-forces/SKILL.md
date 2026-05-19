@@ -2,6 +2,37 @@
 name: porters-five-forces
 description: "Perform Porter's Five Forces analysis — competitive rivalry, supplier power, buyer power, threat of substitutes, and threat of new entrants. Use when analyzing industry dynamics, assessing competitive forces, or evaluating market attractiveness."
 ---
+
+## 是什么
+
+Porter's Five Forces（波特五力模型）帮你看清一个行业到底"好不好赚钱"，把竞争、议价、替代、新进入者五种压力放在一张图上，让你在进入新市场或调整战略前，先看清这条赛道的天花板。
+
+## 怎么用
+
+1. 先定清楚分析的行业边界和地理范围，"中国" 和 "中国一线城市" 是两条完全不同的赛道。
+2. 对每一力列出 3–5 条具体压力点，要能说出谁、对谁、施加了什么压力。
+3. 给每一力打分（低/中/高），并写出关键证据，避免凭印象拍。
+4. 综合五力得出行业吸引力判断，并对应到自家公司的相对位置。
+5. 把判断落到战略动作：是否值得进入、如何提高自身议价、如何降低替代威胁。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[行业与边界定义] --> B[五力扫描]
+  B --> C[现有竞争]
+  B --> D[供应商议价]
+  B --> E[买方议价]
+  B --> F[替代品威胁]
+  B --> G[新进入者]
+  C --> H[行业吸引力判断]
+  D --> H
+  E --> H
+  F --> H
+  G --> H
+  H --> I[战略动作选择]
+```
+
 # Porter's Five Forces
 
 ## Metadata

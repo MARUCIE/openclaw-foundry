@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-18T02:27:44.210Z
+  generated-at: 2026-05-19T07:08:39.708Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/research-analyst/{manifest.json,CLAUDE.md,prompts.md}
@@ -79,9 +79,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>研究分析师</h1>
   <p class="subtitle">前沿扫描 + 竞品分析 + 文献综述工作台：8 个研究骨架 skill + 3 位顾问视角。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="尚未达到 PACK_SPEC v1.0 enriched 标准">Stub</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.0.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>10</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -97,9 +97,10 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 10 分钟应当看到预期输出：</p>
+<pre><code>cd ~/.claude &amp;&amp; claude --skill deep-research &lt; skills/research/deep-research/SKILL.md</code></pre>
+<p>预期输出：初步研究 brief · 5 信源 + 3 atomic claims + 1 mental model 草图 + Top 3 unanswered</p>
+
 
 </section>
 
@@ -116,7 +117,9 @@ footer p { max-width: none; margin: 4px 0; }
 
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
 <ul class="kit-list">
-<li>多源信息综合后再给结论，禁止单源引用</li>
+<li>**批量连续运行（Queue-first execution）**：一旦启动一轮 F2 AutoResearch（5 步 × 30 分钟），从 broad scan 一路跑到 falsify 不中途停下确认。中途暂停问 PM &quot;要不要继续&quot; 会切断 cache + 浪费 30 分钟构建的 mental model。安全/HITL/缺关键信源时才中断。</li>
+<li>**PDCA 关门条件**：每轮研究 close 之前必须完成 (P 计划 query tree → D 执行 5 步 → C 检查 ≥3 信源跨阵营 + 可证伪 + unanswered → A 行动启动下一轮 brief)。任一缺失 = 这轮研究未关门，不允许下一轮启动。</li>
+<li>内部知识沉淀 ≤1 小时即可完成 → 直接写到 wiki，不要起 research project</li>
 </ul>
 
 </section>
@@ -130,8 +133,8 @@ ls -la ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/settings.json ~/.claude
 # 2. 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来
 claude --help | head -3
 
-# 3. （若本包 tier=certified）查看生产 E2E 证据
-curl -fsSL https://agent-foundry.pages.dev/packs/research-analyst/install.sh | head -20
+# 3. 回到 /packs，登录后复制本包安装命令
+#    公开直连 /packs/research-analyst/install.sh 已关闭，安装脚本由 Worker 校验后发放
 </code></pre>
 </section>
 
@@ -150,7 +153,7 @@ curl -fsSL https://agent-foundry.pages.dev/packs/research-analyst/install.sh | h
 <footer>
   <p>OpenClaw Foundry — 研究分析师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-18 02:27:44 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
 </footer>
 </div>
 </body>

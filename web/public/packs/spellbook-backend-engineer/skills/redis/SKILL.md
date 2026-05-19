@@ -3,6 +3,31 @@ name: redis
 description: Use when choosing a Redis data structure for a use case, implementing caching or rate limiting, building pub/sub or Streams-based real-time messaging, or writing atomic operations like distributed locks.
 ---
 
+## 是什么
+
+Redis 是内存数据结构服务器，提供缓存、计数、排行、消息、分布式锁等一站式高速能力。
+用它的效果是：把数据库扛不住的高频读写卸载到内存层，让系统在峰值依然稳得住。
+
+## 怎么用
+
+1. 先按场景选择数据结构（String、Hash、Sorted Set、Stream），让性能与表达力都不浪费。
+2. 为每个键设置过期策略（TTL），让缓存不会无限增长拖垮内存。
+3. 用 Lua 脚本或事务封装多步操作，让并发场景下的一致性有保证。
+4. 通过哨兵（Sentinel）或集群（Cluster）方案规划高可用与扩展。
+5. 持续监控命中率与内存使用，让缓存策略可以基于真实数据而非直觉调整。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  应用 --> 缓存读取
+  缓存读取 --> 命中返回
+  缓存读取 --> 回源数据库
+  回源数据库 --> 写回缓存
+  写回缓存 --> 过期淘汰
+```
+
+
 # Redis Patterns
 
 Redis data structures, caching, pub/sub, and streams for Python async apps.

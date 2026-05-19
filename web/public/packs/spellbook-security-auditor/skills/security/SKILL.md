@@ -3,6 +3,29 @@ name: security
 description: Use when implementing authentication, authorization, input validation, or secrets management — or when auditing an existing service against OWASP Top 10 risks, configuring security headers, or running a STRIDE threat model.
 ---
 
+## 是什么
+
+这是一份后端安全综合规范，覆盖鉴权、授权、输入校验、密钥管理、OWASP（开放式 Web 应用安全项目）Top 10 风险、STRIDE（六类威胁建模方法）威胁建模、安全响应头等核心控制点，让团队从写代码起就具备防护意识，而不是上线后再补救。
+
+## 怎么用
+
+1. 新功能立项时按 STRIDE 框架做威胁建模，把潜在攻击面在设计阶段就列清楚。
+2. 写鉴权和会话管理代码时套用文档的标准模板，密码哈希、Token 签发、退出失效一次到位。
+3. 处理用户输入时按白名单校验、参数化查询、输出编码三件套防御，杜绝注入和 XSS（跨站脚本攻击）。
+4. 上线前对照 OWASP Top 10 清单逐项自检，特别是访问控制、安全配置、依赖漏洞三大重灾区。
+5. 配置 Content-Security-Policy（内容安全策略）等安全响应头时按文档基线套用，逐步收紧不一刀切。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[功能设计] --> B[STRIDE 建模]
+    B --> C[安全编码]
+    C --> D[OWASP 自检]
+    D --> E[依赖扫描]
+    E --> F[上线放行]
+```
+
 # Security
 
 A comprehensive reference for securing backend APIs and web applications — covering authentication, authorization, secrets, input validation, security headers, threat modeling, and dependency hygiene across Python, TypeScript, and Go.

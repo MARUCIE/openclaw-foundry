@@ -3,6 +3,29 @@ name: test-strategy
 description: Use when choosing a testing model for a new project, auditing a test suite that is slow or provides low confidence, setting coverage targets, or writing a QA test plan for a release.
 ---
 
+## 是什么
+
+这是一份测试策略规范，覆盖测试金字塔分层、覆盖率目标、慢测试套件治理、发版测试计划，让团队搞清楚什么层级该写多少测试、覆盖率应该卡多严、QA（质量保证）资源怎么分配。
+
+## 怎么用
+
+1. 新项目立项时按测试金字塔比例（单测 70%、集成 20%、E2E 10%）定基线，避免上来就堆 E2E 拖垮速度。
+2. 设定覆盖率目标时按文档的业务等级分档（核心 80%、重要 60%、一般 40%）配置，不搞一刀切。
+3. 测试套件跑得慢时按 80/20 原则找出最耗时的 20% 用例，按规范的拆分与并行方案治理。
+4. 大版本发版前按本文档的发版测试计划模板出 QA 报告，包含覆盖、风险、放行条件三部分。
+5. 每个季度评估测试 ROI（投入产出比），删掉无效用例，把节省的资源投入到高价值场景。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务分级] --> B[测试金字塔规划]
+    B --> C[单测 70%]
+    B --> D[集成 20%]
+    B --> E[端到端 10%]
+    C & D & E --> F[发版测试计划]
+```
+
 # Test Strategy
 
 Design a complete testing strategy for any project: choose the right model, set meaningful coverage targets, shift quality left, and plan non-functional testing.

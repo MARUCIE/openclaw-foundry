@@ -3,6 +3,29 @@ name: solution-testing
 description: Use when writing Playwright E2E tests for critical user journeys, setting up post-deployment smoke tests, debugging flaky browser automation, or implementing BDD feature files with Gherkin.
 ---
 
+## 是什么
+
+这是一份方案级端到端测试规范，覆盖 Playwright（浏览器自动化框架）E2E（端到端）测试、部署后冒烟测试、浏览器自动化稳定性、BDD（行为驱动开发）特性文件编写，让团队从用户视角验证核心链路是真的能跑通。
+
+## 怎么用
+
+1. 梳理产品核心用户旅程，按本文档的优先级矩阵选出 5-10 条主路径写 Playwright E2E 测试。
+2. 每次部署后立刻跑冒烟测试套件，10 分钟内确认登录、下单、支付等关键流程没坏。
+3. 浏览器测试容易抖动时，按文档的稳定性清单（显式等待、独立账号、清理数据）逐项排查 flaky 用例。
+4. 业务方提需求时用 Gherkin（BDD 描述语言）写 Given-When-Then 三段式描述，让测试用例和产品文档对齐。
+5. 测试报告里同时附上失败截图和 trace，方便定位前端、后端、网络三类问题，缩短定位耗时。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[用户旅程清单] --> B[Playwright 脚本]
+    B --> C[本地预演]
+    C --> D[CI 冒烟跑]
+    D --> E{通过?}
+    E -->|否| F[截图与 trace]
+```
+
 # Solution Testing
 
 End-to-end and acceptance testing techniques for verifying that a feature works correctly across the full stack — browser, API, and data layer — from the user's perspective.

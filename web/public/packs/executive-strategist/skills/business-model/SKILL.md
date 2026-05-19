@@ -2,6 +2,32 @@
 name: business-model
 description: "Generate a Business Model Canvas with all 9 building blocks. Use when creating a business model, documenting how a business creates value, or analyzing an existing business model."
 ---
+
+## 是什么
+
+Business Model Canvas（商业模式画布）把"我们怎么赚钱"这件事，拆成 9 块互相支撑的拼图，让一家公司的价值创造、价值交付和价值获取一页纸看清，避免战略讨论沦为各部门各讲一段。
+
+## 怎么用
+
+1. 先把客户细分（Customer Segments，客户分层）写清楚，没有具体客户的商业模式都是自我感动。
+2. 把对每个细分客户的核心价值主张（Value Proposition，价值主张）写成一句客户会复述的话。
+3. 顺着右半边把渠道、客户关系补完，确认价值真的能送达和持续。
+4. 左半边的关键活动、资源、合作伙伴只填"如果缺了就跑不通"的那几项，避免堆砌。
+5. 用底部成本结构和收入流跑一次单位经济（Unit Economics，单位经济模型），确认 LTV（Lifetime Value，客户终身价值）至少是 CAC（Customer Acquisition Cost，获客成本）的 3 倍以上。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[客户细分] --> B[价值主张]
+  B --> C[渠道与客户关系]
+  C --> D[收入流]
+  E[关键活动资源伙伴] --> B
+  E --> F[成本结构]
+  D --> G[单位经济验证]
+  F --> G
+```
+
 # Business Model Canvas
 
 ## Metadata

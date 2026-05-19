@@ -3,6 +3,31 @@ name: typescript
 description: Use when writing advanced TypeScript — creating utility types, narrowing unions, resolving tricky type errors, configuring the compiler for strict mode, building branded types, or augmenting third-party module types.
 ---
 
+## 是什么
+
+TypeScript 是给 JavaScript 加上静态类型系统的语言，让运行期错误在编译期被发现。
+用它的效果是：重构敢动手、接口对齐有依据、IDE 的智能提示从摆设变成生产力工具。
+
+## 怎么用
+
+1. 先打开严格模式（strict），让类型系统在第一天就发挥拦截作用而不是事后补救。
+2. 把领域类型集中在一个 types 目录，让团队对核心概念有唯一的真相来源。
+3. 用泛型（Generics）抽象可复用工具函数，让代码既灵活又不失类型安全。
+4. 通过类型守卫（Type Guards）与判别联合（Discriminated Union）建模业务状态机。
+5. 在 CI 里把 tsc 设为强制门禁，让任何类型回退都无法被合入主干。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  源码 --> 类型检查
+  类型检查 --> 编译产物
+  编译产物 --> 运行时
+  类型检查 --> CI门禁
+  CI门禁 --> 主干合并
+```
+
+
 # TypeScript — Advanced Type Patterns
 
 Deep TypeScript patterns for writing expressive, safe, self-documenting code.

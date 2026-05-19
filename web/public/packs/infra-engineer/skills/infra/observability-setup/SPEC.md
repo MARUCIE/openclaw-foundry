@@ -4,6 +4,30 @@ description: "Use when adding monitoring, logging, metrics, or alerting to a pro
 allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
+## 是什么
+
+把项目的可观测性（Observability）三件套——健康端点、指标、日志——一次铺到位，并把告警接到值班通道，让线上从“出事才知道”变成“出事自动叫人”，把 MTTR（Mean Time To Recovery，平均恢复时间）从小时级压到分钟级。
+
+## 怎么用
+
+1. 先给服务加一个 `/health` 端点返回上下游依赖的真实状态，而不是只回 200。
+2. 用 Prometheus（指标采集）或等价方案暴露关键业务指标，让仪表盘能从“服务有没有跑”升到“跑得好不好”。
+3. 把结构化日志（JSON 行）写到标准输出，让日志采集器（Loki、Elasticsearch 等）能按字段检索而不是 grep 全文。
+4. 用 Uptime Kuma 或 Grafana 配置告警规则，按严重程度分级到 IM、邮件、电话三档。
+5. 上线后做一次故障演练（混沌测试），验证告警真的会触发，不要等真实事故才发现告警是哑的。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  应用服务 --> 健康端点
+  应用服务 --> 指标采集
+  应用服务 --> 结构化日志
+  指标采集 --> 仪表盘与告警
+  结构化日志 --> 日志检索系统
+  仪表盘与告警 --> 值班通道
+```
+
 # Observability Setup
 
 Configure monitoring, logging, metrics collection, and alerting for a project.

@@ -4,6 +4,29 @@ description: Validates frontend applications for performance, console errors, re
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
+## 是什么
+
+帮你在 UI 改动上线之前过一遍体检，让你对性能、报错、响应式、关键流程心里有数，避免发版后才被用户反馈"卡""白屏""按钮没反应"。
+
+## 怎么用
+
+1. 把要测的页面地址或本地预览端口告诉它，它会自己起一份验收清单。
+2. 它先看接口请求成不成功，再扫一遍浏览器控制台有没有报错和警告。
+3. 它会跑一遍核心性能指标（LCP 首屏内容加载、CLS 布局抖动、INP 交互响应），不达标的地方圈出来。
+4. 它顺带在不同视口下截图，看看手机、平板、桌面有没有布局塌方。
+5. 关键用户路径它会走一遍端到端（E2E，End-to-End）回归，输出一份带截图的报告给你。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[页面地址] --> B[接口与控制台体检]
+  B --> C[Core Web Vitals 跑分]
+  C --> D[多视口截图]
+  D --> E[关键路径 E2E 回归]
+  E --> F[体检报告]
+```
+
 # Testing Frontend
 
 ## Quick Start

@@ -3,6 +3,29 @@ name: docker
 description: Use when writing or optimizing Dockerfiles, configuring Docker Compose services, debugging containers that behave differently from local, or reducing image size for Python and Node.js apps.
 ---
 
+## 是什么
+
+这是一份 Docker 实用模式集，专门解决 Dockerfile 写法、镜像瘦身、本地与生产行为不一致、Compose（多容器编排）配置等高频痛点，让 Python、Node.js 这类服务从开发到打包都更轻更稳。
+
+## 怎么用
+
+1. 写 Dockerfile 时按多阶段构建模板分离编译期和运行期依赖，运行镜像通常能减到 100MB 以下。
+2. 镜像构建变慢时按缓存层小节调整 COPY、RUN 顺序，把不变的层放前面，依赖装好后再 COPY 业务代码。
+3. 本地容器表现和生产不一致时，按文档的差异排查清单（用户、时区、网络、卷）逐项核对。
+4. 用 Compose 起多服务时套用文档约定的 depends_on、healthcheck、network 模板，避免启动顺序翻车。
+5. 镜像上线前过一遍安全基线（非 root 用户、最小镜像、漂洗 build args），减少潜在攻击面。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[源代码] --> B[多阶段构建]
+    B --> C[最小运行镜像]
+    C --> D[健康检查]
+    D --> E[推送仓库]
+    E --> F[Compose 编排]
+```
+
 # Docker Patterns
 
 Production-ready Docker patterns for Python and Node.js services.

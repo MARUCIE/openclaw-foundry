@@ -4,6 +4,31 @@ description: Infrastructure patrol combining CLI tools (trivy, terraform, cloudf
 allowed-tools: Bash, Read, Grep, Glob
 ---
 
+## 是什么
+
+把"扫漏洞 + 验 IaC（基础设施即代码）+ 查隧道"三件事打包成一次例行巡检：用 trivy（安全扫描）、terraform（IaC 校验）、cloudflared（隧道）、wrangler（边缘部署）四条 CLI 串成 L1/L2/L3 三档巡检流程。让基础设施问题在发布前被拦截，故障恢复时间（MTTR）从"线上爆炸后追查"提前到"每周一次主动发现"。
+
+## 怎么用
+
+1. 每天开工前跑一次 L1 快扫（30 秒内出结果），看有没有新出现的高危漏洞或泄露的密钥。
+2. 每周做一次 L2 标准巡检（2 分钟内），把漏洞 + 密钥 + 配置错误 + Terraform 校验 + 隧道状态全跑一遍，结果落到周报。
+3. 上线前对发布的项目跑 L3 深度审计（10 分钟内），包含 SBOM（软件物料清单）+ Terraform plan 差异检测 + DNS/SSL 证书检查。
+4. 把 L1 接到 PreToolUse hook（前置钩子），让 `terraform apply` 和 `wrangler deploy` 之前自动触发安全扫描，发现问题直接 block。
+5. 把安全发现自动写入 DNA capsule（基因胶囊），让其他 Agent（智能体）继承同类问题的修复经验，避免同一类漏洞在多个项目重复出现。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  Trigger[每日 / 每周 / 发布前] --> L1[L1 快扫 30s]
+  Trigger --> L2[L2 标准 2min]
+  Trigger --> L3[L3 深度 10min]
+  L1 --> Verdict[PASS / WARN / FAIL]
+  L2 --> Verdict
+  L3 --> Verdict
+  Verdict --> DNA[DNA 胶囊沉淀]
+```
+
 # Infrastructure Patrol
 
 Multi-CLI infrastructure health check combining security scanning, IaC validation, and network tunnel verification.

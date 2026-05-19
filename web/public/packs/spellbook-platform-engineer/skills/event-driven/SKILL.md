@@ -3,6 +3,29 @@ name: event-driven
 description: Use when designing or debugging an event-driven system — choosing Kafka partitioning strategies, implementing the outbox pattern, handling dead-letter queues, ensuring idempotent consumers, or making event sourcing decisions.
 ---
 
+## 是什么
+
+这是一份事件驱动架构规范，覆盖 Kafka（分布式消息队列）分区策略、outbox（发件箱）模式、死信队列、消费者幂等、事件溯源等核心模式，让系统从同步调用转成异步事件流时不掉消息、不脏数据。
+
+## 怎么用
+
+1. 设计新事件流时，先按本文档判断属于命令、领域事件还是集成事件，再选发布渠道。
+2. 数据库写入和消息发布要原子时套用 outbox 模式，避免双写不一致导致下游漏单。
+3. 消费者侧实现处理逻辑时按幂等模板编码，重复消费同一条消息不会造成业务后果二次发生。
+4. 失败消息进入 DLQ（死信队列）后按文档定义的处置流程介入，定期清理或回放，避免堆积变成黑洞。
+5. 上线前过一遍分区数、副本数、保留期、监控四项配置，按业务峰值留出至少 2 倍冗余。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务服务] --> B[Outbox 表]
+    B --> C[Kafka 主题]
+    C --> D[消费者集群]
+    D --> E{处理成功?}
+    E -->|否| F[死信队列]
+```
+
 # Event-Driven Architecture Patterns
 
 Design and implementation patterns for reliable, scalable asynchronous systems using message brokers.

@@ -3,6 +3,29 @@ name: infrastructure-as-code
 description: Use when writing Terraform for cloud resources, setting up remote state, structuring modules for reuse, managing multiple environments, reviewing a plan before apply, or importing and resolving state drift.
 ---
 
+## 是什么
+
+这是一份 IaC（基础设施即代码）规范，覆盖 Terraform 模块结构、远端 state（状态文件）配置、多环境分离、plan 评审、状态漂移修复，让基础设施变更和业务代码一样走 PR 评审，告别手工点云控制台。
+
+## 怎么用
+
+1. 新项目立项时，按本文档的目录骨架建好 modules、envs、shared 三层结构，避免后期重构成本。
+2. 远端 state 必须配 backend（远端存储）和锁机制，防止两个人同时 apply 把状态弄坏。
+3. 提 PR 时附上 terraform plan 输出，Review 时重点看 destroy 资源和 replace 资源两类高危改动。
+4. 状态漂移时按文档的 import 与 refresh 流程修复，不要直接 apply 覆盖，避免误删生产资源。
+5. 多环境用 workspace 或目录隔离，按规范配 variables，让 dev/staging/prod 走同一份代码不同参数。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[Terraform 代码] --> B[PR 评审]
+    B --> C[Plan 输出]
+    C --> D[审批通过]
+    D --> E[Apply 部署]
+    E --> F[远端 State]
+```
+
 # Infrastructure as Code
 
 Terraform lets you define, provision, and version cloud infrastructure as declarative HCL code, enabling repeatable and reviewable infrastructure changes.

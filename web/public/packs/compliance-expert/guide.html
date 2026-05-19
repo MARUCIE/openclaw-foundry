@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-18T03:06:32.259Z
+  generated-at: 2026-05-19T07:08:39.702Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/compliance-expert/{manifest.json,CLAUDE.md,prompts.md}
@@ -79,8 +79,8 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>合规风控专家</h1>
   <p class="subtitle">面向财税平台的合规风控专家配置。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="尚未达到 PACK_SPEC v1.0 enriched 标准">Stub</span>
-    <span>版本 <strong>4.1.0</strong></span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
+    <span>版本 <strong>4.2.0</strong></span>
     <span>装包目标 <strong>5</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
@@ -115,9 +115,10 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>客户咨询「这个交易应该交多少税」→ 用 `ft-tax-advisor` skill 直接给方案，不要走完整合规审计流程</li>
+</ul>
 
 </section>
 
@@ -130,8 +131,8 @@ ls -la ~/.claude/CLAUDE.md ~/.claude/AGENTS.md ~/.claude/settings.json ~/.claude
 # 2. 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来
 claude --help | head -3
 
-# 3. （若本包 tier=certified）查看生产 E2E 证据
-curl -fsSL https://agent-foundry.pages.dev/packs/compliance-expert/install.sh | head -20
+# 3. 回到 /packs，登录后复制本包安装命令
+#    公开直连 /packs/compliance-expert/install.sh 已关闭，安装脚本由 Worker 校验后发放
 </code></pre>
 </section>
 
@@ -150,7 +151,7 @@ curl -fsSL https://agent-foundry.pages.dev/packs/compliance-expert/install.sh | 
 <footer>
   <p>OpenClaw Foundry — 合规风控专家 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-18 03:06:32 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成时间：2026-05-19 07:08:39 UTC · 数据来源：本包 manifest.json + CLAUDE.md</p>
 </footer>
 </div>
 </body>

@@ -9,6 +9,28 @@ description: 'Create, extract, and apply portable visual design systems via visu
 name: visual-style
 ---
 
+## 是什么
+
+帮你把一套视觉风格沉淀成一份可复用的设计系统文件（visual-style.md），让同一套调性能跨 HeyGen 视频、HTML 幻灯片、Figma、纸质物料一起用。它解决的是"做完一次设计就一次性消耗掉了，没有沉淀"。
+
+## 怎么用
+
+1. 先决定这次是从零创建，还是从一个网址、一段视频、一份 PDF 品牌手册里抽取风格。
+2. 让它把颜色、字体、版式、动效、情绪写进同一份 visual-style.md，不要分散在不同文档里。
+3. 把这份文件喂给后续的 HeyGen 视频、HTML 幻灯片或 Figma 工程，让它们共用一套调性。
+4. 每完成一个产物，把它放回 visual-style 的画廊里做一次自检，看视觉是否被稀释。
+5. 把这份风格文件纳入项目的设计系统目录，让新加入的同事一上手就站在统一基线。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[网址/视频/品牌手册] --> B[抽取或新建风格]
+  B --> C[visual-style.md]
+  C --> D[视频/幻灯片/Figma 共用]
+  D --> E[统一调性的多端产物]
+```
+
 # Visual Style
 
 Create, extract, and apply portable visual design systems. A `visual-style.md` file defines colors, typography, layout, motion, and mood in one file that any AI tool can consume.

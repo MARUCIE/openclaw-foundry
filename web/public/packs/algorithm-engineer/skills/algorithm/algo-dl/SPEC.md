@@ -3,6 +3,29 @@ name: deep-learning-toolkit
 description: Deep learning toolkit for algorithm teams. Includes PyTorch Lightning, Transformers, Graph Neural Networks, Reinforcement Learning, and model interpretability. Use when building neural networks, training models, or deploying AI systems.
 ---
 
+## 是什么
+
+把 PyTorch Lightning（训练框架）、Transformers（预训练大模型）、PyG（图神经网络）、Stable-Baselines3（强化学习）、SHAP（模型可解释性）打包成算法团队的深度学习全链路工具集，帮你把"原始数据 + 业务标签"变成"可上线、可解释、可监控的模型服务"，让模型从实验脚本走向稳定线上资产。
+
+## 怎么用
+
+1. 先用 PyTorch Lightning 把训练流程标准化（数据加载、训练循环、验证、保存），让团队成员的实验代码风格统一、可复现。
+2. 用 Hugging Face Transformers 直接微调中文 BERT/LLM（大语言模型），把"从零训练"的周级成本压到"微调"的小时级。
+3. 用 PyG（PyTorch Geometric）把用户关系、商品关联、知识图谱转成图神经网络任务，让推荐、风控、链接预测拿到关系信号红利。
+4. 用 Stable-Baselines3 在仿真环境里跑强化学习策略，让定价、调度、库存决策从规则配置升级到自适应策略。
+5. 上线前用 SHAP 给关键模型出"特征贡献度报告"，让业务方、合规方看得懂模型为什么这样判，降低"黑盒拒贷/拒推"风险。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[数据 + 标签] --> B[Lightning 训练]
+    B --> C[Transformers/PyG/RL]
+    C --> D[模型评估]
+    D --> E[SHAP 可解释]
+    E --> F[上线 + 监控]
+```
+
 # Algorithm Team Deep Learning Toolkit
 
 ## Overview

@@ -4,6 +4,31 @@ description: Research-before-coding workflow. Search for existing tools, librari
 origin: ECC
 ---
 
+## 是什么
+
+在动手写代码之前，先把 npm / PyPI / MCP 服务器 / Claude 技能库 / GitHub 翻一遍，帮你在 15 分钟里判断"这事到底是装一个包、套个壳、还是真的得自己造"，把"重复造轮子"的概率压到最低。
+
+## 怎么用
+
+1. 先做需求拆解：把"我要的能力"用一句话写清楚，标注语言 / 框架 / 许可 / 维护活跃度的硬约束。
+2. 并行检索四路：包管理器（npm / PyPI）+ MCP 服务器 + 本地 skills 目录 + GitHub 仓库 / 模板搜索。
+3. 用打分矩阵评候选（功能匹配 / 维护活跃 / 社区规模 / 文档完整 / 许可 / 依赖体积）。
+4. 做决策：完全匹配就直接 Adopt；部分匹配就 Extend 写薄壳；多个弱匹配就 Compose 组合；都不行才 Build。
+5. 实施时优先 install + 最小配置，自己写的代码越少越好，最后回头把研究结论沉淀进项目文档。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[需求拆解] --> B[并行检索 npm/PyPI/MCP/GitHub]
+  B --> C[候选打分矩阵]
+  C --> D{匹配程度}
+  D -->|完全| E[Adopt 直接装]
+  D -->|部分| F[Extend 薄壳]
+  D -->|弱匹配| G[Compose 组合]
+  D -->|无| H[Build 自己造]
+```
+
 # /search-first — Research Before You Code
 
 Systematizes the "search for existing solutions before implementing" workflow.

@@ -8,6 +8,28 @@ description: 'Use when an existing website or app has generic/tired design and n
 name: redesign-existing-projects
 ---
 
+## 是什么
+
+帮你把一个功能能跑、但样子很"AI 通用模板"的旧项目就地翻新，让它在不重写代码的前提下看起来像花了钱的专业产品。
+
+## 怎么用
+
+1. 把现有项目链接或截图发给它，告诉它你最不满意的地方。
+2. 它先扫一遍现有技术栈，搞清楚是用 Tailwind（实用类 CSS 框架）、原生 CSS 还是组件库，避免动了不该动的地方。
+3. 它按一份硬清单做诊断：字体没特色、配色俗气、间距随意、状态缺失、动效呆板，每项都列出来。
+4. 它就地动手做替换，比如换一套有性格的字体、把渐变换成有调性的主色、把按钮的悬停和按下状态补齐。
+5. 改完它会把"改前 vs 改后"对比给你看，你可以挑哪条保留、哪条回滚。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[旧项目] --> B[技术栈扫描]
+  B --> C[审美诊断清单]
+  C --> D[就地翻新改造]
+  D --> E[改前改后对比]
+```
+
 # Redesign Skill
 
 ## How This Works

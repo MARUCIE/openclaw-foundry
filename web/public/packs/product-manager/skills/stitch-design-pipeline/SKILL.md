@@ -2,6 +2,29 @@
 name: "stitch-design-pipeline"
 description: "Fully automated design workflow: PRD → Stitch prototype → Icon/Logo → Code translation. All steps automated end-to-end. User touches nothing."
 ---
+
+## 是什么
+
+帮你把一份 PRD（产品需求文档）一路自动跑到可交付的视觉原型与前端代码：先在 Stitch（Google 的 AI 设计工具）里出界面方案，再补图标和 Logo，最后把视觉稿翻译成代码。整条流水线无人值守，你只看入和出，中间不需要点鼠标。
+
+## 怎么用
+
+1. 把一份相对完整的 PRD 交给它，确认里面有目标用户、关键场景、品牌调性这三件事。
+2. 让它跑 Stitch 那一段，先看它出的初版界面方向对不对，不对就让它整体重生成，不要逐屏改。
+3. 通过后让它顺着流水线把图标与 Logo 生成完，所有视觉素材保持同一套调性。
+4. 拿到视觉稿后让它翻译成前端代码，重点检查响应式与极端文案是否撑得住。
+5. 验收时按"PRD → 原型 → 视觉 → 代码"四段对照，看看是否仍然回到同一个产品意图。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[PRD] --> B[Stitch 界面方案]
+  B --> C[图标与 Logo]
+  C --> D[视觉稿翻译成代码]
+  D --> E[可交付的前端原型]
+```
+
 # Stitch Design Pipeline v2.0
 
 Fully automated design workflow: PRD → Stitch prototype → Icon/Logo → Code translation.

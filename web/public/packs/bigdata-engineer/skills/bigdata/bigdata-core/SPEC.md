@@ -3,6 +3,32 @@ name: bigdata-processing
 description: Core big data processing toolkit for data teams. Includes Polars, Dask, Vaex for large-scale data processing, ETL pipelines, and distributed computing. Use when working with datasets larger than memory, building data pipelines, or optimizing data processing performance.
 ---
 
+## 是什么
+
+一套面向数据团队的核心处理底座，把 Polars、Dask、Vaex 三种 DataFrame（数据帧）能力按数据规模分层组合，让单机分析、分布式计算（distributed computing）、超大文件惰性扫描共用同一套调用习惯，减少 ETL（抽取-转换-加载）任务的内存溢出与跑批超时。
+
+## 怎么用
+
+1. 按数据规模选引擎：10GB 以下用 Polars 单机跑满 CPU 核心，10–100GB 切换 Polars streaming（流式）或 Dask，100GB 以上交给 Dask 分布式集群兜底。
+2. 优先使用 `scan_*` 系列惰性 API（应用程序接口），让查询计划在物理读盘前完成裁剪和谓词下推，避免一次性把全量数据拉进内存。
+3. 把原始 CSV 落地为 Parquet（列式存储格式），后续读取吞吐通常提升 10 倍以上，并按日期或类别字段分区便于增量处理。
+4. 分布式作业用 `dask.distributed.Client` 启动本地或远程集群，让分组聚合、连接等算子自动切分到 worker（工作节点）执行。
+5. 跑大作业前先在采样数据上验证查询计划与输出列，再放到全量数据上跑，避免一次错算消耗整批资源。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[原始数据 CSV/JSON] --> B[惰性扫描 scan_*]
+  B --> C{规模判断}
+  C -->|<10GB| D[Polars 单机]
+  C -->|10-100GB| E[Polars 流式 / Dask]
+  C -->|>100GB| F[Dask 分布式集群]
+  D --> G[Parquet 输出 + 分区]
+  E --> G
+  F --> G
+```
+
 # Big Data Processing Toolkit
 
 ## Overview

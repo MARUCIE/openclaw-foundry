@@ -2,6 +2,31 @@
 name: pestle-analysis
 description: "Perform a PESTLE analysis covering Political, Economic, Social, Technological, Legal, and Environmental factors. Use when assessing the macro environment, doing strategic planning, or evaluating external factors affecting your business."
 ---
+
+## 是什么
+
+PESTLE 分析把"外部环境"这个最容易被忽视的变量，拆成政治、经济、社会、技术、法律、环保六个维度，帮你在做市场进入、战略调整或重大投资前看清宏观环境正在如何挤压或助推你的业务。
+
+## 怎么用
+
+1. 锁定分析对象的业务范围和时间窗口，避免把全球趋势和本地业务混在一起讲。
+2. 对每个维度列出 2–4 条具体影响因素，每条都要能回答"它如何影响我们的收入或成本"。
+3. 给每条因素打两个分：影响强度 1–5 和发生概率 1–5，相乘得到优先级。
+4. 把高优先级因素翻译成战略选择，例如新合规要求触发的产品调整或地区进退。
+5. 季度复盘一次，标注哪些假设已被市场证伪、哪些需要继续跟踪。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[业务范围与窗口] --> B[六维度扫描]
+  B --> C[政治 经济 社会]
+  B --> D[技术 法律 环保]
+  C --> E[影响 × 概率打分]
+  D --> E
+  E --> F[战略选项与监控指标]
+```
+
 # PESTLE Analysis
 
 ## Metadata

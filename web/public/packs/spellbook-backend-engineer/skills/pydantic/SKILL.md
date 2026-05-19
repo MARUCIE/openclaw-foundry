@@ -3,6 +3,31 @@ name: pydantic
 description: Use when defining request/response schemas, writing custom validators, controlling serialization for PATCH endpoints, validating non-model data with TypeAdapter, or configuring app settings from environment variables with pydantic-settings.
 ---
 
+## 是什么
+
+Pydantic 是 Python 生态里把类型注解变成运行时校验与序列化的数据建模库。
+用它的效果是：数据进出系统边界时被强制校验，错误在入口被拦截而不是渗透到业务深处。
+
+## 怎么用
+
+1. 把所有外部输入（API、消息、配置）建模成 Pydantic 模型，让边界处自动做类型与约束校验。
+2. 用 Field、Validator 定义业务规则，让规则与字段定义在同一个地方而不是散落。
+3. 通过 model_config 设置序列化行为，让数据进出都有可预期的形态。
+4. 把模型组合与继承用于复用，让相似结构不必反复声明。
+5. 在测试里直接用模型构造夹具，让测试数据自带类型保护。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  外部输入 --> 模型校验
+  模型校验 --> 业务逻辑
+  业务逻辑 --> 模型序列化
+  模型序列化 --> 外部输出
+  模型校验 --> 错误响应
+```
+
+
 # Pydantic v2 Patterns
 
 Validation, serialization, and settings management with Pydantic v2.

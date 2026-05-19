@@ -2,6 +2,31 @@
 name: product-strategy
 description: "Create a comprehensive product strategy using the 9-section Product Strategy Canvas — vision, segments, costs, value propositions, trade-offs, metrics, growth, capabilities, and defensibility. Use when building a product strategy, creating a strategic plan, or defining product direction."
 ---
+
+## 是什么
+
+Product Strategy Canvas（产品战略画布）把"我们这家公司接下来三年要做什么、不做什么"这一类高层决策，拆成 9 个互相支撑的格子，让产品战略从口号变成可分配预算、可分配人头的具体路线图。
+
+## 怎么用
+
+1. 先把愿景和北极星指标（North Star Metric，北极星指标）写清楚，没有它，下面 8 个格子都会漂移。
+2. 列出目标客户分层和对应的价值主张，确认每一类客户都能匹配到一条清晰的价值线。
+3. 明确"我们故意不做什么"（Trade-offs，取舍），这是聚焦能否守得住的关键。
+4. 把关键指标和能力（Capabilities，能力建设）写到下一财年要投入的颗粒度。
+5. 用"防御性"（Defensibility，防御性）这一格压力测试：12 个月后竞争对手能复制几成？
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[愿景与北极星] --> B[目标客户分层]
+  B --> C[价值主张组合]
+  C --> D[取舍 不做什么]
+  D --> E[关键指标]
+  E --> F[能力建设与增长引擎]
+  F --> G[防御性压力测试]
+```
+
 # Product Strategy Canvas
 
 ## Metadata

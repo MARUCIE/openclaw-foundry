@@ -3,6 +3,32 @@ name: openai-agents
 description: Use when building or debugging OpenAI Agents SDK workflows — defining agents with tools and handoffs, wiring typed context, streaming responses, adding guardrails, or integrating with the Agentex ADK.
 ---
 
+## 是什么
+
+OpenAI Agents SDK 是 OpenAI 官方提供的智能体编排库，把工具调用、流程切换、追踪都内置好。
+用它的效果是：开发者只关心业务逻辑，平台层负责工具路由、状态传递、可观测性。
+
+## 怎么用
+
+1. 先把工具按业务职责注册到 Agent，让模型在选择工具时有清晰的语义边界。
+2. 用 Handoffs 机制描述多智能体协作，让复杂任务可以在专业智能体间接力完成。
+3. 通过 Guardrails 设置输入输出校验，让不合规的请求或响应在早期被拦截。
+4. 打开 Tracing 收集执行链路，让每一次决策都能在控制台里复盘。
+5. 上线前用真实场景做流式（Streaming）压测，确保延迟与稳定性达标。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  用户请求 --> 主智能体
+  主智能体 --> 工具调用
+  主智能体 --> 协作转交
+  协作转交 --> 专业智能体
+  专业智能体 --> 结果汇总
+  结果汇总 --> 链路追踪
+```
+
+
 # OpenAI Agents SDK Patterns
 
 The OpenAI Agents SDK (`openai-agents`) orchestrates LLM agents with tools, handoffs, and tracing.

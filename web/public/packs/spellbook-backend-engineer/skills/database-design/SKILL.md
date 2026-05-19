@@ -3,6 +3,31 @@ name: database-design
 description: "Use when designing a schema, adding indexes to fix slow queries, writing a zero-downtime migration, diagnosing N+1 issues with EXPLAIN ANALYZE, or configuring connection pooling for a PostgreSQL-backed service."
 ---
 
+## 是什么
+
+Database Design 是把业务概念翻译成稳定、可扩展、可演进的数据库结构的工程方法。
+用它的效果是：表结构既能承载当下需求，也能在业务变化时低成本演进而不是推倒重来。
+
+## 怎么用
+
+1. 先用领域驱动设计（DDD）画清业务实体与关系，让表结构对齐业务而非反过来。
+2. 在主键、外键、索引上做显式约束，让数据一致性由数据库而不是应用层兜底。
+3. 为变化频繁的字段预留扩展位（如 JSONB 列或 EAV 表），让小调整不必每次都做迁移。
+4. 通过分区（Partitioning）与分库分表规划长期增长，让性能拐点出现时有渐进式方案。
+5. 把所有 schema 变更写成可回滚的迁移脚本，让上线与回退都有据可循。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  业务建模 --> 实体关系
+  实体关系 --> 表结构
+  表结构 --> 索引设计
+  索引设计 --> 性能验证
+  性能验证 --> 迁移上线
+```
+
+
 # Database Design
 
 A practical reference for designing, indexing, migrating, and operating relational databases in production, with PostgreSQL as the primary target.

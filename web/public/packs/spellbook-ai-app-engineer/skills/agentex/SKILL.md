@@ -3,6 +3,31 @@ name: agentex
 description: Use when building, wiring, or debugging an Agentex agent — choosing agent type, configuring acp.py and manifest.yaml, using adk.messages or adk.state, or resolving Windows-specific setup issues.
 ---
 
+## 是什么
+
+Agentex 是把 AI 智能体（AI Agent）变成可注册、可编排、可观测的后端服务的一套平台范式。
+用它的效果是：智能体不再是一段散落的脚本，而是带状态、带消息、带工作流的产品功能。
+
+## 怎么用
+
+1. 先按业务场景挑选合适的智能体类型（对话型、工作流型、批处理型），让后续设计有清晰边界。
+2. 在 acp.py 与 manifest.yaml 里把入口、状态、工具声明清楚，让平台能正确注册并调度这个智能体。
+3. 用 adk.messages（消息接口）传输用户输入与系统响应，让对话过程可追溯、可重放。
+4. 用 adk.state（状态接口）持久化业务上下文，让多轮交互不会因为重启而丢失记忆。
+5. 在本地拉起 FastAPI 后端与 Temporal 工作流后，再把智能体跑起来做端到端验证。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  用户输入 --> 智能体注册
+  智能体注册 --> 工作流编排
+  工作流编排 --> 状态存储
+  工作流编排 --> 消息接口
+  消息接口 --> 用户输入
+```
+
+
 # Agentex Platform
 
 Agentex is a platform for building and deploying intelligent agents. The repo has two main parts:

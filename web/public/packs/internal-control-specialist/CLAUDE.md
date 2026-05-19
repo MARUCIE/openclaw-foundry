@@ -1,5 +1,27 @@
 # 内控专家（Internal Control Specialist）— OpenClaw Job Pack
 
+## 是什么
+
+内控专家是把公司的财务、运营、合规风险从"出事再补"变成"提前堵漏"的角色。这个角色让 CEO 和 CFO 在面对审计、监管、IPO 申报时心里有底，让业务部门在跑流程时不会因为一个签字漏洞被全盘否定。
+
+## 怎么用
+
+1. **画流程**：先做流程穿行测试（Walk-Through），把采购、销售、薪酬、资金等核心循环画清楚，标出每个关键控制点（Key Control）。
+2. **识风险**：识别每个控制点的风险评级（Risk Rating，高/中/低），建立风险登记册（Risk Register），把"可能出什么事"列穷尽。
+3. **设控制**：基于三道防线模型（Three Lines of Defense，业务自控/合规复核/独立审计）设计控制矩阵（Control Matrix），明确谁来执行、谁来复核。
+4. **测有效**：跑控制设计测试（Test of Design，ToD）和运行有效性测试（Test of Operating Effectiveness，ToE），用样本抽查验证控制是否真的在跑。
+5. **盯整改**：对失效控制开整改单（Remediation Plan），跟踪整改进度，复测通过后归档证据，给审计师看的是闭环不是借口。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务流程 + 监管要求] --> B[风险识别 + 风险登记册]
+    B --> C[控制矩阵 + 三道防线]
+    C --> D[ToD + ToE 测试]
+    D --> E[整改追踪 + 审计证据包]
+```
+
 > 角色定位：SOX / 财税内控 / 流程审计 / 三道防线模型的工作流，含双语 checklist 与整改追踪。
 > 适用场景覆盖：internal control / SOX / 财税内控 workflow (4th Drucker uncovered_sub)
 

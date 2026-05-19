@@ -2,6 +2,29 @@
 name: value-proposition
 description: "Design a detailed value proposition using a 6-part JTBD template — Who, Why, What before, How, What after, Alternatives. Use when creating a value proposition, analyzing customer value delivery, or articulating why customers should choose your product."
 ---
+
+## 是什么
+
+Value Proposition（价值主张）用 JTBD（Jobs To Be Done，待办任务）的视角把"客户为什么要选我们"写成一句不靠形容词撑场的承诺，让全公司在销售、产品、市场口径上回答同一个问题。
+
+## 怎么用
+
+1. 先写"谁"：目标客户的具体画像，不是"中小企业"，而是"30 人左右、刚拿到 A 轮的 SaaS 公司财务负责人"。
+2. 再写"为什么"：客户当前在用什么方案、付出了什么代价、有什么没满足的诉求。
+3. 写出"使用前 / 使用后"的状态对比，让价值差异具体到可量化的指标。
+4. 列出 2–3 个竞争替代方案，并说明客户为什么会从那些方案转过来，而不是泛泛地说"我们更好"。
+5. 用一句客户能复述的话总结主张，没复述出来就说明还不到位。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[目标客户画像] --> B[现状与未满足诉求]
+  B --> C[使用前后状态对比]
+  C --> D[与替代方案差异]
+  D --> E[一句话价值主张]
+```
+
 # Value Proposition
 
 ## Metadata

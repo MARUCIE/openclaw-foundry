@@ -14,6 +14,29 @@ metadata:
       - python3 -m pip install git+https://github.com/soxoj/async-search-scraper.git --no-deps
 ---
 
+## 是什么
+
+把 Bing / Yahoo / Startpage / Aol / Ask 五个还能正常抓取的搜索引擎并起来跑分页检索，帮你在做 OSINT 调研、跨引擎信源比对、市场扫描时一次拿到 5 路 × 多页的原始结果集，而不是一个引擎一个引擎手动翻。
+
+## 怎么用
+
+1. 先安装好依赖（pip 不可用时走 apt 系统包），库必须从 GitHub URL 装 `--no-deps`，PyPI 那个包名是错的。
+2. 用 `python3 web_multi_search.py "查询词"` 起一次默认 3 页 × 5 引擎的搜集。
+3. 按需要剪裁引擎和页数：`--engines bing,yahoo --pages 5` 拿更深，`--proxy` 走代理穿透限速。
+4. 输出格式按下游选：写脚本就 `--output json`，存表格就 `csv`，看就 `text`；要去重加 `--unique-urls` 或 `--unique-domains`。
+5. 拿到 JSON 后用 Python 一行解析出 link + title + snippet，下一步交给摘要、抓正文或人工筛选。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[查询词 + 参数] --> B[并行启动 5 引擎]
+  B --> C[Bing / Yahoo / Startpage / Aol / Ask]
+  C --> D[多页抓取]
+  D --> E[结果汇总 + 去重]
+  E --> F[JSON / CSV / text 输出]
+```
+
 # Web Multi-Search
 
 Search the web across **multiple search engines at once** using [async-search-scraper](https://github.com/soxoj/async-search-scraper). Collects results from Bing, Yahoo, Startpage, Aol, and Ask, iterating through multiple result pages.

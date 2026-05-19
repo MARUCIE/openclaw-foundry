@@ -6,6 +6,29 @@ tags: deep-research, graph-of-thoughts, multi-agent, research, synthesis
 source: https://github.com/AnkitClassicVision/Claude-Code-Deep-Research
 ---
 
+## 是什么
+
+把"一个模糊的研究问题"拆成多智能体并行检索 + 来源分级 + 交叉验证的七阶段流水线，帮你在几小时内把碎片信息汇成一份带可追溯引用的研究报告，而不是攒一堆链接自己头大。
+
+## 怎么用
+
+1. 先把研究问题、成功标准、输出格式说清楚（这一步省了，后面整份报告都会跑偏）。
+2. 把大问题拆成 3-5 个子问题，每个子问题指定优先来源类型（学术 / 行业 / 一手数据）。
+3. 让多个子智能体并行去查，每条结论必须挂上 A-E 来源分级（A 同行评议 / E 道听途说）。
+4. 进入交叉验证阶段，把不同来源的冲突结论摆出来调和，B 级以下的结论必须标注不确定性。
+5. 最后做合成 + 引用核查 + 报告封装，交付带执行摘要、参考文献、不确定性说明的成品。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[研究问题] --> B[子问题拆解]
+  B --> C[多智能体并行检索]
+  C --> D[来源 A-E 分级]
+  D --> E[交叉验证]
+  E --> F[合成报告 + 引用核查]
+```
+
 # Deep Research -- Graph of Thoughts Pipeline
 
 ## Gotchas

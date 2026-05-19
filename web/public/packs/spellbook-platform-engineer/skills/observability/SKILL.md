@@ -3,6 +3,29 @@ name: observability
 description: "Use when adding structured logging, instrumenting Prometheus metrics, wiring up distributed tracing with OpenTelemetry, writing alerting rules, defining SLOs and error budgets, or building a Grafana golden-signals dashboard."
 ---
 
+## 是什么
+
+这是一份可观测性规范，覆盖结构化日志、Prometheus（监控指标系统）指标、OpenTelemetry（开放遥测标准）分布式追踪、告警规则、SLO（服务等级目标）、错误预算、Grafana（可视化平台）大盘，让系统从黑盒变成看得见摸得着的状态机。
+
+## 怎么用
+
+1. 新服务接入时，按本规范的最小可观测套件先把日志、指标、追踪三件套接好，再上线放量。
+2. 写日志按文档约定的结构化字段（trace_id、user_id、severity）打印，方便后续聚合查询。
+3. 配指标时按金信号（请求量、错误率、延迟、饱和度）模板出大盘，确保每个服务都有四象限视图。
+4. 定 SLO 时按业务等级（核心、重要、一般）三档套用文档建议值，超出错误预算就触发治理流程。
+5. 告警规则按 RED（速率、错误、时长）和 USE（利用率、饱和度、错误）两套方法分类配置，避免误报淹没。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[业务服务] --> B[结构化日志]
+    A --> C[指标采集]
+    A --> D[分布式追踪]
+    B & C & D --> E[Grafana 大盘]
+    E --> F[告警与 SLO]
+```
+
 # Observability
 
 Observability is the practice of instrumenting systems so you can understand their internal state from external outputs — logs, metrics, and traces.

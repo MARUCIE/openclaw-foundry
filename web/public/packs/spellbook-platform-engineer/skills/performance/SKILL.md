@@ -3,6 +3,30 @@ name: performance
 description: Use when diagnosing a slow endpoint, fixing N+1 queries, adding a caching layer, offloading CPU-bound work to threads, or defining a latency budget for a service.
 ---
 
+## 是什么
+
+这是一份性能优化规范，覆盖慢接口诊断、N+1 查询治理、缓存分层、CPU 密集任务异步化、延迟预算定义，让团队从盲目调优转向有数据支撑的精准优化，每次优化都看得见效果。
+
+## 怎么用
+
+1. 接到接口慢的反馈时，先按文档的瓶颈定位流程跑一遍，确认是数据库、网络、CPU 还是 IO 问题再动手。
+2. 查 ORM（对象关系映射）日志发现 N+1 查询时，按规范用预加载或批量查询解决，单接口 SQL 数从几十降到个位数。
+3. 计算密集型任务按文档的异步化模板放到线程池或队列处理，避免阻塞主请求链路。
+4. 给每个核心接口定 P50/P95/P99（百分位延迟）预算，监控持续跑超阈值就立项专项治理。
+5. 优化前用 benchmark（基准测试）测一次基线，优化后再测一次，用数据说话不靠感觉。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[慢接口报告] --> B[瓶颈定位]
+    B --> C{瓶颈类型}
+    C --> D[SQL 优化]
+    C --> E[缓存加层]
+    C --> F[异步化]
+    D & E & F --> G[基准复测]
+```
+
 # Performance
 
 A structured guide to profiling, caching, database optimization, async patterns, and performance budgets for production services.

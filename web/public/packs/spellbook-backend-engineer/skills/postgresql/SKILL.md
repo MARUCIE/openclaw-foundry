@@ -3,6 +3,32 @@ name: postgresql
 description: Use when writing complex PostgreSQL queries, diagnosing slow queries with EXPLAIN ANALYZE, designing indexes, handling concurrent writes, or planning safe schema migrations on large tables.
 ---
 
+## 是什么
+
+PostgreSQL 是功能最完备的开源关系数据库，既能跑事务也能跑分析，扩展生态极其丰富。
+用它的效果是：一套数据库覆盖大多数场景，省下专门搭多套异构存储的运维成本。
+
+## 怎么用
+
+1. 先用范式化设计保证一致性，再针对热点查询做必要的反范式与物化视图。
+2. 通过 EXPLAIN ANALYZE 解读执行计划，让性能优化基于证据而不是猜测。
+3. 用合适的索引类型（B-tree、GIN、BRIN）匹配数据特征，让查询走最优路径。
+4. 通过分区表与逻辑复制支撑大数据量与高可用，让单节点不再是性能与可靠性瓶颈。
+5. 把 pg_stat_statements 接入监控，让慢 SQL 的发现与治理形成长期习惯。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  应用 --> 连接池
+  连接池 --> 主库
+  主库 --> 备库
+  主库 --> 执行计划
+  执行计划 --> 索引
+  索引 --> 结果返回
+```
+
+
 # PostgreSQL Patterns
 
 Advanced querying, indexing, and schema design for PostgreSQL 14+.

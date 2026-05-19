@@ -20,6 +20,29 @@ triggers:
   - "hermes-agent式"
 ---
 
+## 是什么
+
+把"深度学习系列"每一期专题报告（访谈、论文、框架、争议）从内容生成、签名视觉风格、独立 CF Pages（Cloudflare Pages）子域名、4K + 移动 + 微信三档截图、到 Google Drive 结构化归档串成一条流水线，帮你把"一个深度学习选题"稳定产出成"一篇有编辑级排版、有独立访问入口、有可分发素材、有可追溯档案"的对外资产。
+
+## 怎么用
+
+1. 先按"内容是否自带视觉符号"决策：自带就委托一套新的签名风格（Hermes、Bloomberg、Anthropic 等），不带就从 html-style-router（风格路由）里选 12 套之一，让每期视觉不重样。
+2. 用 deep-learning-skill 生成正文 + 3 层结构 + 引语 + 数据，再用所选风格统一渲染成 HTML，让正文质量和视觉档次同步保底。
+3. 用 deploy-cf.sh 把这一期独立部署到 deeplearn-NN-slug.pages.dev（不与往期共域），让每期 URL 是干净的独立入口。
+4. 用 render-poster.mjs 一次性产出 4K 主图、移动主图、1080w JPEG 微信版三档海报，让公众号、朋友圈、企业微信、AirDrop 各取所需。
+5. 用 archive-gdrive.sh 按 "日期_深度学习_第NN期_标题" 命名归档到 Google Drive 深度学习目录，并在 state/memory 记一条 episode 索引，让后续每一期都能回溯。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[选题] --> B[风格选型]
+    B --> C[正文渲染 HTML]
+    C --> D[CF Pages 独立部署]
+    D --> E[三档截图]
+    E --> F[GDrive 归档]
+```
+
 # Deep Learning Pipeline
 
 > Single source of truth for the **深度学习系列** editorial pipeline. Each episode is a topic deep-dive (interview / paper / framework / public debate) shipped with a **signature visual style** (never reused across episodes), a **dedicated CF Pages subdomain**, and a **triple-format poster** (4K master + mobile master + WeChat-friendly JPEG).

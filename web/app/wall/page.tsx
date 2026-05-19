@@ -48,7 +48,7 @@ export default function WallPage() {
 
       {/* Cohort-intent context — entries below are seed examples + real cohort posts */}
       <p className="text-sm opacity-70 leading-relaxed">
-        ↓ 下面是 cohort 同伴公开过的卡点（含示例 + 真实）。看到熟悉的场景？{' '}
+        ↓ 下面是工作坊战友公开过的卡点（含示例 + 真实）。看到熟悉的场景？{' '}
         <Link href={ctaHref} className="font-bold underline" style={{ color: 'var(--primary)' }}>
           加一个你自己的
         </Link>{' '}

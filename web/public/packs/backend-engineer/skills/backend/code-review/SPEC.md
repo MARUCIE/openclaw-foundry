@@ -4,6 +4,29 @@ description: "Use when asked to review a PR, diff, or file for bugs, security is
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
+## 是什么
+
+帮你把"代码评审"这件事从感性挑刺变成一份结构化清单，让每一次合并请求都按统一标准过一遍安全、质量、性能与测试覆盖，减少漏网的回归与隐患流入主分支。
+
+## 怎么用
+
+1. 把待评审的差异（`git diff` 或 PR（Pull Request，合并请求）范围）交给本技能，先让它聚焦在改动行而不是整文件。
+2. 让本技能按 OWASP（开放式 Web 应用程序安全项目）Top 10 维度扫一遍改动是否引入注入、鉴权绕过、敏感数据外泄等风险。
+3. 让本技能为每条问题打上严重度（CRITICAL/MAJOR/MINOR/NITPICK），并把同类问题一起列出，避免作者只补一行就当修完。
+4. 把评审结论按统一 JSON 结构反馈到合并请求，提交 approve / request_changes / comment 之一作为闸门结论。
+5. 合并前确认作者已按 CRITICAL 与 MAJOR 项整改，并补齐对应回归测试。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[PR 差异] --> B[扫描安全风险]
+  B --> C[评估质量与性能]
+  C --> D[严重度分级]
+  D --> E[评审结论 JSON]
+  E --> F[合并闸门]
+```
+
 # Code Reviewing
 
 ## Quick Start

@@ -3,6 +3,29 @@ name: microservices
 description: Use when decomposing a monolith, designing inter-service communication, implementing circuit breakers or sagas, reasoning about data ownership across services, or setting up an API gateway for a distributed system.
 ---
 
+## 是什么
+
+这是一份微服务架构规范，覆盖单体拆分、服务间通信、熔断与限流、Saga（分布式事务模式）、API 网关、数据所有权划分，让团队从单体演进到微服务时少踩边界划错、分布式事务、级联故障三大经典坑。
+
+## 怎么用
+
+1. 单体拆分时先按本文档的领域划分模板画限界上下文，确认每个服务有独立数据所有权再动手。
+2. 服务间通信选同步 RPC（远程过程调用）还是异步消息时，对照文档的决策树评估一致性和性能权衡。
+3. 给关键调用链加熔断、限流、超时三件套，按规范模板配置，避免雪崩拖垮整个集群。
+4. 跨服务事务用 Saga 编排或事件驱动补偿，按文档示例实现，不要追求强一致性把系统拖死。
+5. 接入 API 网关时按规范配置鉴权、路由、限流、灰度，保持业务服务不耦合公共能力。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[客户端] --> B[API 网关]
+    B --> C[服务 A]
+    B --> D[服务 B]
+    C --> E[事件总线]
+    D --> E
+```
+
 # Microservices Patterns
 
 Design and implementation patterns for decomposing monoliths and building reliable distributed backend systems.

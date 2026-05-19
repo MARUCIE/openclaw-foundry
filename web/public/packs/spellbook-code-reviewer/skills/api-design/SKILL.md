@@ -3,6 +3,29 @@ name: api-design
 description: Use when designing new REST endpoints, reviewing an existing API contract, adding pagination or filtering, planning a versioning strategy, or building a public or partner-facing API.
 ---
 
+## 是什么
+
+这是一份 REST API（应用程序接口）设计规范，让团队对外暴露的接口在命名、版本、分页、错误码上保持一致，新成员一周内就能写出符合公司风格的接口，外部接入方也能少踩坑。
+
+## 怎么用
+
+1. 新功能立项时，先按本规范画出 URL 路径和资源命名，确保用动词命名错误的接口不会进 PR（合并请求）。
+2. Review 老接口时对照分页、过滤、错误响应小节，把不一致的地方列成技术债清单。
+3. 对外发版前，按版本策略章节决定走 URI 版本号还是 Header 版本号，避免接入方升级时被动断链。
+4. 团队新人入职第一周，把本文档作为 API 风格 onboarding（入职培训）必读，比口口相传更稳。
+5. 出现接口设计争论时，以本规范作为仲裁基线，避免每次都靠个人偏好拍板。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[新接口需求] --> B[查阅 API 规范]
+    B --> C[设计 URL 与资源]
+    C --> D[定义分页与错误]
+    D --> E[Review 合规]
+    E --> F[发布对外接口]
+```
+
 # API Design Patterns
 
 Conventions and best practices for designing consistent, developer-friendly REST APIs.

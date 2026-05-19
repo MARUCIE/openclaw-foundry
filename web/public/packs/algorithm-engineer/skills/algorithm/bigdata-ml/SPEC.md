@@ -3,6 +3,29 @@ name: bigdata-machine-learning
 description: Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.
 ---
 
+## 是什么
+
+把 scikit-learn（传统机器学习）、PyTorch Lightning（深度学习）、Transformers（预训练 NLP）、SHAP（可解释性）、Dask-ML（大规模训练）一站式集成，帮大数据团队把"TB 级数据 + 业务问题"系统化转成"可上线的预测能力 + 可追溯的实验记录"，让分类、回归、文本、图像、强化学习任务共用一套规范。
+
+## 怎么用
+
+1. 按任务类型自动选型：分类回归走 scikit-learn，文本走 Transformers，图像走 Lightning，强化学习走 stable-baselines3，让选型不再靠工程师个人偏好。
+2. 把 Pipeline（管线）+ cross_val_score（交叉验证）封成标准模板，让团队成员的实验结果可比可复现。
+3. 单机塞不下的数据切到 Dask-ML（分布式机器学习），让 TB 级训练不再需要重写代码。
+4. 流式数据用 partial_fit（增量学习），让模型可以一边收新样本一边迭代，不用每周全量重训。
+5. 用 MLflow（实验追踪）记录参数 + 指标 + 模型，再用 SHAP 给关键预测出归因报告，让模型上线后业务、合规、风控都能溯源。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[原始数据] --> B[Pipeline 标准化]
+    B --> C[选型 + 训练]
+    C --> D[MLflow 追踪]
+    D --> E[SHAP 解释]
+    E --> F[模型上线]
+```
+
 # Big Data Machine Learning Toolkit
 
 ## Overview

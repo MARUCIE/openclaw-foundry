@@ -3,6 +3,29 @@ name: deployment-strategies
 description: "Use when choosing a deployment strategy for a release, setting up canary or blue/green rollouts, adding feature flags to decouple deployment from release, coordinating a zero-downtime database migration, or defining rollback criteria and procedures."
 ---
 
+## 是什么
+
+这是一份发版策略规范，覆盖蓝绿、金丝雀、滚动、特性开关等模式的选择标准、回滚条件、数据库迁移协调流程，让团队既能高频发版又能在出问题时分钟级回滚。
+
+## 怎么用
+
+1. 新功能上线前，按本文档的风险矩阵决定走蓝绿、金丝雀还是滚动发布。
+2. 大流量功能用 feature flag（特性开关）把部署和放量解耦，先 ship 代码再控开关。
+3. 涉及数据库 schema（表结构）变更时，严格按文档的双写、读迁移、清理三阶段流程推进。
+4. 每次发版前定义清楚回滚指标和阈值，触发即回滚，避免靠人脑临场拍板。
+5. 发版后 30 分钟内盯紧错误率、延迟、流量三大指标，超出阈值立刻按预案处置。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[新版本就绪] --> B[选定策略]
+    B --> C[小流量灰度]
+    C --> D{指标达标?}
+    D -->|是| E[全量放开]
+    D -->|否| F[自动回滚]
+```
+
 # Deployment Strategies
 
 A reference for selecting and implementing deployment strategies that minimize risk, enable zero-downtime releases, and provide fast rollback paths.

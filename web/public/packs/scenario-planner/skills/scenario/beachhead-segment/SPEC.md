@@ -2,6 +2,29 @@
 name: beachhead-segment
 description: "Identify the first beachhead market segment for a product launch. Evaluates segments against burning pain, willingness to pay, winnable market share, and referral potential. Use when choosing a first market, targeting an initial customer segment, or planning market entry strategy."
 ---
+
+## 是什么
+
+帮你从一堆"看起来都不错"的市场切片里，挑出那个真痛、肯付费、能赢、还会主动转介绍的滩头堡（Beachhead，首战市场），让有限的资源砸在最容易拿下的第一仗上。
+
+## 怎么用
+
+1. 列出 5–8 个候选细分市场，避免一上来就锁死答案。
+2. 用四把尺子量每个候选：痛感强度、付费意愿、可赢份额、转介绍潜力。
+3. 给每个候选写一句话客户画像，逼自己说清楚"到底卖给谁"。
+4. 排序后挑出第一名作为滩头堡，第二名留作后备。
+5. 为滩头堡定义产品市场契合度（PMF，Product-Market Fit）的可衡量信号，作为下阶段验证目标。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[候选细分市场列表] --> B[四维评估打分]
+  B --> C[客户画像澄清]
+  C --> D[滩头堡选定]
+  D --> E[PMF 验证信号]
+```
+
 # Beachhead Segment
 
 ## Overview

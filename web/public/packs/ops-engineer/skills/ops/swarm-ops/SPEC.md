@@ -12,6 +12,30 @@ triggers:
   - circuit breaker
 ---
 
+## 是什么
+
+把 Agent Matrix Swarm（233 个 Agent × 9 个领域的蜂群）的状态、健康、能力发现、任务分配、熔断这些操作集成成一组 `ai swarm` CLI 子命令。让产品同学不用进代码也能看清"现在有多少 Agent 在跑、负载分布健不健康、需不需要切到 cron 兜底"，故障恢复时间（MTTR）从"看日志猜哪个 Agent 卡了"压到"一行命令出真相"。
+
+## 怎么用
+
+1. 每天先跑 `ai swarm status`，看注册 Agent 数、空闲/忙碌比、收敛指标，识别是否有领域负载倾斜。
+2. 用 `ai swarm health` 跑收敛健康检查（Gini 系数 + 熵 + 负载标准差），数值异常说明分配机制出问题，先看再调。
+3. 用 `ai a2a discover "税务 申报"` 做语义能力搜索，找出适合处理某类任务的 Agent，避免随机分配。
+4. 用 `ai swarm allocate` 跑一次分配周期，把 pending（等待中）任务推给对应 Agent，看完成情况。
+5. 出大事就拉熔断：`ai swarm circuit-open` 立刻把所有任务切到 cron（定时任务）兜底，问题修完再 `ai swarm circuit-close` 恢复蜂群调度。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  CLI[ai swarm CLI] --> Status[状态 + 健康]
+  CLI --> Discover[a2a 能力发现]
+  CLI --> Allocate[任务分配周期]
+  CLI --> Circuit[熔断开关]
+  Circuit --> Cron[cron 兜底链路]
+  Allocate --> Pheromone[信息素场反馈]
+```
+
 # Swarm Operations
 
 Operate the Agent Matrix Swarm Intelligence system (233 agents x 9 domains).

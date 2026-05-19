@@ -3,6 +3,29 @@ name: ci-cd
 description: "Use when setting up or debugging GitHub Actions pipelines — adding quality gates, configuring OIDC cloud auth, building matrix test runs, publishing artifacts to GHCR/PyPI/npm, or promoting builds from staging to production."
 ---
 
+## 是什么
+
+这是一份 CI/CD（持续集成与持续交付）流水线规范，覆盖 GitHub Actions 的触发、缓存、矩阵测试、质量门禁、跨环境晋升等关键节点，让团队从手工部署升级到一键发版，且每次发版都自带质量保障。
+
+## 怎么用
+
+1. 新项目立项时，按本规范拷贝标准 workflow 模板，5 分钟内就能跑通最小可用的 CI（持续集成）流程。
+2. 给流水线加单元测试、覆盖率、安全扫描等质量门禁时，对照文档中的标准门禁清单逐项启用。
+3. 配置云上部署 OIDC（开放身份连接）认证时，遵循免长期密钥章节的步骤，避免把 access key 写进 secrets。
+4. 流水线变慢时，按缓存与并行小节先加 cache，再做 job 拆分，目标 P95 时长控制在 8 分钟内。
+5. 从测试环境晋升到生产环境时，必须走文档约定的多环境晋升流程，加 manual approval（人工审批）兜底。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[Push 或 PR] --> B[Lint 与单测]
+    B --> C[构建产物]
+    C --> D[质量门禁]
+    D --> E[测试环境部署]
+    E --> F[人工审批晋升]
+```
+
 # CI/CD with GitHub Actions
 
 A complete reference for building robust, secure, and efficient CI/CD pipelines using GitHub Actions, covering everything from workflow anatomy to multi-environment deployment promotion.

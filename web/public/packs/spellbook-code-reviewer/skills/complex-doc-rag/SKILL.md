@@ -3,6 +3,29 @@ name: complex-doc-rag
 description: Use when building a RAG pipeline that ingests PDFs, Excel, CSV, or images — especially when debugging silent data loss, choosing between OCR tools, or handling edge cases like scanned pages, merged cells, or embedded charts.
 ---
 
+## 是什么
+
+这是一份复杂文档 RAG（检索增强生成）方案规范，针对长 PDF、技术手册、合同等结构复杂的文档，给出切片、向量化、检索、重排的完整链路，让 AI 回答能引用到准确段落而不是胡编。
+
+## 怎么用
+
+1. 拿到一批新文档时，先按本文档判断属于结构化、半结构化还是非结构化，再选切片策略。
+2. 设计向量索引时，对照召回率与上下文长度的权衡建议，确定 chunk size（切片大小）和 overlap（重叠区）。
+3. 检索效果不理想时，按本规范的诊断流程逐步排查切片、嵌入、检索、重排四个环节。
+4. 集成多种检索方式（关键词 + 向量 + 元数据）时，遵循混合检索小节的权重配比建议。
+5. 上线后通过命中段准确率和回答幻觉率两个指标持续验证 RAG 效果。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[原始文档] --> B[切片处理]
+    B --> C[向量化]
+    C --> D[索引存储]
+    D --> E[检索召回]
+    E --> F[重排与生成]
+```
+
 # Complex Document RAG
 
 RAG pipelines for documents that mix text, tables, images, and layout structure.

@@ -3,6 +3,29 @@ name: coding-standards
 description: "Use when reviewing code for quality, naming a class or function, choosing a design pattern, refactoring a code smell, or establishing coding conventions for a new project."
 ---
 
+## 是什么
+
+这是一份代码规范基线，覆盖命名、注释、错误处理、依赖管理等高频争议点，让团队 PR Review 不再为风格问题反复拉锯，新人写出的代码也能直接通过自动化检查。
+
+## 怎么用
+
+1. 项目立项时把本规范配进 linter（代码风格检查工具）和 formatter（格式化工具），让风格问题在本地就被拦截。
+2. 写代码遇到风格分歧时，第一时间查本文档，而不是询问资深工程师，节省双方时间。
+3. Code Review 时只关注规范里没覆盖的设计问题，已规范化的细节交给工具自动检查。
+4. 新人入职第一天读完本规范，配合工具实操一遍，一周内就能输出风格合规的代码。
+5. 规范本身每季度迭代一次，团队投票决定增删，让规范跟得上技术栈演进。
+
+## 架构图
+
+```mermaid
+flowchart LR
+    A[本地编写] --> B[Linter 检查]
+    B --> C[Formatter 自动修复]
+    C --> D[提交 PR]
+    D --> E[Review 设计问题]
+    E --> F[合并主干]
+```
+
 # Coding Standards
 
 A comprehensive reference for writing clean, consistent, maintainable code across Python, TypeScript, and Go.

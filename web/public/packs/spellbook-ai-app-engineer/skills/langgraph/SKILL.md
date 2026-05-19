@@ -3,6 +3,32 @@ name: langgraph
 description: Use when building or debugging LangGraph workflows — designing state graphs, adding conditional routing, wiring checkpointers, streaming tokens, implementing human-in-the-loop interrupts, or coordinating multi-agent subgraphs.
 ---
 
+## 是什么
+
+LangGraph 是用状态图（State Graph）来描述多步智能体流程的编排框架。
+用它的效果是：复杂的决策、分支、循环不再藏在 if-else 里，而是变成一张可视化、可单步调试的图。
+
+## 怎么用
+
+1. 先把业务流程拆成节点（一个节点 = 一个明确职责），让每一步的输入输出都有契约。
+2. 用条件边（Conditional Edge）描述分支与循环，让回退与重试逻辑显式而非散落。
+3. 把全局状态（State）建模成 TypedDict 或 Pydantic 模型，让每一次状态更新都可追踪。
+4. 在关键节点接入人工审核断点（Human-in-the-loop），让高风险动作有人类签字才放行。
+5. 用图遍历日志做事后回放，让失败案例能复现、能归因、能写进回归测试。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  起点 --> 决策节点
+  决策节点 --> 工具调用
+  决策节点 --> 人工审核
+  工具调用 --> 状态更新
+  人工审核 --> 状态更新
+  状态更新 --> 终点
+```
+
+
 # LangGraph Patterns
 
 LangGraph builds stateful multi-step LLM workflows as directed graphs. Each node is a Python function; edges define routing between them.
