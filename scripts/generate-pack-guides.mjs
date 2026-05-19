@@ -394,6 +394,12 @@ ls -la ~/.codex/AGENTS.md ~/.codex/settings.json ~/.codex/skills/
 # Gemini CLI — 确认 ~/.gemini 下有本包安装的产物
 ls -la ~/.gemini/AGENTS.md ~/.gemini/settings.json ~/.gemini/skills/
 
+# Hermes agent — 确认 ~/.hermes 下有本包安装的产物
+ls -la ~/.hermes/AGENTS.md ~/.hermes/settings.json ~/.hermes/skills/
+
+# OpenClaw — 确认 ~/.openclaw 下有本包安装的产物
+ls -la ~/.openclaw/AGENTS.md ~/.openclaw/settings.json ~/.openclaw/skills/
+
 # 验证 manifest 声明的 first_use_demo 命令能 dry-run 起来（Claude 示例）
 claude --help | head -3
 
