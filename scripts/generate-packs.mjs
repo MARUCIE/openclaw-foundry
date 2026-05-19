@@ -215,14 +215,14 @@ function main() {
       writeFileSync(join(packDir, 'prompts.md'), merged.promptsMd);
     }
 
-    // Packs with artifacts (skills/ + agents/) get a manifest-driven installer
-    // that downloads everything listed in manifest.json. Plain packs get the
-    // simple 4-file curl loop. The manifest.json itself is committed to git
-    // and persisted across regenerations (not regenerated here).
-    const installScript = pack.artifacts
-      ? generateManifestDrivenInstallScript(pack.id)
-      : generateInstallScript(pack.id);
-    writeFileSync(join(packDir, 'install.sh'), installScript);
+    // install.sh ownership: as of 2026-05-19, install.sh is owned exclusively
+    // by `scripts/regenerate-install-scripts.mjs` (single source of truth, multi-agent
+    // template). The legacy generateInstallScript / generateManifestDrivenInstallScript
+    // emitters here are kept for historical reference but no longer write — they were
+    // silently overwriting the v5.0 multi-CLI template during prebuild and producing
+    // 10 stale install.sh files (commit 604e8ce post-mortem). To regenerate install.sh,
+    // run: node scripts/regenerate-install-scripts.mjs
+    // (silently no-op the write; regenerate-install-scripts.mjs is now the sole writer)
 
     totalFiles += 5;
     const defaultFiles = ['CLAUDE.md', 'AGENTS.md', 'settings.json', 'prompts.md', 'install.sh'];
