@@ -22,6 +22,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
+const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
+const ROLE_PACKS_GIT_REF = 'v2026.05.25';
 
 function readJsonSafe(path) {
   try { return JSON.parse(readFileSync(path, 'utf-8')); } catch { return null; }
@@ -38,6 +40,15 @@ function esc(s) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function buildGitInstallCommand(slug, agent, target = '') {
+  const targetArg = target ? ` --target ${target}` : '';
+  return [
+    'tmp="$(mktemp -d)"',
+    `git clone --depth 1 --branch ${ROLE_PACKS_GIT_REF} ${ROLE_PACKS_GIT_URL} "$tmp/openclaw-role-packs"`,
+    `"$tmp/openclaw-role-packs/install.sh" ${slug} --agent=${agent}${targetArg}`,
+  ].join(' && ');
 }
 
 function extractFirstUseDemo(manifest) {
@@ -258,6 +269,7 @@ h3 { font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; margi
 p { margin: 0 0 14px; max-width: 720px; }
 .lead { font-size: 1.15rem; line-height: 1.75; color: var(--text-primary); max-width: 760px; }
 code { background: var(--bg-warm); padding: 2px 6px; border-radius: 4px; font-family: var(--mono); font-size: 0.88rem; }
+.install-command { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 pre { background: #1f1d1a; color: #f0e9d8; padding: 18px 22px; border-radius: 10px; overflow-x: auto; font-family: var(--mono); font-size: 0.85rem; line-height: 1.65; }
 pre code { background: transparent; color: inherit; padding: 0; }
 .kit-list { padding-left: 22px; margin: 8px 0 16px; }
@@ -348,7 +360,8 @@ ${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>install.sh v5.1 起支持 <strong>多 CLI agent 自动适配</strong>。同一份 install.sh 可以装到五个目标，靠 <code>--agent</code> 标志或自动检测决定落点：</p>
+<p>安装入口统一走 GitHub 固定 tag：<code>${esc(ROLE_PACKS_GIT_URL)}</code> @ <code>${esc(ROLE_PACKS_GIT_REF)}</code>。公开 Pages 直连
+<code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
     <th style="padding:8px 12px;">CLI Agent</th>
@@ -356,15 +369,15 @@ ${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code>curl -fsSL .../packs/${esc(ctx.slug)}/install.sh | bash -s -- --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code>INSTALL_DEST=/your/dir curl -fsSL ... | bash</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'claude'))}</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'codex'))}</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'gemini'))}</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'hermes'))}</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'openclaw'))}</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">${esc(buildGitInstallCommand(ctx.slug, 'claude', '/your/dir'))}</code></td></tr>
   </tbody>
 </table>
-<p class="muted">优先级: <code>INSTALL_DEST</code> 环境变量 → <code>--agent=&lt;X&gt;</code> 标志 → <code>OPENCLAW_AGENT</code> 环境变量 → 自动检测（按 <code>~/.claude</code> → <code>~/.codex</code> → <code>~/.gemini</code> → <code>~/.hermes</code> → <code>~/.openclaw</code> 顺序）→ 默认 claude。</p>
+<p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
 <p class="muted">artifact 的 <code>dst</code> 路径（<code>skills/</code> · <code>agents/</code> · <code>CLAUDE.md</code> · <code>AGENTS.md</code>）是 Claude + Codex + Gemini + Hermes + OpenClaw 间的共享约定。<code>CLAUDE.md</code> 在 Codex/Gemini/Hermes/OpenClaw 上是惰性文件（不读取，也无害）。</p>
 </section>
 
@@ -404,7 +417,7 @@ ls -la ~/.openclaw/AGENTS.md ~/.openclaw/settings.json ~/.openclaw/skills/
 claude --help | head -3
 
 # 回到 /packs，登录后复制本包安装命令
-#    公开直连 /packs/${esc(ctx.slug)}/install.sh 已关闭，安装脚本由 Worker 校验后发放
+#    公开直连 /packs/${esc(ctx.slug)}/install.sh 已关闭，安装命令固定为 GitHub tag
 </code></pre>
 </section>
 
