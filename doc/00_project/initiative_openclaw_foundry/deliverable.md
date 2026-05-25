@@ -500,4 +500,25 @@ Correct the product-line role boundary: Product Manager owns prototype hypothesi
 5. Three-end consistency:
    - Local Foundry: build, pack audit, `ai check`, and local Playwright smoke passed.
    - GitHub role-pack repo: tag `v2026.05.25.3` points at `8c042c359d57f51dd344063b3755394b0e5863d1`.
-   - Production Pages: pending Foundry push and Cloudflare Pages deployment.
+   - Production Pages: deploy run `26394169342` passed for Foundry commit `6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235`.
+
+### Production Verification
+1. GitHub Actions deploy run `26394169342` -> PASS; `deploy-worker`, `apply-migrations`, and `deploy-frontend` completed successfully.
+2. Production `https://agent-foundry.pages.dev/data/packs.json?verify=6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235` -> HTTP 200, 26 packs, `designer` present with `tier=enriched`, `line=product`, `nameZh=设计师`, and `artifacts.skills=3`.
+3. Production pack catalog has no `prototype-designer`, and `product-manager` still explicitly owns prototype validation.
+4. Production `https://agent-foundry.pages.dev/packs/designer/guide.html?verify=6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235` contains:
+   - `git clone --depth 1`
+   - `https://github.com/MARUCIE/openclaw-role-packs.git`
+   - `v2026.05.25.3`
+   - `install.sh designer`
+   - no `prototype-designer`
+   - no direct Pages install URL
+   - no `download-token`
+   - no Maurice-local filesystem path
+5. Production old guide `/packs/prototype-designer/guide.html` -> HTTP 404.
+6. Playwright production smoke on `/packs?verify=6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235`:
+   - `Build Products` shows `Product Manager` and `Designer`.
+   - Selecting `Designer` renders `设计师 / DESIGNER`, `产品职能线`, `已富化`, `+3 SKILL`, `+2 ADVISOR`, and the GitHub-tag install explanation.
+   - `View Released Packs` renders 9 cards including Product Manager and Designer.
+   - No `原型设计师`, `Prototype Designer`, or `prototype-designer` appears.
+   - Screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`.

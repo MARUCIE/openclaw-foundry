@@ -570,5 +570,26 @@ Production `/packs` still exposed `原型设计师`, but prototype hypothesis an
    - `原型设计师` and `prototype-designer` are absent.
 10. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-094234-dad4d3a0`; global AI-Fleet integrity caveat remains unrelated to this release.
 
-### Remaining Step
-Commit and push Foundry, wait for Cloudflare Pages, then run production browser smoke and production data/guide checks against the pushed Foundry commit.
+### Production Verification Result
+1. Foundry release commit: `6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235`.
+2. GitHub Actions deploy run `26394169342` -> PASS; `deploy-worker`, `apply-migrations`, and `deploy-frontend` completed successfully.
+3. Production `packs.json` check:
+   - HTTP 200
+   - 26 packs
+   - `designer` present with `tier=enriched`, `line=product`, `nameZh=设计师`, and 3 bundled skills
+   - `prototype-designer` absent
+   - `product-manager` description includes prototype validation ownership
+4. Production `designer` guide check:
+   - contains GitHub repo `https://github.com/MARUCIE/openclaw-role-packs.git`
+   - contains release tag `v2026.05.25.3`
+   - contains `install.sh designer`
+   - contains no old `prototype-designer`
+   - contains no Pages direct install URL, `download-token`, or Maurice-local filesystem path
+5. Production old guide `/packs/prototype-designer/guide.html` -> HTTP 404.
+6. Playwright production smoke:
+   - opened `https://agent-foundry.pages.dev/packs?verify=6efd6b8b500a6264fd67a2c1ef078ef5ee8d8235`
+   - clicking `Build Products` shows `Product Manager` and `Designer`
+   - clicking `Designer` renders the `设计师 / DESIGNER` recommendation card with `产品职能线`, `已富化`, `+3 SKILL`, `+2 ADVISOR`, and GitHub-tag install copy
+   - released list has 9 cards including Product Manager and Designer
+   - no `原型设计师`, `Prototype Designer`, or `prototype-designer`
+   - screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`
