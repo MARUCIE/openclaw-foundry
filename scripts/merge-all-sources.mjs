@@ -17,20 +17,20 @@
 
 import { readFile, writeFile, mkdir } from 'fs/promises';
 import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT = join(__dirname, '..');
 const DATA_DIR = join(PROJECT, 'data');
 
 // Same category rules as sync-clawhub-skills.mjs
-const CATEGORY_RULES = [
+export const CATEGORY_RULES = [
   { category: '区块链 Web3', keywords: ['crypto', 'bitcoin', 'tron', 'pancakeswap', 'swap', 'farming', 'staking', 'onchain', 'blockchain', 'web3', 'nft', 'defi', 'wallet', 'bnb', 'token', 'polymarket', 'solana', 'ethereum'] },
   { category: '金融交易', keywords: ['stock', 'trading', 'forex', 'finance', 'investment', 'quant', 'portfolio', 'market', 'banking', 'payment', 'stripe', 'paypal'] },
   { category: '电商营销', keywords: ['ecommerce', 'amazon', 'shopify', 'seo', 'marketing', 'ads', 'google ads', 'meta ads', 'analytics', 'campaign'] },
   { category: '办公文档', keywords: ['word', 'docx', 'excel', 'pdf', 'slide', 'powerpoint', 'google docs', 'google sheets', 'notion', 'confluence'] },
   { category: '教育学习', keywords: ['learn', 'education', 'course', 'quiz', 'language', 'tutor'] },
-  { category: '游戏娱乐', keywords: ['game', 'music', 'spotify', 'media', 'entertainment', 'steam'] },
+  { category: '游戏娱乐', keywords: ['game', 'music', 'spotify', 'entertainment', 'steam'] },
   { category: '生活服务', keywords: ['travel', 'weather', 'health', 'medical', 'food', 'recipe', 'home', 'iot', 'smart home'] },
   { category: 'HR 人才', keywords: ['hr', 'recruit', 'hiring', 'resume', 'job'] },
   { category: 'Agent 基建', keywords: ['agent', 'memory', 'context', 'skill', 'orchestrat', 'workflow', 'prompt'] },
@@ -38,18 +38,18 @@ const CATEGORY_RULES = [
   { category: 'AI 模型', keywords: ['llm', 'openai', 'gemini', 'claude', 'whisper', 'tts', 'stt', 'image gen', 'vision', 'ocr', 'hugging'] },
   { category: '浏览器自动化', keywords: ['browser', 'playwright', 'puppeteer', 'selenium', 'scrape', 'crawl', 'headless'] },
   { category: '搜索与研究', keywords: ['search', 'research', 'google', 'brave', 'tavily', 'exa', 'bing'] },
-  { category: '通讯集成', keywords: ['email', 'slack', 'discord', 'telegram', 'teams', 'chat', 'smtp', 'imap', 'twilio', 'sms'] },
+  { category: '通讯集成', keywords: ['email', 'slack', 'discord', 'telegram', 'teams', 'chat', 'smtp', 'imap', 'twilio', 'sms', 'twitter', 'x/twitter', 'tweet', 'social media', 'weibo', 'wechat'] },
   { category: '数据分析', keywords: ['data', 'analytics', 'sql', 'database', 'postgres', 'mysql', 'mongodb', 'redis', 'clickhouse', 'bigquery', 'snowflake', 'supabase'] },
   { category: '内容创作', keywords: ['write', 'blog', 'cms', 'wordpress', 'content', 'translation'] },
   { category: '效率工具', keywords: ['todo', 'task', 'calendar', 'schedule', 'productivity', 'jira', 'linear', 'asana', 'trello', 'obsidian'] },
-  { category: '多媒体', keywords: ['audio', 'video', 'image', 'photo', 'youtube', 'ffmpeg', 'camera'] },
+  { category: '多媒体', keywords: ['audio', 'video', 'image', 'photo', 'media', 'youtube', 'ffmpeg', 'camera'] },
   { category: 'DevOps 部署', keywords: ['deploy', 'docker', 'kubernetes', 'ci', 'cd', 'terraform', 'cloudflare', 'vercel', 'aws', 'azure', 'gcp', 'server', 'nginx', 'monitor'] },
   { category: '代码开发', keywords: ['code', 'git', 'github', 'gitlab', 'debug', 'test', 'lint', 'build', 'compiler', 'npm', 'pip'] },
   { category: '系统工具', keywords: ['file', 'filesystem', 'os', 'shell', 'terminal', 'cli', 'process', 'ssh', 'ftp'] },
   { category: 'API 网关', keywords: ['api', 'gateway', 'rest', 'graphql', 'webhook', 'proxy', 'mcp server'] },
 ];
 
-function inferCategory(name, desc) {
+export function inferCategory(name, desc) {
   const text = `${name} ${desc}`.toLowerCase();
   for (const rule of CATEGORY_RULES) {
     if (rule.keywords.some(kw => text.includes(kw))) {
@@ -211,4 +211,6 @@ async function main() {
   console.log('   Duplicates removed:', stats.duplicates);
 }
 
-main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
+}
