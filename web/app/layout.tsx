@@ -7,6 +7,10 @@ import { I18nProvider } from '@/lib/i18n';
 export const metadata: Metadata = {
   title: 'Agent Foundry — The Curated AI Agent Skill Marketplace',
   description: "Maurice's curated AI agent skills, locally verified. S/A/B/C quality ratings. Copy install command to any platform in one click. Workshop-ready toolkit.",
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
