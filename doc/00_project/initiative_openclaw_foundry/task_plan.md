@@ -218,6 +218,61 @@ Define whether `sota-skill-library` should be merged into `22-openclaw-foundry`,
 - Status: completed (Iter 1 PASS, Iter 2 deferred -- see deliverable.md)
 - Pipeline: dev-pipeline `test-frontend` (sopRef=5.1, loop x3, swarm 3-expert, any-pass consensus)
 - Trigger: user invoked "打开前端验证" with PROJECT_DIR=`/Users/mauricewen/Projects/22-openclaw-foundry`
+
+## 2026-05-25 Role Pack Standalone Repo Sync
+- Status: completed
+- Source Project: `/Users/mauricewen/Projects/22-openclaw-foundry`
+- Target Repo: `/Users/mauricewen/Projects/openclaw-role-packs`
+
+### Objective
+把 Foundry 当前本地最新的所有岗位配置包同步成一个独立 Git 仓库，确保别人直接复制仓库或单个岗位包后可以离线安装，不再依赖线上 `agent-foundry.pages.dev` 的当前状态。
+
+### Requirements
+1. 以当前 worktree 为准，同步 `web/public/packs/` 下所有岗位包。
+2. 同步岗位包 catalog 数据，至少包括 `web/public/data/packs.json` 与与安装/说明相关的 public data。
+3. 独立仓库必须包含真实安装脚本，支持本地复制后直接安装。
+4. 每个岗位包必须保留 `AGENTS.md`、`CLAUDE.md`、`settings.json`、`prompts.md`、`manifest.json`、`install.sh` 及 manifest 引用的全部 artifact。
+5. 通过脚本校验目录/catalog/manifest 一致性。
+6. 通过真实 smoke install，把每个岗位包安装到隔离目录，并核对 manifest 目标文件全部落地。
+
+### Current Evidence
+1. `web/public/data/packs.json` reports 25 pack entries.
+2. `web/public/packs/` contains 25 pack directories.
+3. Directory/catalog parity check: no missing directories and no extra directories.
+4. Manifest artifact existence check: 0 problems.
+5. Existing Foundry pack installer default source is remote URL; this explains copied-local-pack install failures when remote content differs from local worktree.
+
+### Decision
+Create a new local Git repo at `/Users/mauricewen/Projects/openclaw-role-packs`. The repo stores only role-pack deliverables and installer/validation tooling. It is published as the public GitHub repo `https://github.com/MARUCIE/openclaw-role-packs`, and production `/packs` install-command copy should clone the pinned release tag instead of minting a Worker token URL.
+
+### Steps
+- [x] 1. Read Foundry pack architecture and current pack sources
+- [x] 2. Verify catalog/pack directory parity
+- [x] 3. Verify every manifest item exists in the local source tree
+- [x] 4. Create standalone role-pack repository
+- [x] 5. Copy current local pack data and catalog artifacts
+- [x] 6. Replace pack installers with local-first installers
+- [x] 7. Add root install, sync, validation, and smoke-install commands
+- [x] 8. Initialize Git history with a Lore-protocol commit
+- [x] 9. Run full validation and record evidence
+- [x] 10. Publish public GitHub repo and tag `v2026.05.25`
+- [x] 11. Switch production install-command copy to GitHub tag clone
+
+### Completion Evidence
+1. Standalone repo created at `/Users/mauricewen/Projects/openclaw-role-packs`.
+2. Initial Git commit: `d17801ac092e2295031c863adad9450dc7476fb5`.
+3. Published GitHub repo: `https://github.com/MARUCIE/openclaw-role-packs`.
+4. Current published commit/tag: `77075297628573619491f472338ffa8148da130f`, `v2026.05.25`.
+5. `npm run validate` -> `OK validated 25 packs and 25 catalog entries`.
+6. `npm run smoke:install` -> installed all 25 packs into an isolated `out/verify/install-smoke-*` directory.
+7. `./install.sh --list` -> 25 pack IDs.
+8. `./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` -> local source install succeeded with 24 artifacts.
+9. GitHub tag install smoke: clone `v2026.05.25`, install `product-manager`, list count 25, installed file count 24.
+10. Production remote install smoke from `https://agent-foundry.pages.dev/packs` -> 25/25 packs installed into isolated output.
+11. `npm run design:check` -> `MD8 design hook: pass`.
+12. `cd web && npm run build` -> PASS, `/packs` static route exported.
+13. Root `npm run build` -> PASS, TypeScript and design source checks passed.
+14. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-034718-21b7061c`.
 - Working tree: dirty (11 modified files, including client/index.html + client/pipeline-manual.html cross-link inserts)
 - Validation target: local `next dev` :3200 (web/) + file:// for client/*.html (uncommitted, prod-stale)
 - Evidence dir: `outputs/sop-5.1/2026-05-09-frontend-validation-001/`

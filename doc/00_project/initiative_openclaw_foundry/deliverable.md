@@ -194,3 +194,60 @@ Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy r
 2. `ai check` was not run; project-level verification gates were used instead.
 3. Existing unrelated dirty worktree state was preserved.
 4. npm audit reports one high-severity dependency issue after `npm ci`; dependency remediation is outside this auth-wall scope.
+
+---
+
+## 2026-05-25 Role Pack Standalone Repo Delivery
+
+### Scope
+同步当前本地最新岗位配置包，创建独立 Git 仓库，保证别人复制整个仓库或单个岗位包后默认走本地安装路径，不再隐式依赖 `agent-foundry.pages.dev` 的线上状态。
+
+### Delivered
+1. Standalone repo:
+   - `/Users/mauricewen/Projects/openclaw-role-packs`
+2. Public GitHub repo:
+   - `https://github.com/MARUCIE/openclaw-role-packs`
+3. Initial Git commit:
+   - `d17801ac092e2295031c863adad9450dc7476fb5`
+4. Current published release:
+   - commit `77075297628573619491f472338ffa8148da130f`
+   - tag `v2026.05.25`
+5. Synced artifacts:
+   - 25 role-pack directories under `packs/`
+   - catalog snapshots under `catalog/`
+   - root `install.sh`
+   - per-pack local-first `install.sh`
+   - validation, smoke-install, sync, and installer-regeneration scripts under `scripts/`
+6. Installer contract:
+   - local copied folder is the default source
+   - remote install requires explicit `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL`
+   - production `/packs` install-command copy uses a pinned GitHub tag clone after registration
+
+### Verification
+1. Source catalog/dir parity: 25 catalog entries, 25 pack directories, no missing or extra IDs.
+2. Manifest artifact audit: 0 missing local manifest artifacts.
+3. `npm run validate` in `openclaw-role-packs` -> PASS, 25 packs and 25 catalog entries.
+4. `npm run smoke:install` -> PASS, all 25 packs installed to isolated output.
+5. `./install.sh --list` -> 25 pack IDs.
+6. `./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` -> PASS.
+7. Post-commit validation `npm run validate` -> PASS.
+8. GitHub tag install smoke from `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` -> PASS, product-manager installed with 24 files and pack list count 25.
+9. Production Pages remote install smoke from `https://agent-foundry.pages.dev/packs` -> PASS, 25/25 packs installed.
+10. `npm run design:check` -> PASS, `MD8 design hook: pass`.
+11. `cd web && npm run build` -> PASS, `/packs` static route exported.
+12. Root `npm run build` -> PASS, TypeScript and design checks passed.
+13. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-034718-21b7061c`.
+
+### Closeout
+1. Skills update: N/A - this was a project distribution artifact, not a reusable cross-project skill.
+2. PDCA four-doc sync: updated PRD, UX map, system architecture, and optimization plan for standalone role-pack distribution.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new cross-task governance rule.
+4. Rolling ledger: updated with standalone role-pack distribution requirement and anti-regression Q&A.
+5. Three-end consistency:
+   - Local project: source pack parity and standalone repo install validation passed.
+   - GitHub: public repo `MARUCIE/openclaw-role-packs` is reachable and tag `v2026.05.25` clone/install smoke passed.
+   - VPS/Production: Pages production pack data and static payload smoke passed; follow-up deploy verifies `/packs` clipboard command after this source commit reaches Cloudflare.
+
+### Remaining Risks
+1. The production `/packs` clipboard command requires the Foundry Pages deploy for the new source commit.
+2. Source Foundry still contains unrelated preexisting dirty files; this task preserved them.

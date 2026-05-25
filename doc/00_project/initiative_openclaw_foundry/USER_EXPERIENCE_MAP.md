@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-18`
+- Updated: `2026-05-25`
 
 ## Primary User Types
 1. Local builder:
@@ -18,6 +18,8 @@
    - wants to browse public skill, MCP, pack, pricing, news, and API documentation pages before registration
 6. Registered operator:
    - wants to install/download Job Pack payloads after email or WeChat registration/login
+7. Pack maintainer / copier:
+   - wants to copy a current local role-pack repo or one pack directory and install it without depending on the deployed website state
 
 ## Entry Channels
 | Channel | Entry | User Intent | Current State |
@@ -64,12 +66,13 @@
 | **Skill Marketplace** | `/skill` (web) | Public Skill install-command browsing and copy |
 | **Login** | `/login` (web) | Email magic link and Enterprise WeChat login, both driven by `/api/auth/config` |
 | **Retired Platform Overview** | `/explore/platforms` (web) | Removed product page; Cloudflare Pages redirects to `/packs` |
+| **Standalone Role Packs** | `/Users/mauricewen/Projects/openclaw-role-packs`, `https://github.com/MARUCIE/openclaw-role-packs` | Git repo snapshot of current local role/job packs with local-first installers and pinned release tag |
 | Deploy API | `POST /api/deploy` | Start async deploy job |
 | Deploy Status | `GET /api/deploy/:jobId` | Poll deploy progress |
 | Arena API | `POST /api/arena` | Create multi-provider match |
 | Arena Status | `GET /api/arena/:matchId` | Poll arena match + results |
-| Pack Download Token API | `POST /api/packs/:id/download-token` | Registered-session token mint for protected pack install/download |
-| Pack File API | `GET /api/packs/:id/file?path=...` | Protected pack file delivery by bearer session or short-lived token |
+| Pack Install Command Copy | `/packs` button via `web/lib/protected-downloads.ts` | Registered-session clipboard command that clones pinned GitHub role-pack tag |
+| Pack File API | `GET /api/packs/:id/file?path=...` | Protected single-file delivery by bearer session |
 
 ## Core Journeys
 ### Journey 1: Local CLI Bootstrap
@@ -119,25 +122,24 @@
 7. When all lanes complete: scoring table + winner badge
 8. User can "导出报告" or "再来一局"
 
-<<<<<<< Updated upstream
-### Journey 7: Registration Wall And Login Capability Check
-1. User can browse public pages and copy Skill install commands without signing in
-2. User reaches a job-pack copy/download action and is sent to `/login?return=/packs#wall`
-3. Login page calls `/api/auth/config` before rendering provider actions
-4. If email delivery is configured, the user submits an email and only sees “已发送” after `delivered_via=resend`
-5. If email delivery is not configured, the email CTA is disabled or the request fails with a visible setup message
-6. If Enterprise WeChat OAuth is configured, the WeChat CTA links to `/api/auth/wechat/start`
-7. If Enterprise WeChat OAuth is not configured, the WeChat CTA stays disabled and no broken OAuth jump is exposed
-=======
 ### Journey 7: Public Skill Copy, Registered Job Pack Access
 1. Anonymous user opens public pages such as `/packs`, `/api-docs`, `/explore/mcp`, or the legacy browser wizard
 2. User can read, search, filter, and inspect public information without being blocked by a route wall
 3. User copies Skill, MCP, API-doc, or browser-wizard commands directly without registration
 4. User clicks a Job Pack install/download action on `/packs`
 5. If no active registered session exists, the UI redirects to `/login?return=/packs#install-<pack>`
-6. User registers or logs in through email magic-link or WeChat OAuth
-7. Frontend requests Worker-protected pack token/file routes and writes the gated Job Pack command to clipboard
->>>>>>> Stashed changes
+6. Login page calls `/api/auth/config`; unavailable email or WeChat providers render as disabled instead of broken jumps
+7. User registers or logs in through email magic-link or WeChat OAuth
+8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
+
+### Journey 8: Standalone Role Pack Copy Install
+1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
+2. Maintainer commits, tags, and pushes the snapshot to `https://github.com/MARUCIE/openclaw-role-packs`
+3. Registered website user copies the install command from `/packs`, or recipient clones the release directly
+4. Command runs `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`
+5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
+6. Installer reads local sibling `manifest.json` and copies local artifacts by default
+7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
 
 ## UX Gaps
 1. ~~No authenticated web operator console~~ **Resolved by v3.0 Web Console** — customer management still API-only
@@ -145,7 +147,8 @@
 3. Error/empty states for unsupported model routes are API-level rather than explanatory product UX
 4. `pipeline-manual.html` is discoverable as static content but not clearly tied to the main browser-wizard journey
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
-6. Remote production verification must confirm CI uploaded protected pack payloads to R2 before Pages output is considered fully deploy-ready
+6. Remote production verification must confirm `/packs` copies the pinned GitHub install command after deploy
+7. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 
 ## Round-Based Acceptance Criteria
 

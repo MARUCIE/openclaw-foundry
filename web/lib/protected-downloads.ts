@@ -1,13 +1,12 @@
 import { clearSession, requireRegistered } from '@/lib/session';
 import { API_BASE } from '@/lib/api-base';
 
-// Back-compat alias — new code should import API_BASE from '@/lib/api-base' directly.
 export const PROTECTED_API_BASE = API_BASE;
+export const ROLE_PACKS_GIT_URL =
+  process.env.NEXT_PUBLIC_ROLE_PACKS_GIT_URL || 'https://github.com/MARUCIE/openclaw-role-packs.git';
+export const ROLE_PACKS_GIT_REF = process.env.NEXT_PUBLIC_ROLE_PACKS_GIT_REF || 'v2026.05.25';
 
-interface DownloadTokenResponse {
-  token: string;
-  expires_at: string;
-}
+const PACK_ID_PATTERN = /^[a-z0-9][a-z0-9-]{1,80}$/;
 
 function apiRoot(): string {
   const base = PROTECTED_API_BASE.startsWith('http')
@@ -17,35 +16,36 @@ function apiRoot(): string {
   return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
 }
 
-function packFileUrl(packId: string, filename: string, token?: string): string {
+function shellQuote(value: string): string {
+  return `'${value.replace(/'/g, `'\\''`)}'`;
+}
+
+function assertPackId(packId: string): void {
+  if (!PACK_ID_PATTERN.test(packId)) {
+    throw new Error('无效的配置包 ID');
+  }
+}
+
+function packInstallCommand(packId: string): string {
+  assertPackId(packId);
+  const refArg = ROLE_PACKS_GIT_REF ? ` --branch ${shellQuote(ROLE_PACKS_GIT_REF)}` : '';
+  return [
+    'tmp="$(mktemp -d)"',
+    `git clone --depth 1${refArg} ${shellQuote(ROLE_PACKS_GIT_URL)} "$tmp/openclaw-role-packs"`,
+    `"$tmp/openclaw-role-packs/install.sh" ${shellQuote(packId)} --agent=claude`,
+  ].join('\n');
+}
+
+function packFileUrl(packId: string, filename: string): string {
+  assertPackId(packId);
   const url = new URL(`${apiRoot()}/packs/${encodeURIComponent(packId)}/file`);
   url.searchParams.set('path', filename);
-  if (token) url.searchParams.set('token', token);
   return url.toString();
 }
 
-async function createPackDownloadToken(packId: string, bearer: string): Promise<DownloadTokenResponse> {
-  const res = await fetch(`${apiRoot()}/packs/${encodeURIComponent(packId)}/download-token`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${bearer}` },
-  });
-  const data = await res.json().catch(() => ({}));
-  if (res.status === 401) {
-    clearSession();
-    throw new Error('登录已失效，请重新登录');
-  }
-  if (!res.ok || !data.token) {
-    throw new Error(data.error || `下载授权失败：HTTP ${res.status}`);
-  }
-  return data as DownloadTokenResponse;
-}
-
 export async function copyProtectedPackInstallCommand(packId: string, returnPath?: string): Promise<void> {
-  const session = requireRegistered(returnPath);
-  if (!session) return;
-  const { token } = await createPackDownloadToken(packId, session.token);
-  const installUrl = packFileUrl(packId, 'install.sh', token);
-  await navigator.clipboard.writeText(`curl -fsSL '${installUrl}' | bash`);
+  if (!requireRegistered(returnPath)) return;
+  await navigator.clipboard.writeText(packInstallCommand(packId));
 }
 
 export async function downloadProtectedPackFile(packId: string, filename: string, returnPath?: string): Promise<void> {

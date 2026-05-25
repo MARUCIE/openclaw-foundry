@@ -23,7 +23,10 @@
     --claude-page-gutter: clamp(16px, 3vw, 48px);
   }
   * { box-sizing: border-box; }
-  html { background: var(--claude-bg); }
+  html, body {
+    background: var(--claude-bg);
+    overflow-x: hidden;
+  }
   body {
     margin: 0;
     background: var(--claude-bg);
@@ -31,6 +34,11 @@
     font-family: -apple-system, "Source Han Serif SC", "Songti SC", "PingFang SC", Georgia, serif;
     font-size: 16px;
     line-height: 1.85;
+    overflow-x: hidden;
+  }
+  p, li, td, th, .claude-meta, .claude-note {
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   .claude-frame {
     width: min(var(--claude-page-max), calc(100% - var(--claude-page-gutter) * 2));
@@ -71,14 +79,14 @@
     color: var(--claude-accent);
     font-weight: 700;
   }
-  p { margin: 0 0 18px; }
-  ol, ul { padding-left: 1.4em; margin: 0 0 22px; }
-  li { margin: 6px 0; }
+  p { margin: 0 0 16px; }
+  ol, ul { padding-left: 1.4em; margin: 0 0 24px; }
+  li { margin: 8px 0; }
   code {
     font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
     font-size: 14px;
     background: var(--claude-surface-low);
-    padding: 2px 6px;
+    padding: 4px 8px;
     border-radius: 4px;
     color: var(--claude-on-surface);
   }
@@ -86,7 +94,7 @@
     background: var(--claude-surface);
     border: 1px solid var(--claude-outline);
     border-radius: 12px;
-    padding: 18px 20px;
+    padding: 16px 20px;
     overflow-x: auto;
     line-height: 1.6;
   }
@@ -98,7 +106,7 @@
     font-size: 14.5px;
   }
   th, td {
-    padding: 10px 14px;
+    padding: 12px 16px;
     text-align: left;
     border-bottom: 1px solid var(--claude-outline);
     vertical-align: top;

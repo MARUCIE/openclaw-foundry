@@ -7,6 +7,8 @@
 - Server Entry: `src/server.ts`
 - Shared Types: `src/types.ts`
 - Static Client: `client/`
+- Standalone Role Pack Repo: `/Users/mauricewen/Projects/openclaw-role-packs`
+- Standalone Role Pack GitHub: `https://github.com/MARUCIE/openclaw-role-packs` (`v2026.05.25`)
 
 - Profiles: `profiles/`
 - Build Output: `dist/`
@@ -29,7 +31,7 @@
 ## Evidence Root
 - Documentation verification bundle: `outputs/doc-bootstrap/doc-bootstrap-20260311-verification/`
 - Analyzer normalization fix bundle: `outputs/doc-bootstrap/doc-bootstrap-20260311-analyzer-fix/`
+- Role-pack standalone repo validation: `/Users/mauricewen/Projects/openclaw-role-packs/out/verify/`
+- Git URL install verification: `/Users/mauricewen/Projects/22-openclaw-foundry/out/verify/git-url-install/`
 
 ## Legacy Reference
-
-

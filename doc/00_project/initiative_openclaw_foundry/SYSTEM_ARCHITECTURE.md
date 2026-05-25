@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-18`
+- Updated: `2026-05-25`
 
 ## System Boundary
 OpenClaw Foundry 当前是统一的技能发现与部署控制产品面，支持 **13 platforms** across desktop / saas / cloud / mobile / remote modes. 当前 canonical 边界只覆盖已经存在的发现、部署、管理与比武能力；未来 Portal/资讯/商业化探索不属于本次已批准架构。
@@ -13,6 +13,7 @@ Runtime styles:
 2. remote execution through an Express server plus static browser/bootstrap clients
 3. multi-platform deployment via Provider dispatch
 4. public web discovery with registered-session gates only for Job Pack payload delivery
+5. standalone role-pack distribution through a local-first Git repo snapshot
 
 The shared contract is `Blueprint v2.0`, a typed JSON document now including a `target` field for platform routing.
 
@@ -34,6 +35,7 @@ OpenClaw Foundry remains the single product surface, deployment control plane, a
 | Discovery Plane | public browse/search/filter/detail UX and catalog APIs | `web/`, `worker/` | sole public skill marketplace |
 | Deploy Control Plane | blueprint generation, provider dispatch, lifecycle commands | `src/cli.ts`, `src/server.ts`, `src/providers/*` | sole deployment runtime |
 | Job Pack Auth / Payload Gate | email + WeChat registration/login, protected pack token minting, protected file delivery | `web/lib/session.ts`, `web/lib/protected-downloads.ts`, `worker/src/routes/auth*.ts`, `worker/src/routes/packs.ts` | preserve public browsing and Skill copy while gating Job Pack install/download payloads |
+| Standalone Role Pack Repository | version current local role/job pack artifacts for copy-safe install | `/Users/mauricewen/Projects/openclaw-role-packs`, `https://github.com/MARUCIE/openclaw-role-packs` | pinned GitHub release plus local-first distribution snapshot |
 | Optional Intelligence Adapter | related skills, route planning, future JIT assembly | future internal service built from SOTA ideas | optional sidecar, non-critical |
 
 ### Source-of-Truth Matrix
@@ -41,6 +43,7 @@ OpenClaw Foundry remains the single product surface, deployment control plane, a
 | --- | --- | --- |
 | Skill catalog | split across `web/public/data/skills.json`, `data/unified-index.json`, D1 seeds, and external SOTA-local state | one canonical versioned artifact imported into D1 and exported to web cache |
 | Bundle / pack candidates | `web/public/data/packs.json`, `collections.json`, SOTA `bundles.json` | one normalized bundle artifact with Foundry-owned schema |
+| Role/job pack distribution | Foundry `web/public/packs/` plus standalone `openclaw-role-packs` snapshot | Foundry remains source worktree; production install command clones pinned tag `v2026.05.25` from GitHub, while standalone repo installers read local copied files by default |
 | Deploy state | `~/.openclaw/*`, manifest, snapshots | unchanged |
 | Customer / operator state | JSON + Worker/D1 split | explicit control-plane-owned persistence path |
 | Recommendation / route planning | ad hoc / external prototypes | internal API or sidecar after artifact contract stabilizes |
@@ -98,6 +101,7 @@ Rollback is artifact-level, not repo-level: the system must be able to restore t
 | **Web Console** | `web/` (Next.js 15) | **v3.0: Visual management — Platform Catalog, One-Click Deploy, Arena** |
 | Web session helper | `web/lib/session.ts`, `web/lib/protected-downloads.ts` | Browser-side registered-session checks plus Worker-backed protected copy/download helpers |
 | Worker auth + pack payload API | `worker/src/routes/auth.ts`, `worker/src/routes/auth-wechat.ts`, `worker/src/routes/packs.ts`, `worker/src/migration-v10.sql` | Email/WeChat auth, short-lived pack download tokens, protected pack files backed by D1/R2 |
+| Standalone role-pack repo | `/Users/mauricewen/Projects/openclaw-role-packs` | Copy-safe pack snapshot with root and per-pack local-first installers |
 | **Deploy Manager** | `src/deploy-manager.ts` | **v3.0: Async deploy job lifecycle (create/poll/cancel)** |
 | **Arena Engine** | `src/arena-engine.ts` | **v3.0: Multi-provider parallel execution + scoring** |
 
@@ -119,7 +123,26 @@ flowchart LR
   H --> I[Clipboard command or file download]
 ```
 
-Static Pages output keeps public Job Pack `guide.html` files only. Protected pack payloads are uploaded to R2 by CI and served through `POST /api/packs/:id/download-token` plus `GET /api/packs/:id/file?path=...`. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public.
+Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` after the user is registered. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public.
+
+## Standalone Role Pack Distribution (2026-05-25)
+
+The standalone repo `/Users/mauricewen/Projects/openclaw-role-packs` is a copy-safe release surface for current local role/job pack artifacts. It is published at `https://github.com/MARUCIE/openclaw-role-packs` and currently pinned by production install commands to tag `v2026.05.25`. It is intentionally separate from the Foundry product repo so a recipient can clone one release repo or copy one `packs/<id>/` directory and install without relying on the deployed website's pack cache.
+
+```mermaid
+flowchart LR
+  A[Foundry local worktree] --> B[web/public/packs + web/public/data]
+  B --> C[scripts/sync-from-foundry.mjs]
+  C --> D[openclaw-role-packs Git repo]
+  D --> E[GitHub tag v2026.05.25]
+  E --> F[root install.sh]
+  E --> G[packs/<id>/install.sh]
+  F --> H[local target config dir]
+  G --> H
+  I[explicit ROLE_PACKS_BASE_URL or FOUNDRY_BASE_URL] -. opt-in remote .-> G
+```
+
+Installer invariant: production install command clones a pinned GitHub tag, then installer execution uses local sibling `manifest.json` and local artifact files as the default source. Remote fetching is an explicit override only.
 
 ## Provider Architecture (v2.0)
 ```
@@ -471,9 +494,17 @@ flowchart LR
     - Parallel provider.deploy() calls share the same process; a slow/hanging provider blocks the event loop
     - Mitigation: per-lane timeout (60s) + AbortController
 8. Web Console coupling:
-<<<<<<< Updated upstream
    - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
    - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy
+9. Catalog truth drift:
+    - skill data currently has multiple effective truth sources (`web/public/data/skills.json`, `data/unified-index.json`, D1 seed inputs, and external SOTA-local state)
+    - Mitigation: freeze one canonical artifact contract and demote all other paths to cache, staging, or legacy input only
+10. Runtime coupling risk:
+    - directly importing SOTA runtime concerns (local telemetry DB, MCP router, local installer) into Foundry would couple portal, deploy runtime, and local agent execution too tightly
+    - Mitigation: import heuristics and artifacts first; keep JIT/MCP as optional adapter or sidecar
+11. Standalone pack repo drift:
+    - `openclaw-role-packs` is a release snapshot, so it can diverge from Foundry local edits if not refreshed before sharing or before moving the production Git ref
+    - Mitigation: run `npm run sync:from-foundry`, `npm run validate`, and `npm run smoke:install` before the next role-pack release commit/tag
 
 ---
 
@@ -649,16 +680,6 @@ interface PricingTier {
 | R1 | 首页 Hero + 快速部署 | 3 方案 → 选 Winner |
 | R2 | Skill 市场 + MCP 目录 | 3 方案 → 选 Winner |
 | R3 | 资讯中心 + 定价页 | 3 方案 → 选 Winner |
-=======
-    - Next.js dev server + Express server run on different ports; production needs reverse proxy or embedding
-    - Mitigation: Next.js `rewrites` proxy `/api/*` to OCF server in dev; production co-locate or Caddy proxy
-9. Catalog truth drift:
-    - skill data currently has multiple effective truth sources (`web/public/data/skills.json`, `data/unified-index.json`, D1 seed inputs, and external SOTA-local state)
-    - Mitigation: freeze one canonical artifact contract and demote all other paths to cache, staging, or legacy input only
-10. Runtime complection risk:
-    - directly importing SOTA runtime concerns (local telemetry DB, MCP router, local installer) into Foundry would couple portal, deploy runtime, and local agent execution too tightly
-    - Mitigation: import heuristics and artifacts first; keep JIT/MCP as optional adapter or sidecar
->>>>>>> Stashed changes
 
 ### 实施路线
 

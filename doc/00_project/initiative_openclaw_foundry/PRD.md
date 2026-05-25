@@ -72,16 +72,14 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-12 | Web Console: one-click deploy wizard with async job tracking and real-time log streaming | v3.0 |
 | FR-13 | Web Console: arena mode — same blueprint dispatched to 2-5 providers in parallel, auto-scoring and winner determination | v3.0 |
 | FR-14 | Web Console: dashboard with aggregate stats, recent deploys, recent arena matches, system health | v3.0 |
-<<<<<<< Updated upstream
-| FR-15 | Auth wall: normal browsing and Skill install-command copy remain public; job-pack copy/download requires registered session | Implemented |
-| FR-16 | Passwordless login: email success state is only shown after real Resend delivery; production config gaps fail closed and surface actionable UI | Implemented |
-| FR-17 | WeChat login: Enterprise WeChat CTA is configuration-driven and disabled when OAuth secrets are absent | Implemented |
-| FR-18 | Retired route handling: `/explore/platforms` is no longer a product page and redirects to `/packs` | Implemented |
-=======
 | FR-15 | Catalog ingestion must converge on one canonical artifact contract for skills, ratings, taxonomy, and bundle candidates | Planned |
 | FR-16 | Recommendation / JIT planning capabilities must be rebuilt against Foundry-owned schema and kept out of the critical public path until proven stable | Planned |
 | FR-17 | Public pages and ordinary Skill/MCP/API copy actions remain open, while Job Pack install/download payloads require a registered session through email magic-link or WeChat OAuth | Implemented 2026-05-18 |
->>>>>>> Stashed changes
+| FR-18 | Passwordless login: email success state is only shown after real Resend delivery; production config gaps fail closed and surface actionable UI | Implemented |
+| FR-19 | WeChat login: Enterprise WeChat CTA is configuration-driven and disabled when OAuth secrets are absent | Implemented |
+| FR-20 | Retired route handling: `/explore/platforms` is no longer a product page and redirects to `/packs` | Implemented |
+| FR-21 | Role/job configuration packs must be exportable as a standalone Git repo whose installers default to local copied files | Implemented 2026-05-25 |
+| FR-22 | `/packs` protected install-command copy should prefer a pinned GitHub role-pack release over a per-session Worker token URL | Implemented 2026-05-25 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -89,7 +87,8 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. Graceful degradation when external APIs are unavailable
 4. Traceability through manifest, snapshots, and audit-style logs
 5. Documentation must stay synchronized with actual entrypoints
-6. Protected Job Pack payload delivery must avoid public static direct links; pack install files are served through Worker auth/token routes and static Pages output is pruned after build
+6. Protected Job Pack payload delivery must avoid public static direct links; single-file payload downloads are served through Worker auth routes and static Pages output is pruned after build
+7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25`
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -103,9 +102,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 3. `pipeline-manual.html` is large static content with unclear ownership relative to product requirements
 4. Exported installer behavior is not fully equivalent to local execution for AI-Fleet-linked skills
 5. Toolchain doctor evidence is incomplete due timeout in current non-interactive path
-<<<<<<< Updated upstream
 6. Email and Enterprise WeChat production login still require Cloudflare secrets/provider setup; code now fails visibly when those secrets are absent
-=======
-6. Skill catalog truth is still split across curated web JSON, unified index data, and emerging external skill-factory inputs
-7. Protected pack payload deployment depends on Cloudflare R2 upload during CI; local static export verification can prove pruning, but remote R2 object presence is verified only in the deploy environment
->>>>>>> Stashed changes
+7. Skill catalog truth is still split across curated web JSON, unified index data, and emerging external skill-factory inputs
+8. Protected pack payload deployment depends on Cloudflare R2 upload during CI for single-file downloads; install-command copy no longer depends on a short-lived Worker token
+9. Standalone role-pack repo drift remains possible; release by tag and run full smoke install before moving the production ref

@@ -218,6 +218,75 @@
 3. Tool stack: chrome-devtools MCP for Lighthouse + screenshot; claude-in-chrome MCP for DOM walk + console + network (paired, not substituted)
 4. Run-id naming: `YYYY-MM-DD-frontend-validation-NNN`
 
+## 2026-05-25 Role Pack Standalone Repo Sync
+
+### Trigger
+1. User reported that other people cannot install by directly copying current configuration packs.
+2. User requested all configuration packs be synced with the local latest state and placed in a separate Git repo for different roles.
+
+### Source-State Evidence
+1. Source project root:
+   - `/Users/mauricewen/Projects/22-openclaw-foundry`
+2. Current branch:
+   - `main`
+3. Current source repo state includes uncommitted pack/data edits:
+   - `web/public/data/packs.json`
+   - `web/public/data/skills.json`
+   - 21 `web/public/packs/*/guide.html` files
+4. Pack catalog parity command result:
+   - `packEntries=25`
+   - `uniqueIds=25`
+   - `dirs=25`
+   - `idsMissingDir=[]`
+   - `dirsMissingJson=[]`
+5. Manifest artifact audit result:
+   - `problemCount=0`
+   - all manifest `src` files exist under the local source pack directory
+6. Shell syntax audit:
+   - 25 `install.sh` files pass `sh -n`
+
+### Root-Cause Hypothesis
+The copied-local-install failure is caused by installer source selection. Existing pack installers are manifest-driven, but their default `BASE_URL` points at `https://agent-foundry.pages.dev/packs/$PACK_ID`. When someone copies a local pack folder and runs `install.sh`, the script still fetches manifest/artifacts from the deployed site instead of the copied local folder. Any mismatch between deployed content and current local artifacts can produce missing or stale configuration errors.
+
+### Implementation Decision
+Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Git repository. Copy current local pack artifacts and catalog data from Foundry, then regenerate installers so local checkout/copy install is the default path. Publish the standalone repo to GitHub and make production `/packs` copy a pinned Git clone command after registration, because a tag clone is safer and easier to audit than a short-lived Worker token URL.
+
+### Implementation Evidence
+1. New standalone Git repository:
+   - `/Users/mauricewen/Projects/openclaw-role-packs`
+2. Public GitHub repository:
+   - `https://github.com/MARUCIE/openclaw-role-packs`
+3. Initial commit:
+   - `d17801ac092e2295031c863adad9450dc7476fb5`
+4. Current published release:
+   - commit `77075297628573619491f472338ffa8148da130f`
+   - tag `v2026.05.25`
+5. Synced payload:
+   - 25 `packs/<id>/` directories copied from current local `web/public/packs/`
+   - catalog snapshots copied into `catalog/`
+6. Installer behavior:
+   - root `install.sh` lists and delegates pack installs
+   - every `packs/<id>/install.sh` defaults to local sibling `manifest.json` and files
+   - remote fetch requires explicit `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL`
+7. Production install-command behavior:
+   - `web/lib/protected-downloads.ts` keeps the registered-session gate
+   - clipboard install command clones `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25`
+   - Worker-protected file download remains available for single-file downloads
+8. Validation evidence:
+   - `npm run validate` -> `OK validated 25 packs and 25 catalog entries`
+   - `npm run smoke:install` -> all 25 packs installed into isolated verification output
+   - `./install.sh --list` -> 25 pack IDs
+   - `./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` -> local root installer path works
+   - GitHub tag clone install smoke -> product-manager installed with 24 files and pack list count 25
+   - production Pages remote install smoke -> 25/25 packs installed from `https://agent-foundry.pages.dev/packs`
+   - `npm run design:check` -> `MD8 design hook: pass`
+   - `cd web && npm run build` -> PASS, `/packs` static route exported
+   - root `npm run build` -> PASS, TypeScript and design checks passed
+   - `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-034718-21b7061c`
+9. Documentation repair:
+   - resolved stale merge-conflict markers in PDCA docs while updating the same closeout surface
+   - fixed preexisting `AUTH_WIRING_GUIDE.html` MD8 spacing/overflow issues so `npm run design:check` can pass
+
 ### Tool Failures
 1. `mcp__chrome-devtools__list_pages` -- timeout on Network.enable (2 attempts). Pivoted to Playwright 1.59.1 global install + claude-in-chrome MCP for DOM probing.
 
