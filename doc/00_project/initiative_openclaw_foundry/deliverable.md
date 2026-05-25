@@ -267,3 +267,26 @@ Remove a production deployment blocker where `web` prebuild required developer-l
 2. Empty-`HOME` `cd web && npm run build` -> PASS, Next.js static export completed.
 3. Root `npm run build` -> PASS.
 4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
+
+## 2026-05-25 Production Deploy R2 Upload Fix
+
+### Scope
+Remove the remaining production Pages deploy blocker where protected role-pack payload upload exceeded the GitHub Actions job timeout.
+
+### Delivered
+1. `scripts/upload-protected-packs-to-r2.mjs` now uses a bounded async upload pool instead of serial one-process-per-file upload.
+2. The upload script requires `worker/node_modules/.bin/wrangler`, tying deployment to the worker lockfile rather than `npx` resolution.
+3. `.github/workflows/deploy.yml` sets `R2_UPLOAD_CONCURRENCY=8` and increases `deploy-frontend` to a 20-minute budget.
+4. `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md` records the regression trigger and prevention rule.
+
+### Verification
+1. Failed run `26382381162` log inspected: upload progressed through hundreds of files and was cancelled at the job timeout.
+2. Local payload plan: 437 protected pack files.
+3. `node --check scripts/upload-protected-packs-to-r2.mjs` -> PASS.
+4. `R2_UPLOAD_CONCURRENCY=8 node scripts/upload-protected-packs-to-r2.mjs --dry-run` -> PASS, 437 payloads planned with the local Wrangler binary.
+5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks and 0 violations.
+6. `npm run design:check` -> PASS.
+7. `cd web && npm run build` -> PASS, `/packs` static export completed.
+8. Root `npm run build` -> PASS.
+9. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-041513-3ebbd355`.
+10. Real R2 upload and Pages deploy: pending next GitHub Actions run after push.

@@ -293,6 +293,11 @@ Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Gi
    - Fix: added `--allow-missing-local-root` and passed it from `web/package.json` `prebuild`.
    - Verification: empty-`HOME` `web` build passes, root `npm run build` passes, `ai check` passes at `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
    - Postmortem: `postmortem/PM-2026-05-25-ci-local-skill-root.md`.
+3. GitHub Actions deploy run `26382381162` reached R2 upload but was cancelled by the 10-minute `deploy-frontend` job timeout.
+   - Root cause: `scripts/upload-protected-packs-to-r2.mjs` uploaded 437 protected payload files serially and launched `npx wrangler` once per file.
+   - Fix: use the lockfile-installed local Wrangler binary, bounded async upload concurrency (`R2_UPLOAD_CONCURRENCY=8`), progress logging, and a 20-minute frontend deploy budget.
+   - Verification: auth boundary audit passes; `node --check scripts/upload-protected-packs-to-r2.mjs` passes; dry run plans 437 protected payloads with the local Wrangler binary; `web` build, root build, and `ai check` pass.
+   - Postmortem: `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md`.
 
 ### Iter 1 Closeout Summary
 1. Coverage: 12 routes x 3 viewports = 36 fullpage PNG (21 MB) at `outputs/sop-5.1/2026-05-09-frontend-validation-001/screenshots/`

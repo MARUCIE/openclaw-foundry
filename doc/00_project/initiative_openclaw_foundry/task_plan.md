@@ -275,7 +275,7 @@ Create a new local Git repo at `/Users/mauricewen/Projects/openclaw-role-packs`.
 14. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-034718-21b7061c`.
 
 ## 2026-05-25 Production Deploy CI Fix
-- Status: completed locally, pending remote rerun
+- Status: pushed; remote rerun reached the next deploy stage
 - Trigger: GitHub Actions run `26382203696` failed in `deploy-frontend`.
 
 ### Root Cause
@@ -287,13 +287,39 @@ Create a new local Git repo at `/Users/mauricewen/Projects/openclaw-role-packs`.
 - [x] 3. Pass the flag from `web/package.json` `prebuild`.
 - [x] 4. Reproduce with empty `HOME`.
 - [x] 5. Record postmortem triggers.
-- [ ] 6. Push fix and verify the new production deploy.
+- [x] 6. Push fix and verify the new production deploy reaches later stages.
 
 ### Completion Evidence
 1. Empty-`HOME` reconciler dry run -> PASS, no-op with catalog unchanged.
 2. Empty-`HOME` `cd web && npm run build` -> PASS.
 3. Root `npm run build` -> PASS.
 4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
+
+## 2026-05-25 Production Deploy R2 Upload Fix
+- Status: implemented locally, pending push and remote deploy verification
+- Trigger: GitHub Actions run `26382381162` was cancelled in `deploy-frontend` during `Upload protected pack files to R2`.
+
+### Root Cause
+The R2 upload script tried to upload 437 protected pack payloads serially and spawned `npx wrangler` for every file. The upload was still progressing, but the 10-minute job budget expired before Pages could deploy.
+
+### Steps
+- [x] 1. Inspect failed Actions run and raw job logs.
+- [x] 2. Count protected pack payloads and trace the upload script.
+- [x] 3. Replace serial `npx wrangler` calls with a bounded async upload pool using local Wrangler.
+- [x] 4. Set explicit `R2_UPLOAD_CONCURRENCY=8` in deploy workflow.
+- [x] 5. Increase frontend deploy job timeout to 20 minutes.
+- [x] 6. Add postmortem triggers.
+- [ ] 7. Push fix and verify real R2 upload plus Pages deploy.
+
+### Completion Evidence
+1. Failed run `26382381162`: job cancelled at `Upload protected pack files to R2`; last observed upload was `packs/spellbook-frontend-engineer/lint/typescript/.prettierrc`.
+2. Protected payload count: 437 files.
+3. `node --check scripts/upload-protected-packs-to-r2.mjs` -> PASS.
+4. `R2_UPLOAD_CONCURRENCY=8 node scripts/upload-protected-packs-to-r2.mjs --dry-run` -> PASS; plan covered 437 protected payloads.
+5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks and 0 violations.
+6. `cd web && npm run build` -> PASS.
+7. Root `npm run build` -> PASS.
+8. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-041513-3ebbd355`.
 - Working tree: dirty (11 modified files, including client/index.html + client/pipeline-manual.html cross-link inserts)
 - Validation target: local `next dev` :3200 (web/) + file:// for client/*.html (uncommitted, prod-stale)
 - Evidence dir: `outputs/sop-5.1/2026-05-09-frontend-validation-001/`

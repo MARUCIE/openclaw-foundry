@@ -22,6 +22,7 @@
 | 2026-05-25 | REQ-017 | Distribution | All current local role/job configuration packs must be synchronized into a standalone Git repo with local-first installers | Completed | `/Users/mauricewen/Projects/openclaw-role-packs` commit `d17801ac092e2295031c863adad9450dc7476fb5`; 25 packs validated and smoke-installed |
 | 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | In progress | Public repo `https://github.com/MARUCIE/openclaw-role-packs` tag `v2026.05.25`; production `/packs` install command should clone the pinned tag after registration |
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
+| 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | In progress | `scripts/upload-protected-packs-to-r2.mjs` now uses local Wrangler with `R2_UPLOAD_CONCURRENCY=8`; pending remote deploy verification |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -53,6 +54,7 @@
 | 为什么岗位配置包复制后不能默认从 `agent-foundry.pages.dev` 拉取? | 复制本地配置包的语义是安装当前本地快照；默认远程拉取会回到线上旧状态。独立仓库和单包 `install.sh` 必须 local-first，远程源只能显式传入。 |
 | 为什么生产页安装命令优先 GitHub tag clone? | GitHub tag clone 可审计、可固定版本、无需短链 token，有利于复现；注册态仍由 `/packs` 复制动作控制，单文件下载仍走 Worker 授权。 |
 | CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
+| R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
 
 ## References
 1. `package.json`
@@ -86,3 +88,5 @@
 29. `https://github.com/MARUCIE/openclaw-role-packs`
 30. `scripts/reconcile-catalog-integrity.py`
 31. `postmortem/PM-2026-05-25-ci-local-skill-root.md`
+32. `scripts/upload-protected-packs-to-r2.mjs`
+33. `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md`
