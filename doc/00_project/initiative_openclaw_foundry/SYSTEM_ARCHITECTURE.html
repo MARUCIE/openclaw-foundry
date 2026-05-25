@@ -680,8 +680,8 @@
           <h3>发布边界</h3>
           <ul>
             <li>`guide.html` 可继续作为公开说明页发布。</li>
-            <li>install script、manifest、json/zip/config payload 不再作为 public Pages 文件发布。</li>
-            <li>CI 先上传 protected payload 到 R2，再 prune `web/out/packs` 后部署 Pages。</li>
+            <li>install script、manifest、json/zip/config payload 不再作为 public Pages 明文文件发布。</li>
+            <li>CI 先上传 protected payload 到 R2，再 tombstone `web/out/packs` 后部署 Pages。</li>
           </ul>
         </div>
       </div>

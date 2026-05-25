@@ -555,3 +555,15 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 3. AGENTS/CLAUDE cross-task rule update: N/A - project release gate script now owns this invariant.
 4. Rolling ledger: updated with REQ-028 and anti-regression Q&A.
 5. Three-end consistency: local and GitHub release are verified before deployment; production verification is performed after the GitHub Actions deploy for the pushed Foundry commit.
+
+## 2026-05-26 · Pages Pack Payload Tombstone Guard
+
+### Delivered
+1. Protected pack payload files in `web/out/packs` are tombstoned before Pages deploy, so stale direct URLs cannot return historical package content.
+2. Production workflow wording and auth-boundary docs now reflect the R2 + Worker gate plus static tombstone strategy.
+3. Site metadata/API copy no longer contains a personal curator name that can appear in 404 responses during pack-path scans.
+
+### Evidence
+1. `npm --prefix web run build` -> PASS.
+2. `node scripts/prune-public-pack-downloads.mjs` -> PASS, 463 files tombstoned.
+3. Sample `web/out/packs/product-manager/manifest.json` contains only the protected-payload tombstone.

@@ -16,7 +16,7 @@
   Vary: Accept-Encoding
 
 # Public pack guides only. Install scripts and payload files are protected by
-# Worker auth/token routes and pruned from Pages output after static export.
+# Worker auth/token routes and tombstoned in Pages output after static export.
 /packs/*/guide.html
   Cache-Control: public, max-age=300, s-maxage=3600
   Vary: Accept-Encoding

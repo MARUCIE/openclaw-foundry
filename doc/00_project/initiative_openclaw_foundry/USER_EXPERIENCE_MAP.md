@@ -142,7 +142,7 @@
 5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 6. Installer reads local sibling `manifest.json` and copies local artifacts by default
 7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
-8. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey
+8. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
 9. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
 10. Pack content and copied install output use capability-neutral advisor identities rather than concrete person names.
 
@@ -153,7 +153,7 @@
 4. `pipeline-manual.html` is discoverable as static content but not clearly tied to the main browser-wizard journey
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
-7. Old bare direct payload URLs can temporarily survive in edge cache, so support/ops copy must point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
+7. Old bare direct payload URLs are overwritten by protected-payload tombstones during Pages deploy; support/ops copy must still point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
 8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction and remain labeled `即将上线` until a data pack graduates from `stub`.
 9. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 

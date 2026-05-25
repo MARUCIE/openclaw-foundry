@@ -125,7 +125,7 @@ flowchart LR
   I --> J[file download]
 ```
 
-Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.5` after the user is registered; it does not mint a Worker download token. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
+Static Pages output keeps public Job Pack `guide.html` files as readable guides. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.5` after the user is registered; it does not mint a Worker download token. The post-build prune script tombstones public static pack payload files in `web/out/packs` to close direct-link bypasses and overwrite stale Cloudflare Pages assets from older deployments. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
 
 ## Standalone Role Pack Distribution (2026-05-25)
 

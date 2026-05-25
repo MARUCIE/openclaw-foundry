@@ -615,3 +615,18 @@ User required a full audit so every role/job configuration pack contains no conc
 7. `npm run smoke:install` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26/26 packs installed.
 8. Person-name audit on the latest smoke-installed output -> PASS.
 9. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-112012-3420d639`; known unrelated caveat remains `skill_integrity=false` for 3 AI-Fleet `dna/capsules/*` entries.
+
+## 2026-05-26 · Pages Pack Payload Tombstone Guard
+
+### Trigger
+Production Pages still served an old cached `product-manager/manifest.json` direct URL after the protected payload files had been removed from the latest static export.
+
+### Change
+1. `scripts/prune-public-pack-downloads.mjs` now overwrites protected pack payload files in `web/out/packs` with a neutral tombstone instead of deleting them.
+2. The deploy workflow runs the tombstone step after uploading real payloads to R2 and before deploying Pages.
+3. Global site metadata/API copy no longer uses a personal curator name, reducing false positives when 404 pages are scanned during pack-path audits.
+
+### Verification
+1. `npm --prefix web run build` -> PASS.
+2. `node scripts/prune-public-pack-downloads.mjs` -> PASS, 463 protected pack payload files tombstoned in `web/out/packs`.
+3. Sample exported `web/out/packs/product-manager/manifest.json` contains only the tombstone text and no old advisor IDs.

@@ -178,7 +178,7 @@ export default function ApiDocsPage() {
               Arsenal API
             </h1>
             <p className="text-lg font-medium opacity-60 max-w-3xl leading-relaxed mt-1 text-pretty">
-              Programmatic access to the curated Maurice-verified skill catalog with quality ratings, permission manifests, and deploy feedback.
+              Programmatic access to the curated, locally verified skill catalog with quality ratings, permission manifests, and deploy feedback.
             </p>
           </div>
         </div>

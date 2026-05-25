@@ -37,6 +37,7 @@
 | OPT-24 | P1 | Data IA clarity | `做数据` and `看数据` split one data intent into two first-level cards | One `做/看数据` card routes algorithm, big data, metrics, A/B, and dashboard options | Completed 2026-05-25 |
 | OPT-25 | P0 | Product/design role boundary | `prototype-designer` implied that prototype ownership belonged to Designer and exposed stale install paths | Replace it with `designer`, move prototype validation language to `product-manager`, publish `openclaw-role-packs` tag `v2026.05.25.3`, and verify remote install | Completed 2026-05-25 |
 | OPT-26 | P0 | Pack identity neutrality | Released packs contained person-named advisors and framework copy that made configuration packages feel tied to specific individuals | Enforce capability-neutral advisor IDs/names, sanitize Foundry + standalone pack payloads, and publish local-first release tag `v2026.05.25.5` | Completed 2026-05-25 |
+| OPT-27 | P0 | Pages stale payload cache | Deleted protected pack payload files can remain available from old Cloudflare Pages edge assets | Tombstone protected payload files in `web/out/packs` before deploy so old direct URLs cannot expose historical configuration content | Completed 2026-05-26 |
 
 ## Next Execution Order
 1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag containing the current released packs is pushed.

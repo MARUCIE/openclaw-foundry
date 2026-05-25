@@ -15,7 +15,7 @@
 #   wrangler deploy → CF Worker
 #   apply D1 migrations
 #   next build → web/out/ (static export)
-#   upload protected pack payloads to R2, then prune them from web/out/
+#   upload protected pack payloads to R2, then tombstone them in web/out/
 #   wrangler pages deploy → CF Pages
 
 name: Deploy to Cloudflare
@@ -170,7 +170,7 @@ jobs:
           cd ..
           node scripts/upload-protected-packs-to-r2.mjs
 
-      - name: Remove protected pack files from Pages export
+      - name: Tombstone protected pack files in Pages export
         run: node scripts/prune-public-pack-downloads.mjs
 
       - name: Deploy to CF Pages

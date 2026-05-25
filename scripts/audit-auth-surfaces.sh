@@ -7,7 +7,7 @@
 #   - Only job-pack payload actions require registration/login.
 #   - Pack guide pages may stay public, but pack install/config/artifact
 #     payloads must go through Worker auth/token routes and R2, then be
-#     pruned from the Pages static export before deploy.
+#     tombstoned in the Pages static export before deploy.
 #
 # Run as ad-hoc audit:    bash scripts/audit-auth-surfaces.sh
 # Run as pre-commit hook: installed via scripts/install-hooks.sh

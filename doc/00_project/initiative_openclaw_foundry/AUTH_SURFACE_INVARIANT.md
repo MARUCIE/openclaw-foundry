@@ -32,7 +32,7 @@ The audit no longer scans every clipboard call. It checks the Job Pack boundary:
 1. `web/lib/protected-downloads.ts` imports `@/lib/session` and calls `requireRegistered`.
 2. `web/app/packs/page.tsx` uses `copyProtectedPackInstallCommand` and `downloadProtectedPackFile`.
 3. `web/public/_headers` caches only `/packs/*/guide.html`, not all `/packs/*`.
-4. `.github/workflows/deploy.yml` uploads protected pack payloads to R2, prunes `web/out/packs`, and deploys Pages only after Worker deploy plus D1 migrations.
+4. `.github/workflows/deploy.yml` uploads protected pack payloads to R2, tombstones `web/out/packs`, and deploys Pages only after Worker deploy plus D1 migrations.
 
 ## Canonical Job Pack Gate
 
@@ -62,7 +62,7 @@ If one of these starts showing `登录后复制` / lock icons, that is a regress
 1. Pack `guide.html` pages may remain public static assets.
 2. Pack install scripts, manifests, zip/json payloads, and generated config files must not ship as public static Pages files.
 3. CI uploads protected pack payloads to R2 via `scripts/upload-protected-packs-to-r2.mjs`.
-4. Static export is pruned via `scripts/prune-public-pack-downloads.mjs` before Pages deploy.
+4. Static export payload content is tombstoned via `scripts/prune-public-pack-downloads.mjs` before Pages deploy.
 5. Registered users receive payloads through Worker routes:
    - `POST /api/packs/:id/download-token`
    - `GET /api/packs/:id/file?path=...`
