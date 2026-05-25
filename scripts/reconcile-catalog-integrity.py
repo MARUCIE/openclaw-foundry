@@ -25,6 +25,7 @@ Usage:
   python3 scripts/reconcile-catalog-integrity.py [--dry-run]
                                                  [--catalog PATH]
                                                  [--local-root PATH]
+                                                 [--allow-missing-local-root]
                                                  [--phantom-threshold N]
                                                  [--check-urls]
 
@@ -55,9 +56,12 @@ def load_catalog(path: Path) -> dict[str, Any]:
         return json.load(f)
 
 
-def list_local_skills(root: Path) -> set[str]:
+def list_local_skills(root: Path, allow_missing: bool) -> set[str] | None:
     """Each subdirectory of ~/.claude/skills/ is one skill (slug = dir name)."""
     if not root.exists():
+        if allow_missing:
+            sys.stderr.write(f"WARN: local root not found, skipping disk reconciliation: {root}\n")
+            return None
         sys.stderr.write(f"ERROR: local root not found: {root}\n")
         sys.exit(1)
     return {p.name for p in root.iterdir() if p.is_dir() and not p.name.startswith(".")}
@@ -92,6 +96,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconcile skill catalog vs local disk")
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
     parser.add_argument("--local-root", type=Path, default=DEFAULT_LOCAL_ROOT)
+    parser.add_argument("--allow-missing-local-root", action="store_true",
+                        help="Treat a missing local skill root as a no-op; useful for CI build environments")
     parser.add_argument("--dry-run", action="store_true",
                         help="Print reconciliation report; do NOT modify catalog file")
     parser.add_argument("--phantom-threshold", type=int, default=50,
@@ -103,8 +109,15 @@ def main() -> int:
     args = parser.parse_args()
 
     catalog = load_catalog(args.catalog)
-    on_disk = list_local_skills(args.local_root)
+    on_disk = list_local_skills(args.local_root, args.allow_missing_local_root)
     in_catalog = catalog_local_slugs(catalog)
+
+    if on_disk is None:
+        print(f"== Reconciliation report ({args.catalog.name}) ==")
+        print(f"catalog local rows : {len(in_catalog)}")
+        print("disk skills        : unavailable")
+        print("NO-OP: local skill root is unavailable; catalog left unchanged")
+        return 0
 
     phantom_slugs = sorted(set(in_catalog.keys()) - on_disk)
     missing_slugs = sorted(on_disk - set(in_catalog.keys()))

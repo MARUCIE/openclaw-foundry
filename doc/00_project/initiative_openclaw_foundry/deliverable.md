@@ -251,3 +251,19 @@ Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy r
 ### Remaining Risks
 1. The production `/packs` clipboard command requires the Foundry Pages deploy for the new source commit.
 2. Source Foundry still contains unrelated preexisting dirty files; this task preserved them.
+
+## 2026-05-25 Production Deploy CI Fix
+
+### Scope
+Remove a production deployment blocker where `web` prebuild required developer-local `~/.claude/skills` on a clean GitHub runner.
+
+### Delivered
+1. `scripts/reconcile-catalog-integrity.py` now supports `--allow-missing-local-root`.
+2. `web/package.json` `prebuild` passes that flag.
+3. `postmortem/PM-2026-05-25-ci-local-skill-root.md` records the regression trigger and prevention rule.
+
+### Verification
+1. Empty-`HOME` reconciler dry run -> PASS, no-op with catalog unchanged.
+2. Empty-`HOME` `cd web && npm run build` -> PASS, Next.js static export completed.
+3. Root `npm run build` -> PASS.
+4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.

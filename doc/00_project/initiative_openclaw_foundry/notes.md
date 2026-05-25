@@ -289,6 +289,10 @@ Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Gi
 
 ### Tool Failures
 1. `mcp__chrome-devtools__list_pages` -- timeout on Network.enable (2 attempts). Pivoted to Playwright 1.59.1 global install + claude-in-chrome MCP for DOM probing.
+2. GitHub Actions deploy run `26382203696` failed in `deploy-frontend` because `web` prebuild invoked `reconcile-catalog-integrity.py` and the GitHub runner lacked `/home/runner/.claude/skills`.
+   - Fix: added `--allow-missing-local-root` and passed it from `web/package.json` `prebuild`.
+   - Verification: empty-`HOME` `web` build passes, root `npm run build` passes, `ai check` passes at `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
+   - Postmortem: `postmortem/PM-2026-05-25-ci-local-skill-root.md`.
 
 ### Iter 1 Closeout Summary
 1. Coverage: 12 routes x 3 viewports = 36 fullpage PNG (21 MB) at `outputs/sop-5.1/2026-05-09-frontend-validation-001/screenshots/`

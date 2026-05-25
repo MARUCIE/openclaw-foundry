@@ -27,6 +27,7 @@
 - User journeys and route map: `doc/00_project/initiative_openclaw_foundry/USER_EXPERIENCE_MAP.md`
 - Optimization backlog: `doc/00_project/initiative_openclaw_foundry/PLATFORM_OPTIMIZATION_PLAN.md`
 - Execution memory: `doc/00_project/initiative_openclaw_foundry/task_plan.md`
+- Regression postmortems: `postmortem/`
 
 ## Evidence Root
 - Documentation verification bundle: `outputs/doc-bootstrap/doc-bootstrap-20260311-verification/`

@@ -21,6 +21,7 @@
 | 2026-05-18 | REQ-016 | IA / Routing | Removed platform overview page must not be reachable from production navigation | Completed | `/explore/platforms` route implementation removed; Cloudflare Pages redirects it to `/packs` |
 | 2026-05-25 | REQ-017 | Distribution | All current local role/job configuration packs must be synchronized into a standalone Git repo with local-first installers | Completed | `/Users/mauricewen/Projects/openclaw-role-packs` commit `d17801ac092e2295031c863adad9450dc7476fb5`; 25 packs validated and smoke-installed |
 | 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | In progress | Public repo `https://github.com/MARUCIE/openclaw-role-packs` tag `v2026.05.25`; production `/packs` install command should clone the pinned tag after registration |
+| 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -51,6 +52,7 @@
 | 为什么不能把包文件继续放在 `/packs/<id>/install.sh` 直链? | 直链会绕过注册态。静态 Pages 只保留 `guide.html`，payload 文件由 R2 + Worker auth/token API 提供。 |
 | 为什么岗位配置包复制后不能默认从 `agent-foundry.pages.dev` 拉取? | 复制本地配置包的语义是安装当前本地快照；默认远程拉取会回到线上旧状态。独立仓库和单包 `install.sh` 必须 local-first，远程源只能显式传入。 |
 | 为什么生产页安装命令优先 GitHub tag clone? | GitHub tag clone 可审计、可固定版本、无需短链 token，有利于复现；注册态仍由 `/packs` 复制动作控制，单文件下载仍走 Worker 授权。 |
+| CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
 
 ## References
 1. `package.json`
@@ -82,3 +84,5 @@
 27. `/Users/mauricewen/Projects/openclaw-role-packs/scripts/validate-packs.mjs`
 28. `/Users/mauricewen/Projects/openclaw-role-packs/scripts/smoke-install.mjs`
 29. `https://github.com/MARUCIE/openclaw-role-packs`
+30. `scripts/reconcile-catalog-integrity.py`
+31. `postmortem/PM-2026-05-25-ci-local-skill-root.md`

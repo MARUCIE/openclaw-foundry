@@ -273,6 +273,27 @@ Create a new local Git repo at `/Users/mauricewen/Projects/openclaw-role-packs`.
 12. `cd web && npm run build` -> PASS, `/packs` static route exported.
 13. Root `npm run build` -> PASS, TypeScript and design source checks passed.
 14. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-034718-21b7061c`.
+
+## 2026-05-25 Production Deploy CI Fix
+- Status: completed locally, pending remote rerun
+- Trigger: GitHub Actions run `26382203696` failed in `deploy-frontend`.
+
+### Root Cause
+`web/package.json` `prebuild` called `scripts/reconcile-catalog-integrity.py`, which required `~/.claude/skills`. GitHub runners do not have `/home/runner/.claude/skills`, so the production Pages deploy failed before static export.
+
+### Steps
+- [x] 1. Read failed GitHub Actions logs.
+- [x] 2. Add explicit missing-local-root no-op flag to the reconciler.
+- [x] 3. Pass the flag from `web/package.json` `prebuild`.
+- [x] 4. Reproduce with empty `HOME`.
+- [x] 5. Record postmortem triggers.
+- [ ] 6. Push fix and verify the new production deploy.
+
+### Completion Evidence
+1. Empty-`HOME` reconciler dry run -> PASS, no-op with catalog unchanged.
+2. Empty-`HOME` `cd web && npm run build` -> PASS.
+3. Root `npm run build` -> PASS.
+4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
 - Working tree: dirty (11 modified files, including client/index.html + client/pipeline-manual.html cross-link inserts)
 - Validation target: local `next dev` :3200 (web/) + file:// for client/*.html (uncommitted, prod-stale)
 - Evidence dir: `outputs/sop-5.1/2026-05-09-frontend-validation-001/`
