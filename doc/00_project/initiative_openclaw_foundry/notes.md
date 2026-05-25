@@ -534,3 +534,41 @@ Commit, push, deploy Foundry, then run production browser smoke on `https://agen
 8. Fresh remote GitHub tag clone:
    - `npm run validate` -> PASS, 26 packs.
    - `npm run smoke:install` -> PASS, 26/26 packs.
+
+## 2026-05-25 Product Manager / Designer Pack Boundary Cutover
+
+### Trigger
+Production `/packs` still exposed `原型设计师`, but prototype hypothesis and clickable validation belong to Product Manager. The design role must be a real Designer pack with visual system, experience architecture, design QA, and engineering handoff assets.
+
+### Current Facts
+1. Standalone role-pack repo: `/Users/mauricewen/Projects/openclaw-role-packs`.
+2. Remote install source: `https://github.com/MARUCIE/openclaw-role-packs.git`.
+3. New release tag: `v2026.05.25.3`.
+4. Standalone role-pack release commit: `8c042c359d57f51dd344063b3755394b0e5863d1`.
+5. Foundry pack id `prototype-designer` has been removed from public data and replaced by `designer`.
+6. Product Manager metadata now owns prototype hypothesis, validation demo prompt, PRD, RICE, and user story responsibilities.
+
+### Guardrails Added
+1. `scripts/sync-design-pack.py` no longer defaults to Maurice's absolute AI-Fleet path; it uses `AI_FLEET_ROOT` or `~/00-AI-Fleet`.
+2. `openclaw-role-packs/scripts/sync-from-foundry.mjs` now requires explicit `--source <foundry-root>` or `FOUNDRY_SOURCE`; it no longer bakes in Maurice's Foundry path.
+3. Public guide/install scripts now reference GitHub tag `v2026.05.25.3` instead of local-only or Pages-direct installers.
+4. `/packs` card copy says GitHub tag install scripts pull resources through `manifest.json`, making the public install source explicit.
+5. Legacy Foundry sync/resync scripts no longer hardcode `/Users/mauricewen/00-AI-Fleet` or `file:///Users/mauricewen...`; they use environment variables, `Path.home()`, or blank URLs that the public-source audit can block.
+
+### Fresh Verification
+1. `openclaw-role-packs npm run validate` -> PASS, 26 packs and 26 catalog entries.
+2. `openclaw-role-packs npm run smoke:install` -> PASS, 26/26 packs; `designer` installs 15 files.
+3. Fresh remote clone of `https://github.com/MARUCIE/openclaw-role-packs.git` at tag `v2026.05.25.3` -> `npm run validate` PASS and `bash install.sh designer --agent=codex --target <tmp>` PASS.
+4. `rg -n "prototype-designer|Prototype Designer|原型设计师|stitch-prototype" web data scripts -g '!node_modules' -g '!out'` -> no matches.
+5. `npm --prefix web run build` -> PASS.
+6. `python3 scripts/pack-spec-audit.py --packs-dir web/public/packs --summary` -> PASS; `designer` is `enriched`.
+7. `python3 -m py_compile ...` for pack sync/catalog scripts -> PASS.
+8. `rg -n "/Users/mauricewen/00-AI-Fleet|file:///Users/mauricewen|/Users/mauricewen/Projects|~/Projects" scripts` -> no matches.
+9. Local Playwright static export smoke:
+   - released cards include `设计师 / DESIGNER`;
+   - product direction includes `Product Manager` and `Designer`;
+   - `原型设计师` and `prototype-designer` are absent.
+10. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-094234-dad4d3a0`; global AI-Fleet integrity caveat remains unrelated to this release.
+
+### Remaining Step
+Commit and push Foundry, wait for Cloudflare Pages, then run production browser smoke and production data/guide checks against the pushed Foundry commit.

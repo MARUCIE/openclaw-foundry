@@ -138,11 +138,12 @@
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
 2. Maintainer commits, tags, and pushes the snapshot to `https://github.com/MARUCIE/openclaw-role-packs`
 3. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-4. Command runs `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`
+4. Command runs `git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git`
 5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 6. Installer reads local sibling `manifest.json` and copies local artifacts by default
 7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
 8. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey
+9. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
 
 ## UX Gaps
 1. ~~No authenticated web operator console~~ **Resolved by v3.0 Web Console** — customer management still API-only
@@ -153,6 +154,7 @@
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 7. Old bare direct payload URLs can temporarily survive in edge cache, so support/ops copy must point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
 8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction and remain labeled `即将上线` until a data pack graduates from `stub`.
+9. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 
 ## Round-Based Acceptance Criteria
 

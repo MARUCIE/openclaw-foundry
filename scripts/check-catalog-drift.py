@@ -55,8 +55,9 @@ def main() -> int:
     ap.add_argument('--threshold', type=int, default=10,
                     help='Max unmatched count before CI fails (default 10)')
     ap.add_argument('--ai-fleet-path', type=Path,
-                    default=Path(os.environ.get('AI_FLEET_PATH',
-                                 '/Users/mauricewen/00-AI-Fleet')),
+                    default=Path(os.environ.get('AI_FLEET_PATH')
+                                 or os.environ.get('AI_FLEET_ROOT')
+                                 or (Path.home() / '00-AI-Fleet')),
                     help='Path to 00-AI-Fleet root')
     ap.add_argument('--catalog', type=Path,
                     default=Path(__file__).parent.parent / 'web/public/data/skills.json',

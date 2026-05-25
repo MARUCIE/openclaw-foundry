@@ -277,8 +277,8 @@
       "id": "product-manager",
       "name": "Product Manager",
       "nameZh": "产品经理",
-      "description": "PRD + user stories + RICE + 8 design skills + 3 advisor lenses + Workshop W1 tool kit.",
-      "descriptionZh": "面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角 + AI 训战工作坊 W1（产品经理需求分析岗）5 件工具套件。",
+      "description": "PRD, user stories, RICE, prototype hypothesis, clickable validation demo prompts, 8 design skills, and 3 advisor lenses.",
+      "descriptionZh": "面向财税平台的产品经理配置：PRD/RICE、用户故事、原型假设与可点击验证 demo + 8 个设计 skill + 3 位顾问视角。",
       "icon": "lightbulb",
       "color": "#7C3AED",
       "line": "product",
@@ -288,7 +288,7 @@
         "line-product",
         "role-pm"
       ],
-      "version": "4.2.0",
+      "version": "4.3.0",
       "design_augmented": true,
       "artifacts": {
         "skills": 8,
@@ -405,6 +405,40 @@
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": true
+    },
+    {
+      "id": "designer",
+      "name": "Designer",
+      "nameZh": "设计师",
+      "description": "Experience architecture, visual hierarchy, design tokens, aesthetic QA, and engineering handoff. Prototype hypotheses stay with Product Manager.",
+      "descriptionZh": "面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。",
+      "icon": "palette",
+      "color": "#D946EF",
+      "line": "product",
+      "lineZh": "产品职能线",
+      "layerIds": [
+        "universal",
+        "line-product",
+        "role-designer"
+      ],
+      "version": "4.3.0",
+      "tier": "enriched",
+      "artifacts": {
+        "skills": 3,
+        "agents": 2,
+        "references": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
+      "hasE2eEvidence": false
     },
     {
       "id": "spellbook-code-reviewer",
@@ -749,32 +783,6 @@
         "agents": 3,
         "references": 0
       },
-      "tier": "enriched",
-      "specVersion": "1.0",
-      "hasFirstUseDemo": true,
-      "hasE2eEvidence": false
-    },
-    {
-      "id": "prototype-designer",
-      "name": "Prototype Designer",
-      "nameZh": "原型设计师",
-      "description": "Figma → interactive prototype → spec workflow.",
-      "descriptionZh": "面向产品/设计师的从 Figma 到可交互原型到工程交付的工作流。",
-      "icon": "design_services",
-      "color": "#EC4899",
-      "line": "product",
-      "lineZh": "产品职能线",
-      "layerIds": [],
-      "version": "1.0.0",
-      "downloadCount": 0,
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
       "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,

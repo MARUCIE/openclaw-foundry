@@ -94,10 +94,10 @@ footer p { max-width: none; margin: 4px 0; }
 <header class="cover">
   <div class="tag">岗位配置包 · 产品职能线 · product-manager</div>
   <h1>产品经理</h1>
-  <p class="subtitle">面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角 + AI 训战工作坊 W1（产品经理需求分析岗）5 件工具套件。</p>
+  <p class="subtitle">面向财税平台的产品经理配置：PRD/RICE、用户故事、原型假设与可点击验证 demo + 8 个设计 skill + 3 位顾问视角。</p>
   <div class="meta-row">
     <span class="tier-pill tier-certified" title="四支柱通过 + spec 1.0 + first_use_demo + 生产 install.sh E2E 验证">已验证 · Certified</span>
-    <span>版本 <strong>4.2.0</strong></span>
+    <span>版本 <strong>4.3.0</strong></span>
     <span>装包目标 <strong>10</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
@@ -105,7 +105,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>30 秒画像</h2>
-<p class="lead">面向财税平台的产品经理配置：PRD/RICE + 8 个设计 skill + 3 位顾问视角 + AI 训战工作坊 W1（产品经理需求分析岗）5 件工具套件。</p>
+<p class="lead">面向财税平台的产品经理配置：PRD/RICE、用户故事、原型假设与可点击验证 demo + 8 个设计 skill + 3 位顾问视角。</p>
 <p>本指导手册由 <code>scripts/generate-pack-guides.mjs</code> 从 pack 的 <code>manifest.json</code>、
 <code>CLAUDE.md</code>、<code>prompts.md</code> 三份源文件直接生成 — 不是 LLM 写的也不是手工抄的。
 所以你看到的所有命令、文件路径、内容结构都和你 <code>curl … | bash</code> 装到本地的完全一致。</p>
@@ -360,7 +360,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.25.2</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.25.3</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -369,12 +369,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; product-manager --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -434,7 +434,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 产品经理 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.2 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.3 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

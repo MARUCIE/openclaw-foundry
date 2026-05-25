@@ -505,3 +505,29 @@ The remote pinned GitHub tag has not been advanced in this run. Public productio
 12. Playwright production `/packs` smoke -> `Define Strategy` renders `战略圆桌顾问`; console errors/warnings: 0.
 13. Production guide audit -> GitHub tag install command present; legacy Pages direct install URL and `download-token` absent.
 14. Fresh remote GitHub tag clone -> `npm run validate` PASS and `npm run smoke:install` PASS for 26/26 packs.
+
+## 2026-05-25 Product Manager / Designer Pack Boundary Cutover
+- Status: local implementation verified; production deployment pending
+- Stop condition: production `/packs` shows `产品经理` and `设计师` as separate product-line choices, no `原型设计师` surface remains, and the public install command pulls `designer` from GitHub tag `v2026.05.25.3`.
+
+### Objective
+Move prototype validation ownership back to `product-manager`, rename `prototype-designer` to `designer`, and rebuild both the recommendation card and bundled pack content so external users can install the role without Maurice-local paths.
+
+### Steps
+- [x] Rename public pack id from `prototype-designer` to `designer`.
+- [x] Replace prototype-specific design skill content with designer-owned experience architecture, visual system, design QA, and engineering handoff assets.
+- [x] Update Product Manager metadata so PRD, RICE, user stories, prototype hypothesis, and clickable validation demo prompts belong to PM.
+- [x] Update `/packs` decision tree, wall board labels, card copy, and install-source wording.
+- [x] Regenerate pack catalog, install scripts, and guide pages against GitHub tag `v2026.05.25.3`.
+- [x] Sync standalone `openclaw-role-packs`, validate 26 packs, smoke-install all packs, and publish tag `v2026.05.25.3`.
+- [x] Build Foundry and run pack audit, local browser smoke, and `ai check`.
+- [ ] Commit and push Foundry release changes.
+- [ ] Wait for Cloudflare Pages production deployment.
+- [ ] Verify production `/packs`, guide HTML, and remote Git install for `designer`.
+
+### Current Verification Snapshot
+1. `npm --prefix web run build` -> PASS; prebuild public-source audit reports 5000/5000 skills, 26 pack settings, 22 guides, 485 pack files.
+2. `python3 scripts/pack-spec-audit.py --packs-dir web/public/packs --summary` -> PASS; `designer` has P1/P2/P3/P4 present and is `enriched`.
+3. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-094234-dad4d3a0`; known caveat remains the unrelated global AI-Fleet `skill_integrity=false` for 3 `dna/capsules/*` entries.
+4. Local static Playwright smoke on `/packs.html` -> PASS; released list contains `设计师 / DESIGNER`, does not contain `原型设计师`, and product direction shows both Product Manager and Designer.
+5. Fresh remote GitHub tag clone for `v2026.05.25.3` -> `npm run validate` PASS and `bash install.sh designer --agent=codex --target <tmp>` installs 15/15 files.

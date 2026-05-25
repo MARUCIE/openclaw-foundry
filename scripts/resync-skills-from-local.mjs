@@ -31,12 +31,10 @@ const SOURCES = [
   {
     label: 'claude',
     root: join(homedir(), '.claude', 'skills'),
-    urlPrefix: 'file:///Users/mauricewen/.claude/skills/',
   },
   {
     label: 'ai-fleet',
-    root: '/Users/mauricewen/00-AI-Fleet/layers/L3-intelligence/skills/skills',
-    urlPrefix: 'file:///Users/mauricewen/00-AI-Fleet/layers/L3-intelligence/skills/skills/',
+    root: join(homedir(), '00-AI-Fleet', 'layers', 'L3-intelligence', 'skills', 'skills'),
   },
 ];
 
@@ -74,7 +72,7 @@ function isHorsDomain(description) {
   return HORS_DOMAIN_KEYWORDS.some((kw) => lower.includes(kw));
 }
 
-function readLocalSkill(label, root, dirName, urlPrefix) {
+function readLocalSkill(label, root, dirName) {
   const dirPath = join(root, dirName);
   const skillMd = join(dirPath, 'SKILL.md');
   if (!existsSync(skillMd)) return null;
@@ -93,7 +91,7 @@ function readLocalSkill(label, root, dirName, urlPrefix) {
     name,
     description,
     sourceLocal: label,
-    url: `${urlPrefix}${dirName}`,
+    url: '',
   };
 }
 
@@ -111,7 +109,7 @@ function main() {
 
   // 1. Scan local sources
   const localByName = new Map();
-  for (const { label, root, urlPrefix } of SOURCES) {
+  for (const { label, root } of SOURCES) {
     if (!existsSync(root)) {
       console.log(`  WARN: source missing ${root}`);
       continue;
@@ -124,7 +122,7 @@ function main() {
     let added = 0;
     let skipped = 0;
     for (const d of dirs) {
-      const sk = readLocalSkill(label, root, d, urlPrefix);
+      const sk = readLocalSkill(label, root, d);
       if (!sk) {
         skipped += 1;
         continue;

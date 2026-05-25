@@ -1,6 +1,6 @@
 #!/bin/bash
 # OpenClaw Foundry — Job Pack Installer (v5.1, manifest-driven, multi-agent)
-# Pack: prototype-designer
+# Pack: designer
 #
 # Single-source-of-truth template. Regenerated for every pack via:
 #   node scripts/regenerate-install-scripts.mjs
@@ -19,7 +19,7 @@
 #   4. Auto-detect (first existing of ~/.claude, ~/.codex, ~/.gemini, ~/.hermes, ~/.openclaw)
 #   5. Default: ~/.claude
 set -euo pipefail
-PACK_ID="prototype-designer"
+PACK_ID="designer"
 BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
 
 # ---- parse --agent flag ----

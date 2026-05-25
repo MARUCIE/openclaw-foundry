@@ -20,12 +20,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
 
 FOUNDRY_ROOT = Path(__file__).resolve().parent.parent
-AI_FLEET_ROOT = Path("/Users/mauricewen/00-AI-Fleet")
+AI_FLEET_ROOT = Path(os.environ.get("AI_FLEET_ROOT", Path.home() / "00-AI-Fleet")).expanduser()
 PACKS_DIR = FOUNDRY_ROOT / "web" / "public" / "packs"
 SOURCE_DIR = FOUNDRY_ROOT / "data" / "job-packs" / "packs"
 SHARED_SKILLS = AI_FLEET_ROOT / "skills" / "shared"

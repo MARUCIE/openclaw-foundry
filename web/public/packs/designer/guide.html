@@ -4,14 +4,14 @@
   generated-at: 2026-05-25T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
-  source: web/public/packs/prototype-designer/{manifest.json,CLAUDE.md,prompts.md}
+  source: web/public/packs/designer/{manifest.json,CLAUDE.md,prompts.md}
 -->
 <html lang="zh-CN" data-style-id="html-document-style">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="openclaw-foundry/scripts/generate-pack-guides.mjs">
-<title>原型设计师（Prototype Designer） · 岗位配置包指导手册 · Agent Foundry</title>
+<title>设计师（Designer） · 岗位配置包指导手册 · Agent Foundry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -92,12 +92,12 @@ footer p { max-width: none; margin: 4px 0; }
 <body>
 <div class="frame">
 <header class="cover">
-  <div class="tag">岗位配置包 · 产品职能线 · prototype-designer</div>
-  <h1>原型设计师</h1>
-  <p class="subtitle">面向产品/设计师的从 Figma 到可交互原型到工程交付的工作流。</p>
+  <div class="tag">岗位配置包 · 产品职能线 · designer</div>
+  <h1>设计师</h1>
+  <p class="subtitle">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
   <div class="meta-row">
     <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
-    <span>版本 <strong>1.0.0</strong></span>
+    <span>版本 <strong>4.3.0</strong></span>
     <span>装包目标 <strong>5</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
@@ -105,7 +105,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>30 秒画像</h2>
-<p class="lead">面向产品/设计师的从 Figma 到可交互原型到工程交付的工作流。</p>
+<p class="lead">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
 <p>本指导手册由 <code>scripts/generate-pack-guides.mjs</code> 从 pack 的 <code>manifest.json</code>、
 <code>CLAUDE.md</code>、<code>prompts.md</code> 三份源文件直接生成 — 不是 LLM 写的也不是手工抄的。
 所以你看到的所有命令、文件路径、内容结构都和你 <code>curl … | bash</code> 装到本地的完全一致。</p>
@@ -115,15 +115,15 @@ footer p { max-width: none; margin: 4px 0; }
 <h2>装包后第一件事</h2>
 
 <p class="lead">复制下面这条命令到 Claude Code，约 5 分钟应当看到预期输出：</p>
-<pre><code>cd ~/.claude &amp;&amp; claude --skill stitch-prototype &#39;help me prototype a 3-step onboarding flow with stripe-minimal vibe&#39;</code></pre>
-<p>预期输出：prototype-onboarding-stripe.html 单文件 + handoff spec 表 + 7 维 aesthetic 自审报告</p>
+<pre><code>cd ~/.claude &amp;&amp; claude --skill aesthetic-probe &#39;review this finance-tax dashboard screen for hierarchy, token drift, mobile risk, and handoff gaps&#39;</code></pre>
+<p>预期输出：design review report + Top 3 fixes + component/state handoff risks</p>
 
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/design/stitch-prototype/SPEC.md</code></li><li><code>skills/design/design-tokens/SPEC.md</code></li><li><code>skills/design/aesthetic-probe/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/design/experience-architecture/SPEC.md</code></li><li><code>skills/design/design-tokens/SPEC.md</code></li><li><code>skills/design/aesthetic-probe/SPEC.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
 <ul class="kit-list"><li><code>agents/advisor-jobs.md</code></li><li><code>agents/advisor-hara.md</code></li></ul>
@@ -133,31 +133,31 @@ footer p { max-width: none; margin: 4px 0; }
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
 <p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
 
-<div class="skill-card" id="skill-stitch-prototype">
+<div class="skill-card" id="skill-experience-architecture">
   <div class="skill-card-header">
-    <div class="skill-card-tag">stitch-prototype</div>
-    <code class="skill-card-path">skills/design/stitch-prototype/SPEC.md</code>
+    <div class="skill-card-tag">experience-architecture</div>
+    <code class="skill-card-path">skills/design/experience-architecture/SPEC.md</code>
   </div>
   
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>这是一套把 PRD / 用户故事快速翻译成&quot;单文件可点击 HTML 原型&quot;的轻量管线，让需求方在评审会上就能点开屏间跳转看真实交互，而不是隔着 Figma 静态图猜体验，把&quot;看起来对&quot;和&quot;用起来对&quot;两件事提前一周对齐。</p>
+    <p>这是一套把产品意图转成体验架构的设计方法。它不替 PM 写 PRD，也不替 PM 生成验证原型；它接收已经收敛的产品假设，输出用户路径、页面层级、状态覆盖和组件交付契约，让设计评审从&quot;好不好看&quot;前移到&quot;用户是否能完成任务&quot;。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>先把 PRD 拆成 ≤5 屏的核心 flow，让原型的边界一开始就是收敛的而不是越做越大。</li><li>根据品牌氛围（brand vibe）选 token 集，让视觉风格不靠当场拍脑袋而是有版可依。</li><li>每屏先用文字写清&quot;布局 / 层级 / 数据&quot;，让原型动手前先过一遍语义而不是直接堆 UI 组件。</li><li>用 HTML + Tailwind + 一点原生 JS 生成单文件，让 cohort 双击就能看而不需要本地起服务。</li><li>在底部加 handoff 表（屏 / 组件 / 状态 / 数据形状），让设计交付到前端开发的那一刻每个组件都有明确的状态契约（state contract）。</li></ol>
+    <ol><li>先确认 PM 的 validation question：这个流程到底要验证什么。</li><li>把每个 screen 拆成 primary job、primary action、secondary action 和 supporting evidence。</li><li>标出 empty / loading / error / success / disabled / selected / mobile state。</li><li>删除重复界面与没有决策价值的信息块。</li><li>输出 screen x component x state x data shape 的 handoff 表。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-    A[PRD/用户故事] --&gt; B[屏列表拆解]
-    B --&gt; C[Token 选型]
-    C --&gt; D[单文件 HTML]
-    D --&gt; E[屏间跳转]
-    E --&gt; F[Handoff 表]</pre>
+    A[PM PRD / validation prototype] --&gt; B[Validation question]
+    B --&gt; C[Screen hierarchy]
+    C --&gt; D[State map]
+    D --&gt; E[Component contract]
+    E --&gt; F[Design / FE handoff]</pre>
   </div>
   
 </div>
@@ -171,21 +171,22 @@ footer p { max-width: none; margin: 4px 0; }
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>这是一套把品牌风格沉淀成&quot;可复用变量&quot;的设计令牌（design tokens）系统，让颜色、字号、间距、圆角、阴影变成命名清晰的 CSS 变量或 Tailwind 配置，避免一个原型里出现 3 套配色、5 种字号的失控状态，也让品牌色一改全站联动而不是全文替换。</p>
+    <p>这是一套把品牌与界面规则沉淀成可复用 design tokens 的方法。它让视觉决策从&quot;这一处看着顺眼&quot;变成可检查、可复用、可交付的变量系统，也让 PM 原型进入设计阶段后不会被一次性美化成不可维护的视觉债。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>先确认这次原型要走哪个风格（如 stripe-minimal / claude-warm / 自定义品牌），让&quot;风格选型&quot;成为一次决定而不是每个组件重复做一次。</li><li>通过 html-style-router 找到对应 token 集，让风格落地不靠工程师个人审美，而是有版可依。</li><li>把 token 写进 `:root` 的 CSS 变量或 tailwind extend 配置，让组件层只引用变量名而不接触原始值。</li><li>输出一份 token cheatsheet（token 名 / 值 / 何时使用三列），让需求方和开发对齐&quot;什么场景用哪个 token&quot;，减少口头沟通误差。</li><li>产出 1 段示例 HTML 展示 token 真实应用效果，让评审方一眼看到&quot;换品牌色后整页是什么样&quot;，而不是只看抽象色卡。</li></ol>
+    <ol><li>先确认本次设计使用的风格和约束：品牌、产品线、可访问性、组件库。</li><li>定义颜色、字体、间距、圆角、阴影、焦点态和状态态 token。</li><li>用语义命名 token，不用颜色名或一次性命名。</li><li>输出 token cheatsheet，说明何时使用每个 token。</li><li>审计已有界面，把硬编码视觉值替换为 token。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-    A[品牌风格] --&gt; B[Style Router 选型]
-    B --&gt; C[CSS 变量集]
-    C --&gt; D[原型组件层]
-    C --&gt; E[Cheatsheet 对齐文档]</pre>
+    A[Brand / product context] --&gt; B[Token decisions]
+    B --&gt; C[CSS variables]
+    B --&gt; D[Component states]
+    C --&gt; E[Design handoff]
+    D --&gt; E</pre>
   </div>
   
 </div>
@@ -199,22 +200,21 @@ footer p { max-width: none; margin: 4px 0; }
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>这是一套原型交付前的视觉自审清单，把&quot;看起来还行&quot;翻译成 7 个可打分的设计维度，让交付前的主观感受变成可复盘的客观证据，避免视觉债务在 cohort 评审时才被发现。</p>
+    <p>这是一套设计评审清单，把&quot;好不好看&quot;拆成 7 个可评分维度。它服务于设计质量与工程交付，不替 PM 判断产品方向，也不把验证原型包装成最终设计。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>先把待审原型打开在桌面端 + 手机端两个尺寸，让响应式（responsive）问题在第一眼就暴露而不是上线后才被截图吐槽。</li><li>跑一遍 token 审计（design tokens 一致性检查），把硬编码的颜色 / 字号 / 间距标红，确认是不是真的在用统一设计系统。</li><li>用 7 维评分表（token 一致、层级清晰、留白、字体协调、配色克制、可点击识别、响应式）打分，让&quot;哪里不对劲&quot;变成&quot;第 3 维只有 2 分&quot;的具体诊断。</li><li>把 Top 3 改进项按 (5−当前分) × 业务影响排序，让有限的时间花在最值钱的地方而不是先改最容易的。</li><li>最后产出「保留 vs 改 vs 新增」三列清单，让需求方一眼看清这一轮原型评审的边界，避免下一轮再来一次。</li></ol>
+    <ol><li>打开待审界面或截图描述，明确 PM 的原始目标。</li><li>分别检查层级、间距、字体、颜色、可点击识别、状态完整性和响应式。</li><li>用 1-5 分打分，禁止只写审美形容词。</li><li>选 Top 3 修复项，每项绑定 component、token、state 和验证 viewport。</li><li>输出 Keep / Change / Remove 清单，避免评审无限发散。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-    A[原型 HTML] --&gt; B[Token 审计]
-    A --&gt; C[7 维评分]
-    B --&gt; D[Top 3 改进]
-    C --&gt; D
-    D --&gt; E[保留改新增清单]</pre>
+    A[Screen / HTML / screenshot notes] --&gt; B[7-dimension scoring]
+    B --&gt; C[Top 3 fixes]
+    C --&gt; D[Token / state / viewport evidence]
+    D --&gt; E[Handoff-ready review]</pre>
   </div>
   
 </div>
@@ -222,7 +222,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.25.2</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.25.3</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -231,12 +231,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; prototype-designer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.3 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; designer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -248,7 +248,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
 <ul class="kit-list">
-<li>✅ `S3-P1` Aesthetic probe 7 维自审（PM 自我把关，避免&quot;好看了&quot;自评通胀）</li>
+<li>Avoid using this pack as a shortcut for strategy, prioritization, or feature scope decisions.</li>
 </ul>
 
 </section>
@@ -275,7 +275,7 @@ ls -la ~/.openclaw/AGENTS.md ~/.openclaw/settings.json ~/.openclaw/skills/
 claude --help | head -3
 
 # 回到 /packs，登录后复制本包安装命令
-#    公开直连 /packs/prototype-designer/install.sh 已关闭，安装命令固定为 GitHub tag
+#    公开直连 /packs/designer/install.sh 已关闭，安装命令固定为 GitHub tag
 </code></pre>
 </section>
 
@@ -292,9 +292,9 @@ claude --help | head -3
 </section>
 
 <footer>
-  <p>OpenClaw Foundry — 原型设计师 岗位包指导手册</p>
+  <p>OpenClaw Foundry — 设计师 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.2 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.3 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

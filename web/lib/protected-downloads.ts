@@ -4,7 +4,7 @@ import { API_BASE } from '@/lib/api-base';
 export const PROTECTED_API_BASE = API_BASE;
 export const ROLE_PACKS_GIT_URL =
   process.env.NEXT_PUBLIC_ROLE_PACKS_GIT_URL || 'https://github.com/MARUCIE/openclaw-role-packs.git';
-export const ROLE_PACKS_GIT_REF = process.env.NEXT_PUBLIC_ROLE_PACKS_GIT_REF || 'v2026.05.25.2';
+export const ROLE_PACKS_GIT_REF = process.env.NEXT_PUBLIC_ROLE_PACKS_GIT_REF || 'v2026.05.25.3';
 
 const PACK_ID_PATTERN = /^[a-z0-9][a-z0-9-]{1,80}$/;
 

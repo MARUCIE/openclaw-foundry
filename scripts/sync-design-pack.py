@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """sync-design-pack.py — augment Agent Foundry's `product-manager` pack with
-AI-Fleet's design/prototyping skill bundle.
+the PM-owned prototype-validation and design review skill bundle.
 
 Bundles (copied as artifacts under product-manager/):
-  - 8 design/prototype skills (prototype, stitch, design-system, etc.)
+  - 8 product/design validation skills (prototype, stitch, design-system, etc.)
   - 3 advisor agents (advisor-jobs, advisor-hara, advisor-catmull)
 
 Run order (manual):
@@ -21,12 +21,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
 
 FOUNDRY_ROOT = Path(__file__).resolve().parent.parent
-AI_FLEET_ROOT = Path("/Users/mauricewen/00-AI-Fleet")
+AI_FLEET_ROOT = Path(os.environ.get("AI_FLEET_ROOT", Path.home() / "00-AI-Fleet")).expanduser()
 TARGET_PACK_ID = "product-manager"
 LEGACY_PACK_ID = "design-prototyper"
 TARGET_PACK_DIR = FOUNDRY_ROOT / "web" / "public" / "packs" / TARGET_PACK_ID
@@ -55,17 +56,17 @@ def render_install_sh() -> str:
     """Manifest-driven install for product-manager pack.
 
     Downloads the layer-generated config files (CLAUDE.md / AGENTS.md /
-    settings.json / prompts.md) plus the design augment artifacts (skills/ +
-    agents/) listed in manifest.json.
+    settings.json / prompts.md) plus PM validation/design review artifacts
+    (skills/ + agents/) listed in manifest.json.
     """
     return """#!/bin/bash
-# OpenClaw Foundry — Product Manager Pack Installer (manifest-driven, design-augmented)
+# OpenClaw Foundry — Product Manager Pack Installer (manifest-driven, PM-validation augmented)
 set -euo pipefail
 PACK_ID="product-manager"
 BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}/packs/$PACK_ID"
 TARGET_DIR="${INSTALL_DEST:-$HOME/.claude}"
 
-echo "Installing OpenClaw Job Pack: $PACK_ID (with design augment)"
+echo "Installing OpenClaw Job Pack: $PACK_ID (with PM validation/design review augment)"
 echo "  Source: $BASE_URL"
 echo "  Target: $TARGET_DIR"
 echo ""
@@ -172,7 +173,7 @@ def copy_artifacts(target_dir: Path) -> int:
 def render_manifest_json(items: list[dict[str, str]]) -> str:
     return json.dumps({
         "pack": TARGET_PACK_ID,
-        "version": "4.1.0",
+        "version": "4.3.0",
         "design_augmented": True,
         "items": items,
     }, indent=2, ensure_ascii=False)

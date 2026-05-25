@@ -48,6 +48,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     descKey: 'packs.q1ProductDesc',
     options: [
       { labelKey: 'packs.q2PM', packId: 'product-manager' },
+      { labelKey: 'packs.q2Designer', packId: 'designer' },
     ],
   },
   {
@@ -616,30 +617,30 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
   };
 
   return (
-    <div
-      className={`rounded-[2.5rem] p-8 flex flex-col transition-all hover:shadow-2xl hover:-translate-y-1 ${featured ? 'ring-4 ring-[var(--primary)] ring-offset-4' : ''}`}
+    <article
+      className={`rounded-[1.75rem] p-7 flex flex-col transition-all hover:shadow-2xl hover:-translate-y-1 ${featured ? 'ring-4 ring-[var(--primary)] ring-offset-4' : ''}`}
       style={{
         background: 'var(--surface-container-lowest)',
         border: '1px solid var(--outline-variant)',
-        borderTop: `8px solid ${pack.color}`,
+        boxShadow: `inset 0 6px 0 ${pack.color}`,
       }}
     >
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-start gap-4 mb-6">
         <div
-          className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shrink-0"
+          className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm shrink-0"
           style={{ background: `${pack.color}15`, color: pack.color }}
         >
           <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">{pack.icon}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="font-black text-xl tracking-tight truncate text-balance">
+          <div className="flex items-start gap-2">
+            <h3 className="font-black text-xl tracking-tight leading-tight text-balance min-w-0">
               {pack.nameZh}
             </h3>
             <TierBadge tier={pack.tier} />
           </div>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40 truncate">{pack.name}</span>
+          <div className="flex items-center gap-2 mt-2 flex-wrap">
+            <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-45 break-words">{pack.name}</span>
             <span
               className="px-2 py-0.5 rounded-lg text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
               style={{ background: `${pack.color}15`, color: pack.color }}
@@ -673,10 +674,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
 
       {/* Bundled artifacts (skills + advisors + references) — only when pack ships them */}
       {pack.artifacts && (pack.artifacts.skills + pack.artifacts.agents + pack.artifacts.references) > 0 && (
-        <div
-          className="mb-6 p-4 rounded-2xl border-2 border-dashed"
-          style={{ borderColor: `${pack.color}40`, background: `${pack.color}08` }}
-        >
+        <div className="mb-6 py-4 border-y border-dashed border-[var(--outline-variant)]">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-60">
               本包附带 · BUNDLED
@@ -714,7 +712,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
             )}
           </div>
           <p className="text-[var(--af-fs-micro)] mt-3 opacity-50 leading-relaxed">
-            install.sh 通过 manifest.json 自动拉取全部资源到 ~/.claude/{'{'}skills,agents{'}'}/
+            GitHub tag 安装脚本通过 manifest.json 拉取全部资源，避免依赖本机路径。
           </p>
         </div>
       )}
@@ -726,7 +724,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
             key={file}
             onClick={() => handleDownload(file)}
             disabled={busyFile === file}
-            className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-[var(--outline-variant)] transition-all hover:bg-[var(--surface-container-low)] hover:shadow-md group text-center"
+            className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--outline-variant)] transition-all hover:bg-[var(--surface-container-low)] hover:shadow-md group text-center"
           >
               <span aria-hidden="true" className="material-symbols-outlined text-lg opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all">
               {busyFile === file ? 'hourglass_empty' : file === 'CLAUDE.md' ? 'description' : file === 'AGENTS.md' ? 'groups' : file === 'settings.json' ? 'hub' : 'chat'}
@@ -741,7 +739,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
         <button
           onClick={handleCopy}
           aria-label={isLoggedIn ? '复制一键安装命令' : '登录后获取安装命令'}
-          className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[var(--af-fs-meta)] text-white transition-all hover:shadow-2xl active:scale-95 shadow-lg"
+          className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-black uppercase tracking-[0.18em] text-[var(--af-fs-meta)] text-white transition-all hover:shadow-2xl active:scale-95 shadow-lg"
           style={{ background: pack.color, opacity: authReady ? 1 : 0.6 }}
         >
           <span aria-hidden="true" className="material-symbols-outlined text-base font-black">
@@ -758,7 +756,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           href={`/packs/${pack.id}/guide.html`}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border transition-all hover:bg-[var(--surface-container-low)]"
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border transition-all hover:bg-[var(--surface-container-low)]"
           style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}
         >
           <span aria-hidden="true" className="material-symbols-outlined text-base">menu_book</span>
@@ -766,7 +764,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
         </a>
         <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest text-center opacity-30 text-pretty">One-line terminal setup</p>
       </div>
-    </div>
+    </article>
   );
 }
 

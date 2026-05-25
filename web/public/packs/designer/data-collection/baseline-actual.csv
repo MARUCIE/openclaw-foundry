@@ -1,0 +1,11 @@
+scenario_id,scenario_name,current_time_min,expected_time_min,current_quality,expected_quality,evidence_link
+S1-1,PM intake review,120,30,PM/design boundary mixed,boundary explicit,
+S1-2,Experience map,240,60,screen hierarchy ad hoc,one primary action per screen,
+S1-3,Component-state handoff,120,30,table incomplete,table 100% complete,
+S2-1,Token set CSS,90,12,visual values ad hoc,semantic tokens,
+S2-2,Token drift audit,180,48,hardcoded drift hidden,drift inventory,
+S2-3,Brand swap,360,90,structure changed,token-only change,
+S3-1,Aesthetic probe,60,12,subjective review,7 dimensions scored,
+S3-2,Top 3 fix plan,180,48,fixes unbound,component/token/state bound,
+S3-3,Responsive design QA,240,60,desktop only,mobile + desktop checked,
+S3-4,Quarterly design system refresh,720,240,self-review,Hara+Jobs review,

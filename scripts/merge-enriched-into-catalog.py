@@ -129,7 +129,7 @@ def main() -> int:
             "rating": "B",
             "url": (link_index.get(name, {}).get("finalUrl")
                     or e.get("upstreamUrl")
-                    or f"file:///Users/mauricewen/.claude/skills/{name}"),
+                    or ""),
             "stars": 0,
             "downloads": 0,
             "versions": 1,

@@ -1,10 +1,10 @@
 {
-  "pack": "prototype-designer",
-  "version": "4.2.0",
+  "pack": "designer",
+  "version": "4.3.0",
   "spec_version": "1.0",
   "first_use_demo": {
-    "command": "cd ~/.claude && claude --skill stitch-prototype 'help me prototype a 3-step onboarding flow with stripe-minimal vibe'",
-    "expected_output": "prototype-onboarding-stripe.html 单文件 + handoff spec 表 + 7 维 aesthetic 自审报告",
+    "command": "cd ~/.claude && claude --skill aesthetic-probe 'review this finance-tax dashboard screen for hierarchy, token drift, mobile risk, and handoff gaps'",
+    "expected_output": "design review report + Top 3 fixes + component/state handoff risks",
     "time_to_value_minutes": 5
   },
   "items": [
@@ -18,7 +18,7 @@
     { "src": "checklist-delivery.md", "dst": "checklist-delivery.md", "type": "config" },
     { "src": "data-collection/baseline-actual.csv", "dst": "data-collection/baseline-actual.csv", "type": "data" },
     { "src": "data-collection/cohort-feedback-form.md", "dst": "data-collection/cohort-feedback-form.md", "type": "data" },
-    { "src": "skills/design/stitch-prototype/SPEC.md", "dst": "skills/design/stitch-prototype/SPEC.md", "type": "skill" },
+    { "src": "skills/design/experience-architecture/SPEC.md", "dst": "skills/design/experience-architecture/SPEC.md", "type": "skill" },
     { "src": "skills/design/design-tokens/SPEC.md", "dst": "skills/design/design-tokens/SPEC.md", "type": "skill" },
     { "src": "skills/design/aesthetic-probe/SPEC.md", "dst": "skills/design/aesthetic-probe/SPEC.md", "type": "skill" },
     { "src": "agents/advisor-jobs.md", "dst": "agents/advisor-jobs.md", "type": "agent" },

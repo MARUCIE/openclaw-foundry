@@ -35,9 +35,10 @@
 | OPT-22 | P0 | Pack recommendation UX | Decision-tree paths could point to hidden `stub` packs and render an empty result panel | Clickability, counts, and empty states use released-pack availability consistently | Completed 2026-05-25 |
 | OPT-23 | P0 | Strategy pack coverage | `定策略` had no released, installable strategy frontdoor pack despite the strategy line existing in IA | `strategy-roundtable-advisor` enriched pack is generated, audited, synced to standalone role-pack repo, and wired into `/packs` | Completed 2026-05-25 |
 | OPT-24 | P1 | Data IA clarity | `做数据` and `看数据` split one data intent into two first-level cards | One `做/看数据` card routes algorithm, big data, metrics, A/B, and dashboard options | Completed 2026-05-25 |
+| OPT-25 | P0 | Product/design role boundary | `prototype-designer` implied that prototype ownership belonged to Designer and exposed stale install paths | Replace it with `designer`, move prototype validation language to `product-manager`, publish `openclaw-role-packs` tag `v2026.05.25.3`, and verify remote install | Completed 2026-05-25 |
 
 ## Next Execution Order
-1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag containing `strategy-roundtable-advisor` is pushed.
+1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag containing the current released packs is pushed.
 2. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
 3. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
 4. Resolve remaining P0 contract and repository-boundary issues (OPT-02, OPT-04).

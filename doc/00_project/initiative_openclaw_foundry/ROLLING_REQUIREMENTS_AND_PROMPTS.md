@@ -27,6 +27,7 @@
 | 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local checks and production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` passed |
 | 2026-05-25 | REQ-023 | Job Pack / Strategy | The strategic-thinking prompt bundle must become a reusable global Job Pack under `/packs` `定策略`, and data first-level IA must merge `做数据` + `看数据` | Completed | Added `strategy-roundtable-advisor` enriched pack, merged data entry to `做/看数据`, and published standalone role-pack tag `v2026.05.25.2` |
 | 2026-05-25 | REQ-024 | Skill / Pack Installability | Public skill catalog and all role-pack payloads must not expose workstation-only links or backup local catalogs | Completed | `scripts/audit-public-install-sources.mjs` now scans 5000 public skills, 26 settings, 22 guides, 485 pack files, and blocks public `_backup*` data directories |
+| 2026-05-25 | REQ-025 | Job Pack / Product Line | Rename `prototype-designer` to `designer`; Product Manager owns prototype hypothesis and validation demo, while Designer owns design system, QA, and handoff | Completed | Foundry and `openclaw-role-packs` now expose `designer`; remote tag `v2026.05.25.3` validates and installs designer 15/15 files; no public `prototype-designer` strings remain in web/data/scripts scan |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -39,6 +40,7 @@
 | 2026-05-25 | "继续，从git地址安装是最安全的" | Production install-command hardening | Keep registration gate, but copy a pinned GitHub clone command instead of a Worker token URL |
 | 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against public released-pack availability before allowing a path to be clickable |
 | 2026-05-25 | "把这个skill组合包打包，放到岗位配置包的定策略模块；做数据/看数据合并" | Strategy job-pack packaging + data IA merge | Package existing canonical strategy skills as `strategy-roundtable-advisor`; merge data entry without pretending stub data packs are released |
+| 2026-05-25 | "原型设计师改为设计师，原型是产品经理的" | Product/design role boundary cutover | Do not keep a compatibility alias; rename slug, copy, manifest, guides, and Git install command to `designer` |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -65,6 +67,7 @@
 | `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 不可以直接可点。公开推荐和浏览必须共用 `tier !== "stub"` 的已开放口径；没有已开放包的方向只能显示 `即将上线` 或明确空态，不能进入空推荐区。 |
 | `定策略` 应该如何承载复杂战略思维 prompt? | 不要只塞一段系统提示词。应打成 Job Pack：真实 `SKILL.md` 资源、专家/advisor、toolkit、checklist、first-use demo、manifest 和 installer 一起交付，并通过 pack audit 验证。 |
 | `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开点击状态仍由 released-pack availability 决定。 |
+| 原型能力归谁? | 产品经理。PM 负责 PRD、用户故事、RICE、原型假设和可点击验证 demo；设计师负责体验架构、视觉层级、设计 token、状态覆盖、设计 QA 和工程 handoff。 |
 
 ## References
 1. `package.json`

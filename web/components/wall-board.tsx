@@ -73,7 +73,7 @@ export const ROLE_OPTIONS = [
   { id: 'compliance-expert', label: '合规专家' },
   { id: 'executive-strategist', label: '战略主管' },
   { id: 'research-analyst', label: '研究分析师' },
-  { id: 'prototype-designer', label: '原型设计师' },
+  { id: 'designer', label: '设计师' },
   { id: 'investment-analyst', label: '投资分析师' },
   { id: 'ab-test-analyst', label: 'AB 测试分析师' },
   { id: 'internal-control-specialist', label: '内控专家' },

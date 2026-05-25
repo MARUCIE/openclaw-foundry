@@ -462,3 +462,42 @@ Close the remaining production gap: every public Skill and Job Pack install surf
    - `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`
    - `npm run validate` -> PASS, 26 packs and 26 catalog entries.
    - `npm run smoke:install` -> PASS, 26/26 packs installed.
+
+---
+
+## 2026-05-25 Product Manager / Designer Pack Boundary Cutover
+
+### Scope
+Correct the product-line role boundary: Product Manager owns prototype hypothesis and validation demos, while Designer owns experience architecture, visual system, design QA, component states, responsive constraints, and engineering handoff. Public installation must use the standalone GitHub role-pack tag, not local paths.
+
+### Delivered
+1. Replaced public pack id `prototype-designer` with `designer`.
+2. Rebuilt the Designer pack content, metadata, guide, installer, and bundled skills around design-system and handoff work.
+3. Updated Product Manager pack metadata to include prototype hypothesis, clickable validation demo prompts, PRD, RICE, and user story ownership.
+4. Refactored `/packs` product-direction recommendation options and pack cards so `产品经理` and `设计师` appear as distinct choices.
+5. Advanced standalone role-pack repo to Git tag `v2026.05.25.3`.
+6. Removed Maurice-local source assumptions from role-pack sync defaults.
+7. Removed remaining Maurice-local absolute defaults from Foundry pack sync/catalog scripts and local skill resync URL generation.
+
+### Verification
+1. Standalone role-pack repo HEAD: `8c042c359d57f51dd344063b3755394b0e5863d1`.
+2. Role-pack tag at HEAD: `v2026.05.25.3`.
+3. `npm run validate` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26 packs and 26 catalog entries.
+4. `npm run smoke:install` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26/26 packs installed, including `designer`.
+5. Fresh remote GitHub tag clone -> `npm run validate` PASS and `bash install.sh designer --agent=codex --target <tmp>` installs 15/15 files.
+6. `npm --prefix web run build` -> PASS, `/packs` static export generated.
+7. `python3 scripts/pack-spec-audit.py --packs-dir web/public/packs --summary` -> PASS; `designer` is `enriched`.
+8. Pack sync/catalog script syntax check -> PASS.
+9. Script local-path scan -> no `/Users/mauricewen/00-AI-Fleet`, `file:///Users/mauricewen`, `/Users/mauricewen/Projects`, or `~/Projects` matches in `scripts/`.
+10. `ai check` exit code 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-094234-dad4d3a0`; known unrelated caveat: global AI-Fleet `skill_integrity=false` for 3 `dna/capsules/*` entries.
+11. Local Playwright static smoke on `/packs.html` -> PASS; `设计师 / DESIGNER` renders, product direction includes Product Manager + Designer, and `原型设计师` is absent.
+
+### Closeout
+1. Skills update: N/A - no global Codex skill was introduced; this is a Job Pack boundary and metadata release.
+2. PDCA four-doc sync: completed in PRD, UX map, system architecture, and platform optimization plan.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global operating rule was introduced.
+4. Rolling ledger: updated with the PM/Designer boundary requirement and anti-regression guard.
+5. Three-end consistency:
+   - Local Foundry: build, pack audit, `ai check`, and local Playwright smoke passed.
+   - GitHub role-pack repo: tag `v2026.05.25.3` points at `8c042c359d57f51dd344063b3755394b0e5863d1`.
+   - Production Pages: pending Foundry push and Cloudflare Pages deployment.
