@@ -784,8 +784,8 @@
         "references": 0
       },
       "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {

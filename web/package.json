@@ -6,7 +6,7 @@
     "dev": "next dev -p 3200",
     "generate-packs": "node ../scripts/generate-packs.mjs && node ../scripts/inject-pack-tiers.mjs && node ../scripts/regenerate-install-scripts.mjs && node ../scripts/generate-pack-guides.mjs",
     "reconcile-catalog": "python3 ../scripts/reconcile-catalog-integrity.py",
-    "prebuild": "node ../scripts/generate-packs.mjs && node ../scripts/inject-pack-tiers.mjs && node ../scripts/regenerate-install-scripts.mjs && node ../scripts/generate-pack-guides.mjs && python3 ../scripts/reconcile-catalog-integrity.py --allow-missing-local-root",
+    "prebuild": "node ../scripts/generate-packs.mjs && node ../scripts/inject-pack-tiers.mjs && node ../scripts/regenerate-install-scripts.mjs && node ../scripts/generate-pack-guides.mjs && python3 ../scripts/reconcile-catalog-integrity.py --allow-missing-local-root --dry-run",
     "build": "next build",
     "start": "next start -p 3200"
   },

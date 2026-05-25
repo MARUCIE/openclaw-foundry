@@ -72,7 +72,7 @@ function main() {
     counts[info.tier] = (counts[info.tier] || 0) + 1;
   }
   data.tierSummary = counts;
-  data.tierInjectedAt = new Date().toISOString();
+  data.tierInjectedAt = data.tierInjectedAt || new Date().toISOString();
   writeFileSync(PACKS_JSON, JSON.stringify(data, null, 2));
   console.log(`OK injected tiers into ${data.packs.length} packs (source: pack-spec-audit.py): certified=${counts.certified || 0} enriched=${counts.enriched || 0} stub=${counts.stub || 0}`);
 }

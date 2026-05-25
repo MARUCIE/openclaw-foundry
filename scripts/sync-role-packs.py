@@ -131,50 +131,88 @@ def find_advisor_md(advisor_id: str) -> Path | None:
     return candidate if candidate.is_file() else None
 
 
-def sync_pack(pack_id: str, cfg: dict, dry_run: bool) -> dict:
+def upsert_item(items: list[dict], item: dict) -> None:
+    key = (item["src"], item["dst"], item["type"])
+    if any((i.get("src"), i.get("dst"), i.get("type")) == key for i in items):
+        return
+    items.append(item)
+
+
+def sync_pack(pack_id: str, cfg: dict, dry_run: bool, refresh_artifacts: bool) -> dict:
     """Copy skills + agents into pack dir + write manifest.json. Return summary."""
     pack_dir = PACKS_DIR / pack_id
     pack_dir.mkdir(parents=True, exist_ok=True)
 
-    skills_dst_root = pack_dir / "skills" / cfg["skill_namespace"]
-    agents_dst_root = pack_dir / "agents"
+    manifest_path = pack_dir / "manifest.json"
+    existing_manifest = {}
+    if manifest_path.is_file():
+        try:
+            existing_manifest = json.loads(manifest_path.read_text())
+        except json.JSONDecodeError:
+            existing_manifest = {}
 
-    items = [
+    items = list(existing_manifest.get("items") or [])
+    for item in [
         {"src": "CLAUDE.md", "dst": "CLAUDE.md", "type": "config"},
         {"src": "AGENTS.md", "dst": "AGENTS.md", "type": "config"},
         {"src": "settings.json", "dst": "settings.json", "type": "config"},
         {"src": "prompts.md", "dst": "prompts.md", "type": "config"},
-    ]
+    ]:
+        upsert_item(items, item)
 
     skills_copied = 0
+    skills_preserved = []
     skills_missing = []
     for skill_id in cfg["skills"]:
         found = find_skill_md(skill_id)
         if not found:
+            rel = f"skills/{cfg['skill_namespace']}/{skill_id}/SPEC.md"
+            alt_rel = f"skills/{cfg['skill_namespace']}/{skill_id}/SKILL.md"
+            if (pack_dir / rel).is_file():
+                upsert_item(items, {"src": rel, "dst": rel, "type": "skill"})
+                skills_copied += 1
+                skills_preserved.append(skill_id)
+                continue
+            if (pack_dir / alt_rel).is_file():
+                upsert_item(items, {"src": alt_rel, "dst": alt_rel, "type": "skill"})
+                skills_copied += 1
+                skills_preserved.append(skill_id)
+                continue
             skills_missing.append(skill_id)
             continue
         src, fname = found
         rel = f"skills/{cfg['skill_namespace']}/{skill_id}/{fname}"
         dst_full = pack_dir / rel
-        if not dry_run:
+        if dst_full.is_file() and not refresh_artifacts:
+            skills_preserved.append(skill_id)
+        elif not dry_run:
             dst_full.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dst_full)
-        items.append({"src": rel, "dst": rel, "type": "skill"})
+        upsert_item(items, {"src": rel, "dst": rel, "type": "skill"})
         skills_copied += 1
 
     agents_copied = 0
+    agents_preserved = []
     agents_missing = []
     for agent_id in cfg["agents"]:
         src = find_advisor_md(agent_id)
         if not src:
+            rel = f"agents/{agent_id}.md"
+            if (pack_dir / rel).is_file():
+                upsert_item(items, {"src": rel, "dst": rel, "type": "agent"})
+                agents_copied += 1
+                agents_preserved.append(agent_id)
+                continue
             agents_missing.append(agent_id)
             continue
         rel = f"agents/{agent_id}.md"
         dst_full = pack_dir / rel
-        if not dry_run:
+        if dst_full.is_file() and not refresh_artifacts:
+            agents_preserved.append(agent_id)
+        elif not dry_run:
             dst_full.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dst_full)
-        items.append({"src": rel, "dst": rel, "type": "agent"})
+        upsert_item(items, {"src": rel, "dst": rel, "type": "agent"})
         agents_copied += 1
 
     # Read pack source JSON for version + assertion
@@ -185,6 +223,7 @@ def sync_pack(pack_id: str, cfg: dict, dry_run: bool) -> dict:
     declared_agents = declared.get("agents", -1)
 
     manifest = {
+        **existing_manifest,
         "pack": pack_id,
         "version": src_json.get("version", "1.0.0"),
         "items": items,
@@ -197,8 +236,10 @@ def sync_pack(pack_id: str, cfg: dict, dry_run: bool) -> dict:
     return {
         "pack_id": pack_id,
         "skills_copied": skills_copied,
+        "skills_preserved": skills_preserved,
         "skills_missing": skills_missing,
         "agents_copied": agents_copied,
+        "agents_preserved": agents_preserved,
         "agents_missing": agents_missing,
         "declared_skills": declared_skills,
         "declared_agents": declared_agents,
@@ -209,6 +250,11 @@ def sync_pack(pack_id: str, cfg: dict, dry_run: bool) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument(
+        "--refresh-artifacts",
+        action="store_true",
+        help="overwrite existing bundled skill/advisor files from AI-Fleet sources; default preserves curated pack-local copies",
+    )
     ap.add_argument("--pack", help="sync only one pack id (default: all)")
     args = ap.parse_args()
 
@@ -223,13 +269,15 @@ def main() -> int:
     summaries = []
     any_missing = False
     for pid, cfg in target:
-        s = sync_pack(pid, cfg, args.dry_run)
+        s = sync_pack(pid, cfg, args.dry_run, args.refresh_artifacts)
         summaries.append(s)
         marker = "OK" if s["match"] and not (s["skills_missing"] or s["agents_missing"]) else "WARN"
         print(
             f"  [{marker}] {pid:<22} "
             f"skills {s['skills_copied']}/{s['declared_skills']}  "
             f"agents {s['agents_copied']}/{s['declared_agents']}"
+            + (f"  preserved skills: {s['skills_preserved']}" if s['skills_preserved'] else "")
+            + (f"  preserved agents: {s['agents_preserved']}" if s['agents_preserved'] else "")
             + (f"  MISSING skills: {s['skills_missing']}" if s['skills_missing'] else "")
             + (f"  MISSING agents: {s['agents_missing']}" if s['agents_missing'] else "")
         )

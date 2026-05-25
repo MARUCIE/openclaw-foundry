@@ -239,9 +239,15 @@ function main() {
   mkdirSync(PUBLIC_DATA, { recursive: true });
   const packsJsonPath = join(PUBLIC_DATA, 'packs.json');
   let preserved = [];
+  let priorGenerated = null;
+  let priorTierSummary = null;
+  let priorTierInjectedAt = null;
   if (existsSync(packsJsonPath)) {
     try {
       const prior = JSON.parse(readFileSync(packsJsonPath, 'utf-8'));
+      priorGenerated = prior.generated || null;
+      priorTierSummary = prior.tierSummary || null;
+      priorTierInjectedAt = prior.tierInjectedAt || null;
       const priorList = (prior && prior.packs) ? prior.packs : (Array.isArray(prior) ? prior : []);
       const layerIds = new Set(packListing.map(p => p.id));
       preserved = priorList.filter(p => p && p.id && !layerIds.has(p.id));
@@ -257,9 +263,11 @@ function main() {
   const finalList = [...packListing, ...preserved];
   const grouped = {
     total: finalList.length,
-    generated: new Date().toISOString(),
+    generated: priorGenerated || new Date().toISOString(),
     packs: finalList
   };
+  if (priorTierSummary) grouped.tierSummary = priorTierSummary;
+  if (priorTierInjectedAt) grouped.tierInjectedAt = priorTierInjectedAt;
 
   writeFileSync(packsJsonPath, JSON.stringify(grouped, null, 2));
   console.log(`\nTotal: ${finalList.length} packs (${packs.length} layer + ${preserved.length} native), ${totalFiles} layer files generated.`);

@@ -24,6 +24,17 @@ const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
 const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
 const ROLE_PACKS_GIT_REF = 'v2026.05.25';
+const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
+const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
+
+function resolveGuideGeneratedAt() {
+  if (process.env.OPENCLAW_GUIDE_GENERATED_AT) {
+    return new Date(process.env.OPENCLAW_GUIDE_GENERATED_AT).toISOString();
+  }
+  const refDate = ROLE_PACKS_GIT_REF.match(/^v(\d{4})\.(\d{2})\.(\d{2})$/);
+  if (refDate) return `${refDate[1]}-${refDate[2]}-${refDate[3]}T00:00:00.000Z`;
+  return '1970-01-01T00:00:00.000Z';
+}
 
 function readJsonSafe(path) {
   try { return JSON.parse(readFileSync(path, 'utf-8')); } catch { return null; }
@@ -220,7 +231,7 @@ function extractAntiPatternsFromClaude(claudeMd) {
 const TEMPLATE = (ctx) => `<!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: ${new Date().toISOString()}
+  generated-at: ${GUIDE_GENERATED_AT}
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/${ctx.slug}/{manifest.json,CLAUDE.md,prompts.md}
@@ -436,7 +447,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — ${esc(ctx.nameZh)} 岗位包指导手册</p>
   <p>Maurice | maurice_wen@proton.me</p>
-  <p style="font-size:12px; margin-top:8px;">生成时间：${new Date().toISOString().slice(0, 19).replace('T', ' ')} UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：${esc(ROLE_PACKS_GIT_REF)} · 生成时间：${GUIDE_GENERATED_AT_DISPLAY} · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">
