@@ -290,3 +290,28 @@ Remove the remaining production Pages deploy blocker where protected role-pack p
 8. Root `npm run build` -> PASS.
 9. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-041513-3ebbd355`.
 10. Real R2 upload and Pages deploy: pending next GitHub Actions run after push.
+
+## 2026-05-25 Production Git Install Verification
+
+### Scope
+Finish the production-safe install path for role packs: install commands must use the pinned GitHub role-pack release, protected payload uploads must complete in CI, and static Pages should not expose stale direct-download copy paths.
+
+### Delivered
+1. Production `/packs` copy command now clones `https://github.com/MARUCIE/openclaw-role-packs.git` at tag `v2026.05.25`.
+2. Generated pack guide pages now show the same GitHub tag install command and no longer show `curl -fsSL .../packs/<id>/install.sh`.
+3. Static Pages builds without `NEXT_PUBLIC_API_URL` read GET catalog data directly from `/data/*.json`, removing the `/api/packs` 404 fallback noise.
+4. Protected pack payload CI upload now completes with bounded R2 upload concurrency.
+
+### Verification
+1. GitHub Actions deploy run `26383364471` succeeded; `deploy-frontend` completed in 3m43s.
+2. CI uploaded `437/437` protected pack files to R2 and pruned `437` static pack payload files before Pages publish.
+3. Production `/packs` returned HTTP 200 and `data/packs.json` reported 25 packs.
+4. Production `/packs/product-manager/guide.html` contains the GitHub tag install commands and no `curl -fsSL` install command.
+5. Playwright production copy smoke for `product-manager` produced a command containing `git clone --depth 1`, `openclaw-role-packs.git`, `v2026.05.25`, and `product-manager`; it contained neither `download-token` nor `/packs/product-manager/install.sh`.
+6. GitHub tag install smoke installed `product-manager` to an isolated target with 24 files and `install.sh --list` returned 25 packs.
+7. Worker protected file route without auth returned 401 with `registration required before copy/download`.
+8. Preview direct static payload URL returned 404; cache-busted production direct payload URL returned 404.
+9. `cd web && npm run build` -> PASS after static API fallback repair.
+
+### Residual Risk
+1. The bare production URL `https://agent-foundry.pages.dev/packs/product-manager/install.sh` can still return an old Cloudflare edge HIT from the previous `s-maxage=604800` header. Current origin, preview, cache-busted URL, `/packs` UI, and generated guides no longer use or expose that path; avoid sharing old bare direct URLs until the edge cache expires.

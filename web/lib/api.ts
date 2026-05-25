@@ -1,6 +1,7 @@
 // OCF Server API client — with static fallback for CF Pages
 
 // API base URL: set via env var or fallback to static JSON files only
+const HAS_API_BASE = Boolean(process.env.NEXT_PUBLIC_API_URL);
 const BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 // Static file mapping: /api/X?params → /data/X.json (ignoring params, client-side filtering)
@@ -14,6 +15,17 @@ const STATIC_MAP: Record<string, string> = {
 };
 
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
+  const basePath = path.split('?')[0];
+  const staticPath = STATIC_MAP[basePath];
+  const method = init?.method?.toUpperCase() || 'GET';
+  const canReadStatic = Boolean(staticPath && method === 'GET');
+
+  if (!HAS_API_BASE && canReadStatic) {
+    const fallback = await fetch(staticPath);
+    if (fallback.ok) return fallback.json();
+    return {} as T;
+  }
+
   const url = `${BASE}${path}`;
   try {
     const res = await fetch(url, {
@@ -24,9 +36,7 @@ async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
     throw new Error(`HTTP ${res.status}`);
   } catch {
     // Fallback: try static JSON (for CF Pages / static export)
-    const basePath = path.split('?')[0];
-    const staticPath = STATIC_MAP[basePath];
-    if (staticPath) {
+    if (canReadStatic) {
       const fallback = await fetch(staticPath);
       if (fallback.ok) return fallback.json();
     }

@@ -80,6 +80,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-20 | Retired route handling: `/explore/platforms` is no longer a product page and redirects to `/packs` | Implemented |
 | FR-21 | Role/job configuration packs must be exportable as a standalone Git repo whose installers default to local copied files | Implemented 2026-05-25 |
 | FR-22 | `/packs` protected install-command copy should prefer a pinned GitHub role-pack release over a per-session Worker token URL | Implemented 2026-05-25 |
+| FR-23 | Static Pages catalog reads must not emit missing `/api/*` console errors when the same data is available under `/data/*.json` | Implemented 2026-05-25 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -89,6 +90,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 5. Documentation must stay synchronized with actual entrypoints
 6. Protected Job Pack payload delivery must avoid public static direct links; single-file payload downloads are served through Worker auth routes and static Pages output is pruned after build
 7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25`
+8. Production role-pack guides and clipboard commands must not reintroduce `curl -fsSL .../packs/<id>/install.sh` direct static payload paths
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -106,3 +108,4 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 7. Skill catalog truth is still split across curated web JSON, unified index data, and emerging external skill-factory inputs
 8. Protected pack payload deployment depends on Cloudflare R2 upload during CI for single-file downloads; install-command copy no longer depends on a short-lived Worker token
 9. Standalone role-pack repo drift remains possible; release by tag and run full smoke install before moving the production ref
+10. Old bare direct payload URLs can remain in Cloudflare edge cache until their previous `s-maxage` expires; the product path must avoid exposing those URLs

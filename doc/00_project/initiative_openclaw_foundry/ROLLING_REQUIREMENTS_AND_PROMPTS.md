@@ -20,9 +20,10 @@
 | 2026-05-18 | REQ-015 | Auth / WeChat | WeChat login must not expose a broken jump when Enterprise WeChat OAuth is unconfigured | Completed | Login UI disables WeChat CTA unless `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, and `WECHAT_SECRET` are present |
 | 2026-05-18 | REQ-016 | IA / Routing | Removed platform overview page must not be reachable from production navigation | Completed | `/explore/platforms` route implementation removed; Cloudflare Pages redirects it to `/packs` |
 | 2026-05-25 | REQ-017 | Distribution | All current local role/job configuration packs must be synchronized into a standalone Git repo with local-first installers | Completed | `/Users/mauricewen/Projects/openclaw-role-packs` commit `d17801ac092e2295031c863adad9450dc7476fb5`; 25 packs validated and smoke-installed |
-| 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | In progress | Public repo `https://github.com/MARUCIE/openclaw-role-packs` tag `v2026.05.25`; production `/packs` install command should clone the pinned tag after registration |
+| 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | Completed | Production `/packs` copy and pack guides use `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`; Playwright copy smoke confirmed no token URL and no Pages `/packs/<id>/install.sh` command |
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
-| 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | In progress | `scripts/upload-protected-packs-to-r2.mjs` now uses local Wrangler with `R2_UPLOAD_CONCURRENCY=8`; pending remote deploy verification |
+| 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | Completed | GitHub Actions deploy run `26383364471` uploaded 437/437 protected payloads to R2 and deployed Pages successfully |
+| 2026-05-25 | REQ-021 | Production / Frontend | Static Pages builds must not emit missing `/api/*` console errors for catalog data that already has `/data/*.json` fallback | Completed | `web/lib/api.ts` now reads static GET data directly when `NEXT_PUBLIC_API_URL` is unset; local static export no longer contains `/api/packs` |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -55,6 +56,7 @@
 | 为什么生产页安装命令优先 GitHub tag clone? | GitHub tag clone 可审计、可固定版本、无需短链 token，有利于复现；注册态仍由 `/packs` 复制动作控制，单文件下载仍走 Worker 授权。 |
 | CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
 | R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
+| 静态 Pages 环境中，`/packs` 是否应该先请求 `/api/packs` 再回退? | 不应该。未配置 `NEXT_PUBLIC_API_URL` 时，GET 型 catalog 数据应直接读取 `/data/*.json`，否则生产控制台会留下可避免的 404 噪音。 |
 
 ## References
 1. `package.json`
@@ -90,3 +92,5 @@
 31. `postmortem/PM-2026-05-25-ci-local-skill-root.md`
 32. `scripts/upload-protected-packs-to-r2.mjs`
 33. `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md`
+34. `scripts/generate-pack-guides.mjs`
+35. `web/lib/api.ts`

@@ -320,6 +320,30 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 6. `cd web && npm run build` -> PASS.
 7. Root `npm run build` -> PASS.
 8. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-041513-3ebbd355`.
+
+## 2026-05-25 Production Git Install Verification
+- Status: verified in production; static API fallback implemented locally
+- Trigger: user confirmed Git-address install is the safest default
+
+### Steps
+- [x] 1. Push GitHub-tag install command for `/packs` copy after registration.
+- [x] 2. Fix clean-runner CI dependency on local skill roots.
+- [x] 3. Fix R2 upload timeout with bounded concurrency.
+- [x] 4. Switch generated pack guides from Pages `curl` install commands to GitHub tag install commands.
+- [x] 5. Verify real GitHub Actions deploy and R2 upload.
+- [x] 6. Verify production `/packs`, production guide, Worker auth boundary, and GitHub tag install smoke.
+- [x] 7. Verify production copy command through Playwright.
+- [x] 8. Remove static Pages `/api/packs` 404 console noise by reading `/data/*.json` directly when no API base is configured.
+- [ ] 9. Push the static API fallback fix and verify the final production deploy.
+
+### Completion Evidence
+1. Deploy run `26383364471` succeeded; R2 upload logged 437/437 protected payload files.
+2. Production `/packs` returned HTTP 200 and listed 25 packs.
+3. Production guide shows GitHub tag install commands and no `curl -fsSL` command.
+4. Playwright copy smoke confirmed GitHub tag command and no Worker token or Pages install URL.
+5. Worker unauth protected file route returned 401.
+6. Preview and cache-busted production direct static payload URLs returned 404.
+7. Local `cd web && npm run build` passed after `web/lib/api.ts` static fallback repair.
 - Working tree: dirty (11 modified files, including client/index.html + client/pipeline-manual.html cross-link inserts)
 - Validation target: local `next dev` :3200 (web/) + file:// for client/*.html (uncommitted, prod-stale)
 - Evidence dir: `outputs/sop-5.1/2026-05-09-frontend-validation-001/`

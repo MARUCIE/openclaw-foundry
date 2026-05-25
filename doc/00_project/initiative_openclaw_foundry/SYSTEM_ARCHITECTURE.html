@@ -662,8 +662,10 @@
           <h3>前端边界</h3>
           <ul>
             <li>Skill install modal、Skill detail、MCP 列表、API docs 示例复制全部保持公开。</li>
-            <li>`web/lib/protected-downloads.ts` 只服务岗位配置包安装命令复制与文件下载。</li>
+            <li>`web/lib/protected-downloads.ts` 服务岗位配置包安装命令复制与单文件下载。</li>
             <li>`/packs` 的安装/下载动作调用 protected helper，缺少 session 时回跳登录。</li>
+            <li>安装命令复制只写入 GitHub tag clone 命令，不再签发 Worker download token。</li>
+            <li>静态 Pages 未配置 `NEXT_PUBLIC_API_URL` 时直接读取 `/data/*.json`，避免 `/api/packs` 404 控制台噪音。</li>
           </ul>
         </div>
         <div class="card">
@@ -707,6 +709,7 @@
           <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.25`。</li>
           <li>每个 `packs/&lt;id&gt;/install.sh` 默认读取本地同级 `manifest.json`。</li>
           <li>`ROLE_PACKS_BASE_URL` 或 `FOUNDRY_BASE_URL` 存在时才走远程。</li>
+          <li>生产 guide.html 与复制命令均不再输出 `curl -fsSL .../packs/&lt;id&gt;/install.sh`。</li>
         </ul>
       </div>
       <div class="card">
@@ -716,6 +719,7 @@
           <li>`npm run smoke:install` 对 25 个 pack 做隔离目录真实安装。</li>
           <li>`./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` 验证根安装路径。</li>
           <li>GitHub tag clone 安装 smoke：pack list 25，`product-manager` 安装 24 个文件。</li>
+          <li>生产 Playwright copy smoke：包含 GitHub repo/tag/pack id，不包含 `download-token` 或 Pages install URL。</li>
         </ul>
       </div>
     </div>

@@ -31,19 +31,19 @@
 | OPT-18 | P1 | Runtime decoupling | SOTA local MCP/JIT runtime could be merged into the wrong layer | Keep intelligence runtime as optional sidecar and import heuristics/artifacts first | Planned |
 | OPT-19 | P0 | Auth wall | Whole-site route guard blocked normal browsing, while static Job Pack payloads still bypassed registration | Public browsing and Skill/MCP/API copy remain open; Job Pack install/download payloads require email or WeChat registered session and protected Worker/R2 delivery | Completed 2026-05-18 |
 | OPT-20 | P0 | Role-pack distribution | Copied local pack installers fetched deployed remote files by default | Public GitHub `openclaw-role-packs` repo with pinned tag install command, local-first installers, and full pack smoke install | Completed 2026-05-25 |
+| OPT-21 | P0 | Static Pages data fetch | Static export requested `/api/packs` before falling back to `/data/packs.json`, producing avoidable production console 404s | Direct static `/data/*.json` reads when `NEXT_PUBLIC_API_URL` is unset | Completed 2026-05-25 |
 
 ## Next Execution Order
-1. Verify production `/packs` deploy copies the GitHub-tagged install command and keeps direct file downloads registered.
-2. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag is pushed.
-3. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
-4. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
-5. Resolve remaining P0 contract and repository-boundary issues (OPT-02, OPT-04).
-6. Frontend performance optimization (OPT-13): SWR, skeleton, polling strategy.
-7. Async deploy model (OPT-14): job lifecycle + cancel support.
-8. Make health-check and verification paths deterministic.
-9. Clarify static UX surface ownership.
-10. Improve persistence and operator usability.
-11. Provision production auth secrets (`RESEND_API_KEY`, optional `RESEND_FROM`, `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, `WECHAT_SECRET`) and verify `/api/auth/config`.
+1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag is pushed.
+2. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
+3. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
+4. Resolve remaining P0 contract and repository-boundary issues (OPT-02, OPT-04).
+5. Frontend performance optimization (OPT-13): SWR, skeleton, polling strategy.
+6. Async deploy model (OPT-14): job lifecycle + cancel support.
+7. Make health-check and verification paths deterministic.
+8. Clarify static UX surface ownership.
+9. Improve persistence and operator usability.
+10. Provision production auth secrets (`RESEND_API_KEY`, optional `RESEND_FROM`, `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, `WECHAT_SECRET`) and verify `/api/auth/config`.
 
 ## Success Signal
 1. Documentation and code entrypoints stay synchronized

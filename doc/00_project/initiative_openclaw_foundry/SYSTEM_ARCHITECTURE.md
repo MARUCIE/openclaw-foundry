@@ -117,13 +117,15 @@ flowchart LR
   C -- Job Pack payload --> D[requireRegistered in web/lib/session.ts]
   D -->|no session| E[/login email magic-link or WeChat OAuth]
   E --> F[Registered session in localStorage]
-  D -->|valid session| G[Worker protected pack routes]
+  D -->|valid session + install copy| G[Clipboard GitHub tag command]
+  D -->|valid session + single file| H[Worker protected pack routes]
   F --> G
-  G --> H[D1 download token / R2 pack payload]
-  H --> I[Clipboard command or file download]
+  F --> H
+  H --> I[D1 download token / R2 pack payload]
+  I --> J[file download]
 ```
 
-Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` after the user is registered. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public.
+Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` after the user is registered; it does not mint a Worker download token. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
 
 ## Standalone Role Pack Distribution (2026-05-25)
 

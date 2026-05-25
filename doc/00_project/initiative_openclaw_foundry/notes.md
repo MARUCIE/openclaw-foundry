@@ -299,6 +299,41 @@ Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Gi
    - Verification: auth boundary audit passes; `node --check scripts/upload-protected-packs-to-r2.mjs` passes; dry run plans 437 protected payloads with the local Wrangler binary; `web` build, root build, and `ai check` pass.
    - Postmortem: `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md`.
 
+## 2026-05-25 Production Git Install Verification
+
+### Trigger
+Maurice confirmed that installing from the Git address is the safest default and asked to continue verifying whether production had updated and could download/install.
+
+### Evidence
+1. Foundry source commits pushed:
+   - `e6ed52099c7b4ca71bbe28c32dcdb10270d2d661` — production copy command changed from Worker token URL to pinned GitHub clone command.
+   - `5adff09ee473202f547f033879103300d5903bba` — CI runner no longer requires local `~/.claude/skills`.
+   - `21a56eb8e7ff6e9542815b79fbbbea28490a4c88` — R2 upload script uses bounded concurrency and local Wrangler.
+   - `59061cca5c01fe227895439b437ae193aeda6367` — generated pack guides switched to GitHub tag install commands.
+2. GitHub Actions deploy run `26383364471` completed successfully:
+   - uploaded 437 protected payload files to R2
+   - pruned 437 static payload files from Pages output
+   - uploaded Pages output successfully
+3. Production `/packs` returned HTTP 200 and production `data/packs.json` reported 25 packs.
+4. Production `product-manager` guide uses `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`; grep found no `curl -fsSL` install command.
+5. Playwright copy smoke on production `/packs` with a registered-session fixture copied:
+   - `tmp="$(mktemp -d)"`
+   - `git clone --depth 1 --branch 'v2026.05.25' 'https://github.com/MARUCIE/openclaw-role-packs.git' "$tmp/openclaw-role-packs"`
+   - `"$tmp/openclaw-role-packs/install.sh" 'product-manager' --agent=claude`
+6. Copy-smoke assertions:
+   - `hasGitClone=true`
+   - `hasGitRepo=true`
+   - `hasPinnedTag=true`
+   - `hasPack=true`
+   - `hasDownloadToken=false`
+   - `hasPagesInstall=false`
+7. GitHub tag smoke installed `product-manager` into `out/verify/git-guide-command/product-manager` with 24 files and pack list count 25.
+8. Unauthenticated Worker protected file route returned 401 with `registration required before copy/download`.
+9. Preview and cache-busted production direct static payload URLs returned 404; the old bare production payload URL still has a stale Cloudflare edge HIT from the previous week-long cache header.
+
+### Follow-up Fix
+Playwright exposed one production console error: `/api/packs` 404 before static fallback. `web/lib/api.ts` now skips `/api/*` for GET catalog data when `NEXT_PUBLIC_API_URL` is absent and directly reads `/data/*.json`.
+
 ### Iter 1 Closeout Summary
 1. Coverage: 12 routes x 3 viewports = 36 fullpage PNG (21 MB) at `outputs/sop-5.1/2026-05-09-frontend-validation-001/screenshots/`
 2. Walk errors: 0 / 36 (all routes loaded under 20s timeout)
