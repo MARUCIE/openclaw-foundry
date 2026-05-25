@@ -363,7 +363,7 @@
       <div class="hero-tag">WORKFLOW-META-SWARM | 2026-04-23 | Style: McKinsey Blue</div>
       <h1>OpenClaw Foundry × SOTA Skill Library 架构决策报告</h1>
       <div class="subtitle">结论先行：Foundry 继续作为唯一产品面与部署控制平面，SOTA 不作为第二运行时或第二公开站点接入，而是收敛为上游 Skill Intelligence Factory，向 Foundry 输出版本化 artifact 与启发式结果。</div>
-      <div class="meta">参与方：Primary Synthesizer、advisor-hickey、bmad-architect</div>
+      <div class="meta">参与方：Primary Synthesizer、software-simplicity-reviewer、bmad-architect</div>
     </div>
   </div>
 
@@ -559,7 +559,7 @@
           <td>防止未来重新长出第二入口、第二站点。</td>
         </tr>
         <tr>
-          <td>advisor-hickey</td>
+          <td>software-simplicity-reviewer</td>
           <td>批判焦点是不要把 public runtime 与 local intelligence runtime complect 在一起，先拆边界再谈吸收。</td>
           <td>支撑“不做整仓硬合并”的否决结论。</td>
         </tr>
@@ -574,7 +574,7 @@
       <li>`doc/00_project/initiative_openclaw_foundry/SYSTEM_ARCHITECTURE.md`</li>
       <li>`doc/00_project/initiative_openclaw_foundry/PRD.md`</li>
       <li>`doc/00_project/initiative_openclaw_foundry/USER_EXPERIENCE_MAP.md`</li>
-      <li>本轮并行架构评审：`advisor-hickey`、`bmad-architect`</li>
+      <li>本轮并行架构评审：`software-simplicity-reviewer`、`bmad-architect`</li>
     </ul>
   </section>
 
@@ -691,7 +691,7 @@
   <section>
     <div class="section-num">09</div>
     <h2>2026-05-25 独立岗位配置包仓库</h2>
-    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.25.2` tag，再由本地 installer 读取 manifest 与 payload。</div>
+    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.25.5` tag，再由本地 installer 读取 manifest 与 payload。</div>
     <div class="card-grid">
       <div class="card">
         <h3>仓库边界</h3>
@@ -699,14 +699,14 @@
           <li>Foundry 仍是产品源仓库与工作区事实源。</li>
           <li>`openclaw-role-packs` 是面向复制/交付的 release snapshot。</li>
           <li>初始提交为 `d17801ac092e2295031c863adad9450dc7476fb5`。</li>
-          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.25.2`。</li>
+          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.25.5`。</li>
         </ul>
       </div>
       <div class="card">
         <h3>安装边界</h3>
         <ul>
           <li>根安装器 `./install.sh &lt;pack-id&gt;` 委托到对应 pack。</li>
-          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.25.2`。</li>
+          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.25.5`。</li>
           <li>每个 `packs/&lt;id&gt;/install.sh` 默认读取本地同级 `manifest.json`。</li>
           <li>`ROLE_PACKS_BASE_URL` 或 `FOUNDRY_BASE_URL` 存在时才走远程。</li>
           <li>生产 guide.html 与复制命令均不再输出 `curl -fsSL .../packs/&lt;id&gt;/install.sh`。</li>
@@ -745,7 +745,7 @@
           <ul>
             <li>核心 skills：`cognitive-skeleton`、`multi-expert-roundtable-report`、`planning-with-files`、`cognitive-reflection`。</li>
             <li>落地 skills：`business-diagnosis-pipeline`、`product-management-swarm`。</li>
-            <li>专家 advisors：Munger、Drucker、Meadows。</li>
+            <li>专家 advisors：decision framework、business value、systems thinking。</li>
             <li>配套资产：toolkit、checklist、baseline、feedback/data collection 模板。</li>
           </ul>
         </div>

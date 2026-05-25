@@ -3,7 +3,7 @@
 # Local-first redirect: copied Git checkouts and copied pack folders must install
 # without relying on the production website. Remote fallback is explicit only.
 #
-# spellbook 版本于 2026-05-16 三轮蜂群审计中被 Design Simplicity 共识合并入 canonical 入口
+# spellbook 版本于 2026-05-16 多轮审计中合并入 canonical 入口
 set -euo pipefail
 
 LOSER_ID="spellbook-test-engineer"
@@ -15,7 +15,7 @@ cat <<EOF
 
   NOTE  This pack ($LOSER_ID) is now a deprecated alias of: $WINNER_ID
   ────────────────────────────────────────────────────────────────────
-  spellbook 版本于 2026-05-16 三轮蜂群审计中被 Design Simplicity 共识合并入 canonical 入口
+  spellbook 版本于 2026-05-16 多轮审计中合并入 canonical 入口
 
   Redirecting install to canonical local pack ...
   Source: $LOCAL_WINNER_INSTALL

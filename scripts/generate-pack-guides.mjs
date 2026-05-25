@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
 const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
-const ROLE_PACKS_GIT_REF = 'v2026.05.25.4';
+const ROLE_PACKS_GIT_REF = 'v2026.05.25.5';
 const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
 const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
 

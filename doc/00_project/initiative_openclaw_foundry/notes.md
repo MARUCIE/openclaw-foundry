@@ -593,3 +593,25 @@ Production `/packs` still exposed `原型设计师`, but prototype hypothesis an
    - released list has 9 cards including Product Manager and Designer
    - no `原型设计师`, `Prototype Designer`, or `prototype-designer`
    - screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`
+
+## 2026-05-25 Person-Neutral Role Pack Audit
+
+### Trigger
+User required a full audit so every role/job configuration pack contains no concrete person names.
+
+### Changes
+1. Added `scripts/sanitize-pack-person-names.mjs` as the release gate for Foundry packs, standalone packs, pack catalogs, guides, and installed smoke output.
+2. Replaced person-named advisor IDs and labels with capability-neutral identities, including decision framework, business value, systems thinking, strategic focus, tail-risk, software simplicity, project complexity, product experience, design simplicity, team culture, execution speed, and language clarity.
+3. Updated canonical pack installers to be local-first; remote pack fetching is now only enabled by explicit `--remote-base`, `ROLE_PACKS_BASE_URL`, or `FOUNDRY_BASE_URL`.
+4. Advanced the role-pack release reference to `v2026.05.25.5` and synchronized the standalone repo from Foundry.
+
+### Verification
+1. `npm run build` in `web/` -> PASS.
+2. `node scripts/sanitize-pack-person-names.mjs --check --packs-dir web/public/packs --packs-dir web/out/packs --packs-dir /Users/mauricewen/Projects/openclaw-role-packs/packs --extra-dir data/job-packs --catalog web/public/data/packs.json --catalog web/public/data/collections.json --catalog /Users/mauricewen/Projects/openclaw-role-packs/catalog/packs.json --catalog /Users/mauricewen/Projects/openclaw-role-packs/catalog/collections.json` -> PASS.
+3. Exact-match scan for old advisor IDs and concrete person names across Foundry packs, exported packs, standalone packs, and public pack catalogs -> no matches.
+4. `node scripts/audit-public-install-sources.mjs` -> PASS.
+5. `python3 scripts/pack-spec-audit.py --out /tmp/foundry-pack-audit-final-v5.json` -> PASS.
+6. `npm run validate` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS.
+7. `npm run smoke:install` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26/26 packs installed.
+8. Person-name audit on the latest smoke-installed output -> PASS.
+9. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-112012-3420d639`; known unrelated caveat remains `skill_integrity=false` for 3 AI-Fleet `dna/capsules/*` entries.

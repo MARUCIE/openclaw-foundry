@@ -522,3 +522,36 @@ Correct the product-line role boundary: Product Manager owns prototype hypothesi
    - `View Released Packs` renders 9 cards including Product Manager and Designer.
    - No `原型设计师`, `Prototype Designer`, or `prototype-designer` appears.
    - Screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`.
+
+---
+
+## 2026-05-25 Person-Neutral Role Pack Release
+
+### Scope
+Fully audit and neutralize released role/job configuration packs so no concrete person names or person-named advisor IDs appear in pack payloads, public pack catalogs, guide HTML, install scripts, standalone release artifacts, or installed output.
+
+### Delivered
+1. Added `scripts/sanitize-pack-person-names.mjs` and wired it into the web prebuild path.
+2. Replaced person-named advisor files and references with capability-neutral advisor IDs.
+3. Neutralized public pack curation metadata (`Agent Foundry Team`) and removed person-specific advisor/framework copy from pack payloads.
+4. Rebuilt all pack `install.sh` scripts as local-first installers with explicit remote override only.
+5. Advanced Foundry and standalone role-pack install references to `v2026.05.25.5`.
+6. Updated standalone smoke verification so deprecated alias packages are validated against their canonical redirect output.
+
+### Verification
+1. Foundry `npm run build` -> PASS.
+2. Foundry pack person-name audit across `web/public/packs`, `web/out/packs`, `data/job-packs`, standalone `packs`, and pack catalogs -> PASS.
+3. Exact old-name scan across Foundry + standalone pack payloads/catalogs -> no matches.
+4. `node scripts/audit-public-install-sources.mjs` -> PASS.
+5. `python3 scripts/pack-spec-audit.py --out /tmp/foundry-pack-audit-final-v5.json` -> PASS.
+6. Standalone `npm run validate` -> PASS.
+7. Standalone `npm run smoke:install` -> PASS, 26/26 packs installed.
+8. Person-name audit on smoke-installed output -> PASS.
+9. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-112012-3420d639`; caveat: unrelated AI-Fleet `skill_integrity=false` for 3 `dna/capsules/*` entries.
+
+### Closeout
+1. Skills update: completed as a Job Pack release gate and sanitizer script, not as a new global skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, and platform optimization plan updated for identity-neutral pack release `v2026.05.25.5`.
+3. AGENTS/CLAUDE cross-task rule update: N/A - project release gate script now owns this invariant.
+4. Rolling ledger: updated with REQ-028 and anti-regression Q&A.
+5. Three-end consistency: local and GitHub release are verified before deployment; production verification is performed after the GitHub Actions deploy for the pushed Foundry commit.
