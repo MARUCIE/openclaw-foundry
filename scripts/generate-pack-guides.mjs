@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
 const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
-const ROLE_PACKS_GIT_REF = 'v2026.05.25';
+const ROLE_PACKS_GIT_REF = 'v2026.05.25.2';
 const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
 const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
 
@@ -31,7 +31,7 @@ function resolveGuideGeneratedAt() {
   if (process.env.OPENCLAW_GUIDE_GENERATED_AT) {
     return new Date(process.env.OPENCLAW_GUIDE_GENERATED_AT).toISOString();
   }
-  const refDate = ROLE_PACKS_GIT_REF.match(/^v(\d{4})\.(\d{2})\.(\d{2})$/);
+  const refDate = ROLE_PACKS_GIT_REF.match(/^v(\d{4})\.(\d{2})\.(\d{2})(?:[.-]\d+)?$/);
   if (refDate) return `${refDate[1]}-${refDate[2]}-${refDate[3]}T00:00:00.000Z`;
   return '1970-01-01T00:00:00.000Z';
 }

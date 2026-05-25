@@ -18,6 +18,19 @@ const PROJECT = join(__dirname, '..');
 const OUT = join(PROJECT, 'web', 'public', 'data');
 
 const NO_API = process.argv.includes('--no-api');
+const PUBLIC_URL_RE = /^https?:\/\//i;
+
+function hasPublicSourceUrl(skill) {
+  return [skill.url, skill.sourceUrl, skill.repositoryUrl].some((value) => (
+    typeof value === 'string' && PUBLIC_URL_RE.test(value)
+  ));
+}
+
+function isPublicInstallableSkill(skill) {
+  if (!skill || typeof skill !== 'object') return false;
+  if ((skill.source || '').toLowerCase() === 'local') return false;
+  return hasPublicSourceUrl(skill);
+}
 
 async function main() {
   await mkdir(OUT, { recursive: true });
@@ -82,15 +95,28 @@ async function main() {
       skillsData = JSON.parse(raw);
       console.log(`OK: Using ClawHub-only data (${skillsData.skills.length} skills)`);
     } catch {
-      // Last resort: preserve existing static file (don't overwrite with empty)
+      // Last resort: preserve existing public static data. Never republish
+      // local-only file:// skills, because production users cannot install them.
       try {
         const existing = await readFile(join(OUT, 'skills.json'), 'utf-8');
         const parsed = JSON.parse(existing);
-        if (parsed.skills?.length > 0) {
-          console.log(`OK: Keeping existing static skills (${parsed.skills.length} entries)`);
+        const publicSkills = (parsed.skills || []).filter(isPublicInstallableSkill);
+        if (publicSkills.length > 0) {
+          console.log(`OK: Keeping existing public static skills (${publicSkills.length} entries)`);
           // Write categories and exit early for skills
+          const byCategory = {};
+          for (const skill of publicSkills) {
+            byCategory[skill.category || 'other'] = (byCategory[skill.category || 'other'] || 0) + 1;
+          }
+          await writeFile(join(OUT, 'skills.json'), JSON.stringify({
+            ...parsed,
+            total: publicSkills.length,
+            limit: publicSkills.length,
+            skills: publicSkills,
+            meta: { ...(parsed.meta || {}), byCategory },
+          }));
           await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
-            categories: parsed.meta?.byCategory || {},
+            categories: byCategory,
           }));
           console.log(`OK: Skill categories (preserved)`);
           console.log(`OK: Static data written to ${OUT}`);
@@ -107,12 +133,14 @@ async function main() {
   const SKILL_N = 3500;
   const MCP_N = 1500;
 
-  const clawSkills = skillsData.skills
+  const publicSkillPool = (skillsData.skills || []).filter(isPublicInstallableSkill);
+
+  const clawSkills = publicSkillPool
     .filter(s => (s.source || 'clawhub') !== 'mcp-registry')
     .sort((a, b) => (b.score || 0) - (a.score || 0))
     .slice(0, SKILL_N);
 
-  const mcpServers = skillsData.skills
+  const mcpServers = publicSkillPool
     .filter(s => s.source === 'mcp-registry')
     .sort((a, b) => (b.score || 0) - (a.score || 0))
     .slice(0, MCP_N);
@@ -120,9 +148,22 @@ async function main() {
   const allSorted = [...clawSkills, ...mcpServers]
     .sort((a, b) => (b.score || 0) - (a.score || 0));
   const staticSkills = allSorted;
+  const byCategory = {};
+  const bySource = {};
+  for (const skill of staticSkills) {
+    byCategory[skill.category || 'other'] = (byCategory[skill.category || 'other'] || 0) + 1;
+    bySource[skill.source || 'clawhub'] = (bySource[skill.source || 'clawhub'] || 0) + 1;
+  }
 
   await writeFile(join(OUT, 'skills.json'), JSON.stringify({
-    meta: { ...skillsData.meta, staticSkills: SKILL_N, staticMcp: MCP_N, totalAvailable: allSorted.length },
+    meta: {
+      ...skillsData.meta,
+      byCategory,
+      bySource,
+      staticSkills: SKILL_N,
+      staticMcp: MCP_N,
+      totalAvailable: publicSkillPool.length,
+    },
     total: allSorted.length,
     offset: 0,
     limit: staticSkills.length,
@@ -137,9 +178,9 @@ async function main() {
 
   // Categories
   await writeFile(join(OUT, 'skills-categories.json'), JSON.stringify({
-    categories: skillsData.meta.byCategory || {},
+    categories: byCategory,
   }));
-  console.log(`OK: Skill categories (${Object.keys(skillsData.meta.byCategory || {}).length})`);
+  console.log(`OK: Skill categories (${Object.keys(byCategory).length})`);
 
   // 4. Collections — static seed (read from seed-collections.sql or generate empty)
   const collections = {

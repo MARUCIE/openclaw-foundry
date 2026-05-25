@@ -19,7 +19,7 @@
  * Classification: priority-ordered keyword match. First matching category wins.
  * Manual override map at top of file for known special cases.
  *
- * Writes backup to _backup-pre-retag/. Run after resync-skills-from-local.mjs.
+ * Writes backup outside web/public. Run after resync-skills-from-local.mjs.
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -30,7 +30,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const SKILLS_PATH = join(ROOT, 'web', 'public', 'data', 'skills.json');
 const CATEGORIES_PATH = join(ROOT, 'web', 'public', 'data', 'skills-categories.json');
-const BACKUP_DIR = join(ROOT, 'web', 'public', 'data', '_backup-pre-retag');
+const BACKUP_DIR = join(ROOT, 'out', 'backups', 'skills', '_backup-pre-retag');
 
 // Manual override map: skill name -> category (highest priority)
 const OVERRIDES = {

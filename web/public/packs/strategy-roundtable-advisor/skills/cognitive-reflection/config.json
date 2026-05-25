@@ -1,0 +1,12 @@
+{
+  "name": "cognitive-reflection",
+  "version": "0.1.0",
+  "description": "Install and operate the Knowledge Architecture + Decision Journal + Quality Gate reflection loop.",
+  "defaults": {
+    "preferred_targets": [
+      "~/.claude/CLAUDE.md",
+      "CLAUDE.md"
+    ],
+    "max_promoted_rules_per_session": 3
+  }
+}

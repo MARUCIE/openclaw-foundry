@@ -43,7 +43,7 @@ OpenClaw Foundry remains the single product surface, deployment control plane, a
 | --- | --- | --- |
 | Skill catalog | split across `web/public/data/skills.json`, `data/unified-index.json`, D1 seeds, and external SOTA-local state | one canonical versioned artifact imported into D1 and exported to web cache |
 | Bundle / pack candidates | `web/public/data/packs.json`, `collections.json`, SOTA `bundles.json` | one normalized bundle artifact with Foundry-owned schema |
-| Role/job pack distribution | Foundry `web/public/packs/` plus standalone `openclaw-role-packs` snapshot | Foundry remains source worktree; production install command clones pinned tag `v2026.05.25` from GitHub, while standalone repo installers read local copied files by default |
+| Role/job pack distribution | Foundry `web/public/packs/` plus standalone `openclaw-role-packs` snapshot | Foundry remains source worktree; production install command clones pinned tag `v2026.05.25.2` from GitHub, while standalone repo installers read local copied files by default |
 | Deploy state | `~/.openclaw/*`, manifest, snapshots | unchanged |
 | Customer / operator state | JSON + Worker/D1 split | explicit control-plane-owned persistence path |
 | Recommendation / route planning | ad hoc / external prototypes | internal API or sidecar after artifact contract stabilizes |
@@ -125,18 +125,18 @@ flowchart LR
   I --> J[file download]
 ```
 
-Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` after the user is registered; it does not mint a Worker download token. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
+Static Pages output keeps public Job Pack `guide.html` files only. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.2` after the user is registered; it does not mint a Worker download token. The post-build prune script removes public static pack payload files from `web/out/packs` to close direct-link bypasses. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
 
 ## Standalone Role Pack Distribution (2026-05-25)
 
-The standalone repo `/Users/mauricewen/Projects/openclaw-role-packs` is a copy-safe release surface for current local role/job pack artifacts. It is published at `https://github.com/MARUCIE/openclaw-role-packs` and currently pinned by production install commands to tag `v2026.05.25`. It is intentionally separate from the Foundry product repo so a recipient can clone one release repo or copy one `packs/<id>/` directory and install without relying on the deployed website's pack cache.
+The standalone repo `/Users/mauricewen/Projects/openclaw-role-packs` is a copy-safe release surface for current local role/job pack artifacts. It is published at `https://github.com/MARUCIE/openclaw-role-packs` and currently pinned by production install commands to tag `v2026.05.25.2`. It is intentionally separate from the Foundry product repo so a recipient can clone one release repo or copy one `packs/<id>/` directory and install without relying on the deployed website's pack cache.
 
 ```mermaid
 flowchart LR
   A[Foundry local worktree] --> B[web/public/packs + web/public/data]
   B --> C[scripts/sync-from-foundry.mjs]
   C --> D[openclaw-role-packs Git repo]
-  D --> E[GitHub tag v2026.05.25]
+  D --> E[GitHub tag v2026.05.25.2]
   E --> F[root install.sh]
   E --> G[packs/<id>/install.sh]
   F --> H[local target config dir]
@@ -145,6 +145,23 @@ flowchart LR
 ```
 
 Installer invariant: production install command clones a pinned GitHub tag, then installer execution uses local sibling `manifest.json` and local artifact files as the default source. Remote fetching is an explicit override only.
+
+## Strategy Roundtable Job Pack Architecture (2026-05-25)
+
+`strategy-roundtable-advisor` is the released frontdoor pack for the `/packs` `定策略` line. It packages the strategic-thinking workflow as a cross-agent installation surface rather than as a chat-only prompt.
+
+```mermaid
+flowchart LR
+  A[/packs decision tree] --> B[定策略]
+  B --> C[strategy-roundtable-advisor]
+  C --> D[skills: cognitive-skeleton + multi-expert-roundtable-report + planning-with-files + cognitive-reflection]
+  C --> E[skills: business-diagnosis-pipeline + product-management-swarm]
+  C --> F[advisors: Munger + Drucker + Meadows]
+  C --> G[toolkits + checklist + data collection templates]
+  C --> H[openclaw-role-packs local-first installer]
+```
+
+Pack generation is owned by `scripts/sync-strategy-roundtable-pack.py`, which copies real AI-Fleet skills into `web/public/packs/strategy-roundtable-advisor/`, writes the manifest and install surface, and lets `web` prebuild regenerate `packs.json`, tiers, installers, and guides. The data decision entry is intentionally merged into one `data-ai` line (`做/看数据`) so the UI does not split algorithm/build data work from metrics/read data work at the first question layer.
 
 ## Provider Architecture (v2.0)
 ```

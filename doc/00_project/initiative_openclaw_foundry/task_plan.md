@@ -255,19 +255,19 @@ Create a new local Git repo at `/Users/mauricewen/Projects/openclaw-role-packs`.
 - [x] 7. Add root install, sync, validation, and smoke-install commands
 - [x] 8. Initialize Git history with a Lore-protocol commit
 - [x] 9. Run full validation and record evidence
-- [x] 10. Publish public GitHub repo and tag `v2026.05.25`
+- [x] 10. Publish public GitHub repo and tag `v2026.05.25.2`
 - [x] 11. Switch production install-command copy to GitHub tag clone
 
 ### Completion Evidence
 1. Standalone repo created at `/Users/mauricewen/Projects/openclaw-role-packs`.
 2. Initial Git commit: `d17801ac092e2295031c863adad9450dc7476fb5`.
 3. Published GitHub repo: `https://github.com/MARUCIE/openclaw-role-packs`.
-4. Current published commit/tag: `77075297628573619491f472338ffa8148da130f`, `v2026.05.25`.
+4. Current published commit/tag: `77075297628573619491f472338ffa8148da130f`, `v2026.05.25.2`.
 5. `npm run validate` -> `OK validated 25 packs and 25 catalog entries`.
 6. `npm run smoke:install` -> installed all 25 packs into an isolated `out/verify/install-smoke-*` directory.
 7. `./install.sh --list` -> 25 pack IDs.
 8. `./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` -> local source install succeeded with 24 artifacts.
-9. GitHub tag install smoke: clone `v2026.05.25`, install `product-manager`, list count 25, installed file count 24.
+9. GitHub tag install smoke: clone `v2026.05.25.2`, install `product-manager`, list count 25, installed file count 24.
 10. Production remote install smoke from `https://agent-foundry.pages.dev/packs` -> 25/25 packs installed into isolated output.
 11. `npm run design:check` -> `MD8 design hook: pass`.
 12. `cd web && npm run build` -> PASS, `/packs` static route exported.
@@ -443,3 +443,58 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
    - `写代码` second-level options keep `前端方向`, `后端方向`, `测试方向` enabled and disable `架构/基础设施`, `运维/SRE`
    - `做产品` reaches a product-manager recommendation card with an install-command action
    - console errors/warnings: 0
+
+## 2026-05-25 Strategy Roundtable Pack + Data IA Merge
+- Status: completed locally
+- Evidence:
+  - `/tmp/pack-audit.json`
+  - `/tmp/openclaw-packs-strategy-roundtable-smoke.png`
+  - `openclaw-role-packs` smoke output: `OK smoke installed 26 pack(s)`
+
+### Objective
+Package the multi-expert roundtable, cognitive skeleton, planning, reflection, business diagnosis, and product strategy assets as a reusable Job Pack under `/packs` `定策略`; merge the old `做数据` and `看数据` first-level entries into one data direction.
+
+### Steps
+- [x] Read current `/packs` decision tree, pack generator, and native pack sync patterns
+- [x] Add native generator `scripts/sync-strategy-roundtable-pack.py`
+- [x] Generate `web/public/packs/strategy-roundtable-advisor/`
+- [x] Wire `strategy-roundtable-advisor` into `定策略`
+- [x] Merge old `做数据` + `看数据` into `做/看数据`
+- [x] Regenerate pack catalog, tiers, install scripts, and guide pages
+- [x] Sync local standalone role-pack repo to 26 packs
+- [x] Verify audit, root build, web build, and browser smoke
+
+### Results
+1. New pack `strategy-roundtable-advisor` is `tier: enriched`, line `strategy`, with 6 skills, 3 advisor prompts, 2 toolkits, 2 data-collection templates, and first-use demo metadata.
+2. `/packs` first question now has one merged `做/看数据` card for algorithm, big data, metrics, A/B, and dashboard work.
+3. `/packs` `定策略` is clickable and recommends `战略圆桌顾问`.
+4. Local `/Users/mauricewen/Projects/openclaw-role-packs` contains 26 packs and passes validate + smoke install.
+
+### Remaining Release Step
+The remote pinned GitHub tag has not been advanced in this run. Public production install commands need a new standalone role-pack release tag before remote users can install `strategy-roundtable-advisor` through the pinned Git command.
+
+## 2026-05-25 Public Installability Release v2026.05.25.2
+- Status: implementation verified locally; Foundry commit/deploy pending
+- Stop condition: production `/packs` shows `定策略 -> 战略圆桌顾问`, production catalogs report 26 packs and 5000 public installable skills, and no public pack install surface contains local-only paths.
+
+### Steps
+- [x] Promote standalone role-pack repo to Git release tag `v2026.05.25.2`.
+- [x] Verify role-pack repo at commit `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`.
+- [x] Validate 26/26 pack catalog entries in `openclaw-role-packs`.
+- [x] Smoke install 26/26 role packs from the standalone repo, including `strategy-roundtable-advisor`.
+- [x] Add build-time public install source audit to Foundry.
+- [x] Remove tracked public backup skill catalogs from `web/public/data`.
+- [x] Regenerate Foundry static data and guides against public skill sources and role-pack tag `v2026.05.25.2`.
+- [x] Run Foundry web build, root build, public install audit, `git diff --check`, and `ai check`.
+- [ ] Commit and push Foundry release changes.
+- [ ] Deploy Cloudflare Pages production.
+- [ ] Run production browser smoke and remote catalog checks.
+
+### Verification Snapshot
+1. `node scripts/audit-public-install-sources.mjs` -> PASS: 5000/5000 skills, 26 pack settings, 22 guides, 485 pack files.
+2. `npm --prefix web run build` -> PASS.
+3. `npm run build` -> PASS.
+4. `git diff --check` -> PASS.
+5. `ai check` -> exit 0 and summary `ok=true`; known caveat: global AI-Fleet `skill_integrity=false` for 3 unrelated `dna/capsules/*` entries.
+6. `openclaw-role-packs npm run validate` -> PASS, 26 packs.
+7. `openclaw-role-packs npm run smoke:install` -> PASS, 26/26 packs.

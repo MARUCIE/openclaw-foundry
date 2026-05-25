@@ -5,11 +5,5 @@
   "autonomy": {
     "level": "L1-guided"
   },
-  "mcpServers": {
-    "filesystem": {
-      "args": [
-        "/Users/mauricewen/Projects"
-      ]
-    }
-  }
+  "mcpServers": {}
 }

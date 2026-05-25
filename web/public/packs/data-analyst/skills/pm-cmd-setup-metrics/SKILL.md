@@ -4,30 +4,6 @@ description: Design a product metrics dashboard with North Star metric, input me
 argument-hint: "<product or feature area>"
 ---
 
-## 是什么
-
-帮你用一条命令把"产品该度量什么"这件事一次性想清楚：北极星指标、输入指标、健康度指标、告警阈值全部出齐。让新功能上线第二天就能看到数据信号，不用再等三周才搭好看板。
-
-## 怎么用
-
-1. 给一句话产品或功能定位（比如"SaaS 项目管理工具"或"新上线的支付流程"），命令会顺着这个语境推荐指标。
-2. 命令先帮你定北极星指标（产品最核心的客户价值衡量），再配 3–5 个输入指标作为日常驱动杠杆。
-3. 自动补 2–3 个健康度指标（崩溃率、加载时长、客诉率这种基础体验信号），防止只盯北极星而忽略地基。
-4. 每个指标自带建议阈值（什么算正常、什么算预警、什么算告警），不用从零拍脑袋定。
-5. 输出可以直接交给开发做埋点（数据采集代码）、交给数据团队建表，PM 不用再写指标定义文档。
-
-## 架构图
-
-```mermaid
-flowchart LR
-    A[产品定位输入] --> B[北极星推荐]
-    B --> C[输入指标 ×3-5]
-    B --> D[健康度 ×2-3]
-    C --> E[阈值建议]
-    D --> E
-    E --> F[埋点 + 看板]
-```
-
 # /setup-metrics -- Product Metrics Dashboard Design
 
 Design a comprehensive metrics framework for your product or feature — from selecting the right North Star to defining alert thresholds that catch problems early.

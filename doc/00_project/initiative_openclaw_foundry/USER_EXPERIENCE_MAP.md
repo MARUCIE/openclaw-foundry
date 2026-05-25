@@ -132,12 +132,13 @@
 7. User registers or logs in through email magic-link or WeChat OAuth
 8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
 9. Recommendation entrypoints whose target packs are still under validation are disabled and labeled `即将上线`, so users cannot navigate into an empty pack result.
+10. The `定策略` recommendation path is released once `strategy-roundtable-advisor` is present with `tier != stub`; clicking it recommends the Strategy Roundtable Advisor pack.
 
 ### Journey 8: Standalone Role Pack Copy Install
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
 2. Maintainer commits, tags, and pushes the snapshot to `https://github.com/MARUCIE/openclaw-role-packs`
 3. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-4. Command runs `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`
+4. Command runs `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`
 5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 6. Installer reads local sibling `manifest.json` and copies local artifacts by default
 7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
@@ -151,7 +152,7 @@
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 7. Old bare direct payload URLs can temporarily survive in edge cache, so support/ops copy must point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
-8. No released pack exists yet for `做数据`, `定策略`, or `看数据`; the product UX now labels these as upcoming instead of pretending a downloadable pack is available.
+8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction and remain labeled `即将上线` until a data pack graduates from `stub`.
 
 ## Round-Based Acceptance Criteria
 

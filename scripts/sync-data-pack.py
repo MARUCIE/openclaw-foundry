@@ -51,9 +51,9 @@ PACK_META = {
     "descriptionZh": "数据分析 + 指标体系 + Dashboard 工作台：8 个 PM 视角分析 skill + 2 位顾问视角。",
     "icon": "monitoring",
     "color": "#B45309",
-    "line": "analyze",
-    "lineZh": "数据洞察线",
-    "layerIds": ["universal", "line-analyze", "role-data-analyst"],
+    "line": "data-ai",
+    "lineZh": "数据AI职能线",
+    "layerIds": ["universal", "line-data-ai", "role-data-analyst"],
     "version": "1.0.0",
 }
 

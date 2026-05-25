@@ -260,7 +260,7 @@ Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Gi
    - `d17801ac092e2295031c863adad9450dc7476fb5`
 4. Current published release:
    - commit `77075297628573619491f472338ffa8148da130f`
-   - tag `v2026.05.25`
+   - tag `v2026.05.25.2`
 5. Synced payload:
    - 25 `packs/<id>/` directories copied from current local `web/public/packs/`
    - catalog snapshots copied into `catalog/`
@@ -270,7 +270,7 @@ Create `/Users/mauricewen/Projects/openclaw-role-packs` as a standalone local Gi
    - remote fetch requires explicit `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL`
 7. Production install-command behavior:
    - `web/lib/protected-downloads.ts` keeps the registered-session gate
-   - clipboard install command clones `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25`
+   - clipboard install command clones `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.2`
    - Worker-protected file download remains available for single-file downloads
 8. Validation evidence:
    - `npm run validate` -> `OK validated 25 packs and 25 catalog entries`
@@ -315,10 +315,10 @@ Maurice confirmed that installing from the Git address is the safest default and
    - pruned 437 static payload files from Pages output
    - uploaded Pages output successfully
 3. Production `/packs` returned HTTP 200 and production `data/packs.json` reported 25 packs.
-4. Production `product-manager` guide uses `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`; grep found no `curl -fsSL` install command.
+4. Production `product-manager` guide uses `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`; grep found no `curl -fsSL` install command.
 5. Playwright copy smoke on production `/packs` with a registered-session fixture copied:
    - `tmp="$(mktemp -d)"`
-   - `git clone --depth 1 --branch 'v2026.05.25' 'https://github.com/MARUCIE/openclaw-role-packs.git' "$tmp/openclaw-role-packs"`
+   - `git clone --depth 1 --branch 'v2026.05.25.2' 'https://github.com/MARUCIE/openclaw-role-packs.git' "$tmp/openclaw-role-packs"`
    - `"$tmp/openclaw-role-packs/install.sh" 'product-manager' --agent=claude`
 6. Copy-smoke assertions:
    - `hasGitClone=true`
@@ -417,3 +417,91 @@ Decision-tree targets with no released public pack:
    - `写代码`: frontend/backend/test enabled; infra/ops disabled with `即将上线`
    - `做产品`: product-manager recommendation still renders with install-command action
    - console errors/warnings: 0
+
+## 2026-05-25 Strategy Roundtable Pack + Data IA Merge
+
+### Trigger
+1. User requested the previously drafted multi-expert roundtable / cognitive-skeleton skill combination be packaged as a global job-pack skill bundle.
+2. User requested it be placed under `/packs` `定策略`.
+3. User requested the `做数据` and `看数据` cards be merged into one data card, with a new role card added.
+
+### Implementation Facts
+1. New generator:
+   - `scripts/sync-strategy-roundtable-pack.py`
+2. New generated pack:
+   - `web/public/packs/strategy-roundtable-advisor/`
+3. Bundled skills:
+   - `cognitive-skeleton`
+   - `multi-expert-roundtable-report`
+   - `business-diagnosis-pipeline`
+   - `product-management-swarm`
+   - `planning-with-files`
+   - `cognitive-reflection`
+4. Bundled advisors:
+   - `advisor-munger`
+   - `advisor-drucker`
+   - `advisor-meadows`
+5. Decision-tree changes:
+   - `strategy` options now include `strategy-roundtable-advisor`
+   - `data` options now include algorithm, big data, data analyst, and A/B analyst
+   - the separate `analyze` first-level card and tab are removed
+6. Data analyst pack line:
+   - moved from `analyze` to `data-ai`
+
+### Verification Evidence
+1. `python3 -m py_compile scripts/sync-strategy-roundtable-pack.py scripts/sync-data-pack.py` -> pass
+2. JSON syntax checks for `zh.json`, `en.json`, and `packs.json` -> pass
+3. `git diff --check` on changed pack/page files -> pass
+4. `python3 scripts/pack-spec-audit.py --out /tmp/pack-audit.json`:
+   - `strategy-roundtable-advisor` tier: `enriched`
+   - P1/P2/P3/P4 all pass
+5. Root `npm run build` -> pass
+6. `cd web && npm run build` -> pass
+7. Browser smoke through system Chrome on `http://localhost:3200/packs`:
+   - `q1HasMergedData=true`
+   - `q1HasStandaloneAnalyze=false`
+   - `q1StrategyEnabled=true`
+   - `resultHasStrategyRoundtable=true`
+   - `consoleErrorCount=0`
+8. Standalone role-pack repo:
+   - `npm run sync:foundry -- --source /Users/mauricewen/Projects/22-openclaw-foundry` -> 26 packs
+   - `npm run validate` -> pass
+   - `npm run smoke:install` -> pass, including `strategy-roundtable-advisor: installed 24 files`
+
+### Release Boundary
+No GitHub push/tag was performed. The local standalone repo is synced and validated; production clipboard commands still require a future release-tag advancement before remote users can install the new strategy pack from GitHub.
+
+## 2026-05-25 Public Installability Release v2026.05.25.2
+
+### Trigger
+Production `/packs` still needed the new strategy pack plus public Git installability guarantees. The prior local-only role-pack sync was not enough because remote users need the pinned GitHub tag to contain every pack and no public install surface may point at Maurice's local filesystem.
+
+### Current Facts
+1. Standalone role-pack repo: `/Users/mauricewen/Projects/openclaw-role-packs`.
+2. Remote install source: `https://github.com/MARUCIE/openclaw-role-packs.git`.
+3. Release tag: `v2026.05.25.2`.
+4. Release commit: `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`.
+5. Foundry public catalog now contains 5000 installable skills from public ClawHub/MCP registry sources only.
+6. Foundry public pack catalog now contains 26 packs, including `strategy-roundtable-advisor`.
+
+### Guardrails Added
+1. `scripts/audit-public-install-sources.mjs` blocks:
+   - `source: local` public skill rows
+   - skill entries without HTTP(S) source URLs
+   - local filesystem references in public pack payloads
+   - tracked `_backup*` directories under `web/public/data`
+   - legacy direct Pages install URL strings
+2. `web/package.json` runs the audit during `prebuild`.
+3. Deprecated alias installers now delegate to local sibling pack installers when installed from the Git repo; remote script execution is not the default.
+
+### Fresh Verification
+1. `npm run validate` in `openclaw-role-packs` -> PASS, 26 packs.
+2. `npm run smoke:install` in `openclaw-role-packs` -> PASS, 26/26 packs.
+3. `node scripts/audit-public-install-sources.mjs` -> PASS, 5000 skills / 26 settings / 22 guides / 485 pack files.
+4. `npm --prefix web run build` -> PASS.
+5. `npm run build` -> PASS.
+6. `git diff --check` -> PASS.
+7. `ai check` -> exit 0 with `summary.json.ok=true`; `skill_integrity=false` is limited to 3 global AI-Fleet `dna/capsules/*` integrity mismatches, not this public catalog or pack install path.
+
+### Remaining Step
+Commit, push, deploy Foundry, then run production browser smoke on `https://agent-foundry.pages.dev/packs` to verify `定策略` renders `战略圆桌顾问` and production data files match the 26-pack / 5000-public-skill contract.

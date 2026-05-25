@@ -3,29 +3,6 @@ name: sql-queries
 description: "Generate SQL queries from natural language descriptions. Supports BigQuery, PostgreSQL, MySQL, and other dialects. Reads database schemas from uploaded diagrams or documentation. Use when writing SQL, building data reports, exploring databases, or translating business questions into queries."
 ---
 
-## 是什么
-
-帮你把"过去 7 天每个城市的下单 Top10 用户"这种业务自然语言，翻译成可以直接跑的 SQL（结构化查询语言，数据库取数标准）。让 PM 自己就能取数，不用每次找数据工程师排队两天。
-
-## 怎么用
-
-1. 先上传或描述数据库 Schema（表结构和字段定义），不给 Schema 写出来的 SQL 一定是猜的，业务字段对不上。
-2. 用一句完整业务问题描述需求（包含时间窗口、分组维度、过滤条件、排序方式），别只给一个名词。
-3. 选 SQL 方言（BigQuery / PostgreSQL / MySQL 等不同数据库的 SQL 语法略有差异），方言错了语句跑不通。
-4. 拿到 SQL 后先在测试库（或加 LIMIT 10）跑一下，确认数据量级和字段对得上，再去全量跑或接看板。
-5. 复杂查询要求带注释（CTE / WITH 子句拆分，每段加 -- 说明），方便下次复用或交给同事维护。
-
-## 架构图
-
-```mermaid
-flowchart LR
-    A[业务问题描述] --> B[Schema 解析]
-    B --> C[方言选择]
-    C --> D[SQL 生成]
-    D --> E[LIMIT 10 试跑]
-    E --> F[全量执行/落看板]
-```
-
 # SQL Query Generator
 
 ## Purpose

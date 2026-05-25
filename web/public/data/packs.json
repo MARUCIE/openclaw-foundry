@@ -1,5 +1,5 @@
 {
-  "total": 25,
+  "total": 26,
   "generated": "2026-05-19T08:29:19.603Z",
   "packs": [
     {
@@ -755,40 +755,6 @@
       "hasE2eEvidence": false
     },
     {
-      "id": "data-analyst",
-      "name": "Data Analyst",
-      "nameZh": "数据分析师",
-      "description": "Analytics + metrics + dashboards: 8 data skills + 2 advisor lenses for PM-facing analysis.",
-      "descriptionZh": "数据分析 + 指标体系 + Dashboard 工作台：8 个 PM 视角分析 skill + 2 位顾问视角。",
-      "icon": "monitoring",
-      "color": "#B45309",
-      "line": "analyze",
-      "lineZh": "数据洞察线",
-      "layerIds": [
-        "universal",
-        "line-analyze",
-        "role-data-analyst"
-      ],
-      "version": "1.0.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 8,
-        "agents": 2,
-        "references": 0
-      },
-      "tier": "stub",
-      "specVersion": "1.0",
-      "hasFirstUseDemo": true,
-      "hasE2eEvidence": false
-    },
-    {
       "id": "prototype-designer",
       "name": "Prototype Designer",
       "nameZh": "原型设计师",
@@ -891,11 +857,90 @@
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": false
+    },
+    {
+      "id": "data-analyst",
+      "name": "Data Analyst",
+      "nameZh": "数据分析师",
+      "description": "Analytics + metrics + dashboards: 8 data skills + 2 advisor lenses for PM-facing analysis.",
+      "descriptionZh": "数据分析 + 指标体系 + Dashboard 工作台：8 个 PM 视角分析 skill + 2 位顾问视角。",
+      "icon": "monitoring",
+      "color": "#B45309",
+      "line": "data-ai",
+      "lineZh": "数据AI职能线",
+      "layerIds": [
+        "universal",
+        "line-data-ai",
+        "role-data-analyst"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 8,
+        "agents": 2,
+        "references": 0
+      },
+      "tier": "stub",
+      "specVersion": "-",
+      "hasFirstUseDemo": false,
+      "hasE2eEvidence": false
+    },
+    {
+      "id": "strategy-roundtable-advisor",
+      "name": "Strategy Roundtable Advisor",
+      "nameZh": "战略圆桌顾问",
+      "description": "Strategic-thinking front door: cognitive skeleton, multi-expert roundtable, pyramid report, durable reflection, and downstream business/product pipelines.",
+      "descriptionZh": "战略思维前置工作台：认知骨架选模型，多专家圆桌交叉质询，金字塔报告输出，并承接业务/产品落地。",
+      "icon": "groups_3",
+      "color": "#243E9A",
+      "line": "strategy",
+      "lineZh": "战略决策线",
+      "layerIds": [
+        "universal",
+        "line-strategy",
+        "role-strategy-roundtable"
+      ],
+      "version": "1.0.0",
+      "files": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        "settings.json",
+        "prompts.md",
+        "tool-kit-03-sop-flowchart.md",
+        "tool-kit-05-document-templates.md",
+        "baseline-before-after.md",
+        "checklist-delivery.md",
+        "data-collection/baseline-actual.csv",
+        "data-collection/cohort-feedback-form.md",
+        "references/strategic-thinking-frontdoor.md",
+        "install.sh",
+        "manifest.json"
+      ],
+      "artifacts": {
+        "skills": 6,
+        "agents": 3,
+        "references": 1,
+        "toolKits": 2,
+        "dataCollection": 2
+      },
+      "design_augmented": true,
+      "preserveContent": true,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
+      "hasE2eEvidence": false
     }
   ],
   "tierSummary": {
     "stub": 17,
-    "enriched": 3,
+    "enriched": 4,
     "certified": 5
   },
   "tierInjectedAt": "2026-05-19T08:29:19.766Z"

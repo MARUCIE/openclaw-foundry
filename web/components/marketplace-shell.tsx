@@ -79,10 +79,15 @@ function deriveExternalSource(skill: ClawHubSkill): { href: string; label: strin
   return { href, label };
 }
 
+function isPrivateLocalSkill(skill: ClawHubSkill): boolean {
+  return skill.source === 'local' && !deriveExternalSource(skill);
+}
+
 function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => void }) {
   const { t, locale } = useI18n();
   const [copied, setCopied] = useState('');
   const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
+  const isPrivateLocal = isPrivateLocalSkill(skill);
   const installId = getInstallId(skill);
   const repoName = getRepoName(skill);
 
@@ -93,7 +98,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
     setTimeout(() => setCopied(''), 2000);
   }, []);
 
-  const targets = INSTALL_TARGETS.filter(tgt => isSkill ? tgt.cmdSkill : tgt.cmdMcp);
+  const targets = isPrivateLocal ? [] : INSTALL_TARGETS.filter(tgt => isSkill ? tgt.cmdSkill : tgt.cmdMcp);
 
   // ── Section grouping (Jobs review fix #4): two labelled categories for skills,
   // two for MCP. Coding agents grouped above autonomous; IDE extensions last.
@@ -185,25 +190,28 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           {locale === 'zh' && (skill as any).descriptionZh ? (skill as any).descriptionZh : skill.description}
         </p>
 
-        {(() => {
-          const isPrivateLocal = skill.source === 'local' && !deriveExternalSource(skill);
-          if (!isPrivateLocal) return null;
-          return (
-            <div
-              className="flex items-start gap-2 p-3 rounded-2xl text-xs leading-relaxed"
-              style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', border: '1px solid var(--outline-variant)' }}
-              role="note"
-            >
-              <span aria-hidden="true" className="material-symbols-outlined text-base mt-0.5" style={{ color: 'var(--on-surface-variant)' }}>info</span>
-              <span>{t('skills.localPrivateBanner')}</span>
-            </div>
-          );
-        })()}
+        {isPrivateLocal && (
+          <div
+            className="flex items-start gap-2 p-3 rounded-2xl text-xs leading-relaxed"
+            style={{ background: 'var(--surface-container)', color: 'var(--on-surface-variant)', border: '1px solid var(--outline-variant)' }}
+            role="note"
+          >
+            <span aria-hidden="true" className="material-symbols-outlined text-base mt-0.5" style={{ color: 'var(--on-surface-variant)' }}>info</span>
+            <span>{t('skills.localPrivateBanner')}</span>
+          </div>
+        )}
 
         <div className="space-y-5">
           <h4 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-balance" style={{ color: 'var(--on-surface-variant)' }}>
             {t('skills.selectTarget')}
           </h4>
+          {isPrivateLocal && (
+            <div className="p-4 rounded-2xl border border-dashed text-center" style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}>
+              <p className="text-xs font-black uppercase tracking-[0.2em] opacity-60 text-pretty">
+                {t('skills.localPrivateNoInstall')}
+              </p>
+            </div>
+          )}
           {sections.map(section => {
             const rows = targets.filter(t => section.cats.includes(t.category));
             if (!rows.length) return null;
@@ -644,6 +652,7 @@ export function MarketplaceShell() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {skills.map((skill: ClawHubSkill) => {
                 const isSkill = (skill.source || 'clawhub') !== 'mcp-registry';
+                const isPrivateLocal = isPrivateLocalSkill(skill);
                 return (
                   <div
                     key={skill.id}
@@ -711,11 +720,16 @@ export function MarketplaceShell() {
                         );
                       })()}
                       <button
-                        onClick={() => setInstallSkill(skill)}
-                        className="px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-white transition-all hover:shadow-xl active:scale-95"
-                        style={{ background: isSkill ? 'var(--primary)' : 'var(--tertiary)' }}
+                        onClick={() => {
+                          if (!isPrivateLocal) setInstallSkill(skill);
+                        }}
+                        disabled={isPrivateLocal}
+                        className={`px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-white transition-all ${
+                          isPrivateLocal ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl active:scale-95'
+                        }`}
+                        style={{ background: isPrivateLocal ? 'var(--outline)' : (isSkill ? 'var(--primary)' : 'var(--tertiary)') }}
                       >
-                        {(skill.source === 'local' && !deriveExternalSource(skill)) ? t('skills.viewCommands') : 'Install'}
+                        {isPrivateLocal ? t('skills.notInstallable') : t('skills.install')}
                       </button>
                     </div>
                   </div>

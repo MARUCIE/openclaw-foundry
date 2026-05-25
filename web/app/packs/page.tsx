@@ -36,6 +36,8 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     options: [
       { labelKey: 'packs.q2Algorithm', packId: 'algorithm-engineer' },
       { labelKey: 'packs.q2Bigdata', packId: 'bigdata-engineer' },
+      { labelKey: 'packs.q2DataAnalyst', packId: 'data-analyst' },
+      { labelKey: 'packs.q2AbTestAnalyst', packId: 'ab-test-analyst' },
     ],
   },
   {
@@ -65,6 +67,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     labelKey: 'packs.q1Strategy',
     descKey: 'packs.q1StrategyDesc',
     options: [
+      { labelKey: 'packs.q2StrategyRoundtable', packId: 'strategy-roundtable-advisor' },
       { labelKey: 'packs.q2Executive', packId: 'executive-strategist' },
     ],
   },
@@ -88,16 +91,6 @@ const QUESTION_TREE: QuestionTreeItem[] = [
       { labelKey: 'packs.q2Scenario', packId: 'scenario-planner' },
     ],
   },
-  {
-    id: 'analyze',
-    browseTabId: 'analyze',
-    icon: 'monitoring',
-    labelKey: 'packs.q1Analyze',
-    descKey: 'packs.q1AnalyzeDesc',
-    options: [
-      { labelKey: 'packs.q2DataAnalyst', packId: 'data-analyst' },
-    ],
-  },
 ];
 
 const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack && pack.tier !== 'stub');
@@ -110,7 +103,6 @@ const LINE_TABS = [
   { id: 'business', labelKey: 'packs.tabBusiness' },
   { id: 'strategy', labelKey: 'packs.tabStrategy' },
   { id: 'research', labelKey: 'packs.tabResearch' },
-  { id: 'analyze', labelKey: 'packs.tabAnalyze' },
 ];
 
 export default function PacksPage() {

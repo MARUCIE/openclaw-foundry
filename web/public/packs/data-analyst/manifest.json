@@ -1,12 +1,6 @@
 {
   "pack": "data-analyst",
-  "version": "4.2.0",
-  "spec_version": "1.0",
-  "first_use_demo": {
-    "command": "cd ~/.claude && claude --skill north-star-metric < skills/analyze/north-star-metric/SKILL.md",
-    "expected_output": "1 候选 North Star 指标 + 3 反例淘汰 + 5 边缘案例 + 7 关联代理指标 + 1 个月观察 SLA",
-    "time_to_value_minutes": 8
-  },
+  "version": "1.0.0",
   "items": [
     {
       "src": "CLAUDE.md",

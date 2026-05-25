@@ -82,8 +82,8 @@ source venv/bin/activate && pip install -r requirements.txt
 # Global — available in every project (recommended)
 # Windows
 claude mcp add -s user memory_map \
-  C:/Users/yourname/memory_map/venv/Scripts/python.exe \
-  C:/Users/yourname/memory_map/server.py
+  "%USERPROFILE%\\memory_map\\venv\\Scripts\\python.exe" \
+  "%USERPROFILE%\\memory_map\\server.py"
 
 # Mac/Linux
 claude mcp add -s user memory_map \
@@ -114,7 +114,7 @@ Add to `~/.claude/settings.json` so history is captured automatically in every p
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "python C:/Users/yourname/memory_map/history_hook.py",
+          "command": "python %USERPROFILE%\\memory_map\\history_hook.py",
           "timeout": 10
         }]
       }
@@ -124,7 +124,7 @@ Add to `~/.claude/settings.json` so history is captured automatically in every p
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "python C:/Users/yourname/memory_map/history_hook.py --force",
+          "command": "python %USERPROFILE%\\memory_map\\history_hook.py --force",
           "timeout": 15
         }]
       }
@@ -134,7 +134,7 @@ Add to `~/.claude/settings.json` so history is captured automatically in every p
         "matcher": "",
         "hooks": [{
           "type": "command",
-          "command": "python C:/Users/yourname/memory_map/history_hook.py --force",
+          "command": "python %USERPROFILE%\\memory_map\\history_hook.py --force",
           "timeout": 15,
           "async": true
         }]
@@ -158,7 +158,7 @@ Copy `CLAUDE.md` from the memory_map repo into the project root:
 
 ```bash
 # Windows
-copy C:\Users\yourname\memory_map\CLAUDE.md CLAUDE.md
+copy "%USERPROFILE%\\memory_map\\CLAUDE.md" CLAUDE.md
 
 # Mac/Linux
 cp ~/memory_map/CLAUDE.md ~/your-project/CLAUDE.md

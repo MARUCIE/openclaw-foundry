@@ -206,7 +206,7 @@ python3 ${AI_FLEET}/scripts/ai harness health
 # Expected output: scaffolding=OK runtime=OK context=GREEN feedback=OK
 ```
 
-如不通过 → 检查 `${AI_FLEET}` 环境变量是否指向 `/Users/<user>/00-AI-Fleet`。
+如不通过 → 检查 `${AI_FLEET}` 环境变量是否指向你的 AI-Fleet 安装目录。
 
 ---
 

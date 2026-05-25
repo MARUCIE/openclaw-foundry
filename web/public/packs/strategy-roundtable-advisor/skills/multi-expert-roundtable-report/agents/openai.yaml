@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi-Expert Roundtable Report"
+  short_description: "8-expert analysis into pyramid reports"
+  default_prompt: "Use $multi-expert-roundtable-report to analyze my core question with an expert roundtable and produce a conclusion-first consulting report."

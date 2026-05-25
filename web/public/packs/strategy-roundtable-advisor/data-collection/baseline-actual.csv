@@ -1,0 +1,6 @@
+task_id,scenario,before_minutes,after_minutes,quality_signal,notes
+SRA-001,strategy_intake,45,12,core_question_clear,
+SRA-002,model_routing,30,10,model_lattice_selected,
+SRA-003,roundtable_report,90,25,pyramid_report_complete,
+SRA-004,risk_red_team,60,18,risk_triggers_visible,
+SRA-005,business_handoff,60,20,commercial_checks_defined,

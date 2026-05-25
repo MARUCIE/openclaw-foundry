@@ -1,15 +1,15 @@
 #!/bin/bash
 # DEPRECATED ALIAS — see deprecated_alias_of in manifest.json
-# Non-destructive: this URL still works for backwards-compat with prior installs and direct links.
-# New installs should use the canonical pack at:
-#   https://agent-foundry.pages.dev/packs/backend-engineer/install.sh
+# Local-first redirect: copied Git checkouts and copied pack folders must install
+# without relying on the production website. Remote fallback is explicit only.
 #
 # spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 canonical 入口
 set -euo pipefail
 
 LOSER_ID="spellbook-backend-engineer"
 WINNER_ID="backend-engineer"
-BASE_URL="${FOUNDRY_BASE_URL:-https://agent-foundry.pages.dev}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOCAL_WINNER_INSTALL="$SCRIPT_DIR/../$WINNER_ID/install.sh"
 
 cat <<EOF
 
@@ -17,10 +17,27 @@ cat <<EOF
   ────────────────────────────────────────────────────────────────────
   spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 canonical 入口
 
-  Redirecting install to canonical pack ...
-  Source: $BASE_URL/packs/$WINNER_ID/install.sh
+  Redirecting install to canonical local pack ...
+  Source: $LOCAL_WINNER_INSTALL
 
 EOF
 
-# Execute the canonical installer; passes through env vars and CLI args (INSTALL_DEST, --agent, etc.)
-curl -fsSL "$BASE_URL/packs/$WINNER_ID/install.sh" | bash -s -- "$@"
+if [[ -f "$LOCAL_WINNER_INSTALL" ]]; then
+  exec bash "$LOCAL_WINNER_INSTALL" "$@"
+fi
+
+if [[ -n "${ROLE_PACKS_BASE_URL:-}" ]]; then
+  echo "NOTE  Local canonical pack missing; using explicit ROLE_PACKS_BASE_URL override"
+  curl -fsSL "$ROLE_PACKS_BASE_URL/packs/$WINNER_ID/install.sh" | bash -s -- "$@"
+  exit $?
+fi
+
+if [[ -n "${FOUNDRY_BASE_URL:-}" ]]; then
+  echo "NOTE  Local canonical pack missing; using explicit FOUNDRY_BASE_URL override"
+  curl -fsSL "$FOUNDRY_BASE_URL/packs/$WINNER_ID/install.sh" | bash -s -- "$@"
+  exit $?
+fi
+
+echo "ERROR  Canonical pack not found next to this alias: $LOCAL_WINNER_INSTALL" >&2
+echo "       Clone the full openclaw-role-packs release, or set ROLE_PACKS_BASE_URL explicitly." >&2
+exit 1

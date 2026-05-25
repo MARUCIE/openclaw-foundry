@@ -13,6 +13,15 @@ import { parsePermissions, PermissionDisplay } from '@/components/permission-dis
 
 const SCENARIO_ICONS = ['rocket_launch', 'build', 'psychology'];
 
+function getPublicSourceHref(skill: ClawHubSkill): string | null {
+  const href = skill.url || skill.sourceUrl;
+  return href && /^https?:\/\//i.test(href) ? href : null;
+}
+
+function isPrivateLocalSkill(skill: ClawHubSkill): boolean {
+  return skill.source === 'local' && !getPublicSourceHref(skill);
+}
+
 // ── Main Content ──
 
 function SkillDetailContent() {
@@ -96,6 +105,8 @@ function SkillDetailContent() {
   // ── Derived data ──
 
   const isSkillType = (skill.source || 'clawhub') !== 'mcp-registry';
+  const publicSourceHref = getPublicSourceHref(skill);
+  const isPrivateLocal = isPrivateLocalSkill(skill);
   const installId = getInstallId(skill);
   const repoName = getRepoName(skill);
   const ratingStyle = RATING_COLORS[skill.rating] || RATING_COLORS.C;
@@ -123,10 +134,12 @@ function SkillDetailContent() {
 
   // Install command for active tab
   const activeTarget = INSTALL_TARGETS.find(t => t.id === activeTab) || INSTALL_TARGETS[0];
-  const installCmd = isSkillType
+  const installCmd = isPrivateLocal
+    ? null
+    : isSkillType
     ? activeTarget.cmdSkill?.(installId)
     : activeTarget.cmdMcp?.(installId, repoName);
-  const availableTargets = INSTALL_TARGETS.filter(t => isSkillType ? t.cmdSkill : t.cmdMcp);
+  const availableTargets = isPrivateLocal ? [] : INSTALL_TARGETS.filter(t => isSkillType ? t.cmdSkill : t.cmdMcp);
 
   // Deploy success rate
   const hasDeployData = rate !== undefined && rate >= 0 && (deployCount ?? 0) > 0;
@@ -214,9 +227,9 @@ function SkillDetailContent() {
           </div>
 
           {/* Source link */}
-          {(skill.url || skill.sourceUrl) && (
+          {publicSourceHref && (
             <a
-              href={skill.url || skill.sourceUrl}
+              href={publicSourceHref}
               target="_blank"
               rel="noopener noreferrer"
               className="shrink-0 flex items-center justify-center gap-2 px-8 py-4 rounded-[1.5rem] text-sm font-black uppercase tracking-widest transition-all hover:shadow-xl hover:-translate-y-1 active:scale-95 shadow-md"
@@ -425,23 +438,25 @@ function SkillDetailContent() {
       >
         <div className="max-w-4xl mx-auto px-6 py-6 space-y-4">
           {/* Platform tabs */}
-          <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
-            {availableTargets.map(tgt => (
-              <button
-                key={tgt.id}
-                onClick={() => setActiveTab(tgt.id)}
-                className="flex items-center gap-2 px-5 py-2 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0"
-                style={{
-                  background: activeTab === tgt.id ? 'var(--primary)' : 'var(--surface-container)',
-                  color: activeTab === tgt.id ? 'white' : 'var(--on-surface-variant)',
-                  transform: activeTab === tgt.id ? 'scale(1.05)' : 'scale(1)',
-                }}
-              >
-                <span className="material-symbols-outlined text-sm font-black">{tgt.icon}</span>
-                {tgt.name}
-              </button>
-            ))}
-          </div>
+          {!isPrivateLocal && (
+            <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+              {availableTargets.map(tgt => (
+                <button
+                  key={tgt.id}
+                  onClick={() => setActiveTab(tgt.id)}
+                  className="flex items-center gap-2 px-5 py-2 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all whitespace-nowrap shrink-0"
+                  style={{
+                    background: activeTab === tgt.id ? 'var(--primary)' : 'var(--surface-container)',
+                    color: activeTab === tgt.id ? 'white' : 'var(--on-surface-variant)',
+                    transform: activeTab === tgt.id ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
+                  <span className="material-symbols-outlined text-sm font-black">{tgt.icon}</span>
+                  {tgt.name}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Command + copy */}
           {installCmd ? (
@@ -477,7 +492,7 @@ function SkillDetailContent() {
           ) : (
             <div className="p-6 rounded-2xl bg-[var(--surface-container-low)] text-center border-2 border-dashed border-[var(--outline-variant)]">
               <p className="text-xs font-black uppercase tracking-[0.2em] opacity-40 text-pretty">
-                {t('skill.platformUnsupported')}
+                {isPrivateLocal ? t('skills.localPrivateNoInstall') : t('skill.platformUnsupported')}
               </p>
             </div>
           )}

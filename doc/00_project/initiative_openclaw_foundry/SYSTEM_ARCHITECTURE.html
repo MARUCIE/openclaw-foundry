@@ -691,7 +691,7 @@
   <section>
     <div class="section-num">09</div>
     <h2>2026-05-25 独立岗位配置包仓库</h2>
-    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.25` tag，再由本地 installer 读取 manifest 与 payload。</div>
+    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.25.2` tag，再由本地 installer 读取 manifest 与 payload。</div>
     <div class="card-grid">
       <div class="card">
         <h3>仓库边界</h3>
@@ -699,14 +699,14 @@
           <li>Foundry 仍是产品源仓库与工作区事实源。</li>
           <li>`openclaw-role-packs` 是面向复制/交付的 release snapshot。</li>
           <li>初始提交为 `d17801ac092e2295031c863adad9450dc7476fb5`。</li>
-          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.25`。</li>
+          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.25.2`。</li>
         </ul>
       </div>
       <div class="card">
         <h3>安装边界</h3>
         <ul>
           <li>根安装器 `./install.sh &lt;pack-id&gt;` 委托到对应 pack。</li>
-          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.25`。</li>
+          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.25.2`。</li>
           <li>每个 `packs/&lt;id&gt;/install.sh` 默认读取本地同级 `manifest.json`。</li>
           <li>`ROLE_PACKS_BASE_URL` 或 `FOUNDRY_BASE_URL` 存在时才走远程。</li>
           <li>生产 guide.html 与复制命令均不再输出 `curl -fsSL .../packs/&lt;id&gt;/install.sh`。</li>
@@ -715,8 +715,8 @@
       <div class="card">
         <h3>验证边界</h3>
         <ul>
-          <li>`npm run validate` 校验 25 个 catalog entry 与 25 个 pack。</li>
-          <li>`npm run smoke:install` 对 25 个 pack 做隔离目录真实安装。</li>
+          <li>`npm run validate` 校验 26 个 catalog entry 与 26 个 pack。</li>
+          <li>`npm run smoke:install` 对 26 个 pack 做隔离目录真实安装。</li>
           <li>`./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` 验证根安装路径。</li>
           <li>GitHub tag clone 安装 smoke：pack list 25，`product-manager` 安装 24 个文件。</li>
           <li>生产 Playwright copy smoke：包含 GitHub repo/tag/pack id，不包含 `download-token` 或 Pages install URL。</li>
@@ -725,10 +725,47 @@
     </div>
   </section>
 
+  <section class="alt">
+    <div class="section-inner">
+      <div class="section-num">10</div>
+      <h2>2026-05-25 战略圆桌岗位包</h2>
+      <div class="key-message">`strategy-roundtable-advisor` 成为 `/packs`「定策略」的已开放岗位配置包：它把认知骨架、多专家圆桌报告、规划/反思、业务诊断与产品战略执行整合成一个可安装的跨 Agent 工作台。</div>
+      <div class="card-grid">
+        <div class="card">
+          <h3>包结构</h3>
+          <ul>
+            <li>生成器：`scripts/sync-strategy-roundtable-pack.py`。</li>
+            <li>包目录：`web/public/packs/strategy-roundtable-advisor/`。</li>
+            <li>质量层级：`tier= enriched`，四项 pack audit pillar 全部通过。</li>
+            <li>本地分发：已同步到 `openclaw-role-packs`，本地 validate + smoke install 覆盖 26 个 pack。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>能力组合</h3>
+          <ul>
+            <li>核心 skills：`cognitive-skeleton`、`multi-expert-roundtable-report`、`planning-with-files`、`cognitive-reflection`。</li>
+            <li>落地 skills：`business-diagnosis-pipeline`、`product-management-swarm`。</li>
+            <li>专家 advisors：Munger、Drucker、Meadows。</li>
+            <li>配套资产：toolkit、checklist、baseline、feedback/data collection 模板。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>页面口径</h3>
+          <ul>
+            <li>`/packs`「定策略」现在可点击，并推荐「战略圆桌顾问」。</li>
+            <li>`做数据` 与 `看数据` 合并为 `做/看数据`，一级入口不再拆分数据生产与数据解读。</li>
+            <li>数据方向仍按 released-pack availability 控制；没有已开放数据包时继续显示 `即将上线`。</li>
+            <li>远程 GitHub tag 尚未推进；生产安装新包需要后续 release-tag 步骤。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <p>OpenClaw Foundry v3.0 — 架构决策报告</p>
     <p>Maurice | maurice_wen@proton.me</p>
-    <p class="attr">CONFIDENTIAL -- For internal use only | Generated on 2026-04-23 | Auth-wall companion updated on 2026-05-18 | Role-pack repo companion updated on 2026-05-25</p>
+    <p class="attr">CONFIDENTIAL -- For internal use only | Generated on 2026-04-23 | Auth-wall companion updated on 2026-05-18 | Role-pack repo companion updated on 2026-05-25 | Strategy pack companion updated on 2026-05-25</p>
   </footer>
 </body>
 </html>

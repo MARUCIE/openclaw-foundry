@@ -211,7 +211,7 @@ Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy r
    - `d17801ac092e2295031c863adad9450dc7476fb5`
 4. Current published release:
    - commit `77075297628573619491f472338ffa8148da130f`
-   - tag `v2026.05.25`
+   - tag `v2026.05.25.2`
 5. Synced artifacts:
    - 25 role-pack directories under `packs/`
    - catalog snapshots under `catalog/`
@@ -231,7 +231,7 @@ Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy r
 5. `./install.sh --list` -> 25 pack IDs.
 6. `./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` -> PASS.
 7. Post-commit validation `npm run validate` -> PASS.
-8. GitHub tag install smoke from `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25` -> PASS, product-manager installed with 24 files and pack list count 25.
+8. GitHub tag install smoke from `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.2` -> PASS, product-manager installed with 24 files and pack list count 25.
 9. Production Pages remote install smoke from `https://agent-foundry.pages.dev/packs` -> PASS, 25/25 packs installed.
 10. `npm run design:check` -> PASS, `MD8 design hook: pass`.
 11. `cd web && npm run build` -> PASS, `/packs` static route exported.
@@ -245,7 +245,7 @@ Fix the login-wall boundary so the site remains browseable, Skill/MCP/API copy r
 4. Rolling ledger: updated with standalone role-pack distribution requirement and anti-regression Q&A.
 5. Three-end consistency:
    - Local project: source pack parity and standalone repo install validation passed.
-   - GitHub: public repo `MARUCIE/openclaw-role-packs` is reachable and tag `v2026.05.25` clone/install smoke passed.
+   - GitHub: public repo `MARUCIE/openclaw-role-packs` is reachable and tag `v2026.05.25.2` clone/install smoke passed.
    - VPS/Production: Pages production pack data and static payload smoke passed; follow-up deploy verifies `/packs` clipboard command after this source commit reaches Cloudflare.
 
 ### Remaining Risks
@@ -297,7 +297,7 @@ Remove the remaining production Pages deploy blocker where protected role-pack p
 Finish the production-safe install path for role packs: install commands must use the pinned GitHub role-pack release, protected payload uploads must complete in CI, and static Pages should not expose stale direct-download copy paths.
 
 ### Delivered
-1. Production `/packs` copy command now clones `https://github.com/MARUCIE/openclaw-role-packs.git` at tag `v2026.05.25`.
+1. Production `/packs` copy command now clones `https://github.com/MARUCIE/openclaw-role-packs.git` at tag `v2026.05.25.2`.
 2. Generated pack guide pages now show the same GitHub tag install command and no longer show `curl -fsSL .../packs/<id>/install.sh`.
 3. Static Pages builds without `NEXT_PUBLIC_API_URL` read GET catalog data directly from `/data/*.json`, removing the `/api/packs` 404 fallback noise.
 4. Protected pack payload CI upload now completes with bounded R2 upload concurrency.
@@ -307,7 +307,7 @@ Finish the production-safe install path for role packs: install commands must us
 2. CI uploaded `437/437` protected pack files to R2 and pruned `437` static pack payload files before Pages publish.
 3. Production `/packs` returned HTTP 200 and `data/packs.json` reported 25 packs.
 4. Production `/packs/product-manager/guide.html` contains the GitHub tag install commands and no `curl -fsSL` install command.
-5. Playwright production copy smoke for `product-manager` produced a command containing `git clone --depth 1`, `openclaw-role-packs.git`, `v2026.05.25`, and `product-manager`; it contained neither `download-token` nor `/packs/product-manager/install.sh`.
+5. Playwright production copy smoke for `product-manager` produced a command containing `git clone --depth 1`, `openclaw-role-packs.git`, `v2026.05.25.2`, and `product-manager`; it contained neither `download-token` nor `/packs/product-manager/install.sh`.
 6. GitHub tag install smoke installed `product-manager` to an isolated target with 24 files and `install.sh --list` returned 25 packs.
 7. Worker protected file route without auth returned 401 with `registration required before copy/download`.
 8. Preview direct static payload URL returned 404; cache-busted production direct payload URL returned 404.
@@ -355,3 +355,88 @@ Prevent `/packs` recommendation paths from routing users into hidden `stub` pack
    - Local project: build, auth audit, `ai check`, and local Playwright smoke passed.
    - GitHub: commit `d54abd8b52e5ed3ad95962487065e4a8c5a890d7` pushed to `main`; deploy run `26385528697` passed.
    - Production: `https://agent-foundry.pages.dev/packs?verify=d54abd8` verified with Playwright.
+
+---
+
+## 2026-05-25 Strategy Roundtable Pack + Data IA Merge Delivery
+
+### Scope
+Package the reusable strategic-thinking frontdoor as a Job Pack, wire it into `/packs` `定策略`, merge the old `做数据` and `看数据` first-level cards, and keep local standalone role-pack distribution in sync.
+
+### Delivered
+1. New Job Pack:
+   - `web/public/packs/strategy-roundtable-advisor/`
+   - `line= strategy`
+   - `tier= enriched`
+2. New generator:
+   - `scripts/sync-strategy-roundtable-pack.py`
+3. Pack composition:
+   - 6 skills
+   - 3 advisor prompts
+   - 1 reference
+   - 2 toolkits
+   - 2 data-collection templates
+4. `/packs` decision-tree update:
+   - `定策略` recommends `战略圆桌顾问`
+   - `做/看数据` replaces separate `做数据` and `看数据`
+5. Local standalone role-pack repo:
+   - `/Users/mauricewen/Projects/openclaw-role-packs`
+   - 26 packs validated and smoke-installed locally
+
+### Verification
+1. `python3 -m py_compile scripts/sync-strategy-roundtable-pack.py scripts/sync-data-pack.py` -> PASS
+2. `python3 -m json.tool web/messages/zh.json`, `web/messages/en.json`, `web/public/data/packs.json` -> PASS
+3. `git diff --check` on changed pack/page files -> PASS
+4. `python3 scripts/pack-spec-audit.py --out /tmp/pack-audit.json` -> PASS; `strategy-roundtable-advisor` is `enriched`
+5. `npm run build` -> PASS
+6. `cd web && npm run build` -> PASS
+7. Chrome smoke on local `/packs` -> PASS; merged data card present, standalone `看数据` absent, `定策略` opens `战略圆桌顾问`, console error count 0
+8. `openclaw-role-packs`:
+   - `npm run validate` -> PASS
+   - `npm run smoke:install` -> PASS; 26 packs installed in smoke target
+
+### Closeout
+1. Skills update: completed as a Job Pack bundle rather than a new standalone Codex global skill; it bundles existing canonical skills and exposes them through `strategy-roundtable-advisor`.
+2. PDCA four-doc sync: completed in PRD, UX map, system architecture, and platform optimization plan.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global operating rule was introduced.
+4. Rolling ledger: updated with REQ-023 and anti-regression Q&A.
+5. Three-end consistency:
+   - Local project: verified by audit, builds, and browser smoke.
+   - Local standalone role-pack repo: synced and smoke-installed.
+   - GitHub / production: not pushed or retagged in this run; release-tag advancement remains a separate external publish step.
+
+---
+
+## 2026-05-25 Public Installability Release v2026.05.25.2
+
+### Scope
+Close the remaining production gap: every public Skill and Job Pack install surface must resolve from public GitHub/HTTPS sources, and `/packs` `定策略` must recommend a released pack that remote users can install from the pinned Git repository.
+
+### Delivered
+1. Advanced the standalone role-pack Git release to `v2026.05.25.2`.
+2. Synced the Foundry static pack catalog to 26 packs, including `strategy-roundtable-advisor`.
+3. Rebuilt the public skill catalog from public ClawHub/MCP registry sources only.
+4. Removed tracked `web/public/data/_backup-*` local-only catalogs from public output.
+5. Added `scripts/audit-public-install-sources.mjs` as a build-time guard against local-only URLs, legacy Pages direct-install URLs, and stale public backup directories.
+6. Changed deprecated alias installers to local-first sibling delegation; remote fallback is explicit-only through `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL`.
+
+### Verification
+1. Role-pack repo HEAD: `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`.
+2. Role-pack tag at HEAD: `v2026.05.25.2`.
+3. `npm run validate` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26 packs and 26 catalog entries.
+4. `npm run smoke:install` in `/Users/mauricewen/Projects/openclaw-role-packs` -> PASS, 26/26 packs installed, including `strategy-roundtable-advisor`.
+5. `node scripts/audit-public-install-sources.mjs` -> PASS: 5000/5000 public skills, 26 pack settings, 22 guides, and 485 pack files.
+6. `npm --prefix web run build` -> PASS, `/packs` static export generated.
+7. `npm run build` -> PASS, TypeScript and MD8 design hook passed.
+8. `git diff --check` -> PASS.
+9. `ai check` exit code 0 and `summary.json.ok=true`; project checks passed except the pre-existing global AI-Fleet `skill_integrity` guard, which reports 3 tampered `dna/capsules/*` entries outside this Foundry public-install surface.
+
+### Closeout
+1. Skills update: N/A - no reusable Codex global skill was introduced; the reusable guard is project script `scripts/audit-public-install-sources.mjs`.
+2. PDCA four-doc sync: completed in PRD, UX map, system architecture, and platform optimization plan.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global operating rule was introduced.
+4. Rolling ledger: updated with the public installability release requirement and anti-regression guard.
+5. Three-end consistency:
+   - Local Foundry: build and public-install audit passed.
+   - GitHub role-pack repo: tag `v2026.05.25.2` points at `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`.
+   - Production Pages: pending this Foundry commit deploy and browser smoke.

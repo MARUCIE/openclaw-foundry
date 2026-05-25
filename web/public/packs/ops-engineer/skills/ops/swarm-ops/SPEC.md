@@ -67,12 +67,11 @@ L1 Agent Registry (A2A Protocol, 233 Agent Cards)
 L0 Substrate (9-node Mesh + OpenClaw Runtime)
 ```
 
-## Key Files
+## Pack Contents
 
-- Engine: `~/Projects/18-agent-matrix/core/swarm/` (6 modules)
-- Data: `~/Projects/18-agent-matrix/data/agent_cards.json` (233 cards)
-- Pheromone: `~/Projects/18-agent-matrix/data/pheromone.db`
-- Architecture: `~/Projects/18-agent-matrix/doc/.../SWARM_UPGRADE_ARCHITECTURE.html`
+- Engine usage is exposed through `ai swarm ...` commands.
+- Agent registry and pheromone state are resolved by the installed OpenClaw runtime.
+- Architecture notes should live in the user's current project docs or role-pack docs after installation.
 
 ## When to Use
 

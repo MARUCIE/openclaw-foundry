@@ -20,7 +20,7 @@
  *   web/public/data/skills.json
  *   web/public/data/skills-categories.json
  *
- * Backups written to web/public/data/_backup-pre-domain-filter/
+ * Backups written outside web/public so local-only sources cannot be deployed.
  *
  * Run after curate-skills.mjs, before prebuild static.
  *
@@ -35,7 +35,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const SKILLS_PATH = join(ROOT, 'web', 'public', 'data', 'skills.json');
 const CATEGORIES_PATH = join(ROOT, 'web', 'public', 'data', 'skills-categories.json');
-const BACKUP_DIR = join(ROOT, 'web', 'public', 'data', '_backup-pre-domain-filter');
+const BACKUP_DIR = join(ROOT, 'out', 'backups', 'skills', '_backup-pre-domain-filter');
 
 const EXCLUDED_CATEGORIES = new Set([
   '区块链 Web3',

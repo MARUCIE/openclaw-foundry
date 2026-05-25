@@ -19,12 +19,14 @@
 | 2026-05-18 | REQ-014 | Auth / Delivery | Email login must only show “sent” after real Resend delivery; missing production email config must fail closed | Completed | `/api/auth/config` exposes capability flags; `/api/auth/request` returns 503 when `RESEND_API_KEY` is absent in production |
 | 2026-05-18 | REQ-015 | Auth / WeChat | WeChat login must not expose a broken jump when Enterprise WeChat OAuth is unconfigured | Completed | Login UI disables WeChat CTA unless `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, and `WECHAT_SECRET` are present |
 | 2026-05-18 | REQ-016 | IA / Routing | Removed platform overview page must not be reachable from production navigation | Completed | `/explore/platforms` route implementation removed; Cloudflare Pages redirects it to `/packs` |
-| 2026-05-25 | REQ-017 | Distribution | All current local role/job configuration packs must be synchronized into a standalone Git repo with local-first installers | Completed | `/Users/mauricewen/Projects/openclaw-role-packs` commit `d17801ac092e2295031c863adad9450dc7476fb5`; 25 packs validated and smoke-installed |
-| 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | Completed | Production `/packs` copy and pack guides use `git clone --depth 1 --branch v2026.05.25 https://github.com/MARUCIE/openclaw-role-packs.git`; Playwright copy smoke confirmed no token URL and no Pages `/packs/<id>/install.sh` command |
+| 2026-05-25 | REQ-017 | Distribution | All current local role/job configuration packs must be synchronized into a standalone Git repo with local-first installers | Completed | `/Users/mauricewen/Projects/openclaw-role-packs` commit `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`; 26 packs validated and smoke-installed from remote tag `v2026.05.25.2` |
+| 2026-05-25 | REQ-018 | Distribution / Production | Installing from a Git address is the safest default for shared role-pack delivery | Completed | Production `/packs` copy and pack guides use `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`; remote tag clone smoke confirmed 26/26 packs install and no local-only catalog source |
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
 | 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | Completed | GitHub Actions deploy run `26383364471` uploaded 437/437 protected payloads to R2 and deployed Pages successfully |
 | 2026-05-25 | REQ-021 | Production / Frontend | Static Pages builds must not emit missing `/api/*` console errors for catalog data that already has `/data/*.json` fallback | Completed | `web/lib/api.ts` now reads static GET data directly when `NEXT_PUBLIC_API_URL` is unset; local static export no longer contains `/api/packs` |
 | 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local checks and production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` passed |
+| 2026-05-25 | REQ-023 | Job Pack / Strategy | The strategic-thinking prompt bundle must become a reusable global Job Pack under `/packs` `定策略`, and data first-level IA must merge `做数据` + `看数据` | Completed | Added `strategy-roundtable-advisor` enriched pack, merged data entry to `做/看数据`, and published standalone role-pack tag `v2026.05.25.2` |
+| 2026-05-25 | REQ-024 | Skill / Pack Installability | Public skill catalog and all role-pack payloads must not expose workstation-only links or backup local catalogs | Completed | `scripts/audit-public-install-sources.mjs` now scans 5000 public skills, 26 settings, 22 guides, 485 pack files, and blocks public `_backup*` data directories |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -36,6 +38,7 @@
 | 2026-05-25 | "别人直接复制安装不了，配置包和本地最新同步并单独建 repo" | Role-pack distribution hardening | Create a local-first standalone pack repo; remote fetch must be opt-in |
 | 2026-05-25 | "继续，从git地址安装是最安全的" | Production install-command hardening | Keep registration gate, but copy a pinned GitHub clone command instead of a Worker token URL |
 | 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against public released-pack availability before allowing a path to be clickable |
+| 2026-05-25 | "把这个skill组合包打包，放到岗位配置包的定策略模块；做数据/看数据合并" | Strategy job-pack packaging + data IA merge | Package existing canonical strategy skills as `strategy-roundtable-advisor`; merge data entry without pretending stub data packs are released |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -60,6 +63,8 @@
 | R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
 | 静态 Pages 环境中，`/packs` 是否应该先请求 `/api/packs` 再回退? | 不应该。未配置 `NEXT_PUBLIC_API_URL` 时，GET 型 catalog 数据应直接读取 `/data/*.json`，否则生产控制台会留下可避免的 404 噪音。 |
 | `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 不可以直接可点。公开推荐和浏览必须共用 `tier !== "stub"` 的已开放口径；没有已开放包的方向只能显示 `即将上线` 或明确空态，不能进入空推荐区。 |
+| `定策略` 应该如何承载复杂战略思维 prompt? | 不要只塞一段系统提示词。应打成 Job Pack：真实 `SKILL.md` 资源、专家/advisor、toolkit、checklist、first-use demo、manifest 和 installer 一起交付，并通过 pack audit 验证。 |
+| `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开点击状态仍由 released-pack availability 决定。 |
 
 ## References
 1. `package.json`
@@ -98,3 +103,6 @@
 34. `scripts/generate-pack-guides.mjs`
 35. `web/lib/api.ts`
 36. `web/app/packs/page.tsx`
+37. `scripts/sync-strategy-roundtable-pack.py`
+38. `web/public/packs/strategy-roundtable-advisor/manifest.json`
+39. `/tmp/pack-audit.json`

@@ -118,3 +118,28 @@
 - [ ] Freeze canonical artifact contract in code and seed pipeline
 - [ ] Demote duplicate catalog paths to cache/staging only
 - [ ] Decide whether recommendation / JIT remains sidecar-only or becomes internal API
+
+## 2026-05-25 Continuation Update (Strategy Roundtable Pack + Data IA Merge)
+
+### Plan
+- [x] Inspect current `/packs` decision-tree and generated role-pack structure
+- [x] Package the global strategic-thinking skill combination as a reusable strategy job pack
+- [x] Merge `做数据` and `看数据` into one first-level data direction
+
+### Do
+- [x] Add `scripts/sync-strategy-roundtable-pack.py`
+- [x] Generate `web/public/packs/strategy-roundtable-advisor/`
+- [x] Wire `strategy-roundtable-advisor` into the `定策略` line on `/packs`
+- [x] Move `data-analyst` into `data-ai` and remove the separate `analyze` first-level card/tab
+- [x] Sync local `openclaw-role-packs` to 26 packs
+
+### Check
+- [x] `python3 scripts/pack-spec-audit.py --out /tmp/pack-audit.json`
+- [x] `npm run build`
+- [x] `cd web && npm run build`
+- [x] Chrome smoke on `http://localhost:3200/packs`: merged data card present, standalone `看数据` absent, `定策略` recommends `战略圆桌顾问`
+- [x] `openclaw-role-packs`: `npm run validate` and `npm run smoke:install`
+
+### Act
+- [x] Sync PRD, UX map, architecture, optimization plan, checklist, task plan, notes, deliverable, and rolling ledger
+- [x] Push/tag `openclaw-role-packs` release `v2026.05.25.2` and verify a fresh GitHub clone installs 26/26 packs

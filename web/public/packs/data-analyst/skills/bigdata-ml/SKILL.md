@@ -3,31 +3,6 @@ name: bigdata-machine-learning
 description: Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.
 ---
 
-## 是什么
-
-帮你把"凭直觉判断"的业务环节，变成"用历史数据训练出来的可解释模型"，让流失预警、风险评分、需求预测这种事不再靠 PM 拍脑袋。配合 SHAP（特征贡献度解释，告诉你模型为什么这么判）让模型结果可向业务方解释，不再是黑盒。
-
-## 怎么用
-
-1. 先把业务问题翻译成"输入特征 → 预测目标"的样子，比如"过去 30 天行为 → 下月是否流失"，目标含糊就先不要训。
-2. 用 scikit-learn（传统机器学习库，覆盖 90% 业务场景）先跑一个最简单的基线模型，看预测准度有没有比拍脑袋强。
-3. 数据量大或要做深度学习（图像/文本/复杂序列）再上 PyTorch Lightning（深度学习训练框架，把样板代码消掉）。
-4. 模型上线前必跑 SHAP 解释，挑 3–5 个特征贡献度最高的因子让业务方过目，确认没有反常识的逻辑。
-5. 留好"模型版本-训练数据-评估指标"三件套留档，下次模型衰减时能立刻定位是数据漂移还是逻辑过期。
-
-## 架构图
-
-```mermaid
-flowchart LR
-    A[业务问题] --> B[特征工程]
-    B --> C[scikit-learn<br/>基线模型]
-    C --> D{效果够?}
-    D -->|否| E[PyTorch Lightning<br/>深度学习]
-    D -->|是| F[SHAP 解释]
-    E --> F
-    F --> G[业务方过目]
-```
-
 # Big Data Machine Learning Toolkit
 
 ## Overview

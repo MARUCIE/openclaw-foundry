@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "pack": "strategy-roundtable-advisor",
+    "source": "AI-Fleet strategic-thinking-frontdoor",
+    "audience": "strategy lead / product executive / business owner / investor"
+  },
+  "memory": {
+    "chunks": 128
+  },
+  "autonomy": {
+    "level": "L2-counselor"
+  },
+  "mcpServers": {}
+}
