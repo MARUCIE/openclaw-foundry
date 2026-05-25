@@ -112,10 +112,10 @@
 ## 数据隐私
 
 - 你的反馈匿名化后才进入 `../baseline-before-after.md` "实测值"列
-- 个人姓名 / 团队信息 仅 Maurice 可见，不进入素材库
+- 个人姓名 / 团队信息 仅项目负责人可见，不进入素材库
 - 反馈用于校准 baseline + 改进后续工具包，不用于绩效评估
 
 ---
 
 AI 训战工作坊 · scenario-planner pack · 业务分析 / 场景规划岗
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

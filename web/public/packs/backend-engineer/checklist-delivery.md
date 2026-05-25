@@ -1,6 +1,6 @@
 # W2 交付 Checklist · 3 阶段
 
-> 维护人：Maurice · workshop date 2026-05-28
+> 维护人：the program owner · workshop date 2026-05-28
 > 3 阶段：T-3（pre）/ T+0（on-site）/ T+7（post）
 > 任一项失败 → 写入 [notes.md](../../doc/00_project/initiative_ai_workshop/notes.md) + 触发回归
 
@@ -63,4 +63,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

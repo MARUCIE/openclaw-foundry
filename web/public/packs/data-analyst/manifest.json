@@ -68,8 +68,8 @@
       "type": "agent"
     },
     {
-      "src": "agents/advisor-meadows.md",
-      "dst": "agents/advisor-meadows.md",
+      "src": "agents/advisor-systems-thinking.md",
+      "dst": "agents/advisor-systems-thinking.md",
       "type": "agent"
     }
   ]

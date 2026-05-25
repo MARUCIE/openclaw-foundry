@@ -195,4 +195,4 @@ RECENT TASKS：{your_recent_tasks}（≥10 项 + 耗时）
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

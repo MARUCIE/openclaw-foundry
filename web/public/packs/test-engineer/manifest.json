@@ -103,13 +103,13 @@
       "type": "skill"
     },
     {
-      "src": "agents/advisor-brooks.md",
-      "dst": "agents/advisor-brooks.md",
+      "src": "agents/advisor-project-complexity.md",
+      "dst": "agents/advisor-project-complexity.md",
       "type": "agent"
     },
     {
-      "src": "agents/advisor-catmull.md",
-      "dst": "agents/advisor-catmull.md",
+      "src": "agents/advisor-team-culture.md",
+      "dst": "agents/advisor-team-culture.md",
       "type": "agent"
     }
   ],

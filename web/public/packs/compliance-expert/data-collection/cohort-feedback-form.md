@@ -60,6 +60,6 @@ prompt 是否让你为了快而牺牲了某些质量？例：
 
 ---
 
-提交后发送至：maurice_wen@proton.me
+提交后发送至：project-owner contact channel
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

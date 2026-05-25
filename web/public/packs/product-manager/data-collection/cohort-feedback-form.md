@@ -112,9 +112,9 @@
 ## 数据隐私
 
 - 你的反馈匿名化后才进入 [baseline-before-after.md](../baseline-before-after.md) "实测值"列
-- 个人姓名 / 团队信息 仅 Maurice 可见，不进入素材库
+- 个人姓名 / 团队信息 仅项目负责人可见，不进入素材库
 - 反馈用于校准 baseline + 改进后续 wave，不用于绩效评估
 
 ---
 
-Owner: Maurice | maurice_wen@proton.me
+Owner: Agent Foundry Team

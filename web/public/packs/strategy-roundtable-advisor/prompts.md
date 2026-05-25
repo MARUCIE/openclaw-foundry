@@ -23,7 +23,7 @@
 
 ```text
 把当前问题匹配到 cognitive-skeleton 的 9 类场景。
-选择 2 个 Munger lens 和 2 个 PM framework。
+选择 2 个 Decision Framework lens 和 2 个 PM framework。
 说明组合顺序：先理解为什么，再决定怎么做。
 输出：3-5 个模型、适用理由、使用顺序。
 ```
@@ -150,4 +150,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

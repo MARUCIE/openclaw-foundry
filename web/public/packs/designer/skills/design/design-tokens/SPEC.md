@@ -66,4 +66,4 @@ flowchart LR
 - Input: "finance-tax compliance dashboard, restrained enterprise tone"
 - Output: `tokens.css`, component-state token table, and a drift audit for current screen.
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

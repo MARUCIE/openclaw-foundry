@@ -78,4 +78,4 @@ flowchart LR
 - Input: finance dashboard screenshot notes + enterprise token set.
 - Output: hierarchy 3 / spacing 4 / type 4 / color 5 / affordance 3 / states 2 / responsive 3, plus 3 fixes tied to card header, filter state, and mobile table behavior.
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

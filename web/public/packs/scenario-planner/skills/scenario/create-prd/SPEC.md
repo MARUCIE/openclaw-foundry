@@ -107,4 +107,4 @@ A well-structured PRD clearly communicates the what, why, and how of your produc
 ### Further Reading
 
 - [How to Write a Product Requirements Document? The Best PRD Template.](https://www.productcompass.pm/p/prd-template)
-- [A Proven AI PRD Template by Miqdad Jaffer (Product Lead @ OpenAI)](https://www.productcompass.pm/p/ai-prd-template)
+- [A Proven AI PRD Template from AI PRD practice](https://www.productcompass.pm/p/ai-prd-template)

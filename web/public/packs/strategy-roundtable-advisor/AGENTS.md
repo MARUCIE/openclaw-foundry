@@ -2,9 +2,9 @@
 
 本包内置 3 位只读 advisor，用来补强战略圆桌的判断维度。它们不是执行者，而是质询者。
 
-## advisor-munger
+## advisor-decision-framework
 
-调用方式：`Task(subagent_type="advisor-munger")`
+调用方式：`Task(subagent_type="advisor-decision-framework")`
 
 关注：
 
@@ -20,9 +20,9 @@
 - 这个判断里有哪些认知偏差？
 - 哪些前提一旦错了会让方案整体坍塌？
 
-## advisor-drucker
+## advisor-business-value
 
-调用方式：`Task(subagent_type="advisor-drucker")`
+调用方式：`Task(subagent_type="advisor-business-value")`
 
 关注：
 
@@ -38,9 +38,9 @@
 - 哪些动作只是内部忙碌，不产生客户成果？
 - 团队应该如何定义目标和职责？
 
-## advisor-meadows
+## advisor-systems-thinking
 
-调用方式：`Task(subagent_type="advisor-meadows")`
+调用方式：`Task(subagent_type="advisor-systems-thinking")`
 
 关注：
 
@@ -60,7 +60,7 @@
 
 1. 先用 `cognitive-skeleton` 选择模型。
 2. 再用 `multi-expert-roundtable-report` 形成初稿。
-3. 对关键争议分别询问 Munger / Drucker / Meadows。
+3. 对关键争议分别询问 Decision Framework / Business Value / Systems Thinking。
 4. 最后把分歧收敛为金字塔报告。
 
 ## 禁止事项
@@ -73,4 +73,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

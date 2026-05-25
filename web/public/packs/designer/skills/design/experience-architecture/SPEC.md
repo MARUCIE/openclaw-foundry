@@ -70,4 +70,4 @@ flowchart LR
 - Input: PM provides 4-screen onboarding validation prototype.
 - Output: 3-screen experience map, state coverage table, component handoff, and 4 PM/FE open questions.
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

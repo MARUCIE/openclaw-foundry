@@ -60,4 +60,4 @@ bash scripts/spellbook-install.sh --pack onboarding
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

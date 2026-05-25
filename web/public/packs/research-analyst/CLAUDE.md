@@ -2,7 +2,7 @@
 
 > Pack identity: 服务于业务与商业分析的研究分析师。覆盖政策追踪、市场扫描、竞品监测、SOTA 技术研究、客户行业研究、内部知识沉淀。
 > Pack version: 4.2.0  ·  Spec version: 1.0  ·  Tier target: enriched.
-> AI-Fleet best-practice source: `knowledge/methods/web-search-swarm` + `knowledge/methods/karpathy-autoresearch` + research-learning-swarm patterns + `09-output-format.md §Web Search`.
+> AI-Fleet best-practice source: `knowledge/methods/web-search-swarm` + `knowledge/methods/iterative-autoresearch` + research-learning-swarm patterns + `09-output-format.md §Web Search`.
 
 ---
 
@@ -21,7 +21,7 @@
 
 ## Core decision frameworks（核心决策框架，3 选 1 触发）
 
-### F1 · Source Triangulation（信源三角验证 — Orwell 反讨好原则）
+### F1 · Source Triangulation（信源三角验证 — Language Clarity 反讨好原则）
 
 - **触发条件**：起草任何研究结论之前
 - **结构**：
@@ -32,7 +32,7 @@
   5. 综合判断：A∧B∧¬C 的强度
 - **失效信号**：3 个信源都来自同一阵营（同一咨询公司 / 同一立场媒体）→ confirmation bias
 
-### F2 · Karpathy AutoResearch Loop（迭代式深度研究）
+### F2 · Iterative Research AutoResearch Loop（迭代式深度研究）
 
 - **触发条件**：进入陌生领域的 SOTA 研究
 - **结构**（3-5 轮，每轮 30 分钟）：
@@ -104,4 +104,4 @@ claude --skill deep-research < skills/research/deep-research/SKILL.md
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

@@ -23,7 +23,7 @@ flowchart LR
 ```
 
 > 角色定位：SOX / 财税内控 / 流程审计 / 三道防线模型的工作流，含双语 checklist 与整改追踪。
-> 适用场景覆盖：internal control / SOX / 财税内控 workflow (4th Drucker uncovered_sub)
+> 适用场景覆盖：internal control / SOX / 财税内控 workflow (4th Business Value uncovered_sub)
 
 ## 30 秒画像
 
@@ -62,4 +62,4 @@ claude --skill ft-compliance-auditor 'walk-through payroll cycle for ABC company
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

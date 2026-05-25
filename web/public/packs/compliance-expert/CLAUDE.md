@@ -32,7 +32,7 @@
   6. 第 5 个 Why（根因）→ 没有「政策变更→ SOP 同步」的自动触发机制
 - **输出**：根因 + 制度补丁 + 后续监控指标，不止步于「对责任人罚款」
 
-### F2 · Inversion 反向风控建模（Munger 反向思维）
+### F2 · Inversion 反向风控建模（Decision Framework 反向思维）
 - **触发条件**：起草新内控制度 / 评估新业务线合规风险
 - **结构**：先问「我要怎么让这个制度失败」，再倒推「需要哪些控制点防止失败发生」
 - **5 个反向问题模板**：
@@ -92,4 +92,4 @@ claude --skill ft-compliance-checklist < skills/compliance/ft-compliance-checkli
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

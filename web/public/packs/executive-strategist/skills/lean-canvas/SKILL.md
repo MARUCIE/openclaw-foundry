@@ -121,7 +121,7 @@ Your task is to create a comprehensive Lean Canvas that outlines the business hy
 
 **Lean Canvas vs Business Model Canvas vs Startup Canvas**:
 
-Lean Canvas (Ash Maurya) is a startup-focused adaptation of the Business Model Canvas that replaces Partners/Activities/Resources with Problem/Solution/Unfair Advantage. It's fast and hypothesis-driven, but has known limitations:
+Lean Canvas (Lean Canvas literature) is a startup-focused adaptation of the Business Model Canvas that replaces Partners/Activities/Resources with Problem/Solution/Unfair Advantage. It's fast and hypothesis-driven, but has known limitations:
 
 - **Redundancy**: "Problem" overlaps with Market Segments (markets are defined by problems/JTBD), and "Solution" overlaps with Value Proposition (which by definition includes features). This can create confusion about what goes where.
 - **Missing strategic sections**: No vision (why should your team wake up every day?), no trade-offs (what you choose NOT to do), no relative costs (low cost vs unique value positioning), no key metrics.
@@ -130,7 +130,7 @@ Lean Canvas (Ash Maurya) is a startup-focused adaptation of the Business Model C
 
 **When to use Lean Canvas**: Quick hypothesis testing when you need speed over completeness. Best as a brainstorming tool, not a strategy document.
 
-**Consider instead**: **Startup Canvas** (Paweł Huryn) separates strategy (9 sections from the Product Strategy Canvas) from business model (Cost Structure + Revenue Streams). Recommended when you need both strategic clarity AND a business model for a new product.
+**Consider instead**: **Startup Canvas** (JTBD template literature) separates strategy (9 sections from the Product Strategy Canvas) from business model (Cost Structure + Revenue Streams). Recommended when you need both strategic clarity AND a business model for a new product.
 
 ## Notes
 - The Lean Canvas is designed for rapid hypothesis testing

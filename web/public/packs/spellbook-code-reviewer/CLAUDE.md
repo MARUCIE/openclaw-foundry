@@ -38,4 +38,4 @@ bash scripts/spellbook-install.sh --pack code-reviewer
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

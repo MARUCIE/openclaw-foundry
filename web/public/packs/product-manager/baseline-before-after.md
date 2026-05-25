@@ -2,7 +2,7 @@
 
 > 第 1 波（Session 1 · Calendar W1 · 2026-05-21 workshop）的实证锚点。
 > 所有提示词、SOP、Skill 包、文档模板都必须能在本表中找到对应的"节省时间"或"质量提升"指标。
-> 维护人：Maurice（AI 专家）· 单位 cohort 在 T-3 工具空投时收到此表。
+> 维护人：the program owner（AI 专家）· 单位 cohort 在 T-3 工具空投时收到此表。
 
 ## How to read
 
@@ -60,4 +60,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

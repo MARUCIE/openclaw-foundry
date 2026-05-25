@@ -79,6 +79,6 @@
     }
   ],
   "deprecated_alias_of": "backend-engineer",
-  "deprecation_note": "spellbook 版本于 2026-05-16 三轮蜂群审计中被 Hara 共识合并入 backend-engineer 作为 canonical 入口",
+  "deprecation_note": "spellbook 版本于 2026-05-16 三轮蜂群审计中被 Design Simplicity 共识合并入 backend-engineer 作为 canonical 入口",
   "deprecation_effective_date": "2026-05-16"
 }

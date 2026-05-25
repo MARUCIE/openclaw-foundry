@@ -4,8 +4,8 @@
 
 ## Advisors
 
-- `advisor-jobs`: Focus, saying no, and one-sentence product clarity. Use when a design has too many competing priorities.
-- `advisor-hara`: Simplicity, emptiness, rhythm, and reduction. Use when a design feels heavy, decorative, or visually noisy.
+- `advisor-product-experience`: Focus, saying no, and one-sentence product clarity. Use when a design has too many competing priorities.
+- `advisor-design-simplicity`: Simplicity, emptiness, rhythm, and reduction. Use when a design feels heavy, decorative, or visually noisy.
 
 ## Collaboration Rules
 
@@ -13,4 +13,4 @@
 - Designer owns experience architecture, visual hierarchy, token discipline, states, accessibility, and handoff quality.
 - Frontend engineer owns production implementation and technical validation.
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

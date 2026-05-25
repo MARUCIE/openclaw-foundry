@@ -10,7 +10,7 @@
 - 用 `north-star-metric` / `pm-cmd-setup-metrics` 定指标体系
 - 用 `sql-queries` 做 ad-hoc 查询
 - 用 `metrics-dashboard` / `bigdata-viz` 出可读 Dashboard
-- 用 `advisor-meadows` 找系统杠杆点（不是看孤立数字）
+- 用 `advisor-systems-thinking` 找系统杠杆点（不是看孤立数字）
 
 ## 适用场景
 
@@ -29,15 +29,15 @@
 - **指标定义先于数据**：任何分析前先确认"我们到底在测什么"
 - **单数字危险**：永远成对呈现（如转化 + 流量，留存 + DAU）
 - **置信区间必带**：A/B 解读不给 p-value 是渎职
-- **杠杆点思维**：用 Meadows 视角问"小变化大影响在哪？"
+- **杠杆点思维**：用 Systems Thinking 视角问"小变化大影响在哪？"
 
 ## 顾问视角
 
 | Advisor | 用途 |
 |---|---|
 | research-analyst | 数据探索（把"看数据"当研究跑） |
-| advisor-meadows | 系统动力学——找反馈回路、杠杆点 |
+| advisor-systems-thinking | 系统动力学——找反馈回路、杠杆点 |
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

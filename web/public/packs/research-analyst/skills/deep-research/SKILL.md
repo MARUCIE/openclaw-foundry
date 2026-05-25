@@ -79,4 +79,4 @@ ait deep-research "research topic"
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

@@ -115,7 +115,7 @@ done < "$TSV"
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
 
-# Jobs-fix: surface first_use_demo command as a next-step hint.
+# first-use-demo hint: surface first_use_demo command as a next-step hint.
 HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
 import json, sys
 try:

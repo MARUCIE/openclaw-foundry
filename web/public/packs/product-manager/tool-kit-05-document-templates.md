@@ -334,4 +334,4 @@ Author: {你的名字} | {你的邮箱}
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

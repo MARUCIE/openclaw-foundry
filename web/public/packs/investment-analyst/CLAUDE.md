@@ -62,4 +62,4 @@ claude --skill valuation 'run DCF on company X with 5y forecast'
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

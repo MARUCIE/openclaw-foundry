@@ -1,6 +1,6 @@
 # W4 · 交付 Checklist · T-3 / T+0 / T+7 三时点共 30 项
 
-> Pre-flight + 当天 + 复盘 checklist。cohort + 引导员 + Maurice（程序负责人）分工。完成的打勾；未勾的滚动到 Buffer 1（日历 W5）工具包迭代。
+> Pre-flight + 当天 + 复盘 checklist。cohort + 引导员 + the program owner（程序负责人）分工。完成的打勾；未勾的滚动到 Buffer 1（日历 W5）工具包迭代。
 
 ## T-3 · 2026-06-08 周一 · cohort 收到工具包
 
@@ -49,7 +49,7 @@
 
 ## T+1 至 T+7 · 日 / 周复盘
 
-负责人：cohort + 程序负责人（Maurice）
+负责人：cohort + 程序负责人
 
 ### 次日（T+1，2026-06-12 周五）
 - [ ] 30 分钟 cohort 复盘，Zoom / 企业微信
@@ -59,20 +59,20 @@
 ### 完课一周（T+7，2026-06-18 周四）
 - [ ] cohort 把实测时长填到 `data-collection/baseline-actual.csv`（10 行至少填 5 行）
 - [ ] cohort 填 `data-collection/cohort-feedback-form.md` 的 T+7 段
-- [ ] Maurice 跑 `python3 ~/00-AI-Fleet/core/harness/quality_scorer.py --wave W4` 对 cohort 产出（能自动评的测试代码 / 套件）做 lint/tests/docs/hygiene/structural 评级
-- [ ] Maurice 算节省 delta：实测 vs `baseline-before-after.md` 目标 — gap > 30% 的列入下个 cycle
+- [ ] the program owner 跑 `python3 ~/00-AI-Fleet/core/harness/quality_scorer.py --wave W4` 对 cohort 产出（能自动评的测试代码 / 套件）做 lint/tests/docs/hygiene/structural 评级
+- [ ] the program owner 算节省 delta：实测 vs `baseline-before-after.md` 目标 — gap > 30% 的列入下个 cycle
 
 ### 签发触发条件
 - [ ] 实测节省 ≥ 目标 60% → `wave-digest.md` 里 W4 标 GREEN
 - [ ] 实测节省 30-59% → 标 YELLOW + 自动入 Buffer 1 工具包迭代队列
-- [ ] 实测节省 < 30% → 标 RED + Maurice + 引导员在 W5 启动前做 1 小时根因 review
+- [ ] 实测节省 < 30% → 标 RED + the program owner + 引导员在 W5 启动前做 1 小时根因 review
 
 ## 跨 wave 审计（T+7 后做一次）
 
-- [ ] 把 `wave-digest.md` 的 W4 块和 W1 + W2 + W3 块比对 — 有没有 Maurice 该提升到全局 CANONICAL.md 的跨 wave 模式
+- [ ] 把 `wave-digest.md` 的 W4 块和 W1 + W2 + W3 块比对 — 有没有 the program owner 该提升到全局 CANONICAL.md 的跨 wave 模式
 - [ ] 若 W4 cohort 反馈 "Mermaid SOP 太密"，在 W5 生成前把 `_template/CANONICAL.md` axis 3 改成 ≤ 20 节点（不是 ≤ 30）
 - [ ] 校验 cohort 产出中零 PII / 生产数据泄露（隐私底线 — 不容妥协）
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

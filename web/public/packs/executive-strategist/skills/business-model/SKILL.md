@@ -130,7 +130,7 @@ Your task is to create a comprehensive Business Model Canvas that outlines how t
 
 **Business Model Canvas vs Lean Canvas vs Startup Canvas**:
 
-Business Model Canvas (Strategyzer, Alexander Osterwalder) is the most widely used canvas framework. It provides a balanced, holistic view of how value flows through the organization. However, it has known limitations for product strategy:
+Business Model Canvas (Strategyzer) is the most widely used canvas framework. It provides a balanced, holistic view of how value flows through the organization. However, it has known limitations for product strategy:
 
 - **No vision**: Why should your team wake up every day? BMC doesn't address motivation or aspiration.
 - **No Can't/Won't test**: What stops competitors from copying you? BMC lacks a defensibility section that goes beyond listing resources.
@@ -141,8 +141,8 @@ Business Model Canvas (Strategyzer, Alexander Osterwalder) is the most widely us
 **When to use BMC**: Established businesses, corporate strategy, investor materials where you need to articulate how all operational pieces connect.
 
 **Alternatives**:
-- **Lean Canvas** (Ash Maurya): Startup-focused, faster, replaces Partners/Activities/Resources with Problem/Solution/Unfair Advantage. Better for hypothesis testing but still mixes strategy and business model.
-- **Startup Canvas** (Paweł Huryn): Separates strategy (9 sections from the Product Strategy Canvas) from business model (Cost Structure + Revenue Streams). Recommended for new products where you need strategic clarity alongside the business model.
+- **Lean Canvas** (Lean Canvas literature): Startup-focused, faster, replaces Partners/Activities/Resources with Problem/Solution/Unfair Advantage. Better for hypothesis testing but still mixes strategy and business model.
+- **Startup Canvas** (JTBD template literature): Separates strategy (9 sections from the Product Strategy Canvas) from business model (Cost Structure + Revenue Streams). Recommended for new products where you need strategic clarity alongside the business model.
 
 ## Notes
 - The Business Model Canvas provides a holistic view of how value flows through the organization

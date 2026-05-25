@@ -147,7 +147,7 @@ A beachhead segment analysis including:
 - Post-beachhead expansion roadmap
 
 ## Framework
-Based on Geoffrey Moore's beachhead market strategy in "Crossing the Chasm." Focuses on finding the smallest winnable, referenceable market that validates PMF and enables expansion.
+Based on beachhead market strategy in "Crossing the Chasm." Focuses on finding the smallest winnable, referenceable market that validates PMF and enables expansion.
 
 ## Tips
 - Start absurdly specific. A niche beachhead is better than a vague mass market

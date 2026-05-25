@@ -9,10 +9,10 @@ advisor 通过 `Task(subagent_type=...)` 显式调用。
 
 - `/strategy:swot` — SWOT 模板一键填充
 - `/strategy:advisor-council` — 调起 5 advisor 并行评议
-- `/strategy:inversion` — 强制走 Munger 的反向论证流程
+- `/strategy:inversion` — 强制走 Decision Framework 的反向论证流程
 
 不优先实现，因为 skill 自动触发 + Task 显式调用已经覆盖了 95% 用例。
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

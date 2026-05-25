@@ -14,7 +14,7 @@ allowed-tools: Bash, Read, Grep, Glob
 2. 拉一下 PR 的 CI（持续集成）状态和 review 状态，确认所有红灯都已经变绿、所有 reviewer 都已经签字。
 3. 打开 Vercel 预览链接，至少跑一遍核心流程（登录、关键页面、关键写入），确认前端体感和测试环境一致。
 4. 在边缘 Worker 上跑 `wrangler deploy --dry-run` 做一次预演，把鉴权、路由、环境变量这些容易踩雷的地方提前暴露出来。
-5. 走 HITL（人工介入）门禁：只有 Maurice 或受权 owner 拍板才能 promote 到生产，预览阶段任何人都可以试，生产发布只有人能按。
+5. 走 HITL（人工介入）门禁：只有 the program owner 或受权 owner 拍板才能 promote 到生产，预览阶段任何人都可以试，生产发布只有人能按。
 
 ## 架构图
 

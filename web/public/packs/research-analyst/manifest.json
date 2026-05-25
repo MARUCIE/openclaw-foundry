@@ -25,9 +25,9 @@
     { "src": "skills/ljg-paper-flow/SKILL.md", "dst": "skills/research/ljg-paper-flow/SKILL.md", "type": "skill" },
     { "src": "skills/paper-write/SKILL.md", "dst": "skills/research/paper-write/SKILL.md", "type": "skill" },
     { "src": "skills/web-multi-search/SKILL.md", "dst": "skills/research/web-multi-search/SKILL.md", "type": "skill" },
-    { "src": "skills/karpathy-autoresearch/SKILL.md", "dst": "skills/research/karpathy-autoresearch/SKILL.md", "type": "skill" },
+    { "src": "skills/iterative-autoresearch/SKILL.md", "dst": "skills/research/iterative-autoresearch/SKILL.md", "type": "skill" },
     { "src": "agents/research-analyst.md", "dst": "agents/research-analyst.md", "type": "agent" },
-    { "src": "agents/advisor-orwell.md", "dst": "agents/advisor-orwell.md", "type": "agent" },
-    { "src": "agents/advisor-drucker.md", "dst": "agents/advisor-drucker.md", "type": "agent" }
+    { "src": "agents/advisor-language-clarity.md", "dst": "agents/advisor-language-clarity.md", "type": "agent" },
+    { "src": "agents/advisor-business-value.md", "dst": "agents/advisor-business-value.md", "type": "agent" }
   ]
 }

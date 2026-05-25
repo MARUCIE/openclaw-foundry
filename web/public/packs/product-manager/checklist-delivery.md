@@ -17,7 +17,7 @@
 - [ ] T-2 (周二)：cohort 已选定本周要做的 1 个真实任务（不要工作坊现场拍脑袋）
 - [ ] T-1 (周三)：cohort 已 dry-run 至少 1 条 prompt（族 1 任一 D 类）并把结果发到群
 
-### Pre-3 · 物料准备（facilitator + Maurice）
+### Pre-3 · 物料准备（facilitator + the program owner）
 
 - [ ] T-1 (周三)：SOP 流程图打印 A2 海报上墙（workshop 现场）
 - [ ] T-1 (周三)：评审录音设备 / 屏幕共享通道已测试
@@ -49,7 +49,7 @@
 
 ### Post-1 · T+1 即时回顾（2026-05-22 周五 · 30 min）
 
-- [ ] cohort liaison + Maurice 30 min 视频会议（必录）
+- [ ] cohort liaison + the program owner 30 min 视频会议（必录）
 - [ ] 回写 [wave-digest.md](../../doc/wave-digest.md) W1 段的 Worked / Broke and patched / One advice
 - [ ] 录音链接存到 wave-digest.md W1 段的 Recording 字段
 - [ ] W2 cohort liaison 提名（_[待 D2 命名]_ 此时填名）
@@ -99,4 +99,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

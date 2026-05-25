@@ -15,13 +15,12 @@ By 2026, "traditional product manager" is no longer a viable role description. I
 
 **Every PM is now an AI PM. The only variable is whether you have realized it.**
 
-What this looks like in the labor market — observations from Maurice's network of PM peers and hiring conversations (2024 H2 — 2026 H1):
+What this looks like in the labor market — observations from the program owner network of PM peers and hiring conversations (2024 H2 — 2026 H1):
 
 - PRDs that took 3 days for the same PM 18 months ago now take 30 minutes when the same PM uses Cursor + a stable prompt template. Seniors who cannot keep pace are either repositioning to ops, or quietly leaving.
-- Interview loops in 2-3 AI-native firms Maurice has direct knowledge of have started requiring a working prototype shipped during the interview window, built with AI tools, within a fixed timebox.
-- Tutorials that explain "how a PM works" written before mid-2024 already feel outdated when Maurice compares them against how the strongest 2026 PMs in his network actually operate.
-
-> *Source disclosure: these are Maurice's lived observations from PMs in his network (estimate ~50-80 people across 3 companies + adjacent hiring conversations) and his own delivery work. They are NOT drawn from a published statistical survey. If the pattern fails to predict what you see in your own market in 6 months, escalate — the model may be local to Maurice's network, not universal.*
+- Interview loops in 2-3 AI-native firms the program owner has direct knowledge of have started requiring a working prototype shipped during the interview window, built with AI tools, within a fixed timebox.
+- Tutorials that explain "how a PM works" written before mid-2024 already feel outdated when the program owner compares them against how the strongest 2026 PMs in his network actually operate.
+> Source disclosure: internal cohort observations; validate against the target market before reuse.
 
 ## 3. AI PM vs Traditional PM — 7 Differences
 
@@ -105,16 +104,16 @@ For each of the 3 criteria, rate yourself on the Dreyfus 5-level scale.
 ## 6. How to Use This Document
 
 - **T-1 (24h before workshop)**: read this once. Self-score §5 honestly. Then fill `cohort-profile-baseline.csv` (different artifact — that one tracks behavioral facts, not self-scores)
-- **T+0 (workshop day)**: Maurice has not seen your scores. The workshop is calibrated to lift the weakest dimension first
-- **T+30 (1 month post-workshop)**: re-read. Re-score. If no movement, escalate to Maurice for 1:1 diagnostic
+- **T+0 (workshop day)**: the program owner has not seen your scores. The workshop is calibrated to lift the weakest dimension first
+- **T+30 (1 month post-workshop)**: re-read. Re-score. If no movement, escalate to the program owner for 1:1 diagnostic
 - **Quarterly thereafter**: repeat the score. The line should bend upward
 
 ## 7. Anti-Patterns — How NOT to Use This
 
 - **Do not share your score with others until you trust them deeply.** The scores are a private instrument, not a credential
 - **Do not optimize the score.** The score is downstream of the work. Optimizing the score directly is Goodhart's Law in action
-- **Do not accept the model uncritically.** If after 6 months these 3 criteria do not predict who is producing valuable work, the model is wrong — and Maurice should hear about it
+- **Do not accept the model uncritically.** If after 6 months these 3 criteria do not predict who is producing valuable work, the model is wrong — and the program owner should hear about it
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

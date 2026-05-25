@@ -50,4 +50,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

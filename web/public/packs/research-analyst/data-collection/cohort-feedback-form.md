@@ -49,6 +49,6 @@ Top 3 排序:
 
 ---
 
-提交至 maurice_wen@proton.me
+提交至 project-owner contact channel
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

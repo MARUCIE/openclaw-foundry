@@ -218,7 +218,7 @@
 - [ ] 所有 P0 套件绿
 - [ ] 所有合规断言绿
 - [ ] 无新增 flaky test
-- [ ] Maurice / tech lead 签发（仅 P0 合规 gate）
+- [ ] the program owner / tech lead 签发（仅 P0 合规 gate）
 
 ---
 拟稿人：<你的名字> · CI 运行：<URL> · 签发：<名字 + 日期>
@@ -312,4 +312,4 @@ DO NOT：
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

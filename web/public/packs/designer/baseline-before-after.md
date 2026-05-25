@@ -24,7 +24,7 @@
 | 7 | Aesthetic probe | S3 | 1.0 | 0.2 | 80 | 7 dimensions scored |
 | 8 | Top 3 fix plan | S3 | 3.0 | 0.8 | 73 | component/token/state bound |
 | 9 | Responsive design QA | S3 | 4.0 | 1.0 | 75 | mobile + desktop checked |
-| 10 | Quarterly design system refresh | S3 | 12.0 | 4.0 | 67 | Hara + Jobs review |
+| 10 | Quarterly design system refresh | S3 | 12.0 | 4.0 | 67 | Design Simplicity + Product Experience review |
 
 **Baseline total**: 38.5 h / month · **Target**: 10.5 h / month · **Saved**: 72.7%
 
@@ -38,4 +38,4 @@
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

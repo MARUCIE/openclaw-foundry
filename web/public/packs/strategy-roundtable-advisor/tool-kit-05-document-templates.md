@@ -13,7 +13,7 @@
 ## Model Routing Sheet
 
 - **Matched scenario:**
-- **Munger lenses:**
+- **Decision Framework lenses:**
 - **PM frameworks:**
 - **Sequence:**
 - **Expected output:**

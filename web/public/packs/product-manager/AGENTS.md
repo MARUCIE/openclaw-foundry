@@ -19,14 +19,14 @@
 
 | Advisor | 关注点 | 调用 |
 |---|---|---|
-| advisor-jobs | 用户体验、设计卓越、用户惊喜 | `Task(subagent_type="advisor-jobs")` |
-| advisor-hara | 系统极简、结构清晰、空无哲学 | `Task(subagent_type="advisor-hara")` |
-| advisor-catmull | 创意文化、心理安全、坦诚反馈 | `Task(subagent_type="advisor-catmull")` |
+| advisor-product-experience | 用户体验、设计卓越、用户惊喜 | `Task(subagent_type="advisor-product-experience")` |
+| advisor-design-simplicity | 系统极简、结构清晰、空无哲学 | `Task(subagent_type="advisor-design-simplicity")` |
+| advisor-team-culture | 创意文化、心理安全、坦诚反馈 | `Task(subagent_type="advisor-team-culture")` |
 
 ### 推荐三家并行评议
 
 ```python
-Task(subagent_type="advisor-jobs",    prompt="评议这个落地页的首屏体验")
-Task(subagent_type="advisor-hara",    prompt="评议这个落地页的首屏体验")
-Task(subagent_type="advisor-catmull", prompt="评议这个落地页的首屏体验")
+Task(subagent_type="advisor-product-experience",    prompt="评议这个落地页的首屏体验")
+Task(subagent_type="advisor-design-simplicity",    prompt="评议这个落地页的首屏体验")
+Task(subagent_type="advisor-team-culture", prompt="评议这个落地页的首屏体验")
 ```

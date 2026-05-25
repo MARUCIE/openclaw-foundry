@@ -65,7 +65,7 @@ cohort 不需要懂工程，只需要把下方的整段配置粘贴到 `CLAUDE.m
 ## Swarm Mode 默认开
 
 - 触发关键词：策略、方向、roadmap、竞品对比、定位、增长
-- 默认蜂群：3 expert（McKinsey 战略 + Sequoia VC + Buffett 长期）
+- 默认蜂群：3 expert（McKinsey 战略 + Sequoia VC + Strategic Focus 长期）
 - 输出：HTML 报告（McKinsey Blue 风格）+ MD 摘要
 
 ## 输出规范（2 份制）
@@ -118,12 +118,12 @@ PROJECT_ROOT/
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team
 ```
 
 ## 配置安装步骤
 
-1. **复制**：把上方代码块（从 `# CLAUDE.md — ...` 到底部 `Maurice | ...` 之间）整段复制
+1. **复制**：把上方代码块（从 `# CLAUDE.md — ...` 到底部 `the program owner | ...` 之间）整段复制
 2. **粘贴**：到你自己项目的根目录，新建文件 `CLAUDE.md`，粘贴
 3. **校验**：打开 Claude Code 终端，输入"你能看到我的 CLAUDE.md 吗？描述里写的 Role 是什么？"
 4. **验证 ROUNDTRIP**：AI 应该回答"产品经理 / 需求分析岗助手"。如果不是，说明 CLAUDE.md 没被加载，检查文件路径
@@ -213,4 +213,4 @@ Rev 1 把 CLAUDE.md 当作纯文本规范；Rev 2 让它变成"运行时入口" 
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

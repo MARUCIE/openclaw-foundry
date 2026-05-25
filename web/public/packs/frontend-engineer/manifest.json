@@ -103,13 +103,13 @@
       "type": "skill"
     },
     {
-      "src": "agents/advisor-jobs.md",
-      "dst": "agents/advisor-jobs.md",
+      "src": "agents/advisor-product-experience.md",
+      "dst": "agents/advisor-product-experience.md",
       "type": "agent"
     },
     {
-      "src": "agents/advisor-hara.md",
-      "dst": "agents/advisor-hara.md",
+      "src": "agents/advisor-design-simplicity.md",
+      "dst": "agents/advisor-design-simplicity.md",
       "type": "agent"
     }
   ],

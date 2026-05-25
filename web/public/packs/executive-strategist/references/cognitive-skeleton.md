@@ -1,21 +1,21 @@
 # Cognitive Skeleton -- AI-Fleet Thinking Lattice
 
-> 211 models = 111 Munger mental models (HOW to think) + 100 PM frameworks (WHAT to do)
+> 211 models = 111 Decision Framework mental models (HOW to think) + 100 PM frameworks (WHAT to do)
 > Organized by decision scenario, not by source. Load detail files on demand.
 
 ## Sources
-- **Munger**: `knowledge/models/munger/01-08*.md` (8 files, from EPUB "芒格100模型 Deep Research报告")
+- **Decision Framework**: `knowledge/models/munger/01-08*.md` (8 files, from EPUB "决策框架100模型 Deep Research报告")
 - **PM**: `knowledge/models/pmframes/01-07*.md` (7 files, from pmframe.works)
 
 ---
 
 ## Scenario Routing Table
 
-When facing a decision, find your scenario below. Each row maps to Munger lenses (understand WHY) and PM tools (execute HOW).
+When facing a decision, find your scenario below. Each row maps to Decision Framework lenses (understand WHY) and PM tools (execute HOW).
 
 ### 1. Understanding Users
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Don't know what users want | #007 Map≠Territory, #078 Narrative | #01 Design Thinking, #04 JTBD |
 | Assumptions about user behavior | #082 Overgeneralize, #076 Representativeness | #05 Interview, #08 Contextual Inquiry |
@@ -24,17 +24,17 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ### 2. Defining Problems
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Symptom vs root cause | #001 Inversion, #032 Irreducibility | #14 5-Why, #20 RCA |
 | Complex multi-factor problem | #044 Complex Adaptive Systems, #029 Chaos | #21 Cynefin, #18 Iceberg |
 | Problem too vague | #004 Occam's Razor, #003 Competence Circle | #16 POV Statement, #15 HMW |
 | Macro environment impact | #006 Second-Order Thinking, #033 Tragedy of Commons | #27 PESTLE, #28 SWOT |
-| Industry structure analysis | #025 Scale, #040 Network Effects | #30 Porter's Five Forces, #29 Competitive |
+| Industry structure analysis | #025 Scale, #040 Network Effects | #30 Five Forces, #29 Competitive |
 
 ### 3. Generating Solutions
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Stuck, no new ideas | #013 Randomness, #064 Exaptation | #33 Reverse Brainstorm, #34 Crazy 8s |
 | Need systematic innovation | #053 Alloying, #031 Emergence | #31 SCAMPER, #40 TRIZ |
@@ -44,19 +44,19 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ### 4. Validating & Testing
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Unproven core hypothesis | #002 Falsification, #010 Probabilistic | #46 Lean MVP, #48 Assumption Board |
 | Need data-driven decision | #022 Bayesian Updating, #018 Law of Large Numbers | #47 A/B Testing, #51 North Star |
 | Pre-development validation | #008 Thought Experiment, #038 Margin of Safety | #50 Wizard of Oz, #54 Problem-Solution Fit |
-| UX quality assessment | #027 Pareto, #026 Diminishing Returns | #49 Usability 5-Users, #56 HEART |
-| Filtering weak ideas | #042 Via Negativa, #027 Pareto | #59 Viable Ideas Threshold, #57 PURE |
+| UX quality assessment | #027 80/20 Rule, #026 Diminishing Returns | #49 Usability 5-Users, #56 HEART |
+| Filtering weak ideas | #042 Via Negativa, #027 80/20 Rule | #59 Viable Ideas Threshold, #57 PURE |
 
 ### 5. Prioritizing & Deciding
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
-| Too many features, limited resources | #027 Pareto, #093 Opportunity Cost | #61 RICE, #62 MoSCoW |
+| Too many features, limited resources | #027 80/20 Rule, #093 Opportunity Cost | #61 RICE, #62 MoSCoW |
 | Quick ROI assessment | #051 Leverage, #026 Diminishing Returns | #63 Impact-Effort Matrix, #69 ICE |
 | Decision roles unclear | #061 Hierarchy Instinct, #088 Authority Bias | #68 DACI, #71 SNAP |
 | Feature layering strategy | #100 Marginal Utility, #015 Compounding | #72 Feature Pyramid, #60 Story Map |
@@ -64,16 +64,16 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ### 6. Execution & Delivery
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Sprint planning | #028 Feedback Loops, #057 Adaptation | #64 Sprint, #65 Design Sprint |
 | Scope control | #038 Margin of Safety, #109 Two-Front War | #66 Shape Up, #73 Priority Quadrant |
-| Process optimization | #004 Occam's Razor, #101 Bottlenecks | #13 Musk Five Steps, #98 TOC |
+| Process optimization | #004 Occam's Razor, #101 Bottlenecks | #13 Execution Speed Five Steps, #98 TOC |
 | Feedback collection | #028 Feedback Loops, #069 Trust | #74 Feedback Loop, #52 Validated Learning |
 
 ### 7. Growth & Scaling
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Funnel optimization | #017 Churn, #028 Feedback Loops | #75 AARRR, #81 LTV-CAC |
 | Habit formation | #071 Pavlovian, #063 Reward-Pain | #77 Hook Model, #86 Fogg Behavior |
@@ -84,7 +84,7 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ### 8. Risk & Resilience
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | What could go wrong | #001 Inversion, #041 Black Swan | #97 Antifragile Design, Pre-mortem |
 | System fragility | #036 Fragility-Antifragile, #037 Redundancy | #97 Antifragile, #99 System Archetypes |
@@ -94,7 +94,7 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ### 9. Systems & Strategy
 
-| Situation | Munger Lens | PM Tool |
+| Situation | Decision Framework Lens | PM Tool |
 |-----------|------------|---------|
 | Platform design | #040 Network Effects, #033 Tragedy of Commons | #94 Platform Canvas, #95 BMC |
 | Value chain positioning | #095 Comparative Advantage, #096 Specialization | #92 Wardley Mapping, #89 Value Chain |
@@ -106,7 +106,7 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ## Category Quick Reference
 
-### Munger Mental Models (111)
+### Decision Framework Mental Models (111)
 | # | Category | Models | File |
 |---|----------|--------|------|
 | 1 | General Thinking | 001-010 | `munger/01-general.md` |
@@ -133,14 +133,14 @@ When facing a decision, find your scenario below. Each row maps to Munger lenses
 
 ## Usage
 
-1. **Scenario routing**: Find your situation in the table above → get Munger lens + PM tool
+1. **Scenario routing**: Find your situation in the table above → get Decision Framework lens + PM tool
 2. **Deep dive**: Read the linked detail file for full model explanation
-3. **Cross-reference**: Each detail entry has Munger-Link or PM-Link for lateral exploration
-4. **Advisor integration**: Existing advisors (advisor-munger, advisor-buffett, etc.) can reference model IDs
+3. **Cross-reference**: Each detail entry has Decision Framework-Link or PM-Link for lateral exploration
+4. **Advisor integration**: Existing advisors (advisor-decision-framework, advisor-strategic-focus, etc.) can reference model IDs
 
 ## Design Principles
 
-- **Lattice, not list**: Models cross-reference each other like Munger's "latticework of mental models"
+- **Lattice, not list**: Models cross-reference each other like Decision Framework "latticework of mental models"
 - **Trigger-first**: Organized by situation you face, not by academic taxonomy
-- **Two-layer**: Munger = cognitive lens (understand), PM = execution tool (act)
+- **Two-layer**: Decision Framework = cognitive lens (understand), PM = execution tool (act)
 - **Progressive disclosure**: This index is T1 (~3K tokens); detail files are T2 (read on demand)

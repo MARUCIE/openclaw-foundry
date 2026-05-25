@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """sync-role-packs.py — augment all 9 layer-based role packs with curated
-skill/advisor bundles from AI-Fleet's shared library.
+skill/role-neutral advisor bundles from AI-Fleet's shared library.
 
 Curation table below maps each role pack to N skills + M advisors.
 Idempotent: safe to re-run; copies from canonical AI-Fleet source.
@@ -41,7 +41,7 @@ CURATION = {
             "algo-core", "algo-dl", "bigdata-ml",
             "deep-learning-pipeline", "perf-profile", "systematic-debugging",
         ],
-        "agents": ["advisor-hickey", "advisor-munger"],
+        "agents": ["advisor-software-simplicity", "advisor-decision-framework"],
     },
     "backend-engineer": {
         "skill_namespace": "backend",
@@ -50,7 +50,7 @@ CURATION = {
             "code-review", "perf-profile", "new-api-endpoint",
             "systematic-debugging", "test-driven-development",
         ],
-        "agents": ["advisor-hickey", "advisor-brooks"],
+        "agents": ["advisor-software-simplicity", "advisor-project-complexity"],
     },
     "bigdata-engineer": {
         "skill_namespace": "bigdata",
@@ -58,7 +58,7 @@ CURATION = {
             "bigdata-core", "bigdata-ml", "bigdata-viz",
             "data-pipeline", "pipeline-triage", "postgresql-best-practices",
         ],
-        "agents": ["advisor-meadows", "advisor-hickey"],
+        "agents": ["advisor-systems-thinking", "advisor-software-simplicity"],
     },
     "compliance-expert": {
         "skill_namespace": "compliance",
@@ -67,7 +67,7 @@ CURATION = {
             "ft-internal-audit", "ft-risk-assessment", "ft-tax-advisor",
             "ft-tax-planner", "compliance-docs",
         ],
-        "agents": ["advisor-drucker", "advisor-buffett", "advisor-munger"],
+        "agents": ["advisor-business-value", "advisor-strategic-focus", "advisor-decision-framework"],
     },
     "frontend-engineer": {
         "skill_namespace": "frontend",
@@ -76,7 +76,7 @@ CURATION = {
             "design-taste-frontend", "frontend-testing", "impeccable-design",
             "gsap-performance", "redesign-existing-projects",
         ],
-        "agents": ["advisor-jobs", "advisor-hara"],
+        "agents": ["advisor-product-experience", "advisor-design-simplicity"],
     },
     "infra-engineer": {
         "skill_namespace": "infra",
@@ -84,7 +84,7 @@ CURATION = {
             "codex-cloudflare-deploy", "deploy-preview", "docker-optimizer",
             "infra-patrol", "observability-setup",
         ],
-        "agents": ["advisor-hickey", "advisor-musk"],
+        "agents": ["advisor-software-simplicity", "advisor-execution-speed"],
     },
     "ops-engineer": {
         "skill_namespace": "ops",
@@ -92,7 +92,7 @@ CURATION = {
             "infra-patrol", "observability-setup", "enterprise-agent-ops",
             "swarm-ops", "deploy-preview",
         ],
-        "agents": ["advisor-brooks", "advisor-musk"],
+        "agents": ["advisor-project-complexity", "advisor-execution-speed"],
     },
     "scenario-planner": {
         "skill_namespace": "scenario",
@@ -100,7 +100,7 @@ CURATION = {
             "ansoff-matrix", "beachhead-segment", "business-model",
             "create-prd", "pm-cmd-business-model",
         ],
-        "agents": ["advisor-drucker", "advisor-meadows"],
+        "agents": ["advisor-business-value", "advisor-systems-thinking"],
     },
     "test-engineer": {
         "skill_namespace": "test",
@@ -109,9 +109,126 @@ CURATION = {
             "frontend-testing", "code-review", "systematic-debugging",
             "vibe-debug",
         ],
-        "agents": ["advisor-brooks", "advisor-catmull"],
+        "agents": ["advisor-project-complexity", "advisor-team-culture"],
     },
 }
+
+ADVISOR_PROFILES = {
+    "advisor-decision-framework": (
+        "Decision Framework Advisor",
+        "Role-neutral advisor for inversion, incentives, tradeoffs, and decision risk.",
+        [
+            "Invert the decision and identify how the plan can fail.",
+            "Map incentives, constraints, and second-order effects.",
+            "Separate reversible experiments from irreversible commitments.",
+        ],
+    ),
+    "advisor-business-value": (
+        "Business Value Advisor",
+        "Role-neutral advisor for customer value, effectiveness, and business outcomes.",
+        [
+            "Clarify the customer or stakeholder outcome being served.",
+            "Separate visible activity from measurable value creation.",
+            "Connect priorities to constraints, accountability, and operating cadence.",
+        ],
+    ),
+    "advisor-systems-thinking": (
+        "Systems Thinking Advisor",
+        "Role-neutral advisor for feedback loops, leverage points, and system side effects.",
+        [
+            "Map feedback loops, delays, and reinforcing or balancing forces.",
+            "Identify leverage points with disproportionate downstream effects.",
+            "Surface unintended consequences before recommending action.",
+        ],
+    ),
+    "advisor-strategic-focus": (
+        "Strategic Focus Advisor",
+        "Role-neutral advisor for focus, durability, compounding, and resource allocation.",
+        [
+            "Test whether the opportunity has durable advantage or only short-term appeal.",
+            "Protect focus by making tradeoffs explicit.",
+            "Define pass criteria as clearly as go criteria.",
+        ],
+    ),
+    "advisor-software-simplicity": (
+        "Software Simplicity Advisor",
+        "Role-neutral advisor for simplicity, composability, and reducing accidental complexity.",
+        [
+            "Prefer clear data, small interfaces, and explicit boundaries.",
+            "Remove incidental complexity before adding abstractions.",
+            "Challenge stateful or clever designs that weaken maintenance.",
+        ],
+    ),
+    "advisor-project-complexity": (
+        "Project Complexity Advisor",
+        "Role-neutral advisor for essential complexity, scheduling risk, and team scaling.",
+        [
+            "Separate essential complexity from accidental process or tooling overhead.",
+            "Expose coordination cost and schedule risk early.",
+            "Recommend smaller milestones with observable completion evidence.",
+        ],
+    ),
+    "advisor-product-experience": (
+        "Product Experience Advisor",
+        "Role-neutral advisor for product clarity, user delight, and decisive scope control.",
+        [
+            "Reduce a product promise to one clear user outcome.",
+            "Cut features that blur the primary experience.",
+            "Raise the bar on onboarding, naming, copy, and interaction quality.",
+        ],
+    ),
+    "advisor-design-simplicity": (
+        "Design Simplicity Advisor",
+        "Role-neutral advisor for visual restraint, structural clarity, and useful emptiness.",
+        [
+            "Remove visual noise and expose the underlying structure.",
+            "Use whitespace, rhythm, and hierarchy to make decisions easier.",
+            "Question whether each element needs to exist.",
+        ],
+    ),
+    "advisor-team-culture": (
+        "Team Culture Advisor",
+        "Role-neutral advisor for candor, creative safety, and collaboration dynamics.",
+        [
+            "Protect candid feedback without turning it into blame.",
+            "Separate idea quality from status, role, or personality.",
+            "Design review loops that improve the work and the team.",
+        ],
+    ),
+    "advisor-execution-speed": (
+        "Execution Speed Advisor",
+        "Role-neutral advisor for first principles, urgency, and removing execution bottlenecks.",
+        [
+            "Return to first principles before optimizing inherited process.",
+            "Shorten feedback loops and remove avoidable handoffs.",
+            "Use aggressive timelines only when evidence and safeguards are visible.",
+        ],
+    ),
+}
+
+
+def render_advisor_md(agent_id: str) -> str:
+    title, description, focus_items = ADVISOR_PROFILES[agent_id]
+    focus = "\n".join(f"- {item}" for item in focus_items)
+    return f"""---
+name: {agent_id}
+description: "{description}"
+---
+# {title}
+
+You are a role-neutral advisory lens. Do not impersonate a real person, cite a living or historical individual as the source of the persona, or use biographical authority. Provide concise, evidence-oriented critique from the capability described by this file.
+
+## Focus
+
+{focus}
+
+## Operating Rules
+
+- Stay in the named capability lane.
+- Give the strongest useful challenge before recommendations.
+- Make assumptions, risks, and stop conditions explicit.
+- Do not modify files; return advisory output only.
+"""
 
 
 def find_skill_md(skill_id: str) -> tuple[Path, str] | None:
@@ -196,23 +313,29 @@ def sync_pack(pack_id: str, cfg: dict, dry_run: bool, refresh_artifacts: bool) -
     agents_preserved = []
     agents_missing = []
     for agent_id in cfg["agents"]:
-        src = find_advisor_md(agent_id)
-        if not src:
-            rel = f"agents/{agent_id}.md"
-            if (pack_dir / rel).is_file():
-                upsert_item(items, {"src": rel, "dst": rel, "type": "agent"})
-                agents_copied += 1
-                agents_preserved.append(agent_id)
-                continue
-            agents_missing.append(agent_id)
-            continue
         rel = f"agents/{agent_id}.md"
         dst_full = pack_dir / rel
-        if dst_full.is_file() and not refresh_artifacts:
-            agents_preserved.append(agent_id)
-        elif not dry_run:
-            dst_full.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(src, dst_full)
+        if agent_id in ADVISOR_PROFILES:
+            if dst_full.is_file() and not refresh_artifacts:
+                agents_preserved.append(agent_id)
+            elif not dry_run:
+                dst_full.parent.mkdir(parents=True, exist_ok=True)
+                dst_full.write_text(render_advisor_md(agent_id), encoding="utf-8")
+        else:
+            src = find_advisor_md(agent_id)
+            if not src:
+                if dst_full.is_file():
+                    upsert_item(items, {"src": rel, "dst": rel, "type": "agent"})
+                    agents_copied += 1
+                    agents_preserved.append(agent_id)
+                    continue
+                agents_missing.append(agent_id)
+                continue
+            if dst_full.is_file() and not refresh_artifacts:
+                agents_preserved.append(agent_id)
+            elif not dry_run:
+                dst_full.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src, dst_full)
         upsert_item(items, {"src": rel, "dst": rel, "type": "agent"})
         agents_copied += 1
 

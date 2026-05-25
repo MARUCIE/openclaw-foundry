@@ -23,7 +23,7 @@ flowchart LR
 ```
 
 > 角色定位：实验设计 + 样本量计算 + 统计显著性分析 + 业务化解读的工作流。
-> 适用场景覆盖：experiment design + statistical analysis (was Drucker R1 uncovered_sub)
+> 适用场景覆盖：experiment design + statistical analysis (was Business Value R1 uncovered_sub)
 
 ## 30 秒画像
 
@@ -62,4 +62,4 @@ claude --skill ab-test-analysis 'design experiment for checkout button color cha
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

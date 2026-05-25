@@ -144,7 +144,7 @@ CLI 快捷方式（在 shell 里 `AI_FLEET=~/00-AI-Fleet`）：
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team
 ```
 
 ---
@@ -168,4 +168,4 @@ Maurice | maurice_wen@proton.me
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

@@ -6,7 +6,7 @@
   "sortOrder": 300,
   "content": {
     "claudeMd": "# 产品经理专属配置\n\n5W1H + JTBD + PRD + 原型验证规范\n\n## 原型职责边界\n\n现代 PM 必须拥有产品假设、验证问题、PRD、用户故事、RICE 优先级和可点击验证 demo。设计师负责体验结构、视觉系统和工程 handoff；不替 PM 决定产品方向。\n\n本包内置：\n\n- **8 个设计/原型相关 skill**（`skills/design/<name>/SKILL.md`）：`prototype` / `stitch-design-pipeline` / `frontend-design` / `design-system` / `design-taste-frontend` / `visual-style` / `impeccable-design` / `design-review`\n- **3 位 advisor 顾问**（`agents/advisor-{jobs,hara,catmull}.md`）：差异化评议视角（用户体验 / 系统极简 / 创意文化）\n\n### 协作约定\n\n- **PM 先收敛假设**：用 PRD/JTBD/RICE 明确为什么做、验证什么、怎么判断成功\n- **PM 产出验证 demo**：用 `prototype` / `stitch-design-pipeline` 做 30 秒可点击版本，服务客户/老板/用户验证\n- **设计师再系统化**：把已收敛的 PM demo 交给 `designer` 包做体验架构、视觉层级、token、状态和 handoff\n- **真实数据**：验证 demo 用真实文案/金额/日期，不用 Lorem Ipsum\n\n### 不适用边界\n\n- 体验架构 / 视觉系统 / 设计 handoff → 用 `designer` 包\n- 写工程代码 → 用 `frontend-engineer` 包\n- 战略层面的产品方向 → 用 `executive-strategist` 或 `strategy-roundtable-advisor` 包",
-    "agentsMd": "## PRD 审查 Agent\n审查 PRD 完整性。\n\n## 产品验证顾问矩阵\n\n3 位 advisor 跑在独立上下文，工具只读，提供差异化判断。\n\n| Advisor | 关注点 | 调用 |\n|---|---|---|\n| advisor-jobs | 用户体验、聚焦、取舍 | `Task(subagent_type=\"advisor-jobs\")` |\n| advisor-hara | 系统极简、结构清晰、空无哲学 | `Task(subagent_type=\"advisor-hara\")` |\n| advisor-catmull | 创意文化、心理安全、坦诚反馈 | `Task(subagent_type=\"advisor-catmull\")` |\n\n### 推荐三家并行评议\n\n```python\nTask(subagent_type=\"advisor-jobs\",    prompt=\"评议这个 PM 验证 demo 的用户任务是否聚焦\")\nTask(subagent_type=\"advisor-hara\",    prompt=\"评议这个 PM 验证 demo 的结构是否足够简洁\")\nTask(subagent_type=\"advisor-catmull\", prompt=\"评议这个 PM 验证 demo 的反馈文化风险\")\n```",
+    "agentsMd": "## PRD 审查 Agent\n审查 PRD 完整性。\n\n## 产品验证顾问矩阵\n\n3 位 advisor 跑在独立上下文，工具只读，提供差异化判断。\n\n| Advisor | 关注点 | 调用 |\n|---|---|---|\n| advisor-product-experience | 用户体验、聚焦、取舍 | `Task(subagent_type=\"advisor-product-experience\")` |\n| advisor-design-simplicity | 系统极简、结构清晰、空无哲学 | `Task(subagent_type=\"advisor-design-simplicity\")` |\n| advisor-team-culture | 创意文化、心理安全、坦诚反馈 | `Task(subagent_type=\"advisor-team-culture\")` |\n\n### 推荐三家并行评议\n\n```python\nTask(subagent_type=\"advisor-product-experience\",    prompt=\"评议这个 PM 验证 demo 的用户任务是否聚焦\")\nTask(subagent_type=\"advisor-design-simplicity\",    prompt=\"评议这个 PM 验证 demo 的结构是否足够简洁\")\nTask(subagent_type=\"advisor-team-culture\", prompt=\"评议这个 PM 验证 demo 的反馈文化风险\")\n```",
     "settingsJson": {
       "_meta": {
         "design_augmented": true,
@@ -20,6 +20,6 @@
         "level": "L2-counselor"
       }
     },
-    "promptsMd": "### 产品经理指令\n- /status: 获取当前任务进展\n\n### 原型验证与设计评议指令\n\n本包通过 skill 自动触发，未引入新斜杠命令。\n\n职责边界：PM 负责原型假设和验证 demo；`designer` 包负责体验架构、视觉系统和 handoff。\n\n后续候选：\n- `/pm:prototype` — 30 秒可点验证 demo 模板\n- `/pm:audit` — PM 假设 / 用户故事 / 验证问题审计\n- `/pm:advisor-council` — Jobs+Hara+Catmull 三家并行评议"
+    "promptsMd": "### 产品经理指令\n- /status: 获取当前任务进展\n\n### 原型验证与设计评议指令\n\n本包通过 skill 自动触发，未引入新斜杠命令。\n\n职责边界：PM 负责原型假设和验证 demo；`designer` 包负责体验架构、视觉系统和 handoff。\n\n后续候选：\n- `/pm:prototype` — 30 秒可点验证 demo 模板\n- `/pm:audit` — PM 假设 / 用户故事 / 验证问题审计\n- `/pm:advisor-council` — Product Experience + Design Simplicity + Team Culture 三家并行评议"
   }
 }

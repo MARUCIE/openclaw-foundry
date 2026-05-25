@@ -48,13 +48,13 @@
       "type": "skill"
     },
     {
-      "src": "agents/advisor-brooks.md",
-      "dst": "agents/advisor-brooks.md",
+      "src": "agents/advisor-project-complexity.md",
+      "dst": "agents/advisor-project-complexity.md",
       "type": "agent"
     },
     {
-      "src": "agents/advisor-musk.md",
-      "dst": "agents/advisor-musk.md",
+      "src": "agents/advisor-execution-speed.md",
+      "dst": "agents/advisor-execution-speed.md",
       "type": "agent"
     }
   ]

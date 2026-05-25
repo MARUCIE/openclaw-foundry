@@ -53,13 +53,13 @@
       "type": "skill"
     },
     {
-      "src": "agents/advisor-hickey.md",
-      "dst": "agents/advisor-hickey.md",
+      "src": "agents/advisor-software-simplicity.md",
+      "dst": "agents/advisor-software-simplicity.md",
       "type": "agent"
     },
     {
-      "src": "agents/advisor-munger.md",
-      "dst": "agents/advisor-munger.md",
+      "src": "agents/advisor-decision-framework.md",
+      "dst": "agents/advisor-decision-framework.md",
       "type": "agent"
     }
   ]

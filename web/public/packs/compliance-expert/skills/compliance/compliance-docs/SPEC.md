@@ -94,7 +94,7 @@ All documents MUST include:
 ---
 
 猪哥云（四川）网络科技有限公司 | 合规网 www.hegui.com
-猪哥云-数据产品部-Maurice | maurice_wen@proton.me
+猪哥云-数据产品部-Agent Foundry Team
 2025 猪哥云-灵阙企业级智能体平台
 ```
 

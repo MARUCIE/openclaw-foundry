@@ -98,7 +98,7 @@ Your task is to develop a comprehensive value proposition that articulates the c
 
 ### Domain Context
 
-**This template vs Strategyzer's Value Proposition Canvas**: Strategyzer's canvas (by Alexander Osterwalder) is widely used but has structural limitations. This 6-part JTBD template (by Paweł Huryn and Aatir Abdul Rauf) addresses them:
+**This template vs Strategyzer's Value Proposition Canvas**: Strategyzer's canvas (from Business Model Canvas literature) is widely used but has structural limitations. This 6-part JTBD template (from JTBD template literature) addresses them:
 
 - **Customer first**: This template starts with the customer (Who/Why) and works toward the solution. Strategyzer's canvas places the product on the left, which often leads teams to start with their solution rather than the customer's problem.
 - **One segment at a time**: This template is designed for one segment per pass. Strategyzer's canvas encourages mapping multiple products/services simultaneously, which dilutes focus.
@@ -127,5 +127,5 @@ Use Strategyzer's Value Proposition Canvas when you need a detailed pains/gains 
 
 - [How to Design a Value Proposition Customers Can't Resist?](https://www.productcompass.pm/p/how-to-design-value-proposition-template)
 - [How to Achieve Product-Market Fit? Part I: Market and Value Proposition](https://www.productcompass.pm/p/how-to-achieve-the-product-market)
-- [Jobs-to-be-Done Masterclass with Tony Ulwick and Sabeen Sattar](https://www.productcompass.pm/p/jobs-to-be-done-masterclass-with) (video course)
+- [Jobs-to-be-Done Masterclass with JTBD practitioners](https://www.productcompass.pm/p/jobs-to-be-done-masterclass-with) (video course)
 - [Product Innovation Masterclass](https://www.productcompass.pm/p/product-innovation-masterclass) (video course)

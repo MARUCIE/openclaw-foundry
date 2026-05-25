@@ -133,7 +133,7 @@ papers：<<<LIST OF URLS>>>
 5) GO / NO-GO + 6-month re-eval condition
 ```
 
-### S3-P4 · Karpathy AutoResearch 1 轮
+### S3-P4 · Iterative Research AutoResearch 1 轮
 
 ```text
 对关键词 "<<<KEYWORD>>>" 执行 1 轮 AutoResearch (30 分钟):
@@ -147,4 +147,4 @@ papers：<<<LIST OF URLS>>>
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

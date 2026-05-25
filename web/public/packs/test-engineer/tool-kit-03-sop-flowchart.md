@@ -94,7 +94,7 @@ flowchart TD
 
 ## 发布 gate 硬规则（不允许绕过）
 
-- `BLOCK`（P0 合规缺口）要 Maurice + tech lead 双签发才能 override；默认动作是升级，不是绕过
+- `BLOCK`（P0 合规缺口）要 program owner + tech lead 双签发才能 override；默认动作是升级，不是绕过
 - `F2B` 关键路径覆盖率 < 100% → 升级，不允许部分跑；部分跑等于把缺口藏起来
 - `F1D` 任何 PII 命中 → 暂停 commit，清洗后继续 — 永远不允许 "之后再修"
 
@@ -104,4 +104,4 @@ flowchart TD
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

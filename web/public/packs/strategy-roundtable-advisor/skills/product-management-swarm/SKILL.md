@@ -76,7 +76,7 @@ description: "> SWARM (parallel experts, dynamic selection) | 产品战略、用
 - `pm-cmd-write-prd`
 - `pm-cmd-write-query`
 - `pm-cmd-write-stories`
-- `porters-five-forces`
+- `industry-forces`
 - `positioning-ideas`
 - `pre-mortem`
 - `pricing-strategy`

@@ -38,4 +38,4 @@ bash scripts/spellbook-install.sh --pack security-auditor
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

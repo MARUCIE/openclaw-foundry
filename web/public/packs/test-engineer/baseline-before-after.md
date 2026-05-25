@@ -65,4 +65,4 @@ T+7 时 cohort 成员应该能诚实回答 "是" 在以下每一项：
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

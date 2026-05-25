@@ -94,7 +94,7 @@ E. ARCHIVE    → rclone to GDrive deep-learning folder + ledger entry
   - Pitch / fundraising → Sequoia Green-Gold
   - Data-dense / quantitative → Bloomberg Terminal
   - Technical / framework launch → Stripe Minimalist
-- **Banned**: reusing the previous episode's style (Maurice rule "每次都是一个特色风格"). Episode N must NOT use episode N-1's style.
+- **Banned**: reusing the previous episode's style (the program owner rule "每次都是一个特色风格"). Episode N must NOT use episode N-1's style.
 
 **Output of stage A**: chosen style ID + SPEC.md path. Logged in `references/episodes.json`.
 
@@ -111,7 +111,7 @@ outputs/reports/<topic-slug>/<date>-<topic-slug>.html
 - body uses `background-color` solid base + `background-image` gradients with `background-size: 100% 100vh`; **no `background-attachment: fixed`** (v11 invariant)
 - Hero/header readable content and article body must share one layout frame token (`.html-frame` / `.report-frame` or style-equivalent); do not mix viewport hero padding such as `8vw` with a separately centered `main` max-width
 - `text-rendering: optimizeLegibility` on body
-- Footer Maurice signature (no "Author:" prefix), per `09-output-format.md`
+- Footer the program owner signature (no "Author:" prefix), per `09-output-format.md`
 - 2份制 sibling: `.md` canonical English version next to `.html` if the article is meant for cross-tool re-ingestion
 
 After write: auto-`open` for visual review.
@@ -153,7 +153,7 @@ All three written to the same `outputs/reports/<topic-slug>/` folder.
 bash scripts/archive-gdrive.sh <NN> <topic-slug> outputs/reports/<topic-slug>/
 ```
 
-Naming convention (mandatory, per Maurice 2026-04-30):
+Naming convention (mandatory, per the program owner 2026-04-30):
 
 ```
 <YYYY-MM-DD>_深度学习_第<NN>期_<title-zh-or-mixed>.<ext>
@@ -178,7 +178,7 @@ After archive, append a `[DEEP-LEARNING-EPISODE]` line to `state/memory/<date>.m
    - Format: JPEG > PNG (PNG over ~3 MB or extreme ratio degrades to file-mode)
    - Dimensions: width 1080 = native preview; >2048 forces server recompression; aspect ratio ≤1:8 keeps preview-mode
    - Send method: macOS `cmd+C` (Preview) → `cmd+V` (WeChat) forces image-clipboard pipe; drag-drop on macOS WeChat is unreliable for >1 MB. For 企业微信 Bot API, use `media/upload?type=image` + `msgtype=image`.
-6. **Sub-path bundling is BANNED**. Each episode = own CF Pages project. Maurice rejected `<series-host>/<episode-slug>/` after seeing episode #02 land at `luofuli-interview-2026.pages.dev/hermes-agent/` (URL slug ≠ content). Project name pattern: `deeplearn-<NN>-<title-slug>.pages.dev`.
+6. **Sub-path bundling is BANNED**. Each episode = own CF Pages project. the program owner rejected `<series-host>/<episode-slug>/` after seeing episode #02 land at `luofuli-interview-2026.pages.dev/hermes-agent/` (URL slug ≠ content). Project name pattern: `deeplearn-<NN>-<title-slug>.pages.dev`.
 7. **GDrive file naming is `<date>_深度学习_第<NN>期_<title>`** — not `<title>_<date>`. Date prefix sorts alphabetically by chronology; episode number is part of the structured key. Apply retroactively when discovered.
 8. **Style-per-episode is load-bearing.** Reusing a style across episodes erodes the editorial signature. New episode = new style (stock pick OR custom commission). Past episode style references stay in `references/episodes.json` for cross-reference, NOT for reuse.
 9. **`scripts/hermes-weixin-send-image.py` default path = image-mode.** The `--as-file` flag preserves HD by sending as file (auto-converts to download chip on receiver). Without the flag, the script uses `native_image_attempts` ladder which auto-picks ≤512 KB preview candidates → image-mode delivery.
@@ -199,7 +199,7 @@ After archive, append a `[DEEP-LEARNING-EPISODE]` line to `state/memory/<date>.m
 - `deep-learning-skill` (existing) — body content generation (3-layer structure, stats, pull-quotes, dropcaps). This pipeline calls it for stage B's content; overrides its template with stage A's style.
 - `html-style-router` — stock style selection for stage A (12 tier styles).
 - `html-hermes-style` — example bespoke style; commission template for new bespoke styles in stage A.
-- `auto-visual-swarm-review` — optional ≥3-round swarm review of HTML poster after stage B (per Maurice rule `feedback_auto_swarm_review.md`).
+- `auto-visual-swarm-review` — optional ≥3-round swarm review of HTML poster after stage B (per the program owner rule `feedback_auto_swarm_review.md`).
 - `aesthetic-quality-probe` (PostToolUse hook) — auto-verifies brand-token adherence after Edit/Write of `outputs/reports/**/*.html`.
 
 ## Reference: episode registry
@@ -223,4 +223,4 @@ See `references/episodes.json` for canonical record of #01 and #02. Schema:
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

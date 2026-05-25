@@ -98,4 +98,4 @@ flowchart TD
 ---
 
 AI 训战工作坊 · scenario-planner pack · 业务分析 / 场景规划岗
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

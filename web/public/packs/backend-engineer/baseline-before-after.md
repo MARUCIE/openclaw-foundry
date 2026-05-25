@@ -1,7 +1,7 @@
 # W2 · 产品研发岗（后端/前端/需求） — Before/After 基线对比表
 
 > 第 2 波（Session 2 · Calendar W2 · 2026-05-28 workshop）的实证锚点。
-> 维护人：Maurice（AI 专家）· cohort 在 T-3（2026-05-25 周一）收到。
+> 维护人：the program owner（AI 专家）· cohort 在 T-3（2026-05-25 周一）收到。
 > cohort 提出人：杨长志, 叶宇, 李吉平, 王荣, 陈豪, 徐飞 — 数据来自这 6 位的自报。
 
 ## How to read
@@ -70,4 +70,4 @@ W2 cohort 接到 [wave-digest.md](../../doc/wave-digest.md) W1 段时（2026-05-
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

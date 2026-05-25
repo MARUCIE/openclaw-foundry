@@ -52,6 +52,6 @@ Top 3:
 
 ---
 
-Submit to maurice_wen@proton.me
+Submit to project-owner contact channel
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

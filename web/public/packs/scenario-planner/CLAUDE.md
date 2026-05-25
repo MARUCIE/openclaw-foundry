@@ -97,7 +97,7 @@ CLI 快捷方式（先在 shell 里设置 `AI_FLEET=~/00-AI-Fleet`）：
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team
 ```
 
 ---
@@ -121,4 +121,4 @@ Maurice | maurice_wen@proton.me
 ---
 
 AI 训战工作坊 · scenario-planner pack · 业务分析 / 场景规划岗
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

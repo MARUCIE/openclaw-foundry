@@ -32,4 +32,4 @@ Task(subagent_type="spellbook-test-coverage-agent", prompt="Find gaps in module 
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team

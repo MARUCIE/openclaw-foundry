@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
 const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
-const ROLE_PACKS_GIT_REF = 'v2026.05.25.3';
+const ROLE_PACKS_GIT_REF = 'v2026.05.25.4';
 const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
 const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
 
@@ -446,7 +446,7 @@ claude --help | head -3
 
 <footer>
   <p>OpenClaw Foundry — ${esc(ctx.nameZh)} 岗位包指导手册</p>
-  <p>Maurice | maurice_wen@proton.me</p>
+  <p>Agent Foundry Team</p>
   <p style="font-size:12px; margin-top:8px;">生成版本：${esc(ROLE_PACKS_GIT_REF)} · 生成时间：${GUIDE_GENERATED_AT_DISPLAY} · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>

@@ -48,7 +48,7 @@ done < "$TSV"
 
 echo ""
 echo "  OK Installed $N artifacts under $TARGET_DIR"
-# Jobs-fix (2026-05-16 audit): if manifest declares first_use_demo, print as next-step hint.
+# first-use-demo hint (2026-05-16 audit): if manifest declares first_use_demo, print as next-step hint.
 HINT=$(python3 - "$MANIFEST" <<'PYEOF2'
 import json, sys
 try:

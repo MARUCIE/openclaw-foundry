@@ -26,8 +26,8 @@
     { "src": "skills/compliance/ft-tax-advisor/SKILL.md", "dst": "skills/compliance/ft-tax-advisor/SKILL.md", "type": "skill" },
     { "src": "skills/compliance/ft-tax-planner/SKILL.md", "dst": "skills/compliance/ft-tax-planner/SKILL.md", "type": "skill" },
     { "src": "skills/compliance/compliance-docs/SPEC.md", "dst": "skills/compliance/compliance-docs/SPEC.md", "type": "skill" },
-    { "src": "agents/advisor-drucker.md", "dst": "agents/advisor-drucker.md", "type": "agent" },
-    { "src": "agents/advisor-buffett.md", "dst": "agents/advisor-buffett.md", "type": "agent" },
-    { "src": "agents/advisor-munger.md", "dst": "agents/advisor-munger.md", "type": "agent" }
+    { "src": "agents/advisor-business-value.md", "dst": "agents/advisor-business-value.md", "type": "agent" },
+    { "src": "agents/advisor-strategic-focus.md", "dst": "agents/advisor-strategic-focus.md", "type": "agent" },
+    { "src": "agents/advisor-decision-framework.md", "dst": "agents/advisor-decision-framework.md", "type": "agent" }
   ]
 }

@@ -113,4 +113,4 @@ graph LR
 
 ---
 
-Maurice | maurice_wen@proton.me
+Agent Foundry Team
