@@ -24,6 +24,7 @@
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
 | 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | Completed | GitHub Actions deploy run `26383364471` uploaded 437/437 protected payloads to R2 and deployed Pages successfully |
 | 2026-05-25 | REQ-021 | Production / Frontend | Static Pages builds must not emit missing `/api/*` console errors for catalog data that already has `/data/*.json` fallback | Completed | `web/lib/api.ts` now reads static GET data directly when `NEXT_PUBLIC_API_URL` is unset; local static export no longer contains `/api/packs` |
+| 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local build, auth audit, Playwright smoke, and `ai check` passed |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -34,6 +35,7 @@
 | 2026-05-18 | "把skill 的复制打开，只有岗位配置包需要登陆" | Auth-wall scope correction | Keep Skill/MCP/API-doc copy public; use protected Worker/R2 delivery only for Job Pack payloads |
 | 2026-05-25 | "别人直接复制安装不了，配置包和本地最新同步并单独建 repo" | Role-pack distribution hardening | Create a local-first standalone pack repo; remote fetch must be opt-in |
 | 2026-05-25 | "继续，从git地址安装是最安全的" | Production install-command hardening | Keep registration gate, but copy a pinned GitHub clone command instead of a Worker token URL |
+| 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against public released-pack availability before allowing a path to be clickable |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -57,6 +59,7 @@
 | CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
 | R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
 | 静态 Pages 环境中，`/packs` 是否应该先请求 `/api/packs` 再回退? | 不应该。未配置 `NEXT_PUBLIC_API_URL` 时，GET 型 catalog 数据应直接读取 `/data/*.json`，否则生产控制台会留下可避免的 404 噪音。 |
+| `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 不可以直接可点。公开推荐和浏览必须共用 `tier !== "stub"` 的已开放口径；没有已开放包的方向只能显示 `即将上线` 或明确空态，不能进入空推荐区。 |
 
 ## References
 1. `package.json`
@@ -94,3 +97,4 @@
 33. `postmortem/PM-2026-05-25-ci-r2-upload-timeout.md`
 34. `scripts/generate-pack-guides.mjs`
 35. `web/lib/api.ts`
+36. `web/app/packs/page.tsx`

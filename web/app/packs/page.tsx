@@ -8,10 +8,14 @@ import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 import { copyProtectedPackInstallCommand, downloadProtectedPackFile } from '@/lib/protected-downloads';
 import WallBoard from '@/components/wall-board';
 
+type QuestionOption = { labelKey: string; packId: string };
+type QuestionTreeItem = { id: string; browseTabId: string; icon: string; labelKey: string; descKey: string; options: QuestionOption[] };
+
 // Question tree answers map to lines + sub-options
-const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: string; options: { labelKey: string; packId: string }[] }[] = [
+const QUESTION_TREE: QuestionTreeItem[] = [
   {
     id: 'code',
+    browseTabId: 'engineering',
     icon: 'code',
     labelKey: 'packs.q1Code',
     descKey: 'packs.q1CodeDesc',
@@ -25,6 +29,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'data',
+    browseTabId: 'data-ai',
     icon: 'analytics',
     labelKey: 'packs.q1Data',
     descKey: 'packs.q1DataDesc',
@@ -35,6 +40,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'product',
+    browseTabId: 'product',
     icon: 'lightbulb',
     labelKey: 'packs.q1Product',
     descKey: 'packs.q1ProductDesc',
@@ -44,6 +50,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'business',
+    browseTabId: 'business',
     icon: 'verified_user',
     labelKey: 'packs.q1Business',
     descKey: 'packs.q1BusinessDesc',
@@ -53,6 +60,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'strategy',
+    browseTabId: 'strategy',
     icon: 'insights',
     labelKey: 'packs.q1Strategy',
     descKey: 'packs.q1StrategyDesc',
@@ -62,6 +70,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'research',
+    browseTabId: 'research',
     icon: 'science',
     labelKey: 'packs.q1Research',
     descKey: 'packs.q1ResearchDesc',
@@ -71,6 +80,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'scenario',
+    browseTabId: 'product',
     icon: 'account_tree',
     labelKey: 'packs.q1Scenario',
     descKey: 'packs.q1ScenarioDesc',
@@ -80,6 +90,7 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
   },
   {
     id: 'analyze',
+    browseTabId: 'analyze',
     icon: 'monitoring',
     labelKey: 'packs.q1Analyze',
     descKey: 'packs.q1AnalyzeDesc',
@@ -88,6 +99,8 @@ const QUESTION_TREE: { id: string; icon: string; labelKey: string; descKey: stri
     ],
   },
 ];
+
+const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack && pack.tier !== 'stub');
 
 const LINE_TABS = [
   { id: 'all', labelKey: 'packs.tabAll' },
@@ -104,6 +117,7 @@ export default function PacksPage() {
   const { t } = useI18n();
   const { data, isLoading } = useSWR<PacksResponse>('packs', getPacks);
   const allPacks = data?.packs || [];
+  const releasedPacks = allPacks.filter(isReleasedPack);
 
   type PageTab = 'packs' | 'wall';
   type Step = 'q1' | 'q2' | 'result' | 'browse';
@@ -155,11 +169,11 @@ export default function PacksPage() {
         {/* Value Prop Badges — counts derived from packs.json so they stay accurate */}
         <div className="flex gap-4 p-4 rounded-3xl bg-[var(--surface-container-low)] border border-[var(--outline-variant)]">
           <div className="px-4 py-2 text-center border-r border-[var(--outline-variant)] pr-6">
-            <div className="text-2xl font-black" style={{ color: 'var(--primary)' }}>{allPacks.length || '—'}</div>
+            <div className="text-2xl font-black" style={{ color: 'var(--primary)' }}>{releasedPacks.length || '—'}</div>
             <div className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40">Packs</div>
           </div>
           <div className="px-4 py-2 text-center border-r border-[var(--outline-variant)] pr-6">
-            <div className="text-2xl font-black" style={{ color: 'var(--secondary)' }}>{new Set(allPacks.map(p => p.line).filter(Boolean)).size || '—'}</div>
+            <div className="text-2xl font-black" style={{ color: 'var(--secondary)' }}>{new Set(releasedPacks.map(p => p.line).filter(Boolean)).size || '—'}</div>
             <div className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40">Lines</div>
           </div>
           <div className="px-4 py-2 text-center">
@@ -260,13 +274,33 @@ function PacksTabBody({
   // to certified packs (same install button, same TierBadge stripped) which creates
   // false equivalence. Surface them as a single static "X 配置包即将上线" notice.
   const lineFiltered = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
-  const filteredPacks = lineFiltered.filter(p => p.tier !== 'stub');
+  const filteredPacks = lineFiltered.filter(isReleasedPack);
   const stubCount = lineFiltered.length - filteredPacks.length;
-  const recommended = allPacks.find(p => p.id === recommendedPack && p.tier !== 'stub');
+  const releasedPackCount = allPacks.filter(isReleasedPack).length;
+  const releasedPackIds = new Set(allPacks.filter(isReleasedPack).map(p => p.id));
+  const questionTree = QUESTION_TREE.map(q => {
+    const availableOptions = q.options.filter(opt => releasedPackIds.has(opt.packId));
+    return {
+      ...q,
+      availableOptions,
+      hasReleasedPack: availableOptions.length > 0,
+    };
+  });
+  const selectedQuestion = questionTree.find(q => q.id === selectedLine);
+  const recommendedCandidate = allPacks.find(p => p.id === recommendedPack);
+  const recommended = isReleasedPack(recommendedCandidate) ? recommendedCandidate : null;
+  const hasUnavailableRecommendation = step === 'result' && Boolean(recommendedPack) && !recommended;
 
   const handleQ1 = (lineId: string) => {
+    const line = questionTree.find(q => q.id === lineId);
+    if (!line?.hasReleasedPack) {
+      setSelectedLine(lineId);
+      setBrowseTab(line?.browseTabId || 'all');
+      setStep('browse');
+      return;
+    }
     setSelectedLine(lineId);
-    const lineOptions = QUESTION_TREE.find(q => q.id === lineId)?.options || [];
+    const lineOptions = line.availableOptions;
     if (lineOptions.length === 1) {
       setRecommendedPack(lineOptions[0].packId);
       setStep('result');
@@ -276,6 +310,7 @@ function PacksTabBody({
   };
 
   const handleQ2 = (packId: string) => {
+    if (!releasedPackIds.has(packId)) return;
     setRecommendedPack(packId);
     setStep('result');
   };
@@ -316,20 +351,34 @@ function PacksTabBody({
                 {t('packs.questionMain')}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {QUESTION_TREE.map(q => (
-                  <button
-                    key={q.id}
-                    onClick={() => handleQ1(q.id)}
-                    className="p-8 rounded-[2.5rem] text-center space-y-4 transition-all hover:shadow-2xl hover:-translate-y-1.5 active:scale-95 border-2 bg-[var(--surface-container-lowest)]"
-                    style={{ borderColor: 'var(--outline-variant)' }}
-                  >
-                    <div className="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center shadow-lg" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
-                      <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">{q.icon}</span>
-                    </div>
-                    <div className="font-black text-lg tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(q.labelKey)}</div>
-                    <div className="text-xs font-bold opacity-40 uppercase tracking-widest leading-relaxed">{t(q.descKey)}</div>
-                  </button>
-                ))}
+                {questionTree.map(q => {
+                  const isUnavailable = !q.hasReleasedPack;
+                  return (
+                    <button
+                      key={q.id}
+                      disabled={isUnavailable}
+                      aria-disabled={isUnavailable}
+                      onClick={() => handleQ1(q.id)}
+                      className={`p-8 rounded-[2.5rem] text-center space-y-4 transition-all border-2 bg-[var(--surface-container-lowest)] ${
+                        isUnavailable
+                          ? 'cursor-not-allowed opacity-55'
+                          : 'hover:shadow-2xl hover:-translate-y-1.5 active:scale-95'
+                      }`}
+                      style={{ borderColor: 'var(--outline-variant)' }}
+                    >
+                      <div className="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center shadow-lg" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
+                        <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">{q.icon}</span>
+                      </div>
+                      <div className="font-black text-lg tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(q.labelKey)}</div>
+                      <div className="text-xs font-bold opacity-40 uppercase tracking-widest leading-relaxed">{t(q.descKey)}</div>
+                      {isUnavailable && (
+                        <div className="inline-flex px-3 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest bg-[var(--surface-container)] text-[var(--on-surface-variant)]">
+                          {t('packs.directionComingSoon')}
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -343,16 +392,30 @@ function PacksTabBody({
                 <h2 className="text-2xl font-black tracking-tight text-balance">{t('packs.questionSub')}</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {QUESTION_TREE.find(q => q.id === selectedLine)?.options.map(opt => (
-                  <button
-                    key={opt.packId}
-                    onClick={() => handleQ2(opt.packId)}
-                    className="p-10 rounded-[2.5rem] text-center transition-all hover:shadow-2xl hover:-translate-y-1.5 active:scale-95 border-2 bg-[var(--surface-container-lowest)]"
-                    style={{ borderColor: 'var(--outline-variant)' }}
-                  >
-                    <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(opt.labelKey)}</div>
-                  </button>
-                ))}
+                {selectedQuestion?.options.map(opt => {
+                  const isUnavailable = !releasedPackIds.has(opt.packId);
+                  return (
+                    <button
+                      key={opt.packId}
+                      disabled={isUnavailable}
+                      aria-disabled={isUnavailable}
+                      onClick={() => handleQ2(opt.packId)}
+                      className={`p-10 rounded-[2.5rem] text-center transition-all border-2 bg-[var(--surface-container-lowest)] ${
+                        isUnavailable
+                          ? 'cursor-not-allowed opacity-55'
+                          : 'hover:shadow-2xl hover:-translate-y-1.5 active:scale-95'
+                      }`}
+                      style={{ borderColor: 'var(--outline-variant)' }}
+                    >
+                      <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(opt.labelKey)}</div>
+                      {isUnavailable && (
+                        <div className="mt-3 inline-flex px-3 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest bg-[var(--surface-container)] text-[var(--on-surface-variant)]">
+                          {t('packs.directionComingSoon')}
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -371,12 +434,43 @@ function PacksTabBody({
             </div>
           )}
 
+          {hasUnavailableRecommendation && (
+            <div className="space-y-8">
+              <div className="flex items-center gap-4">
+                <button aria-label="Go back" onClick={resetTree} className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:bg-black/5">
+                  <span aria-hidden="true" className="material-symbols-outlined font-black">arrow_back</span>
+                </button>
+                <h2 className="text-2xl font-black tracking-tight text-balance">{t('packs.unavailableRecommendation')}</h2>
+              </div>
+              <div
+                className="max-w-xl mx-auto p-10 rounded-[2.5rem] text-center space-y-5"
+                style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
+                role="note"
+              >
+                <div className="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center shadow-lg" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">pending_actions</span>
+                </div>
+                <p className="text-sm font-bold leading-relaxed opacity-60">{t('packs.noReleasedOptions')}</p>
+                <button
+                  onClick={() => {
+                    setBrowseTab('all');
+                    setStep('browse');
+                  }}
+                  className="px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest text-white transition-all hover:shadow-lg"
+                  style={{ background: 'var(--primary)' }}
+                >
+                  {t('packs.viewReleasedPacks')}
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="text-center pt-4">
             <button
               onClick={() => setStep('browse')}
               className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.3em] opacity-40 hover:opacity-100 hover:text-[var(--primary)] transition-all"
             >
-              {t('packs.browseAll')} ({allPacks.length})
+              {t('packs.viewReleasedPacks')} ({releasedPackCount || '—'})
             </button>
           </div>
         </section>
@@ -420,11 +514,22 @@ function PacksTabBody({
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPacks.map(pack => (
-                  <PackCard key={pack.id} pack={pack} />
-                ))}
-              </div>
+              {filteredPacks.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredPacks.map(pack => (
+                    <PackCard key={pack.id} pack={pack} />
+                  ))}
+                </div>
+              ) : (
+                <div
+                  className="rounded-[2.5rem] p-10 text-center space-y-4"
+                  style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
+                  role="note"
+                >
+                  <span aria-hidden="true" className="material-symbols-outlined text-4xl font-black" style={{ color: 'var(--primary)' }}>pending_actions</span>
+                  <p className="text-sm font-bold leading-relaxed opacity-60">{t('packs.noReleasedOptions')}</p>
+                </div>
+              )}
               {stubCount > 0 && (
                 <p className="mt-8 text-center text-sm text-[var(--on-surface-variant)] opacity-70" role="note">
                   {t('packs.upcomingNotice').replace('{count}', String(stubCount))}

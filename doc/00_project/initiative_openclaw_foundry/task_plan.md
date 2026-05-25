@@ -405,3 +405,34 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 1. R2 upload is verified by CI/deploy environment, not local credentials.
 2. `ai check` not run; substituted with project-level gates listed above.
 3. npm audit still reports one high-severity dependency issue after `npm ci`; left out of scope because fixing it requires dependency policy work.
+
+## 2026-05-25 Pack Decision Tree Availability Guard
+- Status: completed
+- Trigger: production `/packs` showed an empty result after opening the "定策略 / Define Strategy" path.
+
+### Root Cause
+1. The public pack listing hides `tier: "stub"` packs.
+2. The decision tree still routed some first-level and second-level options to those hidden stub packs.
+3. The result panel only rendered when the recommended pack was public, so stub-only paths produced an empty section instead of a usable pack or a clear unavailable state.
+
+### Steps
+- [x] Reproduce the production empty state with Playwright.
+- [x] Audit every decision-tree pack target against `web/public/data/packs.json`.
+- [x] Disable first-level directions with zero released packs.
+- [x] Disable second-level options whose pack is still `stub`.
+- [x] Add result and browse empty-state fallbacks.
+- [x] Change visible pack/line counts and the browse CTA to released-pack semantics.
+- [x] Run root verification and local production-build verification.
+
+### Local Verification
+1. `npm --prefix web run lint` -> N/A, no lint script exists.
+2. `npm --prefix web run build` -> PASS.
+3. Local static Playwright smoke on `http://127.0.0.1:3210/packs.html`:
+   - top counts show `8 PACKS` and `4 LINES`
+   - `做数据`, `定策略`, and `看数据` are disabled and show `即将上线`
+   - `写代码` second-level options keep `前端方向`, `后端方向`, `测试方向` enabled and disable `架构/基础设施`, `运维/SRE`
+   - `做产品` still reaches a product-manager recommendation card
+   - console errors/warnings: 0
+4. `npm run build` -> PASS.
+5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks, 0 violations.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-054621-90d63d99`.

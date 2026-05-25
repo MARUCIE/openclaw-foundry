@@ -315,3 +315,31 @@ Finish the production-safe install path for role packs: install commands must us
 
 ### Residual Risk
 1. The bare production URL `https://agent-foundry.pages.dev/packs/product-manager/install.sh` can still return an old Cloudflare edge HIT from the previous `s-maxage=604800` header. Current origin, preview, cache-busted URL, `/packs` UI, and generated guides no longer use or expose that path; avoid sharing old bare direct URLs until the edge cache expires.
+
+## 2026-05-25 Pack Decision Tree Availability Guard
+
+### Scope
+Prevent `/packs` recommendation paths from routing users into hidden `stub` packs and empty result panels.
+
+### Delivered
+1. Decision-tree availability now uses the same released-pack rule as public browsing: `tier !== "stub"`.
+2. `做数据`, `定策略`, and `看数据` are disabled with `即将上线` because every target pack in those directions is still under validation.
+3. `写代码` keeps released second-level options enabled and disables `架构/基础设施` plus `运维/SRE`.
+4. Empty recommendation and empty browse-tab fallbacks now explain that the direction is still under validation.
+5. Header counts and the browse CTA now report released pack semantics (`8 PACKS`, `4 LINES`, `查看已开放配置包 (8)`), not raw hidden-catalog totals.
+
+### Verification
+1. `npm --prefix web run lint` -> N/A, no lint script exists.
+2. `npm --prefix web run build` -> PASS.
+3. Local static Playwright smoke on `http://127.0.0.1:3210/packs.html` -> PASS:
+   - unavailable first-level directions disabled
+   - unavailable second-level options disabled
+   - product-manager recommendation still renders
+   - console errors/warnings: 0
+4. `npm run build` -> PASS.
+5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks, 0 violations.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-054621-90d63d99`.
+
+### Pending
+1. Push and GitHub Actions deploy.
+2. Production Playwright verification on `https://agent-foundry.pages.dev/packs`.

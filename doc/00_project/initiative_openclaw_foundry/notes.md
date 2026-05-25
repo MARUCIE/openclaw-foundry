@@ -382,3 +382,29 @@ Maurice first requested normal site access plus registration-gated copy/download
 1. Cloudflare R2 upload was not run locally because it needs deploy credentials; CI now runs the upload before Pages deploy.
 2. `ai check` was not used as the completion gate in this run; project-level build, Worker typecheck, auth-surface audit, prune check, and local smoke were used instead.
 3. Existing worktree already contained unrelated dirty files; this run did not revert or normalize unrelated changes.
+
+## 2026-05-25 Decision Tree Empty-State Investigation
+
+### Observation
+Production `/packs` allowed the user to open `Define Strategy / 定策略`, but no pack card appeared.
+
+### Reproduction Evidence
+Playwright clicked the production `Define Strategy` button and the recommendation region disappeared. The page still showed the browse CTA and "How It Works", confirming an empty result state rather than a network failure.
+
+### Catalog Audit
+Decision-tree targets with no released public pack:
+1. `data`: `algorithm-engineer`, `bigdata-engineer` are both `tier: "stub"`.
+2. `strategy`: `executive-strategist` is `tier: "stub"`.
+3. `analyze`: `data-analyst` is `tier: "stub"`.
+4. `code` second-level options: `infra-engineer` and `ops-engineer` are `tier: "stub"` while frontend/backend/test are released.
+
+### Fix Notes
+1. Public recommendation availability is now derived from `tier !== "stub"`.
+2. First-level directions with zero released packs are disabled and labeled `即将上线`.
+3. Second-level options whose target pack is still hidden are disabled and labeled `即将上线`.
+4. Result and browse panels now show an explicit validation-state fallback instead of rendering an empty area.
+5. Visible public pack/line counts now use released-pack counts, not raw catalog counts.
+
+### Local Evidence
+1. `npm --prefix web run build` passed.
+2. Static Playwright smoke verified disabled unavailable entries, enabled released entries, product-manager recommendation, and 0 console errors/warnings.

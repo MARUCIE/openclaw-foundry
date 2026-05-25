@@ -32,6 +32,7 @@
 | OPT-19 | P0 | Auth wall | Whole-site route guard blocked normal browsing, while static Job Pack payloads still bypassed registration | Public browsing and Skill/MCP/API copy remain open; Job Pack install/download payloads require email or WeChat registered session and protected Worker/R2 delivery | Completed 2026-05-18 |
 | OPT-20 | P0 | Role-pack distribution | Copied local pack installers fetched deployed remote files by default | Public GitHub `openclaw-role-packs` repo with pinned tag install command, local-first installers, and full pack smoke install | Completed 2026-05-25 |
 | OPT-21 | P0 | Static Pages data fetch | Static export requested `/api/packs` before falling back to `/data/packs.json`, producing avoidable production console 404s | Direct static `/data/*.json` reads when `NEXT_PUBLIC_API_URL` is unset | Completed 2026-05-25 |
+| OPT-22 | P0 | Pack recommendation UX | Decision-tree paths could point to hidden `stub` packs and render an empty result panel | Clickability, counts, and empty states use released-pack availability consistently | Completed 2026-05-25 |
 
 ## Next Execution Order
 1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag is pushed.

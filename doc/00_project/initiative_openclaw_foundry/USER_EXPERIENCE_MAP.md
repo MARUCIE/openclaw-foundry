@@ -131,6 +131,7 @@
 6. Login page calls `/api/auth/config`; unavailable email or WeChat providers render as disabled instead of broken jumps
 7. User registers or logs in through email magic-link or WeChat OAuth
 8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
+9. Recommendation entrypoints whose target packs are still under validation are disabled and labeled `即将上线`, so users cannot navigate into an empty pack result.
 
 ### Journey 8: Standalone Role Pack Copy Install
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
@@ -150,6 +151,7 @@
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 7. Old bare direct payload URLs can temporarily survive in edge cache, so support/ops copy must point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
+8. No released pack exists yet for `做数据`, `定策略`, or `看数据`; the product UX now labels these as upcoming instead of pretending a downloadable pack is available.
 
 ## Round-Based Acceptance Criteria
 
