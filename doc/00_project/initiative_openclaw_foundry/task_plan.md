@@ -474,7 +474,7 @@ Package the multi-expert roundtable, cognitive skeleton, planning, reflection, b
 The remote pinned GitHub tag has not been advanced in this run. Public production install commands need a new standalone role-pack release tag before remote users can install `strategy-roundtable-advisor` through the pinned Git command.
 
 ## 2026-05-25 Public Installability Release v2026.05.25.2
-- Status: implementation verified locally; Foundry commit/deploy pending
+- Status: completed and production verified
 - Stop condition: production `/packs` shows `定策略 -> 战略圆桌顾问`, production catalogs report 26 packs and 5000 public installable skills, and no public pack install surface contains local-only paths.
 
 ### Steps
@@ -486,9 +486,9 @@ The remote pinned GitHub tag has not been advanced in this run. Public productio
 - [x] Remove tracked public backup skill catalogs from `web/public/data`.
 - [x] Regenerate Foundry static data and guides against public skill sources and role-pack tag `v2026.05.25.2`.
 - [x] Run Foundry web build, root build, public install audit, `git diff --check`, and `ai check`.
-- [ ] Commit and push Foundry release changes.
-- [ ] Deploy Cloudflare Pages production.
-- [ ] Run production browser smoke and remote catalog checks.
+- [x] Commit and push Foundry release changes.
+- [x] Deploy Cloudflare Pages production.
+- [x] Run production browser smoke and remote catalog checks.
 
 ### Verification Snapshot
 1. `node scripts/audit-public-install-sources.mjs` -> PASS: 5000/5000 skills, 26 pack settings, 22 guides, 485 pack files.
@@ -498,3 +498,10 @@ The remote pinned GitHub tag has not been advanced in this run. Public productio
 5. `ai check` -> exit 0 and summary `ok=true`; known caveat: global AI-Fleet `skill_integrity=false` for 3 unrelated `dna/capsules/*` entries.
 6. `openclaw-role-packs npm run validate` -> PASS, 26 packs.
 7. `openclaw-role-packs npm run smoke:install` -> PASS, 26/26 packs.
+8. GitHub Actions deploy run `26392426318` -> PASS.
+9. Production `packs.json` -> HTTP 200, 26 packs, `strategy-roundtable-advisor` is `enriched`.
+10. Production `skills.json` -> HTTP 200, 5000 skills, 0 bad install sources, `clawhub=3500`, `mcp-registry=1500`.
+11. Production `/data/_backup-pre-resync/skills.json` -> HTTP 404.
+12. Playwright production `/packs` smoke -> `Define Strategy` renders `战略圆桌顾问`; console errors/warnings: 0.
+13. Production guide audit -> GitHub tag install command present; legacy Pages direct install URL and `download-token` absent.
+14. Fresh remote GitHub tag clone -> `npm run validate` PASS and `npm run smoke:install` PASS for 26/26 packs.

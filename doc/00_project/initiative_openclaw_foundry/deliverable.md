@@ -439,4 +439,26 @@ Close the remaining production gap: every public Skill and Job Pack install surf
 5. Three-end consistency:
    - Local Foundry: build and public-install audit passed.
    - GitHub role-pack repo: tag `v2026.05.25.2` points at `aa55e2ff92e254ab1b7b59ecd7d454bcc976e422`.
-   - Production Pages: pending this Foundry commit deploy and browser smoke.
+   - Production Pages: GitHub Actions deploy run `26392426318` passed for Foundry commit `a90769c8f156d5eee5115b31aa86757c89d084f4`.
+
+### Production Verification
+1. GitHub Actions deploy run `26392426318` -> PASS; `deploy-worker`, `apply-migrations`, and `deploy-frontend` completed successfully.
+2. Production `https://agent-foundry.pages.dev/data/packs.json?verify=a90769c8f156d5eee5115b31aa86757c89d084f4` -> HTTP 200, 26 packs, `strategy-roundtable-advisor` present with `tier=enriched` and `line=strategy`.
+3. Production `https://agent-foundry.pages.dev/data/skills.json?verify=a90769c8f156d5eee5115b31aa86757c89d084f4` -> HTTP 200, 5000 skills, 0 bad install sources, source split `clawhub=3500` and `mcp-registry=1500`.
+4. Production old public backup URL `/data/_backup-pre-resync/skills.json` -> HTTP 404.
+5. Playwright production smoke on `/packs?verify=a90769c8f156d5eee5115b31aa86757c89d084f4`:
+   - `Define Strategy / 定策略` is enabled.
+   - Clicking it renders `战略圆桌顾问`.
+   - The rendered card shows `Strategy Roundtable Advisor`, `战略决策线`, `已富化`, bundled counts `+6 skill`, `+3 advisor`, `+1 reference`, and the guide link `/packs/strategy-roundtable-advisor/guide.html`.
+   - Browser console: 0 errors, 0 warnings.
+6. Production guide HTML for `strategy-roundtable-advisor` contains:
+   - `git clone --depth 1`
+   - `https://github.com/MARUCIE/openclaw-role-packs.git`
+   - `v2026.05.25.2`
+   - `strategy-roundtable-advisor`
+   - No `agent-foundry.pages.dev/packs/strategy-roundtable-advisor/install.sh`
+   - No `download-token`
+7. Fresh remote GitHub tag clone smoke:
+   - `git clone --depth 1 --branch v2026.05.25.2 https://github.com/MARUCIE/openclaw-role-packs.git`
+   - `npm run validate` -> PASS, 26 packs and 26 catalog entries.
+   - `npm run smoke:install` -> PASS, 26/26 packs installed.

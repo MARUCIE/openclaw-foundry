@@ -505,3 +505,32 @@ Production `/packs` still needed the new strategy pack plus public Git installab
 
 ### Remaining Step
 Commit, push, deploy Foundry, then run production browser smoke on `https://agent-foundry.pages.dev/packs` to verify `定策略` renders `战略圆桌顾问` and production data files match the 26-pack / 5000-public-skill contract.
+
+### Production Verification Result
+1. Foundry commit pushed: `a90769c8f156d5eee5115b31aa86757c89d084f4`.
+2. GitHub Actions deploy run `26392426318` completed successfully.
+3. Production pack catalog:
+   - URL: `https://agent-foundry.pages.dev/data/packs.json?verify=a90769c8f156d5eee5115b31aa86757c89d084f4`
+   - HTTP 200
+   - total packs: 26
+   - `strategy-roundtable-advisor`: present, `tier=enriched`, `line=strategy`
+4. Production skill catalog:
+   - URL: `https://agent-foundry.pages.dev/data/skills.json?verify=a90769c8f156d5eee5115b31aa86757c89d084f4`
+   - HTTP 200
+   - total skills: 5000
+   - bad install sources: 0
+   - source split: `clawhub=3500`, `mcp-registry=1500`
+5. Old public backup catalog URL returned HTTP 404.
+6. Playwright production smoke:
+   - Opened `https://agent-foundry.pages.dev/packs?verify=a90769c8f156d5eee5115b31aa86757c89d084f4`.
+   - Clicked `Define Strategy`.
+   - Result card rendered `战略圆桌顾问` / `Strategy Roundtable Advisor`.
+   - Console errors/warnings: 0.
+7. Guide command audit:
+   - contains GitHub repo and tag `v2026.05.25.2`
+   - contains pack id `strategy-roundtable-advisor`
+   - does not contain legacy direct Pages install URL
+   - does not contain `download-token`
+8. Fresh remote GitHub tag clone:
+   - `npm run validate` -> PASS, 26 packs.
+   - `npm run smoke:install` -> PASS, 26/26 packs.
