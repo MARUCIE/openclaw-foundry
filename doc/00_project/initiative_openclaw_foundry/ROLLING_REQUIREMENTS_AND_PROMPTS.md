@@ -24,7 +24,7 @@
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
 | 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | Completed | GitHub Actions deploy run `26383364471` uploaded 437/437 protected payloads to R2 and deployed Pages successfully |
 | 2026-05-25 | REQ-021 | Production / Frontend | Static Pages builds must not emit missing `/api/*` console errors for catalog data that already has `/data/*.json` fallback | Completed | `web/lib/api.ts` now reads static GET data directly when `NEXT_PUBLIC_API_URL` is unset; local static export no longer contains `/api/packs` |
-| 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local build, auth audit, Playwright smoke, and `ai check` passed |
+| 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local checks and production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` passed |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |

@@ -422,7 +422,7 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 - [x] Disable second-level options whose pack is still `stub`.
 - [x] Add result and browse empty-state fallbacks.
 - [x] Change visible pack/line counts and the browse CTA to released-pack semantics.
-- [x] Run root verification and local production-build verification.
+- [x] Run root verification, deploy verification, and production browser verification.
 
 ### Local Verification
 1. `npm --prefix web run lint` -> N/A, no lint script exists.
@@ -436,3 +436,10 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 4. `npm run build` -> PASS.
 5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks, 0 violations.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-054621-90d63d99`.
+7. GitHub Actions deploy run `26385528697` -> PASS; `deploy-frontend` completed in 3m44s after R2 upload and Pages publish.
+8. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8`:
+   - top counts show `8 PACKS` and `4 LINES`
+   - `做数据`, `定策略`, and `看数据` are disabled and show `即将上线`
+   - `写代码` second-level options keep `前端方向`, `后端方向`, `测试方向` enabled and disable `架构/基础设施`, `运维/SRE`
+   - `做产品` reaches a product-manager recommendation card with an install-command action
+   - console errors/warnings: 0

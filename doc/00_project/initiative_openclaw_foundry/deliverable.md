@@ -339,7 +339,19 @@ Prevent `/packs` recommendation paths from routing users into hidden `stub` pack
 4. `npm run build` -> PASS.
 5. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks, 0 violations.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-054621-90d63d99`.
+7. GitHub Actions deploy run `26385528697` -> PASS; `deploy-frontend` completed in 3m44s.
+8. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` -> PASS:
+   - unavailable first-level directions disabled
+   - unavailable second-level options disabled
+   - product-manager recommendation still renders with install-command action
+   - console errors/warnings: 0
 
-### Pending
-1. Push and GitHub Actions deploy.
-2. Production Playwright verification on `https://agent-foundry.pages.dev/packs`.
+### Closeout
+1. Skills update: N/A - this was a project-specific public-pack availability guard, not a reusable cross-project workflow.
+2. PDCA four-doc sync: updated PRD, UX map, and platform optimization plan; system architecture boundary unchanged.
+3. AGENTS/CLAUDE cross-task rule update: N/A - existing release verification rules already cover this.
+4. Rolling ledger: updated with REQ-022 and anti-regression Q&A.
+5. Three-end consistency:
+   - Local project: build, auth audit, `ai check`, and local Playwright smoke passed.
+   - GitHub: commit `d54abd8b52e5ed3ad95962487065e4a8c5a890d7` pushed to `main`; deploy run `26385528697` passed.
+   - Production: `https://agent-foundry.pages.dev/packs?verify=d54abd8` verified with Playwright.

@@ -408,3 +408,12 @@ Decision-tree targets with no released public pack:
 ### Local Evidence
 1. `npm --prefix web run build` passed.
 2. Static Playwright smoke verified disabled unavailable entries, enabled released entries, product-manager recommendation, and 0 console errors/warnings.
+
+### Production Evidence
+1. GitHub Actions deploy run `26385528697` passed; `deploy-frontend` completed in 3m44s.
+2. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` verified:
+   - released counts: `8 PACKS`, `4 LINES`
+   - `做数据`, `定策略`, `看数据`: disabled with `即将上线`
+   - `写代码`: frontend/backend/test enabled; infra/ops disabled with `即将上线`
+   - `做产品`: product-manager recommendation still renders with install-command action
+   - console errors/warnings: 0
