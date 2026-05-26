@@ -555,7 +555,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
    - screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`
 
 ## 2026-05-26 · Public Pack Dedup Repair
-- Status: local verified; production deployment pending
+- Status: production verified
 - Stop condition: production `/packs` exposes 22 canonical public packs, hides the 4 deprecated spellbook aliases, and keeps all canonical packs covered by recommendation groups or browse mode.
 
 ### Steps
@@ -566,7 +566,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 - [x] Update coverage/online-status audits to treat deprecated alias directories as non-public historical targets.
 - [x] Sync PRD, UX map, system architecture, platform optimization plan, and rolling ledger.
 - [x] Run local build, audits, Playwright static smoke, and `ai check`.
-- [ ] Commit, push, deploy, and verify production `/packs`.
+- [x] Commit, push, deploy, and verify production `/packs`.
 
 ### Local Verification Snapshot
 1. `npm --prefix web run build` -> PASS.
@@ -575,3 +575,9 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 4. `node scripts/audit-pack-online-status.mjs` -> PASS: packs=22, requiredFiles=7.
 5. Local Playwright static smoke on `/packs.html?verify=local-dedup` -> PASS: Frontend Experience renders 1 canonical card; Browse All renders 22 cards and 22 guide links; forbidden alias strings are absent; console errors=0; navigation duration=1291ms.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.
+
+### Production Verification Snapshot
+1. Commit `5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` pushed to `origin/main`.
+2. GitHub Actions deploy run `26435492679` completed successfully; `deploy-frontend` completed in 3m50s.
+3. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: 22 packs, 0 deprecated alias IDs, 0 duplicate `nameZh`, 0 duplicate normalized English names.
+4. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: `Write Code -> Frontend Experience` renders 1 canonical card; Browse All renders 22 cards and 22 guide links; deprecated alias strings are absent; console errors=0; console warnings=0; navigation duration=4823ms.

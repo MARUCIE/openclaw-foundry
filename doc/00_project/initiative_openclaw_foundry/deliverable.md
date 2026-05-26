@@ -665,8 +665,14 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 5. Local Playwright static smoke -> PASS: Frontend Experience renders 1 canonical card; Browse All renders 22 cards and 22 guide links; alias strings are absent; console errors=0; navigation duration=1291ms.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.
 
+### Production Evidence
+1. Foundry commit `5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` was pushed to `origin/main`.
+2. GitHub Actions deploy run `26435492679` completed successfully; `deploy-frontend` completed in 3m50s.
+3. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: 22 packs, no `spellbook-frontend-engineer`, `spellbook-backend-engineer`, `spellbook-test-engineer`, or `spellbook-platform-engineer`, and no duplicate visible pack names.
+4. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: Frontend Experience renders 1 canonical card; Browse All renders 22 cards and 22 guide links; deprecated alias strings are absent; console errors=0; console warnings=0.
+
 ### Closeout
 1. Skills update: N/A - this is a Foundry pack-catalog invariant implemented as generator/audit code.
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
-4. Technical debt closure: duplicate public role cards are closed by generation and audit gates; production verification pending.
+4. Technical debt closure: duplicate public role cards are closed by generation, audit gates, GitHub Actions deployment, and production smoke verification.

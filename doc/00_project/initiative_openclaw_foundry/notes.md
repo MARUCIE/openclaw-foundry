@@ -738,3 +738,9 @@ Four spellbook directories had correct `deprecated_alias_of` metadata, but `scri
 3. `npm --prefix web run build` -> PASS.
 4. Local Playwright static smoke -> PASS: one canonical frontend result card, 22 Browse All cards, 22 guide links, forbidden alias strings absent, console errors=0.
 5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.
+
+### Production Evidence
+1. Foundry commit `5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` was pushed to `origin/main`.
+2. GitHub Actions deploy run `26435492679` completed successfully; `deploy-worker`, D1 migrations, and `deploy-frontend` all passed.
+3. Production `packs.json` at `https://agent-foundry.pages.dev/data/packs.json?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` returned 22 packs, no deprecated alias IDs, no duplicate Chinese names, and no duplicate normalized English names.
+4. Production Playwright smoke on `/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` passed: Frontend Experience renders 1 canonical card, Browse All renders 22 cards and 22 guide links, deprecated alias strings are absent, console errors=0, console warnings=0.
