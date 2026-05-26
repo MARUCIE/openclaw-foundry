@@ -715,6 +715,7 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 4. `npm --prefix web run build` -> PASS with pack release gates.
 5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-090905-e728ecb3`.
 
-### Evidence Pending
-1. GitHub Actions deploy run must pass after push.
-2. Production `/packs` smoke must still show 22 packs, 22 enriched, 0 certified, 0 stub, and no deprecated aliases.
+### Production Evidence
+1. GitHub Actions deploy run `26443292530` -> PASS for commit `9a081d9366df33f57b714c7872adc16d89409051`; `deploy-worker`, `apply-migrations`, and `deploy-frontend` all completed successfully.
+2. Action runtime log scan -> PASS: no `Node.js 20`, `node20`, `checkout@v4`, `setup-node@v4`, `setup-python@v5`, `upload-artifact@v4`, `download-artifact@v4`, or `wrangler-action@v3` references.
+3. Production `/packs` smoke -> PASS: 22 public packs, 22 enriched, 0 certified, 0 stub, Code Reviewer and Security Auditor enriched, and no deprecated aliases visible.

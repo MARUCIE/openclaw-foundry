@@ -794,5 +794,7 @@ The final production deploy for the public pack maturity work succeeded, but Git
 6. `npm --prefix web run build` -> PASS.
 7. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-090905-e728ecb3`.
 
-### Evidence Pending
-1. GitHub Actions production deploy and `/packs` smoke after push.
+### Production Evidence
+1. GitHub Actions deploy run `26443292530` -> PASS for commit `9a081d9366df33f57b714c7872adc16d89409051`.
+2. Runtime action scan -> PASS: logs show the upgraded Node 24-native action majors (`actions/checkout@v6`, `actions/setup-node@v6`, `cloudflare/wrangler-action@v4`) and no `Node.js 20`, `node20`, or old action major references.
+3. Production `/packs` smoke -> PASS: `/data/packs.json` returned 22 public packs, all `enriched`; Code Reviewer and Security Auditor are enriched; no deprecated aliases are publicly visible; guide/page checks contain no Basic or Certified public labels.
