@@ -602,3 +602,6 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
    - CrewAI: `agents.yaml` and `tasks.yaml` separate role definition from task execution.
    - OpenHands: software-engineering agent platform organized around end-to-end coding workflows.
 5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-032923-a8c9e390`.
+6. GitHub Actions deploy run `26430651434` -> PASS for commit `ea78a2302ec6bc3024e558e69978cc90040e7544`; `deploy-worker`, D1 migrations, and `deploy-frontend` completed successfully.
+7. Production data smoke -> PASS: `https://agent-foundry.pages.dev/data/packs.json?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` returned 26 packs, 9 released, 17 pending, 6 lines, and `strategy-roundtable-advisor`.
+8. Production Playwright smoke -> PASS: `/packs?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` renders 4 `Write Code` task-domain groups, no old flat engineering labels in the second-level view, and 2 frontend-result pack cards after selecting `Frontend Experience`.

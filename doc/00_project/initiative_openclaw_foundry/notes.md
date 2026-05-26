@@ -669,3 +669,6 @@ Use task-domain groups at the recommendation layer, then expand concrete packs o
 2. Local coverage audit: `node scripts/audit-packs-page-coverage.mjs` -> PASS.
 3. Local static Playwright smoke: code direction shows 4 group buttons; old flat engineering labels are absent from the second-level view; selecting frontend experience renders 2 concrete pack cards.
 4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-032923-a8c9e390`.
+5. GitHub Actions deploy run `26430651434` -> PASS for commit `ea78a2302ec6bc3024e558e69978cc90040e7544`; `deploy-frontend` completed in 3m55s.
+6. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` -> PASS: 26 packs, 9 released, 17 pending, 6 lines, `strategy-roundtable-advisor` present.
+7. Production Playwright smoke on `/packs?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` -> PASS: code direction has 4 group buttons, old flat engineering labels are absent from second-level view, and frontend experience expands to 2 pack cards.
