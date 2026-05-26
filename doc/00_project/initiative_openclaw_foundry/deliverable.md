@@ -580,3 +580,6 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 1. `node scripts/audit-packs-page-coverage.mjs` -> PASS.
 2. `npm --prefix web run build` -> PASS.
 3. Local Playwright static export smoke -> PASS: 26 cards render; `/packs` code direction shows 11 options and includes code reviewer, security auditor, and platform engineer.
+4. GitHub: commit `faccc22857641061faa5c941f97ef936048d9c65` pushed to `origin/main`; deploy run `26428949743` succeeded.
+5. Production data: `https://agent-foundry.pages.dev/data/packs.json?verify=faccc22` -> 26 packs, 9 released, 17 pending, 6 lines.
+6. Production Playwright smoke: `/packs?verify=faccc22` browse mode renders 26 cards; audited missing-card list is empty; `/packs` code direction has no missing engineering options and shows pending packs as `Coming soon`.

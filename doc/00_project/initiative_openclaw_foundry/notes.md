@@ -645,3 +645,6 @@ The `/packs` guide and browse UI had two hidden filters: the question tree only 
 1. `node scripts/audit-packs-page-coverage.mjs` -> PASS, 26 packs and 6 lines covered.
 2. `npm --prefix web run build` -> PASS, including pack generation, person-name sanitizer, public install source audit, and page coverage audit.
 3. Local Playwright static export smoke on `/packs.html` -> PASS: browse mode renders 26 cards, the code direction shows 11 options, and previously missing packs such as security auditor, code reviewer, platform engineer, AI app engineer, internal control specialist, and investment analyst are visible.
+4. Commit `faccc22857641061faa5c941f97ef936048d9c65` was pushed to `origin/main`; GitHub Actions deploy run `26428949743` completed successfully, including Worker deploy, D1 migrations, and Pages frontend deploy.
+5. Production `https://agent-foundry.pages.dev/data/packs.json?verify=faccc22` -> HTTP 200, 26 packs, 9 released, 17 pending, 6 lines.
+6. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=faccc22` -> PASS: browse mode renders 26 cards, no audited pack names are missing, the count notice is visible, `Coming soon` is visible for pending packs, and the code direction has no missing engineering options.
