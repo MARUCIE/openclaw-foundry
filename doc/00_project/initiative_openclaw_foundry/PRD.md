@@ -90,6 +90,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-30 | `/packs` recommendation taxonomy must use a small set of task-domain groups instead of one second-level card per pack; every public catalog pack must still map to at least one group and render in the selected result set | Implemented 2026-05-26 |
 | FR-31 | Pack availability must be derived from generated artifact completeness, not `PACK_SPEC` tier; prebuild fails if any public catalog pack lacks public files, guide HTML, `/packs` coverage, or duplicate-role suppression | Implemented 2026-05-26; updated 2026-05-26 |
 | FR-32 | Every canonical public job pack must meet at least `enriched` maturity before it appears in `/packs`; prebuild fails if the public catalog contains any `stub` pack, and deprecated alias guide pages inherit their canonical target maturity | Implemented 2026-05-26 |
+| FR-33 | Role-pack Git release verification and local zip packaging must be reproducible through first-class scripts: Git drift audit, public zip packaging, all-pack zip packaging, checksum output, and install smoke verification | Implemented 2026-05-26 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -107,6 +108,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 13. Pack online-status and dedup audits must verify all 22 public catalog entries have required public files, `guide.html`, release logic independent from `tier: "stub"`, and no visible duplicate role names; deprecated alias directories must point to a visible canonical target and stay out of `/packs` question-tree IDs.
 14. Public maturity generation must be audit-derived, not hand-labeled: `scripts/enrich-public-pack-maturity.mjs` may add missing maturity artifacts, but `scripts/pack-spec-audit.py` and `scripts/audit-public-pack-maturity.mjs` are the release gates that prove the public catalog has zero `stub` entries.
 15. GitHub Actions release workflows must use Node 24-compatible action runtimes before the 2026-06-02 GitHub runner default switch; workflow action versions must be pinned to supported majors and Cloudflare Wrangler must be version-pinned for deterministic production deploys.
+16. Role-pack release artifacts must be produced by auditable scripts, not ad hoc shell history: `npm run role-packs:audit-git` proves the pinned Git tag matches Foundry payloads, and `npm run role-packs:package` / `npm run role-packs:package:all` produce verified zip bundles with `SHA256SUMS.txt` and `manifest-summary.json`.
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -123,7 +125,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 6. Email and Enterprise WeChat production login still require Cloudflare secrets/provider setup; code now fails visibly when those secrets are absent
 7. Skill catalog truth is still split across curated web JSON, unified index data, and emerging external skill-factory inputs
 8. Protected pack payload deployment depends on Cloudflare R2 upload during CI for single-file downloads; install-command copy no longer depends on a short-lived Worker token
-9. Standalone role-pack repo drift remains possible; release by tag and run full smoke install before moving the production ref
+9. Standalone role-pack repo drift remains possible if the pinned Git ref moves without `npm run role-packs:audit-git`; local zip sharing must use `npm run role-packs:package` or `npm run role-packs:package:all` so checksums and install smoke evidence are generated together
 10. Old bare direct payload URLs can remain in Cloudflare edge cache until their previous `s-maxage` expires; the product path must avoid exposing those URLs
 11. Newly added pack-entry decision paths, catalog lines, and task-domain groups must be audited against `/packs` UI reachability before deployment
 12. Public skill catalogs and role-pack payloads must not expose workstation-only links, `file:///Users/...` sources, or public `_backup*` data directories.

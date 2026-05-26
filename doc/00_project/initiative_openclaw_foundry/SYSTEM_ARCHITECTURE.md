@@ -146,6 +146,8 @@ flowchart LR
 
 Installer invariant: production install command clones a pinned GitHub tag, then installer execution uses local sibling `manifest.json` and local artifact files as the default source. Remote fetching is an explicit override only.
 
+Release automation invariant: `npm run role-packs:audit-git` is the release gate before moving the production Git ref. It reads the Foundry-configured Git URL/ref, clones the pinned tag, runs standalone validate + smoke install, and compares Foundry public pack payload hashes with the cloned release. `npm run role-packs:package` creates verified public-pack zip artifacts and `npm run role-packs:package:all` creates verified full-distribution zip artifacts; both commands write `SHA256SUMS.txt`, `manifest-summary.json`, per-pack zips, and one all-in-one archive under `dist/`.
+
 ## Product Manager / Designer Pack Boundary (2026-05-25)
 
 The product line has two released frontdoor packs. `product-manager` owns PRD, user stories, RICE, prototype hypothesis, and clickable validation demo prompts. `designer` owns experience architecture, visual hierarchy, design tokens, design QA, advisor review, component states, responsive constraints, and engineering handoff. The retired `prototype-designer` slug is not kept as an alias so public catalog, guide, and Git install surfaces cannot imply that prototype ownership belongs to the Designer pack.

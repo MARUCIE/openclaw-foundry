@@ -138,14 +138,16 @@
 ### Journey 8: Standalone Role Pack Copy Install
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
 2. Maintainer commits, tags, and pushes the snapshot to `https://github.com/MARUCIE/openclaw-role-packs`
-3. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-4. Command runs `git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git`
-5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
-6. Installer reads local sibling `manifest.json` and copies local artifacts by default
-7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
-8. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
-9. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
-10. Pack content and copied install output use capability-neutral advisor identities rather than concrete person names.
+3. Maintainer runs `npm run role-packs:audit-git` before moving or trusting the production Git ref; the audit clones the pinned tag, smoke-installs it, and compares Foundry payload hashes.
+4. Maintainer runs `npm run role-packs:package` for public canonical zips or `npm run role-packs:package:all` for all 26 distribution directories when local archive delivery is needed.
+5. Registered website user copies the install command from `/packs`, or recipient clones the release directly
+6. Command runs `git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git`
+7. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
+8. Installer reads local sibling `manifest.json` and copies local artifacts by default
+9. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
+10. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
+11. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
+12. Pack content and copied install output use capability-neutral advisor identities rather than concrete person names.
 
 ## UX Gaps
 1. ~~No authenticated web operator console~~ **Resolved by v3.0 Web Console** — customer management still API-only

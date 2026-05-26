@@ -739,3 +739,25 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated for `v2026.05.26.1`.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is enforced by standalone repo validation and Foundry guide/tag checks.
 4. Technical debt closure: stale Git release drift is closed by the new tag and fresh remote clone smoke verification.
+
+## 2026-05-26 · Role-Pack Release Automation
+
+### Delivered
+1. Git release verification is now a first-class command: `npm run role-packs:audit-git`.
+2. Public local archive generation is now a first-class command: `npm run role-packs:package`.
+3. Full distribution archive generation is now a first-class command: `npm run role-packs:package:all`.
+4. Each packaging command writes per-pack zips, one all-in-one zip, `SHA256SUMS.txt`, `manifest-summary.json`, and `README.md`, then install-smoke verifies generated archives.
+5. Release governance docs now use unique requirement/backlog IDs for the 2026-05-26 pack-release work.
+
+### Evidence
+1. `node --check scripts/audit-role-pack-git-release.mjs` -> PASS.
+2. `node --check scripts/package-role-packs.mjs` -> PASS.
+3. `npm run role-packs:audit-git` -> PASS: `v2026.05.26.1` remote clone validates, smoke-installs, and matches Foundry hashes.
+4. `npm run role-packs:package` -> PASS: public zip output at `dist/role-pack-zips-20260526-133952-public`.
+5. `npm run role-packs:package:all` -> PASS: all-pack zip output at `dist/role-pack-zips-20260526-134008-all`.
+
+### Closeout
+1. Skills update: N/A - this is a Foundry release/packaging gate, not a user-facing agent Skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, and deliverable updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the reusable invariant is now executable through npm scripts.
+4. Technical debt closure: manual Git drift checks and ad hoc local zip packaging are replaced by repeatable scripts with fresh clone, hash comparison, checksum output, and install smoke verification.

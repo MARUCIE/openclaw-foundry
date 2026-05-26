@@ -757,6 +757,7 @@
             <li>二级入口不平铺所有岗位包；工程方向收敛为前端体验、后端平台、质量安全、基础设施运维四组。</li>
             <li>每个任务域组展开具体岗位包；`tier=stub` 只显示为 `Basic` 成熟度，不再被当成未上线或禁用状态。</li>
             <li>`scripts/audit-packs-page-coverage.mjs` 在 prebuild 阶段证明 26 个岗位包均有任务域或浏览入口覆盖；`scripts/audit-pack-online-status.mjs` 证明 26 个包均具备上线所需公开文件与 guide。</li>
+            <li>`npm run role-packs:audit-git` 是移动生产 Git ref 前的守门；`npm run role-packs:package` 与 `npm run role-packs:package:all` 生成带 SHA256 与安装烟测的本地 zip 交付物。</li>
           </ul>
         </div>
       </div>
@@ -766,7 +767,7 @@
   <footer class="site-footer">
     <p>OpenClaw Foundry v3.0 — 架构决策报告</p>
     <p>Maurice | maurice_wen@proton.me</p>
-    <p class="attr">CONFIDENTIAL -- For internal use only | Generated on 2026-04-23 | Auth-wall companion updated on 2026-05-18 | Role-pack repo companion updated on 2026-05-25 | Strategy pack companion updated on 2026-05-25 | Pack taxonomy companion updated on 2026-05-26</p>
+    <p class="attr">CONFIDENTIAL -- For internal use only | Generated on 2026-04-23 | Auth-wall companion updated on 2026-05-18 | Role-pack repo companion updated on 2026-05-25 | Strategy pack companion updated on 2026-05-25 | Pack taxonomy companion updated on 2026-05-26 | Release automation companion updated on 2026-05-26</p>
   </footer>
 </body>
 </html>

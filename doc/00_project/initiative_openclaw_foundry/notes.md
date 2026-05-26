@@ -817,3 +817,28 @@ The standalone Git tag `v2026.05.25.5` was reachable and installable, but compar
 3. Standalone repo `npm run smoke:install` -> PASS: 26/26 packs installed, including deprecated aliases delegating to canonical targets.
 4. Fresh GitHub clone of `v2026.05.26.1` -> PASS: validate and smoke install installed 26/26 packs from the remote tag.
 5. Local zip smoke -> PASS: 22 zip files, every zip contains manifest/install/guide/CLAUDE/AGENTS, and every extracted zip installed exactly its manifest item count.
+
+## 2026-05-26 · Role-Pack Release Automation
+
+### Trigger
+The Git installability and zip snapshot work proved the release by hand, but the proof still lived as a sequence of one-off shell commands. That leaves room for future drift between Foundry, the pinned `openclaw-role-packs` tag, and locally shared zip archives.
+
+### Change
+1. Added `scripts/audit-role-pack-git-release.mjs`.
+   - Reads the Git URL/ref from Foundry guide generation and protected-download code.
+   - Fails if the configured Git URL/ref diverges between those sources.
+   - Clones the pinned standalone tag, runs standalone `npm run validate` and `npm run smoke:install`, and compares required files plus manifest payload hashes between Foundry and the cloned release.
+2. Added `scripts/package-role-packs.mjs`.
+   - `--scope public` packages the 22 public canonical packs plus one all-in-one public archive.
+   - `--scope all` packages all 26 distribution directories plus one all-in-one full archive.
+   - Emits `SHA256SUMS.txt`, `manifest-summary.json`, and `README.md`.
+   - Verifies each generated zip by extracting it and running its local `install.sh`.
+3. Added npm scripts: `role-packs:audit-git`, `role-packs:package`, and `role-packs:package:all`.
+4. Fixed release-governance documentation IDs so the platform optimization backlog and requirements ledger no longer contain duplicate `OPT-30` / `REQ-032` entries.
+
+### Evidence
+1. `node --check scripts/audit-role-pack-git-release.mjs` -> PASS.
+2. `node --check scripts/package-role-packs.mjs` -> PASS.
+3. `npm run role-packs:audit-git` -> PASS: pinned tag `v2026.05.26.1`, 22 public packs, 26 distribution dirs, 550 manifest items, and 550 payload files matched.
+4. `npm run role-packs:package` -> PASS: 22 per-pack archives plus `openclaw-role-packs-public-v2026.05.26.1.zip`, all zip installers smoke-verified.
+5. `npm run role-packs:package:all` -> PASS: 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.26.1.zip`, all zip installers smoke-verified, including deprecated alias archives with canonical siblings.
