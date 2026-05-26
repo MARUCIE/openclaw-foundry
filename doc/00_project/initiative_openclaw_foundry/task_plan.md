@@ -604,7 +604,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 4. Static data smoke -> PASS: 22 packs, 22 enriched, 0 certified, 0 stub; code reviewer and security auditor are enriched; deprecated aliases are hidden.
 5. Local Chrome DevTools smoke on `http://127.0.0.1:4320/packs.html?verify=local-maturity` -> PASS after clicking Browse All: Code Reviewer and Security Auditor visible, `Enriched` visible, no `Basic` / `基础档`, deprecated frontend alias absent.
 6. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
-7. GitHub Actions deploy run `26438063235` -> PASS for commit `0486110e5e3bf23f77ad7dc7e032b69586210497`; production smoke showed 22 packs, 22 enriched, 0 stub, Code Reviewer and Security Auditor enriched, and no deprecated aliases. A follow-up deterministic-audit fix will redeploy the same public maturity surface after local/CI tier parity is restored.
+7. GitHub Actions deploy run `26438787446` -> PASS for commit `69031125d30b69c2c4172a62798978ca5ccd927c`; production smoke on `https://agent-foundry.pages.dev` showed 22 packs, 22 enriched, 0 certified, 0 stub, Code Reviewer and Security Auditor enriched, no `Basic` / `基础档` / `Certified` labels, and no deprecated aliases.
 
 ### Notes
 2. Full pack-spec audit still reports 4 `stub` directories only for deprecated aliases that are suppressed from public catalog; alias guide pages now inherit canonical maturity.

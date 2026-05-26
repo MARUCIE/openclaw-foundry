@@ -692,11 +692,11 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 4. Local static data smoke -> PASS: public catalog has zero `stub`; code reviewer and security auditor are enriched; deprecated aliases are hidden.
 5. Local Chrome DevTools smoke -> PASS: Browse All shows Enriched, Code Reviewer, and Security Auditor; no Basic / `基础档` label.
 6. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
-7. Production deploy run `26438063235` for commit `0486110e5e3bf23f77ad7dc7e032b69586210497` -> PASS; production data smoke returned 22 packs, 22 enriched, 0 stub, no deprecated aliases, and Code Reviewer / Security Auditor both enriched.
+7. Production deploy run `26438787446` for commit `69031125d30b69c2c4172a62798978ca5ccd927c` -> PASS; production smoke returned 22 packs, 22 enriched, 0 certified, 0 stub, no Basic / Certified labels, no deprecated aliases, and Code Reviewer / Security Auditor both enriched.
 8. Deterministic maturity fix: normal `pack-spec-audit.py` now ignores untracked local E2E logs, preventing local-only Certified labels from diverging from CI/production.
 
 ### Closeout
 1. Skills update: N/A - this is a Foundry pack generation/audit invariant rather than a user-facing skill.
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
-4. Technical debt closure: local build, audit, smoke, and `ai check` are closed; deployment and production smoke remain pending until the release commit is pushed.
+4. Technical debt closure: local build, audit, smoke, `ai check`, GitHub Actions deploy, and production smoke are closed for commit `69031125d30b69c2c4172a62798978ca5ccd927c`.
