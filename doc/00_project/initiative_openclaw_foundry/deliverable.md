@@ -623,9 +623,12 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 5. Local Playwright static export smoke -> PASS: 4 compact engineering groups, Basic badge visible, browse mode has 26 guide links, and no `Coming soon` copy appears.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-040741-af59dd2d`.
 7. Zip SHA256: `12ef1572df59f86118203233ecd87f3560b97ce3866a9e1d1392b2924537c336`.
+8. GitHub Actions deploy run `26431853849` -> PASS for commit `1d5fdf48fb3ca97b76f2c4c33ed405732649f313`.
+9. Production data smoke -> PASS: `https://agent-foundry.pages.dev/data/packs.json?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` returned HTTP 200, 26 packs, 6 lines, and no missing required catalog fields.
+10. Production Playwright smoke -> PASS: `https://agent-foundry.pages.dev/packs?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` renders 4 `Write Code` task-domain groups, `Quality & Security` exposes `BASIC` maturity packs, Browse All exposes 26 guide links, and no unavailable copy appears.
 
 ### Closeout
 1. Skills update: N/A - this was a Foundry Job Pack online-state and release-gate repair, implemented as scripts and package artifacts.
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is now executable through prebuild audits.
-4. Technical debt closure: online-state conflation and missing guide coverage are closed; production verification follows the pushed commit.
+4. Technical debt closure: online-state conflation and missing guide coverage are closed; production deployment and smoke verification are complete for commit `1d5fdf48fb3ca97b76f2c4c33ed405732649f313`.

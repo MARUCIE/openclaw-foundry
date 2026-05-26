@@ -698,3 +698,6 @@ After the compact taxonomy shipped, the public `/packs` page still implied that 
 5. Local Playwright static export smoke on `/packs.html` -> PASS: code direction has 4 task-domain groups, quality/security group shows a Basic pack, browse mode exposes 26 guide links, and no `Coming soon` copy appears.
 6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-040741-af59dd2d`.
 7. Local zip snapshot generated at `dist/openclaw-role-packs-20260526-120909.zip`; SHA256 `12ef1572df59f86118203233ecd87f3560b97ce3866a9e1d1392b2924537c336`; zip contains 26 guides and 26 manifests.
+8. Commit `1d5fdf48fb3ca97b76f2c4c33ed405732649f313` was pushed to `origin/main`; GitHub Actions deploy run `26431853849` completed successfully for Worker, D1 migration, and Pages frontend deploy.
+9. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` -> PASS: HTTP 200, 26 packs, 6 lines, no missing `id` / `line` / `tier` fields.
+10. Production Playwright smoke on `/packs?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` -> PASS: `Write Code` uses 4 compact task-domain groups, `Quality & Security` shows `BASIC` maturity packs, Browse All exposes 26 guide links, and no `Coming soon` / `即将上线` copy appears.
