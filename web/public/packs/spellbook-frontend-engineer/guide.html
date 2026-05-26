@@ -4,14 +4,14 @@
   generated-at: 2026-05-25T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
-  source: web/public/packs/spellbook-onboarding/{manifest.json,CLAUDE.md,prompts.md}
+  source: web/public/packs/spellbook-frontend-engineer/{manifest.json,CLAUDE.md,prompts.md}
 -->
 <html lang="zh-CN" data-style-id="html-document-style">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="openclaw-foundry/scripts/generate-pack-guides.mjs">
-<title>入职引导（Onboarding Lead） · 岗位配置包指导手册 · Agent Foundry</title>
+<title>前端工程师（Frontend Engineer (Spellbook)） · 岗位配置包指导手册 · Agent Foundry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -92,9 +92,9 @@ footer p { max-width: none; margin: 4px 0; }
 <body>
 <div class="frame">
 <header class="cover">
-  <div class="tag">岗位配置包 · 产品职能线 · spellbook-onboarding</div>
-  <h1>入职引导</h1>
-  <p class="subtitle">仓库引导代理 + PRD 脚手架，技术 leader 给新人做引导用。</p>
+  <div class="tag">岗位配置包 · 工程职能线 · spellbook-frontend-engineer</div>
+  <h1>前端工程师</h1>
+  <p class="subtitle">WCAG/ARIA 无障碍 + Angular + Tailwind + 3 种语言 lint 配置。</p>
   <div class="meta-row">
     <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
     <span>版本 <strong>1.1.0</strong></span>
@@ -105,7 +105,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>30 秒画像</h2>
-<p class="lead">仓库引导代理 + PRD 脚手架，技术 leader 给新人做引导用。</p>
+<p class="lead">WCAG/ARIA 无障碍 + Angular + Tailwind + 3 种语言 lint 配置。</p>
 <p>本指导手册由 <code>scripts/generate-pack-guides.mjs</code> 从 pack 的 <code>manifest.json</code>、
 <code>CLAUDE.md</code>、<code>prompts.md</code> 三份源文件直接生成 — 不是 LLM 写的也不是手工抄的。
 所以你看到的所有命令、文件路径、内容结构都和你 <code>curl … | bash</code> 装到本地的完全一致。</p>
@@ -122,16 +122,102 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<p class="muted">本包暂未带 skill 资源（stub-tier）。</p>
+<ul class="kit-list"><li><code>skills/spellbook/accessibility/SKILL.md</code></li><li><code>skills/spellbook/angular/SKILL.md</code></li><li><code>skills/spellbook/tailwind/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/spellbook/onboarding-agent.md</code></li></ul>
+<p class="muted">本包暂未带 advisor 角色。</p>
 </section>
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
 <p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
-<p class="muted">本包暂未带 skill 资源。</p>
+
+<div class="skill-card" id="skill-accessibility">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">accessibility</div>
+    <code class="skill-card-path">skills/accessibility/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when building or reviewing UI components for keyboard and screen reader compatibility, adding ARIA to custom widgets, auditing a page for WCAG AA conformance, or preparing for a formal accessibility review.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Accessibility（无障碍，A11y）是让残障用户与辅助技术（如读屏、键盘、语音）都能顺畅使用产品的工程实践。</p><p>用它的效果是：合规风险降低、用户群体扩大、整体交互质量提升（健全用户也受益）。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先用语义化 HTML 表达页面结构，让读屏软件能正确朗读层级与角色。</li><li>为所有交互元素提供键盘可达路径，让不用鼠标的用户也能完成关键流程。</li><li>用 ARIA（Accessible Rich Internet Applications）属性补齐动态组件的语义，让自定义控件不丢失可访问性。</li><li>在颜色与字号上对照 WCAG 标准做对比度检查，让弱视用户也能舒服阅读。</li><li>把无障碍检查接入 CI 自动化，让回归在合并前被发现而不是等用户投诉。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  设计稿 --&gt; 语义HTML
+  语义HTML --&gt; 键盘可达
+  键盘可达 --&gt; ARIA语义
+  ARIA语义 --&gt; 对比度校验
+  对比度校验 --&gt; CI门禁</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-angular">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">angular</div>
+    <code class="skill-card-path">skills/angular/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when building or refactoring Angular applications — choosing between signals, RxJS, and NgRx for state, configuring routing with guards and lazy loading, optimizing change detection, or writing TestBed component tests.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Angular 是 Google 出品的企业级前端框架，自带依赖注入（Dependency Injection）、路由、表单、HTTP 一整套能力。</p><p>用它的效果是：大型团队协作时约定多过自由发挥，新人接手老项目的学习成本被显著压低。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先按业务领域划分模块（Module）与路由，让代码结构对应组织结构。</li><li>用依赖注入管理服务与状态，让组件保持轻薄而业务逻辑可被独立测试。</li><li>通过响应式表单（Reactive Forms）处理复杂校验，让表单逻辑显式而不藏在模板里。</li><li>用 RxJS 编排异步流，让数据流与副作用都有统一的描述方式。</li><li>通过 Angular CLI 与 Schematics 做工程化约束，让规范由工具而不是口头传达。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  路由模块 --&gt; 组件
+  组件 --&gt; 服务注入
+  服务注入 --&gt; 状态管理
+  状态管理 --&gt; 响应式流
+  响应式流 --&gt; 视图渲染</pre>
+  </div>
+  
+</div>
+
+<div class="skill-card" id="skill-tailwind">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">tailwind</div>
+    <code class="skill-card-path">skills/tailwind/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Use when composing Tailwind utilities, building responsive or dark-mode layouts, defining component variants with cva, resolving conflicting classes with tailwind-merge, or configuring a custom theme.</p>
+  
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Tailwind CSS 是 utility-first（工具类优先）的 CSS 框架，把样式写在标签上而不是另起一个 .css 文件。</p><p>用它的效果是：开发与设计的距离被拉到最近，重构样式时不再担心牵一发动全身。</p>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先把设计语言（颜色、间距、字号）配置进 tailwind.config，让设计 token 由配置而非约定承载。</li><li>用响应式前缀（sm: md: lg:）一行写完多端布局，让媒体查询不再四处散落。</li><li>通过 dark: 变体处理深色模式，让主题切换的成本接近为零。</li><li>用 cva（class-variance-authority）封装组件变体，让重复的类名组合变成可命名的 API。</li><li>用 tailwind-merge 解决类名冲突，让覆盖与合并的优先级可预期。</li></ol>
+  </div>
+  
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  设计token --&gt; 配置文件
+  配置文件 --&gt; 工具类
+  工具类 --&gt; 响应式变体
+  响应式变体 --&gt; 深色模式
+  深色模式 --&gt; 组件变体</pre>
+  </div>
+  
+</div>
 </section>
 
 <section>
@@ -145,12 +231,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-onboarding --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-frontend-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -188,7 +274,7 @@ ls -la ~/.openclaw/AGENTS.md ~/.openclaw/settings.json ~/.openclaw/skills/
 claude --help | head -3
 
 # 回到 /packs，登录后复制本包安装命令
-#    公开直连 /packs/spellbook-onboarding/install.sh 已关闭，安装命令固定为 GitHub tag
+#    公开直连 /packs/spellbook-frontend-engineer/install.sh 已关闭，安装命令固定为 GitHub tag
 </code></pre>
 </section>
 
@@ -205,7 +291,7 @@ claude --help | head -3
 </section>
 
 <footer>
-  <p>OpenClaw Foundry — 入职引导 岗位包指导手册</p>
+  <p>OpenClaw Foundry — 前端工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
   <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.5 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>

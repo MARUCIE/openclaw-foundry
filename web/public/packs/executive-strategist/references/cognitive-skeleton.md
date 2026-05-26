@@ -89,7 +89,7 @@ When facing a decision, find your scenario below. Each row maps to Decision Fram
 | What could go wrong | #001 Inversion, #041 Black Swan | #97 Antifragile Design, Pre-mortem |
 | System fragility | #036 Fragility-Antifragile, #037 Redundancy | #97 Antifragile, #99 System Archetypes |
 | Competitive defense | #059 Red Queen, #040 Network Effects | #79 Positioning Map, #80 Blue Ocean |
-| Resource over-stretch | #109 Two-Front War, #093 Opportunity Cost | #100 Jobs Portfolio, #93 Three Horizons |
+| Resource over-stretch | #109 Two-Front War, #093 Opportunity Cost | #100 Work Portfolio, #93 Three Horizons |
 | Cognitive bias in decisions | #092 Confirmation Bias, #077 Social Proof | #32 Six Thinking Hats, #90 First Principles |
 
 ### 9. Systems & Strategy

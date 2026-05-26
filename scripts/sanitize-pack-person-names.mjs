@@ -227,6 +227,8 @@ const TEXT_REPLACEMENTS = [
   [/Jobs was/g, 'The product-experience lens was'],
   [/Jobs real-time/g, 'Product-experience real-time'],
   [/Jobs&#39;|Jobs'|Jobs’/g, 'Product Experience'],
+  [/\bJobs:\s*/g, 'Product Experience: '],
+  [/#100 Jobs Portfolio/g, '#100 Work Portfolio'],
   [/乔布斯/g, '产品体验'],
 
   [/Jony Ive(?:&#39s|&#39;s|'s|’s)?/g, 'Interface Craft'],

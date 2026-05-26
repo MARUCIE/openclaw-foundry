@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Verify that every generated job pack is reachable from /packs.
 //
-// The /packs page intentionally renders all catalog packs: released packs are
-// installable, while stub packs are visible as pending. This audit prevents a
-// generated pack from existing in packs.json but disappearing from the guide UI.
+// The /packs page intentionally renders all catalog packs. PACK_SPEC tier is a
+// maturity signal only; `stub` packs must remain visible as Basic live packs
+// when their generated artifacts exist. This audit prevents a generated pack
+// from existing in packs.json but disappearing from the guide UI.
 // The question tree groups packs by task domain, so every pack must be assigned
 // to at least one packIds cluster or covered by an explicit dynamic line rule.
 

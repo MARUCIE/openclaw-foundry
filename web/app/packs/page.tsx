@@ -154,7 +154,10 @@ const QUESTION_TREE: QuestionTreeItem[] = [
   },
 ];
 
-const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack && pack.tier !== 'stub');
+// Availability is intentionally separate from PACK_SPEC quality tier.
+// A `stub` tier means "basic pack", not "offline"; every catalog pack with
+// generated files can be installed, while tier badges disclose maturity.
+const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack);
 
 function packSortScore(pack: ConfigPack): number {
   if (pack.tier === 'certified') return 0;
@@ -339,7 +342,7 @@ function PacksTabBody({
 }: PacksTabBodyProps) {
   const lineFiltered = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
   const filteredPacks = sortPacksForDisplay(lineFiltered);
-  const stubCount = lineFiltered.filter(p => !isReleasedPack(p)).length;
+  const unavailablePackCount = lineFiltered.filter(p => !isReleasedPack(p)).length;
   const releasedPackCount = allPacks.filter(isReleasedPack).length;
   const totalPackCount = allPacks.length;
   const packsById = new Map(allPacks.map(p => [p.id, p]));
@@ -591,10 +594,10 @@ function PacksTabBody({
                   <p className="text-sm font-bold leading-relaxed opacity-60">{t('packs.noReleasedOptions')}</p>
                 </div>
               )}
-              {stubCount > 0 && (
+              {unavailablePackCount > 0 && (
                 <p className="mt-8 text-center text-sm text-[var(--on-surface-variant)] opacity-70" role="note">
                   {t('packs.upcomingNotice')
-                    .replace('{count}', String(stubCount))
+                    .replace('{count}', String(unavailablePackCount))
                     .replace('{released}', String(releasedPackCount))
                     .replace('{total}', String(totalPackCount))}
                 </p>
@@ -872,11 +875,11 @@ function TierBadge({ tier }: { tier?: 'stub' | 'enriched' | 'certified' }) {
   if (tier === 'stub') {
     return (
       <span
-        title="Pending — 配置包已入目录，仍在验证中，暂不开放安装"
+        title={t('packs.tierBasicTitle')}
         className="shrink-0 px-2 py-0.5 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
-        style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface-variant)' }}
+        style={{ background: '#e5e7eb', color: '#374151' }}
       >
-        {t('packs.directionComingSoon')}
+        {t('packs.tierBasic')}
       </span>
     );
   }

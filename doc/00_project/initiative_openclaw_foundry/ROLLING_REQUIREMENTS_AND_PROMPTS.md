@@ -30,6 +30,7 @@
 | 2026-05-25 | REQ-024 | Skill / Pack Installability | Public skill catalog and all role-pack payloads must not expose workstation-only links or backup local catalogs | Completed | `scripts/audit-public-install-sources.mjs` now scans 5000 public skills, 26 settings, 22 guides, 485 pack files, and blocks public `_backup*` data directories |
 | 2026-05-25 | REQ-025 | Job Pack / Product Line | Rename `prototype-designer` to `designer`; Product Manager owns prototype hypothesis and validation demo, while Designer owns design system, QA, and handoff | Completed | Foundry and `openclaw-role-packs` now expose `designer`; remote tag `v2026.05.25.3` validates and installs designer 15/15 files; no public `prototype-designer` strings remain in web/data/scripts scan |
 | 2026-05-26 | REQ-029 | Job Pack / Taxonomy | `/packs` second-level choices must be scientific, compact task-domain groups, not a flat card for every catalog pack; all 26 packs must remain covered | Completed | `QUESTION_TREE` now uses `packIds` groups; audit parses group assignments and fails on missing catalog IDs or missing UI coverage |
+| 2026-05-26 | REQ-030 | Job Pack / Online State | All 26 cataloged role/job packs must be live/installable when generated artifacts exist; `tier: "stub"` is a Basic maturity badge, not an offline state | Completed | Added online-status audit, generated 26 guide pages, and split release logic from PACK_SPEC tier |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -40,12 +41,13 @@
 | 2026-05-18 | "把skill 的复制打开，只有岗位配置包需要登陆" | Auth-wall scope correction | Keep Skill/MCP/API-doc copy public; use protected Worker/R2 delivery only for Job Pack payloads |
 | 2026-05-25 | "别人直接复制安装不了，配置包和本地最新同步并单独建 repo" | Role-pack distribution hardening | Create a local-first standalone pack repo; remote fetch must be opt-in |
 | 2026-05-25 | "继续，从git地址安装是最安全的" | Production install-command hardening | Keep registration gate, but copy a pinned GitHub clone command instead of a Worker token URL |
-| 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against concrete pack-card rendering; released packs can install after login, pending packs remain visible but disabled |
+| 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against concrete pack-card rendering; lower-maturity packs remain visible and installable when generated artifacts exist |
 | 2026-05-25 | "把这个skill组合包打包，放到岗位配置包的定策略模块；做数据/看数据合并" | Strategy job-pack packaging + data IA merge | Package existing canonical strategy skills as `strategy-roundtable-advisor`; merge data entry without pretending stub data packs are released |
 | 2026-05-25 | "原型设计师改为设计师，原型是产品经理的" | Product/design role boundary cutover | Do not keep a compatibility alias; rename slug, copy, manifest, guides, and Git install command to `designer` |
 | 2026-05-25 | "全面审核，所有的配置包不能出现具体的人名" | Pack identity neutrality release gate | Run sanitizer + exact-match scans across Foundry packs, standalone packs, catalogs, guides, and installed smoke output before publishing |
-| 2026-05-26 | "怎么有那么多配置包缺失，全面检查和修复" | Pack UI coverage invariant | `/packs` must display every catalog pack; pending packs stay visible as non-installable cards and prebuild fails if catalog coverage is missing |
+| 2026-05-26 | "怎么有那么多配置包缺失，全面检查和修复" | Pack UI coverage invariant | `/packs` must display every catalog pack; Basic-tier packs stay visible/installable when generated artifacts exist, and prebuild fails if catalog coverage is missing |
 | 2026-05-26 | "还有这个分类也要科学，不要分那么多，但是要全部覆盖" | Pack taxonomy grouping invariant | Collapse noisy second-level pack lists into user-task groups; result pages expand grouped packs, and coverage audit proves all 26 packs are still reachable |
+| 2026-05-26 | "所有的配置包缺失 / 全部上线" | Pack online-state invariant | Do not use `PACK_SPEC` tier as availability; all catalog packs with generated artifacts are live, and Basic tier copy must not say `Coming soon` |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -69,14 +71,15 @@
 | CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
 | R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
 | 静态 Pages 环境中，`/packs` 是否应该先请求 `/api/packs` 再回退? | 不应该。未配置 `NEXT_PUBLIC_API_URL` 时，GET 型 catalog 数据应直接读取 `/data/*.json`，否则生产控制台会留下可避免的 404 噪音。 |
-| `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 可以作为任务域组里的可见 pending card，但不能提供安装/下载，也不能进入空推荐区；纯 pending 组必须显示 `即将上线` 和待验证说明。 |
+| `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 可以。`tier: "stub"` 是 `Basic` 成熟度，不是未上线；只要生成产物完整，就必须正常展示并允许注册后安装。 |
 | `定策略` 应该如何承载复杂战略思维 prompt? | 不要只塞一段系统提示词。应打成 Job Pack：真实 `SKILL.md` 资源、专家/advisor、toolkit、checklist、first-use demo、manifest 和 installer 一起交付，并通过 pack audit 验证。 |
-| `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开安装状态由 pack tier 决定，pending 包只展示不安装。 |
+| `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开安装状态由生成产物完整性决定，pack tier 只表达成熟度。 |
 | 原型能力归谁? | 产品经理。PM 负责 PRD、用户故事、RICE、原型假设和可点击验证 demo；设计师负责体验架构、视觉层级、设计 token、状态覆盖、设计 QA 和工程 handoff。 |
 | 配置包可以用具体人物作为 advisor 名称吗? | 不可以。公开配置包、manifest、guide、catalog、install.sh 和安装产物只能使用能力中性的 advisor 身份；历史人物、作者名、个人署名只能留在非配置包历史文档或外部第三方 catalog 元数据中。 |
 | 为什么不能只删除 Pages 中的受保护 pack payload 文件? | Cloudflare Pages 删除后的旧资产可能继续在边缘保留；生产发布必须把受保护 payload 文件内容 tombstone 掉，再部署 Pages，确保旧直链只返回保护提示而不是历史配置包内容。 |
-| `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在的配置包都应展示；`tier: stub` 只能禁用安装/下载并标注 `即将上线`，不能从问答树或浏览卡片里消失。 |
+| `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在且产物完整的 26 个配置包都应展示并可安装；`tier: stub` 只能显示为 `Basic` 成熟度，不能被当成隐藏、禁用或 `即将上线` 的理由。 |
 | `/packs` 二级方向可以直接平铺所有岗位包吗? | 不可以。二级方向必须按用户任务域分组，例如前端体验、后端平台、质量安全、基础设施运维；组内结果再展开具体配置包，并由 coverage audit 证明 26 个包没有遗漏。 |
+| `tier: "stub"` 是否等于未上线? | 不等于。上线状态看 `manifest.json`、`CLAUDE.md`、`AGENTS.md`、`settings.json`、`prompts.md`、`install.sh`、`guide.html` 是否齐全，以及 `/packs` release logic 是否通过 `audit-pack-online-status.mjs`。 |
 
 ## References
 1. `package.json`

@@ -4,14 +4,14 @@
   generated-at: 2026-05-25T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
-  source: web/public/packs/ops-engineer/{manifest.json,CLAUDE.md,prompts.md}
+  source: web/public/packs/spellbook-test-engineer/{manifest.json,CLAUDE.md,prompts.md}
 -->
 <html lang="zh-CN" data-style-id="html-document-style">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="openclaw-foundry/scripts/generate-pack-guides.mjs">
-<title>运维工程师（Operations Engineer） · 岗位配置包指导手册 · Agent Foundry</title>
+<title>测试工程师（Test Engineer (Spellbook)） · 岗位配置包指导手册 · Agent Foundry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -92,12 +92,12 @@ footer p { max-width: none; margin: 4px 0; }
 <body>
 <div class="frame">
 <header class="cover">
-  <div class="tag">岗位配置包 · 研发职能线 · ops-engineer</div>
-  <h1>运维工程师</h1>
-  <p class="subtitle">面向财税平台的运维工程师配置。</p>
+  <div class="tag">岗位配置包 · 工程职能线 · spellbook-test-engineer</div>
+  <h1>测试工程师</h1>
+  <p class="subtitle">完整测试金字塔（单测 → 集成 → E2E + 性能）+ 覆盖率代理 + 测试脚手架。</p>
   <div class="meta-row">
     <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
-    <span>版本 <strong>4.1.0</strong></span>
+    <span>版本 <strong>1.1.0</strong></span>
     <span>装包目标 <strong>—</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
@@ -105,7 +105,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>30 秒画像</h2>
-<p class="lead">面向财税平台的运维工程师配置。</p>
+<p class="lead">完整测试金字塔（单测 → 集成 → E2E + 性能）+ 覆盖率代理 + 测试脚手架。</p>
 <p>本指导手册由 <code>scripts/generate-pack-guides.mjs</code> 从 pack 的 <code>manifest.json</code>、
 <code>CLAUDE.md</code>、<code>prompts.md</code> 三份源文件直接生成 — 不是 LLM 写的也不是手工抄的。
 所以你看到的所有命令、文件路径、内容结构都和你 <code>curl … | bash</code> 装到本地的完全一致。</p>
@@ -122,162 +122,157 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/ops/infra-patrol/SPEC.md</code></li><li><code>skills/ops/observability-setup/SPEC.md</code></li><li><code>skills/ops/enterprise-agent-ops/SPEC.md</code></li><li><code>skills/ops/swarm-ops/SPEC.md</code></li><li><code>skills/ops/deploy-preview/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/spellbook/test-strategy/SKILL.md</code></li><li><code>skills/spellbook/unit-testing/SKILL.md</code></li><li><code>skills/spellbook/integration-testing/SKILL.md</code></li><li><code>skills/spellbook/performance-testing/SKILL.md</code></li><li><code>skills/spellbook/solution-testing/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/advisor-project-complexity.md</code></li><li><code>agents/advisor-execution-speed.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/spellbook/test-coverage-agent.md</code></li></ul>
 </section>
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
 <p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
 
-<div class="skill-card" id="skill-infra-patrol">
+<div class="skill-card" id="skill-test-strategy">
   <div class="skill-card-header">
-    <div class="skill-card-tag">infra-patrol</div>
-    <code class="skill-card-path">skills/ops/infra-patrol/SPEC.md</code>
+    <div class="skill-card-tag">test-strategy</div>
+    <code class="skill-card-path">skills/test-strategy/SKILL.md</code>
   </div>
-  <p class="skill-card-desc">Infrastructure patrol combining CLI tools (trivy, terraform, cloudflared, wrangler) for security scanning, IaC validation, and tunnel health checks. Use when performing infrastructure audits, security scans, or pre-deployment checks.</p>
+  <p class="skill-card-desc">Use when choosing a testing model for a new project, auditing a test suite that is slow or provides low confidence, setting coverage targets, or writing a QA test plan for a release.</p>
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>把&quot;扫漏洞 + 验 IaC（基础设施即代码）+ 查隧道&quot;三件事打包成一次例行巡检：用 trivy（安全扫描）、terraform（IaC 校验）、cloudflared（隧道）、wrangler（边缘部署）四条 CLI 串成 L1/L2/L3 三档巡检流程。让基础设施问题在发布前被拦截，故障恢复时间（MTTR）从&quot;线上爆炸后追查&quot;提前到&quot;每周一次主动发现&quot;。</p>
+    <p>这是一份测试策略规范，覆盖测试金字塔分层、覆盖率目标、慢测试套件治理、发版测试计划，让团队搞清楚什么层级该写多少测试、覆盖率应该卡多严、QA（质量保证）资源怎么分配。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>每天开工前跑一次 L1 快扫（30 秒内出结果），看有没有新出现的高危漏洞或泄露的密钥。</li><li>每周做一次 L2 标准巡检（2 分钟内），把漏洞 + 密钥 + 配置错误 + Terraform 校验 + 隧道状态全跑一遍，结果落到周报。</li><li>上线前对发布的项目跑 L3 深度审计（10 分钟内），包含 SBOM（软件物料清单）+ Terraform plan 差异检测 + DNS/SSL 证书检查。</li><li>把 L1 接到 PreToolUse hook（前置钩子），让 `terraform apply` 和 `wrangler deploy` 之前自动触发安全扫描，发现问题直接 block。</li><li>把安全发现自动写入 DNA capsule（基因胶囊），让其他 Agent（智能体）继承同类问题的修复经验，避免同一类漏洞在多个项目重复出现。</li></ol>
+    <ol><li>新项目立项时按测试金字塔比例（单测 70%、集成 20%、E2E 10%）定基线，避免上来就堆 E2E 拖垮速度。</li><li>设定覆盖率目标时按文档的业务等级分档（核心 80%、重要 60%、一般 40%）配置，不搞一刀切。</li><li>测试套件跑得慢时按 80/20 原则找出最耗时的 20% 用例，按规范的拆分与并行方案治理。</li><li>大版本发版前按本文档的发版测试计划模板出 QA 报告，包含覆盖、风险、放行条件三部分。</li><li>每个季度评估测试 ROI（投入产出比），删掉无效用例，把节省的资源投入到高价值场景。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-  Trigger[每日 / 每周 / 发布前] --&gt; L1[L1 快扫 30s]
-  Trigger --&gt; L2[L2 标准 2min]
-  Trigger --&gt; L3[L3 深度 10min]
-  L1 --&gt; Verdict[PASS / WARN / FAIL]
-  L2 --&gt; Verdict
-  L3 --&gt; Verdict
-  Verdict --&gt; DNA[DNA 胶囊沉淀]</pre>
+    A[业务分级] --&gt; B[测试金字塔规划]
+    B --&gt; C[单测 70%]
+    B --&gt; D[集成 20%]
+    B --&gt; E[端到端 10%]
+    C &amp; D &amp; E --&gt; F[发版测试计划]</pre>
   </div>
   
 </div>
 
-<div class="skill-card" id="skill-observability-setup">
+<div class="skill-card" id="skill-unit-testing">
   <div class="skill-card-header">
-    <div class="skill-card-tag">observability-setup</div>
-    <code class="skill-card-path">skills/ops/observability-setup/SPEC.md</code>
+    <div class="skill-card-tag">unit-testing</div>
+    <code class="skill-card-path">skills/unit-testing/SKILL.md</code>
   </div>
-  <p class="skill-card-desc">Use when adding monitoring, logging, metrics, or alerting to a project. Trigger: &#39;add monitoring&#39;, &#39;set up Grafana&#39;, &#39;add health check&#39;, &#39;configure alerts&#39;, &#39;add logging&#39;, &#39;set up uptime monitoring&#39;, &#39;add metrics endpoint&#39;, &#39;observability&#39;. NOT for: performance profiling (use perf-profile), infrastructure security scanning (use infra-patrol), or pipeline failure diagnosis (use pipeline-triage).</p>
+  <p class="skill-card-desc">Use when writing unit tests for a function or module, mocking external dependencies, practising TDD on new business logic, or enforcing a coverage target across a codebase in Python, TypeScript, or Go.</p>
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>把&quot;健康检查 + 指标 + 日志 + 告警&quot;四件套一次性接进项目，把&quot;线上有没有挂&quot;从靠用户反馈，升级到自己 60 秒内主动发现。让产品同学在发布后不用反复刷网页验证，故障平均恢复时间（MTTR）从&quot;等用户投诉&quot;压到&quot;机器人推送 + 仪表盘秒级回报&quot;。</p>
+    <p>这是一份单元测试规范，覆盖 Arrange-Act-Assert（准备-执行-断言）测试结构、依赖打桩、参数化测试、TDD（测试驱动开发）流程、覆盖率策略、用例组织方式，让团队在 Python、TypeScript、Go 三种语言下都能写出快、稳、清晰的单测。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>给每个服务加一个 `/health` 端点（endpoint），不需要鉴权，让监控工具能直接探活。</li><li>接入结构化日志（structured logging），用 pino 或 structlog 输出 JSON，自动带上时间戳 + 等级 + requestId（请求标识），别再用 `console.log`。</li><li>暴露 `/metrics` 端点采集 Prometheus（指标系统）数据，重点看 RED 三件套：请求量、错误率、响应耗时（p50/p95/p99）。</li><li>把 `/health` 接到 Uptime Kuma（开源监控，AI-Fleet 标准）上，间隔 60 秒一探，连续失败 3 次推 Telegram 告警。</li><li>告警只看现象不看原因（&quot;错误率超过 5%&quot;而不是&quot;磁盘满了&quot;），每条告警必须配运行手册（runbook）链接，避免告警疲劳。</li></ol>
+    <ol><li>写新函数或模块时按 AAA 三段式编排测试，让每个用例的输入、行为、断言一眼能看清。</li><li>涉及外部依赖（数据库、HTTP、文件系统）时按文档的打桩与 mock 模板隔离，让单测保持毫秒级。</li><li>同一逻辑多组输入用参数化测试代替复制粘贴，按规范的命名约定让失败时看得出是哪组输入挂了。</li><li>新业务实践 TDD 时按红绿重构三阶段循环走，先写失败测试再写实现，让设计跟着测试演进。</li><li>配覆盖率目标时按业务等级分档执行，关键模块卡 80% 以上行覆盖加分支覆盖双指标。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-  Service[业务服务] --&gt; Health[/health 端点]
-  Service --&gt; Metrics[/metrics 端点]
-  Service --&gt; Logs[结构化日志 JSON]
-  Health --&gt; Kuma[Uptime Kuma 探活]
-  Metrics --&gt; Grafana[Grafana 仪表盘]
-  Kuma --&gt; Alert[Telegram 告警]</pre>
+    A[需求或缺陷] --&gt; B[写失败测试]
+    B --&gt; C[最小实现]
+    C --&gt; D[测试通过]
+    D --&gt; E[重构优化]
+    E --&gt; F[覆盖率验证]</pre>
   </div>
   
 </div>
 
-<div class="skill-card" id="skill-enterprise-agent-ops">
+<div class="skill-card" id="skill-integration-testing">
   <div class="skill-card-header">
-    <div class="skill-card-tag">enterprise-agent-ops</div>
-    <code class="skill-card-path">skills/ops/enterprise-agent-ops/SPEC.md</code>
+    <div class="skill-card-tag">integration-testing</div>
+    <code class="skill-card-path">skills/integration-testing/SKILL.md</code>
   </div>
-  <p class="skill-card-desc">Use when managing cloud-hosted or long-running agent workloads that need observability, security boundaries, and lifecycle controls. Trigger: agent runtime operations, deployment monitoring, agent health checks, security boundary configuration, or when scaling agent infrastructure. NOT for single-session Claude Code tasks — those don&#39;t need lifecycle management.</p>
+  <p class="skill-card-desc">Use when writing tests that hit a real database or broker, setting up Testcontainers for a project, testing HTTP endpoints end-to-end within the service boundary, or implementing contract tests between two services.</p>
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>这是给&quot;常驻云端、长跑型&quot;Agent（智能体）准备的运维操作手册：从启动停止、权限边界，到日志、指标、回滚审计，把单次 CLI 跑通的脚本，升级成可以 7×24 跑、可以追责、可以一键熔断的企业级服务。让 Agent 在生产环境里能像普通后端服务一样被监控、被审计、被回滚，故障恢复时间（MTTR）从&quot;靠人翻日志&quot;压到&quot;看仪表盘判断&quot;。</p>
+    <p>这是一份集成测试规范，覆盖真实数据库与消息队列接入、Testcontainers（一次性测试容器）配置、服务边界内端到端测试、服务间契约测试，让团队在上线前就发现单元测试覆盖不到的接口契约和数据集成问题。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>把发布物固化成不可变制品（immutable artifact），每次上线只换版本号、不改运行时，确保回滚永远有一个干净的&quot;上一版&quot;。</li><li>用最小权限（least privilege）发放凭据，密钥从环境变量注入而不是写进代码，杜绝&quot;在仓库里搜出 Token&quot;的事故。</li><li>给每个 Agent 调用设硬超时和重试预算（retry budget），避免一个慢下游拖垮整个 Agent 矩阵。</li><li>把成功率、平均重试次数、平均恢复时间、每次成功任务成本、失败类型分布这五个指标接进监控，每周看一次趋势。</li><li>失败暴增就走预案：先冻结新发布，再抓代表性 trace（执行轨迹），定位问题路由，打最小补丁后跑回归 + 安全检查，再分批放量回到生产。</li></ol>
+    <ol><li>新模块开发时优先用 Testcontainers 启真实数据库或 Kafka（分布式消息队列），让测试和生产用相同中间件版本。</li><li>接口写完单测后立刻补 HTTP 端到端测试，验证完整请求路径包括序列化、鉴权、错误处理。</li><li>跨服务调用按文档的契约测试模板编写，消费方和提供方一致才能合并主干。</li><li>CI（持续集成）流水线把集成测试和单元测试分阶段跑，单测过了再跑集成测试节约资源。</li><li>测试用例每月评审一次，移除冗余案例，新增覆盖盲点，让测试套件保持精干。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-  Artifact[不可变制品] --&gt; Runtime[Agent 运行时]
-  Secrets[环境注入密钥] --&gt; Runtime
-  Runtime --&gt; Telemetry[日志 + 指标 + Trace]
-  Telemetry --&gt; Dashboard[监控仪表盘]
-  Dashboard --&gt; KillSwitch[熔断 + 回滚]</pre>
+    A[业务代码] --&gt; B[Testcontainers 启依赖]
+    B --&gt; C[端到端请求]
+    C --&gt; D[契约校验]
+    D --&gt; E[测试报告]
+    E --&gt; F[CI 流水线]</pre>
   </div>
   
 </div>
 
-<div class="skill-card" id="skill-swarm-ops">
+<div class="skill-card" id="skill-performance-testing">
   <div class="skill-card-header">
-    <div class="skill-card-tag">swarm-ops</div>
-    <code class="skill-card-path">skills/ops/swarm-ops/SPEC.md</code>
+    <div class="skill-card-tag">performance-testing</div>
+    <code class="skill-card-path">skills/performance-testing/SKILL.md</code>
   </div>
-  <p class="skill-card-desc">Operate the Agent Matrix Swarm -- status, health, discover agents, allocate tasks, circuit breaker. Use when user mentions swarm, hive, pheromone, agent allocation, or 蜂群.</p>
+  <p class="skill-card-desc">Use when load testing a service before launch or after a significant traffic change — writing k6 or Locust scripts, setting SLO-based pass/fail thresholds, diagnosing bottlenecks under load, or integrating performance tests into CI.</p>
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>把 Agent Matrix Swarm（233 个 Agent × 9 个领域的蜂群）的状态、健康、能力发现、任务分配、熔断这些操作集成成一组 `ai swarm` CLI 子命令。让产品同学不用进代码也能看清&quot;现在有多少 Agent 在跑、负载分布健不健康、需不需要切到 cron 兜底&quot;，故障恢复时间（MTTR）从&quot;看日志猜哪个 Agent 卡了&quot;压到&quot;一行命令出真相&quot;。</p>
+    <p>这是一份性能测试规范，覆盖 k6 与 Locust（两款主流压测工具）脚本编写、SLO（服务等级目标）阈值判定、压测瓶颈诊断、CI（持续集成）流水线集成，让团队在大促或流量翻倍前提前压出系统极限，而不是在线上被流量打挂。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>每天先跑 `ai swarm status`，看注册 Agent 数、空闲/忙碌比、收敛指标，识别是否有领域负载倾斜。</li><li>用 `ai swarm health` 跑收敛健康检查（Gini 系数 + 熵 + 负载标准差），数值异常说明分配机制出问题，先看再调。</li><li>用 `ai a2a discover &quot;税务 申报&quot;` 做语义能力搜索，找出适合处理某类任务的 Agent，避免随机分配。</li><li>用 `ai swarm allocate` 跑一次分配周期，把 pending（等待中）任务推给对应 Agent，看完成情况。</li><li>出大事就拉熔断：`ai swarm circuit-open` 立刻把所有任务切到 cron（定时任务）兜底，问题修完再 `ai swarm circuit-close` 恢复蜂群调度。</li></ol>
+    <ol><li>新接口上线前按本文档的压测三段式（基线、阶梯加压、长稳压测）跑一遍，确定容量底线。</li><li>压测脚本里把 SLO 阈值写成判定逻辑，超出 P95 延迟或错误率自动失败，让流水线把把关。</li><li>压测时配合可观测性大盘抓 CPU、内存、慢 SQL、连接池四类瓶颈，按文档诊断流程逐项定位。</li><li>重大版本发布前必跑压测，结果归档到性能趋势库，对比上一版本看是否出现回退。</li><li>压测环境数据规模必须和生产同量级，否则结论失真，按文档建议做数据脱敏后复制。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-  CLI[ai swarm CLI] --&gt; Status[状态 + 健康]
-  CLI --&gt; Discover[a2a 能力发现]
-  CLI --&gt; Allocate[任务分配周期]
-  CLI --&gt; Circuit[熔断开关]
-  Circuit --&gt; Cron[cron 兜底链路]
-  Allocate --&gt; Pheromone[信息素场反馈]</pre>
+    A[压测脚本] --&gt; B[基线压测]
+    B --&gt; C[阶梯加压]
+    C --&gt; D[瓶颈定位]
+    D --&gt; E{SLO 达标?}
+    E --&gt;|否| F[回归优化]</pre>
   </div>
   
 </div>
 
-<div class="skill-card" id="skill-deploy-preview">
+<div class="skill-card" id="skill-solution-testing">
   <div class="skill-card-header">
-    <div class="skill-card-tag">deploy-preview</div>
-    <code class="skill-card-path">skills/ops/deploy-preview/SPEC.md</code>
+    <div class="skill-card-tag">solution-testing</div>
+    <code class="skill-card-path">skills/solution-testing/SKILL.md</code>
   </div>
-  <p class="skill-card-desc">Preview deployment pipeline combining Vercel (frontend), Wrangler (Workers/edge), and gh (PR status). Use when preparing or reviewing deployments, creating preview URLs, or validating CI/CD status before production.</p>
+  <p class="skill-card-desc">Use when writing Playwright E2E tests for critical user journeys, setting up post-deployment smoke tests, debugging flaky browser automation, or implementing BDD feature files with Gherkin.</p>
   
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>把前端（Vercel）、边缘 Worker（Cloudflare Wrangler）和 CI/CD（GitHub Actions）三条预览发布链路串成一份可读的就绪清单。让产品同学在上线前一眼判断&quot;现在能不能合并、能不能 promote 到生产&quot;，把平均故障恢复时间（MTTR）压缩到看一眼预览链接的距离。</p>
+    <p>这是一份方案级端到端测试规范，覆盖 Playwright（浏览器自动化框架）E2E（端到端）测试、部署后冒烟测试、浏览器自动化稳定性、BDD（行为驱动开发）特性文件编写，让团队从用户视角验证核心链路是真的能跑通。</p>
   </div>
   
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>先看代码是不是干净（git working tree 无未提交改动），有脏文件就先收尾，否则预览链接就和本地状态对不上。</li><li>拉一下 PR 的 CI（持续集成）状态和 review 状态，确认所有红灯都已经变绿、所有 reviewer 都已经签字。</li><li>打开 Vercel 预览链接，至少跑一遍核心流程（登录、关键页面、关键写入），确认前端体感和测试环境一致。</li><li>在边缘 Worker 上跑 `wrangler deploy --dry-run` 做一次预演，把鉴权、路由、环境变量这些容易踩雷的地方提前暴露出来。</li><li>走 HITL（人工介入）门禁：只有 the program owner 或受权 owner 拍板才能 promote 到生产，预览阶段任何人都可以试，生产发布只有人能按。</li></ol>
+    <ol><li>梳理产品核心用户旅程，按本文档的优先级矩阵选出 5-10 条主路径写 Playwright E2E 测试。</li><li>每次部署后立刻跑冒烟测试套件，10 分钟内确认登录、下单、支付等关键流程没坏。</li><li>浏览器测试容易抖动时，按文档的稳定性清单（显式等待、独立账号、清理数据）逐项排查 flaky 用例。</li><li>业务方提需求时用 Gherkin（BDD 描述语言）写 Given-When-Then 三段式描述，让测试用例和产品文档对齐。</li><li>测试报告里同时附上失败截图和 trace，方便定位前端、后端、网络三类问题，缩短定位耗时。</li></ol>
   </div>
   
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
-  Dev[本地改动] --&gt; PR[PR + CI 检查]
-  PR --&gt; VercelPreview[Vercel 前端预览]
-  PR --&gt; WorkerDryRun[Wrangler 边缘预演]
-  VercelPreview --&gt; Gate{HITL 审批}
-  WorkerDryRun --&gt; Gate
-  Gate --&gt; Prod[生产发布]</pre>
+    A[用户旅程清单] --&gt; B[Playwright 脚本]
+    B --&gt; C[本地预演]
+    C --&gt; D[CI 冒烟跑]
+    D --&gt; E{通过?}
+    E --&gt;|否| F[截图与 trace]</pre>
   </div>
   
 </div>
@@ -294,12 +289,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; ops-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-test-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -337,7 +332,7 @@ ls -la ~/.openclaw/AGENTS.md ~/.openclaw/settings.json ~/.openclaw/skills/
 claude --help | head -3
 
 # 回到 /packs，登录后复制本包安装命令
-#    公开直连 /packs/ops-engineer/install.sh 已关闭，安装命令固定为 GitHub tag
+#    公开直连 /packs/spellbook-test-engineer/install.sh 已关闭，安装命令固定为 GitHub tag
 </code></pre>
 </section>
 
@@ -354,7 +349,7 @@ claude --help | head -3
 </section>
 
 <footer>
-  <p>OpenClaw Foundry — 运维工程师 岗位包指导手册</p>
+  <p>OpenClaw Foundry — 测试工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
   <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.25.5 · 生成时间：2026-05-25 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>

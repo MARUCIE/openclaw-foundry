@@ -605,3 +605,27 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 6. GitHub Actions deploy run `26430651434` -> PASS for commit `ea78a2302ec6bc3024e558e69978cc90040e7544`; `deploy-worker`, D1 migrations, and `deploy-frontend` completed successfully.
 7. Production data smoke -> PASS: `https://agent-foundry.pages.dev/data/packs.json?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` returned 26 packs, 9 released, 17 pending, 6 lines, and `strategy-roundtable-advisor`.
 8. Production Playwright smoke -> PASS: `/packs?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` renders 4 `Write Code` task-domain groups, no old flat engineering labels in the second-level view, and 2 frontend-result pack cards after selecting `Frontend Experience`.
+
+## 2026-05-26 · All Role Packs Online Status Repair
+
+### Delivered
+1. All 26 cataloged role/job packs are now treated as live when generated artifacts are complete; `tier: "stub"` displays as the `Basic` maturity badge.
+2. The four previously guide-less `spellbook-*` alias packs now ship `guide.html`, bringing public guide coverage to 26/26.
+3. Added `scripts/audit-pack-online-status.mjs` to block future regressions where catalog packs lack public artifacts or `/packs` uses `PACK_SPEC` tier as availability state.
+4. Extended person-name neutralization and cleaned the remaining concrete-name shorthand from public pack prompts/references.
+5. Stored a local zip snapshot at `dist/openclaw-role-packs-20260526-120909.zip` with 26 guides and 26 manifests.
+
+### Evidence
+1. `npm --prefix web run build` -> PASS.
+2. `node scripts/audit-pack-online-status.mjs` -> PASS: 26 packs, 7 required files.
+3. `node scripts/audit-packs-page-coverage.mjs` -> PASS: 26 packs, 6 lines.
+4. Pack person-name audit -> PASS for `web/public/packs`, `data/job-packs`, and public catalogs.
+5. Local Playwright static export smoke -> PASS: 4 compact engineering groups, Basic badge visible, browse mode has 26 guide links, and no `Coming soon` copy appears.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-040741-af59dd2d`.
+7. Zip SHA256: `12ef1572df59f86118203233ecd87f3560b97ce3866a9e1d1392b2924537c336`.
+
+### Closeout
+1. Skills update: N/A - this was a Foundry Job Pack online-state and release-gate repair, implemented as scripts and package artifacts.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is now executable through prebuild audits.
+4. Technical debt closure: online-state conflation and missing guide coverage are closed; production verification follows the pushed commit.

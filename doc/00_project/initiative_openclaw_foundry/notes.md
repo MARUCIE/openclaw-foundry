@@ -672,3 +672,29 @@ Use task-domain groups at the recommendation layer, then expand concrete packs o
 5. GitHub Actions deploy run `26430651434` -> PASS for commit `ea78a2302ec6bc3024e558e69978cc90040e7544`; `deploy-frontend` completed in 3m55s.
 6. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` -> PASS: 26 packs, 9 released, 17 pending, 6 lines, `strategy-roundtable-advisor` present.
 7. Production Playwright smoke on `/packs?verify=ea78a2302ec6bc3024e558e69978cc90040e7544` -> PASS: code direction has 4 group buttons, old flat engineering labels are absent from second-level view, and frontend experience expands to 2 pack cards.
+
+## 2026-05-26 · All Role Packs Online Status Repair
+
+### Trigger
+After the compact taxonomy shipped, the public `/packs` page still implied that many configuration packs were missing or not online because `tier: "stub"` was being treated as availability instead of maturity.
+
+### Audit Inputs
+1. Foundry catalog baseline: `web/public/data/packs.json` contains 26 packs across 6 lines.
+2. Foundry public artifacts: every pack directory now contains `CLAUDE.md`, `AGENTS.md`, `settings.json`, `prompts.md`, `install.sh`, `manifest.json`, and `guide.html`.
+3. Local AI-Fleet audit: `/Users/mauricewen/00-AI-Fleet/layers/L3-intelligence/skills/skills` contains 123 `SKILL.md` entries; the relevant global strategy surfaces remain `cognitive-skeleton`, `multi-expert-roundtable-report`, `planning-with-files`, `cognitive-reflection`, `business-diagnosis-pipeline`, and `product-management-swarm`.
+4. GitHub reference scan as of 2026-05-26: AutoGPT, Dify, browser-use, OpenHands, MetaGPT, Cline, AutoGen, CrewAI, and LangGraph were used as taxonomy reference points; the shared pattern is task-domain entrypoints with underlying role/tool packs expanded after selection.
+
+### Change
+1. Split pack availability from `PACK_SPEC` tier. `tier: "stub"` now renders as `Basic`, not `Coming soon`.
+2. Generated `guide.html` for all 26 visible pack directories, including the four `spellbook-*` alias packs that were previously skipped.
+3. Added `scripts/audit-pack-online-status.mjs` and wired it into `web` prebuild so the build fails if any catalog pack lacks required public artifacts or if `/packs` release logic uses `tier === "stub"` / `tier !== "stub"`.
+4. Tightened person-name sanitization for residual abbreviated person references in pack prompts and references.
+
+### Evidence
+1. `npm --prefix web run build` -> PASS, including pack generation, guide generation for 26 packs, person-name sanitizer, public install-source audit, page coverage audit, and online-status audit.
+2. `node scripts/audit-pack-online-status.mjs` -> PASS: 26 packs, 7 required files each.
+3. `node scripts/audit-packs-page-coverage.mjs` -> PASS: 26 packs across 6 lines.
+4. `node scripts/sanitize-pack-person-names.mjs --check --packs-dir web/public/packs --extra-dir data/job-packs --catalog web/public/data/packs.json --catalog web/public/data/collections.json` -> PASS.
+5. Local Playwright static export smoke on `/packs.html` -> PASS: code direction has 4 task-domain groups, quality/security group shows a Basic pack, browse mode exposes 26 guide links, and no `Coming soon` copy appears.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-040741-af59dd2d`.
+7. Local zip snapshot generated at `dist/openclaw-role-packs-20260526-120909.zip`; SHA256 `12ef1572df59f86118203233ecd87f3560b97ce3866a9e1d1392b2924537c336`; zip contains 26 guides and 26 manifests.

@@ -135,7 +135,7 @@
 ```text
 用 Design Simplicity + Product Experience 两个 advisor 评审以下界面：
 - Design Simplicity: unnecessary / essential / white space / simplicity verdict
-- Jobs: focus-as-saying-no / one-sentence definition / selective perfectionism
+- Product Experience: focus-as-saying-no / one-sentence definition / selective perfectionism
 - 如果两个视角冲突，输出 PM 决策问题，不替 PM 决策
 
 输入：<<<PASTE OR URL>>>

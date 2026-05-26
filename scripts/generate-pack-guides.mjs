@@ -11,7 +11,8 @@
 // provenance marker `data-style-id="html-document-style"` and a top comment
 // stating the route choice (per 15-self-bootstrap-driver enforcement rule).
 //
-// Skips the spellbook-* deprecated aliases (they redirect; no own guide needed).
+// Generates a guide for every visible pack, including spellbook-* aliases.
+// Visible cards must never link to missing guide.html files.
 //
 // Runs in npm prebuild after generate-packs.mjs + inject-pack-tiers.mjs.
 
@@ -78,7 +79,7 @@ function extractPackHeader(packsJson, slug) {
 
 function tierBadge(tier) {
   if (!tier || tier === 'stub') {
-    return `<span class="tier-pill tier-stub" title="尚未达到 PACK_SPEC v1.0 enriched 标准">Stub</span>`;
+    return `<span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>`;
   }
   if (tier === 'enriched') {
     return `<span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>`;
@@ -479,18 +480,11 @@ function main() {
   }
 
   let generated = 0;
-  let skipped = 0;
   for (const entry of readdirSync(PACKS_DIR, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
     const slug = entry.name;
     const packDir = join(PACKS_DIR, slug);
     const manifest = readJsonSafe(join(packDir, 'manifest.json'));
-    // Skip deprecated alias packs — their install.sh redirects; guide would orphan content
-    if (manifest?.deprecated_alias_of) {
-      skipped++;
-      console.log(`  skip alias ${slug} → ${manifest.deprecated_alias_of}`);
-      continue;
-    }
     const claudeMd = readText(join(packDir, 'CLAUDE.md'));
     const header = extractPackHeader(packsJson, slug);
     const fud = extractFirstUseDemo(manifest);
@@ -513,7 +507,7 @@ function main() {
     writeFileSync(join(packDir, 'guide.html'), TEMPLATE(ctx));
     generated++;
   }
-  console.log(`OK generated ${generated} guide.html (skipped ${skipped} deprecated aliases)`);
+  console.log(`OK generated ${generated} guide.html`);
 }
 
 main();
