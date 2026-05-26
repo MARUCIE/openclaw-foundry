@@ -86,6 +86,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-26 | The old `做数据` and `看数据` first-level entries must be merged into one `做/看数据` entry covering algorithm, big data, metrics, A/B, and dashboard paths | Implemented 2026-05-25 |
 | FR-27 | Product-line packs must separate PM-owned prototype validation from Designer-owned experience architecture, visual system, design QA, and handoff; public install surfaces must expose `designer`, not `prototype-designer` | Implemented 2026-05-25 |
 | FR-28 | Role/job configuration packs, guides, catalogs, installers, and installed output must not expose concrete person names or person-named advisor IDs; use capability-neutral advisor identities instead | Implemented 2026-05-25 |
+| FR-29 | `/packs` must make every cataloged job pack visible from the guide UI and browse UI; packs under validation are visible as `Coming soon` with install/download disabled rather than hidden | Implemented 2026-05-26 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -96,8 +97,8 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 6. Protected Job Pack payload delivery must avoid public static direct links; single-file payload downloads are served through Worker auth routes and static Pages output is tombstoned after build so stale direct URLs cannot expose payload content
 7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.5`
 8. Production role-pack guides and clipboard commands must not reintroduce `curl -fsSL .../packs/<id>/install.sh` direct static payload paths
-9. Public pack counts and recommendation CTAs must use released-pack semantics, not raw catalog totals that include hidden `stub` packs
-10. Strategy and data decision-tree labels must mirror the actual released-pack state: `定策略` is clickable once the strategic pack is enriched/released; `做/看数据` remains a single disabled direction until at least one data pack graduates from `stub`
+9. Public pack counts must distinguish total catalog coverage from released/installable status; `stub` packs are visible but not installable
+10. Strategy and data decision-tree labels must mirror the catalog: `定策略` includes the released strategic pack plus pending strategy options, and `做/看数据` shows algorithm, big data, data analyst, A/B, and AI app packs even while pending entries remain disabled
 11. Pack generation and release verification must run a person-name audit across Foundry packs, standalone packs, public pack catalogs, guide HTML, and installed smoke-test output before publishing a tag.
 
 ## Success Criteria
@@ -117,7 +118,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 8. Protected pack payload deployment depends on Cloudflare R2 upload during CI for single-file downloads; install-command copy no longer depends on a short-lived Worker token
 9. Standalone role-pack repo drift remains possible; release by tag and run full smoke install before moving the production ref
 10. Old bare direct payload URLs can remain in Cloudflare edge cache until their previous `s-maxage` expires; the product path must avoid exposing those URLs
-11. Newly added pack-entry decision paths must be audited against released-pack availability before deployment
+11. Newly added pack-entry decision paths and catalog lines must be audited against `/packs` UI reachability before deployment
 12. Public skill catalogs and role-pack payloads must not expose workstation-only links, `file:///Users/...` sources, or public `_backup*` data directories.
 13. Role-pack renames must be real cutovers, not compatibility aliases; obsolete pack IDs must be absent from public catalog, guides, install scripts, and standalone Git repo.
 14. Old person-named advisor IDs and person-framework copy can re-enter through upstream skill sync or historical templates; `scripts/sanitize-pack-person-names.mjs --check` is the release gate.

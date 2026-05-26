@@ -8,8 +8,16 @@ import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 import { copyProtectedPackInstallCommand, downloadProtectedPackFile } from '@/lib/protected-downloads';
 import WallBoard from '@/components/wall-board';
 
-type QuestionOption = { labelKey: string; packId: string };
-type QuestionTreeItem = { id: string; browseTabId: string; icon: string; labelKey: string; descKey: string; options: QuestionOption[] };
+type QuestionOption = { labelKey?: string; packId: string };
+type QuestionTreeItem = {
+  id: string;
+  browseTabId: string;
+  icon: string;
+  labelKey: string;
+  descKey: string;
+  options: QuestionOption[];
+  includeLinePacks?: boolean;
+};
 
 // Question tree answers map to lines + sub-options
 const QUESTION_TREE: QuestionTreeItem[] = [
@@ -19,6 +27,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'code',
     labelKey: 'packs.q1Code',
     descKey: 'packs.q1CodeDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2Frontend', packId: 'frontend-engineer' },
       { labelKey: 'packs.q2Backend', packId: 'backend-engineer' },
@@ -33,6 +42,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'analytics',
     labelKey: 'packs.q1Data',
     descKey: 'packs.q1DataDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2Algorithm', packId: 'algorithm-engineer' },
       { labelKey: 'packs.q2Bigdata', packId: 'bigdata-engineer' },
@@ -46,6 +56,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'lightbulb',
     labelKey: 'packs.q1Product',
     descKey: 'packs.q1ProductDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2PM', packId: 'product-manager' },
       { labelKey: 'packs.q2Designer', packId: 'designer' },
@@ -57,6 +68,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'verified_user',
     labelKey: 'packs.q1Business',
     descKey: 'packs.q1BusinessDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2Compliance', packId: 'compliance-expert' },
     ],
@@ -67,6 +79,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'insights',
     labelKey: 'packs.q1Strategy',
     descKey: 'packs.q1StrategyDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2StrategyRoundtable', packId: 'strategy-roundtable-advisor' },
       { labelKey: 'packs.q2Executive', packId: 'executive-strategist' },
@@ -78,6 +91,7 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'science',
     labelKey: 'packs.q1Research',
     descKey: 'packs.q1ResearchDesc',
+    includeLinePacks: true,
     options: [
       { labelKey: 'packs.q2ResearchAnalyst', packId: 'research-analyst' },
     ],
@@ -95,6 +109,21 @@ const QUESTION_TREE: QuestionTreeItem[] = [
 ];
 
 const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack && pack.tier !== 'stub');
+const STANDALONE_QUESTION_PACK_IDS = new Set(['scenario-planner']);
+
+function packSortScore(pack: ConfigPack): number {
+  if (pack.tier === 'certified') return 0;
+  if (pack.tier === 'enriched') return 1;
+  return 2;
+}
+
+function sortPacksForDisplay(packs: ConfigPack[]): ConfigPack[] {
+  return [...packs].sort((a, b) => {
+    const tierDelta = packSortScore(a) - packSortScore(b);
+    if (tierDelta !== 0) return tierDelta;
+    return (a.nameZh || a.name).localeCompare(b.nameZh || b.name, 'zh-Hans-CN');
+  });
+}
 
 const LINE_TABS = [
   { id: 'all', labelKey: 'packs.tabAll' },
@@ -162,11 +191,11 @@ export default function PacksPage() {
         {/* Value Prop Badges — counts derived from packs.json so they stay accurate */}
         <div className="flex gap-4 p-4 rounded-3xl bg-[var(--surface-container-low)] border border-[var(--outline-variant)]">
           <div className="px-4 py-2 text-center border-r border-[var(--outline-variant)] pr-6">
-            <div className="text-2xl font-black" style={{ color: 'var(--primary)' }}>{releasedPacks.length || '—'}</div>
+            <div className="text-2xl font-black" style={{ color: 'var(--primary)' }}>{allPacks.length || '—'}</div>
             <div className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40">Packs</div>
           </div>
           <div className="px-4 py-2 text-center border-r border-[var(--outline-variant)] pr-6">
-            <div className="text-2xl font-black" style={{ color: 'var(--secondary)' }}>{new Set(releasedPacks.map(p => p.line).filter(Boolean)).size || '—'}</div>
+            <div className="text-2xl font-black" style={{ color: 'var(--secondary)' }}>{new Set(allPacks.map(p => p.line).filter(Boolean)).size || '—'}</div>
             <div className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest opacity-40">Lines</div>
           </div>
           <div className="px-4 py-2 text-center">
@@ -263,19 +292,32 @@ function PacksTabBody({
   browseTab,
   setBrowseTab,
 }: PacksTabBodyProps) {
-  // R3.3 (audit F10): hide stub packs from public listing. Stubs render identically
-  // to certified packs (same install button, same TierBadge stripped) which creates
-  // false equivalence. Surface them as a single static "X 配置包即将上线" notice.
   const lineFiltered = browseTab === 'all' ? allPacks : allPacks.filter(p => p.line === browseTab);
-  const filteredPacks = lineFiltered.filter(isReleasedPack);
-  const stubCount = lineFiltered.length - filteredPacks.length;
+  const filteredPacks = sortPacksForDisplay(lineFiltered);
+  const stubCount = lineFiltered.filter(p => !isReleasedPack(p)).length;
   const releasedPackCount = allPacks.filter(isReleasedPack).length;
+  const totalPackCount = allPacks.length;
+  const packsById = new Map(allPacks.map(p => [p.id, p]));
   const releasedPackIds = new Set(allPacks.filter(isReleasedPack).map(p => p.id));
+  const buildQuestionOptions = (q: QuestionTreeItem) => {
+    const explicitOptions = q.options.filter(opt => packsById.has(opt.packId));
+    const explicitIds = new Set(explicitOptions.map(opt => opt.packId));
+    if (!q.includeLinePacks) return explicitOptions;
+    const lineOptions: QuestionOption[] = sortPacksForDisplay(allPacks)
+      .filter(p => p.line === q.browseTabId)
+      .filter(p => !explicitIds.has(p.id))
+      .filter(p => q.id === 'scenario' || !STANDALONE_QUESTION_PACK_IDS.has(p.id))
+      .map(p => ({ packId: p.id }));
+    return [...explicitOptions, ...lineOptions];
+  };
   const questionTree = QUESTION_TREE.map(q => {
-    const availableOptions = q.options.filter(opt => releasedPackIds.has(opt.packId));
+    const options = buildQuestionOptions(q);
+    const availableOptions = options.filter(opt => releasedPackIds.has(opt.packId));
     return {
       ...q,
+      options,
       availableOptions,
+      hasAnyPack: options.length > 0,
       hasReleasedPack: availableOptions.length > 0,
     };
   });
@@ -286,7 +328,7 @@ function PacksTabBody({
 
   const handleQ1 = (lineId: string) => {
     const line = questionTree.find(q => q.id === lineId);
-    if (!line?.hasReleasedPack) {
+    if (!line?.hasAnyPack) {
       setSelectedLine(lineId);
       setBrowseTab(line?.browseTabId || 'all');
       setStep('browse');
@@ -294,7 +336,7 @@ function PacksTabBody({
     }
     setSelectedLine(lineId);
     const lineOptions = line.availableOptions;
-    if (lineOptions.length === 1) {
+    if (line.options.length === 1 && lineOptions.length === 1) {
       setRecommendedPack(lineOptions[0].packId);
       setStep('result');
     } else {
@@ -345,7 +387,7 @@ function PacksTabBody({
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {questionTree.map(q => {
-                  const isUnavailable = !q.hasReleasedPack;
+                  const isUnavailable = !q.hasAnyPack;
                   return (
                     <button
                       key={q.id}
@@ -386,7 +428,9 @@ function PacksTabBody({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {selectedQuestion?.options.map(opt => {
+                  const pack = packsById.get(opt.packId);
                   const isUnavailable = !releasedPackIds.has(opt.packId);
+                  const label = opt.labelKey ? t(opt.labelKey) : pack?.nameZh || pack?.name || opt.packId;
                   return (
                     <button
                       key={opt.packId}
@@ -400,7 +444,10 @@ function PacksTabBody({
                       }`}
                       style={{ borderColor: 'var(--outline-variant)' }}
                     >
-                      <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(opt.labelKey)}</div>
+                      <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{label}</div>
+                      {pack?.descriptionZh && (
+                        <p className="mt-3 text-xs font-bold opacity-50 leading-relaxed text-pretty">{pack.descriptionZh}</p>
+                      )}
                       {isUnavailable && (
                         <div className="mt-3 inline-flex px-3 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest bg-[var(--surface-container)] text-[var(--on-surface-variant)]">
                           {t('packs.directionComingSoon')}
@@ -463,7 +510,7 @@ function PacksTabBody({
               onClick={() => setStep('browse')}
               className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.3em] opacity-40 hover:opacity-100 hover:text-[var(--primary)] transition-all"
             >
-              {t('packs.viewReleasedPacks')} ({releasedPackCount || '—'})
+              {t('packs.browseAll')} ({totalPackCount || '—'})
             </button>
           </div>
         </section>
@@ -525,7 +572,10 @@ function PacksTabBody({
               )}
               {stubCount > 0 && (
                 <p className="mt-8 text-center text-sm text-[var(--on-surface-variant)] opacity-70" role="note">
-                  {t('packs.upcomingNotice').replace('{count}', String(stubCount))}
+                  {t('packs.upcomingNotice')
+                    .replace('{count}', String(stubCount))
+                    .replace('{released}', String(releasedPackCount))
+                    .replace('{total}', String(totalPackCount))}
                 </p>
               )}
             </>
@@ -567,6 +617,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
   const [copied, setCopied] = useState(false);
   const [busyFile, setBusyFile] = useState('');
   const [actionError, setActionError] = useState('');
+  const released = isReleasedPack(pack);
   // Browse stays public; install/download requires login (v6 auth gate).
   // Reads session on mount + listens for cross-tab login/logout so the
   // install button label updates without page reload.
@@ -587,6 +638,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
 
   const handleDownload = async (filename: string) => {
     setActionError('');
+    if (!released) return;
     if (!isLoggedIn) {
       window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
       return;
@@ -603,6 +655,7 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
 
   const handleCopy = async () => {
     setActionError('');
+    if (!released) return;
     if (!isLoggedIn) {
       window.location.assign(loginRedirect(`/packs#install-${pack.id}`));
       return;
@@ -621,8 +674,9 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
       className={`rounded-[1.75rem] p-7 flex flex-col transition-all hover:shadow-2xl hover:-translate-y-1 ${featured ? 'ring-4 ring-[var(--primary)] ring-offset-4' : ''}`}
       style={{
         background: 'var(--surface-container-lowest)',
-        border: '1px solid var(--outline-variant)',
-        boxShadow: `inset 0 6px 0 ${pack.color}`,
+        border: released ? '1px solid var(--outline-variant)' : '1px dashed var(--outline-variant)',
+        boxShadow: `inset 0 6px 0 ${released ? pack.color : 'var(--outline-variant)'}`,
+        opacity: released ? 1 : 0.72,
       }}
     >
       <div className="flex items-start gap-4 mb-6">
@@ -654,6 +708,15 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
       <p className="text-sm font-medium leading-relaxed mb-6 flex-1 opacity-70 text-pretty">
         {pack.descriptionZh}
       </p>
+      {!released && (
+        <div
+          className="mb-6 rounded-2xl px-4 py-3 text-xs font-bold leading-relaxed"
+          style={{ background: 'var(--surface-container-low)', color: 'var(--on-surface-variant)' }}
+          role="note"
+        >
+          {t('packs.pendingPackNotice')}
+        </div>
+      )}
 
       {/* Layer inheritance badge */}
       <div className="flex gap-1.5 mb-6 flex-wrap">
@@ -723,11 +786,13 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
           <button
             key={file}
             onClick={() => handleDownload(file)}
-            disabled={busyFile === file}
-            className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--outline-variant)] transition-all hover:bg-[var(--surface-container-low)] hover:shadow-md group text-center"
+            disabled={!released || busyFile === file}
+            className={`flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--outline-variant)] transition-all group text-center ${
+              released ? 'hover:bg-[var(--surface-container-low)] hover:shadow-md' : 'cursor-not-allowed'
+            }`}
           >
               <span aria-hidden="true" className="material-symbols-outlined text-lg opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all">
-              {busyFile === file ? 'hourglass_empty' : file === 'CLAUDE.md' ? 'description' : file === 'AGENTS.md' ? 'groups' : file === 'settings.json' ? 'hub' : 'chat'}
+              {!released ? 'lock' : busyFile === file ? 'hourglass_empty' : file === 'CLAUDE.md' ? 'description' : file === 'AGENTS.md' ? 'groups' : file === 'settings.json' ? 'hub' : 'chat'}
             </span>
             <span className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest opacity-60 group-hover:opacity-100 truncate w-full">{file}</span>
           </button>
@@ -738,30 +803,42 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
       <div id={`install-${pack.id}`} className="space-y-4 pt-6 border-t border-dashed border-[var(--outline-variant)]">
         <button
           onClick={handleCopy}
-          aria-label={isLoggedIn ? '复制一键安装命令' : '登录后获取安装命令'}
+          disabled={!released}
+          aria-label={!released ? '配置包验证中' : isLoggedIn ? '复制一键安装命令' : '登录后获取安装命令'}
           className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-black uppercase tracking-[0.18em] text-[var(--af-fs-meta)] text-white transition-all hover:shadow-2xl active:scale-95 shadow-lg"
-          style={{ background: pack.color, opacity: authReady ? 1 : 0.6 }}
+          style={{ background: released ? pack.color : 'var(--outline)', opacity: released && authReady ? 1 : 0.6 }}
         >
           <span aria-hidden="true" className="material-symbols-outlined text-base font-black">
-            {!authReady ? 'hourglass_empty' : !isLoggedIn ? 'lock' : copied ? 'done_all' : 'content_copy'}
+            {!released ? 'pending_actions' : !authReady ? 'hourglass_empty' : !isLoggedIn ? 'lock' : copied ? 'done_all' : 'content_copy'}
           </span>
-          {!authReady ? '...' : !isLoggedIn ? '登录后获取安装命令' : copied ? t('packs.copied') : t('packs.copyInstall')}
+          {!released ? t('packs.directionComingSoon') : !authReady ? '...' : !isLoggedIn ? '登录后获取安装命令' : copied ? t('packs.copied') : t('packs.copyInstall')}
         </button>
         {actionError && (
           <p className="text-xs font-bold text-center leading-relaxed" style={{ color: 'var(--error)' }}>
             {actionError}
           </p>
         )}
-        <a
-          href={`/packs/${pack.id}/guide.html`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border transition-all hover:bg-[var(--surface-container-low)]"
-          style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}
-        >
-          <span aria-hidden="true" className="material-symbols-outlined text-base">menu_book</span>
-          指导手册
-        </a>
+        {released ? (
+          <a
+            href={`/packs/${pack.id}/guide.html`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border transition-all hover:bg-[var(--surface-container-low)]"
+            style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}
+          >
+            <span aria-hidden="true" className="material-symbols-outlined text-base">menu_book</span>
+            指导手册
+          </a>
+        ) : (
+          <div
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest border cursor-not-allowed opacity-60"
+            style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}
+            aria-disabled="true"
+          >
+            <span aria-hidden="true" className="material-symbols-outlined text-base">lock</span>
+            指导手册
+          </div>
+        )}
         <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest text-center opacity-30 text-pretty">One-line terminal setup</p>
       </div>
     </article>
@@ -769,7 +846,19 @@ function PackCard({ pack, featured = false }: { pack: ConfigPack; featured?: boo
 }
 
 function TierBadge({ tier }: { tier?: 'stub' | 'enriched' | 'certified' }) {
-  if (!tier || tier === 'stub') return null;
+  const { t } = useI18n();
+  if (!tier) return null;
+  if (tier === 'stub') {
+    return (
+      <span
+        title="Pending — 配置包已入目录，仍在验证中，暂不开放安装"
+        className="shrink-0 px-2 py-0.5 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest"
+        style={{ background: 'var(--surface-container-high)', color: 'var(--on-surface-variant)' }}
+      >
+        {t('packs.directionComingSoon')}
+      </span>
+    );
+  }
   const isCertified = tier === 'certified';
   const bg = isCertified ? '#fbbf24' : '#3b82f6';
   const fg = isCertified ? '#78350f' : '#1e3a8a';

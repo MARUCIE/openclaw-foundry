@@ -43,6 +43,7 @@
 | 2026-05-25 | "把这个skill组合包打包，放到岗位配置包的定策略模块；做数据/看数据合并" | Strategy job-pack packaging + data IA merge | Package existing canonical strategy skills as `strategy-roundtable-advisor`; merge data entry without pretending stub data packs are released |
 | 2026-05-25 | "原型设计师改为设计师，原型是产品经理的" | Product/design role boundary cutover | Do not keep a compatibility alias; rename slug, copy, manifest, guides, and Git install command to `designer` |
 | 2026-05-25 | "全面审核，所有的配置包不能出现具体的人名" | Pack identity neutrality release gate | Run sanitizer + exact-match scans across Foundry packs, standalone packs, catalogs, guides, and installed smoke output before publishing |
+| 2026-05-26 | "怎么有那么多配置包缺失，全面检查和修复" | Pack UI coverage invariant | `/packs` must display every catalog pack; pending packs stay visible as non-installable cards and prebuild fails if catalog coverage is missing |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -72,6 +73,7 @@
 | 原型能力归谁? | 产品经理。PM 负责 PRD、用户故事、RICE、原型假设和可点击验证 demo；设计师负责体验架构、视觉层级、设计 token、状态覆盖、设计 QA 和工程 handoff。 |
 | 配置包可以用具体人物作为 advisor 名称吗? | 不可以。公开配置包、manifest、guide、catalog、install.sh 和安装产物只能使用能力中性的 advisor 身份；历史人物、作者名、个人署名只能留在非配置包历史文档或外部第三方 catalog 元数据中。 |
 | 为什么不能只删除 Pages 中的受保护 pack payload 文件? | Cloudflare Pages 删除后的旧资产可能继续在边缘保留；生产发布必须把受保护 payload 文件内容 tombstone 掉，再部署 Pages，确保旧直链只返回保护提示而不是历史配置包内容。 |
+| `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在的配置包都应展示；`tier: stub` 只能禁用安装/下载并标注 `即将上线`，不能从问答树或浏览卡片里消失。 |
 
 ## References
 1. `package.json`
@@ -115,3 +117,4 @@
 39. `/tmp/pack-audit.json`
 40. `scripts/sanitize-pack-person-names.mjs`
 41. `scripts/prune-public-pack-downloads.mjs`
+42. `scripts/audit-packs-page-coverage.mjs`

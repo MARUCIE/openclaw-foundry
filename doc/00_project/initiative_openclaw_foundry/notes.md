@@ -630,3 +630,18 @@ Production Pages still served an old cached `product-manager/manifest.json` dire
 1. `npm --prefix web run build` -> PASS.
 2. `node scripts/prune-public-pack-downloads.mjs` -> PASS, 463 protected pack payload files tombstoned in `web/out/packs`.
 3. Sample exported `web/out/packs/product-manager/manifest.json` contains only the tombstone text and no old advisor IDs.
+
+## 2026-05-26 · Pack UI Coverage Repair
+
+### Root Cause
+The `/packs` guide and browse UI had two hidden filters: the question tree only hardcoded 16 pack IDs, while the browse view filtered out all `tier: stub` packs. The catalog had 26 packs, so 10 packs had no question-tree entry and 17 pending packs looked missing instead of visibly under validation.
+
+### Change
+1. `/packs` now expands question-tree options from `packs.json` by line, so newly cataloged packs appear without another hardcoded UI edit.
+2. Browse mode renders all 26 packs; released packs remain installable, while pending packs show `Coming soon` and disable install/download/guide actions.
+3. `scripts/audit-packs-page-coverage.mjs` is wired into web prebuild and fails when a pack line or pack ID cannot be reached from `/packs`.
+
+### Evidence
+1. `node scripts/audit-packs-page-coverage.mjs` -> PASS, 26 packs and 6 lines covered.
+2. `npm --prefix web run build` -> PASS, including pack generation, person-name sanitizer, public install source audit, and page coverage audit.
+3. Local Playwright static export smoke on `/packs.html` -> PASS: browse mode renders 26 cards, the code direction shows 11 options, and previously missing packs such as security auditor, code reviewer, platform engineer, AI app engineer, internal control specialist, and investment analyst are visible.

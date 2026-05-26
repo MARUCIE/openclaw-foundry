@@ -131,8 +131,8 @@
 6. Login page calls `/api/auth/config`; unavailable email or WeChat providers render as disabled instead of broken jumps
 7. User registers or logs in through email magic-link or WeChat OAuth
 8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
-9. Recommendation entrypoints whose target packs are still under validation are disabled and labeled `即将上线`, so users cannot navigate into an empty pack result.
-10. The `定策略` recommendation path is released once `strategy-roundtable-advisor` is present with `tier != stub`; clicking it recommends the Strategy Roundtable Advisor pack.
+9. Recommendation entrypoints show every cataloged direction. Released packs are clickable; packs still under validation are labeled `即将上线` and cannot be installed.
+10. The `定策略` recommendation path includes `strategy-roundtable-advisor` plus any pending strategy packs; clicking the released Strategy Roundtable Advisor pack renders its recommendation card.
 
 ### Journey 8: Standalone Role Pack Copy Install
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
@@ -154,7 +154,8 @@
 5. The current design seed did not document `repair` and `uninstall` lifecycle journeys even though they are real product entrypoints
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 7. Old bare direct payload URLs are overwritten by protected-payload tombstones during Pages deploy; support/ops copy must still point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
-8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction and remain labeled `即将上线` until a data pack graduates from `stub`.
+8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction that still shows pending data packs instead of hiding them.
+9. `/packs` browse mode must show all 26 cataloged packs, with 9 released/installable and 17 pending/disabled until their install validation completes.
 9. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 
 ## Round-Based Acceptance Criteria

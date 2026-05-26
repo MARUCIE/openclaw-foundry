@@ -165,7 +165,7 @@ flowchart LR
   C --> H[openclaw-role-packs local-first installer]
 ```
 
-Pack generation is owned by `scripts/sync-strategy-roundtable-pack.py`, which copies real AI-Fleet skills into `web/public/packs/strategy-roundtable-advisor/`, writes the manifest and install surface, and lets `web` prebuild regenerate `packs.json`, tiers, installers, and guides. Advisor prompts are exported under capability-neutral identities rather than concrete person names. The data decision entry is intentionally merged into one `data-ai` line (`做/看数据`) so the UI does not split algorithm/build data work from metrics/read data work at the first question layer.
+Pack generation is owned by `scripts/sync-strategy-roundtable-pack.py`, which copies real AI-Fleet skills into `web/public/packs/strategy-roundtable-advisor/`, writes the manifest and install surface, and lets `web` prebuild regenerate `packs.json`, tiers, installers, and guides. Advisor prompts are exported under capability-neutral identities rather than concrete person names. The data decision entry is intentionally merged into one `data-ai` line (`做/看数据`) so the UI does not split algorithm/build data work from metrics/read data work at the first question layer. `/packs` expands question-tree options from `packs.json` by line, then renders pending `stub` packs as visible but non-installable cards. `scripts/audit-packs-page-coverage.mjs` is wired into web prebuild to fail if a generated catalog pack has no `/packs` route coverage.
 
 ## Provider Architecture (v2.0)
 ```

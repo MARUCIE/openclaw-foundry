@@ -567,3 +567,16 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 1. `npm --prefix web run build` -> PASS.
 2. `node scripts/prune-public-pack-downloads.mjs` -> PASS, 463 files tombstoned.
 3. Sample `web/out/packs/product-manager/manifest.json` contains only the protected-payload tombstone.
+
+## 2026-05-26 · Pack UI Coverage Repair
+
+### Delivered
+1. `/packs` no longer hides pending catalog packs; all 26 job packs render in browse mode.
+2. The recommendation tree dynamically includes same-line catalog packs beyond the hand-curated options, fixing missing entries in engineering, data, business, product, strategy, and research lines.
+3. Pending packs are visible but non-installable, with download/install/guide controls disabled.
+4. Added `scripts/audit-packs-page-coverage.mjs` to the web prebuild gate.
+
+### Evidence
+1. `node scripts/audit-packs-page-coverage.mjs` -> PASS.
+2. `npm --prefix web run build` -> PASS.
+3. Local Playwright static export smoke -> PASS: 26 cards render; `/packs` code direction shows 11 options and includes code reviewer, security auditor, and platform engineer.
