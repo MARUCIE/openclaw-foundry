@@ -98,7 +98,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 4. Traceability through manifest, snapshots, and audit-style logs
 5. Documentation must stay synchronized with actual entrypoints
 6. Protected Job Pack payload delivery must avoid public static direct links; single-file payload downloads are served through Worker auth routes and static Pages output is tombstoned after build so stale direct URLs cannot expose payload content
-7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.25.5`
+7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.26.1`
 8. Production role-pack guides and clipboard commands must not reintroduce `curl -fsSL .../packs/<id>/install.sh` direct static payload paths
 9. Public pack counts must reflect the canonical public catalog, not deprecated aliases; `stub` maps to the visible `Basic` tier and is not an offline state
 10. Strategy and data decision-tree labels must mirror the catalog: `定策略` includes the Strategy Roundtable Advisor plus adjacent strategy packs, and `做/看数据` shows algorithm, big data, data analyst, A/B, and AI app packs as live cards with maturity badges

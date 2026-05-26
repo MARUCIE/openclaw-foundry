@@ -139,7 +139,7 @@
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
 2. Maintainer commits, tags, and pushes the snapshot to `https://github.com/MARUCIE/openclaw-role-packs`
 3. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-4. Command runs `git clone --depth 1 --branch v2026.05.25.5 https://github.com/MARUCIE/openclaw-role-packs.git`
+4. Command runs `git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git`
 5. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 6. Installer reads local sibling `manifest.json` and copies local artifacts by default
 7. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set

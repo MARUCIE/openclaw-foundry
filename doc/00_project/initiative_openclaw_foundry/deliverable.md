@@ -719,3 +719,23 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 1. GitHub Actions deploy run `26443292530` -> PASS for commit `9a081d9366df33f57b714c7872adc16d89409051`; `deploy-worker`, `apply-migrations`, and `deploy-frontend` all completed successfully.
 2. Action runtime log scan -> PASS: no `Node.js 20`, `node20`, `checkout@v4`, `setup-node@v4`, `setup-python@v5`, `upload-artifact@v4`, `download-artifact@v4`, or `wrangler-action@v3` references.
 3. Production `/packs` smoke -> PASS: 22 public packs, 22 enriched, 0 certified, 0 stub, Code Reviewer and Security Auditor enriched, and no deprecated aliases visible.
+
+## 2026-05-26 · Role-Pack Git Installability and Local Zip Snapshot
+
+### Delivered
+1. Advanced the role-pack Git install reference from `v2026.05.25.5` to `v2026.05.26.1`.
+2. Synced all enriched Foundry pack payloads into `/Users/mauricewen/Projects/openclaw-role-packs`.
+3. Published GitHub release tag `v2026.05.26.1` for `MARUCIE/openclaw-role-packs`.
+4. Generated one local complete zip per public canonical job pack at `dist/role-pack-zips-20260526-095537/`.
+
+### Evidence
+1. Foundry public pack check -> PASS: 22 public packs, 470 manifest items, 157 bundled skills, 69 bundled agents, and all guide commands point at `v2026.05.26.1`.
+2. Standalone repo -> `npm run validate` PASS and `npm run smoke:install` PASS for 26/26 packs.
+3. Fresh GitHub clone of `v2026.05.26.1` -> PASS: validate and smoke install completed for 26/26 packs.
+4. Local zip verification -> PASS: 22 zip files; all extracted zip installers copied exactly their manifest item counts.
+
+### Closeout
+1. Skills update: N/A - this is pack distribution wiring, not a new reusable user-facing skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated for `v2026.05.26.1`.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is enforced by standalone repo validation and Foundry guide/tag checks.
+4. Technical debt closure: stale Git release drift is closed by the new tag and fresh remote clone smoke verification.

@@ -798,3 +798,22 @@ The final production deploy for the public pack maturity work succeeded, but Git
 1. GitHub Actions deploy run `26443292530` -> PASS for commit `9a081d9366df33f57b714c7872adc16d89409051`.
 2. Runtime action scan -> PASS: logs show the upgraded Node 24-native action majors (`actions/checkout@v6`, `actions/setup-node@v6`, `cloudflare/wrangler-action@v4`) and no `Node.js 20`, `node20`, or old action major references.
 3. Production `/packs` smoke -> PASS: `/data/packs.json` returned 22 public packs, all `enriched`; Code Reviewer and Security Auditor are enriched; no deprecated aliases are publicly visible; guide/page checks contain no Basic or Certified public labels.
+
+## 2026-05-26 · Role-Pack Git Installability and Local Zip Snapshot
+
+### Trigger
+The standalone Git tag `v2026.05.25.5` was reachable and installable, but comparison against the current Foundry public pack manifests showed 13 public packs with fewer files in the Git release than in the enriched Foundry source.
+
+### Change
+1. Updated Foundry install copy to target `openclaw-role-packs` tag `v2026.05.26.1`.
+2. Regenerated all 26 pack guide pages with the new pinned Git command.
+3. Synced `/Users/mauricewen/Projects/openclaw-role-packs` from Foundry and published tag `v2026.05.26.1`.
+4. Updated the standalone sync script so deprecated alias pack directories keep catalog entries during future Foundry syncs.
+5. Generated one local complete zip per public canonical pack under `dist/role-pack-zips-20260526-095537/`.
+
+### Evidence
+1. Foundry public pack check -> PASS: 22 public packs, 470 manifest items, 157 bundled skills, 69 bundled agents, zero missing sources, all guides use `v2026.05.26.1`.
+2. Standalone repo `npm run validate` -> PASS: 26 packs and 26 catalog entries.
+3. Standalone repo `npm run smoke:install` -> PASS: 26/26 packs installed, including deprecated aliases delegating to canonical targets.
+4. Fresh GitHub clone of `v2026.05.26.1` -> PASS: validate and smoke install installed 26/26 packs from the remote tag.
+5. Local zip smoke -> PASS: 22 zip files, every zip contains manifest/install/guide/CLAUDE/AGENTS, and every extracted zip installed exactly its manifest item count.
