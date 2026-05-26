@@ -700,3 +700,21 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
 4. Technical debt closure: local build, audit, smoke, `ai check`, GitHub Actions deploy, and production smoke are closed for commit `69031125d30b69c2c4172a62798978ca5ccd927c`.
+
+## 2026-05-26 · GitHub Actions Node 24 Runtime Upgrade
+
+### Delivered
+1. Upgraded workflow actions away from Node 20 runtimes in deploy and catalog-health workflows.
+2. Kept Cloudflare deployment deterministic by pinning `wranglerVersion: 4.76.0` on all `cloudflare/wrangler-action@v4` steps.
+3. Preserved existing deploy topology: Worker deploy, D1 migrations, frontend export, R2 protected upload, Pages deploy, and legacy redirect deploy.
+
+### Local Evidence
+1. Workflow YAML parse -> PASS for both workflows.
+2. Legacy action scan -> PASS under `.github`.
+3. `python3 scripts/check-catalog-health.py --catalog web/public/data/skills.json --strict` -> PASS.
+4. `npm --prefix web run build` -> PASS with pack release gates.
+5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-090905-e728ecb3`.
+
+### Evidence Pending
+1. GitHub Actions deploy run must pass after push.
+2. Production `/packs` smoke must still show 22 packs, 22 enriched, 0 certified, 0 stub, and no deprecated aliases.

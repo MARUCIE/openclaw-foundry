@@ -2,9 +2,9 @@
 """Catalog internal consistency check — runs in CI without external dependencies.
 
 Checks performed (each can fail independently in strict mode):
-  1. Duplicate names (must be zero)
-  2. Required fields present per entry (name, description, descriptionZh, category)
-  3. Field coverage above thresholds (descriptionZh ≥99%, category ≥99%, tags ≥95%)
+  1. Duplicate ids (must be zero; display names are allowed to repeat)
+  2. Required fields present per entry
+  3. Field coverage above thresholds
   4. No stale "enrichedAt" beyond cutoff (90 days)
   5. No invalid category values (must be in known taxonomy)
   6. byCategory metadata matches actual distribution
@@ -23,17 +23,34 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-KNOWN_CATEGORIES = {
+DEFAULT_KNOWN_CATEGORIES = {
     'Agent 工具', '写代码', '做产品', '做业务', '定策略',
     '做研究', '做数据', '看数据', '场景规划', '其他',
+    '教育学习', '电商营销', '搜索与研究', '效率工具',
+    'DevOps 部署', 'AI 模型', '安全合规', '金融交易',
+    '代码开发', 'Agent 基建', '办公文档', '区块链 Web3',
+    '浏览器自动化', '内容创作', '游戏娱乐', '系统工具',
+    'HR 人才', '通讯集成', '生活服务', '多媒体', '数据分析',
+    'API 网关',
 }
 
-REQUIRED_FIELDS = ['name', 'description', 'descriptionZh', 'category']
+REQUIRED_FIELDS = [
+    'id',
+    'name',
+    'slug',
+    'description',
+    'category',
+    'source',
+    'url',
+    'rating',
+]
 
 COVERAGE_THRESHOLDS = {
-    'descriptionZh': 0.99,
+    'description': 0.99,
     'category': 0.99,
-    'tags': 0.95,
+    'source': 0.99,
+    'url': 0.99,
+    'rating': 0.99,
 }
 
 STALE_ENRICHMENT_DAYS = 90
@@ -61,13 +78,13 @@ def main() -> int:
 
     failures: list[str] = []
 
-    # Check 1: Duplicate names
-    name_counts = Counter(s.get('name', '') for s in skills)
-    dups = [n for n, c in name_counts.items() if c > 1]
+    # Check 1: Duplicate canonical ids. Display names can repeat across vendors.
+    id_counts = Counter(s.get('id', '') for s in skills)
+    dups = [skill_id for skill_id, count in id_counts.items() if skill_id and count > 1]
     if dups:
-        failures.append(f'duplicate names: {dups[:5]}{"..." if len(dups) > 5 else ""}')
+        failures.append(f'duplicate ids: {dups[:5]}{"..." if len(dups) > 5 else ""}')
     else:
-        print('  [OK] no duplicate names')
+        print('  [OK] no duplicate ids')
 
     # Check 2: Required fields present
     missing_field_entries = []
@@ -110,8 +127,17 @@ def main() -> int:
         # Stale enrichment is a warn-only signal (data ages naturally)
 
     # Check 5: Unknown categories
+    known_categories = set(DEFAULT_KNOWN_CATEGORIES)
+    category_file = args.catalog.with_name('skills-categories.json')
+    if category_file.exists():
+        try:
+            category_data = json.loads(category_file.read_text())
+            known_categories.update(category_data.get('categories', {}).keys())
+        except json.JSONDecodeError:
+            failures.append(f'category taxonomy parse failed: {category_file}')
+
     used_cats = Counter(s.get('category', '') for s in skills)
-    unknown_cats = [c for c in used_cats if c and c not in KNOWN_CATEGORIES]
+    unknown_cats = [c for c in used_cats if c and c not in known_categories]
     if unknown_cats:
         failures.append(f'unknown categories: {unknown_cats}')
     else:

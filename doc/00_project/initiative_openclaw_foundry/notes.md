@@ -774,3 +774,25 @@ The prior repair correctly separated availability from `PACK_SPEC` tier, but it 
 11. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
 12. GitHub Actions deploy `26438787446` for commit `69031125d30b69c2c4172a62798978ca5ccd927c` -> PASS; production smoke showed 22 packs, 22 enriched, 0 certified, 0 stub, no Basic / Certified labels, no deprecated aliases, and Code Reviewer / Security Auditor enriched.
 13. Root-cause note: local ignored `evidence/*/*-e2e.log` files caused local-only Certified labels. They were not committed because they are ignored, non-reproducible in CI, and contain historical advisor filenames; normal audits now require tracked evidence.
+
+## 2026-05-26 · GitHub Actions Node 24 Runtime Upgrade
+
+### Trigger
+The final production deploy for the public pack maturity work succeeded, but GitHub emitted Node 20 deprecation annotations for workflow actions. GitHub's runner default switches to Node 24 on 2026-06-02, so this is release debt rather than a cosmetic warning.
+
+### Change
+1. `.github/workflows/deploy.yml` now uses `actions/checkout@v6`, `actions/setup-node@v6`, `actions/upload-artifact@v7`, `actions/download-artifact@v8`, and `cloudflare/wrangler-action@v4`.
+2. `.github/workflows/skill-catalog-drift.yml` now uses `actions/checkout@v6` and `actions/setup-python@v6`.
+3. Cloudflare deploy steps pin `wranglerVersion: 4.76.0` to avoid following latest by accident after the action major upgrade.
+
+### Local Evidence
+1. GitHub API action metadata check confirmed every upgraded action uses `runs.using: node24`.
+2. Workflow YAML parse -> PASS for `.github/workflows/deploy.yml` and `.github/workflows/skill-catalog-drift.yml`.
+3. Legacy action scan -> PASS: no remaining Node 20 action major references under `.github`.
+4. `python3 scripts/check-catalog-health.py --catalog web/public/data/skills.json --strict` -> PASS after updating the script from the old `descriptionZh/tags` contract to the current catalog schema.
+5. Pack audits -> PASS: public maturity, public dedup, page coverage, online status, and person-name checks.
+6. `npm --prefix web run build` -> PASS.
+7. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-090905-e728ecb3`.
+
+### Evidence Pending
+1. GitHub Actions production deploy and `/packs` smoke after push.

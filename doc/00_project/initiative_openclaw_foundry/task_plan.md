@@ -609,3 +609,23 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 ### Notes
 2. Full pack-spec audit still reports 4 `stub` directories only for deprecated aliases that are suppressed from public catalog; alias guide pages now inherit canonical maturity.
 3. Old local ignored `evidence/*/*-e2e.log` files are not accepted for normal certified promotion because they are not reproducible in CI and may contain historical advisor filenames. `PACK_SPEC_ALLOW_UNTRACKED_EVIDENCE=1` remains available only for local diagnosis.
+
+## 2026-05-26 · GitHub Actions Node 24 Runtime Upgrade
+- Status: in implementation
+- Stop condition: production deploy workflow runs without Node 20 action-runtime annotations, and production `/packs` still verifies as 22/22 enriched after deploy.
+
+### Steps
+- [x] Identify all workflow actions still using Node 20 action runtimes.
+- [x] Upgrade workflow actions to Node 24-compatible majors.
+- [x] Pin Cloudflare Wrangler action steps to `wranglerVersion: 4.76.0`.
+- [x] Run local workflow syntax checks, public pack audits, and `ai check`.
+- [ ] Commit, push, verify GitHub Actions deploy, and production-smoke `/packs`.
+
+### Current Verification Snapshot
+1. Official action metadata checked through GitHub API: `actions/checkout@v6`, `actions/setup-node@v6`, `actions/setup-python@v6`, `actions/upload-artifact@v7`, `actions/download-artifact@v8`, and `cloudflare/wrangler-action@v4` declare `runs.using: node24`.
+2. Cloudflare `wrangler-action@v4` keeps the same `apiToken`, `accountId`, `workingDirectory`, `wranglerVersion`, and `command` inputs used by the existing workflow.
+3. Workflow YAML parse -> PASS for `.github/workflows/deploy.yml` and `.github/workflows/skill-catalog-drift.yml`.
+4. Legacy action scan -> PASS: no remaining `checkout@v4`, `setup-node@v4`, `upload-artifact@v4`, `download-artifact@v4`, `setup-python@v5`, `wrangler-action@v3`, or `node20` action metadata references under `.github`.
+5. `python3 scripts/check-catalog-health.py --catalog web/public/data/skills.json --strict` -> PASS after aligning the script to the current skill catalog schema.
+6. `npm --prefix web run build` -> PASS; public maturity, dedup, coverage, online status, install-source, and person-name gates all passed.
+7. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-090905-e728ecb3`.

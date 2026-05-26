@@ -34,9 +34,9 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -88,7 +88,7 @@ jobs:
           git push origin main || echo "NOTE: Push failed (likely concurrent push), skipping"
 
       - name: Upload data artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: sync-data
           retention-days: 3
@@ -106,9 +106,9 @@ jobs:
     if: always() && (needs.sync-data.result == 'success' || needs.sync-data.result == 'skipped') && needs.apply-migrations.result == 'success'
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -124,7 +124,7 @@ jobs:
       # Download fresh data from sync-data job (if available)
       - name: Download synced data
         if: needs.sync-data.result == 'success'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: sync-data
           merge-multiple: true
@@ -174,10 +174,11 @@ jobs:
         run: node scripts/prune-public-pack-downloads.mjs
 
       - name: Deploy to CF Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: 4.76.0
           command: pages deploy web/out --project-name agent-foundry --branch main --commit-dirty=true
 
       - name: Build legacy Pages redirect
@@ -188,10 +189,11 @@ jobs:
           printf '%s\n' '<!doctype html><meta http-equiv="refresh" content="0;url=https://agent-foundry.pages.dev/"><link rel="canonical" href="https://agent-foundry.pages.dev/">' > /tmp/openclaw-foundry-redirect/index.html
 
       - name: Redirect legacy CF Pages host
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: 4.76.0
           command: pages deploy /tmp/openclaw-foundry-redirect --project-name openclaw-foundry --branch main --commit-dirty=true
 
   # ── Step 2: Deploy worker ──
@@ -199,9 +201,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
 
@@ -209,10 +211,11 @@ jobs:
         run: cd worker && npm ci
 
       - name: Deploy Worker
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: 4.76.0
           workingDirectory: worker
           command: deploy
 
@@ -224,9 +227,9 @@ jobs:
     needs: [deploy-worker]
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
 
@@ -272,14 +275,14 @@ jobs:
     if: needs.sync-data.result == 'success'
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
 
       - name: Download seed SQL
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: sync-data
           merge-multiple: true

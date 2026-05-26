@@ -106,6 +106,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 12. Pack recommendation grouping must stay MECE at the user-task layer: e.g. engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops, while the group result expands the underlying packs.
 13. Pack online-status and dedup audits must verify all 22 public catalog entries have required public files, `guide.html`, release logic independent from `tier: "stub"`, and no visible duplicate role names; deprecated alias directories must point to a visible canonical target and stay out of `/packs` question-tree IDs.
 14. Public maturity generation must be audit-derived, not hand-labeled: `scripts/enrich-public-pack-maturity.mjs` may add missing maturity artifacts, but `scripts/pack-spec-audit.py` and `scripts/audit-public-pack-maturity.mjs` are the release gates that prove the public catalog has zero `stub` entries.
+15. GitHub Actions release workflows must use Node 24-compatible action runtimes before the 2026-06-02 GitHub runner default switch; workflow action versions must be pinned to supported majors and Cloudflare Wrangler must be version-pinned for deterministic production deploys.
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -129,3 +130,4 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 13. Role-pack renames must be real cutovers, not compatibility aliases; obsolete pack IDs must be absent from public catalog, guides, install scripts, and standalone Git repo.
 14. Old person-named advisor IDs and person-framework copy can re-enter through upstream skill sync or historical templates; `scripts/sanitize-pack-person-names.mjs --check` is the release gate.
 15. Public pack maturity can regress if new packs bypass the enrichment/audit chain; `web` prebuild must keep `enrich-public-pack-maturity` before `inject-pack-tiers` and must keep `audit-public-pack-maturity` after tier injection.
+16. CI provider action major versions can introduce breaking behavior; workflow upgrades must be validated through GitHub Actions deploy runs plus production smoke, not only local YAML parsing.

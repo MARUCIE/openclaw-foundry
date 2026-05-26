@@ -33,6 +33,7 @@
 | 2026-05-26 | REQ-030 | Job Pack / Online State | All non-deprecated public role/job packs must be live/installable when generated artifacts exist; `tier: "stub"` is a Basic maturity badge, not an offline state | Completed | Added online-status audit, generated guide pages, and split release logic from PACK_SPEC tier |
 | 2026-05-26 | REQ-031 | Job Pack / Dedup | Public `/packs` must show only the richest canonical role pack when a deprecated alias points at the same job | Completed | Public catalog now has 22 canonical packs; 4 `deprecated_alias_of` spellbook aliases are suppressed from cards/counts/question-tree IDs by `generate-packs.mjs` and `audit-pack-public-dedup.mjs`; production deploy run `26435492679` verified commit `5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` |
 | 2026-05-26 | REQ-032 | Job Pack / Maturity Floor | All canonical public job packs must be at least `enriched`; no public card or public catalog entry may remain `stub` / `基础档` | Completed | Added `enrich-public-pack-maturity.mjs` before tier injection and `audit-public-pack-maturity.mjs` as prebuild gate; public catalog audits as 22 packs, 22 enriched, 0 certified, 0 stub; certified promotion now requires tracked evidence |
+| 2026-05-26 | REQ-033 | CI / Runtime Lifecycle | Production and catalog-health workflows must stop depending on Node 20 action runtimes before GitHub's 2026-06-02 Node 24 runner default switch | In progress | Upgrade workflow actions to Node 24-compatible majors and pin Cloudflare Wrangler to `4.76.0`; validate through deploy workflow and production smoke |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -52,6 +53,7 @@
 | 2026-05-26 | "所有的配置包缺失 / 全部上线" | Pack online-state invariant | Do not use `PACK_SPEC` tier as availability; all public catalog packs with generated artifacts are live, and Basic tier copy must not say `Coming soon` |
 | 2026-05-26 | "为什么还有2个一样的，只保留最丰富、最好的" | Pack public dedup invariant | Deprecated alias packs can remain as historical directories, but public `/packs` cards, counts, and groups must expose only the canonical target |
 | 2026-05-26 | "要全部已富化，全面检查和修复" | Pack maturity-floor invariant | Canonical public packs must be audit-enriched to at least `enriched`; deprecated alias guides inherit canonical maturity and remain outside public cards; ignored local E2E logs must not create local-only Certified labels |
+| 2026-05-26 | "继续" after production maturity closeout | CI runtime lifecycle cleanup | Treat GitHub Actions Node 20 deprecation annotations as release debt; upgrade actions to Node 24-native majors rather than relying on temporary opt-out or opt-in environment flags |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -87,6 +89,7 @@
 | `tier: "stub"` 是否等于未上线? | 不等于。上线状态看 `manifest.json`、`CLAUDE.md`、`AGENTS.md`、`settings.json`、`prompts.md`、`install.sh`、`guide.html` 是否齐全，以及 `/packs` release logic 是否通过 `audit-pack-online-status.mjs`。 |
 | 公开岗位包可以继续显示 `基础档` 吗? | 不可以。`Basic` 只解释旧成熟度语义；当前公开 catalog 的发布门槛已经提高到 `enriched`，必须由 `pack-spec-audit.py` 计算并由 `audit-public-pack-maturity.mjs` 阻断任何 public `stub`。 |
 | R2 protected pack 上传遇到 `502` / `504` 怎么办? | 不应靠人工反复 rerun。`scripts/upload-protected-packs-to-r2.mjs` 必须有有界并发和指数退避重试，确保 Cloudflare 瞬时网关错误不会中断有效部署。 |
+| GitHub Actions 出现 Node 20 deprecation annotation 怎么办? | 不要只设置临时环境开关。优先升级到 `runs.using: node24` 的 action major（checkout/setup-node/setup-python/artifact/wrangler），并通过真实 GitHub Actions deploy 与生产 smoke 证明没有回退。 |
 
 ## References
 1. `package.json`
@@ -138,3 +141,5 @@
 47. `https://arxiv.org/abs/2602.14690`
 48. `scripts/enrich-public-pack-maturity.mjs`
 49. `scripts/audit-public-pack-maturity.mjs`
+50. `.github/workflows/deploy.yml`
+51. `.github/workflows/skill-catalog-drift.yml`
