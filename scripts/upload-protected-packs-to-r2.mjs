@@ -12,7 +12,9 @@ const PACKS_DIR = resolve(process.env.PACKS_DIR || join(ROOT, 'web', 'public', '
 const WORKER_DIR = join(ROOT, 'worker');
 const BUCKET = process.env.FOUNDRY_PACKS_R2_BUCKET || 'openclaw-foundry-files';
 const DRY_RUN = process.argv.includes('--dry-run');
-const CONCURRENCY = parsePositiveInt(process.env.R2_UPLOAD_CONCURRENCY, 8);
+const CONCURRENCY = parsePositiveInt(process.env.R2_UPLOAD_CONCURRENCY, 4);
+const RETRIES = parsePositiveInt(process.env.R2_UPLOAD_RETRIES, 4);
+const RETRY_BASE_MS = parsePositiveInt(process.env.R2_UPLOAD_RETRY_BASE_MS, 1_000);
 const LOCAL_WRANGLER = join(
   WORKER_DIR,
   'node_modules',
@@ -61,14 +63,22 @@ function wranglerArgs(file, key) {
   ];
 }
 
-function uploadOne(file, index, total) {
-  const rel = relative(PACKS_DIR, file).replaceAll('\\', '/');
-  const key = `packs/${rel}`;
-  if (DRY_RUN) {
-    console.log(`DRY-RUN [${index}/${total}] ${key}`);
-    return Promise.resolve();
-  }
+function sleep(ms) {
+  return new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
+}
 
+function isRetryableUploadError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return /\b(429|500|502|503|504)\b|Bad Gateway|Gateway Timeout|ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(
+    message,
+  );
+}
+
+function retryDelayMs(attempt) {
+  return RETRY_BASE_MS * 2 ** Math.max(0, attempt - 1);
+}
+
+function uploadOneAttempt(file, key, index, total) {
   const startedAt = Date.now();
   return new Promise((resolveUpload, rejectUpload) => {
     const child = spawn(LOCAL_WRANGLER, wranglerArgs(file, key), {
@@ -95,6 +105,31 @@ function uploadOne(file, index, total) {
       rejectUpload(new Error(`wrangler failed for ${key} with code ${code}\n${output}`));
     });
   });
+}
+
+async function uploadOne(file, index, total) {
+  const rel = relative(PACKS_DIR, file).replaceAll('\\', '/');
+  const key = `packs/${rel}`;
+  if (DRY_RUN) {
+    console.log(`DRY-RUN [${index}/${total}] ${key}`);
+    return;
+  }
+
+  for (let attempt = 1; attempt <= RETRIES + 1; attempt += 1) {
+    try {
+      await uploadOneAttempt(file, key, index, total);
+      return;
+    } catch (error) {
+      const retryable = isRetryableUploadError(error);
+      if (!retryable || attempt > RETRIES) throw error;
+      const delay = retryDelayMs(attempt);
+      console.warn(
+        `RETRY [${index}/${total}] ${key} after transient R2 upload error ` +
+          `(attempt ${attempt}/${RETRIES + 1}, wait ${delay}ms)`,
+      );
+      await sleep(delay);
+    }
+  }
 }
 
 async function uploadAll(files) {
@@ -131,6 +166,7 @@ if (!existsSync(LOCAL_WRANGLER)) {
 console.log(`Uploading ${files.length} protected pack file(s) to R2 bucket ${BUCKET}`);
 console.log(`Wrangler command: ${LOCAL_WRANGLER}`);
 console.log(`Concurrency: ${CONCURRENCY}${DRY_RUN ? ' (dry-run)' : ''}`);
+console.log(`Retries: ${RETRIES}${DRY_RUN ? ' (dry-run)' : ''}`);
 
 try {
   await uploadAll(files);

@@ -632,3 +632,18 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is now executable through prebuild audits.
 4. Technical debt closure: online-state conflation and missing guide coverage are closed; production deployment and smoke verification are complete for commit `1d5fdf48fb3ca97b76f2c4c33ed405732649f313`.
+
+## 2026-05-26 · R2 Protected Pack Upload Retry Guard
+
+### Delivered
+1. Hardened `scripts/upload-protected-packs-to-r2.mjs` against transient Cloudflare R2 `502` / `504` upload failures.
+2. Reduced default protected-pack upload concurrency from 8 to 4.
+3. Added configurable retry controls through `R2_UPLOAD_RETRIES` and `R2_UPLOAD_RETRY_BASE_MS`.
+
+### Evidence
+1. `node --check scripts/upload-protected-packs-to-r2.mjs` -> PASS.
+2. `node scripts/upload-protected-packs-to-r2.mjs --dry-run` -> PASS, 463 protected pack files planned.
+3. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks and 0 violations.
+
+### Closeout
+1. Technical debt closure: release upload no longer relies on manual reruns for transient Cloudflare R2 gateway responses.

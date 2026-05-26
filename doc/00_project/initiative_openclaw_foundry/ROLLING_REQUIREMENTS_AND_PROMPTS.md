@@ -80,6 +80,7 @@
 | `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在且产物完整的 26 个配置包都应展示并可安装；`tier: stub` 只能显示为 `Basic` 成熟度，不能被当成隐藏、禁用或 `即将上线` 的理由。 |
 | `/packs` 二级方向可以直接平铺所有岗位包吗? | 不可以。二级方向必须按用户任务域分组，例如前端体验、后端平台、质量安全、基础设施运维；组内结果再展开具体配置包，并由 coverage audit 证明 26 个包没有遗漏。 |
 | `tier: "stub"` 是否等于未上线? | 不等于。上线状态看 `manifest.json`、`CLAUDE.md`、`AGENTS.md`、`settings.json`、`prompts.md`、`install.sh`、`guide.html` 是否齐全，以及 `/packs` release logic 是否通过 `audit-pack-online-status.mjs`。 |
+| R2 protected pack 上传遇到 `502` / `504` 怎么办? | 不应靠人工反复 rerun。`scripts/upload-protected-packs-to-r2.mjs` 必须有有界并发和指数退避重试，确保 Cloudflare 瞬时网关错误不会中断有效部署。 |
 
 ## References
 1. `package.json`

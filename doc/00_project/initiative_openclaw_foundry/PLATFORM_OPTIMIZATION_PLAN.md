@@ -41,6 +41,7 @@
 | OPT-28 | P0 | Pack UI coverage | Catalog packs could exist in `packs.json` but be absent from the `/packs` question tree or browse cards | Render all catalog packs, keep maturity badges separate from availability, and add prebuild coverage audits | Completed 2026-05-26 |
 | OPT-29 | P0 | Pack taxonomy clarity | Showing one second-level card per catalog pack made the job-pack selector noisy and unscientific | Replace flat second-level pack lists with compact task-domain groups while preserving 26-pack coverage through result expansion and audit gates | Completed 2026-05-26 |
 | OPT-30 | P0 | Pack online-state semantics | `PACK_SPEC` tier was conflated with online availability, causing 17 Basic packs to look missing or disabled | Treat `tier: "stub"` as `Basic`, generate guides for all 26 packs, and fail prebuild if required online artifacts are absent | Completed 2026-05-26 |
+| OPT-31 | P0 | R2 upload resilience | Cloudflare R2 transient `502` / `504` responses could fail an otherwise valid pack deploy | Bound protected pack upload concurrency and retry transient R2 upload failures with exponential backoff | Completed 2026-05-26 |
 
 ## Next Execution Order
 1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag containing the current released packs is pushed.

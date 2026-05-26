@@ -701,3 +701,18 @@ After the compact taxonomy shipped, the public `/packs` page still implied that 
 8. Commit `1d5fdf48fb3ca97b76f2c4c33ed405732649f313` was pushed to `origin/main`; GitHub Actions deploy run `26431853849` completed successfully for Worker, D1 migration, and Pages frontend deploy.
 9. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` -> PASS: HTTP 200, 26 packs, 6 lines, no missing `id` / `line` / `tier` fields.
 10. Production Playwright smoke on `/packs?verify=1d5fdf48fb3ca97b76f2c4c33ed405732649f313` -> PASS: `Write Code` uses 4 compact task-domain groups, `Quality & Security` shows `BASIC` maturity packs, Browse All exposes 26 guide links, and no `Coming soon` / `即将上线` copy appears.
+
+## 2026-05-26 · R2 Protected Pack Upload Retry Guard
+
+### Trigger
+The documentation closeout deployment for commit `870bafeeb04888b253e403714aadf4f13ce8cafa` failed twice in the protected pack upload step because Cloudflare R2 returned transient `502 Bad Gateway` and `504 Gateway Timeout` responses for individual objects.
+
+### Change
+1. `scripts/upload-protected-packs-to-r2.mjs` now retries transient 429/5xx/gateway/timeout upload failures with exponential backoff.
+2. Default `R2_UPLOAD_CONCURRENCY` was reduced from 8 to 4 to lower pressure on R2 during the 463-file protected payload upload.
+3. `R2_UPLOAD_RETRIES` and `R2_UPLOAD_RETRY_BASE_MS` are configurable through the deploy environment.
+
+### Evidence
+1. `node --check scripts/upload-protected-packs-to-r2.mjs` -> PASS.
+2. `node scripts/upload-protected-packs-to-r2.mjs --dry-run` -> PASS, 463 protected pack files planned.
+3. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks and 0 violations.
