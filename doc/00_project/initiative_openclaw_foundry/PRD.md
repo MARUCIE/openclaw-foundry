@@ -89,6 +89,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-29 | `/packs` must make every non-deprecated public job pack visible from the guide UI and browse UI; the current public catalog contains 22 canonical packs, while 4 `deprecated_alias_of` spellbook aliases are suppressed from public cards/counts | Implemented 2026-05-26; updated 2026-05-26 |
 | FR-30 | `/packs` recommendation taxonomy must use a small set of task-domain groups instead of one second-level card per pack; every public catalog pack must still map to at least one group and render in the selected result set | Implemented 2026-05-26 |
 | FR-31 | Pack availability must be derived from generated artifact completeness, not `PACK_SPEC` tier; prebuild fails if any public catalog pack lacks public files, guide HTML, `/packs` coverage, or duplicate-role suppression | Implemented 2026-05-26; updated 2026-05-26 |
+| FR-32 | Every canonical public job pack must meet at least `enriched` maturity before it appears in `/packs`; prebuild fails if the public catalog contains any `stub` pack, and deprecated alias guide pages inherit their canonical target maturity | Implemented 2026-05-26 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -104,6 +105,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 11. Pack generation and release verification must run a person-name audit across Foundry packs, standalone packs, public pack catalogs, guide HTML, and installed smoke-test output before publishing a tag.
 12. Pack recommendation grouping must stay MECE at the user-task layer: e.g. engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops, while the group result expands the underlying packs.
 13. Pack online-status and dedup audits must verify all 22 public catalog entries have required public files, `guide.html`, release logic independent from `tier: "stub"`, and no visible duplicate role names; deprecated alias directories must point to a visible canonical target and stay out of `/packs` question-tree IDs.
+14. Public maturity generation must be audit-derived, not hand-labeled: `scripts/enrich-public-pack-maturity.mjs` may add missing maturity artifacts, but `scripts/pack-spec-audit.py` and `scripts/audit-public-pack-maturity.mjs` are the release gates that prove the public catalog has zero `stub` entries.
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -126,3 +128,4 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 12. Public skill catalogs and role-pack payloads must not expose workstation-only links, `file:///Users/...` sources, or public `_backup*` data directories.
 13. Role-pack renames must be real cutovers, not compatibility aliases; obsolete pack IDs must be absent from public catalog, guides, install scripts, and standalone Git repo.
 14. Old person-named advisor IDs and person-framework copy can re-enter through upstream skill sync or historical templates; `scripts/sanitize-pack-person-names.mjs --check` is the release gate.
+15. Public pack maturity can regress if new packs bypass the enrichment/audit chain; `web` prebuild must keep `enrich-public-pack-maturity` before `inject-pack-tiers` and must keep `audit-public-pack-maturity` after tier injection.

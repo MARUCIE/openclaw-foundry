@@ -43,6 +43,7 @@
 | OPT-30 | P0 | Pack online-state semantics | `PACK_SPEC` tier was conflated with online availability, causing 17 Basic packs to look missing or disabled | Treat `tier: "stub"` as `Basic`, generate guides for public pack directories, and fail prebuild if required online artifacts are absent | Completed 2026-05-26; updated 2026-05-26 |
 | OPT-31 | P0 | R2 upload resilience | Cloudflare R2 transient `502` / `504` responses could fail an otherwise valid pack deploy | Bound protected pack upload concurrency and retry transient R2 upload failures with exponential backoff | Completed 2026-05-26 |
 | OPT-32 | P0 | Duplicate role-pack aliases | Deprecated `spellbook-*` aliases still appeared as duplicate public role cards beside richer canonical packs | Suppress `deprecated_alias_of` packs from public `packs.json`, remove alias IDs from `/packs` groups, and add a public dedup prebuild audit | Completed 2026-05-26 |
+| OPT-33 | P0 | Public pack maturity floor | Some canonical public packs still displayed `基础档` after dedup, making live packs look incomplete | Enrich canonical public packs to audit-derived `enriched` or `certified`, inherit canonical maturity on deprecated alias guides, and fail prebuild on any public `stub` | Completed 2026-05-26 |
 
 ## Next Execution Order
 1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `openclaw-role-packs` validate + smoke-install passes and the new tag containing the current released packs is pushed.

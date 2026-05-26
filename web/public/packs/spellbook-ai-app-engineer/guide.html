@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>AI 应用工程师</h1>
   <p class="subtitle">Agentex / LangGraph / OpenAI Agents SDK + 复杂文档 RAG 调试 + 内存架构。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill spellbook-ai-app-engineer-delivery-review &quot;design an AI invoice assistant with tool boundary, eval set, fallback path, and cost budget&quot;</code></pre>
+<p>预期输出：tool boundary map + eval harness + prompt contract + cost budget</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/spellbook/agentex/SKILL.md</code></li><li><code>skills/spellbook/langgraph/SKILL.md</code></li><li><code>skills/spellbook/openai-agents/SKILL.md</code></li><li><code>skills/spellbook/complex-doc-rag/SKILL.md</code></li><li><code>skills/spellbook/promptbase/SKILL.md</code></li><li><code>skills/spellbook/memory-map/SKILL.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/spellbook/agentex/SKILL.md</code></li><li><code>skills/spellbook/langgraph/SKILL.md</code></li><li><code>skills/spellbook/openai-agents/SKILL.md</code></li><li><code>skills/spellbook/complex-doc-rag/SKILL.md</code></li><li><code>skills/spellbook/promptbase/SKILL.md</code></li><li><code>skills/spellbook/memory-map/SKILL.md</code></li><li><code>skills/spellbook-ai-app-engineer/scope-contract/SKILL.md</code></li><li><code>skills/spellbook-ai-app-engineer/quality-gate/SKILL.md</code></li><li><code>skills/spellbook-ai-app-engineer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<p class="muted">本包暂未带 advisor 角色。</p>
+<ul class="kit-list"><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/agentex/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building, wiring, or debugging an Agentex agent — choosing agent type, configuring acp.py and manifest.yaml, using adk.messages or adk.state, or resolving Windows-specific setup issues.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Agentex 是把 AI 智能体（AI Agent）变成可注册、可编排、可观测的后端服务的一套平台范式。</p><p>用它的效果是：智能体不再是一段散落的脚本，而是带状态、带消息、带工作流的产品功能。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按业务场景挑选合适的智能体类型（对话型、工作流型、批处理型），让后续设计有清晰边界。</li><li>在 acp.py 与 manifest.yaml 里把入口、状态、工具声明清楚，让平台能正确注册并调度这个智能体。</li><li>用 adk.messages（消息接口）传输用户输入与系统响应，让对话过程可追溯、可重放。</li><li>用 adk.state（状态接口）持久化业务上下文，让多轮交互不会因为重启而丢失记忆。</li><li>在本地拉起 FastAPI 后端与 Temporal 工作流后，再把智能体跑起来做端到端验证。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +159,7 @@ footer p { max-width: none; margin: 4px 0; }
   工作流编排 --&gt; 消息接口
   消息接口 --&gt; 用户输入</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-langgraph">
@@ -167,17 +168,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/langgraph/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building or debugging LangGraph workflows — designing state graphs, adding conditional routing, wiring checkpointers, streaming tokens, implementing human-in-the-loop interrupts, or coordinating multi-agent subgraphs.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>LangGraph 是用状态图（State Graph）来描述多步智能体流程的编排框架。</p><p>用它的效果是：复杂的决策、分支、循环不再藏在 if-else 里，而是变成一张可视化、可单步调试的图。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把业务流程拆成节点（一个节点 = 一个明确职责），让每一步的输入输出都有契约。</li><li>用条件边（Conditional Edge）描述分支与循环，让回退与重试逻辑显式而非散落。</li><li>把全局状态（State）建模成 TypedDict 或 Pydantic 模型，让每一次状态更新都可追踪。</li><li>在关键节点接入人工审核断点（Human-in-the-loop），让高风险动作有人类签字才放行。</li><li>用图遍历日志做事后回放，让失败案例能复现、能归因、能写进回归测试。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +189,7 @@ footer p { max-width: none; margin: 4px 0; }
   人工审核 --&gt; 状态更新
   状态更新 --&gt; 终点</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-openai-agents">
@@ -197,17 +198,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/openai-agents/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building or debugging OpenAI Agents SDK workflows — defining agents with tools and handoffs, wiring typed context, streaming responses, adding guardrails, or integrating with the Agentex ADK.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>OpenAI Agents SDK 是 OpenAI 官方提供的智能体编排库，把工具调用、流程切换、追踪都内置好。</p><p>用它的效果是：开发者只关心业务逻辑，平台层负责工具路由、状态传递、可观测性。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把工具按业务职责注册到 Agent，让模型在选择工具时有清晰的语义边界。</li><li>用 Handoffs 机制描述多智能体协作，让复杂任务可以在专业智能体间接力完成。</li><li>通过 Guardrails 设置输入输出校验，让不合规的请求或响应在早期被拦截。</li><li>打开 Tracing 收集执行链路，让每一次决策都能在控制台里复盘。</li><li>上线前用真实场景做流式（Streaming）压测，确保延迟与稳定性达标。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -218,7 +219,7 @@ footer p { max-width: none; margin: 4px 0; }
   专业智能体 --&gt; 结果汇总
   结果汇总 --&gt; 链路追踪</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-complex-doc-rag">
@@ -227,17 +228,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/complex-doc-rag/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building a RAG pipeline that ingests PDFs, Excel, CSV, or images — especially when debugging silent data loss, choosing between OCR tools, or handling edge cases like scanned pages, merged cells, or embedded charts.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Complex Doc RAG 是给复杂文档（合同、年报、技术规范）做高保真检索增强生成的工程模板。</p><p>用它的效果是：模型回答能引用到具体段落而不是泛泛而谈，把幻觉风险压到可控范围。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按文档结构（章节、表格、附录）做语义切片，让检索粒度匹配业务问题颗粒度。</li><li>在切片层叠加元数据（来源、版本、章节路径），让检索结果天然带上溯源信息。</li><li>用向量库与稀疏索引混合检索，把语义相似与关键词命中两条召回链路都打开。</li><li>在生成阶段做引用拼接与置信度标注，让回答自带可核验的页码与原文片段。</li><li>上线前用真实业务问答集跑回归，确保版本切换不会让答案质量倒退。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -248,7 +249,7 @@ footer p { max-width: none; margin: 4px 0; }
   关键词索引 --&gt; 混合检索
   混合检索 --&gt; 引用生成</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-promptbase">
@@ -257,17 +258,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/promptbase/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when writing, reviewing, or adapting a Claude Code skill for sale on PromptBase — checking scope, audience breadth, rejection risk, description quality, examples, and setup instructions.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Promptbase 是把提示词（Prompt）当代码管理的工程实践：版本化、可测试、可灰度。</p><p>用它的效果是：提示词的每次改动都有 diff、有评测、有回滚，不再靠口口相传。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把每个提示词独立成文件，让 Git 历史记录每次表达调整的来龙去脉。</li><li>为每个提示词配套 golden 测试集，让效果变化在合并前就被自动发现。</li><li>用模板变量隔离稳定文案与动态参数，让提示词可以被多场景复用。</li><li>通过灰度发布在小流量上验证新版本，让大盘风险被控制在可承受的范围内。</li><li>把每次 A/B 实验的结论写回提示词的 changelog，让团队沉淀经验而非重复造轮。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -277,7 +278,7 @@ footer p { max-width: none; margin: 4px 0; }
   灰度发布 --&gt; 生产流量
   生产流量 --&gt; 经验回写</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-memory-map">
@@ -286,17 +287,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/memory-map/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when installing or configuring memory_map, writing CLAUDE.md session-setup instructions, choosing what to save in memory vs history, managing cross-project memory, tuning compression, or troubleshooting why Claude isn&#39;t loading context at session start.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Memory Map 是给智能体安装长期记忆与情景记忆（Episodic Memory）的工程脚手架。</p><p>用它的效果是：智能体跨会话也能记住用户偏好、历史决策、未完成事项，告别金鱼脑。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按记忆类型（事实型、偏好型、事件型）分库存储，让检索时按需取用而不是混在一起。</li><li>在写入时做去重与冲突检测，让相同信息不会被反复落库污染检索质量。</li><li>为每条记忆打上时效性标签（永久、季度、单次），让过期信息能自动降权或淘汰。</li><li>在调用模型前根据当前上下文做记忆召回，把最相关的 3-5 条注入到提示里。</li><li>定期做记忆审计，让无效或敏感的记忆能被人工标记后清理。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -307,7 +308,43 @@ footer p { max-width: none; margin: 4px 0; }
   记忆写入 --&gt; 偏好库
   记忆写入 --&gt; 事件库</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -337,9 +374,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

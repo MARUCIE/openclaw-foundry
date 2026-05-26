@@ -139,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/frontend-design/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Use when building web UI from scratch: components, pages, landing pages, dashboards, HTML/CSS layouts, posters. Produces production-grade, aesthetically intentional code. NOT for backend logic. NOT for refactoring existing UI without redesign intent (use design-taste-frontend).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你从零搭一个不像 AI 模板的前端界面，让你的官网、落地页、控制台一眼就有自己的调性，而不是又一个紫色渐变加 Inter 字体的&quot;AI 味&quot;作品。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把要做的页面用途、目标用户、想要的气质告诉它，越具体越好。</li><li>它会先帮你定一个明确的美学方向，比如极简、复古、编辑刊物、工业感，不允许&quot;哪种都行&quot;。</li><li>它选好字体、配色、版式之后才动手写代码，所有选择都给你一句话理由。</li><li>它会把响应式、CJK（中日韩文字）排版、无障碍这些细节一并处理，不留尾巴。</li><li>出稿后它会自动在浏览器里打开成品，让你当场对照需求验收。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +159,7 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[响应式与无障碍核查]
   E --&gt; F[浏览器开窗验收]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-review">
@@ -168,17 +168,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/design-review/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Reviews a game design document for completeness, internal consistency, implementability, and adherence to project design standards. Run this before handing a design document to programmers.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你在设计稿交给工程师之前，把这份文档当成&quot;准生证&quot;过一遍，让你提前发现规则含糊、公式缺漏、跨系统冲突这些常见问题，避免开发到一半才返工。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把要审的设计文档路径丢给它，比如战斗系统、库存系统这种单一系统的 GDD（Game Design Document，游戏设计文档）。</li><li>它会读完目标文档，再扫一遍主项目说明和相关联的兄弟系统文档，把上下文补齐。</li><li>它按 8 个必备小节给你打分：概览、玩家体验、规则细节、公式、边界情况、依赖、可调参数、验收标准，缺哪个直接列出来。</li><li>它会顺手检查公式和描述是否自洽、边界情况会不会和主规则打架、依赖关系是否双向贯通。</li><li>它最后输出一份分级评审：完整度多少、内部一致性如何、可实现度怎样、跨系统是否冲突，每条问题都给改进建议。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +187,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[跨系统冲突排查]
   D --&gt; E[分级评审报告]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-system">
@@ -196,17 +196,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/design-system/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Guided, section-by-section GDD authoring for a single game system. Gathers context from existing docs, walks through each required section collaboratively, cross-references dependencies, and writes incrementally to file.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你从零写出一份合格的单系统设计文档，让你不再面对空白页发呆——它先读完所有上下文，再带着你一节一节往下问，最后落成一份工程师能直接照着实现的 GDD（Game Design Document，游戏设计文档）。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把系统名扔给它，比如&quot;战斗系统&quot;&quot;库存&quot;&quot;对话&quot;，它会自动转成规范的文件名。</li><li>它先把项目主线、系统索引、上下游依赖文档都读一遍，把全局背景吃透再开口提问。</li><li>它按 8 节顺序带你走：概览、玩家体验、规则、公式、边界情况、依赖、可调参数、验收标准，每节问完就先落盘再继续。</li><li>它边写边给你交叉对照：你定的公式会不会和上游冲突、你的输出能不能满足下游的预期，问题当场提醒。</li><li>全部写完它会自动跑一遍 design-review 自检，把缺漏和不一致的点列出来给你最后过一遍。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -215,7 +215,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[增量写入 GDD]
   D --&gt; E[自动自检与交付]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-taste-frontend">
@@ -224,17 +224,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/design-taste-frontend/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use for opinionated UI engineering standards: variance/motion/density</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把已经能跑、但看起来像 AI 模板出品的前端页面升级成有审美主见的成品，让你的产品在视觉上从&quot;凑合能看&quot;跳到&quot;被人记住&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把现有页面或组件的截图、链接发给它，告诉它你觉得哪里不对劲。</li><li>它会按设计基线（节奏感、动效强度、信息密度）给你定调，不会上来就乱改。</li><li>它一次只挑 3 到 5 处最影响观感的地方动手，比如字体、配色、留白、动效节奏。</li><li>它会顺手帮你检查无障碍（a11y，可访问性）、移动端视口、CJK（中日韩文字）换行这些容易翻车的细节。</li><li>改完它会把改动清单和理由列给你，方便你决定哪些保留、哪些回滚。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -244,7 +244,7 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[a11y 与移动端核查]
   E --&gt; F[改动清单交付]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-frontend-testing">
@@ -253,17 +253,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/frontend-testing/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Validates frontend applications for performance, console errors, responsive design, and E2E functionality. Uses Chrome DevTools and Playwright. Use when testing web apps, checking performance metrics, or validating UI changes.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你在 UI 改动上线之前过一遍体检，让你对性能、报错、响应式、关键流程心里有数，避免发版后才被用户反馈&quot;卡&quot;&quot;白屏&quot;&quot;按钮没反应&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把要测的页面地址或本地预览端口告诉它，它会自己起一份验收清单。</li><li>它先看接口请求成不成功，再扫一遍浏览器控制台有没有报错和警告。</li><li>它会跑一遍核心性能指标（LCP 首屏内容加载、CLS 布局抖动、INP 交互响应），不达标的地方圈出来。</li><li>它顺带在不同视口下截图，看看手机、平板、桌面有没有布局塌方。</li><li>关键用户路径它会走一遍端到端（E2E，End-to-End）回归，输出一份带截图的报告给你。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -273,7 +273,7 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[关键路径 E2E 回归]
   E --&gt; F[体检报告]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-impeccable-design">
@@ -282,17 +282,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/impeccable-design/SPEC.md</code>
   </div>
   <p class="skill-card-desc">[PLANNED] Placeholder - not yet implemented</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>为后续上线的&quot;无瑕打磨&quot;模式留的占位入口，未来会帮你把已经上线的页面做最后一公里的细节抛光，让产品从&quot;看着不错&quot;升到&quot;挑不出毛病&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>当前是占位状态，还不能直接调用，建议先用 design-taste-frontend 或 redesign-existing-projects 顶上。</li><li>上线后，把你想抛光的页面地址发给它，告诉它最在意的体感问题。</li><li>它会按像素级清单逐项核查：对齐、间距、字重、动效曲线、边界状态。</li><li>它一次只交付一份&quot;无瑕修改单&quot;，避免一锅端的大改动难以评审。</li><li>你可以选择全收、部分回滚，它都记录在案以便后续追溯。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -301,7 +301,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[选择性回滚]
   D --&gt; E[抛光后版本]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-gsap-performance">
@@ -310,17 +310,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/gsap-performance/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Official GSAP skill for performance — prefer transforms, avoid layout thrashing, will-change, batching. Use when optimizing GSAP animations, reducing jank, or when the user asks about animation performance, FPS, or smooth 60fps.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把网页上 GSAP（GreenSock Animation Platform，业界主流网页动画库）做的动画从卡顿、掉帧调到顺滑 60 帧，让用户在低端机和老浏览器上也感觉得到&quot;丝滑&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把动画卡顿的页面截图或链接发给它，告诉它具体在哪一段觉得卡。</li><li>它先看你的动画在改什么属性，把&quot;会引起重排&quot;的项替换成 GPU（图形处理器）友好的位移和透明度。</li><li>它给频繁动的元素加上 will-change（提前提示浏览器优化）的开关，用完即关，避免内存浪费。</li><li>它会把一堆零散动画合并成一条时间线，减少浏览器调度成本。</li><li>改完后它会让你在 DevTools（开发者工具）里看一眼帧率曲线，确认掉帧的红条没了。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -329,7 +329,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[合并为时间线]
   D --&gt; E[帧率曲线复核]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-redesign-existing-projects">
@@ -338,17 +338,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend/redesign-existing-projects/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when an existing website or app has generic/tired design and needs</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把一个功能能跑、但样子很&quot;AI 通用模板&quot;的旧项目就地翻新，让它在不重写代码的前提下看起来像花了钱的专业产品。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把现有项目链接或截图发给它，告诉它你最不满意的地方。</li><li>它先扫一遍现有技术栈，搞清楚是用 Tailwind（实用类 CSS 框架）、原生 CSS 还是组件库，避免动了不该动的地方。</li><li>它按一份硬清单做诊断：字体没特色、配色俗气、间距随意、状态缺失、动效呆板，每项都列出来。</li><li>它就地动手做替换，比如换一套有性格的字体、把渐变换成有调性的主色、把按钮的悬停和按下状态补齐。</li><li>改完它会把&quot;改前 vs 改后&quot;对比给你看，你可以挑哪条保留、哪条回滚。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -357,7 +357,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[就地翻新改造]
   D --&gt; E[改前改后对比]</pre>
   </div>
-  
+
 </div>
 </section>
 

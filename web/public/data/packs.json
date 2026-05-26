@@ -31,9 +31,9 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -110,9 +110,9 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -234,9 +234,9 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -268,9 +268,9 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -470,9 +470,9 @@
         "commands": 4,
         "lint_files": 0
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -505,9 +505,9 @@
         "commands": 2,
         "lint_files": 2
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -540,9 +540,9 @@
         "commands": 0,
         "lint_files": 0
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -575,9 +575,9 @@
         "commands": 1,
         "lint_files": 0
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -609,9 +609,9 @@
         "agents": 5,
         "references": 1
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -669,7 +669,7 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": false
@@ -695,7 +695,7 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": false
@@ -721,7 +721,7 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "stub",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
       "hasE2eEvidence": false
@@ -755,9 +755,9 @@
         "agents": 2,
         "references": 0
       },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
+      "tier": "enriched",
+      "specVersion": "1.0",
+      "hasFirstUseDemo": true,
       "hasE2eEvidence": false
     },
     {
@@ -807,8 +807,8 @@
     }
   ],
   "tierSummary": {
-    "stub": 13,
-    "enriched": 4,
+    "stub": 0,
+    "enriched": 17,
     "certified": 5
   },
   "tierInjectedAt": "2026-05-19T08:29:19.766Z"

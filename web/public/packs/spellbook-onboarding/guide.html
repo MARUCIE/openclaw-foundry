@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>入职引导</h1>
   <p class="subtitle">仓库引导代理 + PRD 脚手架，技术 leader 给新人做引导用。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,24 +114,60 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill spellbook-onboarding-delivery-review &quot;create a first-week onboarding path for a new AI coding operator with setup checks and first delivery&quot;</code></pre>
+<p>预期输出：onboarding map + first-task script + readiness checklist + handoff template</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<p class="muted">本包暂未带 skill 资源（stub-tier）。</p>
+<ul class="kit-list"><li><code>skills/spellbook-onboarding/scope-contract/SKILL.md</code></li><li><code>skills/spellbook-onboarding/quality-gate/SKILL.md</code></li><li><code>skills/spellbook-onboarding/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/spellbook/onboarding-agent.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/spellbook/onboarding-agent.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
 <p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
-<p class="muted">本包暂未带 skill 资源。</p>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
 </section>
 
 <section>
@@ -160,9 +196,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

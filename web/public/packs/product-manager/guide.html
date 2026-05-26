@@ -139,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/prototype/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Rapid prototyping workflow. Skips normal standards to quickly validate a game concept or mechanic. Produces throwaway code and a structured prototype report.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你在拍板做一个新概念之前，用最低成本造一个能跑的原型来回答&quot;这个想法到底成不成立&quot;。它不追求工程质量，追求的是&quot;一次性回答一个具体问题&quot;，并出一份结构化的原型小结。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>用一句话写清楚这次原型要回答的核心问题，不要写成需求清单。</li><li>让它扫一眼当前的技术栈与已有素材，确认原型用什么底子搭最快。</li><li>给它定一个明确的时间盒（比如半天、一天），别让原型滑成小项目。</li><li>跑完原型后，让它输出一份结构化小结：核心问题、答案、证据、下一步建议。</li><li>如果结论是&quot;成立&quot;，再决定要不要立项；如果结论是&quot;不成立&quot;，把这份小结归档进决策日志。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +158,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[原型验证结果]
   D --&gt; E[结构化决策小结]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-stitch-design-pipeline">
@@ -167,17 +167,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/stitch-design-pipeline/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Fully automated design workflow: PRD → Stitch prototype → Icon/Logo → Code translation. All steps automated end-to-end. User touches nothing.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把一份 PRD（产品需求文档）一路自动跑到可交付的视觉原型与前端代码：先在 Stitch（Google 的 AI 设计工具）里出界面方案，再补图标和 Logo，最后把视觉稿翻译成代码。整条流水线无人值守，你只看入和出，中间不需要点鼠标。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把一份相对完整的 PRD 交给它，确认里面有目标用户、关键场景、品牌调性这三件事。</li><li>让它跑 Stitch 那一段，先看它出的初版界面方向对不对，不对就让它整体重生成，不要逐屏改。</li><li>通过后让它顺着流水线把图标与 Logo 生成完，所有视觉素材保持同一套调性。</li><li>拿到视觉稿后让它翻译成前端代码，重点检查响应式与极端文案是否撑得住。</li><li>验收时按&quot;PRD → 原型 → 视觉 → 代码&quot;四段对照，看看是否仍然回到同一个产品意图。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -186,7 +186,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[视觉稿翻译成代码]
   D --&gt; E[可交付的前端原型]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-frontend-design">
@@ -195,17 +195,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/frontend-design/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building web UI from scratch: components, pages, landing pages, dashboards, HTML/CSS layouts, posters. Produces production-grade, aesthetically intentional code. NOT for backend logic. NOT for refactoring existing UI without redesign intent (use design-taste-frontend).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你从一张白纸起步，做出一个有判断力、有审美决策、不像 AI 默认输出的前端界面。它适合做新的组件、新的落地页、新的看板，把&quot;我想要一个像样的页面&quot;变成&quot;可以直接发布的代码&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把目标用户、使用场景、品牌调性先讲清楚一句，让它知道这次的脾气是哪种。</li><li>让它先给一稿视觉方向的判断，包括字体、配色、节奏，确认大方向再动手写代码。</li><li>拿到第一版代码后，先在大屏和手机上各跑一遍，重点看响应式是不是真的能撑住。</li><li>把中文、英文、长文案、空状态都喂进去看一眼，确认极端内容不会让排版崩。</li><li>上线前让 design-taste-frontend 再过一遍品味体检，作为第二道把关。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -214,7 +214,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[多端与极端内容验证]
   D --&gt; E[可发布的前端代码]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-system">
@@ -223,17 +223,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/design-system/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Guided, section-by-section GDD authoring for a single game system. Gathers context from existing docs, walks through each required section collaboratively, cross-references dependencies, and writes incrementally to file.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你给某一个具体的系统（比如&quot;会员等级&quot;、&quot;积分规则&quot;、&quot;消息中心&quot;）写出一份完整、自洽、研发能直接动手的系统设计文档。它不是让你填表，而是一段一段地陪你把每个必备章节聊清楚，并自动把已有上下文（依赖系统、术语表）串进来。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先给它一个系统的短名字，让它去扫一遍现有文档，把相关上下文捞回来。</li><li>跟着它一节一节往下推进：先讲清楚&quot;玩家/用户的体感&quot;，再谈规则、公式、边界、依赖。</li><li>每过一节就让它落盘一次，避免聊到一半丢失进度。</li><li>遇到拿不准的依赖系统，把对应文档丢给它，让它自动交叉引用，不要凭记忆写。</li><li>最后让它跑一次完整自检，确认八大章节都齐了、术语统一了，再把文档给研发评审。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -242,7 +242,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[交叉引用依赖]
   D --&gt; E[落盘系统设计文档]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-taste-frontend">
@@ -251,17 +251,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/design-taste-frontend/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use for opinionated UI engineering standards: variance/motion/density</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你给一个已经能跑起来的前端界面&quot;加品味&quot;——把那种一眼能看出是 AI 默认风格的页面，调成有节奏、有质感、有自己脾气的界面。它解决的是&quot;功能没问题但就是不耐看&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把一个已经联调通的页面交给它，让它先做一遍口味体检，看变化度、动效、信息密度三项基线。</li><li>从体检报告里挑 3 到 5 处影响最大的改造点，别贪多，一次性全改没人能审。</li><li>让它给出具体的视觉规则修订建议，再让前端按这份建议一项一项落地。</li><li>每改一轮，回到真机上看观感，重点看长滚动页和复杂交互区，别只看截图。</li><li>把这次定下来的&quot;品味基线&quot;沉淀到团队的前端规范里，下一个页面起步就站在更高的水平。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -270,7 +270,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[落地视觉规则]
   D --&gt; E[更耐看的界面]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-visual-style">
@@ -279,17 +279,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/visual-style/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Create, extract, and apply portable visual design systems via visual-style.md</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把一套视觉风格沉淀成一份可复用的设计系统文件（visual-style.md），让同一套调性能跨 HeyGen 视频、HTML 幻灯片、Figma、纸质物料一起用。它解决的是&quot;做完一次设计就一次性消耗掉了，没有沉淀&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先决定这次是从零创建，还是从一个网址、一段视频、一份 PDF 品牌手册里抽取风格。</li><li>让它把颜色、字体、版式、动效、情绪写进同一份 visual-style.md，不要分散在不同文档里。</li><li>把这份文件喂给后续的 HeyGen 视频、HTML 幻灯片或 Figma 工程，让它们共用一套调性。</li><li>每完成一个产物，把它放回 visual-style 的画廊里做一次自检，看视觉是否被稀释。</li><li>把这份风格文件纳入项目的设计系统目录，让新加入的同事一上手就站在统一基线。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -298,7 +298,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[视频/幻灯片/Figma 共用]
   D --&gt; E[统一调性的多端产物]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-impeccable-design">
@@ -307,17 +307,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/impeccable-design/SKILL.md</code>
   </div>
   <p class="skill-card-desc">[PLANNED] Placeholder - not yet implemented</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把一个已经做完功能的界面，打磨到&quot;挑不出毛病&quot;的程度——把对齐、留白、文案、状态、边界等容易在细节上掉链子的地方，一项一项过一遍。它的目标是让发布前的最后一公里不留遗憾。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把准备上线的页面交给它，让它先把所有可见状态截一遍（空、加载、出错、超长内容、极端权限）。</li><li>让它按&quot;对齐 - 留白 - 字号层级 - 文案口径 - 极端状态&quot;这五项依次扫一遍。</li><li>拿到的问题清单按&quot;必修 / 选修&quot;分两栏，先把必修项发给前端排进当前迭代。</li><li>修完一轮再让它复扫一次，确认没有新引入的回归。</li><li>把这次的修订要点沉淀成团队的&quot;上线前自检清单&quot;，下次直接照着跑。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -326,7 +326,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[必修与选修分级]
   D --&gt; E[挑不出毛病的发布版]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-review">
@@ -335,17 +335,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/design-review/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Reviews a game design document for completeness, internal consistency, implementability, and adherence to project design standards. Run this before handing a design document to programmers.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你在把设计文档（PRD/PRP/GDD 等产品需求与设计稿）交给研发之前，先做一次八维度体检：完整性、内一致性、可实现性、是否符合团队规范。把&quot;模糊的设计稿&quot;变成&quot;工程师拿到就能动手的交付物&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>在每次评审会前，把待审的设计文档路径喂给这个技能，让它先跑一遍自动体检。</li><li>拿到八个维度的红黄绿评分后，先看红灯项，那是工程师最容易卡住的地方。</li><li>把&quot;内一致性问题&quot;清单贴到评审会议纪要里，逐条和设计、研发对齐口径。</li><li>修订完文档后，再跑一次，确保所有红灯转绿，再走交付流程。</li><li>把发现的高频缺漏沉淀到团队的设计文档模板里，让下一次起草时就不再犯。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -354,7 +354,7 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[红黄绿评分]
   D --&gt; E[交付前评审报告]</pre>
   </div>
-  
+
 </div>
 </section>
 

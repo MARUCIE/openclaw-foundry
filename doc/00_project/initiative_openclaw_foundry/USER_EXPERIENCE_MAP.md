@@ -132,7 +132,7 @@
 7. User registers or logs in through email magic-link or WeChat OAuth
 8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
 9. Recommendation entrypoints use a small task-domain taxonomy instead of one card per pack: first question selects intent, second question selects a domain group, and the result page expands all packs in that group.
-10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; `Basic`, `Enriched`, and `Certified` badges disclose maturity rather than availability.
+10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; public cards now show only `Enriched` or `Certified` maturity, while historical alias guide pages inherit the canonical target maturity.
 11. The `定策略` recommendation path opens the `战略决策` group, which contains `strategy-roundtable-advisor` plus adjacent strategy packs; selecting it renders all mapped strategy cards instead of hiding lower-maturity packs.
 
 ### Journey 8: Standalone Role Pack Copy Install
@@ -156,7 +156,7 @@
 6. Moving the production Git ref requires a new validated and smoke-installed standalone repo tag
 7. Old bare direct payload URLs are overwritten by protected-payload tombstones during Pages deploy; support/ops copy must still point users to `/packs` or the GitHub tag command, not historical direct Pages URLs
 8. `定策略` now has a released Strategy Roundtable Advisor pack; the old `做数据` and `看数据` directions are merged into one `做/看数据` direction that shows every mapped data pack with a maturity badge.
-9. `/packs` browse mode must show all 22 canonical public catalog packs as live cards; `tier: "stub"` renders as `Basic`, not as disabled or missing, and deprecated aliases must not appear as duplicate cards.
+9. `/packs` browse mode must show all 22 canonical public catalog packs as live cards; public cards must not show `Basic` / `tier: "stub"` after enrichment, and deprecated aliases must not appear as duplicate cards.
 10. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 11. `/packs` second-level taxonomy must stay compact: engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops; data is grouped into data/AI engineering and metrics/experiments.
 

@@ -61,6 +61,67 @@
       "src": "agents/advisor-software-simplicity.md",
       "dst": "agents/advisor-software-simplicity.md",
       "type": "agent"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "reference"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "reference"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "reference"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "reference"
+    },
+    {
+      "src": "skills/pack-maturity/scope-contract/SKILL.md",
+      "dst": "skills/bigdata-engineer/scope-contract/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/quality-gate/SKILL.md",
+      "dst": "skills/bigdata-engineer/quality-gate/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/delivery-review/SKILL.md",
+      "dst": "skills/bigdata-engineer/delivery-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-quality-gate.md",
+      "dst": "agents/advisor-quality-gate.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-delivery-risk.md",
+      "dst": "agents/advisor-delivery-risk.md",
+      "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "claude --skill bigdata-engineer-delivery-review \"design a daily invoice risk mart with lineage, freshness SLA, backfill plan, and cost guardrail\"",
+    "expected_output": "lineage map + freshness SLA + backfill runbook + cost guardrail",
+    "time_to_value_minutes": 8
+  }
 }

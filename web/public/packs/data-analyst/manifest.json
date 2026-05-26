@@ -71,6 +71,67 @@
       "src": "agents/advisor-systems-thinking.md",
       "dst": "agents/advisor-systems-thinking.md",
       "type": "agent"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "reference"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "reference"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "reference"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "reference"
+    },
+    {
+      "src": "skills/pack-maturity/scope-contract/SKILL.md",
+      "dst": "skills/data-analyst/scope-contract/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/quality-gate/SKILL.md",
+      "dst": "skills/data-analyst/quality-gate/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/delivery-review/SKILL.md",
+      "dst": "skills/data-analyst/delivery-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-quality-gate.md",
+      "dst": "agents/advisor-quality-gate.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-delivery-risk.md",
+      "dst": "agents/advisor-delivery-risk.md",
+      "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "claude --skill data-analyst-delivery-review \"diagnose a revenue dashboard drop with metric contract, cohort split, anomaly checks, and action readout\"",
+    "expected_output": "metric contract + cohort analysis + anomaly worksheet + decision readout",
+    "time_to_value_minutes": 8
+  }
 }

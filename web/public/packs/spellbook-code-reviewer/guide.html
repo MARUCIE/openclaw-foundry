@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>代码审查师</h1>
   <p class="subtitle">两阶段 PR 评审（规格合规 → 代码质量）配 sonnet 级专家代理。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill spellbook-code-reviewer-delivery-review &quot;review a pull request for contract breakage, missing tests, dependency risk, and release blockers&quot;</code></pre>
+<p>预期输出：ranked findings + test gap map + contract risk note + merge gate</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/spellbook/coding-standards/SKILL.md</code></li><li><code>skills/spellbook/api-design/SKILL.md</code></li><li><code>skills/spellbook/complex-doc-rag/SKILL.md</code></li><li><code>skills/spellbook/system-design/SKILL.md</code></li><li><code>skills/spellbook/caching/SKILL.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/spellbook/coding-standards/SKILL.md</code></li><li><code>skills/spellbook/api-design/SKILL.md</code></li><li><code>skills/spellbook/complex-doc-rag/SKILL.md</code></li><li><code>skills/spellbook/system-design/SKILL.md</code></li><li><code>skills/spellbook/caching/SKILL.md</code></li><li><code>skills/spellbook-code-reviewer/scope-contract/SKILL.md</code></li><li><code>skills/spellbook-code-reviewer/quality-gate/SKILL.md</code></li><li><code>skills/spellbook-code-reviewer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/spellbook/code-reviewer.md</code></li><li><code>agents/spellbook/code-reviewer-spec.md</code></li><li><code>agents/spellbook/code-reviewer-quality.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/spellbook/code-reviewer.md</code></li><li><code>agents/spellbook/code-reviewer-spec.md</code></li><li><code>agents/spellbook/code-reviewer-quality.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/coding-standards/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when reviewing code for quality, naming a class or function, choosing a design pattern, refactoring a code smell, or establishing coding conventions for a new project.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份代码规范基线，覆盖命名、注释、错误处理、依赖管理等高频争议点，让团队 PR Review 不再为风格问题反复拉锯，新人写出的代码也能直接通过自动化检查。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>项目立项时把本规范配进 linter（代码风格检查工具）和 formatter（格式化工具），让风格问题在本地就被拦截。</li><li>写代码遇到风格分歧时，第一时间查本文档，而不是询问资深工程师，节省双方时间。</li><li>Code Review 时只关注规范里没覆盖的设计问题，已规范化的细节交给工具自动检查。</li><li>新人入职第一天读完本规范，配合工具实操一遍，一周内就能输出风格合规的代码。</li><li>规范本身每季度迭代一次，团队投票决定增删，让规范跟得上技术栈演进。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +159,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[Review 设计问题]
     E --&gt; F[合并主干]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-api-design">
@@ -167,17 +168,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/api-design/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when designing new REST endpoints, reviewing an existing API contract, adding pagination or filtering, planning a versioning strategy, or building a public or partner-facing API.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份 REST API（应用程序接口）设计规范，让团队对外暴露的接口在命名、版本、分页、错误码上保持一致，新成员一周内就能写出符合公司风格的接口，外部接入方也能少踩坑。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新功能立项时，先按本规范画出 URL 路径和资源命名，确保用动词命名错误的接口不会进 PR（合并请求）。</li><li>Review 老接口时对照分页、过滤、错误响应小节，把不一致的地方列成技术债清单。</li><li>对外发版前，按版本策略章节决定走 URI 版本号还是 Header 版本号，避免接入方升级时被动断链。</li><li>团队新人入职第一周，把本文档作为 API 风格 onboarding（入职培训）必读，比口口相传更稳。</li><li>出现接口设计争论时，以本规范作为仲裁基线，避免每次都靠个人偏好拍板。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +188,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[Review 合规]
     E --&gt; F[发布对外接口]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-complex-doc-rag">
@@ -196,17 +197,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/complex-doc-rag/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building a RAG pipeline that ingests PDFs, Excel, CSV, or images — especially when debugging silent data loss, choosing between OCR tools, or handling edge cases like scanned pages, merged cells, or embedded charts.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份复杂文档 RAG（检索增强生成）方案规范，针对长 PDF、技术手册、合同等结构复杂的文档，给出切片、向量化、检索、重排的完整链路，让 AI 回答能引用到准确段落而不是胡编。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>拿到一批新文档时，先按本文档判断属于结构化、半结构化还是非结构化，再选切片策略。</li><li>设计向量索引时，对照召回率与上下文长度的权衡建议，确定 chunk size（切片大小）和 overlap（重叠区）。</li><li>检索效果不理想时，按本规范的诊断流程逐步排查切片、嵌入、检索、重排四个环节。</li><li>集成多种检索方式（关键词 + 向量 + 元数据）时，遵循混合检索小节的权重配比建议。</li><li>上线后通过命中段准确率和回答幻觉率两个指标持续验证 RAG 效果。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +217,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[检索召回]
     E --&gt; F[重排与生成]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-system-design">
@@ -225,17 +226,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/system-design/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when designing a new service from scratch, writing a tech spec or RFC, selecting a database or communication pattern, estimating capacity, or reviewing a design for scalability and reliability gaps.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份系统设计规范，覆盖容量评估、数据库选型、通信模式、可用性设计等核心环节，让架构师在写技术方案时少踩规模化、单点故障、强一致性等典型坑。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>接到新业务设计需求时，按本文档章节顺序产出 RFC（架构提案）初稿，确保关键决策点都有依据。</li><li>容量评估时套用文档中的 QPS（每秒请求数）和存储测算公式，给出 6 个月、12 个月两档预测。</li><li>选数据库时对照 OLTP（在线事务）/OLAP（在线分析）/KV/搜索四象限决策表，避免拍脑袋选型。</li><li>Review 同事方案时，重点检查可用性章节的故障域隔离和回退路径是否覆盖完整。</li><li>上线后用文档中的指标体系（可用率、P99 延迟、容量水位）持续跟踪设计是否符合预期。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -245,7 +246,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[可用性设计]
     E --&gt; F[RFC 评审]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-caching">
@@ -254,17 +255,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/caching/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when adding or debugging caching in a service — choosing a cache strategy, designing TTLs, preventing stampedes, reasoning about invalidation, or configuring HTTP Cache-Control headers.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份缓存设计规范，帮团队判断什么场景该加缓存、用哪种缓存策略、怎么避免脏数据，让接口响应时间从几百毫秒降到几十毫秒，同时不会因为缓存失效带来线上故障。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>接口变慢或数据库压力大时，先按本规范判断属于读多写少还是热点数据，再决定加哪一层缓存。</li><li>设计缓存键命名和 TTL（过期时间）时，遵循本文档约定，避免 key 冲突和无限堆积导致内存爆炸。</li><li>选用 Cache-Aside（旁路缓存）、Read-Through（读穿透）、Write-Through（写穿透）等模式前，对照失效场景小节评估数据一致性风险。</li><li>Code Review 时检查同事的缓存改动是否覆盖了缓存击穿、雪崩、穿透三大经典问题。</li><li>上线后通过命中率指标验证缓存效果，命中率低于 80% 说明策略需要回炉。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -274,7 +275,43 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[写入缓存]
     E --&gt; C</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -304,9 +341,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

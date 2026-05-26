@@ -744,3 +744,31 @@ Four spellbook directories had correct `deprecated_alias_of` metadata, but `scri
 2. GitHub Actions deploy run `26435492679` completed successfully; `deploy-worker`, D1 migrations, and `deploy-frontend` all passed.
 3. Production `packs.json` at `https://agent-foundry.pages.dev/data/packs.json?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` returned 22 packs, no deprecated alias IDs, no duplicate Chinese names, and no duplicate normalized English names.
 4. Production Playwright smoke on `/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` passed: Frontend Experience renders 1 canonical card, Browse All renders 22 cards and 22 guide links, deprecated alias strings are absent, console errors=0, console warnings=0.
+
+## 2026-05-26 · Public Pack Maturity Floor Repair
+
+### Trigger
+After duplicate alias suppression, the public `/packs` recommendation page still displayed `基础档` for several canonical packs, including security/code-review style roles. The user requirement is stronger than "online": every canonical public pack should be enriched enough to be useful and should not look like a placeholder.
+
+### Root Cause
+The prior repair correctly separated availability from `PACK_SPEC` tier, but it left the maturity floor at `stub`. Public catalog generation therefore produced live cards whose maturity label was still `Basic`, even though the product goal is "all public packs are ready enough to use".
+
+### Change
+1. Added `scripts/enrich-public-pack-maturity.mjs` to enrich only public canonical packs whose audit tier is still `stub`.
+2. The enrichment script adds real managed assets: advisor prompts, three skills, two toolkits, delivery checklist, baseline template, first-use demo, and data-collection forms.
+3. The `web` generation/prebuild chain now runs enrichment before installer regeneration and tier injection, so `scripts/pack-spec-audit.py` remains the source of truth for tier labels.
+4. Added `scripts/audit-public-pack-maturity.mjs` and wired it into `web` prebuild after tier injection.
+5. Deprecated alias guide pages inherit canonical target maturity so historical guide URLs do not show downgraded `Basic` badges.
+
+### Local Evidence
+1. `npm --prefix web run build` -> PASS; public maturity gate reports 22 packs, 17 enriched, 5 certified, 0 stub.
+2. `node scripts/audit-public-pack-maturity.mjs` -> PASS.
+3. `node scripts/audit-pack-public-dedup.mjs` -> PASS.
+4. `node scripts/audit-packs-page-coverage.mjs` -> PASS.
+5. `node scripts/audit-pack-online-status.mjs` -> PASS.
+6. `node scripts/sanitize-pack-person-names.mjs --check` -> PASS.
+7. `python3 scripts/pack-spec-audit.py --summary` -> 5 certified, 17 enriched, 4 deprecated-alias stubs outside public catalog.
+8. `git diff --check` -> PASS.
+9. Static data smoke -> PASS: public `packs.json` has 22 packs, 17 enriched, 5 certified, 0 stub; `spellbook-code-reviewer` and `spellbook-security-auditor` are enriched; deprecated aliases are absent.
+10. Local Chrome DevTools smoke on `/packs.html?verify=local-maturity` -> PASS after clicking Browse All: Code Reviewer and Security Auditor visible, Enriched visible, no Basic / `基础档`, deprecated frontend alias absent.
+11. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.

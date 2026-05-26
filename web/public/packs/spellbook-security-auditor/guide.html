@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>安全审计师</h1>
   <p class="subtitle">OWASP Top 10 + IAM 模式 + 依赖 CVE 审计 + 部署前 gate。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill spellbook-security-auditor-delivery-review &quot;audit a Worker API change for auth bypass, secret exposure, dependency CVEs, and deployment gate&quot;</code></pre>
+<p>预期输出：threat model + control map + dependency audit + release security gate</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/spellbook/security/SKILL.md</code></li><li><code>skills/spellbook/aws/SKILL.md</code></li><li><code>skills/spellbook/containerization/SKILL.md</code></li><li><code>skills/spellbook/observability/SKILL.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/spellbook/security/SKILL.md</code></li><li><code>skills/spellbook/aws/SKILL.md</code></li><li><code>skills/spellbook/containerization/SKILL.md</code></li><li><code>skills/spellbook/observability/SKILL.md</code></li><li><code>skills/spellbook-security-auditor/scope-contract/SKILL.md</code></li><li><code>skills/spellbook-security-auditor/quality-gate/SKILL.md</code></li><li><code>skills/spellbook-security-auditor/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/spellbook/security-auditor.md</code></li><li><code>agents/spellbook/dependency-auditor.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/spellbook/security-auditor.md</code></li><li><code>agents/spellbook/dependency-auditor.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/security/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when implementing authentication, authorization, input validation, or secrets management — or when auditing an existing service against OWASP Top 10 risks, configuring security headers, or running a STRIDE threat model.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份后端安全综合规范，覆盖鉴权、授权、输入校验、密钥管理、OWASP（开放式 Web 应用安全项目）Top 10 风险、STRIDE（六类威胁建模方法）威胁建模、安全响应头等核心控制点，让团队从写代码起就具备防护意识，而不是上线后再补救。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新功能立项时按 STRIDE 框架做威胁建模，把潜在攻击面在设计阶段就列清楚。</li><li>写鉴权和会话管理代码时套用文档的标准模板，密码哈希、Token 签发、退出失效一次到位。</li><li>处理用户输入时按白名单校验、参数化查询、输出编码三件套防御，杜绝注入和 XSS（跨站脚本攻击）。</li><li>上线前对照 OWASP Top 10 清单逐项自检，特别是访问控制、安全配置、依赖漏洞三大重灾区。</li><li>配置 Content-Security-Policy（内容安全策略）等安全响应头时按文档基线套用，逐步收紧不一刀切。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +159,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[依赖扫描]
     E --&gt; F[上线放行]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-aws">
@@ -167,17 +168,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/aws/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when writing boto3 or AWS SDK v3 code — configuring IAM auth, reading/writing S3, designing DynamoDB access patterns, writing Lambda handlers, processing SQS batches, or troubleshooting credential and throttling errors.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份 AWS SDK（亚马逊云开发工具包）安全使用规范，覆盖 IAM（身份与访问管理）鉴权、S3 对象存储读写、DynamoDB 访问模式、Lambda 处理器、SQS 批量消费等常用接口，让团队写云上代码时不会留下密钥泄漏、权限过大、节流失控等审计风险。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>写 boto3 或 AWS SDK v3 代码前，按本文档的 IAM 角色与 STS（安全令牌服务）模板取临时凭证，禁止把 access key 写进代码或环境变量。</li><li>设计 S3 读写时按规范配 bucket policy（桶策略）和 KMS（密钥管理服务）加密，敏感对象必须开启版本化和 MFA delete。</li><li>设计 DynamoDB 访问模式时套用单表设计指引，避免扫描全表带来的成本和限流风险。</li><li>写 Lambda 处理器时按超时、重试、幂等三件套模板编码，防止瞬时故障被放大成数据错乱。</li><li>处理 SQS 批量消息时按文档的可见超时、批大小、并发上限建议配置，避免重复消费或队列堆积。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +188,7 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; E[Lambda 处理]
     E --&gt; F[SQS 队列]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-containerization">
@@ -196,17 +197,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/containerization/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when writing Dockerfiles, setting up docker-compose for local dev, configuring Kubernetes resources (Deployment, Service, Ingress, HPA), sizing pod resource limits, or packaging a service with Helm.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份容器化安全规范，从审计视角覆盖 Dockerfile 安全基线、Kubernetes（K8s，容器编排平台）RBAC（基于角色的访问控制）、镜像签名、运行时隔离、网络策略等关键控制点，让团队上容器时不留下 root 运行、特权挂载、未签名镜像等高危漏洞。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>审计 Dockerfile 时按非 root 用户、最小基础镜像、构建参数清理三条基线逐项检查，发现违规直接打回。</li><li>审计 K8s 部署清单时重点看 securityContext（安全上下文）、resource limits、ReadOnlyRootFilesystem 三项配置是否合规。</li><li>镜像入仓前必须过 Trivy 或 Snyk 等漏洞扫描，按文档约定的 CVE（公共漏洞披露）阈值卡严重等级。</li><li>集群层面按 RBAC 最小权限模板配 Role 与 RoleBinding，避免 default ServiceAccount 拿到全局权限。</li><li>网络层启用 NetworkPolicy（网络策略）默认拒绝，按白名单逐步放开服务间通信，缩小横向移动面。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +217,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[NetworkPolicy 隔离]
     E --&gt; F[运行时监控]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-observability">
@@ -225,17 +226,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/observability/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when adding structured logging, instrumenting Prometheus metrics, wiring up distributed tracing with OpenTelemetry, writing alerting rules, defining SLOs and error budgets, or building a Grafana golden-signals dashboard.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份从安全审计角度切入的可观测性规范，覆盖审计日志结构化、安全事件指标、可追溯链路、异常行为告警，让团队具备发生事故时可追责、可回溯、可取证的能力，而不是事后翻不到证据。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>审计敏感操作（登录、授权变更、数据导出）必须按文档模板打结构化日志，含 user_id、ip、operation 字段。</li><li>给鉴权失败、限流命中、异常访问三类事件配 Prometheus（监控指标系统）计数指标，超阈值立刻告警。</li><li>接入 OpenTelemetry（开放遥测标准）分布式追踪时，关键调用链必须打上 trace_id 并保留 30 天以上以备审计。</li><li>告警规则按合规要求（数据脱敏、最小披露）配置内容模板，避免告警本身泄漏敏感信息。</li><li>定期用安全大盘审视失败率与异常访问趋势，发现可疑模式立刻按事故响应流程介入。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -245,7 +246,43 @@ footer p { max-width: none; margin: 4px 0; }
     B &amp; C &amp; D --&gt; E[安全大盘]
     E --&gt; F[异常告警]</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -275,9 +312,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

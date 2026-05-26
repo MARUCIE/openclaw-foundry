@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>数据分析师</h1>
   <p class="subtitle">数据分析 + 指标体系 + Dashboard 工作台：8 个 PM 视角分析 skill + 2 位顾问视角。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>1.0.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill data-analyst-delivery-review &quot;diagnose a revenue dashboard drop with metric contract, cohort split, anomaly checks, and action readout&quot;</code></pre>
+<p>预期输出：metric contract + cohort analysis + anomaly worksheet + decision readout</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/analyze/bigdata-core/SKILL.md</code></li><li><code>skills/analyze/bigdata-viz/SKILL.md</code></li><li><code>skills/analyze/bigdata-ml/SKILL.md</code></li><li><code>skills/analyze/metrics-dashboard/SKILL.md</code></li><li><code>skills/analyze/sql-queries/SKILL.md</code></li><li><code>skills/analyze/north-star-metric/SKILL.md</code></li><li><code>skills/analyze/pm-cmd-setup-metrics/SKILL.md</code></li><li><code>skills/analyze/database-designer/SKILL.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/analyze/bigdata-core/SKILL.md</code></li><li><code>skills/analyze/bigdata-viz/SKILL.md</code></li><li><code>skills/analyze/bigdata-ml/SKILL.md</code></li><li><code>skills/analyze/metrics-dashboard/SKILL.md</code></li><li><code>skills/analyze/sql-queries/SKILL.md</code></li><li><code>skills/analyze/north-star-metric/SKILL.md</code></li><li><code>skills/analyze/pm-cmd-setup-metrics/SKILL.md</code></li><li><code>skills/analyze/database-designer/SKILL.md</code></li><li><code>skills/data-analyst/scope-contract/SKILL.md</code></li><li><code>skills/data-analyst/quality-gate/SKILL.md</code></li><li><code>skills/data-analyst/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/research-analyst.md</code></li><li><code>agents/advisor-systems-thinking.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/research-analyst.md</code></li><li><code>agents/advisor-systems-thinking.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,9 +139,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata-core/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Core big data processing toolkit for data teams. Includes Polars, Dask, Vaex for large-scale data processing, ETL pipelines, and distributed computing. Use when working with datasets larger than memory, building data pipelines, or optimizing data processing performance.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -150,9 +151,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata-viz/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Data visualization toolkit for big data teams. Includes Matplotlib, Seaborn, Plotly for static and interactive charts. Use when creating dashboards, reports, or exploring data visually.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -162,9 +163,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata-ml/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -174,9 +175,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/metrics-dashboard/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Define and design a product metrics dashboard with key metrics, data sources, visualization types, and alert thresholds. Use when creating a metrics dashboard, defining KPIs, setting up product analytics, or building a data monitoring plan.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -186,9 +187,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/sql-queries/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Generate SQL queries from natural language descriptions. Supports BigQuery, PostgreSQL, MySQL, and other dialects. Reads database schemas from uploaded diagrams or documentation. Use when writing SQL, building data reports, exploring databases, or translating business questions into queries.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -198,9 +199,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/north-star-metric/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Define a North Star Metric and 3-5 supporting input metrics that form a metrics constellation. Classify the business game (Attention, Transaction, Productivity) and validate against 7 criteria for an effective North Star. Use when choosing a North Star Metric, setting up a metrics framework, learning about the North Star Framework, or deciding what to measure.</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -210,9 +211,9 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/pm-cmd-setup-metrics/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Design a product metrics dashboard with North Star metric, input metrics, health metrics, and alert thresholds</p>
-  
-  
-  
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 
@@ -222,9 +223,45 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/database-designer/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Database schema design, migration planning, and RLS policies. Use when: schema design, &#39;design database&#39;, table relationships, row-level security. NOT for: query optimization (use postgresql-best-practices).</p>
-  
-  
-  
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
   <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
@@ -255,9 +292,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

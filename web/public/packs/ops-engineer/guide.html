@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>运维工程师</h1>
   <p class="subtitle">面向财税平台的运维工程师配置。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>4.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill ops-engineer-delivery-review &quot;prepare a production deploy runbook with preflight, canary, rollback, incident channel, and post-checks&quot;</code></pre>
+<p>预期输出：preflight checklist + canary plan + rollback command set + incident timeline</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/ops/infra-patrol/SPEC.md</code></li><li><code>skills/ops/observability-setup/SPEC.md</code></li><li><code>skills/ops/enterprise-agent-ops/SPEC.md</code></li><li><code>skills/ops/swarm-ops/SPEC.md</code></li><li><code>skills/ops/deploy-preview/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/ops/infra-patrol/SPEC.md</code></li><li><code>skills/ops/observability-setup/SPEC.md</code></li><li><code>skills/ops/enterprise-agent-ops/SPEC.md</code></li><li><code>skills/ops/swarm-ops/SPEC.md</code></li><li><code>skills/ops/deploy-preview/SPEC.md</code></li><li><code>skills/ops-engineer/scope-contract/SKILL.md</code></li><li><code>skills/ops-engineer/quality-gate/SKILL.md</code></li><li><code>skills/ops-engineer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/advisor-project-complexity.md</code></li><li><code>agents/advisor-execution-speed.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/advisor-project-complexity.md</code></li><li><code>agents/advisor-execution-speed.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/ops/infra-patrol/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Infrastructure patrol combining CLI tools (trivy, terraform, cloudflared, wrangler) for security scanning, IaC validation, and tunnel health checks. Use when performing infrastructure audits, security scans, or pre-deployment checks.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把&quot;扫漏洞 + 验 IaC（基础设施即代码）+ 查隧道&quot;三件事打包成一次例行巡检：用 trivy（安全扫描）、terraform（IaC 校验）、cloudflared（隧道）、wrangler（边缘部署）四条 CLI 串成 L1/L2/L3 三档巡检流程。让基础设施问题在发布前被拦截，故障恢复时间（MTTR）从&quot;线上爆炸后追查&quot;提前到&quot;每周一次主动发现&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>每天开工前跑一次 L1 快扫（30 秒内出结果），看有没有新出现的高危漏洞或泄露的密钥。</li><li>每周做一次 L2 标准巡检（2 分钟内），把漏洞 + 密钥 + 配置错误 + Terraform 校验 + 隧道状态全跑一遍，结果落到周报。</li><li>上线前对发布的项目跑 L3 深度审计（10 分钟内），包含 SBOM（软件物料清单）+ Terraform plan 差异检测 + DNS/SSL 证书检查。</li><li>把 L1 接到 PreToolUse hook（前置钩子），让 `terraform apply` 和 `wrangler deploy` 之前自动触发安全扫描，发现问题直接 block。</li><li>把安全发现自动写入 DNA capsule（基因胶囊），让其他 Agent（智能体）继承同类问题的修复经验，避免同一类漏洞在多个项目重复出现。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -160,7 +161,7 @@ footer p { max-width: none; margin: 4px 0; }
   L3 --&gt; Verdict
   Verdict --&gt; DNA[DNA 胶囊沉淀]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-observability-setup">
@@ -169,17 +170,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/ops/observability-setup/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Use when adding monitoring, logging, metrics, or alerting to a project. Trigger: &#39;add monitoring&#39;, &#39;set up Grafana&#39;, &#39;add health check&#39;, &#39;configure alerts&#39;, &#39;add logging&#39;, &#39;set up uptime monitoring&#39;, &#39;add metrics endpoint&#39;, &#39;observability&#39;. NOT for: performance profiling (use perf-profile), infrastructure security scanning (use infra-patrol), or pipeline failure diagnosis (use pipeline-triage).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把&quot;健康检查 + 指标 + 日志 + 告警&quot;四件套一次性接进项目，把&quot;线上有没有挂&quot;从靠用户反馈，升级到自己 60 秒内主动发现。让产品同学在发布后不用反复刷网页验证，故障平均恢复时间（MTTR）从&quot;等用户投诉&quot;压到&quot;机器人推送 + 仪表盘秒级回报&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>给每个服务加一个 `/health` 端点（endpoint），不需要鉴权，让监控工具能直接探活。</li><li>接入结构化日志（structured logging），用 pino 或 structlog 输出 JSON，自动带上时间戳 + 等级 + requestId（请求标识），别再用 `console.log`。</li><li>暴露 `/metrics` 端点采集 Prometheus（指标系统）数据，重点看 RED 三件套：请求量、错误率、响应耗时（p50/p95/p99）。</li><li>把 `/health` 接到 Uptime Kuma（开源监控，AI-Fleet 标准）上，间隔 60 秒一探，连续失败 3 次推 Telegram 告警。</li><li>告警只看现象不看原因（&quot;错误率超过 5%&quot;而不是&quot;磁盘满了&quot;），每条告警必须配运行手册（runbook）链接，避免告警疲劳。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -190,7 +191,7 @@ footer p { max-width: none; margin: 4px 0; }
   Metrics --&gt; Grafana[Grafana 仪表盘]
   Kuma --&gt; Alert[Telegram 告警]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-enterprise-agent-ops">
@@ -199,17 +200,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/ops/enterprise-agent-ops/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Use when managing cloud-hosted or long-running agent workloads that need observability, security boundaries, and lifecycle controls. Trigger: agent runtime operations, deployment monitoring, agent health checks, security boundary configuration, or when scaling agent infrastructure. NOT for single-session Claude Code tasks — those don&#39;t need lifecycle management.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是给&quot;常驻云端、长跑型&quot;Agent（智能体）准备的运维操作手册：从启动停止、权限边界，到日志、指标、回滚审计，把单次 CLI 跑通的脚本，升级成可以 7×24 跑、可以追责、可以一键熔断的企业级服务。让 Agent 在生产环境里能像普通后端服务一样被监控、被审计、被回滚，故障恢复时间（MTTR）从&quot;靠人翻日志&quot;压到&quot;看仪表盘判断&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把发布物固化成不可变制品（immutable artifact），每次上线只换版本号、不改运行时，确保回滚永远有一个干净的&quot;上一版&quot;。</li><li>用最小权限（least privilege）发放凭据，密钥从环境变量注入而不是写进代码，杜绝&quot;在仓库里搜出 Token&quot;的事故。</li><li>给每个 Agent 调用设硬超时和重试预算（retry budget），避免一个慢下游拖垮整个 Agent 矩阵。</li><li>把成功率、平均重试次数、平均恢复时间、每次成功任务成本、失败类型分布这五个指标接进监控，每周看一次趋势。</li><li>失败暴增就走预案：先冻结新发布，再抓代表性 trace（执行轨迹），定位问题路由，打最小补丁后跑回归 + 安全检查，再分批放量回到生产。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -219,7 +220,7 @@ footer p { max-width: none; margin: 4px 0; }
   Telemetry --&gt; Dashboard[监控仪表盘]
   Dashboard --&gt; KillSwitch[熔断 + 回滚]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-swarm-ops">
@@ -228,17 +229,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/ops/swarm-ops/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Operate the Agent Matrix Swarm -- status, health, discover agents, allocate tasks, circuit breaker. Use when user mentions swarm, hive, pheromone, agent allocation, or 蜂群.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把 Agent Matrix Swarm（233 个 Agent × 9 个领域的蜂群）的状态、健康、能力发现、任务分配、熔断这些操作集成成一组 `ai swarm` CLI 子命令。让产品同学不用进代码也能看清&quot;现在有多少 Agent 在跑、负载分布健不健康、需不需要切到 cron 兜底&quot;，故障恢复时间（MTTR）从&quot;看日志猜哪个 Agent 卡了&quot;压到&quot;一行命令出真相&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>每天先跑 `ai swarm status`，看注册 Agent 数、空闲/忙碌比、收敛指标，识别是否有领域负载倾斜。</li><li>用 `ai swarm health` 跑收敛健康检查（Gini 系数 + 熵 + 负载标准差），数值异常说明分配机制出问题，先看再调。</li><li>用 `ai a2a discover &quot;税务 申报&quot;` 做语义能力搜索，找出适合处理某类任务的 Agent，避免随机分配。</li><li>用 `ai swarm allocate` 跑一次分配周期，把 pending（等待中）任务推给对应 Agent，看完成情况。</li><li>出大事就拉熔断：`ai swarm circuit-open` 立刻把所有任务切到 cron（定时任务）兜底，问题修完再 `ai swarm circuit-close` 恢复蜂群调度。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -249,7 +250,7 @@ footer p { max-width: none; margin: 4px 0; }
   Circuit --&gt; Cron[cron 兜底链路]
   Allocate --&gt; Pheromone[信息素场反馈]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-deploy-preview">
@@ -258,17 +259,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/ops/deploy-preview/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Preview deployment pipeline combining Vercel (frontend), Wrangler (Workers/edge), and gh (PR status). Use when preparing or reviewing deployments, creating preview URLs, or validating CI/CD status before production.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把前端（Vercel）、边缘 Worker（Cloudflare Wrangler）和 CI/CD（GitHub Actions）三条预览发布链路串成一份可读的就绪清单。让产品同学在上线前一眼判断&quot;现在能不能合并、能不能 promote 到生产&quot;，把平均故障恢复时间（MTTR）压缩到看一眼预览链接的距离。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先看代码是不是干净（git working tree 无未提交改动），有脏文件就先收尾，否则预览链接就和本地状态对不上。</li><li>拉一下 PR 的 CI（持续集成）状态和 review 状态，确认所有红灯都已经变绿、所有 reviewer 都已经签字。</li><li>打开 Vercel 预览链接，至少跑一遍核心流程（登录、关键页面、关键写入），确认前端体感和测试环境一致。</li><li>在边缘 Worker 上跑 `wrangler deploy --dry-run` 做一次预演，把鉴权、路由、环境变量这些容易踩雷的地方提前暴露出来。</li><li>走 HITL（人工介入）门禁：只有 the program owner 或受权 owner 拍板才能 promote 到生产，预览阶段任何人都可以试，生产发布只有人能按。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -279,7 +280,43 @@ footer p { max-width: none; margin: 4px 0; }
   WorkerDryRun --&gt; Gate
   Gate --&gt; Prod[生产发布]</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -309,9 +346,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

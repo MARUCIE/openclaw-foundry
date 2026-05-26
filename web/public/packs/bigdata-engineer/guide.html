@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>大数据工程师</h1>
   <p class="subtitle">面向财税平台的大数据工程师配置。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>4.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill bigdata-engineer-delivery-review &quot;design a daily invoice risk mart with lineage, freshness SLA, backfill plan, and cost guardrail&quot;</code></pre>
+<p>预期输出：lineage map + freshness SLA + backfill runbook + cost guardrail</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/bigdata/bigdata-core/SPEC.md</code></li><li><code>skills/bigdata/bigdata-ml/SPEC.md</code></li><li><code>skills/bigdata/bigdata-viz/SPEC.md</code></li><li><code>skills/bigdata/data-pipeline/SPEC.md</code></li><li><code>skills/bigdata/pipeline-triage/SPEC.md</code></li><li><code>skills/bigdata/postgresql-best-practices/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/bigdata/bigdata-core/SPEC.md</code></li><li><code>skills/bigdata/bigdata-ml/SPEC.md</code></li><li><code>skills/bigdata/bigdata-viz/SPEC.md</code></li><li><code>skills/bigdata/data-pipeline/SPEC.md</code></li><li><code>skills/bigdata/pipeline-triage/SPEC.md</code></li><li><code>skills/bigdata/postgresql-best-practices/SPEC.md</code></li><li><code>skills/bigdata-engineer/scope-contract/SKILL.md</code></li><li><code>skills/bigdata-engineer/quality-gate/SKILL.md</code></li><li><code>skills/bigdata-engineer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/advisor-systems-thinking.md</code></li><li><code>agents/advisor-software-simplicity.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/advisor-systems-thinking.md</code></li><li><code>agents/advisor-software-simplicity.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/bigdata-core/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Core big data processing toolkit for data teams. Includes Polars, Dask, Vaex for large-scale data processing, ETL pipelines, and distributed computing. Use when working with datasets larger than memory, building data pipelines, or optimizing data processing performance.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>一套面向数据团队的核心处理底座，把 Polars、Dask、Vaex 三种 DataFrame（数据帧）能力按数据规模分层组合，让单机分析、分布式计算（distributed computing）、超大文件惰性扫描共用同一套调用习惯，减少 ETL（抽取-转换-加载）任务的内存溢出与跑批超时。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按数据规模选引擎：10GB 以下用 Polars 单机跑满 CPU 核心，10–100GB 切换 Polars streaming（流式）或 Dask，100GB 以上交给 Dask 分布式集群兜底。</li><li>优先使用 `scan_*` 系列惰性 API（应用程序接口），让查询计划在物理读盘前完成裁剪和谓词下推，避免一次性把全量数据拉进内存。</li><li>把原始 CSV 落地为 Parquet（列式存储格式），后续读取吞吐通常提升 10 倍以上，并按日期或类别字段分区便于增量处理。</li><li>分布式作业用 `dask.distributed.Client` 启动本地或远程集群，让分组聚合、连接等算子自动切分到 worker（工作节点）执行。</li><li>跑大作业前先在采样数据上验证查询计划与输出列，再放到全量数据上跑，避免一次错算消耗整批资源。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -161,7 +162,7 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; G
   F --&gt; G</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-bigdata-ml">
@@ -170,17 +171,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/bigdata-ml/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>面向数据团队的端到端 ML（机器学习）工具集，把 scikit-learn 传统建模、PyTorch Lightning 深度训练、Transformers 预训练模型、SHAP（模型可解释性）打包成一致的训练-评估-解释流水线，让分类、NLP（自然语言处理）、可解释性等任务都能进 MLflow（实验追踪）留痕。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按任务类型选框架：结构化分类回归走 scikit-learn Pipeline，文本任务直接调 Transformers 预训练模型，图像或大模型微调切到 PyTorch Lightning 用 GPU（图形处理器）。</li><li>用 `Pipeline + cross_val_score` 把预处理和模型绑成一个对象，避免训练-推理时特征处理不一致引发的线上漂移。</li><li>大数据训练用 dask-ml 的 `train_test_split` 与分布式估计器，或对线性模型用 `SGDClassifier.partial_fit` 做增量学习，避免一次性把全量样本载入内存。</li><li>关键业务模型必须输出 SHAP 解释（全局 summary + 单样本 force_plot），向产品和合规说明模型为什么这样预测。</li><li>全流程接 MLflow：记录参数、指标、模型工件，让模型版本和训练数据版本绑定，便于回滚和审计。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -193,7 +194,7 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; F[MLflow 实验追踪]
   F --&gt; G[审核 -&gt; 上线]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-bigdata-viz">
@@ -202,17 +203,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/bigdata-viz/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Data visualization toolkit for big data teams. Includes Matplotlib, Seaborn, Plotly for static and interactive charts. Use when creating dashboards, reports, or exploring data visually.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>面向数据团队的可视化套件，把 Matplotlib（精细绘图）、Seaborn（统计可视化）、Plotly（交互图表）按输出场景分层组合，让报告、内部分享、Dashboard（仪表盘）三类产物都能从同一份数据集快速出图，并保持配色和分辨率统一。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按输出目标选库：纸质报告或论文用 Matplotlib + Seaborn 出 300dpi 静态图，内部分享和 Dashboard 用 Plotly 出 HTML 交互图。</li><li>大数据出图先采样或聚合，再交给绘图库：万级以上原始点先 `sample` 或按类别 `groupby.agg`，避免浏览器卡死和图形语义被噪声淹没。</li><li>探索阶段用 Seaborn `histplot`、`heatmap` 等高阶 API 快速看分布和相关性，正式版再切到 Matplotlib 精细调样式。</li><li>Plotly `express` 接 `hover_data` 暴露关键字段，让业务方在图上直接看到名称、日期、来源，减少回环问数据来源。</li><li>出图前统一规范：标题 14pt、标签 12pt、配色用公司品牌色，报告导出 PDF，分享导出 HTML，避免同一指标多版样式互相打架。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -225,7 +226,7 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; H[HTML 文件]
   F --&gt; H</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-data-pipeline">
@@ -234,17 +235,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/data-pipeline/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Design ETL/ELT data pipelines and warehouse architectures. Use when: data pipeline design, &#39;ETL workflow&#39;, data warehouse, batch/stream processing. NOT for: SQL queries (use sql-queries).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>一套生产级数据管道设计规范，覆盖批处理 ETL（抽取-转换-加载）、流式 ELT（抽取-加载-转换）、数据仓库（data warehouse）三种主流模式，让管道天然具备幂等性（idempotency）、增量加载、行数监控、可控的 schema（数据结构）演进。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按时延要求选模式：T+1 的离线分析走批处理 ETL，秒级实时走 Kafka/Kinesis 流式 ELT，重计算密集的复杂建模交给 ELT + dbt 在数仓内完成。</li><li>默认走增量加载（按时间戳或自增 ID 切片），只有当 schema 变更或对账失败时才触发全量刷新，避免每天搬全量数据。</li><li>每个阶段写出 `extract / transform / load` 的行数到监控指标，行数对不上立即报警，防止数据静默丢失。</li><li>所有写入算子都做幂等设计（按主键 upsert 或先 delete 再 insert），让任务重跑不会产生重复行。</li><li>Schema 演进只允许加列，不允许在生产环境删列或改列类型，破坏性变更走灰度新表 + 切流方案。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -258,7 +259,7 @@ footer p { max-width: none; margin: 4px 0; }
   F --&gt; H[dbt 转换 -&gt; 明细层]
   H --&gt; G</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-pipeline-triage">
@@ -267,17 +268,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/pipeline-triage/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Diagnose a failed or degraded AI-Fleet pipeline. Use when: a pipeline health check fails, a cron job stops producing output, a LaunchAgent doesn&#39;t fire, the user reports &#39;X pipeline is broken&#39;, or you see non-zero exit codes in pipeline logs. Also trigger when ai harness health shows RED/ORANGE status for any pipeline. NOT for writing new pipelines — use sprint-pipeline-v2 for that.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>AI-Fleet 数据管道的故障排查手册（runbook），把症状 → 定位 → 修复的诊断流程固化成 4 个阶段，让 LaunchAgent（macOS 启动代理）、cron（定时任务）、webhook（回调钩子）三类调度的失败都能按层定位，避免凭直觉乱改而把好的也带坏。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先在 `configs/pipeline-registry.json` 解析出 pipeline 的 ID、脚本路径、调度方式、`defaultDevice`（默认执行设备），不要用脚本名当 ID 找。</li><li>按 5 层依次排查：触发层（调度是否真的触发）→ 环境层（依赖、API key、Tailscale）→ 脚本层（手动跑能否成功）→ 输出层（产物是否生成）→ 投递层（产物是否到达目的地）。</li><li>检查 `failoverChain`（故障转移链）是否把任务从 VPS（虚拟专用服务器）静默漂到 mini，错把&quot;在跑&quot;当成&quot;健康&quot;。</li><li>健康检查脚本本身可能是坏的，需要交叉看 `outputs/&lt;pipeline-id&gt;/` 实际产物文件大小与时间戳，再下结论。</li><li>输出结构化 triage（分诊）报告：Broken Layer、Root Cause、Evidence、Fix、Prevention、Related，关键链路或动到生产数据时必须升级到 HITL（人在回路）。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -288,7 +289,7 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt;|否| F[Phase4 输出报告 + 修复]
   E --&gt;|是| G[升级 HITL 人工审核]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-postgresql-best-practices">
@@ -297,17 +298,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/bigdata/postgresql-best-practices/SPEC.md</code>
   </div>
   <p class="skill-card-desc">PostgreSQL query optimization, indexing, and schema design. Use when: slow queries, &#39;optimize SQL&#39;, PG performance, index strategy, database tuning. NOT for: schema migration execution (use new-migration).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>PostgreSQL（关系型数据库）生产实战的优化手册，把查询计划、索引策略、并发连接、schema（表结构）设计的高频坑位写成可执行规则，让慢查询、写锁、JSONB（二进制 JSON）索引膨胀这类问题在上线前就被截住，避免上线后线上慢查告警再来回滚。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>任何慢查询都先跑 `EXPLAIN ANALY</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -320,7 +321,43 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; G
   F --&gt; G</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -350,9 +387,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

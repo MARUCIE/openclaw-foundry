@@ -55,6 +55,10 @@ function esc(s) {
     .replace(/'/g, '&#39;');
 }
 
+function cleanGeneratedHtml(html) {
+  return html.replace(/[ \t]+$/gm, '').replace(/\n?$/, '\n');
+}
+
 function buildGitInstallCommand(slug, agent, target = '') {
   const targetArg = target ? ` --target ${target}` : '';
   return [
@@ -91,7 +95,7 @@ function extractPackHeader(packsJson, slug, manifest) {
     nameZh: `${canonical.nameZh}（历史别名）`,
     description: `Deprecated alias of ${canonical.id}. Use the canonical ${canonical.name} pack from /packs.`,
     descriptionZh: `此历史别名已合并到 ${canonical.nameZh}（${canonical.id}）。公开目录只展示 canonical 包，请优先从 /packs 安装 canonical 版本。`,
-    tier: 'stub',
+    tier: canonical.tier || 'enriched',
     version: manifest?.version || canonical.version,
   };
 }
@@ -523,7 +527,7 @@ function main() {
       ttv: fud.ttv,
       antiPatterns: extractAntiPatternsFromClaude(claudeMd),
     };
-    writeFileSync(join(packDir, 'guide.html'), TEMPLATE(ctx));
+    writeFileSync(join(packDir, 'guide.html'), cleanGeneratedHtml(TEMPLATE(ctx)));
     generated++;
   }
   console.log(`OK generated ${generated} guide.html`);

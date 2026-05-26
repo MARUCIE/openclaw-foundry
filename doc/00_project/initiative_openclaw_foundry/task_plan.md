@@ -581,3 +581,28 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 2. GitHub Actions deploy run `26435492679` completed successfully; `deploy-frontend` completed in 3m50s.
 3. Production data smoke on `https://agent-foundry.pages.dev/data/packs.json?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: 22 packs, 0 deprecated alias IDs, 0 duplicate `nameZh`, 0 duplicate normalized English names.
 4. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: `Write Code -> Frontend Experience` renders 1 canonical card; Browse All renders 22 cards and 22 guide links; deprecated alias strings are absent; console errors=0; console warnings=0; navigation duration=4823ms.
+
+## 2026-05-26 · Public Pack Maturity Floor Repair
+- Status: in verification
+- Stop condition: all 22 canonical public job packs audit as `enriched` or `certified`, no public catalog/guide/static page displays `基础档`, and production `/packs` verifies the same after deploy.
+
+### Steps
+- [x] Identify public canonical packs whose audit tier remained `stub`.
+- [x] Generate missing maturity artifacts for canonical public packs without hand-editing catalog tier labels.
+- [x] Insert enrichment before tier injection in the `web` generation/prebuild chain.
+- [x] Add a public maturity prebuild audit that fails on any public catalog `stub`.
+- [x] Make deprecated alias guide pages inherit the canonical target maturity badge.
+- [x] Sync PRD, UX map, architecture, platform optimization plan, and rolling ledger.
+- [x] Rebuild, run audits, run local smoke, and run `ai check`.
+- [ ] Commit, push, deploy, and verify production `/packs`.
+
+### Current Verification Snapshot
+1. `npm --prefix web run build` -> PASS; prebuild includes public install source, dedup, page coverage, online status, and public maturity audits.
+2. `node scripts/audit-public-pack-maturity.mjs` -> PASS locally after final rebuild: 22 public packs, 17 enriched, 5 certified, 0 stub.
+3. `git diff --check` -> PASS after cleaning generated guide trailing whitespace.
+4. Static data smoke -> PASS: 22 packs, 17 enriched, 5 certified, 0 stub; code reviewer and security auditor are enriched; deprecated aliases are hidden.
+5. Local Chrome DevTools smoke on `http://127.0.0.1:4320/packs.html?verify=local-maturity` -> PASS after clicking Browse All: Code Reviewer and Security Auditor visible, `Enriched` visible, no `Basic` / `基础档`, deprecated frontend alias absent.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.
+
+### Notes
+2. Full pack-spec audit still reports 4 `stub` directories only for deprecated aliases that are suppressed from public catalog; alias guide pages now inherit canonical maturity.

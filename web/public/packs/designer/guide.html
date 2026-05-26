@@ -138,18 +138,18 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">experience-architecture</div>
     <code class="skill-card-path">skills/design/experience-architecture/SPEC.md</code>
   </div>
-  
-  
+
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一套把产品意图转成体验架构的设计方法。它不替 PM 写 PRD，也不替 PM 生成验证原型；它接收已经收敛的产品假设，输出用户路径、页面层级、状态覆盖和组件交付契约，让设计评审从&quot;好不好看&quot;前移到&quot;用户是否能完成任务&quot;。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先确认 PM 的 validation question：这个流程到底要验证什么。</li><li>把每个 screen 拆成 primary job、primary action、secondary action 和 supporting evidence。</li><li>标出 empty / loading / error / success / disabled / selected / mobile state。</li><li>删除重复界面与没有决策价值的信息块。</li><li>输出 screen x component x state x data shape 的 handoff 表。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +159,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[Component contract]
     E --&gt; F[Design / FE handoff]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-design-tokens">
@@ -167,18 +167,18 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">design-tokens</div>
     <code class="skill-card-path">skills/design/design-tokens/SPEC.md</code>
   </div>
-  
-  
+
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一套把品牌与界面规则沉淀成可复用 design tokens 的方法。它让视觉决策从&quot;这一处看着顺眼&quot;变成可检查、可复用、可交付的变量系统，也让 PM 原型进入设计阶段后不会被一次性美化成不可维护的视觉债。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先确认本次设计使用的风格和约束：品牌、产品线、可访问性、组件库。</li><li>定义颜色、字体、间距、圆角、阴影、焦点态和状态态 token。</li><li>用语义命名 token，不用颜色名或一次性命名。</li><li>输出 token cheatsheet，说明何时使用每个 token。</li><li>审计已有界面，把硬编码视觉值替换为 token。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +188,7 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; E[Design handoff]
     D --&gt; E</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-aesthetic-probe">
@@ -196,18 +196,18 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">aesthetic-probe</div>
     <code class="skill-card-path">skills/design/aesthetic-probe/SPEC.md</code>
   </div>
-  
-  
+
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一套设计评审清单，把&quot;好不好看&quot;拆成 7 个可评分维度。它服务于设计质量与工程交付，不替 PM 判断产品方向，也不把验证原型包装成最终设计。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>打开待审界面或截图描述，明确 PM 的原始目标。</li><li>分别检查层级、间距、字体、颜色、可点击识别、状态完整性和响应式。</li><li>用 1-5 分打分，禁止只写审美形容词。</li><li>选 Top 3 修复项，每项绑定 component、token、state 和验证 viewport。</li><li>输出 Keep / Change / Remove 清单，避免评审无限发散。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +216,7 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; D[Token / state / viewport evidence]
     D --&gt; E[Handoff-ready review]</pre>
   </div>
-  
+
 </div>
 </section>
 

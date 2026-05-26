@@ -81,6 +81,67 @@
       "src": "commands/adr.md",
       "dst": "commands/spellbook/adr.md",
       "type": "command"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "reference"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "reference"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "reference"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "reference"
+    },
+    {
+      "src": "skills/pack-maturity/scope-contract/SKILL.md",
+      "dst": "skills/spellbook-code-reviewer/scope-contract/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/quality-gate/SKILL.md",
+      "dst": "skills/spellbook-code-reviewer/quality-gate/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/delivery-review/SKILL.md",
+      "dst": "skills/spellbook-code-reviewer/delivery-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-quality-gate.md",
+      "dst": "agents/advisor-quality-gate.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-delivery-risk.md",
+      "dst": "agents/advisor-delivery-risk.md",
+      "type": "agent"
     }
-  ]
+  ],
+  "spec_version": "1.0",
+  "first_use_demo": {
+    "command": "claude --skill spellbook-code-reviewer-delivery-review \"review a pull request for contract breakage, missing tests, dependency risk, and release blockers\"",
+    "expected_output": "ranked findings + test gap map + contract risk note + merge gate",
+    "time_to_value_minutes": 8
+  }
 }

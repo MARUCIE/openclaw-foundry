@@ -676,3 +676,25 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
 4. Technical debt closure: duplicate public role cards are closed by generation, audit gates, GitHub Actions deployment, and production smoke verification.
+
+## 2026-05-26 · Public Pack Maturity Floor Repair
+
+### Delivered
+1. Canonical public job packs are automatically enriched before public tier injection when they fail the maturity floor.
+2. The public catalog now has 22 canonical packs with zero `stub` entries: 17 `enriched` and 5 `certified`.
+3. The `web` build now fails if any public catalog pack regresses to `stub`.
+4. Deprecated historical alias guide pages inherit the maturity badge from their canonical target, while remaining suppressed from public cards/counts.
+
+### Local Evidence
+1. `node scripts/audit-public-pack-maturity.mjs` -> PASS: `packs=22, enriched=17, certified=5, stub=0`.
+2. `npm --prefix web run build` -> PASS with public maturity, dedup, coverage, online-status, public-install-source, and person-name gates.
+3. `git diff --check` -> PASS after fixing generated guide trailing whitespace.
+4. Local static data smoke -> PASS: public catalog has zero `stub`; code reviewer and security auditor are enriched; deprecated aliases are hidden.
+5. Local Chrome DevTools smoke -> PASS: Browse All shows Enriched, Code Reviewer, and Security Auditor; no Basic / `基础档` label.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.
+
+### Closeout
+1. Skills update: N/A - this is a Foundry pack generation/audit invariant rather than a user-facing skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
+4. Technical debt closure: local build, audit, smoke, and `ai check` are closed; deployment and production smoke remain pending until the release commit is pushed.

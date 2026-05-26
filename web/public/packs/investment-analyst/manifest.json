@@ -22,11 +22,66 @@
       "src": "prompts.md",
       "dst": "prompts.md",
       "type": "config"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "reference"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "reference"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "reference"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "reference"
+    },
+    {
+      "src": "skills/pack-maturity/scope-contract/SKILL.md",
+      "dst": "skills/investment-analyst/scope-contract/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/quality-gate/SKILL.md",
+      "dst": "skills/investment-analyst/quality-gate/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/delivery-review/SKILL.md",
+      "dst": "skills/investment-analyst/delivery-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-quality-gate.md",
+      "dst": "agents/advisor-quality-gate.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-delivery-risk.md",
+      "dst": "agents/advisor-delivery-risk.md",
+      "type": "agent"
     }
   ],
   "first_use_demo": {
-    "command": "claude --skill valuation 'run DCF on company X with 5y forecast'",
-    "expected_output": "DCF model with assumptions table + sensitivity analysis + memo draft",
+    "command": "claude --skill investment-analyst-delivery-review \"build an investment memo for an AI tooling company with thesis, scenarios, risks, and diligence plan\"",
+    "expected_output": "investment memo + scenario model + risk matrix + diligence checklist",
     "time_to_value_minutes": 8
   }
 }

@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>基础架构工程师</h1>
   <p class="subtitle">面向财税平台的基础架构工程师配置。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>4.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill infra-engineer-delivery-review &quot;review a Cloudflare Pages plus Worker release for topology risk, rollback, observability, and IaC drift&quot;</code></pre>
+<p>预期输出：topology map + release gate + rollback drill + observability checklist</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/infra/codex-cloudflare-deploy/SPEC.md</code></li><li><code>skills/infra/deploy-preview/SPEC.md</code></li><li><code>skills/infra/docker-optimizer/SPEC.md</code></li><li><code>skills/infra/infra-patrol/SPEC.md</code></li><li><code>skills/infra/observability-setup/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/infra/codex-cloudflare-deploy/SPEC.md</code></li><li><code>skills/infra/deploy-preview/SPEC.md</code></li><li><code>skills/infra/docker-optimizer/SPEC.md</code></li><li><code>skills/infra/infra-patrol/SPEC.md</code></li><li><code>skills/infra/observability-setup/SPEC.md</code></li><li><code>skills/infra-engineer/scope-contract/SKILL.md</code></li><li><code>skills/infra-engineer/quality-gate/SKILL.md</code></li><li><code>skills/infra-engineer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/advisor-software-simplicity.md</code></li><li><code>agents/advisor-execution-speed.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/advisor-software-simplicity.md</code></li><li><code>agents/advisor-execution-speed.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/infra/codex-cloudflare-deploy/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Deploy applications and infrastructure to Cloudflare using Workers, Pages, and related platform services. Use when the user asks to deploy, host, publish, or set up a project on Cloudflare.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把应用一键部署到 Cloudflare 全球边缘网络（Workers + Pages + R2 + KV 等托管产品），让产品在用户最近的节点上就近响应，把首字节时间（TTFB，首字节响应时间）从数百毫秒压到几十毫秒，同时按调用次数计费，闲时近零成本。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用 `wrangler whoami` 确认登录状态，避免后面 Deploy 卡在鉴权环节浪费排查时间。</li><li>根据项目形态选产品：纯静态站走 Pages，需要服务端逻辑走 Workers，需要对象存储走 R2，需要键值缓存走 KV。</li><li>在 `wrangler.toml`（Workers 配置文件）里固定生产/预览环境的绑定，避免人肉切环境出事故。</li><li>用 `wrangler deploy --dry-run` 先做一次仿真发布，看产物体积和绑定是否符合预期。</li><li>正式发布后用 `wrangler tail` 观察实时日志，确认线上请求成功率符合 SLO（Service Level Objective，服务质量目标）。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -157,7 +158,7 @@ footer p { max-width: none; margin: 4px 0; }
   Cloudflare边缘网络 --&gt; 全球用户
   Cloudflare边缘网络 --&gt; R2与KV存储</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-deploy-preview">
@@ -166,17 +167,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/infra/deploy-preview/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Preview deployment pipeline combining Vercel (frontend), Wrangler (Workers/edge), and gh (PR status). Use when preparing or reviewing deployments, creating preview URLs, or validating CI/CD status before production.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把前端（Vercel）、边缘（Cloudflare Workers）和 CI（GitHub Actions，持续集成）三段流水线串起来，给每个 PR（Pull Request，合并请求）出一个可点击的预览地址，让产品、设计、利益相关方能在合并前真实点一遍，把生产事故拦在合并之前。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>在 PR 提交后用 `gh pr status` 看 CI 是否绿灯，红的先修，不要急着点 Merge。</li><li>用 `vercel ls` 拿到本次 PR 的前端预览 URL，把它扔进 PR 评论区让评审人直接点开。</li><li>若涉及边缘逻辑，用 `wrangler deploy --env preview` 出一份带版本号的 Workers 预览。</li><li>把前端预览 URL 与 Workers 预览端点串通走一次关键链路，验证端到端可用而不是只看截图。</li><li>验证通过再合并，并在合并后 5 分钟内复查生产指标曲线，确认没有回归。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +188,7 @@ footer p { max-width: none; margin: 4px 0; }
   Vercel前端预览 --&gt; 评审点击验证
   Workers边缘预览 --&gt; 评审点击验证</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-docker-optimizer">
@@ -196,17 +197,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/infra/docker-optimizer/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Optimize Dockerfiles for smaller images, faster builds, and better layer caching. Use when: building Docker images, &#39;optimize Dockerfile&#39;, &#39;reduce image size&#39;, &#39;multi-stage build&#39;. NOT for: docker-compose orchestration, K8s deployment.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把臃肿的 Docker 镜像系统性瘦身（多阶段构建 + 分层缓存 + 安全基线），让镜像体积从 GB 级压到百 MB 级，让 CI（Continuous Integration，持续集成）构建时间砍掉一半以上，让冷启动和拉取费用同步下降。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用 `docker images` 看当前体积基线，记下数字作为优化前后对照。</li><li>把构建产物和运行时拆成多阶段（Multi-stage Build，多阶段构建），编译器、构建依赖一律留在前一阶段不带进运行镜像。</li><li>把变动频率低的 COPY 指令排到前面，把代码 COPY 排到后面，让分层缓存命中率最大化。</li><li>用 `-slim`（精简 Debian）而非 alpine 作为基础镜像，避免 glibc 缺失导致原生模块崩溃。</li><li>在 Dockerfile 末尾加 `USER app` 切换非 root 用户，避免容器逃逸时权限上限太高。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +217,7 @@ footer p { max-width: none; margin: 4px 0; }
   精简运行镜像 --&gt; 镜像仓库
   镜像仓库 --&gt; 生产部署</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-infra-patrol">
@@ -225,17 +226,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/infra/infra-patrol/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Infrastructure patrol combining CLI tools (trivy, terraform, cloudflared, wrangler) for security scanning, IaC validation, and tunnel health checks. Use when performing infrastructure audits, security scans, or pre-deployment checks.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>一套定期巡检脚手架：把漏洞扫描（Trivy）、IaC（Infrastructure as Code，基础设施即代码）校验（Terraform）、隧道与边缘健康检查（cloudflared + wrangler）串成一条流水线，让团队每天能用 3 分钟拿到一份红黄绿的基础设施健康报告，提前暴露未修复的 CVE 与配置漂移。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>用 `trivy fs .` 扫整库依赖与机密信息，先关掉高危项再说优化。</li><li>用 `terraform plan` 对比线上态与代码态，确认没有人手工改过生产配置（配置漂移）。</li><li>用 `cloudflared tunnel list` 与 `wrangler deployments list` 核对隧道与 Workers 是否仍在跑预期版本。</li><li>把每一步的退出码汇总成一份巡检报告，红色项进 Issue，黄色项进周会跟进。</li><li>把巡检脚本挂到每日定时任务（cron）或 CI，让异常自己冒出来而不是靠人想起来查。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -246,7 +247,7 @@ footer p { max-width: none; margin: 4px 0; }
   IaC配置核对 --&gt; 健康报告
   隧道与边缘检查 --&gt; 健康报告</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-observability-setup">
@@ -255,17 +256,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/infra/observability-setup/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Use when adding monitoring, logging, metrics, or alerting to a project. Trigger: &#39;add monitoring&#39;, &#39;set up Grafana&#39;, &#39;add health check&#39;, &#39;configure alerts&#39;, &#39;add logging&#39;, &#39;set up uptime monitoring&#39;, &#39;add metrics endpoint&#39;, &#39;observability&#39;. NOT for: performance profiling (use perf-profile), infrastructure security scanning (use infra-patrol), or pipeline failure diagnosis (use pipeline-triage).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把项目的可观测性（Observability）三件套——健康端点、指标、日志——一次铺到位，并把告警接到值班通道，让线上从“出事才知道”变成“出事自动叫人”，把 MTTR（Mean Time To Recovery，平均恢复时间）从小时级压到分钟级。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先给服务加一个 `/health` 端点返回上下游依赖的真实状态，而不是只回 200。</li><li>用 Prometheus（指标采集）或等价方案暴露关键业务指标，让仪表盘能从“服务有没有跑”升到“跑得好不好”。</li><li>把结构化日志（JSON 行）写到标准输出，让日志采集器（Loki、Elasticsearch 等）能按字段检索而不是 grep 全文。</li><li>用 Uptime Kuma 或 Grafana 配置告警规则，按严重程度分级到 IM、邮件、电话三档。</li><li>上线后做一次故障演练（混沌测试），验证告警真的会触发，不要等真实事故才发现告警是哑的。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -276,7 +277,43 @@ footer p { max-width: none; margin: 4px 0; }
   结构化日志 --&gt; 日志检索系统
   仪表盘与告警 --&gt; 值班通道</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -306,9 +343,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 

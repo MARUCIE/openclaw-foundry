@@ -1,0 +1,2 @@
+pack_id,role_line,scenario,baseline_minutes,actual_minutes,artifact_quality,risk_clarity,next_action_clear,operator_notes
+example-pack,engineering,first-use-demo,15,8,pass,pass,pass,replace with real run notes

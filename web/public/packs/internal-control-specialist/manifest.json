@@ -22,11 +22,66 @@
       "src": "prompts.md",
       "dst": "prompts.md",
       "type": "config"
+    },
+    {
+      "src": "tool-kit-03-sop-flowchart.md",
+      "dst": "tool-kit-03-sop-flowchart.md",
+      "type": "reference"
+    },
+    {
+      "src": "tool-kit-05-document-templates.md",
+      "dst": "tool-kit-05-document-templates.md",
+      "type": "reference"
+    },
+    {
+      "src": "checklist-delivery.md",
+      "dst": "checklist-delivery.md",
+      "type": "reference"
+    },
+    {
+      "src": "baseline-before-after.md",
+      "dst": "baseline-before-after.md",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/baseline-actual.csv",
+      "dst": "data-collection/baseline-actual.csv",
+      "type": "reference"
+    },
+    {
+      "src": "data-collection/cohort-feedback-form.md",
+      "dst": "data-collection/cohort-feedback-form.md",
+      "type": "reference"
+    },
+    {
+      "src": "skills/pack-maturity/scope-contract/SKILL.md",
+      "dst": "skills/internal-control-specialist/scope-contract/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/quality-gate/SKILL.md",
+      "dst": "skills/internal-control-specialist/quality-gate/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "skills/pack-maturity/delivery-review/SKILL.md",
+      "dst": "skills/internal-control-specialist/delivery-review/SKILL.md",
+      "type": "skill"
+    },
+    {
+      "src": "agents/advisor-quality-gate.md",
+      "dst": "agents/advisor-quality-gate.md",
+      "type": "agent"
+    },
+    {
+      "src": "agents/advisor-delivery-risk.md",
+      "dst": "agents/advisor-delivery-risk.md",
+      "type": "agent"
     }
   ],
   "first_use_demo": {
-    "command": "claude --skill ft-compliance-auditor 'walk-through payroll cycle for ABC company with risk-rating matrix'",
-    "expected_output": "Process narrative + 5 risk points + control matrix + test-of-design conclusion",
-    "time_to_value_minutes": 10
+    "command": "claude --skill internal-control-specialist-delivery-review \"design controls for invoice approval automation with SoD, evidence capture, exception queue, and audit trail\"",
+    "expected_output": "control matrix + evidence trail + exception workflow + audit readiness pack",
+    "time_to_value_minutes": 8
   }
 }

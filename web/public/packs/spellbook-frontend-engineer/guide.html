@@ -96,7 +96,7 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>前端工程师（历史别名）</h1>
   <p class="subtitle">此历史别名已合并到 前端工程师（frontend-engineer）。公开目录只展示 canonical 包，请优先从 /packs 安装 canonical 版本。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-certified" title="四支柱通过 + spec 1.0 + first_use_demo + 生产 install.sh E2E 验证">已验证 · Certified</span>
     <span>版本 <strong>1.0.0</strong></span>
     <span>装包目标 <strong>—</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
@@ -138,17 +138,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/accessibility/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building or reviewing UI components for keyboard and screen reader compatibility, adding ARIA to custom widgets, auditing a page for WCAG AA conformance, or preparing for a formal accessibility review.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Accessibility（无障碍，A11y）是让残障用户与辅助技术（如读屏、键盘、语音）都能顺畅使用产品的工程实践。</p><p>用它的效果是：合规风险降低、用户群体扩大、整体交互质量提升（健全用户也受益）。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用语义化 HTML 表达页面结构，让读屏软件能正确朗读层级与角色。</li><li>为所有交互元素提供键盘可达路径，让不用鼠标的用户也能完成关键流程。</li><li>用 ARIA（Accessible Rich Internet Applications）属性补齐动态组件的语义，让自定义控件不丢失可访问性。</li><li>在颜色与字号上对照 WCAG 标准做对比度检查，让弱视用户也能舒服阅读。</li><li>把无障碍检查接入 CI 自动化，让回归在合并前被发现而不是等用户投诉。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +158,7 @@ footer p { max-width: none; margin: 4px 0; }
   ARIA语义 --&gt; 对比度校验
   对比度校验 --&gt; CI门禁</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-angular">
@@ -167,17 +167,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/angular/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when building or refactoring Angular applications — choosing between signals, RxJS, and NgRx for state, configuring routing with guards and lazy loading, optimizing change detection, or writing TestBed component tests.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Angular 是 Google 出品的企业级前端框架，自带依赖注入（Dependency Injection）、路由、表单、HTTP 一整套能力。</p><p>用它的效果是：大型团队协作时约定多过自由发挥，新人接手老项目的学习成本被显著压低。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按业务领域划分模块（Module）与路由，让代码结构对应组织结构。</li><li>用依赖注入管理服务与状态，让组件保持轻薄而业务逻辑可被独立测试。</li><li>通过响应式表单（Reactive Forms）处理复杂校验，让表单逻辑显式而不藏在模板里。</li><li>用 RxJS 编排异步流，让数据流与副作用都有统一的描述方式。</li><li>通过 Angular CLI 与 Schematics 做工程化约束，让规范由工具而不是口头传达。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +187,7 @@ footer p { max-width: none; margin: 4px 0; }
   状态管理 --&gt; 响应式流
   响应式流 --&gt; 视图渲染</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-tailwind">
@@ -196,17 +196,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/tailwind/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when composing Tailwind utilities, building responsive or dark-mode layouts, defining component variants with cva, resolving conflicting classes with tailwind-merge, or configuring a custom theme.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Tailwind CSS 是 utility-first（工具类优先）的 CSS 框架，把样式写在标签上而不是另起一个 .css 文件。</p><p>用它的效果是：开发与设计的距离被拉到最近，重构样式时不再担心牵一发动全身。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把设计语言（颜色、间距、字号）配置进 tailwind.config，让设计 token 由配置而非约定承载。</li><li>用响应式前缀（sm: md: lg:）一行写完多端布局，让媒体查询不再四处散落。</li><li>通过 dark: 变体处理深色模式，让主题切换的成本接近为零。</li><li>用 cva（class-variance-authority）封装组件变体，让重复的类名组合变成可命名的 API。</li><li>用 tailwind-merge 解决类名冲突，让覆盖与合并的优先级可预期。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +216,7 @@ footer p { max-width: none; margin: 4px 0; }
   响应式变体 --&gt; 深色模式
   深色模式 --&gt; 组件变体</pre>
   </div>
-  
+
 </div>
 </section>
 

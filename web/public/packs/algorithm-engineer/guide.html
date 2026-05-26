@@ -96,9 +96,9 @@ footer p { max-width: none; margin: 4px 0; }
   <h1>算法工程师</h1>
   <p class="subtitle">面向财税平台的算法工程师配置。</p>
   <div class="meta-row">
-    <span class="tier-pill tier-stub" title="已上线基础配置；尚未达到 PACK_SPEC v1.0 enriched 标准">基础档 · Basic</span>
+    <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>4.1.0</strong></span>
-    <span>装包目标 <strong>—</strong> 分钟跑通</span>
+    <span>装包目标 <strong>8</strong> 分钟跑通</span>
     <span>路由：<strong>html-document-style</strong> · Claude Warm Academic</span>
   </div>
 </header>
@@ -114,18 +114,19 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>装包后第一件事</h2>
 
-<p>本包未在 manifest.json 中声明 <code>first_use_demo</code>。这是 stub-tier 的特征 — 装包成功后请
-回到 <a href="/wall">卡点墙</a> 反馈你想要的第一个"装包后立即能做的事"，下一轮会把它升级为可
-量化的 first_use_demo + expected_output。</p>
+<p class="lead">复制下面这条命令到 Claude Code，约 8 分钟应当看到预期输出：</p>
+<pre><code>claude --skill algorithm-engineer-delivery-review &quot;triage invoice OCR model regression with offline metric, ablation table, drift hypothesis, and rollout gate&quot;</code></pre>
+<p>预期输出：experiment contract + metric ladder + ablation table + inference rollout gate</p>
+
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/algorithm/algo-core/SPEC.md</code></li><li><code>skills/algorithm/algo-dl/SPEC.md</code></li><li><code>skills/algorithm/bigdata-ml/SPEC.md</code></li><li><code>skills/algorithm/deep-learning-pipeline/SKILL.md</code></li><li><code>skills/algorithm/perf-profile/SPEC.md</code></li><li><code>skills/algorithm/systematic-debugging/SKILL.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/algorithm/algo-core/SPEC.md</code></li><li><code>skills/algorithm/algo-dl/SPEC.md</code></li><li><code>skills/algorithm/bigdata-ml/SPEC.md</code></li><li><code>skills/algorithm/deep-learning-pipeline/SKILL.md</code></li><li><code>skills/algorithm/perf-profile/SPEC.md</code></li><li><code>skills/algorithm/systematic-debugging/SKILL.md</code></li><li><code>skills/algorithm-engineer/scope-contract/SKILL.md</code></li><li><code>skills/algorithm-engineer/quality-gate/SKILL.md</code></li><li><code>skills/algorithm-engineer/delivery-review/SKILL.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
-<ul class="kit-list"><li><code>agents/advisor-software-simplicity.md</code></li><li><code>agents/advisor-decision-framework.md</code></li></ul>
+<ul class="kit-list"><li><code>agents/advisor-software-simplicity.md</code></li><li><code>agents/advisor-decision-framework.md</code></li><li><code>agents/advisor-quality-gate.md</code></li><li><code>agents/advisor-delivery-risk.md</code></li></ul>
 </section>
 
 <section>
@@ -138,17 +139,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/algo-core/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Core algorithm toolkit for algorithm teams. Includes graph algorithms, symbolic math, optimization, simulation, and probabilistic programming. Use when designing algorithms, mathematical modeling, or solving optimization problems.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>让算法团队把图算法（networkx）、符号数学（sympy）、多目标优化（pymoo）、离散仿真（simpy）、统计建模（statsmodels）、贝叶斯推断（pymc）整合成一套统一工具集，帮你把&quot;业务问题（如路径规划、参数调优、不确定性量化）&quot;翻译成&quot;可复现、可解释的数学模型与最优解&quot;，把决策从经验拍脑袋升级到结构化结论。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把业务问题归类到 6 个原型之一（图、符号、优化、仿真、统计、贝叶斯），让选型不再靠工程师个人偏好。</li><li>用 networkx 把&quot;关系数据&quot;（社交、知识图谱、供应链）转成图结构，让 PageRank、社区发现、最短路径一键产出业务洞察。</li><li>用 pymoo 在&quot;成本、收益、风险&quot;等多目标之间求 80/20 Rule 前沿（帕累托前沿），帮决策者看清&quot;取舍空间&quot;而不是只给一个推荐解。</li><li>用 simpy 在不烧真金白银的前提下模拟排队、客服、生产节拍，让上线前先看清吞吐瓶颈。</li><li>用 pymc 给关键指标加上&quot;置信区间 + 后验分布&quot;，让 A/B 测试结论从&quot;涨了 2%&quot;升级到&quot;涨幅 95% 概率落在 1.2%–2.8%&quot;。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +160,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E
     E --&gt; F[决策与落地]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-algo-dl">
@@ -168,17 +169,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/algo-dl/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Deep learning toolkit for algorithm teams. Includes PyTorch Lightning, Transformers, Graph Neural Networks, Reinforcement Learning, and model interpretability. Use when building neural networks, training models, or deploying AI systems.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把 PyTorch Lightning（训练框架）、Transformers（预训练大模型）、PyG（图神经网络）、Stable-Baselines3（强化学习）、SHAP（模型可解释性）打包成算法团队的深度学习全链路工具集，帮你把&quot;原始数据 + 业务标签&quot;变成&quot;可上线、可解释、可监控的模型服务&quot;，让模型从实验脚本走向稳定线上资产。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用 PyTorch Lightning 把训练流程标准化（数据加载、训练循环、验证、保存），让团队成员的实验代码风格统一、可复现。</li><li>用 Hugging Face Transformers 直接微调中文 BERT/LLM（大语言模型），把&quot;从零训练&quot;的周级成本压到&quot;微调&quot;的小时级。</li><li>用 PyG（PyTorch Geometric）把用户关系、商品关联、知识图谱转成图神经网络任务，让推荐、风控、链接预测拿到关系信号红利。</li><li>用 Stable-Baselines3 在仿真环境里跑强化学习策略，让定价、调度、库存决策从规则配置升级到自适应策略。</li><li>上线前用 SHAP 给关键模型出&quot;特征贡献度报告&quot;，让业务方、合规方看得懂模型为什么这样判，降低&quot;黑盒拒贷/拒推&quot;风险。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +189,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[SHAP 可解释]
     E --&gt; F[上线 + 监控]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-bigdata-ml">
@@ -197,17 +198,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/bigdata-ml/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把 scikit-learn（传统机器学习）、PyTorch Lightning（深度学习）、Transformers（预训练 NLP）、SHAP（可解释性）、Dask-ML（大规模训练）一站式集成，帮大数据团队把&quot;TB 级数据 + 业务问题&quot;系统化转成&quot;可上线的预测能力 + 可追溯的实验记录&quot;，让分类、回归、文本、图像、强化学习任务共用一套规范。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按任务类型自动选型：分类回归走 scikit-learn，文本走 Transformers，图像走 Lightning，强化学习走 stable-baselines3，让选型不再靠工程师个人偏好。</li><li>把 Pipeline（管线）+ cross_val_score（交叉验证）封成标准模板，让团队成员的实验结果可比可复现。</li><li>单机塞不下的数据切到 Dask-ML（分布式机器学习），让 TB 级训练不再需要重写代码。</li><li>流式数据用 partial_fit（增量学习），让模型可以一边收新样本一边迭代，不用每周全量重训。</li><li>用 MLflow（实验追踪）记录参数 + 指标 + 模型，再用 SHAP 给关键预测出归因报告，让模型上线后业务、合规、风控都能溯源。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -217,7 +218,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[SHAP 解释]
     E --&gt; F[模型上线]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-deep-learning-pipeline">
@@ -226,17 +227,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/deep-learning-pipeline/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when publishing a 深度学习系列 episode (deep-learning topic deep-dive — interview / paper / framework / debate) end-to-end with editorial polish. Pipeline: signature visual style (one per episode, never reuse) → HTML body → dedicated CF Pages subdomain → triple-format screenshot (4K + mobile + WeChat JPEG) → GDrive structured archive. Trigger: 深度学习管线 / learning pipeline / 专题报告 / 系列报告 / 出一期 / 新一期 / 下一期 / 第N期 / 罗福莉式 / hermes-agent式. NOT for: passive content summary (use deep-learning-skill for body generation; this skill orchestrates the full delivery pipeline around it). Mode: pipeline (sequential A→B→C→D→E).</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把&quot;深度学习系列&quot;每一期专题报告（访谈、论文、框架、争议）从内容生成、签名视觉风格、独立 CF Pages（Cloudflare Pages）子域名、4K + 移动 + 微信三档截图、到 Google Drive 结构化归档串成一条流水线，帮你把&quot;一个深度学习选题&quot;稳定产出成&quot;一篇有编辑级排版、有独立访问入口、有可分发素材、有可追溯档案&quot;的对外资产。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按&quot;内容是否自带视觉符号&quot;决策：自带就委托一套新的签名风格（Hermes、Bloomberg、Anthropic 等），不带就从 html-style-router（风格路由）里选 12 套之一，让每期视觉不重样。</li><li>用 deep-learning-skill 生成正文 + 3 层结构 + 引语 + 数据，再用所选风格统一渲染成 HTML，让正文质量和视觉档次同步保底。</li><li>用 deploy-cf.sh 把这一期独立部署到 deeplearn-NN-slug.pages.dev（不与往期共域），让每期 URL 是干净的独立入口。</li><li>用 render-poster.mjs 一次性产出 4K 主图、移动主图、1080w JPEG 微信版三档海报，让公众号、朋友圈、企业微信、AirDrop 各取所需。</li><li>用 archive-gdrive.sh 按 &quot;日期_深度学习_第NN期_标题&quot; 命名归档到 Google Drive 深度学习目录，并在 state/memory 记一条 episode 索引，让后续每一期都能回溯。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -246,7 +247,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[三档截图]
     E --&gt; F[GDrive 归档]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-perf-profile">
@@ -255,17 +256,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/perf-profile/SPEC.md</code>
   </div>
   <p class="skill-card-desc">Structured performance profiling workflow. Identifies bottlenecks, measures against budgets, and generates optimization recommendations with priority rankings.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把性能调优从&quot;凭直觉改代码&quot;升级成&quot;先量预算、再找热点、再排优先级&quot;的结构化流程，帮你把&quot;模型/系统跑得慢&quot;翻译成&quot;哪一段超了多少预算、改什么收益最大、风险多大&quot;，让性能优化每一步都有可对照的目标和可量化的收益。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把性能预算写清楚：帧时间（如 16.67ms = 60fps）、内存上限、加载时长、Draw Call（绘制调用）、网络带宽，让&quot;快不快&quot;有可量化的判定线。</li><li>再扫描 CPU 热点：每帧循环、嵌套大集合、热路径字符串拼接、物理射线查询，列出最贵的前几个函数，让优化对象不再凭感觉拍。</li><li>同步扫描内存与渲染：大对象增长曲线、纹理占用、对象池 vs 频繁创建销毁、Overdraw（过度绘制）、缺失 LOD（多层细节）/Occlusion Culling（遮挡剔除），让 GPU/内存瓶颈一并暴露。</li><li>把结果写成&quot;预算表 + 热点表 + 优先级表&quot;三张表，让业务方一眼看到现状对预算超了多少、改哪几条收益最大。</li><li>给出 Quick Wins（1 小时内可做完的小优化）和&quot;需要 runtime profiling（运行时分析）才能定量&quot;的待办，让团队既有立即能动的清单，也有下一步深入方向。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -275,7 +276,7 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[Quick Wins + 深入项]
     E --&gt; F[运行时验证]</pre>
   </div>
-  
+
 </div>
 
 <div class="skill-card" id="skill-systematic-debugging">
@@ -284,17 +285,17 @@ footer p { max-width: none; margin: 4px 0; }
     <code class="skill-card-path">skills/algorithm/systematic-debugging/SKILL.md</code>
   </div>
   <p class="skill-card-desc">Use when encountering a bug, test failure, crash, or unexpected behavior.</p>
-  
+
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把&quot;模型挂了 / 测试红了 / 线上崩了&quot;的处理流程从&quot;凭经验改改试试&quot;升级成&quot;先定位根因、再做最小修复&quot;的 4 阶段纪律，帮你把&quot;调试&quot;从抓阄式打补丁变成可复用、可解释、可回溯的工程方法，避免补一个洞冒一个新洞。</p>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>第一阶段先读完整错误堆栈、复现问题、对照最近改动、梳理数据流，让&quot;为什么坏了&quot;在动手前就有清晰假设。</li><li>第二阶段找历史上能跑通的版本、对比关键差异、理清依赖关系，让&quot;坏的样子&quot;和&quot;好的样子&quot;先并排看清。</li><li>第三阶段一次只验一个假设、用最小测试样例、控制单变量，让验证结果可解释不被多个改动污染。</li><li>第四阶段先写一个能复现 bug 的失败用例，再做单点修复，最后跑回归，让&quot;修好了&quot;有可验证证据而不是凭感觉。</li><li>触发 3-Strike Rule（三振规则）：连续 3 次修复都失败就停手，把问题升级为架构讨论，让团队不被表面 bug 拖入无尽补丁循环。</li></ol>
   </div>
-  
+
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -305,7 +306,43 @@ footer p { max-width: none; margin: 4px 0; }
     E --&gt; F{3 次失败?}
     F --&gt;|是| G[升级架构讨论]</pre>
   </div>
-  
+
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-scope-contract">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">scope-contract</div>
+    <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Scope Contract Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-quality-gate">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">quality-gate</div>
+    <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Quality Gate Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+</div>
+
+<div class="skill-card skill-card-stub" id="skill-delivery-review">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">delivery-review</div>
+    <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
+  </div>
+  <p class="skill-card-desc">Delivery Review Workflow</p>
+
+
+
+  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
 </div>
 </section>
 
@@ -335,9 +372,14 @@ footer p { max-width: none; margin: 4px 0; }
 <section>
 <h2>常见反模式（从本包 CLAUDE.md 抽取）</h2>
 
-<p class="muted">本包当前在 CLAUDE.md 中尚未达到 ≥5 个反模式信号（PACK_SPEC v1.0 P2 要求）。
-这是它停在 stub-tier 的常见原因之一。如果你装包后撞到一个真实反模式，请到 <a href="/wall">卡点墙</a>
-反馈，下轮会补回来。</p>
+<p>装包后真正落到工作流之前，先看这些。每一条都是 PACK_SPEC v1.0 P2 支柱里要求的"反模式信号"：</p>
+<ul class="kit-list">
+<li>Never claim a pack is enriched by changing a badge; the audit must pass.</li>
+<li>Avoid one-shot answers when the role needs a decision gate or rollout plan.</li>
+<li>Avoid generic brainstorming when the user asked for an operational artifact.</li>
+<li>Forbidden: hiding uncertainty behind confident prose.</li>
+<li>Forbidden: replacing the role workflow with a generic chat answer.</li>
+</ul>
 
 </section>
 
