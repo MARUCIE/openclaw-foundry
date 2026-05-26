@@ -132,7 +132,7 @@
 7. User registers or logs in through email magic-link or WeChat OAuth
 8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
 9. Recommendation entrypoints use a small task-domain taxonomy instead of one card per pack: first question selects intent, second question selects a domain group, and the result page expands all packs in that group.
-10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; public cards now show only `Enriched` or `Certified` maturity, while historical alias guide pages inherit the canonical target maturity.
+10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; public cards now show no `Basic` maturity and currently render all canonical packs as `Enriched`.
 11. The `定策略` recommendation path opens the `战略决策` group, which contains `strategy-roundtable-advisor` plus adjacent strategy packs; selecting it renders all mapped strategy cards instead of hiding lower-maturity packs.
 
 ### Journey 8: Standalone Role Pack Copy Install

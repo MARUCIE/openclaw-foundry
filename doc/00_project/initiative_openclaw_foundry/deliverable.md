@@ -681,17 +681,19 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 
 ### Delivered
 1. Canonical public job packs are automatically enriched before public tier injection when they fail the maturity floor.
-2. The public catalog now has 22 canonical packs with zero `stub` entries: 17 `enriched` and 5 `certified`.
+2. The public catalog now has 22 canonical packs with zero `stub` entries: 22 `enriched` and 0 `certified`.
 3. The `web` build now fails if any public catalog pack regresses to `stub`.
 4. Deprecated historical alias guide pages inherit the maturity badge from their canonical target, while remaining suppressed from public cards/counts.
 
 ### Local Evidence
-1. `node scripts/audit-public-pack-maturity.mjs` -> PASS: `packs=22, enriched=17, certified=5, stub=0`.
+1. `node scripts/audit-public-pack-maturity.mjs` -> PASS: `packs=22, enriched=22, certified=0, stub=0`.
 2. `npm --prefix web run build` -> PASS with public maturity, dedup, coverage, online-status, public-install-source, and person-name gates.
 3. `git diff --check` -> PASS after fixing generated guide trailing whitespace.
 4. Local static data smoke -> PASS: public catalog has zero `stub`; code reviewer and security auditor are enriched; deprecated aliases are hidden.
 5. Local Chrome DevTools smoke -> PASS: Browse All shows Enriched, Code Reviewer, and Security Auditor; no Basic / `基础档` label.
-6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.
+6. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
+7. Production deploy run `26438063235` for commit `0486110e5e3bf23f77ad7dc7e032b69586210497` -> PASS; production data smoke returned 22 packs, 22 enriched, 0 stub, no deprecated aliases, and Code Reviewer / Security Auditor both enriched.
+8. Deterministic maturity fix: normal `pack-spec-audit.py` now ignores untracked local E2E logs, preventing local-only Certified labels from diverging from CI/production.
 
 ### Closeout
 1. Skills update: N/A - this is a Foundry pack generation/audit invariant rather than a user-facing skill.

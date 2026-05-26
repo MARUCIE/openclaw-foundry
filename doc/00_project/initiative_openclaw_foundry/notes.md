@@ -761,14 +761,16 @@ The prior repair correctly separated availability from `PACK_SPEC` tier, but it 
 5. Deprecated alias guide pages inherit canonical target maturity so historical guide URLs do not show downgraded `Basic` badges.
 
 ### Local Evidence
-1. `npm --prefix web run build` -> PASS; public maturity gate reports 22 packs, 17 enriched, 5 certified, 0 stub.
+1. `npm --prefix web run build` -> PASS; public maturity gate reports 22 packs, 22 enriched, 0 certified, 0 stub.
 2. `node scripts/audit-public-pack-maturity.mjs` -> PASS.
 3. `node scripts/audit-pack-public-dedup.mjs` -> PASS.
 4. `node scripts/audit-packs-page-coverage.mjs` -> PASS.
 5. `node scripts/audit-pack-online-status.mjs` -> PASS.
 6. `node scripts/sanitize-pack-person-names.mjs --check` -> PASS.
-7. `python3 scripts/pack-spec-audit.py --summary` -> 5 certified, 17 enriched, 4 deprecated-alias stubs outside public catalog.
+7. `python3 scripts/pack-spec-audit.py --summary` -> 0 certified, 22 enriched, 4 deprecated-alias stubs outside public catalog. Certified promotion now requires tracked evidence; ignored local logs no longer affect normal audits.
 8. `git diff --check` -> PASS.
-9. Static data smoke -> PASS: public `packs.json` has 22 packs, 17 enriched, 5 certified, 0 stub; `spellbook-code-reviewer` and `spellbook-security-auditor` are enriched; deprecated aliases are absent.
+9. Static data smoke -> PASS: public `packs.json` has 22 packs, 22 enriched, 0 certified, 0 stub; `spellbook-code-reviewer` and `spellbook-security-auditor` are enriched; deprecated aliases are absent.
 10. Local Chrome DevTools smoke on `/packs.html?verify=local-maturity` -> PASS after clicking Browse All: Code Reviewer and Security Auditor visible, Enriched visible, no Basic / `基础档`, deprecated frontend alias absent.
-11. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.
+11. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
+12. GitHub Actions deploy `26438063235` for commit `0486110e5e3bf23f77ad7dc7e032b69586210497` -> PASS; production smoke showed 22 packs, 22 enriched, 0 stub, no deprecated aliases, and Code Reviewer / Security Auditor enriched.
+13. Root-cause note: local ignored `evidence/*/*-e2e.log` files caused local-only Certified labels. They were not committed because they are ignored, non-reproducible in CI, and contain historical advisor filenames; normal audits now require tracked evidence.

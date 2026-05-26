@@ -32,7 +32,7 @@
 | 2026-05-26 | REQ-029 | Job Pack / Taxonomy | `/packs` second-level choices must be scientific, compact task-domain groups, not a flat card for every public catalog pack; all canonical public packs must remain covered | Completed | `QUESTION_TREE` now uses `packIds` groups; audit parses group assignments and fails on missing catalog IDs or missing UI coverage |
 | 2026-05-26 | REQ-030 | Job Pack / Online State | All non-deprecated public role/job packs must be live/installable when generated artifacts exist; `tier: "stub"` is a Basic maturity badge, not an offline state | Completed | Added online-status audit, generated guide pages, and split release logic from PACK_SPEC tier |
 | 2026-05-26 | REQ-031 | Job Pack / Dedup | Public `/packs` must show only the richest canonical role pack when a deprecated alias points at the same job | Completed | Public catalog now has 22 canonical packs; 4 `deprecated_alias_of` spellbook aliases are suppressed from cards/counts/question-tree IDs by `generate-packs.mjs` and `audit-pack-public-dedup.mjs`; production deploy run `26435492679` verified commit `5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` |
-| 2026-05-26 | REQ-032 | Job Pack / Maturity Floor | All canonical public job packs must be at least `enriched`; no public card or public catalog entry may remain `stub` / `基础档` | Completed | Added `enrich-public-pack-maturity.mjs` before tier injection and `audit-public-pack-maturity.mjs` as prebuild gate; public catalog audits as 22 packs, 17 enriched, 5 certified, 0 stub |
+| 2026-05-26 | REQ-032 | Job Pack / Maturity Floor | All canonical public job packs must be at least `enriched`; no public card or public catalog entry may remain `stub` / `基础档` | Completed | Added `enrich-public-pack-maturity.mjs` before tier injection and `audit-public-pack-maturity.mjs` as prebuild gate; public catalog audits as 22 packs, 22 enriched, 0 certified, 0 stub; certified promotion now requires tracked evidence |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -51,7 +51,7 @@
 | 2026-05-26 | "还有这个分类也要科学，不要分那么多，但是要全部覆盖" | Pack taxonomy grouping invariant | Collapse noisy second-level pack lists into user-task groups; result pages expand grouped packs, and coverage audit proves all canonical public packs are reachable |
 | 2026-05-26 | "所有的配置包缺失 / 全部上线" | Pack online-state invariant | Do not use `PACK_SPEC` tier as availability; all public catalog packs with generated artifacts are live, and Basic tier copy must not say `Coming soon` |
 | 2026-05-26 | "为什么还有2个一样的，只保留最丰富、最好的" | Pack public dedup invariant | Deprecated alias packs can remain as historical directories, but public `/packs` cards, counts, and groups must expose only the canonical target |
-| 2026-05-26 | "要全部已富化，全面检查和修复" | Pack maturity-floor invariant | Canonical public packs must be audit-enriched to `enriched` or `certified`; deprecated alias guides inherit canonical maturity and remain outside public cards |
+| 2026-05-26 | "要全部已富化，全面检查和修复" | Pack maturity-floor invariant | Canonical public packs must be audit-enriched to at least `enriched`; deprecated alias guides inherit canonical maturity and remain outside public cards; ignored local E2E logs must not create local-only Certified labels |
 
 ## Anti-Regression Q&A
 | Q | A |

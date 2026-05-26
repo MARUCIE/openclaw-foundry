@@ -584,7 +584,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 
 ## 2026-05-26 · Public Pack Maturity Floor Repair
 - Status: in verification
-- Stop condition: all 22 canonical public job packs audit as `enriched` or `certified`, no public catalog/guide/static page displays `基础档`, and production `/packs` verifies the same after deploy.
+- Stop condition: all 22 canonical public job packs audit as `enriched` or higher, no public catalog/guide/static page displays `基础档`, and production `/packs` verifies the same after deploy.
 
 ### Steps
 - [x] Identify public canonical packs whose audit tier remained `stub`.
@@ -594,15 +594,18 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 - [x] Make deprecated alias guide pages inherit the canonical target maturity badge.
 - [x] Sync PRD, UX map, architecture, platform optimization plan, and rolling ledger.
 - [x] Rebuild, run audits, run local smoke, and run `ai check`.
-- [ ] Commit, push, deploy, and verify production `/packs`.
+- [x] Commit, push, deploy, and verify production `/packs`.
+- [x] Make certified promotion deterministic by ignoring untracked local E2E logs in normal audits.
 
 ### Current Verification Snapshot
 1. `npm --prefix web run build` -> PASS; prebuild includes public install source, dedup, page coverage, online status, and public maturity audits.
-2. `node scripts/audit-public-pack-maturity.mjs` -> PASS locally after final rebuild: 22 public packs, 17 enriched, 5 certified, 0 stub.
+2. `node scripts/audit-public-pack-maturity.mjs` -> PASS locally after final rebuild: 22 public packs, 22 enriched, 0 certified, 0 stub.
 3. `git diff --check` -> PASS after cleaning generated guide trailing whitespace.
-4. Static data smoke -> PASS: 22 packs, 17 enriched, 5 certified, 0 stub; code reviewer and security auditor are enriched; deprecated aliases are hidden.
+4. Static data smoke -> PASS: 22 packs, 22 enriched, 0 certified, 0 stub; code reviewer and security auditor are enriched; deprecated aliases are hidden.
 5. Local Chrome DevTools smoke on `http://127.0.0.1:4320/packs.html?verify=local-maturity` -> PASS after clicking Browse All: Code Reviewer and Security Auditor visible, `Enriched` visible, no `Basic` / `基础档`, deprecated frontend alias absent.
-6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-070518-84a33557`.
+6. `ai check` -> PASS after deterministic audit fix, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-072940-3537d9b0`.
+7. GitHub Actions deploy run `26438063235` -> PASS for commit `0486110e5e3bf23f77ad7dc7e032b69586210497`; production smoke showed 22 packs, 22 enriched, 0 stub, Code Reviewer and Security Auditor enriched, and no deprecated aliases. A follow-up deterministic-audit fix will redeploy the same public maturity surface after local/CI tier parity is restored.
 
 ### Notes
 2. Full pack-spec audit still reports 4 `stub` directories only for deprecated aliases that are suppressed from public catalog; alias guide pages now inherit canonical maturity.
+3. Old local ignored `evidence/*/*-e2e.log` files are not accepted for normal certified promotion because they are not reproducible in CI and may contain historical advisor filenames. `PACK_SPEC_ALLOW_UNTRACKED_EVIDENCE=1` remains available only for local diagnosis.

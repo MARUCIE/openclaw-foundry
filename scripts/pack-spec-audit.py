@@ -29,6 +29,7 @@ from pathlib import Path
 
 DEFAULT_PACKS_DIR = Path(__file__).resolve().parent.parent / "web" / "public" / "packs"
 DEFAULT_EVIDENCE_DIR = Path(__file__).resolve().parent.parent / "evidence"
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 def count_md_lines(path: Path) -> int:
@@ -115,6 +116,23 @@ def install_sh_closing_hint(path: Path) -> bool:
     tail_text = "\n".join(tail).lower()
     # Must contain a specific user action like `claude --skill` or `now try` or a command path
     return any(marker in tail_text for marker in ["now try", "next step", "first_use_demo", "claude --skill"])
+
+
+def is_tracked_evidence(path: Path) -> bool:
+    """Only tracked evidence can promote a pack to certified in normal audits."""
+    if os.environ.get("PACK_SPEC_ALLOW_UNTRACKED_EVIDENCE") == "1":
+        return True
+    try:
+        rel = path.resolve().relative_to(REPO_ROOT)
+    except ValueError:
+        return False
+    proc = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", str(rel)],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    return proc.returncode == 0
 
 
 def audit_pack(pack_dir: Path) -> dict:
@@ -210,8 +228,12 @@ def audit_pack(pack_dir: Path) -> dict:
     p4_pass = len(p4_missing) == 0
 
     # E2E evidence check (read-only — no install execution; that is --e2e mode)
+    # Ignore untracked local logs by default so local builds cannot claim a higher
+    # tier than CI/production. Set PACK_SPEC_ALLOW_UNTRACKED_EVIDENCE=1 for local
+    # diagnosis only.
     evidence_dir = DEFAULT_EVIDENCE_DIR / slug
-    e2e_logs = sorted(evidence_dir.glob("*-e2e.log")) if evidence_dir.is_dir() else []
+    raw_e2e_logs = sorted(evidence_dir.glob("*-e2e.log")) if evidence_dir.is_dir() else []
+    e2e_logs = [p for p in raw_e2e_logs if is_tracked_evidence(p)]
     has_e2e_evidence = False
     e2e_log_path = None
     if e2e_logs:
@@ -239,7 +261,7 @@ def audit_pack(pack_dir: Path) -> dict:
     if not p4_install_hint:
         suggested_actions.append("Patch install.sh to print first_use_demo.command at end (4-line fix, fleet-wide leverage)")
     if not has_e2e_evidence:
-        suggested_actions.append(f"Run --e2e to produce evidence/{slug}/<date>-e2e.log; required for certified tier")
+        suggested_actions.append(f"Run --e2e and commit tracked evidence/{slug}/<date>-e2e.log; required for certified tier")
     suggested_actions.extend(f"P1: {m}" for m in p1_missing[:3])
     suggested_actions.extend(f"P2: {m}" for m in p2_missing[:3])
     suggested_actions.extend(f"P3: {m}" for m in p3_missing[:3])
@@ -273,6 +295,7 @@ def audit_pack(pack_dir: Path) -> dict:
         "e2e_evidence": {
             "present": has_e2e_evidence,
             "log_path": e2e_log_path,
+            "untracked_candidates": len(raw_e2e_logs) - len(e2e_logs),
         },
         "suggested_actions": suggested_actions,
     }

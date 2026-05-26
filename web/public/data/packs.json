@@ -76,10 +76,10 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "certified",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
-      "hasE2eEvidence": true
+      "hasE2eEvidence": false
     },
     {
       "id": "bigdata-engineer",
@@ -200,10 +200,10 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "certified",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
-      "hasE2eEvidence": true
+      "hasE2eEvidence": false
     },
     {
       "id": "infra-engineer",
@@ -315,10 +315,10 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "certified",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
-      "hasE2eEvidence": true
+      "hasE2eEvidence": false
     },
     {
       "id": "scenario-planner",
@@ -358,10 +358,10 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "certified",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
-      "hasE2eEvidence": true
+      "hasE2eEvidence": false
     },
     {
       "id": "test-engineer",
@@ -401,10 +401,10 @@
         "install.sh",
         "manifest.json"
       ],
-      "tier": "certified",
+      "tier": "enriched",
       "specVersion": "1.0",
       "hasFirstUseDemo": true,
-      "hasE2eEvidence": true
+      "hasE2eEvidence": false
     },
     {
       "id": "designer",
@@ -808,8 +808,8 @@
   ],
   "tierSummary": {
     "stub": 0,
-    "enriched": 17,
-    "certified": 5
+    "enriched": 22,
+    "certified": 0
   },
   "tierInjectedAt": "2026-05-19T08:29:19.766Z"
 }

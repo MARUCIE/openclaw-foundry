@@ -107,7 +107,7 @@ A pack is graded on three discrete tiers:
 |------|----------|---------------------|
 | **stub** | < 3 pillars present OR no `first_use_demo` | `WIP — install at own risk` |
 | **enriched** | 4 pillars present, `first_use_demo` present, but E2E smoke not recorded | `Ready — verify locally first` |
-| **certified** | All 4 pillars + `first_use_demo` + recorded E2E smoke transcript at `evidence/<pack>/<date>-e2e.log` | `Certified — open and benefit` |
+| **certified** | All 4 pillars + `first_use_demo` + Git-tracked E2E smoke transcript at `evidence/<pack>/<date>-e2e.log` | `Certified — open and benefit` |
 
 The cohort-facing pack list (`web/public/packs/index.json` or equivalent) MUST show the tier badge. Pretending a stub is certified is a contract violation.
 
@@ -165,7 +165,7 @@ The audit script (NOT YET BUILT, scheduled as part of next session's product-man
 - `manifest.json` has `first_use_demo` block and `spec_version: "1.0"`.
 - `install.sh` exit code 0 on a fresh `~/.claude/` simulation via local `python3 -m http.server :8765`.
 - Every artifact listed in manifest.json exists on disk.
-- For `certified` tier: `evidence/<pack>/<date>-e2e.log` exists and shows a successful first-use demo.
+- For `certified` tier: a Git-tracked `evidence/<pack>/<date>-e2e.log` exists and shows a successful first-use demo. Ignored local logs do not promote production maturity.
 
 ## 6. Failure to comply
 
@@ -185,7 +185,7 @@ This prevents silent stub-disappointment. The cohort knows what they're getting.
 2. **Methodology without toolkit.** A pack that lists "you should use 5-Why" but provides no `5-why.md` prompt template or skill SPEC is a half-pack.
 3. **Toolkit without methodology.** A pack that ships 10 prompts but no CLAUDE.md explaining WHEN to use them is a prompt-dump.
 4. **First-use demo that requires "you understand AI workflow already."** The demo must work for the cohort's least-experienced member, not the trainer.
-5. **Stub pack masquerading as certified.** No tier inflation. If E2E smoke wasn't recorded, the badge stays at `enriched`.
+5. **Stub pack masquerading as certified.** No tier inflation. If E2E smoke wasn't recorded in tracked evidence, the badge stays at `enriched`.
 6. **Renaming W<N> wave content into pack content as the only enrichment.** Translation is necessary but not sufficient — the pack must still have a `first_use_demo`, a checklist, a baseline CSV, and a feedback form that fit the role (not just the wave).
 
 ---
