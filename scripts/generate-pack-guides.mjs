@@ -11,8 +11,9 @@
 // provenance marker `data-style-id="html-document-style"` and a top comment
 // stating the route choice (per 15-self-bootstrap-driver enforcement rule).
 //
-// Generates a guide for every visible pack, including spellbook-* aliases.
-// Visible cards must never link to missing guide.html files.
+// Generates a guide for every public pack directory, including deprecated
+// spellbook-* alias directories kept as historical install targets. The public
+// /packs catalog suppresses aliases before cards are rendered.
 //
 // Runs in npm prebuild after generate-packs.mjs + inject-pack-tiers.mjs.
 
@@ -72,9 +73,27 @@ function extractFirstUseDemo(manifest) {
   };
 }
 
-function extractPackHeader(packsJson, slug) {
-  if (!packsJson?.packs) return null;
-  return packsJson.packs.find(p => p.id === slug) || null;
+function extractPackHeader(packsJson, slug, manifest) {
+  const packs = packsJson?.packs || [];
+  if (!Array.isArray(packs)) return null;
+  const direct = packs.find(p => p.id === slug);
+  if (direct) return direct;
+
+  const aliasOf = manifest?.deprecated_alias_of;
+  if (typeof aliasOf !== 'string' || !aliasOf.trim()) return null;
+  const canonical = packs.find(p => p.id === aliasOf.trim());
+  if (!canonical) return null;
+
+  return {
+    ...canonical,
+    id: slug,
+    name: `${canonical.name} (Deprecated Alias)`,
+    nameZh: `${canonical.nameZh}（历史别名）`,
+    description: `Deprecated alias of ${canonical.id}. Use the canonical ${canonical.name} pack from /packs.`,
+    descriptionZh: `此历史别名已合并到 ${canonical.nameZh}（${canonical.id}）。公开目录只展示 canonical 包，请优先从 /packs 安装 canonical 版本。`,
+    tier: 'stub',
+    version: manifest?.version || canonical.version,
+  };
 }
 
 function tierBadge(tier) {
@@ -486,7 +505,7 @@ function main() {
     const packDir = join(PACKS_DIR, slug);
     const manifest = readJsonSafe(join(packDir, 'manifest.json'));
     const claudeMd = readText(join(packDir, 'CLAUDE.md'));
-    const header = extractPackHeader(packsJson, slug);
+    const header = extractPackHeader(packsJson, slug, manifest);
     const fud = extractFirstUseDemo(manifest);
     const ctx = {
       slug,

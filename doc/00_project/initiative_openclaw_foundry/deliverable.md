@@ -647,3 +647,26 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 
 ### Closeout
 1. Technical debt closure: release upload no longer relies on manual reruns for transient Cloudflare R2 gateway responses.
+
+## 2026-05-26 · Public Pack Dedup Repair
+
+### Delivered
+1. Public `/packs` catalog now exposes 22 canonical role/job packs instead of showing duplicate deprecated spellbook aliases beside richer canonical packs.
+2. `spellbook-frontend-engineer`, `spellbook-backend-engineer`, `spellbook-test-engineer`, and `spellbook-platform-engineer` are suppressed from public `packs.json`, `/packs` question-tree IDs, visible counts, and Browse All cards.
+3. Added `scripts/audit-pack-public-dedup.mjs` and wired it into `web` prebuild.
+4. Updated pack coverage and online-status audits so they guard the public canonical catalog while allowing deprecated alias directories to remain as historical install targets.
+5. Deprecated alias guide pages now explicitly identify themselves as historical aliases and point users to the canonical target.
+
+### Local Evidence
+1. `npm --prefix web run build` -> PASS.
+2. `node scripts/audit-pack-public-dedup.mjs` -> PASS: publicPacks=22, suppressedAliases=4.
+3. `node scripts/audit-packs-page-coverage.mjs` -> PASS: packs=22, lines=6.
+4. `node scripts/audit-pack-online-status.mjs` -> PASS: packs=22, requiredFiles=7.
+5. Local Playwright static smoke -> PASS: Frontend Experience renders 1 canonical card; Browse All renders 22 cards and 22 guide links; alias strings are absent; console errors=0; navigation duration=1291ms.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.
+
+### Closeout
+1. Skills update: N/A - this is a Foundry pack-catalog invariant implemented as generator/audit code.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, and rolling ledger updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is executable through prebuild audits.
+4. Technical debt closure: duplicate public role cards are closed by generation and audit gates; production verification pending.

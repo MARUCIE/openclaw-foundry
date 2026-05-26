@@ -1,5 +1,5 @@
 {
-  "total": 26,
+  "total": 22,
   "generated": "2026-05-19T08:29:19.603Z",
   "packs": [
     {
@@ -511,146 +511,6 @@
       "hasE2eEvidence": false
     },
     {
-      "id": "spellbook-test-engineer",
-      "name": "Test Engineer (Spellbook)",
-      "nameZh": "测试工程师",
-      "description": "Full test pyramid (unit → integration → E2E + perf) + coverage gap agent + scaffolding.",
-      "descriptionZh": "完整测试金字塔（单测 → 集成 → E2E + 性能）+ 覆盖率代理 + 测试脚手架。",
-      "icon": "bug_report",
-      "color": "#059669",
-      "line": "engineering",
-      "lineZh": "工程职能线",
-      "layerIds": [
-        "universal",
-        "line-engineering",
-        "role-spellbook-test"
-      ],
-      "version": "1.1.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 5,
-        "agents": 1,
-        "commands": 1,
-        "lint_files": 0
-      },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
-      "hasE2eEvidence": false
-    },
-    {
-      "id": "spellbook-platform-engineer",
-      "name": "Platform Engineer",
-      "nameZh": "平台工程师",
-      "description": "CI/CD + containerization + IaC + observability + incident response + 5-language lint configs.",
-      "descriptionZh": "CI/CD + 容器化 + IaC + 可观测性 + 事件响应 + 5 种语言 lint 配置。",
-      "icon": "cloud",
-      "color": "#003A70",
-      "line": "engineering",
-      "lineZh": "工程职能线",
-      "layerIds": [
-        "universal",
-        "line-engineering",
-        "role-spellbook-platform"
-      ],
-      "version": "1.1.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 10,
-        "agents": 0,
-        "commands": 1,
-        "lint_files": 18
-      },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
-      "hasE2eEvidence": false
-    },
-    {
-      "id": "spellbook-backend-engineer",
-      "name": "Backend Engineer (Spellbook)",
-      "nameZh": "后端工程师",
-      "description": "FastAPI + Pydantic + PostgreSQL/Mongo/Redis + queue patterns + scaffolding command.",
-      "descriptionZh": "FastAPI + Pydantic + PostgreSQL/Mongo/Redis + 队列模式 + 脚手架命令。",
-      "icon": "dns",
-      "color": "#7C3AED",
-      "line": "engineering",
-      "lineZh": "工程职能线",
-      "layerIds": [
-        "universal",
-        "line-engineering",
-        "role-spellbook-backend"
-      ],
-      "version": "1.1.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 10,
-        "agents": 0,
-        "commands": 1,
-        "lint_files": 0
-      },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
-      "hasE2eEvidence": false
-    },
-    {
-      "id": "spellbook-frontend-engineer",
-      "name": "Frontend Engineer (Spellbook)",
-      "nameZh": "前端工程师",
-      "description": "WCAG/ARIA accessibility + Angular + Tailwind + 3-language lint configs.",
-      "descriptionZh": "WCAG/ARIA 无障碍 + Angular + Tailwind + 3 种语言 lint 配置。",
-      "icon": "web",
-      "color": "#D97706",
-      "line": "engineering",
-      "lineZh": "工程职能线",
-      "layerIds": [
-        "universal",
-        "line-engineering",
-        "role-spellbook-frontend"
-      ],
-      "version": "1.1.0",
-      "files": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        "settings.json",
-        "prompts.md",
-        "install.sh",
-        "manifest.json"
-      ],
-      "artifacts": {
-        "skills": 3,
-        "agents": 0,
-        "commands": 0,
-        "lint_files": 14
-      },
-      "tier": "stub",
-      "specVersion": "-",
-      "hasFirstUseDemo": false,
-      "hasE2eEvidence": false
-    },
-    {
       "id": "spellbook-ai-app-engineer",
       "name": "AI App Engineer",
       "nameZh": "AI 应用工程师",
@@ -947,7 +807,7 @@
     }
   ],
   "tierSummary": {
-    "stub": 17,
+    "stub": 13,
     "enriched": 4,
     "certified": 5
   },

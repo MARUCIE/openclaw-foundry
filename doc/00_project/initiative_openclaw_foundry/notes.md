@@ -716,3 +716,25 @@ The documentation closeout deployment for commit `870bafeeb04888b253e403714aadf4
 1. `node --check scripts/upload-protected-packs-to-r2.mjs` -> PASS.
 2. `node scripts/upload-protected-packs-to-r2.mjs --dry-run` -> PASS, 463 protected pack files planned.
 3. `bash scripts/audit-auth-surfaces.sh` -> PASS, 18 checks and 0 violations.
+
+## 2026-05-26 · Public Pack Dedup Repair
+
+### Trigger
+The public `/packs` UI still showed duplicate role cards such as `frontend-engineer` and `spellbook-frontend-engineer`. The richer canonical pack should be the only public choice when a spellbook pack declares `deprecated_alias_of`.
+
+### Root Cause
+Four spellbook directories had correct `deprecated_alias_of` metadata, but `scripts/generate-packs.mjs` preserved their old `packs.json` entries and `/packs` hardcoded them in `QUESTION_TREE` groups. The previous coverage audit interpreted "all packs" as all raw directories/catalog entries and did not distinguish public canonical packs from deprecated historical aliases.
+
+### Change
+1. `scripts/generate-packs.mjs` now suppresses `deprecated_alias_of` packs from public `packs.json` when the canonical target exists.
+2. `/packs` recommendation groups now reference only canonical IDs for frontend, backend, infra/platform, and test duplicates.
+3. Added `scripts/audit-pack-public-dedup.mjs`; prebuild now fails if a deprecated alias enters `packs.json`, appears in `QUESTION_TREE`, or leaves duplicate visible role names.
+4. `scripts/audit-packs-page-coverage.mjs` and `scripts/audit-pack-online-status.mjs` now define coverage against the public canonical catalog while allowing deprecated alias directories to remain as historical install targets.
+5. `scripts/generate-pack-guides.mjs` renders deprecated alias guides as explicit historical-alias pages pointing users to the canonical target instead of degrading to slug-only metadata.
+
+### Evidence
+1. Public catalog after generation: 22 packs; suppressed aliases: `spellbook-frontend-engineer -> frontend-engineer`, `spellbook-backend-engineer -> backend-engineer`, `spellbook-test-engineer -> test-engineer`, `spellbook-platform-engineer -> infra-engineer`.
+2. Local audits passed: public dedup, page coverage, and online status.
+3. `npm --prefix web run build` -> PASS.
+4. Local Playwright static smoke -> PASS: one canonical frontend result card, 22 Browse All cards, 22 guide links, forbidden alias strings absent, console errors=0.
+5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.

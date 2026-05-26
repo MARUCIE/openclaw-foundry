@@ -29,8 +29,9 @@
 | 2026-05-25 | REQ-028 | Job Pack / Identity Neutrality | All released role/job configuration packs must avoid concrete person names in advisor IDs, names, guides, catalogs, installers, and installed output | Completed | Added pack person-name sanitizer, neutralized advisor identities, switched installers local-first, and prepared standalone release tag `v2026.05.25.5` |
 | 2026-05-25 | REQ-024 | Skill / Pack Installability | Public skill catalog and all role-pack payloads must not expose workstation-only links or backup local catalogs | Completed | `scripts/audit-public-install-sources.mjs` now scans 5000 public skills, 26 settings, 22 guides, 485 pack files, and blocks public `_backup*` data directories |
 | 2026-05-25 | REQ-025 | Job Pack / Product Line | Rename `prototype-designer` to `designer`; Product Manager owns prototype hypothesis and validation demo, while Designer owns design system, QA, and handoff | Completed | Foundry and `openclaw-role-packs` now expose `designer`; remote tag `v2026.05.25.3` validates and installs designer 15/15 files; no public `prototype-designer` strings remain in web/data/scripts scan |
-| 2026-05-26 | REQ-029 | Job Pack / Taxonomy | `/packs` second-level choices must be scientific, compact task-domain groups, not a flat card for every catalog pack; all 26 packs must remain covered | Completed | `QUESTION_TREE` now uses `packIds` groups; audit parses group assignments and fails on missing catalog IDs or missing UI coverage |
-| 2026-05-26 | REQ-030 | Job Pack / Online State | All 26 cataloged role/job packs must be live/installable when generated artifacts exist; `tier: "stub"` is a Basic maturity badge, not an offline state | Completed | Added online-status audit, generated 26 guide pages, and split release logic from PACK_SPEC tier |
+| 2026-05-26 | REQ-029 | Job Pack / Taxonomy | `/packs` second-level choices must be scientific, compact task-domain groups, not a flat card for every public catalog pack; all canonical public packs must remain covered | Completed | `QUESTION_TREE` now uses `packIds` groups; audit parses group assignments and fails on missing catalog IDs or missing UI coverage |
+| 2026-05-26 | REQ-030 | Job Pack / Online State | All non-deprecated public role/job packs must be live/installable when generated artifacts exist; `tier: "stub"` is a Basic maturity badge, not an offline state | Completed | Added online-status audit, generated guide pages, and split release logic from PACK_SPEC tier |
+| 2026-05-26 | REQ-031 | Job Pack / Dedup | Public `/packs` must show only the richest canonical role pack when a deprecated alias points at the same job | Completed | Public catalog now has 22 canonical packs; 4 `deprecated_alias_of` spellbook aliases are suppressed from cards/counts/question-tree IDs by `generate-packs.mjs` and `audit-pack-public-dedup.mjs` |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -46,8 +47,9 @@
 | 2026-05-25 | "原型设计师改为设计师，原型是产品经理的" | Product/design role boundary cutover | Do not keep a compatibility alias; rename slug, copy, manifest, guides, and Git install command to `designer` |
 | 2026-05-25 | "全面审核，所有的配置包不能出现具体的人名" | Pack identity neutrality release gate | Run sanitizer + exact-match scans across Foundry packs, standalone packs, catalogs, guides, and installed smoke output before publishing |
 | 2026-05-26 | "怎么有那么多配置包缺失，全面检查和修复" | Pack UI coverage invariant | `/packs` must display every catalog pack; Basic-tier packs stay visible/installable when generated artifacts exist, and prebuild fails if catalog coverage is missing |
-| 2026-05-26 | "还有这个分类也要科学，不要分那么多，但是要全部覆盖" | Pack taxonomy grouping invariant | Collapse noisy second-level pack lists into user-task groups; result pages expand grouped packs, and coverage audit proves all 26 packs are still reachable |
-| 2026-05-26 | "所有的配置包缺失 / 全部上线" | Pack online-state invariant | Do not use `PACK_SPEC` tier as availability; all catalog packs with generated artifacts are live, and Basic tier copy must not say `Coming soon` |
+| 2026-05-26 | "还有这个分类也要科学，不要分那么多，但是要全部覆盖" | Pack taxonomy grouping invariant | Collapse noisy second-level pack lists into user-task groups; result pages expand grouped packs, and coverage audit proves all canonical public packs are reachable |
+| 2026-05-26 | "所有的配置包缺失 / 全部上线" | Pack online-state invariant | Do not use `PACK_SPEC` tier as availability; all public catalog packs with generated artifacts are live, and Basic tier copy must not say `Coming soon` |
+| 2026-05-26 | "为什么还有2个一样的，只保留最丰富、最好的" | Pack public dedup invariant | Deprecated alias packs can remain as historical directories, but public `/packs` cards, counts, and groups must expose only the canonical target |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -77,7 +79,8 @@
 | 原型能力归谁? | 产品经理。PM 负责 PRD、用户故事、RICE、原型假设和可点击验证 demo；设计师负责体验架构、视觉层级、设计 token、状态覆盖、设计 QA 和工程 handoff。 |
 | 配置包可以用具体人物作为 advisor 名称吗? | 不可以。公开配置包、manifest、guide、catalog、install.sh 和安装产物只能使用能力中性的 advisor 身份；历史人物、作者名、个人署名只能留在非配置包历史文档或外部第三方 catalog 元数据中。 |
 | 为什么不能只删除 Pages 中的受保护 pack payload 文件? | Cloudflare Pages 删除后的旧资产可能继续在边缘保留；生产发布必须把受保护 payload 文件内容 tombstone 掉，再部署 Pages，确保旧直链只返回保护提示而不是历史配置包内容。 |
-| `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在且产物完整的 26 个配置包都应展示并可安装；`tier: stub` 只能显示为 `Basic` 成熟度，不能被当成隐藏、禁用或 `即将上线` 的理由。 |
+| `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。非 deprecated 的公开 catalog 包只要产物完整就应展示并可安装；`tier: stub` 只能显示为 `Basic` 成熟度，不能被当成隐藏、禁用或 `即将上线` 的理由。 |
+| `/packs` 可以同时展示 canonical 包和它的 `spellbook-*` alias 吗? | 不可以。若 manifest 声明 `deprecated_alias_of` 且 canonical target 存在，公开目录只展示 canonical 包；alias 目录不得进入 `packs.json`、推荐树或可见计数。 |
 | `/packs` 二级方向可以直接平铺所有岗位包吗? | 不可以。二级方向必须按用户任务域分组，例如前端体验、后端平台、质量安全、基础设施运维；组内结果再展开具体配置包，并由 coverage audit 证明 26 个包没有遗漏。 |
 | `tier: "stub"` 是否等于未上线? | 不等于。上线状态看 `manifest.json`、`CLAUDE.md`、`AGENTS.md`、`settings.json`、`prompts.md`、`install.sh`、`guide.html` 是否齐全，以及 `/packs` release logic 是否通过 `audit-pack-online-status.mjs`。 |
 | R2 protected pack 上传遇到 `502` / `504` 怎么办? | 不应靠人工反复 rerun。`scripts/upload-protected-packs-to-r2.mjs` 必须有有界并发和指数退避重试，确保 Cloudflare 瞬时网关错误不会中断有效部署。 |

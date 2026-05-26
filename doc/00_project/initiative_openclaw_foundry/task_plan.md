@@ -553,3 +553,25 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
    - released pack list renders 9 cards including `设计师 / DESIGNER` and `产品经理 / PRODUCT MANAGER`
    - no `原型设计师`, `Prototype Designer`, or `prototype-designer` text
    - screenshot: `.playwright-cli/page-2026-05-25T09-52-31-207Z.png`
+
+## 2026-05-26 · Public Pack Dedup Repair
+- Status: local verified; production deployment pending
+- Stop condition: production `/packs` exposes 22 canonical public packs, hides the 4 deprecated spellbook aliases, and keeps all canonical packs covered by recommendation groups or browse mode.
+
+### Steps
+- [x] Identify duplicate public-role clusters from `deprecated_alias_of` manifests.
+- [x] Suppress deprecated aliases from generated public `packs.json`.
+- [x] Remove alias IDs from `/packs` recommendation groups.
+- [x] Add `audit-pack-public-dedup.mjs` to the web prebuild gate.
+- [x] Update coverage/online-status audits to treat deprecated alias directories as non-public historical targets.
+- [x] Sync PRD, UX map, system architecture, platform optimization plan, and rolling ledger.
+- [x] Run local build, audits, Playwright static smoke, and `ai check`.
+- [ ] Commit, push, deploy, and verify production `/packs`.
+
+### Local Verification Snapshot
+1. `npm --prefix web run build` -> PASS.
+2. `node scripts/audit-pack-public-dedup.mjs` -> PASS: publicPacks=22, suppressedAliases=4.
+3. `node scripts/audit-packs-page-coverage.mjs` -> PASS: packs=22, lines=6.
+4. `node scripts/audit-pack-online-status.mjs` -> PASS: packs=22, requiredFiles=7.
+5. Local Playwright static smoke on `/packs.html?verify=local-dedup` -> PASS: Frontend Experience renders 1 canonical card; Browse All renders 22 cards and 22 guide links; forbidden alias strings are absent; console errors=0; navigation duration=1291ms.
+6. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-060413-451c666b`.

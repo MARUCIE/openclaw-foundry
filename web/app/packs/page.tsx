@@ -34,17 +34,17 @@ const QUESTION_TREE: QuestionTreeItem[] = [
       {
         labelKey: 'packs.q2CodeFrontendUX',
         descKey: 'packs.q2CodeFrontendUXDesc',
-        packIds: ['frontend-engineer', 'spellbook-frontend-engineer'],
+        packIds: ['frontend-engineer'],
       },
       {
         labelKey: 'packs.q2CodeBackendPlatform',
         descKey: 'packs.q2CodeBackendPlatformDesc',
-        packIds: ['backend-engineer', 'spellbook-backend-engineer', 'spellbook-platform-engineer'],
+        packIds: ['backend-engineer'],
       },
       {
         labelKey: 'packs.q2CodeQualitySecurity',
         descKey: 'packs.q2CodeQualitySecurityDesc',
-        packIds: ['test-engineer', 'spellbook-test-engineer', 'spellbook-code-reviewer', 'spellbook-security-auditor'],
+        packIds: ['test-engineer', 'spellbook-code-reviewer', 'spellbook-security-auditor'],
       },
       {
         labelKey: 'packs.q2CodeInfraOps',
@@ -187,7 +187,6 @@ export default function PacksPage() {
   const { t } = useI18n();
   const { data, isLoading } = useSWR<PacksResponse>('packs', getPacks);
   const allPacks = data?.packs || [];
-  const releasedPacks = allPacks.filter(isReleasedPack);
 
   type PageTab = 'packs' | 'wall';
   type Step = 'q1' | 'q2' | 'result' | 'browse';

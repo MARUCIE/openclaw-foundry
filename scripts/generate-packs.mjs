@@ -28,6 +28,20 @@ function deepMerge(target, source) {
   return result;
 }
 
+function readJsonSafe(path) {
+  try {
+    return JSON.parse(readFileSync(path, 'utf-8'));
+  } catch {
+    return null;
+  }
+}
+
+function deprecatedAliasOf(packId) {
+  const manifest = readJsonSafe(join(PUBLIC_PACKS, packId, 'manifest.json'));
+  const aliasOf = manifest?.deprecated_alias_of;
+  return typeof aliasOf === 'string' && aliasOf.trim() ? aliasOf.trim() : null;
+}
+
 function mergeLayers(pack, layersMap) {
   const orderedLayers = pack.layerIds.map(id => {
     const layer = layersMap.get(id);
@@ -260,7 +274,23 @@ function main() {
     }
   }
 
-  const finalList = [...packListing, ...preserved];
+  const rawFinalList = [...packListing, ...preserved];
+  const rawIds = new Set(rawFinalList.map(p => p.id).filter(Boolean));
+  const suppressedAliases = [];
+  const finalList = rawFinalList.filter(pack => {
+    const aliasOf = deprecatedAliasOf(pack.id);
+    if (!aliasOf) return true;
+    if (!rawIds.has(aliasOf)) {
+      throw new Error(`Deprecated alias ${pack.id} points to missing canonical pack ${aliasOf}`);
+    }
+    suppressedAliases.push({ id: pack.id, aliasOf });
+    return false;
+  });
+  if (suppressedAliases.length > 0) {
+    console.log(`\nSuppressing ${suppressedAliases.length} deprecated alias pack(s) from public packs.json:`);
+    suppressedAliases.forEach(a => console.log(`  - ${a.id} -> ${a.aliasOf}`));
+  }
+
   const grouped = {
     total: finalList.length,
     generated: priorGenerated || new Date().toISOString(),
@@ -270,7 +300,7 @@ function main() {
   if (priorTierInjectedAt) grouped.tierInjectedAt = priorTierInjectedAt;
 
   writeFileSync(packsJsonPath, JSON.stringify(grouped, null, 2));
-  console.log(`\nTotal: ${finalList.length} packs (${packs.length} layer + ${preserved.length} native), ${totalFiles} layer files generated.`);
+  console.log(`\nTotal: ${finalList.length} packs (${packs.length} layer + ${finalList.length - packs.length} native), ${totalFiles} layer files generated.`);
 }
 
 main();

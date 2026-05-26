@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-// Verify that every generated job pack is reachable from /packs.
+// Verify that every public catalog job pack is reachable from /packs.
 //
-// The /packs page intentionally renders all catalog packs. PACK_SPEC tier is a
-// maturity signal only; `stub` packs must remain visible as Basic live packs
-// when their generated artifacts exist. This audit prevents a generated pack
-// from existing in packs.json but disappearing from the guide UI.
+// The /packs page intentionally renders all non-deprecated catalog packs.
+// PACK_SPEC tier is a maturity signal only; `stub` packs must remain visible as
+// Basic live packs when their generated artifacts exist. Deprecated alias packs
+// are suppressed before packs.json is written and guarded by
+// audit-pack-public-dedup.mjs.
 // The question tree groups packs by task domain, so every pack must be assigned
 // to at least one packIds cluster or covered by an explicit dynamic line rule.
 
