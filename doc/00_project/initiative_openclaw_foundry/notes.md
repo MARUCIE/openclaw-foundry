@@ -648,3 +648,24 @@ The `/packs` guide and browse UI had two hidden filters: the question tree only 
 4. Commit `faccc22857641061faa5c941f97ef936048d9c65` was pushed to `origin/main`; GitHub Actions deploy run `26428949743` completed successfully, including Worker deploy, D1 migrations, and Pages frontend deploy.
 5. Production `https://agent-foundry.pages.dev/data/packs.json?verify=faccc22` -> HTTP 200, 26 packs, 9 released, 17 pending, 6 lines.
 6. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=faccc22` -> PASS: browse mode renders 26 cards, no audited pack names are missing, the count notice is visible, `Coming soon` is visible for pending packs, and the code direction has no missing engineering options.
+
+## 2026-05-26 · Pack Taxonomy Grouping Repair
+
+### Trigger
+The coverage repair fixed missing packs but made the second-level selector too noisy: the engineering direction exposed 11 individual pack cards. The user requirement changed to a compact, scientific taxonomy that still covers every catalog pack.
+
+### Decision
+Use task-domain groups at the recommendation layer, then expand concrete packs only in the result layer. This matches high-star agent-framework patterns: MetaGPT organizes work as software-company roles and SOPs; CrewAI separates agent role definitions from task definitions; OpenHands frames the product around software-engineering tasks and executable workflows.
+
+### Change
+1. Replaced single `packId` second-level options with `packIds` groups in `/packs`.
+2. Engineering now has four groups: frontend experience, backend platform, quality/security, infrastructure/ops.
+3. Data now has two groups: data/AI engineering and metrics/experiments.
+4. Product, business, strategy, research, and scenario lines use the same compact task-domain grouping pattern.
+5. `scripts/audit-packs-page-coverage.mjs` now parses `packIds` arrays and fails if the page references missing catalog IDs or leaves catalog packs uncovered.
+
+### Evidence
+1. Catalog baseline: 26 packs total, 9 released and 17 pending, across 6 lines.
+2. Local coverage audit: `node scripts/audit-packs-page-coverage.mjs` -> PASS.
+3. Local static Playwright smoke: code direction shows 4 group buttons; old flat engineering labels are absent from the second-level view; selecting frontend experience renders 2 concrete pack cards.
+4. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-032923-a8c9e390`.

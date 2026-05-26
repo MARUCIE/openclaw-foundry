@@ -8,7 +8,11 @@ import { readSession, loginRedirect, type SessionUser } from '@/lib/session';
 import { copyProtectedPackInstallCommand, downloadProtectedPackFile } from '@/lib/protected-downloads';
 import WallBoard from '@/components/wall-board';
 
-type QuestionOption = { labelKey?: string; packId: string };
+type QuestionOption = {
+  labelKey: string;
+  descKey: string;
+  packIds: string[];
+};
 type QuestionTreeItem = {
   id: string;
   browseTabId: string;
@@ -16,7 +20,6 @@ type QuestionTreeItem = {
   labelKey: string;
   descKey: string;
   options: QuestionOption[];
-  includeLinePacks?: boolean;
 };
 
 // Question tree answers map to lines + sub-options
@@ -27,13 +30,27 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'code',
     labelKey: 'packs.q1Code',
     descKey: 'packs.q1CodeDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2Frontend', packId: 'frontend-engineer' },
-      { labelKey: 'packs.q2Backend', packId: 'backend-engineer' },
-      { labelKey: 'packs.q2Test', packId: 'test-engineer' },
-      { labelKey: 'packs.q2Infra', packId: 'infra-engineer' },
-      { labelKey: 'packs.q2Ops', packId: 'ops-engineer' },
+      {
+        labelKey: 'packs.q2CodeFrontendUX',
+        descKey: 'packs.q2CodeFrontendUXDesc',
+        packIds: ['frontend-engineer', 'spellbook-frontend-engineer'],
+      },
+      {
+        labelKey: 'packs.q2CodeBackendPlatform',
+        descKey: 'packs.q2CodeBackendPlatformDesc',
+        packIds: ['backend-engineer', 'spellbook-backend-engineer', 'spellbook-platform-engineer'],
+      },
+      {
+        labelKey: 'packs.q2CodeQualitySecurity',
+        descKey: 'packs.q2CodeQualitySecurityDesc',
+        packIds: ['test-engineer', 'spellbook-test-engineer', 'spellbook-code-reviewer', 'spellbook-security-auditor'],
+      },
+      {
+        labelKey: 'packs.q2CodeInfraOps',
+        descKey: 'packs.q2CodeInfraOpsDesc',
+        packIds: ['infra-engineer', 'ops-engineer'],
+      },
     ],
   },
   {
@@ -42,12 +59,17 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'analytics',
     labelKey: 'packs.q1Data',
     descKey: 'packs.q1DataDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2Algorithm', packId: 'algorithm-engineer' },
-      { labelKey: 'packs.q2Bigdata', packId: 'bigdata-engineer' },
-      { labelKey: 'packs.q2DataAnalyst', packId: 'data-analyst' },
-      { labelKey: 'packs.q2AbTestAnalyst', packId: 'ab-test-analyst' },
+      {
+        labelKey: 'packs.q2DataAIEngineering',
+        descKey: 'packs.q2DataAIEngineeringDesc',
+        packIds: ['algorithm-engineer', 'bigdata-engineer', 'spellbook-ai-app-engineer'],
+      },
+      {
+        labelKey: 'packs.q2DataDecision',
+        descKey: 'packs.q2DataDecisionDesc',
+        packIds: ['data-analyst', 'ab-test-analyst'],
+      },
     ],
   },
   {
@@ -56,10 +78,17 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'lightbulb',
     labelKey: 'packs.q1Product',
     descKey: 'packs.q1ProductDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2PM', packId: 'product-manager' },
-      { labelKey: 'packs.q2Designer', packId: 'designer' },
+      {
+        labelKey: 'packs.q2ProductExperience',
+        descKey: 'packs.q2ProductExperienceDesc',
+        packIds: ['product-manager', 'designer'],
+      },
+      {
+        labelKey: 'packs.q2ProductScenario',
+        descKey: 'packs.q2ProductScenarioDesc',
+        packIds: ['spellbook-onboarding'],
+      },
     ],
   },
   {
@@ -68,9 +97,17 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'verified_user',
     labelKey: 'packs.q1Business',
     descKey: 'packs.q1BusinessDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2Compliance', packId: 'compliance-expert' },
+      {
+        labelKey: 'packs.q2BusinessGovernance',
+        descKey: 'packs.q2BusinessGovernanceDesc',
+        packIds: ['compliance-expert', 'internal-control-specialist'],
+      },
+      {
+        labelKey: 'packs.q2BusinessFinance',
+        descKey: 'packs.q2BusinessFinanceDesc',
+        packIds: ['investment-analyst'],
+      },
     ],
   },
   {
@@ -79,10 +116,12 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'insights',
     labelKey: 'packs.q1Strategy',
     descKey: 'packs.q1StrategyDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2StrategyRoundtable', packId: 'strategy-roundtable-advisor' },
-      { labelKey: 'packs.q2Executive', packId: 'executive-strategist' },
+      {
+        labelKey: 'packs.q2StrategyDecision',
+        descKey: 'packs.q2StrategyDecisionDesc',
+        packIds: ['strategy-roundtable-advisor', 'executive-strategist'],
+      },
     ],
   },
   {
@@ -91,9 +130,12 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     icon: 'science',
     labelKey: 'packs.q1Research',
     descKey: 'packs.q1ResearchDesc',
-    includeLinePacks: true,
     options: [
-      { labelKey: 'packs.q2ResearchAnalyst', packId: 'research-analyst' },
+      {
+        labelKey: 'packs.q2ResearchKnowledge',
+        descKey: 'packs.q2ResearchKnowledgeDesc',
+        packIds: ['research-analyst'],
+      },
     ],
   },
   {
@@ -103,13 +145,16 @@ const QUESTION_TREE: QuestionTreeItem[] = [
     labelKey: 'packs.q1Scenario',
     descKey: 'packs.q1ScenarioDesc',
     options: [
-      { labelKey: 'packs.q2Scenario', packId: 'scenario-planner' },
+      {
+        labelKey: 'packs.q2Scenario',
+        descKey: 'packs.q2ScenarioDesc',
+        packIds: ['scenario-planner'],
+      },
     ],
   },
 ];
 
 const isReleasedPack = (pack?: ConfigPack | null) => Boolean(pack && pack.tier !== 'stub');
-const STANDALONE_QUESTION_PACK_IDS = new Set(['scenario-planner']);
 
 function packSortScore(pack: ConfigPack): number {
   if (pack.tier === 'certified') return 0;
@@ -146,7 +191,7 @@ export default function PacksPage() {
   const [pageTab, setPageTab] = useState<PageTab>('packs');
   const [step, setStep] = useState<Step>('q1');
   const [selectedLine, setSelectedLine] = useState<string | null>(null);
-  const [recommendedPack, setRecommendedPack] = useState<string | null>(null);
+  const [recommendedPackIds, setRecommendedPackIds] = useState<string[]>([]);
   const [browseTab, setBrowseTab] = useState('all');
 
   // Hash-sync the top-level tab so /packs#wall opens directly on the stickwall.
@@ -255,8 +300,8 @@ export default function PacksPage() {
           setStep={setStep}
           selectedLine={selectedLine}
           setSelectedLine={setSelectedLine}
-          recommendedPack={recommendedPack}
-          setRecommendedPack={setRecommendedPack}
+          recommendedPackIds={recommendedPackIds}
+          setRecommendedPackIds={setRecommendedPackIds}
           browseTab={browseTab}
           setBrowseTab={setBrowseTab}
         />
@@ -273,8 +318,8 @@ interface PacksTabBodyProps {
   setStep: (s: 'q1' | 'q2' | 'result' | 'browse') => void;
   selectedLine: string | null;
   setSelectedLine: (s: string | null) => void;
-  recommendedPack: string | null;
-  setRecommendedPack: (s: string | null) => void;
+  recommendedPackIds: string[];
+  setRecommendedPackIds: (ids: string[]) => void;
   browseTab: string;
   setBrowseTab: (s: string) => void;
 }
@@ -287,8 +332,8 @@ function PacksTabBody({
   setStep,
   selectedLine,
   setSelectedLine,
-  recommendedPack,
-  setRecommendedPack,
+  recommendedPackIds,
+  setRecommendedPackIds,
   browseTab,
   setBrowseTab,
 }: PacksTabBodyProps) {
@@ -298,33 +343,30 @@ function PacksTabBody({
   const releasedPackCount = allPacks.filter(isReleasedPack).length;
   const totalPackCount = allPacks.length;
   const packsById = new Map(allPacks.map(p => [p.id, p]));
-  const releasedPackIds = new Set(allPacks.filter(isReleasedPack).map(p => p.id));
-  const buildQuestionOptions = (q: QuestionTreeItem) => {
-    const explicitOptions = q.options.filter(opt => packsById.has(opt.packId));
-    const explicitIds = new Set(explicitOptions.map(opt => opt.packId));
-    if (!q.includeLinePacks) return explicitOptions;
-    const lineOptions: QuestionOption[] = sortPacksForDisplay(allPacks)
-      .filter(p => p.line === q.browseTabId)
-      .filter(p => !explicitIds.has(p.id))
-      .filter(p => q.id === 'scenario' || !STANDALONE_QUESTION_PACK_IDS.has(p.id))
-      .map(p => ({ packId: p.id }));
-    return [...explicitOptions, ...lineOptions];
+  const buildQuestionOptions = (q: QuestionTreeItem): QuestionOption[] => {
+    return q.options
+      .map(opt => ({
+        ...opt,
+        packIds: opt.packIds.filter(packId => packsById.has(packId)),
+      }))
+      .filter(opt => opt.packIds.length > 0);
   };
   const questionTree = QUESTION_TREE.map(q => {
     const options = buildQuestionOptions(q);
-    const availableOptions = options.filter(opt => releasedPackIds.has(opt.packId));
     return {
       ...q,
       options,
-      availableOptions,
       hasAnyPack: options.length > 0,
-      hasReleasedPack: availableOptions.length > 0,
     };
   });
   const selectedQuestion = questionTree.find(q => q.id === selectedLine);
-  const recommendedCandidate = allPacks.find(p => p.id === recommendedPack);
-  const recommended = isReleasedPack(recommendedCandidate) ? recommendedCandidate : null;
-  const hasUnavailableRecommendation = step === 'result' && Boolean(recommendedPack) && !recommended;
+  const recommendedPacks = sortPacksForDisplay(
+    recommendedPackIds
+      .map(packId => packsById.get(packId))
+      .filter((pack): pack is ConfigPack => Boolean(pack))
+  );
+  const recommendedReleasedCount = recommendedPacks.filter(isReleasedPack).length;
+  const hasUnavailableRecommendation = step === 'result' && recommendedPacks.length > 0 && recommendedReleasedCount === 0;
 
   const handleQ1 = (lineId: string) => {
     const line = questionTree.find(q => q.id === lineId);
@@ -335,25 +377,23 @@ function PacksTabBody({
       return;
     }
     setSelectedLine(lineId);
-    const lineOptions = line.availableOptions;
-    if (line.options.length === 1 && lineOptions.length === 1) {
-      setRecommendedPack(lineOptions[0].packId);
+    if (line.options.length === 1) {
+      setRecommendedPackIds(line.options[0].packIds);
       setStep('result');
     } else {
       setStep('q2');
     }
   };
 
-  const handleQ2 = (packId: string) => {
-    if (!releasedPackIds.has(packId)) return;
-    setRecommendedPack(packId);
+  const handleQ2 = (packIds: string[]) => {
+    setRecommendedPackIds(packIds);
     setStep('result');
   };
 
   const resetTree = () => {
     setStep('q1');
     setSelectedLine(null);
-    setRecommendedPack(null);
+    setRecommendedPackIds([]);
   };
 
   return (
@@ -428,15 +468,19 @@ function PacksTabBody({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {selectedQuestion?.options.map(opt => {
-                  const pack = packsById.get(opt.packId);
-                  const isUnavailable = !releasedPackIds.has(opt.packId);
-                  const label = opt.labelKey ? t(opt.labelKey) : pack?.nameZh || pack?.name || opt.packId;
+                  const packs = sortPacksForDisplay(
+                    opt.packIds
+                      .map(packId => packsById.get(packId))
+                      .filter((pack): pack is ConfigPack => Boolean(pack))
+                  );
+                  const releasedCount = packs.filter(isReleasedPack).length;
+                  const isUnavailable = packs.length === 0;
                   return (
                     <button
-                      key={opt.packId}
+                      key={opt.labelKey}
                       disabled={isUnavailable}
                       aria-disabled={isUnavailable}
-                      onClick={() => handleQ2(opt.packId)}
+                      onClick={() => handleQ2(opt.packIds)}
                       className={`p-10 rounded-[2.5rem] text-center transition-all border-2 bg-[var(--surface-container-lowest)] ${
                         isUnavailable
                           ? 'cursor-not-allowed opacity-55'
@@ -444,11 +488,12 @@ function PacksTabBody({
                       }`}
                       style={{ borderColor: 'var(--outline-variant)' }}
                     >
-                      <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{label}</div>
-                      {pack?.descriptionZh && (
-                        <p className="mt-3 text-xs font-bold opacity-50 leading-relaxed text-pretty">{pack.descriptionZh}</p>
-                      )}
-                      {isUnavailable && (
+                      <div className="font-black text-xl tracking-tight" style={{ color: 'var(--on-surface)' }}>{t(opt.labelKey)}</div>
+                      <p className="mt-3 text-xs font-bold opacity-50 leading-relaxed text-pretty">{t(opt.descKey)}</p>
+                      <div className="mt-4 text-[var(--af-fs-micro)] font-black uppercase tracking-widest opacity-40">
+                        {packs.length} {t('packs.packUnit')} · {releasedCount} {t('packs.releasedUnit')}
+                      </div>
+                      {releasedCount === 0 && (
                         <div className="mt-3 inline-flex px-3 py-1 rounded-full text-[var(--af-fs-micro)] font-black uppercase tracking-widest bg-[var(--surface-container)] text-[var(--on-surface-variant)]">
                           {t('packs.directionComingSoon')}
                         </div>
@@ -460,7 +505,7 @@ function PacksTabBody({
             </div>
           )}
 
-          {step === 'result' && recommended && (
+          {step === 'result' && recommendedPacks.length > 0 && (
             <div className="space-y-8">
               <div className="flex items-center gap-4">
                 <button aria-label="Go back" onClick={resetTree} className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:bg-black/5">
@@ -468,39 +513,15 @@ function PacksTabBody({
                 </button>
                 <h2 className="text-2xl font-black tracking-tight text-balance">{t('packs.recommendation')}</h2>
               </div>
-              <div className="max-w-xl mx-auto">
-                <PackCard pack={recommended} featured />
-              </div>
-            </div>
-          )}
-
-          {hasUnavailableRecommendation && (
-            <div className="space-y-8">
-              <div className="flex items-center gap-4">
-                <button aria-label="Go back" onClick={resetTree} className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:bg-black/5">
-                  <span aria-hidden="true" className="material-symbols-outlined font-black">arrow_back</span>
-                </button>
-                <h2 className="text-2xl font-black tracking-tight text-balance">{t('packs.unavailableRecommendation')}</h2>
-              </div>
-              <div
-                className="max-w-xl mx-auto p-10 rounded-[2.5rem] text-center space-y-5"
-                style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)' }}
-                role="note"
-              >
-                <div className="w-16 h-16 rounded-3xl mx-auto flex items-center justify-center shadow-lg" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
-                  <span aria-hidden="true" className="material-symbols-outlined text-3xl font-black">pending_actions</span>
-                </div>
-                <p className="text-sm font-bold leading-relaxed opacity-60">{t('packs.noReleasedOptions')}</p>
-                <button
-                  onClick={() => {
-                    setBrowseTab('all');
-                    setStep('browse');
-                  }}
-                  className="px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest text-white transition-all hover:shadow-lg"
-                  style={{ background: 'var(--primary)' }}
-                >
-                  {t('packs.viewReleasedPacks')}
-                </button>
+              {hasUnavailableRecommendation && (
+                <p className="max-w-2xl mx-auto text-center text-sm font-bold leading-relaxed opacity-60" role="note">
+                  {t('packs.pendingPackNotice')}
+                </p>
+              )}
+              <div className={`grid grid-cols-1 gap-8 ${recommendedPacks.length === 1 ? 'max-w-xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3'}`}>
+                {recommendedPacks.map(pack => (
+                  <PackCard key={pack.id} pack={pack} featured={recommendedPacks.length === 1} />
+                ))}
               </div>
             </div>
           )}

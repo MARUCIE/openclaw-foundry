@@ -4,6 +4,8 @@
 // The /packs page intentionally renders all catalog packs: released packs are
 // installable, while stub packs are visible as pending. This audit prevents a
 // generated pack from existing in packs.json but disappearing from the guide UI.
+// The question tree groups packs by task domain, so every pack must be assigned
+// to at least one packIds cluster or covered by an explicit dynamic line rule.
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -17,6 +19,11 @@ const packs = packsData.packs || [];
 const page = readFileSync(pagePath, 'utf-8');
 
 const explicitPackIds = new Set([...page.matchAll(/packId:\s*'([^']+)'/g)].map(match => match[1]));
+for (const match of page.matchAll(/packIds:\s*\[([^\]]*)\]/g)) {
+  for (const idMatch of match[1].matchAll(/'([^']+)'/g)) {
+    explicitPackIds.add(idMatch[1]);
+  }
+}
 const tabLineIds = new Set([...page.matchAll(/\{\s*id:\s*'([^']+)'\s*,\s*labelKey:\s*'packs\.tab/g)].map(match => match[1]));
 const dynamicLineIds = new Set();
 
@@ -25,6 +32,13 @@ for (const item of page.matchAll(/\{\s*id:\s*'[^']+'[\s\S]*?browseTabId:\s*'([^'
 }
 
 const findings = [];
+const catalogIds = new Set(packs.map(pack => pack.id).filter(Boolean));
+for (const explicitId of explicitPackIds) {
+  if (!catalogIds.has(explicitId)) {
+    findings.push(`${explicitId}: referenced in /packs question tree but missing from packs.json`);
+  }
+}
+
 for (const pack of packs) {
   if (!pack?.id || !pack?.line) {
     findings.push(`invalid pack metadata: ${JSON.stringify(pack)}`);

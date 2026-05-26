@@ -24,11 +24,12 @@
 | 2026-05-25 | REQ-019 | CI / Release | Production frontend build must not require developer-local `~/.claude/skills` | Completed | `scripts/reconcile-catalog-integrity.py --allow-missing-local-root`; empty-HOME `web` build passes |
 | 2026-05-25 | REQ-020 | CI / Release | Protected role-pack payload uploads must complete within the production deploy budget | Completed | GitHub Actions deploy run `26383364471` uploaded 437/437 protected payloads to R2 and deployed Pages successfully |
 | 2026-05-25 | REQ-021 | Production / Frontend | Static Pages builds must not emit missing `/api/*` console errors for catalog data that already has `/data/*.json` fallback | Completed | `web/lib/api.ts` now reads static GET data directly when `NEXT_PUBLIC_API_URL` is unset; local static export no longer contains `/api/packs` |
-| 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | First-level and second-level options derive availability from released packs; unavailable directions show `即将上线`; local checks and production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` passed |
+| 2026-05-25 | REQ-022 | Production / UX | `/packs` decision-tree entrypoints must never route to hidden `stub` packs or empty recommendation panels | Completed | Recommendation groups render concrete cards; pending packs show `即将上线` and disabled install/download actions; local checks and production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=d54abd8` passed |
 | 2026-05-25 | REQ-023 | Job Pack / Strategy | The strategic-thinking prompt bundle must become a reusable global Job Pack under `/packs` `定策略`, and data first-level IA must merge `做数据` + `看数据` | Completed | Added `strategy-roundtable-advisor` enriched pack, merged data entry to `做/看数据`, and published standalone role-pack tag `v2026.05.25.2` |
 | 2026-05-25 | REQ-028 | Job Pack / Identity Neutrality | All released role/job configuration packs must avoid concrete person names in advisor IDs, names, guides, catalogs, installers, and installed output | Completed | Added pack person-name sanitizer, neutralized advisor identities, switched installers local-first, and prepared standalone release tag `v2026.05.25.5` |
 | 2026-05-25 | REQ-024 | Skill / Pack Installability | Public skill catalog and all role-pack payloads must not expose workstation-only links or backup local catalogs | Completed | `scripts/audit-public-install-sources.mjs` now scans 5000 public skills, 26 settings, 22 guides, 485 pack files, and blocks public `_backup*` data directories |
 | 2026-05-25 | REQ-025 | Job Pack / Product Line | Rename `prototype-designer` to `designer`; Product Manager owns prototype hypothesis and validation demo, while Designer owns design system, QA, and handoff | Completed | Foundry and `openclaw-role-packs` now expose `designer`; remote tag `v2026.05.25.3` validates and installs designer 15/15 files; no public `prototype-designer` strings remain in web/data/scripts scan |
+| 2026-05-26 | REQ-029 | Job Pack / Taxonomy | `/packs` second-level choices must be scientific, compact task-domain groups, not a flat card for every catalog pack; all 26 packs must remain covered | Completed | `QUESTION_TREE` now uses `packIds` groups; audit parses group assignments and fails on missing catalog IDs or missing UI coverage |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -39,11 +40,12 @@
 | 2026-05-18 | "把skill 的复制打开，只有岗位配置包需要登陆" | Auth-wall scope correction | Keep Skill/MCP/API-doc copy public; use protected Worker/R2 delivery only for Job Pack payloads |
 | 2026-05-25 | "别人直接复制安装不了，配置包和本地最新同步并单独建 repo" | Role-pack distribution hardening | Create a local-first standalone pack repo; remote fetch must be opt-in |
 | 2026-05-25 | "继续，从git地址安装是最安全的" | Production install-command hardening | Keep registration gate, but copy a pinned GitHub clone command instead of a Worker token URL |
-| 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against public released-pack availability before allowing a path to be clickable |
+| 2026-05-25 | "打开定策略，怎么没有配置包" | Pack recommendation availability hardening | Audit decision-tree targets against concrete pack-card rendering; released packs can install after login, pending packs remain visible but disabled |
 | 2026-05-25 | "把这个skill组合包打包，放到岗位配置包的定策略模块；做数据/看数据合并" | Strategy job-pack packaging + data IA merge | Package existing canonical strategy skills as `strategy-roundtable-advisor`; merge data entry without pretending stub data packs are released |
 | 2026-05-25 | "原型设计师改为设计师，原型是产品经理的" | Product/design role boundary cutover | Do not keep a compatibility alias; rename slug, copy, manifest, guides, and Git install command to `designer` |
 | 2026-05-25 | "全面审核，所有的配置包不能出现具体的人名" | Pack identity neutrality release gate | Run sanitizer + exact-match scans across Foundry packs, standalone packs, catalogs, guides, and installed smoke output before publishing |
 | 2026-05-26 | "怎么有那么多配置包缺失，全面检查和修复" | Pack UI coverage invariant | `/packs` must display every catalog pack; pending packs stay visible as non-installable cards and prebuild fails if catalog coverage is missing |
+| 2026-05-26 | "还有这个分类也要科学，不要分那么多，但是要全部覆盖" | Pack taxonomy grouping invariant | Collapse noisy second-level pack lists into user-task groups; result pages expand grouped packs, and coverage audit proves all 26 packs are still reachable |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -67,13 +69,14 @@
 | CI 生产构建能依赖 `~/.claude/skills` 吗? | 不能。`web` prebuild 必须传 `--allow-missing-local-root`，缺失本地技能根目录时 no-op，避免 GitHub runner 因 `/home/runner/.claude/skills` 不存在而阻塞生产部署。 |
 | R2 protected pack 上传可以逐文件跑 `npx wrangler` 吗? | 不可以。437 个小文件逐个启动 `npx wrangler` 会耗尽 Actions job 预算；必须使用 worker lockfile 安装的本地 Wrangler binary，并通过 `R2_UPLOAD_CONCURRENCY` 做有界并发。 |
 | 静态 Pages 环境中，`/packs` 是否应该先请求 `/api/packs` 再回退? | 不应该。未配置 `NEXT_PUBLIC_API_URL` 时，GET 型 catalog 数据应直接读取 `/data/*.json`，否则生产控制台会留下可避免的 404 噪音。 |
-| `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 不可以直接可点。公开推荐和浏览必须共用 `tier !== "stub"` 的已开放口径；没有已开放包的方向只能显示 `即将上线` 或明确空态，不能进入空推荐区。 |
+| `/packs` 问答入口可以指向 `tier: "stub"` 的配置包吗? | 可以作为任务域组里的可见 pending card，但不能提供安装/下载，也不能进入空推荐区；纯 pending 组必须显示 `即将上线` 和待验证说明。 |
 | `定策略` 应该如何承载复杂战略思维 prompt? | 不要只塞一段系统提示词。应打成 Job Pack：真实 `SKILL.md` 资源、专家/advisor、toolkit、checklist、first-use demo、manifest 和 installer 一起交付，并通过 pack audit 验证。 |
-| `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开点击状态仍由 released-pack availability 决定。 |
+| `做数据` 和 `看数据` 应该是两个一级入口吗? | 不应该。一级入口合并为 `做/看数据`，二级或包内再区分算法、大数据、指标、A/B、Dashboard；公开安装状态由 pack tier 决定，pending 包只展示不安装。 |
 | 原型能力归谁? | 产品经理。PM 负责 PRD、用户故事、RICE、原型假设和可点击验证 demo；设计师负责体验架构、视觉层级、设计 token、状态覆盖、设计 QA 和工程 handoff。 |
 | 配置包可以用具体人物作为 advisor 名称吗? | 不可以。公开配置包、manifest、guide、catalog、install.sh 和安装产物只能使用能力中性的 advisor 身份；历史人物、作者名、个人署名只能留在非配置包历史文档或外部第三方 catalog 元数据中。 |
 | 为什么不能只删除 Pages 中的受保护 pack payload 文件? | Cloudflare Pages 删除后的旧资产可能继续在边缘保留；生产发布必须把受保护 payload 文件内容 tombstone 掉，再部署 Pages，确保旧直链只返回保护提示而不是历史配置包内容。 |
 | `/packs` 是否可以隐藏还没开放安装的配置包? | 不可以。目录里存在的配置包都应展示；`tier: stub` 只能禁用安装/下载并标注 `即将上线`，不能从问答树或浏览卡片里消失。 |
+| `/packs` 二级方向可以直接平铺所有岗位包吗? | 不可以。二级方向必须按用户任务域分组，例如前端体验、后端平台、质量安全、基础设施运维；组内结果再展开具体配置包，并由 coverage audit 证明 26 个包没有遗漏。 |
 
 ## References
 1. `package.json`
@@ -118,3 +121,8 @@
 40. `scripts/sanitize-pack-person-names.mjs`
 41. `scripts/prune-public-pack-downloads.mjs`
 42. `scripts/audit-packs-page-coverage.mjs`
+43. `web/app/packs/page.tsx`
+44. `https://github.com/FoundationAgents/MetaGPT`
+45. `https://github.com/crewAIInc/crewAI`
+46. `https://github.com/OpenHands/OpenHands`
+47. `https://arxiv.org/abs/2602.14690`

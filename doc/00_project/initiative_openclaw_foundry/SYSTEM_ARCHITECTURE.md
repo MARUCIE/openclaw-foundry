@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-25`
+- Updated: `2026-05-26`
 
 ## System Boundary
 OpenClaw Foundry 当前是统一的技能发现与部署控制产品面，支持 **13 platforms** across desktop / saas / cloud / mobile / remote modes. 当前 canonical 边界只覆盖已经存在的发现、部署、管理与比武能力；未来 Portal/资讯/商业化探索不属于本次已批准架构。
@@ -165,7 +165,7 @@ flowchart LR
   C --> H[openclaw-role-packs local-first installer]
 ```
 
-Pack generation is owned by `scripts/sync-strategy-roundtable-pack.py`, which copies real AI-Fleet skills into `web/public/packs/strategy-roundtable-advisor/`, writes the manifest and install surface, and lets `web` prebuild regenerate `packs.json`, tiers, installers, and guides. Advisor prompts are exported under capability-neutral identities rather than concrete person names. The data decision entry is intentionally merged into one `data-ai` line (`做/看数据`) so the UI does not split algorithm/build data work from metrics/read data work at the first question layer. `/packs` expands question-tree options from `packs.json` by line, then renders pending `stub` packs as visible but non-installable cards. `scripts/audit-packs-page-coverage.mjs` is wired into web prebuild to fail if a generated catalog pack has no `/packs` route coverage.
+Pack generation is owned by `scripts/sync-strategy-roundtable-pack.py`, which copies real AI-Fleet skills into `web/public/packs/strategy-roundtable-advisor/`, writes the manifest and install surface, and lets `web` prebuild regenerate `packs.json`, tiers, installers, and guides. Advisor prompts are exported under capability-neutral identities rather than concrete person names. The data decision entry is intentionally merged into one `data-ai` line (`做/看数据`) so the UI does not split algorithm/build data work from metrics/read data work at the first question layer. `/packs` now maps catalog packs into compact task-domain `packIds` groups instead of rendering one second-level card per pack. Engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops; data is grouped into data/AI engineering and metrics/experiments; strategy, business, product, research, and scenario lines use the same task-domain rule. Selecting a group renders all of its packs, with pending `stub` packs visible but non-installable. `scripts/audit-packs-page-coverage.mjs` is wired into web prebuild to fail if a generated catalog pack has no `/packs` line-tab or task-group coverage, or if the page references a pack ID missing from `packs.json`.
 
 ## Provider Architecture (v2.0)
 ```

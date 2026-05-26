@@ -583,3 +583,22 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 4. GitHub: commit `faccc22857641061faa5c941f97ef936048d9c65` pushed to `origin/main`; deploy run `26428949743` succeeded.
 5. Production data: `https://agent-foundry.pages.dev/data/packs.json?verify=faccc22` -> 26 packs, 9 released, 17 pending, 6 lines.
 6. Production Playwright smoke: `/packs?verify=faccc22` browse mode renders 26 cards; audited missing-card list is empty; `/packs` code direction has no missing engineering options and shows pending packs as `Coming soon`.
+
+## 2026-05-26 · Pack Taxonomy Grouping Repair
+
+### Delivered
+1. Changed `/packs` second-level recommendation choices from flat pack cards to compact task-domain groups.
+2. Preserved full 26-pack coverage by expanding all packs in the selected group on the result page.
+3. Updated bilingual copy for the new taxonomy and added visible group counts (`packs` / `released`).
+4. Extended the `/packs` coverage audit to parse `packIds` groups and catch missing catalog references.
+5. Synchronized PRD, UX map, architecture, platform optimization plan, and rolling ledger with the compact-taxonomy invariant.
+
+### Evidence
+1. `node scripts/audit-packs-page-coverage.mjs` -> PASS.
+2. `npm --prefix web run build` -> PASS, including pack generation, person-name sanitizer, public install-source audit, and page coverage audit.
+3. Local static Playwright smoke -> PASS: `/packs.html` code direction renders 4 group buttons, old flat engineering second-level labels are absent, and frontend experience expands to 2 pack cards.
+4. GitHub high-star references reviewed for taxonomy rationale:
+   - MetaGPT: role/SOP-based software-company model.
+   - CrewAI: `agents.yaml` and `tasks.yaml` separate role definition from task execution.
+   - OpenHands: software-engineering agent platform organized around end-to-end coding workflows.
+5. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260526-032923-a8c9e390`.
