@@ -842,3 +842,33 @@ The Git installability and zip snapshot work proved the release by hand, but the
 3. `npm run role-packs:audit-git` -> PASS: pinned tag `v2026.05.26.1`, 22 public packs, 26 distribution dirs, 550 manifest items, and 550 payload files matched.
 4. `npm run role-packs:package` -> PASS: 22 per-pack archives plus `openclaw-role-packs-public-v2026.05.26.1.zip`, all zip installers smoke-verified.
 5. `npm run role-packs:package:all` -> PASS: 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.26.1.zip`, all zip installers smoke-verified, including deprecated alias archives with canonical siblings.
+
+## 2026-05-27 · Job-Pack Guide Three-Part Manual Completion
+
+### Trigger
+The public pack guides still contained unfinished skill-card placeholders for imported or older SKILL/SPEC files that did not use the exact `## 是什么` / `## 怎么用` / `## 架构图` headings. The user-facing requirement is that every tool-package manual reads as complete, not as a TODO list.
+
+### Root Cause
+`scripts/generate-pack-guides.mjs` extracted only exact Chinese section headings and rendered a stub card when any of the three sections was missing. The source payload had 185 manifest skills, 57 of which lacked the exact heading set, so the visible guide layer regressed even though the install payload itself was present.
+
+### Change
+1. `scripts/generate-pack-guides.mjs` now keeps explicit three-part sections when they exist and deterministically derives missing `是什么` / `怎么用` / `架构图` content from the skill title, frontmatter description, source body excerpt, pack name, and line name.
+2. Stub classes and unfinished placeholder copy were removed from generated guides.
+3. Added `scripts/audit-pack-guide-skill-sections.mjs` and wired it into `web` `generate-packs` / `prebuild` plus root `npm run role-packs:audit-guides`.
+4. Published standalone role-pack tag `v2026.05.27.2` after syncing the regenerated guide pages.
+
+### Evidence
+1. `node scripts/audit-pack-guide-skill-sections.mjs` -> PASS: 26 guide pages, 185 manifest skills, 185 complete skill cards.
+2. Standalone `/Users/mauricewen/Projects/openclaw-role-packs` -> `npm run validate` PASS and `npm run smoke:install` PASS for 26/26 packs.
+3. Standalone guide audit -> PASS: guides=26, skills=185, cards=185.
+4. Published `openclaw-role-packs` commit `ccc071f` and tag `v2026.05.27.2`.
+5. `npm run role-packs:audit-git` -> PASS: pinned tag `v2026.05.27.2`, 22 public packs, 26 distribution dirs, 550 manifest items, and 550 payload files matched.
+6. `npm run role-packs:package` -> PASS: 22 per-pack archives plus `openclaw-role-packs-public-v2026.05.27.2.zip`, verified output at `dist/role-pack-zips-20260527-020142-public`.
+7. `npm run role-packs:package:all` -> PASS: 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.2.zip`, verified output at `dist/role-pack-zips-20260527-020147-all`.
+8. `npm --prefix web run build` -> PASS; prebuild includes the guide three-part audit, person-name sanitizer, public install-source, dedup, page coverage, online-status, and maturity gates.
+9. `npm run build` -> PASS at repo root.
+10. `git diff --check` -> PASS.
+11. `node --check scripts/generate-pack-guides.mjs && node --check scripts/audit-pack-guide-skill-sections.mjs` -> PASS.
+12. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-020358-3abf65f5`.
+13. Local `web/out` pack smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases visible; sampled `data-analyst`, `strategy-roundtable-advisor`, and `frontend-engineer` guides had one complete three-part card per manifest skill and no unfinished guide placeholders.
+14. Cross-surface person-name audit -> PASS: exact-name search and sanitizer check found no named cohort/person-owner strings in Foundry `web/public/packs`, exported `web/out/packs`, or standalone `openclaw-role-packs` payload/catalog surfaces.

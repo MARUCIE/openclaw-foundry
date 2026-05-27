@@ -632,3 +632,34 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 8. GitHub Actions deploy run `26443292530` -> PASS at commit `9a081d9366df33f57b714c7872adc16d89409051`; jobs `deploy-worker`, `apply-migrations`, and `deploy-frontend` completed successfully with `actions/checkout@v6`, `actions/setup-node@v6`, and `cloudflare/wrangler-action@v4`.
 9. GitHub Actions log scan -> PASS: no `Node.js 20`, `node20`, `checkout@v4`, `setup-node@v4`, `setup-python@v5`, `upload-artifact@v4`, `download-artifact@v4`, or `wrangler-action@v3` references.
 10. Production `/packs` smoke -> PASS: `/data/packs.json` returned 22 public packs, `{"enriched":22}`, Code Reviewer and Security Auditor are enriched, no public deprecated aliases, and guide/page checks contain no Basic or Certified public labels.
+
+## 2026-05-27 · Job-Pack Guide Three-Part Manual Completion
+- Status: in verification
+- Stop condition: all 26 guide pages render one complete `是什么` / `怎么用` / `架构图` skill card per manifest skill, the standalone Git tag matches Foundry, local build/check pass, and production `/packs` guide smoke verifies no unfinished guide placeholders.
+
+### Steps
+- [x] Identify the guide generator path and the exact unfinished placeholder source.
+- [x] Add deterministic fallback normalization for legacy/imported SKILL/SPEC docs without exact Chinese headings.
+- [x] Remove generated guide stub classes and unfinished copy.
+- [x] Add `scripts/audit-pack-guide-skill-sections.mjs` and wire it into `web` prebuild plus root `role-packs:audit-guides`.
+- [x] Regenerate all guide pages and verify 26 guides / 185 skills / 185 cards.
+- [x] Sync `openclaw-role-packs`, validate, smoke-install, publish tag `v2026.05.27.2`, and prove Foundry/Git parity with `npm run role-packs:audit-git`.
+- [x] Regenerate verified public and all-pack local zip archives for `v2026.05.27.2`.
+- [x] Run full Foundry build/check suite.
+- [ ] Commit, push, wait for production deploy, and smoke-test production guide pages.
+
+### Current Verification Snapshot
+1. `node scripts/audit-pack-guide-skill-sections.mjs` -> PASS: 26 guide pages, 185 manifest skills, 185 complete skill cards.
+2. Standalone `npm run validate` -> PASS: 26 packs and 26 catalog entries.
+3. Standalone `npm run smoke:install` -> PASS: 26/26 packs installed into isolated output.
+4. Standalone guide audit -> PASS: guides=26, skills=185, cards=185.
+5. `npm run role-packs:audit-git` -> PASS: role-pack Git release `v2026.05.27.2`, 22 public packs, 26 distribution dirs, 550 manifest items, 550 payload files matched.
+6. `npm run role-packs:package` -> PASS: `dist/role-pack-zips-20260527-020142-public`.
+7. `npm run role-packs:package:all` -> PASS: `dist/role-pack-zips-20260527-020147-all`.
+8. `npm --prefix web run build` -> PASS with guide and pack public gates.
+9. `npm run build` -> PASS.
+10. `git diff --check` -> PASS.
+11. `node --check scripts/generate-pack-guides.mjs && node --check scripts/audit-pack-guide-skill-sections.mjs` -> PASS.
+12. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-020358-3abf65f5`.
+13. Local `web/out` pack smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases visible; sampled guides had exact manifest skill-card parity and no unfinished placeholders.
+14. Cross-surface person-name audit -> PASS across Foundry public packs, exported packs, and standalone Git payload/catalog surfaces.

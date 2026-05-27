@@ -8,7 +8,7 @@
 - Shared Types: `src/types.ts`
 - Static Client: `client/`
 - Standalone Role Pack Repo: `/Users/mauricewen/Projects/openclaw-role-packs`
-- Standalone Role Pack GitHub: `https://github.com/MARUCIE/openclaw-role-packs` (`v2026.05.25.3`)
+- Standalone Role Pack GitHub: `https://github.com/MARUCIE/openclaw-role-packs` (`v2026.05.27.2`)
 
 - Profiles: `profiles/`
 - Build Output: `dist/`

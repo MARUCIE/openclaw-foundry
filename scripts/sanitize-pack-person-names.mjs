@@ -286,6 +286,13 @@ const TEXT_REPLACEMENTS = [
   [/beachhead strategy practitioner's beachhead market strategy/g, 'beachhead market strategy'],
   [/by AI PRD practitioner \(Product Lead @ OpenAI\)/g, 'from AI PRD practice'],
 
+  [/杨长志/g, '接口联调代表'],
+  [/叶宇/g, '需求澄清代表'],
+  [/李吉平/g, '工程评审代表'],
+  [/王荣/g, '技术文档代表'],
+  [/陈豪/g, '前端开发代表'],
+  [/徐飞/g, '测试验证代表'],
+
   [/"curator":\s*"Maurice"/g, '"curator": "Agent Foundry Team"'],
   [/Maurice\s*\|\s*maurice_wen@proton\.me/g, 'Agent Foundry Team'],
   [/maurice_wen@proton\.me/g, 'project-owner contact channel'],
@@ -305,6 +312,7 @@ const FORBIDDEN_PATTERNS = [
   ['external instructor name', /Tony Ulwick|Sabeen Sattar/],
   ['external framework author name', /Alexander Osterwalder|Ash Maurya|Paweł Huryn|Pawel Huryn|Aatir Abdul Rauf|Ben Yoskovitz|Geoffrey Moore|Miqdad Jaffer/],
   ['Chinese named advisor', /芒格|德鲁克|梅多斯|巴菲特|塔勒布|希基|布鲁克斯|乔布斯|原研哉|卡特穆尔|马斯克|奥威尔|卡帕西|波特/],
+  ['cohort person name', /杨长志|叶宇|李吉平|王荣|陈豪|徐飞/],
   ['personal owner signature', /Maurice|maurice_wen@proton\.me/],
   ['legacy comment', /Jobs-fix/],
 ];

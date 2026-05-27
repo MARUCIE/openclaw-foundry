@@ -761,3 +761,32 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, and deliverable updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the reusable invariant is now executable through npm scripts.
 4. Technical debt closure: manual Git drift checks and ad hoc local zip packaging are replaced by repeatable scripts with fresh clone, hash comparison, checksum output, and install smoke verification.
+
+## 2026-05-27 · Job-Pack Guide Three-Part Manual Completion
+
+### Delivered
+1. All 26 generated job-pack guide pages now render every bundled skill as a complete three-part manual card: `是什么`, `怎么用`, and `架构图`.
+2. The guide generator no longer emits unfinished skill-card placeholder copy. Missing source sections are normalized from existing skill metadata/body text into a deterministic reader-facing manual view.
+3. Added `npm run role-packs:audit-guides` and wired the same audit into `web` prebuild.
+4. Published standalone role-pack release tag `v2026.05.27.2` so the Git install surface matches the regenerated Foundry guide payloads.
+
+### Evidence
+1. `node scripts/audit-pack-guide-skill-sections.mjs` -> PASS: guides=26, skills=185, cards=185.
+2. Standalone repo `npm run validate` -> PASS: 26 packs and 26 catalog entries.
+3. Standalone repo `npm run smoke:install` -> PASS: 26/26 packs installed into isolated verification output.
+4. `npm run role-packs:audit-git` -> PASS: Foundry and Git release `v2026.05.27.2` matched across 550 manifest payload files.
+5. `npm run role-packs:package` -> PASS: verified public archive set at `dist/role-pack-zips-20260527-020142-public`.
+6. `npm run role-packs:package:all` -> PASS: verified full archive set at `dist/role-pack-zips-20260527-020147-all`.
+7. `npm --prefix web run build` -> PASS with guide, person-name, install-source, dedup, coverage, online-status, and maturity gates.
+8. `npm run build` -> PASS.
+9. `git diff --check` -> PASS.
+10. `node --check scripts/generate-pack-guides.mjs && node --check scripts/audit-pack-guide-skill-sections.mjs` -> PASS.
+11. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-020358-3abf65f5`.
+12. Local `web/out` pack smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases visible; sampled guides had exact manifest skill-card parity and no unfinished placeholder text.
+13. Cross-surface person-name audit -> PASS: Foundry `web/public/packs`, exported `web/out/packs`, and standalone `openclaw-role-packs` payload/catalog surfaces contain no exact named cohort/person-owner strings.
+
+### Closeout
+1. Skills update: N/A - this is a Foundry guide-generation and release-gate invariant, not a new user-facing agent Skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, deliverable, and doc index updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the reusable invariant is executable through `role-packs:audit-guides` and `web` prebuild.
+4. Technical debt closure: visible unfinished guide cards are replaced by generated three-part cards and blocked by a prebuild audit.

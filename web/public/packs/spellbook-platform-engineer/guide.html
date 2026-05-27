@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/spellbook-platform-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -130,25 +128,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-ci-cd">
   <div class="skill-card-header">
     <div class="skill-card-tag">ci-cd</div>
     <code class="skill-card-path">skills/ci-cd/SKILL.md</code>
   </div>
+  <h3>CI/CD with GitHub Actions</h3>
   <p class="skill-card-desc">Use when setting up or debugging GitHub Actions pipelines — adding quality gates, configuring OIDC cloud auth, building matrix test runs, publishing artifacts to GHCR/PyPI/npm, or promoting builds from staging to production.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份 CI/CD（持续集成与持续交付）流水线规范，覆盖 GitHub Actions 的触发、缓存、矩阵测试、质量门禁、跨环境晋升等关键节点，让团队从手工部署升级到一键发版，且每次发版都自带质量保障。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新项目立项时，按本规范拷贝标准 workflow 模板，5 分钟内就能跑通最小可用的 CI（持续集成）流程。</li><li>给流水线加单元测试、覆盖率、安全扫描等质量门禁时，对照文档中的标准门禁清单逐项启用。</li><li>配置云上部署 OIDC（开放身份连接）认证时，遵循免长期密钥章节的步骤，避免把 access key 写进 secrets。</li><li>流水线变慢时，按缓存与并行小节先加 cache，再做 job 拆分，目标 P95 时长控制在 8 分钟内。</li><li>从测试环境晋升到生产环境时，必须走文档约定的多环境晋升流程，加 manual approval（人工审批）兜底。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +154,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[测试环境部署]
     E --&gt; F[人工审批晋升]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-containerization">
@@ -166,18 +161,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">containerization</div>
     <code class="skill-card-path">skills/containerization/SKILL.md</code>
   </div>
+  <h3>Containerization</h3>
   <p class="skill-card-desc">Use when writing Dockerfiles, setting up docker-compose for local dev, configuring Kubernetes resources (Deployment, Service, Ingress, HPA), sizing pod resource limits, or packaging a service with Helm.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份容器化规范，覆盖 Dockerfile 编写、docker-compose 本地编排、Kubernetes（K8s，容器编排平台）部署清单、HPA（水平自动伸缩）配置、Helm（包管理工具）打包，让服务从本地开发到线上托管的全生命周期都有可复现路径。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>给服务写 Dockerfile 时，按本规范的多阶段构建模板套用，镜像体积通常能砍掉一半以上。</li><li>本地起多服务联调时，用文档约定的 docker-compose 结构，端口、网络、卷映射一次配好不易翻车。</li><li>上 K8s 时按 Deployment、Service、Ingress、HPA 四件套模板配置，确保每个服务都有最小可观测性。</li><li>申请 CPU、内存 limit 时套用资源测算公式，避免拍脑袋导致 OOM（内存溢出）或资源浪费。</li><li>多环境部署用 Helm chart 抽象差异，values.yaml 按环境拆分，让线上线下配置一脉相承。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -187,7 +180,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[K8s 部署]
     E --&gt; F[HPA 自动伸缩]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-docker">
@@ -195,18 +187,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">docker</div>
     <code class="skill-card-path">skills/docker/SKILL.md</code>
   </div>
+  <h3>Docker Patterns</h3>
   <p class="skill-card-desc">Use when writing or optimizing Dockerfiles, configuring Docker Compose services, debugging containers that behave differently from local, or reducing image size for Python and Node.js apps.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份 Docker 实用模式集，专门解决 Dockerfile 写法、镜像瘦身、本地与生产行为不一致、Compose（多容器编排）配置等高频痛点，让 Python、Node.js 这类服务从开发到打包都更轻更稳。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>写 Dockerfile 时按多阶段构建模板分离编译期和运行期依赖，运行镜像通常能减到 100MB 以下。</li><li>镜像构建变慢时按缓存层小节调整 COPY、RUN 顺序，把不变的层放前面，依赖装好后再 COPY 业务代码。</li><li>本地容器表现和生产不一致时，按文档的差异排查清单（用户、时区、网络、卷）逐项核对。</li><li>用 Compose 起多服务时套用文档约定的 depends_on、healthcheck、network 模板，避免启动顺序翻车。</li><li>镜像上线前过一遍安全基线（非 root 用户、最小镜像、漂洗 build args），减少潜在攻击面。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +206,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[推送仓库]
     E --&gt; F[Compose 编排]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-deployment-strategies">
@@ -224,18 +213,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">deployment-strategies</div>
     <code class="skill-card-path">skills/deployment-strategies/SKILL.md</code>
   </div>
+  <h3>Deployment Strategies</h3>
   <p class="skill-card-desc">Use when choosing a deployment strategy for a release, setting up canary or blue/green rollouts, adding feature flags to decouple deployment from release, coordinating a zero-downtime database migration, or defining rollback criteria and procedures.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份发版策略规范，覆盖蓝绿、金丝雀、滚动、特性开关等模式的选择标准、回滚条件、数据库迁移协调流程，让团队既能高频发版又能在出问题时分钟级回滚。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新功能上线前，按本文档的风险矩阵决定走蓝绿、金丝雀还是滚动发布。</li><li>大流量功能用 feature flag（特性开关）把部署和放量解耦，先 ship 代码再控开关。</li><li>涉及数据库 schema（表结构）变更时，严格按文档的双写、读迁移、清理三阶段流程推进。</li><li>每次发版前定义清楚回滚指标和阈值，触发即回滚，避免靠人脑临场拍板。</li><li>发版后 30 分钟内盯紧错误率、延迟、流量三大指标，超出阈值立刻按预案处置。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -245,7 +232,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt;|是| E[全量放开]
     D --&gt;|否| F[自动回滚]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-infrastructure-as-code">
@@ -253,18 +239,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">infrastructure-as-code</div>
     <code class="skill-card-path">skills/infrastructure-as-code/SKILL.md</code>
   </div>
+  <h3>Infrastructure as Code</h3>
   <p class="skill-card-desc">Use when writing Terraform for cloud resources, setting up remote state, structuring modules for reuse, managing multiple environments, reviewing a plan before apply, or importing and resolving state drift.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份 IaC（基础设施即代码）规范，覆盖 Terraform 模块结构、远端 state（状态文件）配置、多环境分离、plan 评审、状态漂移修复，让基础设施变更和业务代码一样走 PR 评审，告别手工点云控制台。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新项目立项时，按本文档的目录骨架建好 modules、envs、shared 三层结构，避免后期重构成本。</li><li>远端 state 必须配 backend（远端存储）和锁机制，防止两个人同时 apply 把状态弄坏。</li><li>提 PR 时附上 terraform plan 输出，Review 时重点看 destroy 资源和 replace 资源两类高危改动。</li><li>状态漂移时按文档的 import 与 refresh 流程修复，不要直接 apply 覆盖，避免误删生产资源。</li><li>多环境用 workspace 或目录隔离，按规范配 variables，让 dev/staging/prod 走同一份代码不同参数。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -274,7 +258,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[Apply 部署]
     E --&gt; F[远端 State]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-observability">
@@ -282,18 +265,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">observability</div>
     <code class="skill-card-path">skills/observability/SKILL.md</code>
   </div>
+  <h3>Observability</h3>
   <p class="skill-card-desc">Use when adding structured logging, instrumenting Prometheus metrics, wiring up distributed tracing with OpenTelemetry, writing alerting rules, defining SLOs and error budgets, or building a Grafana golden-signals dashboard.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份可观测性规范，覆盖结构化日志、Prometheus（监控指标系统）指标、OpenTelemetry（开放遥测标准）分布式追踪、告警规则、SLO（服务等级目标）、错误预算、Grafana（可视化平台）大盘，让系统从黑盒变成看得见摸得着的状态机。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>新服务接入时，按本规范的最小可观测套件先把日志、指标、追踪三件套接好，再上线放量。</li><li>写日志按文档约定的结构化字段（trace_id、user_id、severity）打印，方便后续聚合查询。</li><li>配指标时按金信号（请求量、错误率、延迟、饱和度）模板出大盘，确保每个服务都有四象限视图。</li><li>定 SLO 时按业务等级（核心、重要、一般）三档套用文档建议值，超出错误预算就触发治理流程。</li><li>告警规则按 RED（速率、错误、时长）和 USE（利用率、饱和度、错误）两套方法分类配置，避免误报淹没。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -303,7 +284,6 @@ footer p { max-width: none; margin: 4px 0; }
     B &amp; C &amp; D --&gt; E[Grafana 大盘]
     E --&gt; F[告警与 SLO]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-incident-response">
@@ -311,18 +291,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">incident-response</div>
     <code class="skill-card-path">skills/incident-response/SKILL.md</code>
   </div>
+  <h3>Incident Response</h3>
   <p class="skill-card-desc">Use when triaging a production alert, writing a postmortem, creating or updating a runbook, classifying incident severity, or setting up on-call escalation paths.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份事故响应规范，覆盖告警分级、值班轮换、应急处置、复盘流程，让团队遇到生产事故时不再手忙脚乱，而是按既定 runbook（应急手册）分钟级介入，事后还能沉淀成可复用的预防机制。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>接到告警时，先按严重度分级表（P0/P1/P2/P3）判断响应等级，确定要不要拉群、要不要通知客户。</li><li>处置过程套用文档里的诊断模板，先稳定再修复，避免越查越乱。</li><li>同类问题第二次出现时，立刻把处置步骤沉淀成 runbook，下次同事看一眼就能处理。</li><li>事故关闭后 48 小时内按本文档的复盘模板写 postmortem（事故复盘），重点找系统性根因不是怪个人。</li><li>每月统计 MTTR（平均恢复时长）和复发率两个指标，超阈值就组织专项治理。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -332,7 +310,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[业务恢复]
     E --&gt; F[复盘沉淀]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-performance">
@@ -340,18 +317,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">performance</div>
     <code class="skill-card-path">skills/performance/SKILL.md</code>
   </div>
+  <h3>Performance</h3>
   <p class="skill-card-desc">Use when diagnosing a slow endpoint, fixing N+1 queries, adding a caching layer, offloading CPU-bound work to threads, or defining a latency budget for a service.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份性能优化规范，覆盖慢接口诊断、N+1 查询治理、缓存分层、CPU 密集任务异步化、延迟预算定义，让团队从盲目调优转向有数据支撑的精准优化，每次优化都看得见效果。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>接到接口慢的反馈时，先按文档的瓶颈定位流程跑一遍，确认是数据库、网络、CPU 还是 IO 问题再动手。</li><li>查 ORM（对象关系映射）日志发现 N+1 查询时，按规范用预加载或批量查询解决，单接口 SQL 数从几十降到个位数。</li><li>计算密集型任务按文档的异步化模板放到线程池或队列处理，避免阻塞主请求链路。</li><li>给每个核心接口定 P50/P95/P99（百分位延迟）预算，监控持续跑超阈值就立项专项治理。</li><li>优化前用 benchmark（基准测试）测一次基线，优化后再测一次，用数据说话不靠感觉。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -362,7 +337,6 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; F[异步化]
     D &amp; E &amp; F --&gt; G[基准复测]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-microservices">
@@ -370,18 +344,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">microservices</div>
     <code class="skill-card-path">skills/microservices/SKILL.md</code>
   </div>
+  <h3>Microservices Patterns</h3>
   <p class="skill-card-desc">Use when decomposing a monolith, designing inter-service communication, implementing circuit breakers or sagas, reasoning about data ownership across services, or setting up an API gateway for a distributed system.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份微服务架构规范，覆盖单体拆分、服务间通信、熔断与限流、Saga（分布式事务模式）、API 网关、数据所有权划分，让团队从单体演进到微服务时少踩边界划错、分布式事务、级联故障三大经典坑。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>单体拆分时先按本文档的领域划分模板画限界上下文，确认每个服务有独立数据所有权再动手。</li><li>服务间通信选同步 RPC（远程过程调用）还是异步消息时，对照文档的决策树评估一致性和性能权衡。</li><li>给关键调用链加熔断、限流、超时三件套，按规范模板配置，避免雪崩拖垮整个集群。</li><li>跨服务事务用 Saga 编排或事件驱动补偿，按文档示例实现，不要追求强一致性把系统拖死。</li><li>接入 API 网关时按规范配置鉴权、路由、限流、灰度，保持业务服务不耦合公共能力。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -391,7 +363,6 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; E[事件总线]
     D --&gt; E</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-event-driven">
@@ -399,18 +370,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">event-driven</div>
     <code class="skill-card-path">skills/event-driven/SKILL.md</code>
   </div>
+  <h3>Event-Driven Architecture Patterns</h3>
   <p class="skill-card-desc">Use when designing or debugging an event-driven system — choosing Kafka partitioning strategies, implementing the outbox pattern, handling dead-letter queues, ensuring idempotent consumers, or making event sourcing decisions.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一份事件驱动架构规范，覆盖 Kafka（分布式消息队列）分区策略、outbox（发件箱）模式、死信队列、消费者幂等、事件溯源等核心模式，让系统从同步调用转成异步事件流时不掉消息、不脏数据。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>设计新事件流时，先按本文档判断属于命令、领域事件还是集成事件，再选发布渠道。</li><li>数据库写入和消息发布要原子时套用 outbox 模式，避免双写不一致导致下游漏单。</li><li>消费者侧实现处理逻辑时按幂等模板编码，重复消费同一条消息不会造成业务后果二次发生。</li><li>失败消息进入 DLQ（死信队列）后按文档定义的处置流程介入，定期清理或回放，避免堆积变成黑洞。</li><li>上线前过一遍分区数、副本数、保留期、监控四项配置，按业务峰值留出至少 2 倍冗余。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -420,13 +389,12 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E{处理成功?}
     E --&gt;|否| F[死信队列]</pre>
   </div>
-
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -435,12 +403,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-platform-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -497,7 +465,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 基础架构工程师（历史别名） 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

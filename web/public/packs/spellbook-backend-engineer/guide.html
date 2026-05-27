@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/spellbook-backend-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -130,25 +128,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-fastapi">
   <div class="skill-card-header">
     <div class="skill-card-tag">fastapi</div>
     <code class="skill-card-path">skills/fastapi/SKILL.md</code>
   </div>
+  <h3>FastAPI Patterns</h3>
   <p class="skill-card-desc">Use when structuring a FastAPI application, designing dependency injection chains, defining Pydantic v2 schemas, adding JWT authentication, or writing async route tests with httpx.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>FastAPI 是基于类型注解与异步（Async）的现代 Python Web 框架，把接口契约与运行性能一起拉高。</p><p>用它的效果是：接口文档自动生成、请求参数自动校验、并发能力天然在线。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用 Pydantic 模型定义请求与响应结构，让接口契约由代码而不是文档定义。</li><li>通过依赖注入（Depends）组装鉴权、数据库会话、配置等横切关注点，让路由保持纯净。</li><li>把业务逻辑放在领域层（Use Case）而不是路由函数里，让 API 层只负责协议转换。</li><li>用 async 处理 IO 密集任务，把吞吐量提到同步框架达不到的水位。</li><li>上线前用 httpx 写覆盖核心路径的异步测试，让回归在 CI 里发现而不是在生产。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +155,6 @@ footer p { max-width: none; margin: 4px 0; }
   数据访问 --&gt; 响应模型
   响应模型 --&gt; 返回</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-pydantic">
@@ -167,18 +162,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">pydantic</div>
     <code class="skill-card-path">skills/pydantic/SKILL.md</code>
   </div>
+  <h3>Pydantic v2 Patterns</h3>
   <p class="skill-card-desc">Use when defining request/response schemas, writing custom validators, controlling serialization for PATCH endpoints, validating non-model data with TypeAdapter, or configuring app settings from environment variables with pydantic-settings.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Pydantic 是 Python 生态里把类型注解变成运行时校验与序列化的数据建模库。</p><p>用它的效果是：数据进出系统边界时被强制校验，错误在入口被拦截而不是渗透到业务深处。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把所有外部输入（API、消息、配置）建模成 Pydantic 模型，让边界处自动做类型与约束校验。</li><li>用 Field、Validator 定义业务规则，让规则与字段定义在同一个地方而不是散落。</li><li>通过 model_config 设置序列化行为，让数据进出都有可预期的形态。</li><li>把模型组合与继承用于复用，让相似结构不必反复声明。</li><li>在测试里直接用模型构造夹具，让测试数据自带类型保护。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +181,6 @@ footer p { max-width: none; margin: 4px 0; }
   模型序列化 --&gt; 外部输出
   模型校验 --&gt; 错误响应</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-typescript">
@@ -196,18 +188,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">typescript</div>
     <code class="skill-card-path">skills/typescript/SKILL.md</code>
   </div>
+  <h3>TypeScript — Advanced Type Patterns</h3>
   <p class="skill-card-desc">Use when writing advanced TypeScript — creating utility types, narrowing unions, resolving tricky type errors, configuring the compiler for strict mode, building branded types, or augmenting third-party module types.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>TypeScript 是给 JavaScript 加上静态类型系统的语言，让运行期错误在编译期被发现。</p><p>用它的效果是：重构敢动手、接口对齐有依据、IDE 的智能提示从摆设变成生产力工具。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先打开严格模式（strict），让类型系统在第一天就发挥拦截作用而不是事后补救。</li><li>把领域类型集中在一个 types 目录，让团队对核心概念有唯一的真相来源。</li><li>用泛型（Generics）抽象可复用工具函数，让代码既灵活又不失类型安全。</li><li>通过类型守卫（Type Guards）与判别联合（Discriminated Union）建模业务状态机。</li><li>在 CI 里把 tsc 设为强制门禁，让任何类型回退都无法被合入主干。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -217,7 +207,6 @@ footer p { max-width: none; margin: 4px 0; }
   类型检查 --&gt; CI门禁
   CI门禁 --&gt; 主干合并</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-database-design">
@@ -225,18 +214,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">database-design</div>
     <code class="skill-card-path">skills/database-design/SKILL.md</code>
   </div>
+  <h3>Database Design</h3>
   <p class="skill-card-desc">Use when designing a schema, adding indexes to fix slow queries, writing a zero-downtime migration, diagnosing N+1 issues with EXPLAIN ANALYZE, or configuring connection pooling for a PostgreSQL-backed service.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Database Design 是把业务概念翻译成稳定、可扩展、可演进的数据库结构的工程方法。</p><p>用它的效果是：表结构既能承载当下需求，也能在业务变化时低成本演进而不是推倒重来。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用领域驱动设计（DDD）画清业务实体与关系，让表结构对齐业务而非反过来。</li><li>在主键、外键、索引上做显式约束，让数据一致性由数据库而不是应用层兜底。</li><li>为变化频繁的字段预留扩展位（如 JSONB 列或 EAV 表），让小调整不必每次都做迁移。</li><li>通过分区（Partitioning）与分库分表规划长期增长，让性能拐点出现时有渐进式方案。</li><li>把所有 schema 变更写成可回滚的迁移脚本，让上线与回退都有据可循。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -246,7 +233,6 @@ footer p { max-width: none; margin: 4px 0; }
   索引设计 --&gt; 性能验证
   性能验证 --&gt; 迁移上线</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-postgresql">
@@ -254,18 +240,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">postgresql</div>
     <code class="skill-card-path">skills/postgresql/SKILL.md</code>
   </div>
+  <h3>PostgreSQL Patterns</h3>
   <p class="skill-card-desc">Use when writing complex PostgreSQL queries, diagnosing slow queries with EXPLAIN ANALYZE, designing indexes, handling concurrent writes, or planning safe schema migrations on large tables.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>PostgreSQL 是功能最完备的开源关系数据库，既能跑事务也能跑分析，扩展生态极其丰富。</p><p>用它的效果是：一套数据库覆盖大多数场景，省下专门搭多套异构存储的运维成本。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用范式化设计保证一致性，再针对热点查询做必要的反范式与物化视图。</li><li>通过 EXPLAIN ANALY</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -276,7 +260,6 @@ footer p { max-width: none; margin: 4px 0; }
   执行计划 --&gt; 索引
   索引 --&gt; 结果返回</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-mongodb">
@@ -284,18 +267,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">mongodb</div>
     <code class="skill-card-path">skills/mongodb/SKILL.md</code>
   </div>
+  <h3>MongoDB — Async Patterns with Motor</h3>
   <p class="skill-card-desc">Use when writing async MongoDB queries with Motor, designing aggregation pipelines, creating indexes, running multi-document transactions, or working with adk.state in Agentex agents.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>MongoDB 是面向文档（Document）的 NoSQL 数据库，适合结构灵活、写入密集、聚合复杂的场景。</p><p>用它的效果是：业务字段可以快速演进，无需为每次结构调整付出 schema 迁移成本。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按查询路径设计文档结构，让常用读取一次命中而不是反复 join。</li><li>在高频字段与组合查询上建立合适的索引，让查询从全表扫描变成毫秒级响应。</li><li>用聚合管道（Aggregation Pipeline）做服务端计算，把数据汇总下沉到数据库内部。</li><li>通过副本集（Replica Set）与分片（Sharding）规划高可用与水平扩展。</li><li>定期监控慢查询日志，让性能退化在用户感知前就被发现并修复。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -305,7 +286,6 @@ footer p { max-width: none; margin: 4px 0; }
   索引 --&gt; 聚合管道
   聚合管道 --&gt; 应用</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-redis">
@@ -313,18 +293,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">redis</div>
     <code class="skill-card-path">skills/redis/SKILL.md</code>
   </div>
+  <h3>Redis Patterns</h3>
   <p class="skill-card-desc">Use when choosing a Redis data structure for a use case, implementing caching or rate limiting, building pub/sub or Streams-based real-time messaging, or writing atomic operations like distributed locks.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Redis 是内存数据结构服务器，提供缓存、计数、排行、消息、分布式锁等一站式高速能力。</p><p>用它的效果是：把数据库扛不住的高频读写卸载到内存层，让系统在峰值依然稳得住。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按场景选择数据结构（String、Hash、Sorted Set、Stream），让性能与表达力都不浪费。</li><li>为每个键设置过期策略（TTL），让缓存不会无限增长拖垮内存。</li><li>用 Lua 脚本或事务封装多步操作，让并发场景下的一致性有保证。</li><li>通过哨兵（Sentinel）或集群（Cluster）方案规划高可用与扩展。</li><li>持续监控命中率与内存使用，让缓存策略可以基于真实数据而非直觉调整。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -334,7 +312,6 @@ footer p { max-width: none; margin: 4px 0; }
   回源数据库 --&gt; 写回缓存
   写回缓存 --&gt; 过期淘汰</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-sqlalchemy">
@@ -342,18 +319,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">sqlalchemy</div>
     <code class="skill-card-path">skills/sqlalchemy/SKILL.md</code>
   </div>
+  <h3>SQLAlchemy 2.0 — Async Patterns</h3>
   <p class="skill-card-desc">Use when using async SQLAlchemy 2.0 — defining models, writing queries, managing async sessions, loading relationships without N+1, or setting up and debugging Alembic migrations.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>SQLAlchemy 是 Python 生态里最成熟的 ORM 与 SQL 工具包，既能写对象映射也能写原生 SQL。</p><p>用它的效果是：业务代码读起来像在操作对象，运行起来却能拿到接近手写 SQL 的可控性。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先用声明式（Declarative）方式建模实体，让表结构与领域模型在同一个文件里成对出现。</li><li>通过 Session 管理事务边界，让一次业务操作的所有写入要么全部成功要么全部回滚。</li><li>在复杂查询场景下用 Core 层写显式 SQL 表达式，让性能与可读性都不妥协。</li><li>用 Alembic 管理迁移脚本，让 schema 演进与代码版本一一对应。</li><li>通过 eager loading（饥饿加载）解决 N+1 问题，让接口响应时间稳定可预期。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -363,7 +338,6 @@ footer p { max-width: none; margin: 4px 0; }
   SQL生成 --&gt; 数据库
   数据库 --&gt; 对象返回</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-azure-service-bus">
@@ -371,18 +345,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">azure-service-bus</div>
     <code class="skill-card-path">skills/azure-service-bus/SKILL.md</code>
   </div>
+  <h3>Azure Service Bus</h3>
   <p class="skill-card-desc">Use when implementing reliable message processing with Azure Service Bus — choosing between queues and topics, configuring peek-lock settlement, handling dead-lettered messages, or enforcing ordered processing with sessions.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Azure Service Bus 是企业级消息中间件，提供队列、主题订阅、死信处理等一整套异步通信能力。</p><p>用它的效果是：上下游系统不再强耦合，高峰期流量可被吸收，失败消息有兜底处理路径。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按业务边界规划队列与主题，让生产者与消费者各自只看到自己关心的消息。</li><li>在客户端用会话（Session）与分区键控制消息顺序，让有顺序要求的业务不会乱序。</li><li>为每条消息设置合理的重试与死信策略，让暂时失败有机会恢复、彻底失败被隔离。</li><li>用监控指标观察队列深度与处理延迟，让性能问题在 SLA 失守前被发现。</li><li>定期做消息回放演练，让灾难恢复路径处于可用而不是只在文档里。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -393,7 +365,6 @@ footer p { max-width: none; margin: 4px 0; }
   失败兜底 --&gt; 死信队列
   死信队列 --&gt; 人工介入</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-websockets-sse">
@@ -401,18 +372,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">websockets-sse</div>
     <code class="skill-card-path">skills/websockets-sse/SKILL.md</code>
   </div>
+  <h3>WebSockets and SSE Patterns</h3>
   <p class="skill-card-desc">Use when building real-time features in FastAPI — choosing between WebSockets and SSE, implementing connection management, scaling broadcasts across workers with Redis, or debugging connection drops and missed events.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>WebSocket 与 Server-Sent Events（SSE）是把服务端实时数据推送到前端的两种主流通道。</p><p>用它的效果是：用户不必反复刷新，进度条、聊天、行情、协作编辑都能秒级同步。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先判断是单向推送还是双向通信，让单向场景用 SSE 而双向场景用 WebSocket。</li><li>在连接建立时做鉴权与心跳约定，让无效连接能被及时清理而不耗资源。</li><li>用消息编号与重连补发让网络抖动后客户端能续上中断点。</li><li>在服务端用消息总线扇出（Fan-out），让多个连接共享同一份事件源。</li><li>对生产流量做并发与延迟压测，让上线后 SLA 心里有数。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -422,13 +391,12 @@ footer p { max-width: none; margin: 4px 0; }
   前端客户端 --&gt; 心跳检测
   心跳检测 --&gt; 连接管理</pre>
   </div>
-
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -437,12 +405,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-backend-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -499,7 +467,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 后端工程师（历史别名） 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

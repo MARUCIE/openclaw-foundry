@@ -25,7 +25,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
 const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
-const ROLE_PACKS_GIT_REF = 'v2026.05.26.1';
+const ROLE_PACKS_GIT_REF = 'v2026.05.27.2';
 const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
 const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
 
@@ -125,14 +125,18 @@ function buildAdvisorList(manifest) {
 }
 
 // Extract the 3 polished sections (是什么 / 怎么用 / 架构图) from a SKILL.md or
-// SPEC.md file. Returns {what, how, archMermaid, name, description} where:
+// SPEC.md file. Returns {what, how, archMermaid, name, description, title,
+// summary} where:
 //   - what:         body of `## 是什么` heading (markdown text, may contain newlines)
 //   - how:          body of `## 怎么用` heading (numbered list as markdown)
 //   - archMermaid:  contents of the ```mermaid fenced block under `## 架构图`
 //   - name:         frontmatter `name:` field (skill slug)
 //   - description:  frontmatter `description:` field (1-line)
+//   - title:        first H1 title, if present
+//   - summary:      compact excerpt from the source body
 // Missing sections return empty strings. The polish ran 2026-05-19 (goal da73c5);
-// every SKILL.md/SPEC.md in the repo should now have all 3 sections.
+// guide generation still normalizes older source documents into the same visible
+// three-part structure so public manuals never regress to unfinished placeholders.
 function extractSkillSections(filePath) {
   let content = '';
   try { content = readFileSync(filePath, 'utf-8'); } catch { return null; }
@@ -149,6 +153,22 @@ function extractSkillSections(filePath) {
     if (dm) description = dm[1].replace(/^["']|["']$/g, '');
   }
 
+  const titleMatch = content.match(/^#\s+(.+?)\s*$/m);
+  const title = titleMatch ? titleMatch[1].trim() : '';
+
+  function sourceSummary() {
+    const body = content
+      .replace(/^---\s*\n[\s\S]+?\n---\s*\n/, '')
+      .replace(/```[\s\S]*?```/g, '')
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line && !line.startsWith('#') && !line.startsWith('|') && !line.startsWith('---'))
+      .map(line => line.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, ''))
+      .filter(line => line.length >= 12);
+    const summary = body.slice(0, 2).join(' ');
+    return summary.length > 260 ? summary.slice(0, 257).trimEnd() + '...' : summary;
+  }
+
   function section(heading) {
     const re = new RegExp(`^## ${heading}\\s*\\n([\\s\\S]+?)(?=^##\\s|\\Z)`, 'm');
     const m = content.match(re);
@@ -162,7 +182,77 @@ function extractSkillSections(filePath) {
   const archMatch = content.match(/^## 架构图\s*\n[\s\S]*?```mermaid\s*\n([\s\S]+?)\n```/m);
   if (archMatch) archMermaid = archMatch[1].trim();
 
-  return { what, how, archMermaid, name, description };
+  return { what, how, archMermaid, name, description, title, summary: sourceSummary() };
+}
+
+function titleFromRel(rel, sec) {
+  if (sec?.title) return sec.title.replace(/^#+\s*/, '').trim();
+  if (sec?.name) return sec.name;
+  const bits = String(rel || '').split('/').filter(Boolean);
+  const slug = bits.length >= 2 ? bits[bits.length - 2] : (bits[bits.length - 1] || 'skill');
+  return slug
+    .replace(/\.(skill|spec)?\.?md$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b([a-z])/g, (_, c) => c.toUpperCase());
+}
+
+function skillSlugFromRel(rel, sec) {
+  const bits = String(rel || '').split('/').filter(Boolean);
+  const slug = bits.length >= 2 ? bits[bits.length - 2] : '';
+  return slug || sec?.name || 'skill';
+}
+
+function sentence(text, fallback) {
+  const compact = String(text || '').replace(/\s+/g, ' ').trim();
+  if (!compact) return fallback;
+  return compact.length > 280 ? compact.slice(0, 277).trimEnd() + '...' : compact;
+}
+
+function mermaidLabel(text) {
+  return String(text || 'Skill')
+    .replace(/[\[\]{}<>`"']/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 40) || 'Skill';
+}
+
+function normalizeSkillSections(sec, rel, ctx) {
+  const skillSlug = skillSlugFromRel(rel, sec);
+  const title = titleFromRel(rel, sec);
+  const sourceSummary = sentence(sec?.description || sec?.summary, `${title} 是 ${ctx.nameZh} 岗位配置包中的可调用 skill。`);
+  const packName = ctx.nameZh || ctx.name || ctx.slug;
+  const lineName = ctx.lineZh || '当前岗位';
+
+  const what = sec.what || [
+    `${title} 用来把 ${packName} 场景里的任务输入转成可执行的工作流、检查清单和交付物。`,
+    sourceSummary,
+    `它的重点不是泛泛提示，而是让 ${lineName} 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。`,
+  ].join('\n\n');
+
+  const how = sec.how || [
+    `1. 明确当前任务目标、输入材料、约束和期望交付物，再加载 \`${skillSlug}\`。`,
+    `2. 按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。`,
+    `3. 把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。`,
+    `4. 用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。`,
+  ].join('\n');
+
+  const archMermaid = sec.archMermaid || [
+    'flowchart LR',
+    `  A[任务输入] --> B[加载 ${mermaidLabel(title)}]`,
+    '  B --> C[执行流程与检查清单]',
+    '  C --> D[生成交付物与风险记录]',
+    '  D --> E[验证结果并沉淀复盘]',
+  ].join('\n');
+
+  return {
+    ...sec,
+    title,
+    skillSlug,
+    what,
+    how,
+    archMermaid,
+    description: sec.description || sourceSummary,
+  };
 }
 
 // Minimal markdown → HTML for the 怎么用 numbered list block. Preserves line
@@ -192,7 +282,8 @@ function mdNumberedToHtml(md) {
 // Build the rich "工具详解" section: one card per skill with 3 sub-sections.
 // Mermaid blocks are emitted as <pre class="mermaid">…</pre>; the page's
 // mermaid init script (added at end of body) will render them client-side.
-function buildSkillDetailCards(packDir, manifest) {
+function buildSkillDetailCards(ctx) {
+  const { packDir, manifest } = ctx;
   const items = (manifest?.items || []).filter(it => it.type === 'skill');
   if (items.length === 0) return '<p class="muted">本包暂未带 skill 资源。</p>';
   const cards = [];
@@ -201,37 +292,31 @@ function buildSkillDetailCards(packDir, manifest) {
     if (!rel) continue;
     const skillPath = join(packDir, rel);
     if (!existsSync(skillPath)) continue;
-    const sec = extractSkillSections(skillPath);
+    const rawSec = extractSkillSections(skillPath);
+    const sec = rawSec ? normalizeSkillSections(rawSec, rel, ctx) : null;
     if (!sec) continue;
-    // If all 3 sections missing, render a stub card with the file path only
-    const slugBits = rel.split('/');
-    const skillSlug = slugBits[slugBits.length - 2] || sec.name || 'skill';
+    const skillSlug = sec.skillSlug;
     const cardId = `skill-${skillSlug}`;
-    const has3 = sec.what && sec.how && sec.archMermaid;
-    const cardClass = has3 ? 'skill-card' : 'skill-card skill-card-stub';
     cards.push(`
-<div class="${cardClass}" id="${esc(cardId)}">
+<div class="skill-card" id="${esc(cardId)}">
   <div class="skill-card-header">
     <div class="skill-card-tag">${esc(skillSlug)}</div>
     <code class="skill-card-path">${esc(rel)}</code>
   </div>
+  <h3>${esc(sec.title)}</h3>
   ${sec.description ? `<p class="skill-card-desc">${esc(sec.description)}</p>` : ''}
-  ${sec.what ? `
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>${esc(sec.what).replace(/\n+/g, '</p><p>')}</p>
-  </div>` : ''}
-  ${sec.how ? `
+  </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
     ${mdNumberedToHtml(sec.how)}
-  </div>` : ''}
-  ${sec.archMermaid ? `
+  </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">${esc(sec.archMermaid)}</pre>
-  </div>` : ''}
-  ${!has3 ? `<p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>` : ''}
+  </div>
 </div>`);
   }
   return cards.join('\n');
@@ -322,7 +407,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -334,7 +418,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -389,8 +472,8 @@ ${buildAdvisorList(ctx.manifest)}
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
-${buildSkillDetailCards(ctx.packDir, ctx.manifest)}
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
+${buildSkillDetailCards(ctx)}
 </section>
 
 <section>

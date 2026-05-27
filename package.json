@@ -10,6 +10,7 @@
     "design:verify-source": "node scripts/sync-design-source.mjs --check",
     "design:check": "node scripts/md8-design-hook.mjs",
     "role-packs:audit-git": "node scripts/audit-role-pack-git-release.mjs",
+    "role-packs:audit-guides": "node scripts/audit-pack-guide-skill-sections.mjs",
     "role-packs:package": "node scripts/package-role-packs.mjs --scope public",
     "role-packs:package:all": "node scripts/package-role-packs.mjs --scope all",
     "build": "tsc && npm run design:verify-source && npm run design:check",

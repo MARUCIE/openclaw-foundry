@@ -3,7 +3,7 @@
 ## AI-Managed Project Block
 - PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-26`
+- Updated: `2026-05-27`
 
 ## Primary User Types
 1. Local builder:
@@ -134,6 +134,7 @@
 9. Recommendation entrypoints use a small task-domain taxonomy instead of one card per pack: first question selects intent, second question selects a domain group, and the result page expands all packs in that group.
 10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; public cards now show no `Basic` maturity and currently render all canonical packs as `Enriched`.
 11. The `定策略` recommendation path opens the `战略决策` group, which contains `strategy-roundtable-advisor` plus adjacent strategy packs; selecting it renders all mapped strategy cards instead of hiding lower-maturity packs.
+12. Every public pack guide renders each bundled skill as a complete manual card with `是什么`, `怎么用`, and `架构图`; users never see unfinished skill-card placeholders in guide pages.
 
 ### Journey 8: Standalone Role Pack Copy Install
 1. Maintainer syncs Foundry's current local `web/public/packs/` and catalog data into `/Users/mauricewen/Projects/openclaw-role-packs`
@@ -141,11 +142,11 @@
 3. Maintainer runs `npm run role-packs:audit-git` before moving or trusting the production Git ref; the audit clones the pinned tag, smoke-installs it, and compares Foundry payload hashes.
 4. Maintainer runs `npm run role-packs:package` for public canonical zips or `npm run role-packs:package:all` for all 26 distribution directories when local archive delivery is needed.
 5. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-6. Command runs `git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git`
+6. Command runs `git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git`
 7. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 8. Installer reads local sibling `manifest.json` and copies local artifacts by default
 9. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
-10. Production pack guide pages present the same GitHub-tagged install command; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
+10. Production pack guide pages present the same GitHub-tagged install command and complete three-part skill manual cards; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
 11. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
 12. Pack content and copied install output use capability-neutral advisor identities rather than concrete person names.
 
@@ -161,6 +162,7 @@
 9. `/packs` browse mode must show all 22 canonical public catalog packs as live cards; public cards must not show `Basic` / `tier: "stub"` after enrichment, and deprecated aliases must not appear as duplicate cards.
 10. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 11. `/packs` second-level taxonomy must stay compact: engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops; data is grouped into data/AI engineering and metrics/experiments.
+12. Guide generation must stay reader-complete across imported skill docs with older heading formats; the UX acceptance check is `npm run role-packs:audit-guides` plus a spot check of at least one previously incomplete guide such as `data-analyst` or `strategy-roundtable-advisor`.
 
 ## Round-Based Acceptance Criteria
 

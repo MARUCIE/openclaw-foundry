@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/test-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -131,25 +129,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-test-driven-development">
   <div class="skill-card-header">
     <div class="skill-card-tag">test-driven-development</div>
     <code class="skill-card-path">skills/test/test-driven-development/SKILL.md</code>
   </div>
+  <h3>Test-Driven Development (TDD)</h3>
   <p class="skill-card-desc">Use when implementing any feature or bugfix, before writing implementation</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一种&quot;先写测试再写代码&quot;的工程实践，TDD（Test-Driven Development，测试驱动开发）通过让测试先失败再让代码让测试通过，确保每一行实现代码都背着一条验收用例，从源头降低缺陷率。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>收到新需求或缺陷修复任务时，先把验收点翻译成一条或多条测试用例，明确&quot;什么算做完了&quot;。</li><li>在没有任何实现代码的前提下运行测试，确认测试真的失败，避免后续&quot;测试一直绿其实从没跑过真实路径&quot;的假阳性。</li><li>写最小可行的实现代码让测试由红转绿，禁止顺手扩展未被测试覆盖的功能，保证每一行代码都有验收背书。</li><li>测试通过后做一轮重构，提升可读性与结构，重构前后测试始终保持绿色，作为&quot;重构没有引入新缺陷&quot;的证据。</li><li>把这一条测试用例并入 CI（持续集成）流水线，成为后续任何变更都必须通过的质量门禁。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +155,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[重构保持绿色]
     E --&gt; F[并入 CI 门禁]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-test-runner">
@@ -167,18 +162,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">test-runner</div>
     <code class="skill-card-path">skills/test/test-runner/SPEC.md</code>
   </div>
+  <h3>Test Runner</h3>
   <p class="skill-card-desc">Run tests across any framework (Jest, PyTest, Mocha, Go test, RSpec) with unified interface. Use when: &#39;run tests&#39;, &#39;test this&#39;, test failure analysis, CI debugging. NOT for: writing new tests (use test-driven-development skill).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个统一的测试执行能力，自动识别 Jest、PyTest、Mocha、Go test、RSpec、Vitest 等主流测试框架并以一致命令跑起来，让团队成员不必为&quot;这个项目用哪个框架、命令是什么&quot;反复查文档。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>进入项目根目录后直接调用 test-runner，由工具自动根据 jest.config、pytest.ini、Gemfile 等标记文件识别框架。</li><li>让工具按识别结果执行测试，统一以&quot;通过 / 失败 / 跳过 / 耗时&quot;四项摘要输出，团队对每次运行的解读方式保持一致。</li><li>测试失败时把失败用例与堆栈完整保留，禁止只看&quot;X 个失败&quot;就拍脑袋决定要不要修复，避免遗漏边缘场景。</li><li>在 CI（持续集成）流水线里调用同一接口，确保本地、预发、CI 三个环境的测试命令完全一致，杜绝&quot;本地能过 CI 不能过&quot;。</li><li>用同一工具跨多个仓库统计通过率与运行时长，作为团队测试基础设施健康度的长期趋势数据。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +181,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[统一摘要输出]
     E --&gt; F[失败用例完整堆栈]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-test-scenarios">
@@ -196,18 +188,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">test-scenarios</div>
     <code class="skill-card-path">skills/test/test-scenarios/SPEC.md</code>
   </div>
+  <h3>Test Scenarios</h3>
   <p class="skill-card-desc">Create comprehensive test scenarios from user stories with test objectives, starting conditions, user roles, step-by-step actions, and expected outcomes. Use when writing QA test cases, creating test plans, defining acceptance tests, or preparing for feature validation.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个把用户故事翻译成结构化测试场景的能力，输出包含测试目标、起始条件、用户角色、逐步操作、预期结果五要素的 QA（质量保证）测试用例，让产品、研发、测试三方对&quot;做完是什么样&quot;达成同一份共识。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>拿到用户故事和验收标准后先抽取测试目标，明确这条用例要验证的具体行为，避免&quot;测试一堆点最后什么都没说清&quot;。</li><li>把起始条件写清楚，包括环境配置、数据准备、账号角色，让任何一名测试工程师都能照单复现，不必反复问需求方。</li><li>用&quot;操作 -&gt; 期望结果&quot;二元结构逐步骤展开，每一步只描述一个动作和一个可观察的结果，便于自动化脚本逐行翻译。</li><li>在主路径之外补足边界场景和失败路径，例如空输入、权限不足、网络中断，避免上线后被用户发现&quot;显而易见的角落 bug&quot;。</li><li>把每条用例标注唯一编号并归入回归库，作为下次迭代、灰度发布、生产排障时可直接复用的资产。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -217,7 +207,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[边界场景补全]
     E --&gt; F[编号入库回归资产]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-frontend-testing">
@@ -225,18 +214,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">frontend-testing</div>
     <code class="skill-card-path">skills/test/frontend-testing/SPEC.md</code>
   </div>
+  <h3>Testing Frontend</h3>
   <p class="skill-card-desc">Validates frontend applications for performance, console errors, responsive design, and E2E functionality. Uses Chrome DevTools and Playwright. Use when testing web apps, checking performance metrics, or validating UI changes.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个面向前端 Web 应用的端到端质量验证能力，覆盖性能指标、控制台报错、响应式布局与 E2E（端到端）功能链路，目标是在上线前把用户能感知到的明显缺陷拦在测试阶段，避免用户成为线上 bug 的第一发现人。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>用 Lighthouse（性能与可访问性审计工具）跑出 LCP（最大内容渲染时间）、CLS（累计布局偏移）、TBT（总阻塞时间）三项核心指标，作为本次发布的性能基线。</li><li>用 Playwright（端到端测试框架）覆盖关键用户路径，例如登录、下单、提交表单，确保主流程在 Chromium、WebKit、Firefox 三个引擎下都通过。</li><li>在多种视口（移动 / 平板 / 桌面）下截图比对，发现响应式布局错位、文字溢出、按钮被遮挡这类视觉缺陷。</li><li>监听浏览器 Console（控制台）的 error、warning、network failure，任何一条都视为质量缺陷登记入册，禁止&quot;上线先不管&quot;的处理方式。</li><li>把性能指标、E2E 通过率、Console 异常数汇总成一份发布质量报告，作为产品团队判断&quot;能否发布&quot;的事实依据。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -247,7 +234,6 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; E
     D --&gt; E</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-code-review">
@@ -255,18 +241,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">code-review</div>
     <code class="skill-card-path">skills/test/code-review/SPEC.md</code>
   </div>
+  <h3>Code Reviewing</h3>
   <p class="skill-card-desc">Use when asked to review a PR, diff, or file for bugs, security issues, or code quality. Analyzes git diffs and flags anti-patterns. NOT for writing new code or explaining code without evaluating it. Trigger: review, PR, diff, audit.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个针对 PR（Pull Request，合并请求）和 diff（差异变更）的代码评审能力，用来在合并入库前把可能引发线上故障或安全漏洞的变更拦在评审环节，提高发布稳定性与质量门槛。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>评审范围聚焦在本次 diff 内的新增与修改行，避免对未变更代码提出意见，减少作者的返工与情绪成本。</li><li>按 CRITICAL（阻断合并）、MAJOR（强烈建议修复）、MINOR（优化建议）、NITPICK（风格偏好）四档标注，让作者清楚知道哪些必须改、哪些可以下次处理。</li><li>对任何涉及用户输入、凭据、权限、加密的变更逐行核对 OWASP（开放式 Web 应用安全项目）十大风险，发现一处记一处，绝不放过安全类问题。</li><li>对每条 CRITICAL 与 MAJOR 给出复现路径或风险场景，让作者能在本地验证，避免“凭感觉改”导致的二次返工。</li><li>评审结论按&quot;必修 / 建议 / 可选&quot;分组输出，作者依照优先级分批提交，缩短合并周期，提升团队节奏。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -275,7 +259,6 @@ footer p { max-width: none; margin: 4px 0; }
     C --&gt; D[四级严重度标注]
     D --&gt; E[评审结论分组输出]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-systematic-debugging">
@@ -283,18 +266,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">systematic-debugging</div>
     <code class="skill-card-path">skills/test/systematic-debugging/SKILL.md</code>
   </div>
+  <h3>Systematic Debugging</h3>
   <p class="skill-card-desc">Use when encountering a bug, test failure, crash, or unexpected behavior.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个面向 bug、测试失败、崩溃、回归的系统化排查能力，先定位根因再动手修复，避免&quot;症状级补丁&quot;留下二次故障与隐性回归。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先复述缺陷现象、复现路径、影响范围，把&quot;我看到什么&quot;和&quot;我猜原因&quot;严格区分，避免被先入为主带偏。</li><li>按系统的每一层边界（输入 / 中间态 / 输出）注入诊断信号，让证据指向某一层，而不是凭经验猜测某个组件。</li><li>列出至少两个候选根因假设，分别给出&quot;如果是这个原因，会观察到什么现象&quot;，再用日志或断点逐一证伪。</li><li>找到根因后再写修复方案，把&quot;修复了什么、为什么这样修、回归测试覆盖什么场景&quot;三件事一起写进 PR（Pull Request，合并请求）。</li><li>修复合并后补一条回归测试用例进 CI（持续集成）流水线，防止同一缺陷因后续重构再次复发。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -304,7 +285,6 @@ footer p { max-width: none; margin: 4px 0; }
     D --&gt; E[根因定位+修复方案]
     E --&gt; F[回归测试入库]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-vibe-debug">
@@ -312,18 +292,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">vibe-debug</div>
     <code class="skill-card-path">skills/test/vibe-debug/SKILL.md</code>
   </div>
+  <h3>Vibe Debug: Test-Driven Debugging Pipeline</h3>
   <p class="skill-card-desc">Automated test-driven debugging pipeline. Replaces human-in-the-loop &#39;still broken&#39; prompting with: write reproducing test -&gt; self-loop with test feedback -&gt; exit when green.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>这是一个面向&quot;反复修不好的疑难 bug&quot;的自动化排障管线，先写一条能稳定复现缺陷的测试，再让管线自循环改代码、跑测试、读反馈，直到测试转绿才退出，把研发从&quot;还没好？再试试？&quot;的人工反馈循环中解放出来。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>当同一缺陷修两次以上仍未解决时启用，把&quot;凭印象试错&quot;切换为&quot;用测试驱动收敛&quot;的工作方式。</li><li>第一步写一条能稳定复现该缺陷的测试用例，确保测试在缺陷未修复前持续失败，作为收敛的客观信号。</li><li>让管线在测试失败 -&gt; 修改实现 -&gt; 重跑测试 -&gt; 读取报错 的闭环内自动迭代，直到测试由红转绿才退出循环。</li><li>设置最大迭代轮数和单轮超时，避免管线陷入&quot;修了又坏&quot;的死循环，超出阈值时主动暂停并交回人工判断。</li><li>缺陷修复后把那条复现测试永久并入回归测试库，把今天的疑难场景变成明天的质量护栏。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -334,13 +312,12 @@ footer p { max-width: none; margin: 4px 0; }
     E --&gt;|仍失败| D
     E --&gt;|转绿| F[退出+回归入库]</pre>
   </div>
-
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -349,12 +326,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; test-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -414,7 +391,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 测试工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

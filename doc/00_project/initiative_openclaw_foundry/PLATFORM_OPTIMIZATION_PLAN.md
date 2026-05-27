@@ -47,9 +47,10 @@
 | OPT-34 | P0 | Public pack maturity floor | Some canonical public packs still displayed `基础档` after dedup, making live packs look incomplete | Enrich canonical public packs to audit-derived `enriched` or `certified`, inherit canonical maturity on deprecated alias guides, and fail prebuild on any public `stub` | Completed 2026-05-26 |
 | OPT-35 | P1 | CI runtime lifecycle | GitHub Actions emitted Node 20 deprecation warnings before the 2026-06-02 Node 24 runner switch | Upgrade all workflow actions to Node 24-compatible majors and pin Cloudflare Wrangler to `4.76.0` | Completed 2026-05-26 |
 | OPT-36 | P0 | Role-pack release automation | Git release drift checks and local zip packaging still depended on manual shell sequences | Add `role-packs:audit-git`, `role-packs:package`, and `role-packs:package:all` scripts that clone the pinned tag, compare Foundry payloads, generate checksummed zip bundles, and smoke-install generated archives | Completed 2026-05-26 |
+| OPT-37 | P0 | Guide manual completeness | Many job-pack guide skill cards still showed unfinished three-part placeholders when source SKILL/SPEC files lacked exact Chinese headings | Normalize every guide skill card into `是什么` / `怎么用` / `架构图`, add a prebuild audit, publish standalone tag `v2026.05.27.2`, and prove Foundry/Git release parity | Completed 2026-05-27 |
 
 ## Next Execution Order
-1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `npm run role-packs:audit-git` passes against the target tag; generate shareable local archives through `npm run role-packs:package` or `npm run role-packs:package:all`.
+1. Move `NEXT_PUBLIC_ROLE_PACKS_GIT_REF` only after `npm run role-packs:audit-git` passes against the target tag; guide completeness must also pass `npm run role-packs:audit-guides`; generate shareable local archives through `npm run role-packs:package` or `npm run role-packs:package:all`.
 2. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
 3. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
 4. Resolve remaining P0 contract and repository-boundary issues (OPT-02, OPT-04).

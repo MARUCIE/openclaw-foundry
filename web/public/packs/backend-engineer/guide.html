@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/backend-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -131,25 +129,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-api-design-reviewer">
   <div class="skill-card-header">
     <div class="skill-card-tag">api-design-reviewer</div>
     <code class="skill-card-path">skills/backend/api-design-reviewer/SPEC.md</code>
   </div>
+  <h3>API Design Reviewer</h3>
   <p class="skill-card-desc">Review REST/GraphQL API designs for consistency, security, and usability. Use when: &#39;review API&#39;, endpoint design, API versioning, error handling patterns. NOT for: implementation (use new-api-endpoint).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把&quot;接口设计&quot;这件事从一个人拍脑袋升级成一份可审计的契约，让前端、后端、移动端、外部合作方对同一个 URL（统一资源定位符）和返回值的理解保持一致，避免上线后再返工。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把待评审的接口草稿（路径、方法、入参、返回结构、错误码）整理成一份 API 契约（接口约定），交给本技能做一次结构化体检。</li><li>让本技能逐条核对资源命名、HTTP 方法语义、错误响应结构、分页策略、版本切分是否符合 REST（表述性状态转移）约定，把不一致点列出来。</li><li>针对每个不一致点，请本技能给出最小修改建议，并说明这条规则不遵守时会让谁踩坑（前端、外部合作方还是未来的自己）。</li><li>把审核结论同步进 API 契约文档与下游消费方的对接文档，作为上线前的硬性门禁。</li><li>实现完成后，再跑一次本技能对照实际接口产出与契约的差异，确认没有偷偷改约定。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +155,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[修订与落档]
   E --&gt; F[上线前复核]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-fastapi-templates">
@@ -167,18 +162,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">fastapi-templates</div>
     <code class="skill-card-path">skills/backend/fastapi-templates/SPEC.md</code>
   </div>
+  <h3>FastAPI Templates</h3>
   <p class="skill-card-desc">Production-ready FastAPI project templates with async, dependency injection, and testing. Use when: starting FastAPI project, &#39;FastAPI best practices&#39;, async Python API. NOT for: Flask or Django projects.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把一个 FastAPI（高性能异步 Python Web 框架）后端从零搭到能上线的状态，让接口默认就是异步、有依赖注入、有 Pydantic（数据校验库）校验、有测试夹具，不必再在每个新项目里重新踩同样的坑。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>用本技能给出的目录骨架（`app/api/`、`app/core/`、`app/services/`、`tests/`）作为新仓库的起点，避免把业务、路由、配置写在同一个文件里。</li><li>所有路由处理函数都按 `async def` 声明，让请求在等待数据库或外部接口时不阻塞事件循环。</li><li>把数据库会话、当前用户、共享配置都通过 `Depends()` 注入，让单元测试可以替换为夹具而无需改业务代码。</li><li>请求体与返回体强制走 Pydantic 模型，不允许接收或返回裸字典，让接口契约始终有据可查。</li><li>上线前用 `tests/conftest.py` 提供的 async client（异步客户端）夹具跑一遍端到端测试，确认中间件、鉴权、错误处理都按预期工作。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -188,7 +181,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[Service 业务逻辑]
   E --&gt; F[响应 Pydantic 模型]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-postgresql-best-practices">
@@ -196,18 +188,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">postgresql-best-practices</div>
     <code class="skill-card-path">skills/backend/postgresql-best-practices/SPEC.md</code>
   </div>
+  <h3>PostgreSQL Best Practices</h3>
   <p class="skill-card-desc">PostgreSQL query optimization, indexing, and schema design. Use when: slow queries, &#39;optimize SQL&#39;, PG performance, index strategy, database tuning. NOT for: schema migration execution (use new-migration).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把 PostgreSQL（关系型数据库）从能跑升级到能扛住生产流量，让慢查询、锁等待、连接数飙高这类典型生产事故在写代码与上线前就被发现，而不是被监控告警追着改。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把可疑慢查询交给本技能，用 `EXPLAIN ANALY</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -217,7 +207,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[灰度发布]
   E --&gt; F[执行计划复测]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-code-review">
@@ -225,18 +214,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">code-review</div>
     <code class="skill-card-path">skills/backend/code-review/SPEC.md</code>
   </div>
+  <h3>Code Reviewing</h3>
   <p class="skill-card-desc">Use when asked to review a PR, diff, or file for bugs, security issues, or code quality. Analyzes git diffs and flags anti-patterns. NOT for writing new code or explaining code without evaluating it. Trigger: review, PR, diff, audit.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把&quot;代码评审&quot;这件事从感性挑刺变成一份结构化清单，让每一次合并请求都按统一标准过一遍安全、质量、性能与测试覆盖，减少漏网的回归与隐患流入主分支。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把待评审的差异（`git diff` 或 PR（Pull Request，合并请求）范围）交给本技能，先让它聚焦在改动行而不是整文件。</li><li>让本技能按 OWASP（开放式 Web 应用程序安全项目）Top 10 维度扫一遍改动是否引入注入、鉴权绕过、敏感数据外泄等风险。</li><li>让本技能为每条问题打上严重度（CRITICAL/MAJOR/MINOR/NITPICK），并把同类问题一起列出，避免作者只补一行就当修完。</li><li>把评审结论按统一 JSON 结构反馈到合并请求，提交 approve / request_changes / comment 之一作为闸门结论。</li><li>合并前确认作者已按 CRITICAL 与 MAJOR 项整改，并补齐对应回归测试。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -246,7 +233,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[评审结论 JSON]
   E --&gt; F[合并闸门]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-perf-profile">
@@ -254,18 +240,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">perf-profile</div>
     <code class="skill-card-path">skills/backend/perf-profile/SPEC.md</code>
   </div>
+  <h3>perf-profile</h3>
   <p class="skill-card-desc">Structured performance profiling workflow. Identifies bottlenecks, measures against budgets, and generates optimization recommendations with priority rankings.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把&quot;系统好像有点卡&quot;这种模糊感受转成一份带预算、带热点、带优先级的性能体检报告，让接口、数据库、前端在面对真实请求量时仍能稳定在性能预算内，而不是上线后再被告警追着跑。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把要分析的范围交给本技能（单一系统名 或 `full` 全量），让它先把性能预算（帧时间、内存、加载时长、QPS（每秒请求数））从设计文档里找出来作为基线。</li><li>让本技能从代码里扫出常见瓶颈候选：热点循环、每帧分配、N+1 查询、未加索引的搜索、过度同步 I/O（输入输出）等。</li><li>让本技能把每个热点按 影响 × 修复成本 排序，并标注属于 CPU 受限、GPU 受限、还是 I/O 受限，避免对错对象下药。</li><li>拿到报告后，先做&quot;小时级&quot;快赢项，再排期&quot;周级&quot;重构项，并明确每条优化的预期收益与回归风险。</li><li>修完后再跑一次本技能，对照前后预算余量，确认确实有改善而不是把问题挪了个位置。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -275,7 +259,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[落地与回归]
   E --&gt; F[复测预算余量]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-new-api-endpoint">
@@ -283,18 +266,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">new-api-endpoint</div>
     <code class="skill-card-path">skills/backend/new-api-endpoint/SPEC.md</code>
   </div>
+  <h3>New API Endpoint</h3>
   <p class="skill-card-desc">Use when adding a new REST or GraphQL API endpoint to an existing backend. Trigger: &#39;add endpoint&#39;, &#39;new route&#39;, &#39;new API&#39;, &#39;create POST/GET/PUT/DELETE&#39;, &#39;add mutation/query&#39;. NOT for: full API design from scratch (use architecture-decision), frontend data fetching (use react-best-practices), or API documentation only (use reverse-document).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你在已有后端里新增一个接口端点时，从识别项目框架、复用现有约定，到生成路由、校验、类型、测试一步到位，让新接口对前端来说看起来像本来就在那里，而不是一处&quot;风格突变&quot;。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把项目根目录交给本技能，先让它识别框架（Next.js（React 服务端框架）、Express（Node.js Web 框架）、FastAPI、Flask、Gin（Go Web 框架）等）和已有命名风格。</li><li>让本技能读 2–3 个现有端点，提取鉴权、校验、错误结构、响应包络等约定，作为新接口的硬约束。</li><li>按本技能的脚手架生成 route + schema + service + test 四件套，并按 HTTP 方法语义对齐状态码（创建 201、读取 200、删除 204）。</li><li>对照本技能给出的完成度清单逐项打勾：路由可达、鉴权挂上、入参校验、错误结构一致、测试覆盖至少一条异常路径。</li><li>合并前在本地用真实请求或集成测试跑通一次，并确认与已有路由不冲突。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -304,7 +285,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[集成验证]
   E --&gt; F[上线发布]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-systematic-debugging">
@@ -312,18 +292,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">systematic-debugging</div>
     <code class="skill-card-path">skills/backend/systematic-debugging/SKILL.md</code>
   </div>
+  <h3>Systematic Debugging</h3>
   <p class="skill-card-desc">Use when encountering a bug, test failure, crash, or unexpected behavior.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把&quot;出 bug 了赶紧打补丁&quot;的本能反应换成一条&quot;先定根因再动手&quot;的纪律线，让一次修复真正消除问题、且不会在下一处冒出来，避免补丁堆补丁的恶性循环。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>出现报错、测试失败、崩溃或异常行为时，先用本技能记录完整证据：报错文本、最近改动、复现步骤、相关日志。</li><li>让本技能强制执行四个阶段顺序：先做根因排查，再找类似可工作的样例对比，再立单一假设做最小验证，最后才动手改代码。</li><li>多组件系统按层注入诊断，让本技能定位&quot;在哪一层断的&quot;，再聚焦那一层，而不是同时改多处。</li><li>守住&quot;3 次失败规则&quot;：同一个 bug 连续修 3 次仍未解决，立刻停手——这是架构问题不是局部 bug，先把假设拿出来与团队对齐。</li><li>修复完成后，让本技能要求先写一条会失败的回归测试，再让测试通过，避免同类问题悄悄回潮。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -333,7 +311,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[阶段四 写回归测试]
   E --&gt; F[修复并验收]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-test-driven-development">
@@ -341,18 +318,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">test-driven-development</div>
     <code class="skill-card-path">skills/backend/test-driven-development/SKILL.md</code>
   </div>
+  <h3>Test-Driven Development (TDD)</h3>
   <p class="skill-card-desc">Use when implementing any feature or bugfix, before writing implementation</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把&quot;先写实现再补测试&quot;的常见反模式倒过来，让每一个新功能或修复都先有一条会失败的测试作为契约，确保实现真的解决了那个具体需求，而不是绕过了它。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>接到需求或 bug 报告时，先让本技能把目标转成一条最小可观察的测试用例：输入是什么、期望输出是什么。</li><li>运行测试，亲眼看到它失败（红灯），确认测试确实在检查目标行为，而不是一开始就被意外满足。</li><li>写最小实现让测试通过（绿灯），不在此阶段做任何额外优化或扩展。</li><li>在绿灯保护下，让本技能引导一轮重构（橙灯到绿灯之间），优化结构而不改外部行为。</li><li>把所有新增测试纳入持续集成流水线（CI（持续集成）），让后续每次提交都自动跑一遍，避免回归悄悄溜进主分支。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -362,13 +337,12 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[纳入 CI 流水线]
   E --&gt; F[防止回归]</pre>
   </div>
-
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -377,12 +351,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; backend-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -441,7 +415,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 后端工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

@@ -91,6 +91,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-31 | Pack availability must be derived from generated artifact completeness, not `PACK_SPEC` tier; prebuild fails if any public catalog pack lacks public files, guide HTML, `/packs` coverage, or duplicate-role suppression | Implemented 2026-05-26; updated 2026-05-26 |
 | FR-32 | Every canonical public job pack must meet at least `enriched` maturity before it appears in `/packs`; prebuild fails if the public catalog contains any `stub` pack, and deprecated alias guide pages inherit their canonical target maturity | Implemented 2026-05-26 |
 | FR-33 | Role-pack Git release verification and local zip packaging must be reproducible through first-class scripts: Git drift audit, public zip packaging, all-pack zip packaging, checksum output, and install smoke verification | Implemented 2026-05-26 |
+| FR-34 | Every generated job-pack guide must render every bundled skill as a complete three-part manual card (`是什么` / `怎么用` / `架构图`); unfinished placeholders or stub guide cards fail prebuild | Implemented 2026-05-27 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -99,7 +100,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 4. Traceability through manifest, snapshots, and audit-style logs
 5. Documentation must stay synchronized with actual entrypoints
 6. Protected Job Pack payload delivery must avoid public static direct links; single-file payload downloads are served through Worker auth routes and static Pages output is tombstoned after build so stale direct URLs cannot expose payload content
-7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.26.1`
+7. Standalone role-pack distribution must stay local-first; production install-command copy uses the pinned GitHub release `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.27.2`
 8. Production role-pack guides and clipboard commands must not reintroduce `curl -fsSL .../packs/<id>/install.sh` direct static payload paths
 9. Public pack counts must reflect the canonical public catalog, not deprecated aliases; `stub` maps to the visible `Basic` tier and is not an offline state
 10. Strategy and data decision-tree labels must mirror the catalog: `定策略` includes the Strategy Roundtable Advisor plus adjacent strategy packs, and `做/看数据` shows algorithm, big data, data analyst, A/B, and AI app packs as live cards with maturity badges
@@ -109,6 +110,7 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 14. Public maturity generation must be audit-derived, not hand-labeled: `scripts/enrich-public-pack-maturity.mjs` may add missing maturity artifacts, but `scripts/pack-spec-audit.py` and `scripts/audit-public-pack-maturity.mjs` are the release gates that prove the public catalog has zero `stub` entries.
 15. GitHub Actions release workflows must use Node 24-compatible action runtimes before the 2026-06-02 GitHub runner default switch; workflow action versions must be pinned to supported majors and Cloudflare Wrangler must be version-pinned for deterministic production deploys.
 16. Role-pack release artifacts must be produced by auditable scripts, not ad hoc shell history: `npm run role-packs:audit-git` proves the pinned Git tag matches Foundry payloads, and `npm run role-packs:package` / `npm run role-packs:package:all` produce verified zip bundles with `SHA256SUMS.txt` and `manifest-summary.json`.
+17. Job-pack guide generation must be deterministic and complete: `scripts/generate-pack-guides.mjs` may derive missing three-part manual sections from existing skill metadata/body text, and `scripts/audit-pack-guide-skill-sections.mjs` must block any guide that lacks one card, three headings, or one Mermaid diagram per manifest skill.
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -133,3 +135,4 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 14. Old person-named advisor IDs and person-framework copy can re-enter through upstream skill sync or historical templates; `scripts/sanitize-pack-person-names.mjs --check` is the release gate.
 15. Public pack maturity can regress if new packs bypass the enrichment/audit chain; `web` prebuild must keep `enrich-public-pack-maturity` before `inject-pack-tiers` and must keep `audit-public-pack-maturity` after tier injection.
 16. CI provider action major versions can introduce breaking behavior; workflow upgrades must be validated through GitHub Actions deploy runs plus production smoke, not only local YAML parsing.
+17. Imported or legacy skill docs may not contain exact `## 是什么` / `## 怎么用` / `## 架构图` headings; the guide generator must normalize them for readers, and the audit gate must prove the visible guide contains no unfinished placeholder text.

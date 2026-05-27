@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/scenario-planner/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -131,25 +129,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-ansoff-matrix">
   <div class="skill-card-header">
     <div class="skill-card-tag">ansoff-matrix</div>
     <code class="skill-card-path">skills/scenario/ansoff-matrix/SPEC.md</code>
   </div>
+  <h3>Ansoff Matrix</h3>
   <p class="skill-card-desc">Generate an Ansoff Matrix analysis mapping growth strategies across market penetration, market development, product development, and diversification. Use when considering growth options, planning market expansion, or evaluating strategic growth paths.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把增长选项放进安索夫四象限（Ansoff Matrix，市场渗透 / 市场开发 / 产品开发 / 多元化），把&quot;我们接下来该往哪长&quot;这种含糊讨论，拆成四条清晰可对比的路径。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把现有产品和现有市场说清楚，避免后面把&quot;新功能&quot;误判成&quot;新产品&quot;。</li><li>给四个象限各列 2–3 条候选增长动作，让团队看到完整选择面。</li><li>用风险、所需能力、潜在收入三个维度给每条动作打分，让取舍有依据。</li><li>选 1–2 个象限作为主战场，剩下的列入观察池，避免战略稀释。</li><li>把选定的方向拆成 90 天内可验证的具体行动，交给业务方认领。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -158,7 +154,6 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[主战场与观察池]
   D --&gt; E[90 天行动清单]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-beachhead-segment">
@@ -166,18 +161,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">beachhead-segment</div>
     <code class="skill-card-path">skills/scenario/beachhead-segment/SPEC.md</code>
   </div>
+  <h3>Beachhead Segment</h3>
   <p class="skill-card-desc">Identify the first beachhead market segment for a product launch. Evaluates segments against burning pain, willingness to pay, winnable market share, and referral potential. Use when choosing a first market, targeting an initial customer segment, or planning market entry strategy.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你从一堆&quot;看起来都不错&quot;的市场切片里，挑出那个真痛、肯付费、能赢、还会主动转介绍的滩头堡（Beachhead，首战市场），让有限的资源砸在最容易拿下的第一仗上。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>列出 5–8 个候选细分市场，避免一上来就锁死答案。</li><li>用四把尺子量每个候选：痛感强度、付费意愿、可赢份额、转介绍潜力。</li><li>给每个候选写一句话客户画像，逼自己说清楚&quot;到底卖给谁&quot;。</li><li>排序后挑出第一名作为滩头堡，第二名留作后备。</li><li>为滩头堡定义产品市场契合度（PMF，Product-Market Fit）的可衡量信号，作为下阶段验证目标。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -186,7 +179,6 @@ footer p { max-width: none; margin: 4px 0; }
   C --&gt; D[滩头堡选定]
   D --&gt; E[PMF 验证信号]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-business-model">
@@ -194,18 +186,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">business-model</div>
     <code class="skill-card-path">skills/scenario/business-model/SPEC.md</code>
   </div>
+  <h3>Business Model Canvas</h3>
   <p class="skill-card-desc">Generate a Business Model Canvas with all 9 building blocks. Use when creating a business model, documenting how a business creates value, or analyzing an existing business model.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你用商业模式画布（Business Model Canvas，BMC）的九个模块，把&quot;我们这门生意到底怎么挣钱&quot;一张纸说完整，让产品、销售、财务看到的是同一张图。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把客户细分和价值主张这两块对齐，避免后面所有讨论都建在错误的客户假设上。</li><li>顺着渠道、客户关系、收入来源把&quot;钱怎么进来&quot;画清楚。</li><li>用关键资源、关键活动、关键合作把&quot;价值怎么交付&quot;补齐。</li><li>用成本结构反向校验：账算不算得平，决定模式是否成立。</li><li>标出三个最关键的假设，列入下一步访谈或小范围试点的验证清单。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -216,7 +206,6 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; F[成本结构校验]
   F --&gt; G[关键假设清单]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-create-prd">
@@ -224,18 +213,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">create-prd</div>
     <code class="skill-card-path">skills/scenario/create-prd/SPEC.md</code>
   </div>
+  <h3>Create a Product Requirements Document</h3>
   <p class="skill-card-desc">Create a Product Requirements Document using a comprehensive 8-section template covering problem, objectives, segments, value propositions, solution, and release planning. Use when writing a PRD, documenting product requirements, preparing a feature spec, or reviewing an existing PRD.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>帮你把脑子里那份&quot;我们要做的产品&quot;翻译成一份八段式产品需求文档（PRD，Product Requirements Document），让工程、设计、业务、老板看完之后对&quot;为什么做、做给谁、做成什么样&quot;有一致的理解。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把问题陈述写透，把&quot;我们到底在解决谁的什么痛&quot;说成一句话，避免方案先行。</li><li>顺着目标、客户细分、价值主张三段对齐&quot;做这件事的理由&quot;。</li><li>在解决方案段落里只写必要的功能范围，把&quot;可有可无&quot;的需求挪到后续版本。</li><li>用发布计划段落把首版范围和上线节奏定下来，让工程能据此排期。</li><li>写完后做一遍同行评审，把每段读不通顺的地方改清楚，再交给跨职能干系人对齐。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -245,7 +232,6 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[发布计划]
   E --&gt; F[同行评审与对齐]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-pm-cmd-business-model">
@@ -253,18 +239,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">pm-cmd-business-model</div>
     <code class="skill-card-path">skills/scenario/pm-cmd-business-model/SPEC.md</code>
   </div>
+  <h3>/business-model -- Business Model Exploration</h3>
   <p class="skill-card-desc">Explore business models using Lean Canvas, Business Model Canvas, Startup Canvas, or Value Proposition frameworks</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>把四张主流商业模式框架——精益画布（Lean Canvas）、商业模式画布（Business Model Canvas，BMC）、创业画布（Startup Canvas）、价值主张画布（Value Proposition Canvas，VPC）——收成一条命令，让你按业务所处阶段挑最合适的那张图来梳理生意。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先判断业务阶段：早期未验证选 lean，相对成熟选 full，融资讲故事选 startup，需要打磨产品与客户匹配选 value-prop。</li><li>用对应模式调用本命令，给出业务一句话描述，让模型先产出第一版画布。</li><li>拿到画布后，把每一格里&quot;自己其实没想清楚&quot;的内容标出来，列入待验证清单。</li><li>找业务方和销售一起对一遍，把听上去顺但缺证据的格子降级为假设。</li><li>选一到两个最关键假设，安排访谈或小范围试点验证后再回来更新画布。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -274,13 +258,12 @@ footer p { max-width: none; margin: 4px 0; }
   D --&gt; E[关键假设验证]
   E --&gt; F[画布迭代]</pre>
   </div>
-
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -289,12 +272,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; scenario-planner --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -355,7 +338,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 场景规划师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

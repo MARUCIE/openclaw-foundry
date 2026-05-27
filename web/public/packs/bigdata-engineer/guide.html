@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/bigdata-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -131,25 +129,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-bigdata-core">
   <div class="skill-card-header">
     <div class="skill-card-tag">bigdata-core</div>
     <code class="skill-card-path">skills/bigdata/bigdata-core/SPEC.md</code>
   </div>
+  <h3>Big Data Processing Toolkit</h3>
   <p class="skill-card-desc">Core big data processing toolkit for data teams. Includes Polars, Dask, Vaex for large-scale data processing, ETL pipelines, and distributed computing. Use when working with datasets larger than memory, building data pipelines, or optimizing data processing performance.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>一套面向数据团队的核心处理底座，把 Polars、Dask、Vaex 三种 DataFrame（数据帧）能力按数据规模分层组合，让单机分析、分布式计算（distributed computing）、超大文件惰性扫描共用同一套调用习惯，减少 ETL（抽取-转换-加载）任务的内存溢出与跑批超时。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按数据规模选引擎：10GB 以下用 Polars 单机跑满 CPU 核心，10–100GB 切换 Polars streaming（流式）或 Dask，100GB 以上交给 Dask 分布式集群兜底。</li><li>优先使用 `scan_*` 系列惰性 API（应用程序接口），让查询计划在物理读盘前完成裁剪和谓词下推，避免一次性把全量数据拉进内存。</li><li>把原始 CSV 落地为 Parquet（列式存储格式），后续读取吞吐通常提升 10 倍以上，并按日期或类别字段分区便于增量处理。</li><li>分布式作业用 `dask.distributed.Client` 启动本地或远程集群，让分组聚合、连接等算子自动切分到 worker（工作节点）执行。</li><li>跑大作业前先在采样数据上验证查询计划与输出列，再放到全量数据上跑，避免一次错算消耗整批资源。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -162,7 +158,6 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; G
   F --&gt; G</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-bigdata-ml">
@@ -170,18 +165,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">bigdata-ml</div>
     <code class="skill-card-path">skills/bigdata/bigdata-ml/SPEC.md</code>
   </div>
+  <h3>Big Data Machine Learning Toolkit</h3>
   <p class="skill-card-desc">Machine learning toolkit for big data teams. Includes scikit-learn, PyTorch Lightning, Transformers, SHAP for model training, deployment, and interpretation. Use when building ML pipelines, training models, or explaining predictions.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>面向数据团队的端到端 ML（机器学习）工具集，把 scikit-learn 传统建模、PyTorch Lightning 深度训练、Transformers 预训练模型、SHAP（模型可解释性）打包成一致的训练-评估-解释流水线，让分类、NLP（自然语言处理）、可解释性等任务都能进 MLflow（实验追踪）留痕。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按任务类型选框架：结构化分类回归走 scikit-learn Pipeline，文本任务直接调 Transformers 预训练模型，图像或大模型微调切到 PyTorch Lightning 用 GPU（图形处理器）。</li><li>用 `Pipeline + cross_val_score` 把预处理和模型绑成一个对象，避免训练-推理时特征处理不一致引发的线上漂移。</li><li>大数据训练用 dask-ml 的 `train_test_split` 与分布式估计器，或对线性模型用 `SGDClassifier.partial_fit` 做增量学习，避免一次性把全量样本载入内存。</li><li>关键业务模型必须输出 SHAP 解释（全局 summary + 单样本 force_plot），向产品和合规说明模型为什么这样预测。</li><li>全流程接 MLflow：记录参数、指标、模型工件，让模型版本和训练数据版本绑定，便于回滚和审计。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -194,7 +187,6 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; F[MLflow 实验追踪]
   F --&gt; G[审核 -&gt; 上线]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-bigdata-viz">
@@ -202,18 +194,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">bigdata-viz</div>
     <code class="skill-card-path">skills/bigdata/bigdata-viz/SPEC.md</code>
   </div>
+  <h3>Big Data Visualization Toolkit</h3>
   <p class="skill-card-desc">Data visualization toolkit for big data teams. Includes Matplotlib, Seaborn, Plotly for static and interactive charts. Use when creating dashboards, reports, or exploring data visually.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>面向数据团队的可视化套件，把 Matplotlib（精细绘图）、Seaborn（统计可视化）、Plotly（交互图表）按输出场景分层组合，让报告、内部分享、Dashboard（仪表盘）三类产物都能从同一份数据集快速出图，并保持配色和分辨率统一。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按输出目标选库：纸质报告或论文用 Matplotlib + Seaborn 出 300dpi 静态图，内部分享和 Dashboard 用 Plotly 出 HTML 交互图。</li><li>大数据出图先采样或聚合，再交给绘图库：万级以上原始点先 `sample` 或按类别 `groupby.agg`，避免浏览器卡死和图形语义被噪声淹没。</li><li>探索阶段用 Seaborn `histplot`、`heatmap` 等高阶 API 快速看分布和相关性，正式版再切到 Matplotlib 精细调样式。</li><li>Plotly `express` 接 `hover_data` 暴露关键字段，让业务方在图上直接看到名称、日期、来源，减少回环问数据来源。</li><li>出图前统一规范：标题 14pt、标签 12pt、配色用公司品牌色，报告导出 PDF，分享导出 HTML，避免同一指标多版样式互相打架。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -226,7 +216,6 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; H[HTML 文件]
   F --&gt; H</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-data-pipeline">
@@ -234,18 +223,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">data-pipeline</div>
     <code class="skill-card-path">skills/bigdata/data-pipeline/SPEC.md</code>
   </div>
+  <h3>Data Pipeline Designer</h3>
   <p class="skill-card-desc">Design ETL/ELT data pipelines and warehouse architectures. Use when: data pipeline design, &#39;ETL workflow&#39;, data warehouse, batch/stream processing. NOT for: SQL queries (use sql-queries).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>一套生产级数据管道设计规范，覆盖批处理 ETL（抽取-转换-加载）、流式 ELT（抽取-加载-转换）、数据仓库（data warehouse）三种主流模式，让管道天然具备幂等性（idempotency）、增量加载、行数监控、可控的 schema（数据结构）演进。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>按时延要求选模式：T+1 的离线分析走批处理 ETL，秒级实时走 Kafka/Kinesis 流式 ELT，重计算密集的复杂建模交给 ELT + dbt 在数仓内完成。</li><li>默认走增量加载（按时间戳或自增 ID 切片），只有当 schema 变更或对账失败时才触发全量刷新，避免每天搬全量数据。</li><li>每个阶段写出 `extract / transform / load` 的行数到监控指标，行数对不上立即报警，防止数据静默丢失。</li><li>所有写入算子都做幂等设计（按主键 upsert 或先 delete 再 insert），让任务重跑不会产生重复行。</li><li>Schema 演进只允许加列，不允许在生产环境删列或改列类型，破坏性变更走灰度新表 + 切流方案。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -259,7 +246,6 @@ footer p { max-width: none; margin: 4px 0; }
   F --&gt; H[dbt 转换 -&gt; 明细层]
   H --&gt; G</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-pipeline-triage">
@@ -267,18 +253,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">pipeline-triage</div>
     <code class="skill-card-path">skills/bigdata/pipeline-triage/SPEC.md</code>
   </div>
+  <h3>Pipeline Triage Runbook</h3>
   <p class="skill-card-desc">Diagnose a failed or degraded AI-Fleet pipeline. Use when: a pipeline health check fails, a cron job stops producing output, a LaunchAgent doesn&#39;t fire, the user reports &#39;X pipeline is broken&#39;, or you see non-zero exit codes in pipeline logs. Also trigger when ai harness health shows RED/ORANGE status for any pipeline. NOT for writing new pipelines — use sprint-pipeline-v2 for that.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>AI-Fleet 数据管道的故障排查手册（runbook），把症状 → 定位 → 修复的诊断流程固化成 4 个阶段，让 LaunchAgent（macOS 启动代理）、cron（定时任务）、webhook（回调钩子）三类调度的失败都能按层定位，避免凭直觉乱改而把好的也带坏。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先在 `configs/pipeline-registry.json` 解析出 pipeline 的 ID、脚本路径、调度方式、`defaultDevice`（默认执行设备），不要用脚本名当 ID 找。</li><li>按 5 层依次排查：触发层（调度是否真的触发）→ 环境层（依赖、API key、Tailscale）→ 脚本层（手动跑能否成功）→ 输出层（产物是否生成）→ 投递层（产物是否到达目的地）。</li><li>检查 `failoverChain`（故障转移链）是否把任务从 VPS（虚拟专用服务器）静默漂到 mini，错把&quot;在跑&quot;当成&quot;健康&quot;。</li><li>健康检查脚本本身可能是坏的，需要交叉看 `outputs/&lt;pipeline-id&gt;/` 实际产物文件大小与时间戳，再下结论。</li><li>输出结构化 triage（分诊）报告：Broken Layer、Root Cause、Evidence、Fix、Prevention、Related，关键链路或动到生产数据时必须升级到 HITL（人在回路）。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -289,7 +273,6 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt;|否| F[Phase4 输出报告 + 修复]
   E --&gt;|是| G[升级 HITL 人工审核]</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-postgresql-best-practices">
@@ -297,18 +280,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">postgresql-best-practices</div>
     <code class="skill-card-path">skills/bigdata/postgresql-best-practices/SPEC.md</code>
   </div>
+  <h3>PostgreSQL Best Practices</h3>
   <p class="skill-card-desc">PostgreSQL query optimization, indexing, and schema design. Use when: slow queries, &#39;optimize SQL&#39;, PG performance, index strategy, database tuning. NOT for: schema migration execution (use new-migration).</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>PostgreSQL（关系型数据库）生产实战的优化手册，把查询计划、索引策略、并发连接、schema（表结构）设计的高频坑位写成可执行规则，让慢查询、写锁、JSONB（二进制 JSON）索引膨胀这类问题在上线前就被截住，避免上线后线上慢查告警再来回滚。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>任何慢查询都先跑 `EXPLAIN ANALY</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -321,49 +302,87 @@ footer p { max-width: none; margin: 4px 0; }
   E --&gt; G
   F --&gt; G</pre>
   </div>
-
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-scope-contract">
+<div class="skill-card" id="skill-scope-contract">
   <div class="skill-card-header">
     <div class="skill-card-tag">scope-contract</div>
     <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
   </div>
+  <h3>Scope Contract Workflow</h3>
   <p class="skill-card-desc">Scope Contract Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Scope Contract Workflow 用来把 大数据工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Scope Contract Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `scope-contract`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Scope Contract Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-quality-gate">
+<div class="skill-card" id="skill-quality-gate">
   <div class="skill-card-header">
     <div class="skill-card-tag">quality-gate</div>
     <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
   </div>
+  <h3>Quality Gate Workflow</h3>
   <p class="skill-card-desc">Quality Gate Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Quality Gate Workflow 用来把 大数据工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Quality Gate Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `quality-gate`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Quality Gate Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-delivery-review">
+<div class="skill-card" id="skill-delivery-review">
   <div class="skill-card-header">
     <div class="skill-card-tag">delivery-review</div>
     <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
   </div>
+  <h3>Delivery Review Workflow</h3>
   <p class="skill-card-desc">Delivery Review Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Delivery Review Workflow 用来把 大数据工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Delivery Review Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `delivery-review`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Delivery Review Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -372,12 +391,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; bigdata-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -439,7 +458,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 大数据工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

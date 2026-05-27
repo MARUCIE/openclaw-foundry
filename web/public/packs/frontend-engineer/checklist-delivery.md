@@ -6,7 +6,7 @@
 
 ## 阶段 1 · Pre-Workshop (T-3 至 T-1)
 
-- [ ] 1.1 baseline-before-after.md 已用 cohort 自报数据校准（基线 26.5h 来源于杨长志/王荣/陈豪等 6 人自报）
+- [ ] 1.1 baseline-before-after.md 已用 cohort 自报数据校准（基线 26.5h 来源于接口联调代表/技术文档代表/前端开发代表等 6 人自报）
 - [ ] 1.2 3 个 scenarios 文件每个 ≥ 5 prompts，每个 prompt 有 Variables + 完整长 prompt + Why this works
 - [ ] 1.3 5 个 tool-kit 文件齐全（claude.md / 提示词模板 / SOP / Skill / 文档模板）
 - [ ] 1.4 `pe-backend-api` Skill frontmatter 三段齐 + 触发关键词列表 ≥ 10 个
@@ -20,11 +20,11 @@
 ## 阶段 2 · On-Site (T+0 · 2026-05-28)
 
 - [ ] 2.1 9:00 开场 — cohort 自报上周实际工作量（与 baseline 对照）
-- [ ] 2.2 9:30 Session A · 接口联调族实战（杨长志选 1 个真实接口跑 prompt 1-3）
+- [ ] 2.2 9:30 Session A · 接口联调族实战（接口联调代表选 1 个真实接口跑 prompt 1-3）
 - [ ] 2.3 10:30 茶歇 + cohort 互验：邻座查 prompt 输出质量
-- [ ] 2.4 10:45 Session B · 需求转技术文档族实战（王荣选 1 个真实 PRD 跑 prompt 1-3）
+- [ ] 2.4 10:45 Session B · 需求转技术文档族实战（技术文档代表选 1 个真实 PRD 跑 prompt 1-3）
 - [ ] 2.5 11:45 午休
-- [ ] 2.6 13:30 Session C · 前端开发族实战（陈豪选 1 个真实 Figma 页面跑 prompt 1-4）
+- [ ] 2.6 13:30 Session C · 前端开发族实战（前端开发代表选 1 个真实 Figma 页面跑 prompt 1-4）
 - [ ] 2.7 14:30 装 Skill · cohort 把 `pe-backend-api` Skill 装到自己 Claude / Codex
 - [ ] 2.8 15:00 装 CLAUDE.md · cohort 把 tool-kit-01 模板装到自己仓库
 - [ ] 2.9 15:30 4 模板实战 · 用 tool-kit-05 写一份接口文档 + 一份技术方案

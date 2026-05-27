@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   generated-by: scripts/generate-pack-guides.mjs
-  generated-at: 2026-05-26T00:00:00.000Z
+  generated-at: 2026-05-27T00:00:00.000Z
   style-id: html-document-style (Claude Warm Academic Humanism)
   route: html-style-router → "Documentation" row → guide/manual/onboarding
   source: web/public/packs/spellbook-ai-app-engineer/{manifest.json,CLAUDE.md,prompts.md}
@@ -68,7 +68,6 @@ ol li { margin-bottom: 8px; }
 
 /* Skill detail cards (rich rendering of 是什么 / 怎么用 / 架构图) */
 .skill-card { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 14px; padding: 28px 32px; margin: 24px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.skill-card-stub { background: var(--bg-warm); }
 .skill-card-header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
 .skill-card-tag { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); }
 .skill-card-path { font-size: 0.78rem; color: var(--text-muted); background: transparent; padding: 0; }
@@ -80,7 +79,6 @@ ol li { margin-bottom: 8px; }
 .skill-card-section ol li { margin-bottom: 4px; color: var(--text-primary); }
 .skill-card-section pre.mermaid { background: var(--bg-warm); color: var(--text-primary); padding: 16px 20px; border-radius: 10px; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; overflow-x: auto; border: 1px solid var(--border); }
 .skill-card-section pre.mermaid svg { max-width: 100%; height: auto; }
-.skill-card-stub-note { font-size: 0.85rem; margin-top: 12px; }
 footer { text-align: center; padding: 60px 20px 40px; color: var(--text-muted); font-size: 13px; line-height: 2.2; border-top: 1px solid var(--border); }
 footer p { max-width: none; margin: 4px 0; }
 @media (max-width: 720px) {
@@ -131,25 +129,23 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>工具详解（每个 skill 是什么 · 怎么用 · 架构图）</h2>
-<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你在 Claude Code 里 <code>claude --skill &lt;skill-name&gt;</code> 调用的内容，就是这些 skill 的全文。</p>
+<p>下面每张卡片对应一个 skill，三段式结构：<strong>是什么</strong>（这个能力的业务效果） · <strong>怎么用</strong>（PM 视角的 3-5 步使用动线） · <strong>架构图</strong>（输入 → 处理 → 产出的 Mermaid 流程图）。装包到本地后，你调用的是卡片中列出的源文件；这里是从源文档提取并结构化生成的说明书视图。</p>
 
 <div class="skill-card" id="skill-agentex">
   <div class="skill-card-header">
     <div class="skill-card-tag">agentex</div>
     <code class="skill-card-path">skills/agentex/SKILL.md</code>
   </div>
+  <h3>Agentex Platform</h3>
   <p class="skill-card-desc">Use when building, wiring, or debugging an Agentex agent — choosing agent type, configuring acp.py and manifest.yaml, using adk.messages or adk.state, or resolving Windows-specific setup issues.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Agentex 是把 AI 智能体（AI Agent）变成可注册、可编排、可观测的后端服务的一套平台范式。</p><p>用它的效果是：智能体不再是一段散落的脚本，而是带状态、带消息、带工作流的产品功能。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按业务场景挑选合适的智能体类型（对话型、工作流型、批处理型），让后续设计有清晰边界。</li><li>在 acp.py 与 manifest.yaml 里把入口、状态、工具声明清楚，让平台能正确注册并调度这个智能体。</li><li>用 adk.messages（消息接口）传输用户输入与系统响应，让对话过程可追溯、可重放。</li><li>用 adk.state（状态接口）持久化业务上下文，让多轮交互不会因为重启而丢失记忆。</li><li>在本地拉起 FastAPI 后端与 Temporal 工作流后，再把智能体跑起来做端到端验证。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -159,7 +155,6 @@ footer p { max-width: none; margin: 4px 0; }
   工作流编排 --&gt; 消息接口
   消息接口 --&gt; 用户输入</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-langgraph">
@@ -167,18 +162,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">langgraph</div>
     <code class="skill-card-path">skills/langgraph/SKILL.md</code>
   </div>
+  <h3>LangGraph Patterns</h3>
   <p class="skill-card-desc">Use when building or debugging LangGraph workflows — designing state graphs, adding conditional routing, wiring checkpointers, streaming tokens, implementing human-in-the-loop interrupts, or coordinating multi-agent subgraphs.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>LangGraph 是用状态图（State Graph）来描述多步智能体流程的编排框架。</p><p>用它的效果是：复杂的决策、分支、循环不再藏在 if-else 里，而是变成一张可视化、可单步调试的图。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把业务流程拆成节点（一个节点 = 一个明确职责），让每一步的输入输出都有契约。</li><li>用条件边（Conditional Edge）描述分支与循环，让回退与重试逻辑显式而非散落。</li><li>把全局状态（State）建模成 TypedDict 或 Pydantic 模型，让每一次状态更新都可追踪。</li><li>在关键节点接入人工审核断点（Human-in-the-loop），让高风险动作有人类签字才放行。</li><li>用图遍历日志做事后回放，让失败案例能复现、能归因、能写进回归测试。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -189,7 +182,6 @@ footer p { max-width: none; margin: 4px 0; }
   人工审核 --&gt; 状态更新
   状态更新 --&gt; 终点</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-openai-agents">
@@ -197,18 +189,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">openai-agents</div>
     <code class="skill-card-path">skills/openai-agents/SKILL.md</code>
   </div>
+  <h3>OpenAI Agents SDK Patterns</h3>
   <p class="skill-card-desc">Use when building or debugging OpenAI Agents SDK workflows — defining agents with tools and handoffs, wiring typed context, streaming responses, adding guardrails, or integrating with the Agentex ADK.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>OpenAI Agents SDK 是 OpenAI 官方提供的智能体编排库，把工具调用、流程切换、追踪都内置好。</p><p>用它的效果是：开发者只关心业务逻辑，平台层负责工具路由、状态传递、可观测性。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先把工具按业务职责注册到 Agent，让模型在选择工具时有清晰的语义边界。</li><li>用 Handoffs 机制描述多智能体协作，让复杂任务可以在专业智能体间接力完成。</li><li>通过 Guardrails 设置输入输出校验，让不合规的请求或响应在早期被拦截。</li><li>打开 Tracing 收集执行链路，让每一次决策都能在控制台里复盘。</li><li>上线前用真实场景做流式（Streaming）压测，确保延迟与稳定性达标。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -219,7 +209,6 @@ footer p { max-width: none; margin: 4px 0; }
   专业智能体 --&gt; 结果汇总
   结果汇总 --&gt; 链路追踪</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-complex-doc-rag">
@@ -227,18 +216,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">complex-doc-rag</div>
     <code class="skill-card-path">skills/complex-doc-rag/SKILL.md</code>
   </div>
+  <h3>Complex Document RAG</h3>
   <p class="skill-card-desc">Use when building a RAG pipeline that ingests PDFs, Excel, CSV, or images — especially when debugging silent data loss, choosing between OCR tools, or handling edge cases like scanned pages, merged cells, or embedded charts.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Complex Doc RAG 是给复杂文档（合同、年报、技术规范）做高保真检索增强生成的工程模板。</p><p>用它的效果是：模型回答能引用到具体段落而不是泛泛而谈，把幻觉风险压到可控范围。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按文档结构（章节、表格、附录）做语义切片，让检索粒度匹配业务问题颗粒度。</li><li>在切片层叠加元数据（来源、版本、章节路径），让检索结果天然带上溯源信息。</li><li>用向量库与稀疏索引混合检索，把语义相似与关键词命中两条召回链路都打开。</li><li>在生成阶段做引用拼接与置信度标注，让回答自带可核验的页码与原文片段。</li><li>上线前用真实业务问答集跑回归，确保版本切换不会让答案质量倒退。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -249,7 +236,6 @@ footer p { max-width: none; margin: 4px 0; }
   关键词索引 --&gt; 混合检索
   混合检索 --&gt; 引用生成</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-promptbase">
@@ -257,18 +243,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">promptbase</div>
     <code class="skill-card-path">skills/promptbase/SKILL.md</code>
   </div>
+  <h3>PromptBase Skill Publishing</h3>
   <p class="skill-card-desc">Use when writing, reviewing, or adapting a Claude Code skill for sale on PromptBase — checking scope, audience breadth, rejection risk, description quality, examples, and setup instructions.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Promptbase 是把提示词（Prompt）当代码管理的工程实践：版本化、可测试、可灰度。</p><p>用它的效果是：提示词的每次改动都有 diff、有评测、有回滚，不再靠口口相传。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>把每个提示词独立成文件，让 Git 历史记录每次表达调整的来龙去脉。</li><li>为每个提示词配套 golden 测试集，让效果变化在合并前就被自动发现。</li><li>用模板变量隔离稳定文案与动态参数，让提示词可以被多场景复用。</li><li>通过灰度发布在小流量上验证新版本，让大盘风险被控制在可承受的范围内。</li><li>把每次 A/B 实验的结论写回提示词的 changelog，让团队沉淀经验而非重复造轮。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -278,7 +262,6 @@ footer p { max-width: none; margin: 4px 0; }
   灰度发布 --&gt; 生产流量
   生产流量 --&gt; 经验回写</pre>
   </div>
-
 </div>
 
 <div class="skill-card" id="skill-memory-map">
@@ -286,18 +269,16 @@ footer p { max-width: none; margin: 4px 0; }
     <div class="skill-card-tag">memory-map</div>
     <code class="skill-card-path">skills/memory-map/SKILL.md</code>
   </div>
+  <h3>memory_map</h3>
   <p class="skill-card-desc">Use when installing or configuring memory_map, writing CLAUDE.md session-setup instructions, choosing what to save in memory vs history, managing cross-project memory, tuning compression, or troubleshooting why Claude isn&#39;t loading context at session start.</p>
-
   <div class="skill-card-section">
     <h4>是什么</h4>
     <p>Memory Map 是给智能体安装长期记忆与情景记忆（Episodic Memory）的工程脚手架。</p><p>用它的效果是：智能体跨会话也能记住用户偏好、历史决策、未完成事项，告别金鱼脑。</p>
   </div>
-
   <div class="skill-card-section">
     <h4>怎么用</h4>
     <ol><li>先按记忆类型（事实型、偏好型、事件型）分库存储，让检索时按需取用而不是混在一起。</li><li>在写入时做去重与冲突检测，让相同信息不会被反复落库污染检索质量。</li><li>为每条记忆打上时效性标签（永久、季度、单次），让过期信息能自动降权或淘汰。</li><li>在调用模型前根据当前上下文做记忆召回，把最相关的 3-5 条注入到提示里。</li><li>定期做记忆审计，让无效或敏感的记忆能被人工标记后清理。</li></ol>
   </div>
-
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
@@ -308,49 +289,87 @@ footer p { max-width: none; margin: 4px 0; }
   记忆写入 --&gt; 偏好库
   记忆写入 --&gt; 事件库</pre>
   </div>
-
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-scope-contract">
+<div class="skill-card" id="skill-scope-contract">
   <div class="skill-card-header">
     <div class="skill-card-tag">scope-contract</div>
     <code class="skill-card-path">skills/pack-maturity/scope-contract/SKILL.md</code>
   </div>
+  <h3>Scope Contract Workflow</h3>
   <p class="skill-card-desc">Scope Contract Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Scope Contract Workflow 用来把 AI 应用工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Scope Contract Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `scope-contract`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Scope Contract Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-quality-gate">
+<div class="skill-card" id="skill-quality-gate">
   <div class="skill-card-header">
     <div class="skill-card-tag">quality-gate</div>
     <code class="skill-card-path">skills/pack-maturity/quality-gate/SKILL.md</code>
   </div>
+  <h3>Quality Gate Workflow</h3>
   <p class="skill-card-desc">Quality Gate Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Quality Gate Workflow 用来把 AI 应用工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Quality Gate Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `quality-gate`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Quality Gate Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 
-<div class="skill-card skill-card-stub" id="skill-delivery-review">
+<div class="skill-card" id="skill-delivery-review">
   <div class="skill-card-header">
     <div class="skill-card-tag">delivery-review</div>
     <code class="skill-card-path">skills/pack-maturity/delivery-review/SKILL.md</code>
   </div>
+  <h3>Delivery Review Workflow</h3>
   <p class="skill-card-desc">Delivery Review Workflow</p>
-
-
-
-  <p class="muted skill-card-stub-note">此 skill 尚未完成三段式美化（是什么 / 怎么用 / 架构图）— 下一轮补齐。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>Delivery Review Workflow 用来把 AI 应用工程师 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Delivery Review Workflow</p><p>它的重点不是泛泛提示，而是让 数据AI职能线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `delivery-review`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+  A[任务输入] --&gt; B[加载 Delivery Review Workflow]
+  B --&gt; C[执行流程与检查清单]
+  C --&gt; D[生成交付物与风险记录]
+  D --&gt; E[验证结果并沉淀复盘]</pre>
+  </div>
 </div>
 </section>
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.26.1</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -359,12 +378,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.26.1 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=claude</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=codex</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=gemini</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=hermes</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=openclaw</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; spellbook-ai-app-engineer --agent=claude --target /your/dir</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -426,7 +445,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — AI 应用工程师 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.26.1 · 生成时间：2026-05-26 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">
