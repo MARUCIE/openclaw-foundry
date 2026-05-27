@@ -37,6 +37,7 @@
 | 2026-05-26 | REQ-034 | CI / Runtime Lifecycle | Production and catalog-health workflows must stop depending on Node 20 action runtimes before GitHub's 2026-06-02 Node 24 runner default switch | Completed | Upgraded workflow actions to Node 24-compatible majors, pinned Cloudflare Wrangler to `4.76.0`, and validated deploy run `26443292530` plus production `/packs` smoke at commit `9a081d9366df33f57b714c7872adc16d89409051` |
 | 2026-05-26 | REQ-035 | Job Pack / Release Automation | Role-pack Git release checks and local zip bundle creation must be reproducible through npm scripts, with drift detection, checksums, manifest summaries, and archive install smoke tests | Completed | Added `role-packs:audit-git`, `role-packs:package`, and `role-packs:package:all`; scripts verified pinned tag `v2026.05.26.1`, generated 22 public zips plus all-in-one public zip, and generated 26 all-pack zips plus all-in-one all-pack zip |
 | 2026-05-27 | REQ-036 | Job Pack / Guide Manual Completeness | Every job-pack guide must show each bundled skill as a complete three-part card: `是什么` / `怎么用` / `架构图`; no unfinished placeholder text or stub guide card is allowed | Completed | Updated guide generator to normalize legacy/imported skill docs, added `role-packs:audit-guides`, published standalone tag `v2026.05.27.2`, and verified Foundry vs Git release parity |
+| 2026-05-27 | REQ-037 | Job Pack / Source Contract + Release SSOT | Guide completeness must be proven from source Markdown skill docs, and role-pack Git ref/version must have a single JSON source across Foundry UI, guide generation, Git audit, and standalone validation | Completed | Added `role-pack-release.json`, `role-packs:enrich-source-skills`, strict source guide audit, path-level person-name audit, standalone release self-validation, and tag `v2026.05.27.3` |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -59,6 +60,7 @@
 | 2026-05-26 | "继续" after production maturity closeout | CI runtime lifecycle cleanup | Treat GitHub Actions Node 20 deprecation annotations as release debt; upgrade actions to Node 24-native majors rather than relying on temporary opt-out or opt-in environment flags |
 | 2026-05-26 | "所有的skill都已经是git安装了吗？确定都打通了吗？把所有岗位再每个一个总的压缩包保存再本地" | Role-pack release automation invariant | Git release proof and local zip packaging must be commandized; do not rely on one-off shell checks when sharing pack releases |
 | 2026-05-27 | "为什么很多工具包里的说明书还没有完成 skill 三段式美化？全面检查和修复" | Guide manual completeness invariant | Generated guide pages must be reader-complete even when imported SKILL/SPEC sources use older heading conventions; make incomplete cards a prebuild failure instead of a visual TODO |
+| 2026-05-27 | "执行code review swarm / 按照SOTA路线" | Source-of-truth hardening invariant | Fix review findings by moving checks to the earliest truthful layer: source Markdown docs, release config JSON, root installer smoke, and standalone validation, not generated HTML or manual shell history |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -97,7 +99,8 @@
 | GitHub Actions 出现 Node 20 deprecation annotation 怎么办? | 不要只设置临时环境开关。优先升级到 `runs.using: node24` 的 action major（checkout/setup-node/setup-python/artifact/wrangler），并通过真实 GitHub Actions deploy 与生产 smoke 证明没有回退。 |
 | 怎么确认所有岗位包的 Skill 都已经通过 Git 安装链路打通? | 运行 `npm run role-packs:audit-git`。它会读取 Foundry 当前 Git URL/ref，克隆对应 `openclaw-role-packs` tag，执行 standalone validate + smoke install，并逐文件比较 Foundry 与 Git tag 的 manifest payload hash。 |
 | 怎么生成本地岗位包压缩包? | 运行 `npm run role-packs:package` 生成 22 个公开 canonical 包和一个 public 总包；运行 `npm run role-packs:package:all` 生成 26 个全量包和一个 all 总包。两个命令都会生成 `SHA256SUMS.txt`、`manifest-summary.json` 并对 zip 做安装烟测。 |
-| 怎么确认所有岗位包说明书里的 skill 都完成三段式美化? | 运行 `npm run role-packs:audit-guides`。它检查 26 个 guide 中每个 manifest skill 都有一张卡片，并且每张卡片都有 `是什么`、`怎么用`、`架构图` 和 Mermaid 流程图，同时禁止未完成占位文案。 |
+| 怎么确认所有岗位包说明书里的 skill 都完成三段式美化? | 运行 `npm run role-packs:enrich-source-skills -- --check` 和 `npm run role-packs:audit-guides`。前者证明源 Markdown skill doc 已有 `是什么`、`怎么用`、`架构图`，后者证明 26 个 guide 的 182 个 guide-facing skill doc 都渲染成三段式卡片；非 Markdown skill payload 不作为说明书卡片。 |
+| 角色包 Git release ref 的单一事实源是什么? | `web/public/data/role-pack-release.json`。`scripts/generate-pack-guides.mjs`、`web/lib/protected-downloads.ts`、`scripts/audit-role-pack-git-release.mjs` 和 standalone `catalog/role-pack-release.json` 都必须从这个 JSON 派生，不能再硬编码 release ref。 |
 
 ## References
 1. `package.json`
@@ -154,3 +157,5 @@
 52. `scripts/audit-role-pack-git-release.mjs`
 53. `scripts/package-role-packs.mjs`
 54. `scripts/audit-pack-guide-skill-sections.mjs`
+55. `scripts/enrich-pack-skill-sections.mjs`
+56. `web/public/data/role-pack-release.json`

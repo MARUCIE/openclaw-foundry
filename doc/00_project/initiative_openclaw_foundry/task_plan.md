@@ -665,3 +665,30 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 14. Cross-surface person-name audit -> PASS across Foundry public packs, exported packs, and standalone Git payload/catalog surfaces.
 15. GitHub Actions deploy run `26486392584` -> PASS for commit `9c4abd8`.
 16. Production smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases; sampled production guides contain `v2026.05.27.2`, exact three-part card parity, and no named cohort/person-owner strings or unfinished placeholders.
+
+## 2026-05-27 · Role-Pack Source Contract and Release SSOT
+- Status: in deployment
+- Stop condition: source guide docs, generated guide HTML, standalone Git tag, local zip archives, Foundry build, GitHub deploy, and production smoke all verify against `v2026.05.27.3`.
+
+### Steps
+- [x] Convert guide generation from HTML fallback completion to source-section enforcement.
+- [x] Add `scripts/enrich-pack-skill-sections.mjs` for deterministic source repair of Markdown guide skill docs.
+- [x] Update guide audit to validate source docs and rendered guide cards separately.
+- [x] Add `web/public/data/role-pack-release.json` as release URL/ref/version SSOT and consume it from guide generation, UI copy, and Git audit.
+- [x] Expand person-name sanitizer to audit paths and catch old advisor brace shorthand.
+- [x] Sync standalone role-pack repo, add standalone release validation, and publish tag `v2026.05.27.3`.
+- [x] Generate verified full local zip archive set for `v2026.05.27.3`.
+- [x] Run local Foundry and standalone verification.
+- [ ] Commit Foundry, push, wait for production deploy, and smoke-test production guide pages.
+
+### Current Verification Snapshot
+1. `npm run role-packs:enrich-source-skills -- --check` -> PASS: 182 guide-facing source skill docs.
+2. `npm run role-packs:audit-guides` -> PASS: 26 guides, 182 guide-facing skill docs, 185 skill payloads, 182 cards.
+3. `npm run role-packs:audit-person-names` -> PASS across Foundry public packs, data job-pack sources, and public catalogs.
+4. Standalone `npm run validate` -> PASS: 26 packs, 26 catalog entries, release config/package version match, no unpinned Git install command, no concrete person names.
+5. Standalone `npm run smoke:install` -> PASS for 26/26 packs through root `install.sh <pack-id>`.
+6. `npm run role-packs:audit-git` -> PASS for `v2026.05.27.3`: 22 public packs, 26 distribution dirs, 550 manifest items, 550 payload files matched.
+7. `npm --prefix web run build` -> PASS with source-guide, person-name, install-source, dedup, coverage, online-status, and maturity gates.
+8. `npm run build` -> PASS.
+9. `npm run role-packs:package:all` -> PASS: `dist/role-pack-zips-20260527-094317-all`, 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.3.zip`, verified by install smoke.
+10. `ai check` -> command exited 0 with run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-095031-70e43875`; project docs/tests passed, but global AI-Fleet `skill_integrity` reported pre-existing/out-of-scope state (`codex-system-skills/plugin-creator` tampered, `code-review-swarm` and `network-speed-optimizer` new).

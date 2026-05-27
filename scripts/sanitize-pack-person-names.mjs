@@ -64,6 +64,12 @@ const PATH_RENAMES = new Map([
   ['advisor-jobs', 'advisor-product-experience'],
   ['advisor-hara', 'advisor-design-simplicity'],
   ['advisor-catmull', 'advisor-team-culture'],
+  ['杨长志', 'api-integration-representative'],
+  ['叶宇', 'requirements-clarification-representative'],
+  ['李吉平', 'engineering-review-representative'],
+  ['王荣', 'technical-documentation-representative'],
+  ['陈豪', 'frontend-delivery-representative'],
+  ['徐飞', 'test-validation-representative'],
   ['advisor-musk', 'advisor-execution-speed'],
   ['advisor-orwell', 'advisor-language-clarity'],
   ['karpathy-autoresearch', 'iterative-autoresearch'],
@@ -222,6 +228,7 @@ const TEXT_REPLACEMENTS = [
 
   [/Steve Jobs(?:&#39s|&#39;s|'s|’s)?/g, 'Product Experience'],
   [/Jobs\s*\+\s*Hara\s*\+\s*Catmull/g, 'Product Experience + Design Simplicity + Team Culture'],
+  [/advisor-\{jobs,hara,catmull\}/g, 'advisor-{product-experience,design-simplicity,team-culture}'],
   [/Hara\s*\+\s*Jobs/g, 'Design Simplicity + Product Experience'],
   [/Jobs\/Ive/g, 'Product Experience / Interface Craft'],
   [/Jobs was/g, 'The product-experience lens was'],
@@ -306,6 +313,7 @@ const TEXT_REPLACEMENTS = [
 
 const FORBIDDEN_PATTERNS = [
   ['old advisor id', /advisor-(munger|drucker|meadows|buffett|taleb|hickey|brooks|jobs|hara|catmull|musk|orwell)/],
+  ['old advisor brace shorthand', /advisor-\{jobs,hara,catmull\}/],
   ['old skill id', /karpathy-autoresearch|porters-five-forces/],
   ['named advisor', /\b(Munger|Drucker|Meadows|Buffett|Taleb|Hickey|Brooks|Hara|Catmull|Musk|Orwell|Karpathy|Porter|Pareto)\b/],
   ['product persona', /Steve Jobs|Jony Ive|Jobs\s*\+|Jobs\/Ive|Jobs was|Jobs&#39;|Jobs'|Jobs’|\bIve\b/],
@@ -464,6 +472,13 @@ function audit(roots, files) {
     }
     if (text.includes('\u0000')) continue;
     const rel = relative(PROJECT_ROOT, file);
+    for (const [label, pattern] of FORBIDDEN_PATTERNS) {
+      if (pattern.test(rel)) {
+        findings.push({ file: rel, line: 0, label: `path ${label}`, text: rel.slice(0, 220) });
+        break;
+      }
+    }
+    if (findings.length > 200) return findings;
     const lines = text.split(/\r?\n/);
     for (let i = 0; i < lines.length; i += 1) {
       for (const [label, pattern] of FORBIDDEN_PATTERNS) {

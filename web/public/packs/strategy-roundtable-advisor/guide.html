@@ -140,11 +140,11 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">&gt; PIPELINE (sequential execution, A-&gt;B-&gt;C) | 栋哥商业诊断工具箱: 商业模式诊断 + 对标分析 + 内容创作 + 执行力 + 概念拆解</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Business Diagnosis (dontbesilent) 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>&gt; PIPELINE (sequential execution, A-&gt;B-&gt;C) | 栋哥商业诊断工具箱: 商业模式诊断 + 对标分析 + 内容创作 + 执行力 + 概念拆解</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Business Diagnosis (dontbesilent) 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>&gt; PIPELINE (sequential execution, A-&gt;B-&gt;C) | 栋哥商业诊断工具箱: 商业模式诊断 + 对标分析 + 内容创作 + 执行力 + 概念拆解</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `business-diagnosis-pipeline`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `business-diagnosis-pipeline`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
@@ -165,66 +165,16 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">This skill upgrades reflection from \&quot;append another note\&quot; to a compact learning system:</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>cognitive-reflection 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>This skill upgrades reflection from \&quot;append another note\&quot; to a compact learning system:</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>cognitive-reflection 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>This skill upgrades reflection from \&quot;append another note\&quot; to a compact learning system:</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-reflection`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-reflection`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
   A[任务输入] --&gt; B[加载 cognitive-reflection]
-  B --&gt; C[执行流程与检查清单]
-  C --&gt; D[生成交付物与风险记录]
-  D --&gt; E[验证结果并沉淀复盘]</pre>
-  </div>
-</div>
-
-<div class="skill-card" id="skill-cognitive-reflection">
-  <div class="skill-card-header">
-    <div class="skill-card-tag">cognitive-reflection</div>
-    <code class="skill-card-path">skills/cognitive-reflection/__init__.py</code>
-  </div>
-  <h3>Cognitive Reflection</h3>
-  <p class="skill-card-desc">Tier1 Skill: cognitive-reflection Runnable wrapper around scripts/cognitive_reflection.py</p>
-  <div class="skill-card-section">
-    <h4>是什么</h4>
-    <p>Cognitive Reflection 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Tier1 Skill: cognitive-reflection Runnable wrapper around scripts/cognitive_reflection.py</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
-  </div>
-  <div class="skill-card-section">
-    <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-reflection`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
-  </div>
-  <div class="skill-card-section">
-    <h4>架构图</h4>
-    <pre class="mermaid">flowchart LR
-  A[任务输入] --&gt; B[加载 Cognitive Reflection]
-  B --&gt; C[执行流程与检查清单]
-  C --&gt; D[生成交付物与风险记录]
-  D --&gt; E[验证结果并沉淀复盘]</pre>
-  </div>
-</div>
-
-<div class="skill-card" id="skill-cognitive-reflection">
-  <div class="skill-card-header">
-    <div class="skill-card-tag">cognitive-reflection</div>
-    <code class="skill-card-path">skills/cognitive-reflection/config.json</code>
-  </div>
-  <h3>Cognitive Reflection</h3>
-  <p class="skill-card-desc">&quot;name&quot;: &quot;cognitive-reflection&quot;, &quot;version&quot;: &quot;0.1.0&quot;,</p>
-  <div class="skill-card-section">
-    <h4>是什么</h4>
-    <p>Cognitive Reflection 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>&quot;name&quot;: &quot;cognitive-reflection&quot;, &quot;version&quot;: &quot;0.1.0&quot;,</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
-  </div>
-  <div class="skill-card-section">
-    <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-reflection`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
-  </div>
-  <div class="skill-card-section">
-    <h4>架构图</h4>
-    <pre class="mermaid">flowchart LR
-  A[任务输入] --&gt; B[加载 Cognitive Reflection]
   B --&gt; C[执行流程与检查清单]
   C --&gt; D[生成交付物与风险记录]
   D --&gt; E[验证结果并沉淀复盘]</pre>
@@ -240,11 +190,11 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">Use when: decision-making, strategy, risk assessment, problem analysis, growth planning, or when the user asks &#39;which framework/model should I use&#39;. Trigger: 思维模型, mental model, framework, 该用什么框架, 怎么分析, 决策, 战略, 决策框架, munger, lattice, 格栅. NOT for: direct coding tasks, UI implementation, routine operational work.</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Cognitive Skeleton -- Interactive Thinking Model Lookup 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Use when: decision-making, strategy, risk assessment, problem analysis, growth planning, or when the user asks &#39;which framework/model should I use&#39;. Trigger: 思维模型, mental model, framework, 该用什么框架, 怎么分析, 决策, 战略, 决策框架, munger, lattice, 格栅. NOT for: direct coding tasks, UI implem...</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Cognitive Skeleton -- Interactive Thinking Model Lookup 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>Use when: decision-making, strategy, risk assessment, problem analysis, growth planning, or when the user asks &#39;which framework/model should I use&#39;. Trigger: 思维模型, mental model, framework, 该用什么框架, 怎么分析, 决策, 战略, 决策框架, munger, lattice, 格栅....</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-skeleton`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-skeleton`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
@@ -265,41 +215,16 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">Use when the user wants an 8-expert or multi-expert roundtable, multi-perspective strategic analysis, consulting-style decision report, expert challenge session, pyramid-principle report, or front-door strategic thinking workflow. Always collect both a clear core question and relevant context before analysis.</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Multi-Expert Roundtable Report 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Use when the user wants an 8-expert or multi-expert roundtable, multi-perspective strategic analysis, consulting-style decision report, expert challenge session, pyramid-principle report, or front-door strategic thinking workflow. Always collect both a clear core question and...</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Multi-Expert Roundtable Report 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>Use when the user wants an 8-expert or multi-expert roundtable, multi-perspective strategic analysis, consulting-style decision report, expert challenge session, pyramid-principle report, or front-door strategic thinking workflow. Always...</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `multi-expert-roundtable-report`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `multi-expert-roundtable-report`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
     <pre class="mermaid">flowchart LR
   A[任务输入] --&gt; B[加载 Multi-Expert Roundtable Report]
-  B --&gt; C[执行流程与检查清单]
-  C --&gt; D[生成交付物与风险记录]
-  D --&gt; E[验证结果并沉淀复盘]</pre>
-  </div>
-</div>
-
-<div class="skill-card" id="skill-agents">
-  <div class="skill-card-header">
-    <div class="skill-card-tag">agents</div>
-    <code class="skill-card-path">skills/multi-expert-roundtable-report/agents/openai.yaml</code>
-  </div>
-  <h3>Agents</h3>
-  <p class="skill-card-desc">display_name: &quot;Multi-Expert Roundtable Report&quot; short_description: &quot;8-expert analysis into pyramid reports&quot;</p>
-  <div class="skill-card-section">
-    <h4>是什么</h4>
-    <p>Agents 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>display_name: &quot;Multi-Expert Roundtable Report&quot; short_description: &quot;8-expert analysis into pyramid reports&quot;</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
-  </div>
-  <div class="skill-card-section">
-    <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `agents`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
-  </div>
-  <div class="skill-card-section">
-    <h4>架构图</h4>
-    <pre class="mermaid">flowchart LR
-  A[任务输入] --&gt; B[加载 Agents]
   B --&gt; C[执行流程与检查清单]
   C --&gt; D[生成交付物与风险记录]
   D --&gt; E[验证结果并沉淀复盘]</pre>
@@ -315,11 +240,11 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">Target home for Codex-facing wrapper guidance around the shared `planning-with-files` workflow. Current live load surface:</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Codex Adapter: Planning with Files 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>Target home for Codex-facing wrapper guidance around the shared `planning-with-files` workflow. Current live load surface:</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Codex Adapter: Planning with Files 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>Target home for Codex-facing wrapper guidance around the shared `planning-with-files` workflow. Current live load surface:</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `planning-with-files`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `planning-with-files`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
@@ -340,11 +265,11 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">用本地三份文件作为“外置工作记忆”，避免长任务在对话变长后发生目标漂移：</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Planning with Files（Codex Skill） 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>用本地三份文件作为“外置工作记忆”，避免长任务在对话变长后发生目标漂移：</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Planning with Files（Codex Skill） 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>用本地三份文件作为“外置工作记忆”，避免长任务在对话变长后发生目标漂移：</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `planning-with-files`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `planning-with-files`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
@@ -365,11 +290,11 @@ footer p { max-width: none; margin: 4px 0; }
   <p class="skill-card-desc">&gt; SWARM (parallel experts, dynamic selection) | 产品战略、用户研究、市场分析、功能优先级、商业模型、竞品分析</p>
   <div class="skill-card-section">
     <h4>是什么</h4>
-    <p>Product Management &amp; Strategy 用来把 战略圆桌顾问 场景里的任务输入转成可执行的工作流、检查清单和交付物。</p><p>&gt; SWARM (parallel experts, dynamic selection) | 产品战略、用户研究、市场分析、功能优先级、商业模型、竞品分析</p><p>它的重点不是泛泛提示，而是让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。</p>
+    <p>Product Management &amp; Strategy 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。</p><p>&gt; SWARM (parallel experts, dynamic selection) | 产品战略、用户研究、市场分析、功能优先级、商业模型、竞品分析</p><p>它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。</p>
   </div>
   <div class="skill-card-section">
     <h4>怎么用</h4>
-    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `product-management-swarm`。</li><li>按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。</li></ol>
+    <ol><li>明确当前任务目标、输入材料、约束和期望交付物，再加载 `product-management-swarm`。</li><li>按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。</li><li>把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。</li><li>用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。</li></ol>
   </div>
   <div class="skill-card-section">
     <h4>架构图</h4>
@@ -384,7 +309,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>多 CLI 安装支持（Claude Code / Codex / Gemini / Hermes / OpenClaw）</h2>
-<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.2</code>。公开 Pages 直连
+<p>安装入口统一走 GitHub 固定 tag：<code>https://github.com/MARUCIE/openclaw-role-packs.git</code> @ <code>v2026.05.27.3</code>。公开 Pages 直连
 <code>/packs/*/install.sh</code> 已关闭，避免绕过登录/发放链路或命中旧 CDN 缓存。</p>
 <table style="width:100%; border-collapse:collapse; margin:12px 0;">
   <thead><tr style="background:#F4F1EB; text-align:left;">
@@ -393,12 +318,12 @@ footer p { max-width: none; margin: 4px 0; }
     <th style="padding:8px 12px;">安装命令</th>
   </tr></thead>
   <tbody>
-    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=claude</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=codex</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=gemini</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=hermes</code></td></tr>
-    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=openclaw</code></td></tr>
-    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; strategy-roundtable-advisor --agent=claude --target /your/dir</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Claude Code</strong></td><td style="padding:8px 12px;"><code>~/.claude/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;claude&#39;</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Codex CLI</strong></td><td style="padding:8px 12px;"><code>~/.codex/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;codex&#39;</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Gemini CLI</strong></td><td style="padding:8px 12px;"><code>~/.gemini/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;gemini&#39;</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>Hermes agent</strong></td><td style="padding:8px 12px;"><code>~/.hermes/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;hermes&#39;</code></td></tr>
+    <tr><td style="padding:8px 12px;"><strong>OpenClaw</strong></td><td style="padding:8px 12px;"><code>~/.openclaw/</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;openclaw&#39;</code></td></tr>
+    <tr><td style="padding:8px 12px;">其它 / 自定义</td><td style="padding:8px 12px;"><code>$INSTALL_DEST</code></td><td style="padding:8px 12px;"><code class="install-command">tmp=&quot;$(mktemp -d)&quot; &amp;&amp; git clone --depth 1 --branch &#39;v2026.05.27.3&#39; &#39;https://github.com/MARUCIE/openclaw-role-packs.git&#39; &quot;$tmp/openclaw-role-packs&quot; &amp;&amp; &quot;$tmp/openclaw-role-packs/install.sh&quot; &#39;strategy-roundtable-advisor&#39; --agent=&#39;claude&#39; --target &#39;/your/dir&#39;</code></td></tr>
   </tbody>
 </table>
 <p class="muted">安装脚本仍支持 <code>--target</code> / <code>INSTALL_DEST</code> / <code>--agent=&lt;X&gt;</code>；生产页面复制按钮也输出同一条 GitHub tag 命令。</p>
@@ -460,7 +385,7 @@ claude --help | head -3
 <footer>
   <p>OpenClaw Foundry — 战略圆桌顾问 岗位包指导手册</p>
   <p>Agent Foundry Team</p>
-  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.2 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
+  <p style="font-size:12px; margin-top:8px;">生成版本：v2026.05.27.3 · 生成时间：2026-05-27 00:00:00 UTC · 数据来源：本包 manifest.json + CLAUDE.md + skills/**/{SKILL,SPEC}.md</p>
 </footer>
 </div>
 <script type="module">

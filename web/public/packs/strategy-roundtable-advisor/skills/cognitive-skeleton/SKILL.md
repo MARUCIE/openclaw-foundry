@@ -148,3 +148,28 @@ The highest-value part of this skill is the cross-reference between Decision Fra
 - PM #04 JTBD (what job is the user hiring your product to do)
 
 **Latticework**: Map Is Not the Territory tells you why your existing dashboard/survey data may be misleading -- it is a simplified model of reality, not reality itself. Narrative Instinct explains why user interviews produce stories rather than reliable data, so you need techniques that look past the narrative to actual behavior. Design Thinking gives you the full process from empathy to validation. JTBD gives you the specific analytical frame for the "Define" step: what functional, emotional, and social job is the user trying to accomplish.
+
+## 是什么
+
+Cognitive Skeleton -- Interactive Thinking Model Lookup 用来把 战略圆桌顾问 场景里的任务输入转成可执行的流程、检查清单和交付物。
+
+Use when: decision-making, strategy, risk assessment, problem analysis, growth planning, or when the user asks 'which framework/model should I use'. Trigger: 思维模型, mental model, framework, 该用什么框架, 怎么分析, 决策, 战略, 决策框架, munger, lattice, 格栅....
+
+它的价值在于让 战略决策线 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中复用同一套岗位能力，而不是依赖一次性的聊天提示词。
+
+## 怎么用
+
+1. 明确当前任务目标、输入材料、约束和期望交付物，再加载 `cognitive-skeleton`。
+2. 按 skill 文档中的流程、检查清单或工具建议执行，优先复用仓库已有规范与真实命令。
+3. 把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。
+4. 用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐。
+
+## 架构图
+
+```mermaid
+flowchart LR
+  A[任务输入] --> B[加载 Cognitive Skeleton -- Interactive Thinki]
+  B --> C[执行流程与检查清单]
+  C --> D[生成交付物与风险记录]
+  D --> E[验证结果并沉淀复盘]
+```

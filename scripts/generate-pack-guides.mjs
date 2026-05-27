@@ -24,8 +24,12 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, '..');
 const PACKS_DIR = join(PROJECT_ROOT, 'web', 'public', 'packs');
-const ROLE_PACKS_GIT_URL = 'https://github.com/MARUCIE/openclaw-role-packs.git';
-const ROLE_PACKS_GIT_REF = 'v2026.05.27.2';
+const ROLE_PACK_RELEASE = readJsonSafe(join(PROJECT_ROOT, 'web', 'public', 'data', 'role-pack-release.json'));
+const ROLE_PACKS_GIT_URL = ROLE_PACK_RELEASE?.gitUrl;
+const ROLE_PACKS_GIT_REF = ROLE_PACK_RELEASE?.gitRef;
+if (!ROLE_PACKS_GIT_URL || !ROLE_PACKS_GIT_REF) {
+  throw new Error('web/public/data/role-pack-release.json must define gitUrl and gitRef');
+}
 const GUIDE_GENERATED_AT = resolveGuideGeneratedAt();
 const GUIDE_GENERATED_AT_DISPLAY = GUIDE_GENERATED_AT.slice(0, 19).replace('T', ' ') + ' UTC';
 
@@ -59,12 +63,25 @@ function cleanGeneratedHtml(html) {
   return html.replace(/[ \t]+$/gm, '').replace(/\n?$/, '\n');
 }
 
+const PACK_ID_PATTERN = /^[a-z0-9][a-z0-9-]{1,80}$/;
+
+function shellQuote(value) {
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
+}
+
+function assertPackId(packId) {
+  if (!PACK_ID_PATTERN.test(packId)) {
+    throw new Error(`invalid pack id: ${packId}`);
+  }
+}
+
 function buildGitInstallCommand(slug, agent, target = '') {
-  const targetArg = target ? ` --target ${target}` : '';
+  assertPackId(slug);
+  const targetArg = target ? ` --target ${shellQuote(target)}` : '';
   return [
     'tmp="$(mktemp -d)"',
-    `git clone --depth 1 --branch ${ROLE_PACKS_GIT_REF} ${ROLE_PACKS_GIT_URL} "$tmp/openclaw-role-packs"`,
-    `"$tmp/openclaw-role-packs/install.sh" ${slug} --agent=${agent}${targetArg}`,
+    `git clone --depth 1 --branch ${shellQuote(ROLE_PACKS_GIT_REF)} ${shellQuote(ROLE_PACKS_GIT_URL)} "$tmp/openclaw-role-packs"`,
+    `"$tmp/openclaw-role-packs/install.sh" ${shellQuote(slug)} --agent=${shellQuote(agent)}${targetArg}`,
   ].join(' && ');
 }
 
@@ -118,6 +135,10 @@ function buildToolkitList(manifest) {
   return `<ul class="kit-list">${li}${tail}</ul>`;
 }
 
+function isGuideSkillDoc(rel) {
+  return /\/(SKILL|README|SPEC)\.md$/i.test(String(rel || ''));
+}
+
 function buildAdvisorList(manifest) {
   const items = (manifest?.items || []).filter(it => it.type === 'agent');
   if (items.length === 0) return '<p class="muted">本包暂未带 advisor 角色。</p>';
@@ -134,9 +155,9 @@ function buildAdvisorList(manifest) {
 //   - description:  frontmatter `description:` field (1-line)
 //   - title:        first H1 title, if present
 //   - summary:      compact excerpt from the source body
-// Missing sections return empty strings. The polish ran 2026-05-19 (goal da73c5);
-// guide generation still normalizes older source documents into the same visible
-// three-part structure so public manuals never regress to unfinished placeholders.
+// Missing sections return empty strings and are rejected by normalizeSkillSections.
+// Source skills are the contract; guide generation must not invent fallback
+// content that hides an incomplete source package.
 function extractSkillSections(filePath) {
   let content = '';
   try { content = readFileSync(filePath, 'utf-8'); } catch { return null; }
@@ -220,37 +241,21 @@ function normalizeSkillSections(sec, rel, ctx) {
   const skillSlug = skillSlugFromRel(rel, sec);
   const title = titleFromRel(rel, sec);
   const sourceSummary = sentence(sec?.description || sec?.summary, `${title} 是 ${ctx.nameZh} 岗位配置包中的可调用 skill。`);
-  const packName = ctx.nameZh || ctx.name || ctx.slug;
-  const lineName = ctx.lineZh || '当前岗位';
-
-  const what = sec.what || [
-    `${title} 用来把 ${packName} 场景里的任务输入转成可执行的工作流、检查清单和交付物。`,
-    sourceSummary,
-    `它的重点不是泛泛提示，而是让 ${lineName} 在 Claude Code、Codex、Gemini、Hermes 或 OpenClaw 中按同一套 skill 内容稳定复用。`,
-  ].join('\n\n');
-
-  const how = sec.how || [
-    `1. 明确当前任务目标、输入材料、约束和期望交付物，再加载 \`${skillSlug}\`。`,
-    `2. 按 skill 文档中的流程、清单或工具建议执行，优先复用仓库已有规范与真实命令。`,
-    `3. 把关键判断、风险、验证命令和产出路径记录到当前任务文档或交付说明中。`,
-    `4. 用最小可证明的检查确认结果有效；发现缺口时回到 skill 清单补齐，而不是输出占位结论。`,
-  ].join('\n');
-
-  const archMermaid = sec.archMermaid || [
-    'flowchart LR',
-    `  A[任务输入] --> B[加载 ${mermaidLabel(title)}]`,
-    '  B --> C[执行流程与检查清单]',
-    '  C --> D[生成交付物与风险记录]',
-    '  D --> E[验证结果并沉淀复盘]',
-  ].join('\n');
+  const missing = [];
+  if (!sec.what) missing.push('是什么');
+  if (!sec.how) missing.push('怎么用');
+  if (!sec.archMermaid) missing.push('架构图');
+  if (missing.length > 0) {
+    throw new Error(`${ctx.slug}:${rel} missing source guide sections: ${missing.join(', ')}. Run npm run role-packs:enrich-source-skills.`);
+  }
 
   return {
     ...sec,
     title,
     skillSlug,
-    what,
-    how,
-    archMermaid,
+    what: sec.what,
+    how: sec.how,
+    archMermaid: sec.archMermaid,
     description: sec.description || sourceSummary,
   };
 }
@@ -284,7 +289,7 @@ function mdNumberedToHtml(md) {
 // mermaid init script (added at end of body) will render them client-side.
 function buildSkillDetailCards(ctx) {
   const { packDir, manifest } = ctx;
-  const items = (manifest?.items || []).filter(it => it.type === 'skill');
+  const items = (manifest?.items || []).filter(it => it.type === 'skill' && isGuideSkillDoc(it.src || it.dst));
   if (items.length === 0) return '<p class="muted">本包暂未带 skill 资源。</p>';
   const cards = [];
   for (const it of items) {

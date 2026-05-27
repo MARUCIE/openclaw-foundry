@@ -9,6 +9,7 @@ import { spawnSync } from 'node:child_process';
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const PACKS_JSON = join(ROOT, 'web', 'public', 'data', 'packs.json');
 const PACKS_DIR = join(ROOT, 'web', 'public', 'packs');
+const RELEASE_CONFIG = join(ROOT, 'web', 'public', 'data', 'role-pack-release.json');
 const GUIDE_SCRIPT = join(ROOT, 'scripts', 'generate-pack-guides.mjs');
 const PROTECTED_DOWNLOADS = join(ROOT, 'web', 'lib', 'protected-downloads.ts');
 
@@ -23,19 +24,9 @@ function readText(path) {
   return readFileSync(path, 'utf8');
 }
 
-function matchConst(source, name) {
-  const regex = new RegExp(`(?:const|export const)\\s+${name}\\s*=\\s*(?:process\\.env\\.[A-Z0-9_]+\\s*\\|\\|\\s*)?['"]([^'"]+)['"]`);
-  return source.match(regex)?.[1] || '';
-}
-
 function parseConfig() {
-  const guideSource = readText(GUIDE_SCRIPT);
-  const protectedSource = readText(PROTECTED_DOWNLOADS);
-  const guideUrl = matchConst(guideSource, 'ROLE_PACKS_GIT_URL');
-  const guideRef = matchConst(guideSource, 'ROLE_PACKS_GIT_REF');
-  const protectedUrl = matchConst(protectedSource, 'ROLE_PACKS_GIT_URL');
-  const protectedRef = matchConst(protectedSource, 'ROLE_PACKS_GIT_REF');
-  return { guideUrl, guideRef, protectedUrl, protectedRef };
+  const release = readJson(RELEASE_CONFIG);
+  return { gitUrl: release.gitUrl || '', gitRef: release.gitRef || '', version: release.version || '' };
 }
 
 function fail(message, details = []) {
@@ -60,6 +51,10 @@ function run(command, args, options = {}) {
 
 function sha256(path) {
   return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
+
+function shellQuote(value) {
+  return `'${String(value).replace(/'/g, `'\\''`)}'`;
 }
 
 function packDirs() {
@@ -128,18 +123,23 @@ function comparePackPayload(localRoot, remoteRoot, packId, problems) {
 }
 
 const config = parseConfig();
-if (!config.guideUrl || !config.guideRef) fail('could not parse role-pack Git config from generate-pack-guides.mjs');
-if (config.guideUrl !== config.protectedUrl) {
-  fail('role-pack Git URL mismatch', [`guide=${config.guideUrl}`, `protected=${config.protectedUrl}`]);
-}
-if (config.guideRef !== config.protectedRef) {
-  fail('role-pack Git ref mismatch', [`guide=${config.guideRef}`, `protected=${config.protectedRef}`]);
+if (!config.gitUrl || !config.gitRef) fail('web/public/data/role-pack-release.json must define gitUrl and gitRef');
+const guideSource = readText(GUIDE_SCRIPT);
+const protectedSource = readText(PROTECTED_DOWNLOADS);
+for (const [file, source] of [
+  ['scripts/generate-pack-guides.mjs', guideSource],
+  ['web/lib/protected-downloads.ts', protectedSource],
+]) {
+  if (!source.includes('role-pack-release.json')) {
+    fail('role-pack release config is not the single source of truth', [`${file} does not read role-pack-release.json`]);
+  }
 }
 
 const publicIds = publicPackIds();
 const allPackIds = packDirs();
 const guideProblems = [];
-const gitNeedle = `git clone --depth 1 --branch ${config.guideRef} ${config.guideUrl}`;
+const gitNeedle = `git clone --depth 1 --branch ${shellQuote(config.gitRef)} ${shellQuote(config.gitUrl)}`;
+const htmlGitNeedle = gitNeedle.replace(/'/g, '&#39;');
 for (const packId of allPackIds) {
   const guidePath = join(PACKS_DIR, packId, 'guide.html');
   if (!existsSync(guidePath)) {
@@ -147,14 +147,14 @@ for (const packId of allPackIds) {
     continue;
   }
   const guide = readText(guidePath);
-  if (!guide.includes(gitNeedle)) guideProblems.push(`${packId}: guide missing pinned Git command ${config.guideRef}`);
+  if (!guide.includes(htmlGitNeedle)) guideProblems.push(`${packId}: guide missing pinned Git command ${config.gitRef}`);
 }
 if (guideProblems.length) fail('guide Git command audit failed', guideProblems);
 
 const tmpRoot = mkdtempSync(join(tmpdir(), 'role-pack-git-release-'));
 const cloneDir = join(tmpRoot, 'openclaw-role-packs');
 try {
-  run('git', ['clone', '--depth', '1', '--branch', config.guideRef, config.guideUrl, cloneDir]);
+  run('git', ['clone', '--depth', '1', '--branch', config.gitRef, config.gitUrl, cloneDir]);
   run('npm', ['run', 'validate'], { cwd: cloneDir });
   run('npm', ['run', 'smoke:install'], { cwd: cloneDir });
 
@@ -180,7 +180,7 @@ try {
   if (problems.length) fail('role-pack Git release drift detected', problems.slice(0, 80));
 
   console.log(
-    `OK role-pack Git release ${config.guideRef}: `
+    `OK role-pack Git release ${config.gitRef}: `
     + `${publicIds.length} public packs, ${allPackIds.length} distribution dirs, `
     + `${itemTotal} manifest items, ${checkedFiles} payload files matched`,
   );

@@ -792,3 +792,32 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, deliverable, and doc index updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the reusable invariant is executable through `role-packs:audit-guides` and `web` prebuild.
 4. Technical debt closure: visible unfinished guide cards are replaced by generated three-part cards and blocked by a prebuild audit; named cohort strings found during final audit are replaced and blocked by the expanded person-name sanitizer.
+
+## 2026-05-27 · Role-Pack Source Contract and Release SSOT
+
+### Delivered
+1. Replaced generated-guide fallback completion with a source-level contract: guide-facing Markdown skill docs must include `是什么`, `怎么用`, and `架构图`.
+2. Added `scripts/enrich-pack-skill-sections.mjs` to repair legacy Markdown skill docs deterministically.
+3. Updated `scripts/audit-pack-guide-skill-sections.mjs` so it checks both source docs and rendered guide cards, while excluding non-Markdown skill payload files from manual-card counts.
+4. Added `web/public/data/role-pack-release.json` and wired it into guide command generation, protected clipboard commands, Git-release audit, standalone sync, and standalone validation.
+5. Hardened person-name sanitization to check file paths and old advisor brace shorthand.
+6. Published standalone tag `v2026.05.27.3` at commit `3f0ecd1` and regenerated verified full local zip archives.
+
+### Evidence
+1. `npm run role-packs:enrich-source-skills -- --check` -> PASS, 182 source guide docs.
+2. `npm run role-packs:audit-guides` -> PASS, 26 guides / 182 cards / 185 payloads.
+3. `npm run role-packs:audit-person-names` -> PASS.
+4. Standalone `npm run validate` -> PASS.
+5. Standalone `npm run smoke:install` -> PASS for 26/26 packs via root installer.
+6. `npm run role-packs:audit-git` -> PASS for `v2026.05.27.3`, 550 payload files matched.
+7. `npm --prefix web run build` -> PASS.
+8. `npm run build` -> PASS.
+9. `npm run role-packs:package:all` -> PASS, output `dist/role-pack-zips-20260527-094317-all`.
+10. `ai check` -> exit 0, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-095031-70e43875`; target-project docs/tests passed, with global AI-Fleet `skill_integrity` outside this repository reporting one tampered system skill and two new user skills.
+
+### Closeout
+1. Skills update: N/A - this is a Foundry release/guide invariant, enforced by scripts rather than a user-facing Skill.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, deliverable, and doc index updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is encoded as executable release gates.
+4. Technical debt closure: source incompleteness masking, release ref duplication, standalone validation gaps, hidden path-level person-name leakage, and root installer smoke gap are closed.
+5. Three-end consistency: local Foundry and standalone verified; GitHub standalone tag pushed; Foundry production deploy and production smoke pending this commit.

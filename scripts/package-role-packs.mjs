@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const PACKS_JSON = join(ROOT, 'web', 'public', 'data', 'packs.json');
 const PACKS_DIR = join(ROOT, 'web', 'public', 'packs');
-const GUIDE_SCRIPT = join(ROOT, 'scripts', 'generate-pack-guides.mjs');
+const RELEASE_CONFIG = join(ROOT, 'web', 'public', 'data', 'role-pack-release.json');
 
 const args = process.argv.slice(2);
 
@@ -53,8 +53,7 @@ function run(command, args, options = {}) {
 }
 
 function configuredGitRef() {
-  const source = readText(GUIDE_SCRIPT);
-  return source.match(/const ROLE_PACKS_GIT_REF = ['"]([^'"]+)['"]/)?.[1] || 'unknown';
+  return readJson(RELEASE_CONFIG).gitRef || 'unknown';
 }
 
 function stamp() {
@@ -117,7 +116,7 @@ function validatePackBeforeZip(packId, gitRef) {
   }
 
   const guide = readText(join(packDir, 'guide.html'));
-  if (!guide.includes(`--branch ${gitRef}`)) problems.push(`${packId}: guide missing configured Git ref ${gitRef}`);
+  if (!guide.includes(`--branch &#39;${gitRef}&#39;`)) problems.push(`${packId}: guide missing configured Git ref ${gitRef}`);
   return problems;
 }
 

@@ -18,9 +18,24 @@ function count(re, text) {
   return (text.match(re) || []).length;
 }
 
+function sourceSectionGaps(text) {
+  const gaps = [];
+  if (!/^## 是什么\s*$/m.test(text)) gaps.push('是什么');
+  if (!/^## 怎么用\s*$/m.test(text)) gaps.push('怎么用');
+  if (!/^## 架构图\s*$/m.test(text)) gaps.push('架构图');
+  if (!/^## 架构图\s*\n[\s\S]*?```mermaid\s*\n[\s\S]+?\n```/m.test(text)) gaps.push('架构图 mermaid');
+  return gaps;
+}
+
+function isGuideSkillDoc(rel) {
+  return /\/(SKILL|README|SPEC)\.md$/i.test(String(rel || ''));
+}
+
 const failures = [];
 let guideCount = 0;
 let skillCount = 0;
+let sourceSkillCount = 0;
+let payloadCount = 0;
 
 for (const entry of readdirSync(PACKS_DIR, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
   if (!entry.isDirectory()) continue;
@@ -33,7 +48,9 @@ for (const entry of readdirSync(PACKS_DIR, { withFileTypes: true }).sort((a, b) 
 
   const manifest = readJson(manifestPath);
   const skills = (manifest.items || []).filter(item => item.type === 'skill');
-  skillCount += skills.length;
+  const guideSkills = skills.filter(item => isGuideSkillDoc(item.src || item.dst));
+  payloadCount += skills.length;
+  skillCount += guideSkills.length;
 
   if (!existsSync(guidePath)) {
     failures.push(`${slug}: guide.html missing`);
@@ -45,6 +62,17 @@ for (const entry of readdirSync(PACKS_DIR, { withFileTypes: true }).sort((a, b) 
     .filter(rel => !rel || !existsSync(join(packDir, rel)));
   if (missingSkillFiles.length > 0) {
     failures.push(`${slug}: missing skill files: ${missingSkillFiles.join(', ')}`);
+  }
+  for (const item of guideSkills) {
+    const rel = item.src || item.dst;
+    if (!rel) continue;
+    const skillPath = join(packDir, rel);
+    if (!existsSync(skillPath)) continue;
+    sourceSkillCount += 1;
+    const gaps = sourceSectionGaps(readFileSync(skillPath, 'utf-8'));
+    if (gaps.length > 0) {
+      failures.push(`${slug}:${rel}: source missing ${gaps.join(', ')}`);
+    }
   }
 
   const html = readFileSync(guidePath, 'utf-8');
@@ -60,11 +88,11 @@ for (const entry of readdirSync(PACKS_DIR, { withFileTypes: true }).sort((a, b) 
     failures.push(`${slug}: contains unfinished three-part placeholder text or stub classes`);
   }
 
-  if (cardCount !== skills.length) {
-    failures.push(`${slug}: skill-card count ${cardCount} != manifest skill count ${skills.length}`);
+  if (cardCount !== guideSkills.length) {
+    failures.push(`${slug}: skill-card count ${cardCount} != guide skill-doc count ${guideSkills.length}`);
   }
-  if (whatCount !== skills.length || howCount !== skills.length || archCount !== skills.length || mermaidCount !== skills.length) {
-    failures.push(`${slug}: section counts mismatch (skills=${skills.length}, what=${whatCount}, how=${howCount}, arch=${archCount}, mermaid=${mermaidCount})`);
+  if (whatCount !== guideSkills.length || howCount !== guideSkills.length || archCount !== guideSkills.length || mermaidCount !== guideSkills.length) {
+    failures.push(`${slug}: section counts mismatch (guideSkills=${guideSkills.length}, what=${whatCount}, how=${howCount}, arch=${archCount}, mermaid=${mermaidCount})`);
   }
 }
 
@@ -74,4 +102,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`OK pack guide skill sections: guides=${guideCount} skills=${skillCount} cards=${skillCount}`);
+console.log(`OK pack guide skill sections: guides=${guideCount} guideSkills=${skillCount} payloads=${payloadCount} sourceSkills=${sourceSkillCount} cards=${skillCount}`);

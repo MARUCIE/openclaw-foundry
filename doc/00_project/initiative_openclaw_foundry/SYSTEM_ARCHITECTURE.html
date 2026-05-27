@@ -691,7 +691,7 @@
   <section>
     <div class="section-num">09</div>
     <h2>2026-05-25 独立岗位配置包仓库</h2>
-    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.27.2` tag，再由本地 installer 读取 manifest 与 payload。</div>
+    <div class="key-message">岗位配置包新增一个独立 Git 分发面：`/Users/mauricewen/Projects/openclaw-role-packs` / `https://github.com/MARUCIE/openclaw-role-packs`。生产安装命令固定 clone `v2026.05.27.3` tag，再由本地 installer 读取 manifest 与 payload。</div>
     <div class="card-grid">
       <div class="card">
         <h3>仓库边界</h3>
@@ -699,18 +699,18 @@
           <li>Foundry 仍是产品源仓库与工作区事实源。</li>
           <li>`openclaw-role-packs` 是面向复制/交付的 release snapshot。</li>
           <li>初始提交为 `d17801ac092e2295031c863adad9450dc7476fb5`。</li>
-          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.27.2`。</li>
+          <li>公开仓库为 `https://github.com/MARUCIE/openclaw-role-packs`，当前生产 tag 为 `v2026.05.27.3`。</li>
         </ul>
       </div>
       <div class="card">
         <h3>安装边界</h3>
         <ul>
           <li>根安装器 `./install.sh &lt;pack-id&gt;` 委托到对应 pack。</li>
-          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.27.2`。</li>
+          <li>生产页复制的命令先 `git clone --depth 1 --branch v2026.05.27.3`。</li>
           <li>每个 `packs/&lt;id&gt;/install.sh` 默认读取本地同级 `manifest.json`。</li>
           <li>`ROLE_PACKS_BASE_URL` 或 `FOUNDRY_BASE_URL` 存在时才走远程。</li>
           <li>生产 guide.html 与复制命令均不再输出 `curl -fsSL .../packs/&lt;id&gt;/install.sh`。</li>
-          <li>guide skill 说明书必须每个 manifest skill 对应一张 `是什么 / 怎么用 / 架构图` 三段式卡片。</li>
+          <li>guide skill 说明书必须由源 Markdown skill doc 提供 `是什么 / 怎么用 / 架构图`，再生成对应三段式卡片；非 Markdown payload 不作为说明书卡片。</li>
         </ul>
       </div>
       <div class="card">
@@ -719,9 +719,9 @@
           <li>`npm run validate` 校验 26 个 catalog entry 与 26 个 pack。</li>
           <li>`npm run smoke:install` 对 26 个 pack 做隔离目录真实安装。</li>
           <li>`./install.sh product-manager --agent=codex --target out/verify/root-install-product-manager` 验证根安装路径。</li>
-          <li>GitHub tag clone 安装 smoke：pack list 25，`product-manager` 安装 24 个文件。</li>
-          <li>`npm run role-packs:audit-guides`：26 个 guide / 185 个 skill / 185 张三段式卡片。</li>
-          <li>生产 Playwright copy smoke：包含 GitHub repo/tag/pack id，不包含 `download-token` 或 Pages install URL。</li>
+          <li>GitHub tag clone 安装 smoke：`v2026.05.27.3` 覆盖 26 个发行目录，root `--list` 仅展示 22 个 canonical 包。</li>
+          <li>`npm run role-packs:audit-guides`：26 个 guide / 182 个 guide-facing skill doc / 182 张三段式卡片。</li>
+          <li>生产 smoke：包含 GitHub repo/tag/pack id，不包含 `download-token` 或 Pages install URL。</li>
         </ul>
       </div>
     </div>
@@ -759,7 +759,7 @@
             <li>二级入口不平铺所有岗位包；工程方向收敛为前端体验、后端平台、质量安全、基础设施运维四组。</li>
             <li>每个任务域组展开具体岗位包；`tier=stub` 只显示为 `Basic` 成熟度，不再被当成未上线或禁用状态。</li>
             <li>`scripts/audit-packs-page-coverage.mjs` 在 prebuild 阶段证明 26 个岗位包均有任务域或浏览入口覆盖；`scripts/audit-pack-online-status.mjs` 证明 26 个包均具备上线所需公开文件与 guide。</li>
-            <li>`npm run role-packs:audit-git` 是移动生产 Git ref 前的守门；`npm run role-packs:package` 与 `npm run role-packs:package:all` 生成带 SHA256 与安装烟测的本地 zip 交付物。</li>
+            <li>`web/public/data/role-pack-release.json` 是 release ref 单一事实源；`npm run role-packs:audit-git` 是移动生产 Git ref 前的守门；`npm run role-packs:package` 与 `npm run role-packs:package:all` 生成带 SHA256 与安装烟测的本地 zip 交付物。</li>
           </ul>
         </div>
       </div>

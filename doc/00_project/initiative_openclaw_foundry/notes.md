@@ -218,6 +218,24 @@
 3. Tool stack: chrome-devtools MCP for Lighthouse + screenshot; claude-in-chrome MCP for DOM walk + console + network (paired, not substituted)
 4. Run-id naming: `YYYY-MM-DD-frontend-validation-NNN`
 
+## 2026-05-27 Role-Pack Source Contract Review Fix
+
+### Trigger
+Code review swarm found that guide completeness was being proven after HTML fallback generation instead of at the source skill-doc layer. It also found split release refs and standalone validation gaps.
+
+### Decisions
+1. Guide HTML is no longer the source of truth for manual completeness. Markdown guide skill docs (`SKILL.md`, `README.md`, `SPEC.md`) must carry `## 是什么`, `## 怎么用`, and `## 架构图` with Mermaid before `guide.html` is generated.
+2. Non-Markdown skill payloads (`.py`, `.json`, `.yaml`) remain executable/config artifacts and are not counted as guide cards.
+3. `web/public/data/role-pack-release.json` is the single release ref source for guide commands, UI clipboard commands, Git drift audit, and standalone catalog sync.
+4. Standalone `validate` now proves release config alignment, no unpinned Git install command, and no concrete person-name leakage.
+
+### Evidence
+1. Source section audit: `OK source skill sections: skills=182`.
+2. Guide audit: `OK pack guide skill sections: guides=26 guideSkills=182 payloads=185 sourceSkills=182 cards=182`.
+3. Standalone release tag: `v2026.05.27.3`, commit `3f0ecd1`.
+4. Git release drift audit: 550/550 Foundry payload files matched the cloned Git tag.
+5. Local archive output: `dist/role-pack-zips-20260527-094317-all/openclaw-role-packs-all-v2026.05.27.3.zip`.
+
 ## 2026-05-25 Role Pack Standalone Repo Sync
 
 ### Trigger

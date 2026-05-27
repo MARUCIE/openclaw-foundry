@@ -142,7 +142,7 @@
 3. Maintainer runs `npm run role-packs:audit-git` before moving or trusting the production Git ref; the audit clones the pinned tag, smoke-installs it, and compares Foundry payload hashes.
 4. Maintainer runs `npm run role-packs:package` for public canonical zips or `npm run role-packs:package:all` for all 26 distribution directories when local archive delivery is needed.
 5. Registered website user copies the install command from `/packs`, or recipient clones the release directly
-6. Command runs `git clone --depth 1 --branch v2026.05.27.2 https://github.com/MARUCIE/openclaw-role-packs.git`
+6. Command runs `git clone --depth 1 --branch v2026.05.27.3 https://github.com/MARUCIE/openclaw-role-packs.git`
 7. Recipient runs root `./install.sh <pack-id>` or pack-local `./install.sh`
 8. Installer reads local sibling `manifest.json` and copies local artifacts by default
 9. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
@@ -162,7 +162,7 @@
 9. `/packs` browse mode must show all 22 canonical public catalog packs as live cards; public cards must not show `Basic` / `tier: "stub"` after enrichment, and deprecated aliases must not appear as duplicate cards.
 10. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 11. `/packs` second-level taxonomy must stay compact: engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops; data is grouped into data/AI engineering and metrics/experiments.
-12. Guide generation must stay reader-complete across imported skill docs with older heading formats; the UX acceptance check is `npm run role-packs:audit-guides` plus a spot check of at least one previously incomplete guide such as `data-analyst` or `strategy-roundtable-advisor`.
+12. Guide generation must stay source-complete across imported Markdown skill docs with older heading formats; the UX acceptance check is `npm run role-packs:enrich-source-skills -- --check`, `npm run role-packs:audit-guides`, and a spot check of at least one previously incomplete guide such as `data-analyst` or `strategy-roundtable-advisor`.
 
 ## Round-Based Acceptance Criteria
 
