@@ -583,7 +583,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 4. Production Playwright smoke on `https://agent-foundry.pages.dev/packs?verify=5e68a4a6b881b3fd048cd2c50c982129f4e3fcf3` -> PASS: `Write Code -> Frontend Experience` renders 1 canonical card; Browse All renders 22 cards and 22 guide links; deprecated alias strings are absent; console errors=0; console warnings=0; navigation duration=4823ms.
 
 ## 2026-05-26 · Public Pack Maturity Floor Repair
-- Status: in verification
+- Status: completed
 - Stop condition: all 22 canonical public job packs audit as `enriched` or higher, no public catalog/guide/static page displays `基础档`, and production `/packs` verifies the same after deploy.
 
 ### Steps
@@ -646,7 +646,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 - [x] Sync `openclaw-role-packs`, validate, smoke-install, publish tag `v2026.05.27.2`, and prove Foundry/Git parity with `npm run role-packs:audit-git`.
 - [x] Regenerate verified public and all-pack local zip archives for `v2026.05.27.2`.
 - [x] Run full Foundry build/check suite.
-- [ ] Commit, push, wait for production deploy, and smoke-test production guide pages.
+- [x] Commit, push, wait for production deploy, and smoke-test production guide pages.
 
 ### Current Verification Snapshot
 1. `node scripts/audit-pack-guide-skill-sections.mjs` -> PASS: 26 guide pages, 185 manifest skills, 185 complete skill cards.
@@ -663,3 +663,5 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 12. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-020358-3abf65f5`.
 13. Local `web/out` pack smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases visible; sampled guides had exact manifest skill-card parity and no unfinished placeholders.
 14. Cross-surface person-name audit -> PASS across Foundry public packs, exported packs, and standalone Git payload/catalog surfaces.
+15. GitHub Actions deploy run `26486392584` -> PASS for commit `9c4abd8`.
+16. Production smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases; sampled production guides contain `v2026.05.27.2`, exact three-part card parity, and no named cohort/person-owner strings or unfinished placeholders.

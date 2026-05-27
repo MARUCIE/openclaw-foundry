@@ -784,9 +784,11 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 11. `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-020358-3abf65f5`.
 12. Local `web/out` pack smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases visible; sampled guides had exact manifest skill-card parity and no unfinished placeholder text.
 13. Cross-surface person-name audit -> PASS: Foundry `web/public/packs`, exported `web/out/packs`, and standalone `openclaw-role-packs` payload/catalog surfaces contain no exact named cohort/person-owner strings.
+14. GitHub Actions deploy run `26486392584` -> PASS for commit `9c4abd8`.
+15. Production smoke -> PASS: `https://agent-foundry.pages.dev/data/packs.json` returned 22 public packs, 22 enriched, 0 deprecated aliases; sampled production guide pages contain `v2026.05.27.2`, complete three-part card sections, and no named cohort/person-owner strings or unfinished placeholder text.
 
 ### Closeout
 1. Skills update: N/A - this is a Foundry guide-generation and release-gate invariant, not a new user-facing agent Skill.
 2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, deliverable, and doc index updated.
 3. AGENTS/CLAUDE cross-task rule update: N/A - the reusable invariant is executable through `role-packs:audit-guides` and `web` prebuild.
-4. Technical debt closure: visible unfinished guide cards are replaced by generated three-part cards and blocked by a prebuild audit.
+4. Technical debt closure: visible unfinished guide cards are replaced by generated three-part cards and blocked by a prebuild audit; named cohort strings found during final audit are replaced and blocked by the expanded person-name sanitizer.
