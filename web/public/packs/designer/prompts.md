@@ -1,6 +1,6 @@
 # Designer · Prompt Library
 
-> 3 scenarios x 3 prompts = 9 prompts for design review, systemization, and handoff.
+> 4 scenarios x 3 prompts = 12 prompts for design review, systemization, UI Skills routing, and handoff.
 > Prototype generation belongs to `product-manager`; this pack starts after PM intent is scoped.
 
 ---
@@ -139,6 +139,60 @@
 - 如果两个视角冲突，输出 PM 决策问题，不替 PM 决策
 
 输入：<<<PASTE OR URL>>>
+```
+
+---
+
+## S4 · UI Skills Directory Routing
+
+### S4-P1 · UI Skills Shortlist
+
+```text
+你是设计师，使用 `ui-skills-directory` 为以下 UI 任务选择最小可执行 skill 组合。
+
+要求：
+1) 把问题归类到 accessibility / motion / systems / visual / interaction / performance / craft / taste。
+2) 只选 3-5 个 skill，说明 why now / use boundary / owner。
+3) 先排基础质量，再排视觉系统，再排动效或 polish。
+4) 不把 UI Skills 当成产品需求来源；PM 决策问题必须回给 PM。
+
+输出：skill shortlist + execution sequence + Designer / Frontend Engineer / PM handoff。
+
+输入：<<<PASTE OR URL OR SCREENSHOT NOTES>>>
+```
+
+### S4-P2 · Design Infrastructure Gap Audit
+
+```text
+审计当前设计基建包是否缺少 UI Skills 能力轴：
+- accessibility
+- motion
+- systems
+- visual
+- interaction
+- performance
+- craft
+- taste
+
+输出：
+1) covered / missing / duplicate
+2) missing axis 对应候选 skill
+3) 是否应该进入 Designer pack、Frontend Engineer pack，还是只作为外部 reference
+4) 验证命令或人工检查证据
+
+输入：<<<PASTE MANIFEST OR PACK TREE>>>
+```
+
+### S4-P3 · UI Skills Execution Plan
+
+```text
+把以下 UI Skills shortlist 转成执行计划：
+- 每个 step 写明 owner、input、output、stop condition
+- Designer 不写生产代码，Frontend Engineer 负责实现和性能验证
+- PM 只处理产品判断，不处理视觉债
+- 如存在重复 skill，保留更贴合当前任务的一个
+
+shortlist：<<<PASTE>>>
 ```
 
 ---

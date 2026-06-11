@@ -2,7 +2,7 @@
 
 > Pack identity: 面向产品团队的体验设计、视觉系统、交互质量和工程交付工作流。产品经理负责 PRD、原型假设和可点击验证；设计师负责把已收敛的产品意图变成可用、可审、可交付的界面系统。
 > Pack version: 4.3.0 · Spec version: 1.0 · Tier target: enriched.
-> Best-practice source: experience architecture + design tokens + aesthetic probe + handoff validation.
+> Best-practice source: experience architecture + design tokens + aesthetic probe + UI Skills directory routing + handoff validation.
 
 ---
 
@@ -16,6 +16,7 @@
   - `research-analyst`: supplies SOTA references and competitor interface evidence
   - `strategy-roundtable-advisor`: challenges whether the design supports strategy and adoption
 - **Coverage**: experience architecture / information hierarchy / visual hierarchy / design tokens / responsive design / accessibility review / handoff spec
+- **Design infrastructure source**: `ui-skills-directory` routes current UI work to the smallest useful set from UI Skills categories such as accessibility, motion, systems, visual, interaction, performance, craft, and taste.
 - **Not owned by this pack**: PRD authoring, prototype hypothesis creation, clickable PM validation demo, backlog priority, implementation code
 
 ### Boundary Contract
@@ -55,6 +56,17 @@ Prototype is a PM-owned validation artifact. A designer may review, structure, a
 - **Output**: ranked design debt list + Top 3 fixes + keep/change/remove table.
 - **Failure signal**: "looks good" without evidence, or a review that only names taste preferences.
 
+### F4 · UI Skills Directory Routing
+
+- **Trigger**: a design task needs external design-engineering skill selection, UI quality hardening, accessibility/motion/performance review, or launch polish.
+- **Method**:
+  1. Classify the UI problem into accessibility, motion, systems, visual, interaction, performance, craft, or taste.
+  2. Select 3-5 UI Skills candidates instead of installing or recommending the whole directory.
+  3. Sequence the skills from baseline quality to polish: accessibility/layout/state coverage before taste or advanced motion.
+  4. Assign ownership between Designer, Frontend Engineer, and PM.
+- **Output**: UI Skills shortlist + execution order + owner handoff.
+- **Failure signal**: generic "use UI Skills" advice with no task fit, sequence, or owner boundary.
+
 ---
 
 ## Anti-Patterns
@@ -76,6 +88,7 @@ Prototype is a PM-owned validation artifact. A designer may review, structure, a
 | Production implementation | `frontend-engineer` | Designer hands off components, states, tokens, and responsive constraints |
 | SOTA references or competitor evidence | `research-analyst` | Research supplies examples; designer decides fit and adaptation |
 | Strategy fit or executive review | `strategy-roundtable-advisor` | Strategy critiques adoption, focus, and executive narrative |
+| External design-engineering skill selection | `ui-skills-directory` | Designer selects the smallest useful UI Skills shortlist and routes implementation validation to FE |
 
 ---
 
@@ -94,10 +107,10 @@ Prototype is a PM-owned validation artifact. A designer may review, structure, a
 After installation, run from `~/.claude`:
 
 ```bash
-claude --skill aesthetic-probe 'review this finance-tax dashboard screen for hierarchy, token drift, mobile risk, and handoff gaps'
+claude --skill ui-skills-directory 'select a UI Skills shortlist for this finance-tax dashboard: hierarchy drift, accessibility risk, motion performance, and launch polish'
 ```
 
-Expected output: design review report + Top 3 fixes + component/state handoff risks.
+Expected output: UI Skills shortlist + execution sequence + Designer / Frontend Engineer / PM handoff.
 
 ---
 

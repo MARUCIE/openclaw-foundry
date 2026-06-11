@@ -11,6 +11,8 @@
 
 - PM owns PRD, prototype hypothesis, validation question, and priority.
 - Designer owns experience architecture, visual hierarchy, token discipline, states, accessibility, and handoff quality.
+- Designer may use `ui-skills-directory` to select a minimal UI Skills shortlist for accessibility, motion, systems, visual, interaction, performance, craft, or taste work.
 - Frontend engineer owns production implementation and technical validation.
+- External UI Skills recommendations must include owner, sequence, and stop condition; do not recommend the whole directory by default.
 
 Agent Foundry Team

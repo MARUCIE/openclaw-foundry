@@ -25,6 +25,7 @@
 
 - [ ] Handoff table includes screen / component / state / data shape / responsive constraint.
 - [ ] Aesthetic probe has 7 scored dimensions.
+- [ ] UI Skills shortlist, if used, is limited to 3-5 task-fit skills with owner and stop condition.
 - [ ] Top 3 fixes are either resolved or explicitly deferred with owner.
 - [ ] Frontend preview is checked on mobile and desktop.
 - [ ] PM acceptance distinguishes product decision changes from design debt.
@@ -35,6 +36,7 @@
 - [ ] Design reviews completed vs requested.
 - [ ] PM reconvene rate.
 - [ ] Average aesthetic probe score.
+- [ ] UI Skills shortlist reuse rate and over-selection rate.
 - [ ] Rework caused by missing state or token drift.
 
 ## Quarterly
@@ -49,6 +51,7 @@
 - [ ] No PM priority or product hypothesis was invented by designer.
 - [ ] No component was approved without at least default + one non-happy state.
 - [ ] No visual value was introduced without a token or explicit exception.
+- [ ] No external UI skill was recommended without category, owner, sequence, and stop condition.
 
 ---
 

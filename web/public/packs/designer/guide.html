@@ -92,7 +92,7 @@ footer p { max-width: none; margin: 4px 0; }
 <header class="cover">
   <div class="tag">岗位配置包 · 产品职能线 · designer</div>
   <h1>设计师</h1>
-  <p class="subtitle">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
+  <p class="subtitle">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、UI Skills 目录路由、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
   <div class="meta-row">
     <span class="tier-pill tier-enriched" title="已申明 spec_version 1.0 + first_use_demo">已富化 · Enriched</span>
     <span>版本 <strong>4.3.0</strong></span>
@@ -103,7 +103,7 @@ footer p { max-width: none; margin: 4px 0; }
 
 <section>
 <h2>30 秒画像</h2>
-<p class="lead">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
+<p class="lead">面向产品团队的设计师配置：体验架构、视觉层级、design tokens、UI Skills 目录路由、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。</p>
 <p>本指导手册由 <code>scripts/generate-pack-guides.mjs</code> 从 pack 的 <code>manifest.json</code>、
 <code>CLAUDE.md</code>、<code>prompts.md</code> 三份源文件直接生成 — 不是 LLM 写的也不是手工抄的。
 所以你看到的所有命令、文件路径、内容结构都和你 <code>curl … | bash</code> 装到本地的完全一致。</p>
@@ -113,15 +113,15 @@ footer p { max-width: none; margin: 4px 0; }
 <h2>装包后第一件事</h2>
 
 <p class="lead">复制下面这条命令到 Claude Code，约 5 分钟应当看到预期输出：</p>
-<pre><code>cd ~/.claude &amp;&amp; claude --skill aesthetic-probe &#39;review this finance-tax dashboard screen for hierarchy, token drift, mobile risk, and handoff gaps&#39;</code></pre>
-<p>预期输出：design review report + Top 3 fixes + component/state handoff risks</p>
+<pre><code>cd ~/.claude &amp;&amp; claude --skill ui-skills-directory &#39;select a UI Skills shortlist for this finance-tax dashboard: hierarchy drift, accessibility risk, motion performance, and launch polish&#39;</code></pre>
+<p>预期输出：UI Skills shortlist + execution sequence + Designer / Frontend Engineer / PM handoff</p>
 
 
 </section>
 
 <section>
 <h2>工具包包含什么（Toolkit）</h2>
-<ul class="kit-list"><li><code>skills/design/experience-architecture/SPEC.md</code></li><li><code>skills/design/design-tokens/SPEC.md</code></li><li><code>skills/design/aesthetic-probe/SPEC.md</code></li></ul>
+<ul class="kit-list"><li><code>skills/design/experience-architecture/SPEC.md</code></li><li><code>skills/design/design-tokens/SPEC.md</code></li><li><code>skills/design/aesthetic-probe/SPEC.md</code></li><li><code>skills/design/ui-skills-directory/SPEC.md</code></li></ul>
 
 <h3>Advisor 角色</h3>
 <ul class="kit-list"><li><code>agents/advisor-product-experience.md</code></li><li><code>agents/advisor-design-simplicity.md</code></li></ul>
@@ -205,6 +205,32 @@ footer p { max-width: none; margin: 4px 0; }
     B --&gt; C[Top 3 fixes]
     C --&gt; D[Token / state / viewport evidence]
     D --&gt; E[Handoff-ready review]</pre>
+  </div>
+</div>
+
+<div class="skill-card" id="skill-ui-skills-directory">
+  <div class="skill-card-header">
+    <div class="skill-card-tag">ui-skills-directory</div>
+    <code class="skill-card-path">skills/design/ui-skills-directory/SPEC.md</code>
+  </div>
+  <h3>Skill · ui-skills-directory</h3>
+  <p class="skill-card-desc">&gt; Source: Designer pack &gt; When to use: 需要从 UI Skills 目录中为当前产品界面、设计系统、可访问性、动效或前端交付问题选择合适的设计工程 skill 组合。</p>
+  <div class="skill-card-section">
+    <h4>是什么</h4>
+    <p>这是一套把 UI Skills 目录接入设计基建包的技能路由方法。它不把外部目录当成无限制依赖，也不替 Designer 生成产品方向；它根据当前界面问题，把 `ui-skills.com` 的设计工程能力按 accessibility、motion、systems、visual、interaction、performance、craft、taste 等维度映射成可执行的 skill shortlist。</p>
+  </div>
+  <div class="skill-card-section">
+    <h4>怎么用</h4>
+    <ol><li>先确认当前任务阶段：intake、architecture、tokens、accessibility、motion、implementation QA、launch polish。</li><li>把问题归类到 UI Skills 能力轴：accessibility / motion / systems / visual / interaction / performance / craft / taste。</li><li>从目录中选择 3-5 个候选 skill，并说明每个 skill 的使用条件和不适用边界。</li><li>将候选 skill 排成执行顺序：先基础质量，再视觉系统，再动效/性能，再最终 polish。</li><li>输出 handoff 表，写清楚 Designer、Frontend Engineer、PM 各自需要处理的事项。</li></ol>
+  </div>
+  <div class="skill-card-section">
+    <h4>架构图</h4>
+    <pre class="mermaid">flowchart LR
+    A[Design task or UI debt] --&gt; B[Classify design-engineering axis]
+    B --&gt; C[Map to UI Skills directory]
+    C --&gt; D[Shortlist 3-5 skills]
+    D --&gt; E[Execution order]
+    E --&gt; F[Designer / FE / PM handoff]</pre>
   </div>
 </div>
 </section>

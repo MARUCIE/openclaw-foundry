@@ -3,8 +3,8 @@
   "version": "4.3.0",
   "spec_version": "1.0",
   "first_use_demo": {
-    "command": "cd ~/.claude && claude --skill aesthetic-probe 'review this finance-tax dashboard screen for hierarchy, token drift, mobile risk, and handoff gaps'",
-    "expected_output": "design review report + Top 3 fixes + component/state handoff risks",
+    "command": "cd ~/.claude && claude --skill ui-skills-directory 'select a UI Skills shortlist for this finance-tax dashboard: hierarchy drift, accessibility risk, motion performance, and launch polish'",
+    "expected_output": "UI Skills shortlist + execution sequence + Designer / Frontend Engineer / PM handoff",
     "time_to_value_minutes": 5
   },
   "items": [
@@ -21,6 +21,7 @@
     { "src": "skills/design/experience-architecture/SPEC.md", "dst": "skills/design/experience-architecture/SPEC.md", "type": "skill" },
     { "src": "skills/design/design-tokens/SPEC.md", "dst": "skills/design/design-tokens/SPEC.md", "type": "skill" },
     { "src": "skills/design/aesthetic-probe/SPEC.md", "dst": "skills/design/aesthetic-probe/SPEC.md", "type": "skill" },
+    { "src": "skills/design/ui-skills-directory/SPEC.md", "dst": "skills/design/ui-skills-directory/SPEC.md", "type": "skill" },
     { "src": "agents/advisor-product-experience.md", "dst": "agents/advisor-product-experience.md", "type": "agent" },
     { "src": "agents/advisor-design-simplicity.md", "dst": "agents/advisor-design-simplicity.md", "type": "agent" }
   ]

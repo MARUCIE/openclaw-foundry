@@ -1,6 +1,6 @@
 # Tool-Kit 05 · Document Templates · Designer
 
-> 5 类模板覆盖设计评审、token 系统和工程 handoff。
+> 6 类模板覆盖设计评审、token 系统、UI Skills 路由和工程 handoff。
 
 ## Template 1 · Design Intake Review
 
@@ -110,6 +110,34 @@ Average: X.X / 5
 | Date | Decision | Options considered | Choice | Reason | Reversibility | Owner |
 | --- | --- | --- | --- | --- | --- | --- |
 | YYYY-MM-DD | | | | | low/med/high | |
+```
+
+## Template 6 · UI Skills Shortlist
+
+```markdown
+# UI Skills Shortlist · <screen-or-flow>
+
+| Field | Value |
+| --- | --- |
+| Source URL | https://www.ui-skills.com/ |
+| Checked date | YYYY-MM-DD |
+| Product stage | intake / architecture / tokens / accessibility / motion / implementation QA / launch polish |
+| Stop condition | |
+
+| Skill | Axis | Why now | Owner | Use boundary |
+| --- | --- | --- | --- | --- |
+| baseline-ui | systems | | Designer + FE | |
+| fixing-accessibility | accessibility | | FE | |
+
+## Execution Sequence
+1.
+2.
+3.
+
+## Handoff
+- Designer:
+- Frontend Engineer:
+- PM:
 ```
 
 ---

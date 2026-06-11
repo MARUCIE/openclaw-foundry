@@ -410,8 +410,8 @@
       "id": "designer",
       "name": "Designer",
       "nameZh": "设计师",
-      "description": "Experience architecture, visual hierarchy, design tokens, aesthetic QA, and engineering handoff. Prototype hypotheses stay with Product Manager.",
-      "descriptionZh": "面向产品团队的设计师配置：体验架构、视觉层级、design tokens、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。",
+      "description": "Experience architecture, visual hierarchy, design tokens, UI Skills directory routing, aesthetic QA, and engineering handoff. Prototype hypotheses stay with Product Manager.",
+      "descriptionZh": "面向产品团队的设计师配置：体验架构、视觉层级、design tokens、UI Skills 目录路由、设计 QA 与工程 handoff；原型假设与验证归产品经理负责。",
       "icon": "palette",
       "color": "#D946EF",
       "line": "product",
@@ -424,7 +424,7 @@
       "version": "4.3.0",
       "tier": "enriched",
       "artifacts": {
-        "skills": 3,
+        "skills": 4,
         "agents": 2,
         "references": 0
       },
