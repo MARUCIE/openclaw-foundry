@@ -1,4 +1,4 @@
-import { clearSession, requireRegistered } from '@/lib/session';
+import { clearSession, loginRedirect, requireRegistered } from '@/lib/session';
 import { API_BASE } from '@/lib/api-base';
 import rolePackRelease from '@/public/data/role-pack-release.json';
 
@@ -56,7 +56,7 @@ export async function downloadProtectedPackFile(packId: string, filename: string
   });
   if (res.status === 401) {
     clearSession();
-    window.location.assign(returnPath ? `/login?return=${encodeURIComponent(returnPath)}` : '/login');
+    window.location.assign(loginRedirect(returnPath));
     return;
   }
   if (!res.ok) {

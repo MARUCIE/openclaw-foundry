@@ -22,6 +22,21 @@ export interface SessionState {
   user: SessionUser | null;
 }
 
+export function safeReturnPath(value?: string | null, fallback = '/packs#wall'): string {
+  const candidate = typeof value === 'string' ? value.trim() : '';
+  if (!candidate) return fallback;
+  if (!candidate.startsWith('/') || candidate.startsWith('//')) return fallback;
+  if (/[\u0000-\u001F\u007F\\]/.test(candidate)) return fallback;
+  try {
+    const decoded = decodeURIComponent(candidate);
+    if (!decoded.startsWith('/') || decoded.startsWith('//')) return fallback;
+    if (/[\u0000-\u001F\u007F\\]/.test(decoded)) return fallback;
+  } catch {
+    return fallback;
+  }
+  return candidate;
+}
+
 export function readSession(): SessionState {
   if (typeof window === 'undefined') return { token: '', user: null };
   let token = '';
@@ -65,9 +80,10 @@ export function isLoggedIn(): boolean {
 // caller's current page+hash post-auth.
 export function loginRedirect(returnPath?: string): string {
   if (typeof window === 'undefined') return '/login';
-  const r =
+  const raw =
     returnPath ||
     window.location.pathname + window.location.search + window.location.hash;
+  const r = safeReturnPath(raw);
   return `/login?return=${encodeURIComponent(r)}`;
 }
 

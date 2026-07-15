@@ -1,6 +1,6 @@
 # Auth-Surface Invariant — Job Pack Gate Contract
 
-## Current Contract (v12, 2026-05-18)
+## Current Contract (v13, 2026-05-31)
 
 1. The whole site stays browseable.
 2. Skill, MCP, API documentation, and browser-wizard copy actions are public.
@@ -10,6 +10,9 @@
    - Worker-served pack files and install scripts
 4. Registration/login is provided through email magic-link and WeChat OAuth.
 5. Public Pages output may contain Job Pack `guide.html` only. Install scripts, manifests, generated config files, and other pack payloads must be uploaded to R2 and served by Worker auth/token routes.
+6. Public pack detail APIs return metadata only. Merged payload bodies (`CLAUDE.md`, `AGENTS.md`, `settings.json`, `prompts.md`) are never returned from public detail routes.
+7. Worker-generated installer scripts embed only short-lived download tokens. Browser bearer session tokens must not be serialized into shell scripts.
+8. Login and OAuth return paths accept only safe local relative paths; unsafe input falls back to `/packs#wall`.
 
 ## Decision Log
 
@@ -18,6 +21,7 @@
 | 2026-05-17 | pre-v6 | `components/site-guard.tsx` route-layer wrap | Route guards are too coarse; they break browse transparency |
 | 2026-05-18 | v6-v11 | `/packs` PackCard and pack payload delivery | Job Pack install/download payloads need action-level auth plus Worker/R2 protection |
 | 2026-05-18 | v12 | Skill/MCP/API copy buttons | These are discovery/onboarding actions, not Job Pack payload delivery; locking them makes logged-out and logged-in UX look identical |
+| 2026-05-31 | v13 | Public detail, return paths, generated installers | Metadata can stay public, but payload bodies, bearer sessions, and redirect targets need explicit guards |
 
 ## Enforcement Mechanism
 
@@ -33,6 +37,8 @@ The audit no longer scans every clipboard call. It checks the Job Pack boundary:
 2. `web/app/packs/page.tsx` uses `copyProtectedPackInstallCommand` and `downloadProtectedPackFile`.
 3. `web/public/_headers` caches only `/packs/*/guide.html`, not all `/packs/*`.
 4. `.github/workflows/deploy.yml` uploads protected pack payloads to R2, tombstones `web/out/packs`, and deploys Pages only after Worker deploy plus D1 migrations.
+5. `worker/src/routes/packs.ts` keeps `GET /api/packs/:id` metadata-only and blocks bearer-token embedding in generated `install.sh`.
+6. `web/lib/session.ts`, login callback pages, and `worker/src/routes/auth-wechat.ts` use a shared safe-return-path rule.
 
 ## Canonical Job Pack Gate
 
@@ -66,6 +72,8 @@ If one of these starts showing `登录后复制` / lock icons, that is a regress
 5. Registered users receive payloads through Worker routes:
    - `POST /api/packs/:id/download-token`
    - `GET /api/packs/:id/file?path=...`
+6. `GET /api/packs/:id` is public metadata only and must not expose merged payload bodies.
+7. Generated `install.sh` must carry a short-lived download token, never a browser bearer session.
 
 ## Install + Run
 

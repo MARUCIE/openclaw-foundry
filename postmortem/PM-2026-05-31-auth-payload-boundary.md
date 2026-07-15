@@ -1,0 +1,82 @@
+# PM-2026-05-31 Auth Payload Boundary
+
+## Summary
+
+An attacker review found that the registered-user Job Pack boundary was split across public metadata, protected payload delivery, generated install scripts, and auth return redirects. Three concrete defects could leak protected configuration content or credentials: public pack detail merged payload bodies, unsafe return-path propagation, and generated Worker installers that could embed browser bearer sessions.
+
+## Symptom
+
+- Surface: `GET /api/packs/:id`
+- Exposed fields: `claudeMd`, `agentsMd`, `settings`, `promptsMd`
+- Surface: login/email/WeChat return routing
+- Unsafe signatures: protocol-relative `//host`, encoded protocol-relative `/%2Fhost`, backslash/control-char return paths
+- Surface: `GET /api/packs/:id/file?path=install.sh`
+- Risk signature: generated `install.sh` containing a browser bearer token instead of a scoped download token
+
+## Root Cause
+
+The auth wall was implemented as several adjacent behaviors instead of one explicit boundary contract. Public metadata reads, protected file reads, install-script generation, and auth return redirects each had local logic, but no shared executable invariant proved that:
+
+1. public pack detail remains metadata-only,
+2. protected payload access is the only path to configuration bodies,
+3. generated install scripts never serialize browser sessions, and
+4. auth return destinations are safe local-relative paths.
+
+## Fix
+
+1. Changed public pack detail to return only `mapPack(row)` metadata after `safePackId` validation.
+2. Split protected file access into session access and short-lived download-token access.
+3. Changed generated `install.sh` handling so session-based installer requests mint a short-lived D1 download token, while token-based requests reuse the scoped token.
+4. Added `safeReturnPath` to the web session module and wired login, email callback, WeChat landing, and Worker WeChat state handling through it.
+5. Expanded `scripts/audit-auth-surfaces.sh` and added `tests/auth-boundary.test.ts` so the boundary is executable.
+
+## Prevention
+
+Treat Job Pack delivery as one auth boundary, not separate UI/API conveniences. Any future change touching pack detail responses, protected file routes, install command generation, login callback returns, WeChat OAuth state, or download tokens must run the auth boundary test and audit before release.
+
+## Machine Triggers
+
+```yaml
+paths:
+  - worker/src/routes/packs.ts
+  - worker/src/routes/auth-wechat.ts
+  - web/lib/session.ts
+  - web/app/login/page.tsx
+  - web/app/auth/callback/page.tsx
+  - web/app/auth/wechat-landing/page.tsx
+  - scripts/audit-auth-surfaces.sh
+  - tests/auth-boundary.test.ts
+keywords:
+  - claudeMd
+  - agentsMd
+  - promptsMd
+  - settings
+  - install.sh
+  - download-token
+  - Authorization: Bearer
+  - safeReturnPath
+  - return_to
+  - auth/wechat/start
+regex:
+  - "pack:\\s*\\{\\.\\.\\.mapPack\\("
+  - "tokenForInstaller\\s*=\\s*.*bearer"
+  - "Authorization:\\\\s*Bearer\\s+\\$\\{?[A-Za-z_]*token"
+  - "startsWith\\('/'\\)(?![\\s\\S]{0,120}startsWith\\('//')"
+  - "decodeURIComponent\\([^)]*return"
+```
+
+## Verification
+
+- `node --import tsx --test tests/auth-boundary.test.ts` -> PASS, 4/4 tests.
+- `bash scripts/audit-auth-surfaces.sh` -> PASS, 35 checks and 0 violations.
+- `npm run build` -> PASS.
+- `npx tsc -p worker/tsconfig.json` -> PASS.
+- `node --import tsx --test tests/*.test.ts` -> PASS, 33/33 tests.
+- `npm --prefix web run build` -> PASS.
+- `git diff --check` -> PASS.
+- `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-111035-3f11884f`, `ok=true`, `rounds=2`.
+
+## Known Product Contracts
+
+1. Pinned GitHub tag install after registration remains the product-approved distribution path.
+2. Open email magic-link self-registration remains the current acquisition contract. Enterprise allowlists or approval-gated onboarding require a new business requirement.

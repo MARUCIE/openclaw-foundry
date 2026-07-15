@@ -49,18 +49,22 @@
 | OPT-36 | P0 | Role-pack release automation | Git release drift checks and local zip packaging still depended on manual shell sequences | Add `role-packs:audit-git`, `role-packs:package`, and `role-packs:package:all` scripts that clone the pinned tag, compare Foundry payloads, generate checksummed zip bundles, and smoke-install generated archives | Completed 2026-05-26 |
 | OPT-37 | P0 | Guide manual completeness | Many job-pack guide skill cards still showed unfinished three-part placeholders when source SKILL/SPEC files lacked exact Chinese headings | Normalize every guide skill card into `是什么` / `怎么用` / `架构图`, add a prebuild audit, publish standalone tag `v2026.05.27.2`, and prove Foundry/Git release parity | Completed 2026-05-27 |
 | OPT-38 | P0 | Guide source contract and release SSOT | Generated HTML completeness could hide incomplete source skill docs, and release refs were split across generator/UI code | Make `role-pack-release.json` the release SSOT, fail guide generation on missing source sections, add source enrichment/audit scripts, publish tag `v2026.05.27.3`, and prove Foundry/Git/zip parity | Completed 2026-05-27 |
+| OPT-39 | P0 | Auth payload hardening | Attacker review found public pack detail payload exposure, unsafe return-path propagation, and bearer-session leakage into generated installer scripts | Public detail is metadata-only, return paths are safe local-relative, generated installers embed only short-lived download tokens, and auth audit blocks regressions | Completed locally 2026-05-31 |
+| OPT-40 | P0 | Postmortem release guard | PM files had machine triggers, but no executable scan was wired into builds | Add `scripts/scan-postmortems.mjs --strict`, root `postmortem:scan`, and `web` prebuild gating so historical regression signatures block release unless acknowledged in the matching PM | Completed locally 2026-05-31 |
+| OPT-41 | P1 | Designer pack design infrastructure | UI Skills existed as an external design-engineering directory but was not installable or routable from the Designer pack | Add `ui-skills-directory` to the Designer manifest, first-use demo, guide source, prompts, checklist, and public metadata so designers can select bounded UI Skills shortlists | Completed locally 2026-06-11 |
 
 ## Next Execution Order
-1. Move `web/public/data/role-pack-release.json` only after `npm run role-packs:audit-git` passes against the target tag; guide source completeness must also pass `npm run role-packs:enrich-source-skills -- --check` and `npm run role-packs:audit-guides`; generate shareable local archives through `npm run role-packs:package` or `npm run role-packs:package:all`.
-2. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
-3. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
-4. Resolve remaining P0 contract and repository-boundary issues (OPT-02, OPT-04).
-5. Frontend performance optimization (OPT-13): SWR, skeleton, polling strategy.
-6. Async deploy model (OPT-14): job lifecycle + cancel support.
-7. Make health-check and verification paths deterministic.
-8. Clarify static UX surface ownership.
-9. Improve persistence and operator usability.
-10. Provision production auth secrets (`RESEND_API_KEY`, optional `RESEND_FROM`, `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, `WECHAT_SECRET`) and verify `/api/auth/config`.
+1. Promote the completed OPT-39 branch through the authorized Git/release path, then verify deployed Worker/Pages behavior before marking production complete.
+2. Keep postmortem release scans green through `npm run postmortem:scan`; if a historical PM triggers, update the PM with fresh verification before release.
+3. Move `web/public/data/role-pack-release.json` only after `npm run role-packs:audit-git` passes against the target tag; guide source completeness must also pass `npm run role-packs:enrich-source-skills -- --check` and `npm run role-packs:audit-guides`; generate shareable local archives through `npm run role-packs:package` or `npm run role-packs:package:all`.
+4. **Skill intelligence boundary unbraiding** (OPT-17, OPT-18): define artifact contract and demote duplicate truth sources.
+5. **v3.0 Web Console** (OPT-11, OPT-12): Next.js frontend + deploy-manager + arena-engine.
+6. Frontend performance optimization (OPT-13): SWR, skeleton, polling strategy.
+7. Async deploy model (OPT-14): job lifecycle + cancel support.
+8. Make health-check and verification paths deterministic.
+9. Clarify static UX surface ownership.
+10. Improve persistence and operator usability.
+11. Provision production auth secrets (`RESEND_API_KEY`, optional `RESEND_FROM`, `WECHAT_CORP_ID`, `WECHAT_AGENT_ID`, `WECHAT_SECRET`) and verify `/api/auth/config`.
 
 ## Success Signal
 1. Documentation and code entrypoints stay synchronized

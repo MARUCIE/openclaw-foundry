@@ -1,7 +1,7 @@
 # Job Pack × WORKSHOP_PLAN Integration Plan
 
 > Map AI-workshop v7 sessions (W1-W15) to openclaw-foundry Job Packs.
-> Source: `/Users/mauricewen/01-Lingque-Platform/AI-workshop/WORKSHOP_PLAN.md` v7 + this repo's `web/public/packs/*`.
+> Source: `/Users/mauricewen/01-Lingque-Platform/AI-workshop__AI训战工作坊__AI训战工作坊/WORKSHOP_PLAN.md` v7 + this repo's `web/public/packs/*`.
 > Generated: 2026-05-15.
 >
 > **Authority contract**: every pack listed below MUST conform to `PACK_SPEC.md` v1.0 (four-pillar: 工具包 + 方法论 + 工作流 + 开卷必有益). Stub packs are explicitly flagged with `tier=stub` and gated against cohort promise. Source signal: Maurice 2026-05-15 "每个岗位准备：工具包，方法论，工作流，确保开卷必有益".
@@ -115,10 +115,10 @@ Replicate the 6-axis verification from `_template/CANONICAL.md` (AI-workshop), a
 
 ## Reference paths
 
-- Pack root: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry/web/public/packs/`
-- WORKSHOP_PLAN: `/Users/mauricewen/01-Lingque-Platform/AI-workshop/WORKSHOP_PLAN.md`
-- W3 source content: `/Users/mauricewen/01-Lingque-Platform/AI-workshop/workshops/W3-第3周-业务分析场景规划岗/`
-- Generation: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry/scripts/generate-packs.mjs`
+- Pack root: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊/web/public/packs/`
+- WORKSHOP_PLAN: `/Users/mauricewen/01-Lingque-Platform/AI-workshop__AI训战工作坊__AI训战工作坊/WORKSHOP_PLAN.md`
+- W3 source content: `/Users/mauricewen/01-Lingque-Platform/AI-workshop__AI训战工作坊__AI训战工作坊/workshops/W3-第3周-业务分析场景规划岗/`
+- Generation: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊/scripts/generate-packs.mjs`
 - Install (production URL): `https://agent-foundry.pages.dev/packs/<pack-id>/install.sh`
 
 ---

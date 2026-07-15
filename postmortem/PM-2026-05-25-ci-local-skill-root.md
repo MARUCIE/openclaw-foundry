@@ -51,3 +51,7 @@ regex:
 - `HOME=<empty tmp> npm run build` in `web/` -> PASS, Next.js static export completed.
 - Root `npm run build` -> PASS.
 - `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-035315-aae2b488`.
+
+## 2026-05-31 Follow-up Verification
+
+The postmortem pre-release scan was added to `web/package.json` `prebuild`, which touched the same line as `reconcile-catalog-integrity.py`. The original guard remains intact: `--allow-missing-local-root --dry-run` is still passed before the production static-export audits run.

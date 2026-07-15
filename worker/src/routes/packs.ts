@@ -13,6 +13,9 @@ import {
 } from '../lib/auth';
 
 type PackContext = { Bindings: Env; Variables: { user: AuthedUser } };
+type DownloadAccess =
+  | { kind: 'session'; user: AuthedUser }
+  | { kind: 'download-token'; token: string };
 
 export const packs = new Hono<PackContext>();
 
@@ -133,9 +136,7 @@ function contentTypeFor(path: string): string {
 }
 
 async function loadMergedPack(db: D1Database, id: string) {
-  const row = await db.prepare(
-    'SELECT * FROM config_packs WHERE id = ?'
-  ).bind(id).first<PackRow>();
+  const row = await loadPackRow(db, id);
 
   if (!row) return null;
 
@@ -153,6 +154,12 @@ async function loadMergedPack(db: D1Database, id: string) {
   return { row, merged: mergeLayers(layers) };
 }
 
+async function loadPackRow(db: D1Database, id: string) {
+  return db.prepare(
+    'SELECT * FROM config_packs WHERE id = ?'
+  ).bind(id).first<PackRow>();
+}
+
 async function packExists(env: Env, id: string): Promise<boolean> {
   const row = await env.DB.prepare('SELECT id FROM config_packs WHERE id = ?').bind(id).first<{ id: string }>();
   if (row) return true;
@@ -161,13 +168,24 @@ async function packExists(env: Env, id: string): Promise<boolean> {
   return !!object;
 }
 
-async function hasDownloadAccess(c: Context<PackContext>, packId: string): Promise<boolean> {
+async function mintDownloadToken(db: D1Database, packId: string, userId: string) {
+  const plaintext = randomToken();
+  const hash = await sha256Hex(plaintext);
+  const expiresAt = new Date(Date.now() + DOWNLOAD_TOKEN_TTL_MIN * 60_000).toISOString();
+  await db.prepare(
+    `INSERT INTO pack_download_tokens (token_hash, pack_id, user_id, expires_at)
+     VALUES (?, ?, ?, ?)`,
+  ).bind(hash, packId, userId, expiresAt).run();
+  return { plaintext, expiresAt };
+}
+
+async function resolveDownloadAccess(c: Context<PackContext>, packId: string): Promise<DownloadAccess | null> {
   const bearer = extractBearer(c.req.header('Authorization'));
   const user = await resolveSessionUser(c.env.DB, bearer);
-  if (user) return true;
+  if (user) return { kind: 'session', user };
 
   const token = c.req.query('token');
-  if (!token) return false;
+  if (!token) return null;
   const tokenHash = await sha256Hex(token);
   const row = await c.env.DB.prepare(
     `SELECT token_hash FROM pack_download_tokens
@@ -176,11 +194,11 @@ async function hasDownloadAccess(c: Context<PackContext>, packId: string): Promi
        AND expires_at > datetime('now')
      LIMIT 1`,
   ).bind(tokenHash, packId).first<{ token_hash: string }>();
-  if (!row) return false;
+  if (!row) return null;
   await c.env.DB.prepare(
     `UPDATE pack_download_tokens SET last_used_at = datetime('now') WHERE token_hash = ?`,
   ).bind(tokenHash).run();
-  return true;
+  return { kind: 'download-token', token };
 }
 
 function makeSyntheticManifest(packId: string) {
@@ -262,6 +280,7 @@ echo "OK Installed \${N} artifact(s). Restart Claude Code to activate."
 
 async function loadPackFile(env: Env, packId: string, path: string, tokenForInstaller: string, apiBase: string) {
   if (path === 'install.sh') {
+    if (!tokenForInstaller) return null;
     return {
       body: generateProtectedInstallScript(packId, tokenForInstaller, apiBase),
       contentType: contentTypeFor(path),
@@ -318,20 +337,15 @@ packs.get('/', async (c) => {
   });
 });
 
-// Get single pack with resolved layers (public)
+// Get single pack metadata (public). Payload bodies are protected by /file.
 packs.get('/:id', async (c) => {
   const id = c.req.param('id');
-  const pack = await loadMergedPack(c.env.DB, id);
-  if (!pack) return c.json({ error: 'Pack not found' }, 404);
+  if (!safePackId(id)) return c.json({ error: 'invalid pack id' }, 400);
+  const row = await loadPackRow(c.env.DB, id);
+  if (!row) return c.json({ error: 'Pack not found' }, 404);
 
   return c.json({
-    pack: {
-      ...mapPack(pack.row),
-      claudeMd: pack.merged.claudeMd,
-      agentsMd: pack.merged.agentsMd,
-      settings: pack.merged.settings,
-      promptsMd: pack.merged.promptsMd,
-    },
+    pack: mapPack(row),
   });
 });
 
@@ -342,20 +356,14 @@ packs.post('/:id/download-token', requireAuth(), async (c) => {
   if (!(await packExists(c.env, id))) return c.json({ error: 'Pack not found' }, 404);
 
   const user = c.var.user;
-  const plaintext = randomToken();
-  const hash = await sha256Hex(plaintext);
-  const expiresAt = new Date(Date.now() + DOWNLOAD_TOKEN_TTL_MIN * 60_000).toISOString();
-  await c.env.DB.prepare(
-    `INSERT INTO pack_download_tokens (token_hash, pack_id, user_id, expires_at)
-     VALUES (?, ?, ?, ?)`,
-  ).bind(hash, id, user.id, expiresAt).run();
+  const token = await mintDownloadToken(c.env.DB, id, user.id);
   await c.env.DB.prepare(
     `UPDATE config_packs SET download_count = download_count + 1, updated_at = datetime('now') WHERE id = ?`,
   ).bind(id).run();
   return c.json({
-    token: plaintext,
+    token: token.plaintext,
     pack_id: id,
-    expires_at: expiresAt,
+    expires_at: token.expiresAt,
     expires_minutes: DOWNLOAD_TOKEN_TTL_MIN,
   });
 });
@@ -367,12 +375,16 @@ packs.get('/:id/file', async (c) => {
   const path = c.req.query('path') || '';
   if (!safePackId(id)) return c.json({ error: 'invalid pack id' }, 400);
   if (!safePackPath(path)) return c.json({ error: 'invalid file path' }, 400);
-  if (!(await hasDownloadAccess(c, id))) {
+  const access = await resolveDownloadAccess(c, id);
+  if (!access) {
     return c.json({ error: 'registration required before copy/download' }, 401);
   }
 
-  const bearer = extractBearer(c.req.header('Authorization'));
-  const tokenForInstaller = c.req.query('token') || bearer || '';
+  let tokenForInstaller = access.kind === 'download-token' ? access.token : '';
+  if (path === 'install.sh' && access.kind === 'session') {
+    const minted = await mintDownloadToken(c.env.DB, id, access.user.id);
+    tokenForInstaller = minted.plaintext;
+  }
   const apiBase = new URL(c.req.url).origin;
   const file = await loadPackFile(c.env, id, path, tokenForInstaller, apiBase);
   if (!file) return c.json({ error: 'Pack file not found' }, 404);

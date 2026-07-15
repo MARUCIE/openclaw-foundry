@@ -38,6 +38,9 @@
 | 2026-05-26 | REQ-035 | Job Pack / Release Automation | Role-pack Git release checks and local zip bundle creation must be reproducible through npm scripts, with drift detection, checksums, manifest summaries, and archive install smoke tests | Completed | Added `role-packs:audit-git`, `role-packs:package`, and `role-packs:package:all`; scripts verified pinned tag `v2026.05.26.1`, generated 22 public zips plus all-in-one public zip, and generated 26 all-pack zips plus all-in-one all-pack zip |
 | 2026-05-27 | REQ-036 | Job Pack / Guide Manual Completeness | Every job-pack guide must show each bundled skill as a complete three-part card: `是什么` / `怎么用` / `架构图`; no unfinished placeholder text or stub guide card is allowed | Completed | Updated guide generator to normalize legacy/imported skill docs, added `role-packs:audit-guides`, published standalone tag `v2026.05.27.2`, and verified Foundry vs Git release parity |
 | 2026-05-27 | REQ-037 | Job Pack / Source Contract + Release SSOT | Guide completeness must be proven from source Markdown skill docs, and role-pack Git ref/version must have a single JSON source across Foundry UI, guide generation, Git audit, and standalone validation | Completed | Added `role-pack-release.json`, `role-packs:enrich-source-skills`, strict source guide audit, path-level person-name audit, standalone release self-validation, and tag `v2026.05.27.3` |
+| 2026-05-31 | REQ-038 | Auth / Payload Hardening | Public pack detail APIs must expose metadata only, auth return paths must be safe local-relative, and generated Worker install scripts must never embed browser bearer sessions | Completed locally | Attacker review accepted these as release-blocking fixes; verified by `tests/auth-boundary.test.ts`, `scripts/audit-auth-surfaces.sh`, builds, worker typecheck, and `ai check`; GitHub tag install and open email registration remain documented product contracts unless a new business requirement changes them |
+| 2026-05-31 | REQ-039 | Release / Postmortem | Historical postmortem triggers must be executable release gates, not passive documentation | Completed locally | Added `scripts/scan-postmortems.mjs --strict`, root `postmortem:scan`, root build gate, and `web` prebuild gate; current auth PM and local-skill-root PM are acknowledged in this diff |
+| 2026-06-11 | REQ-040 | Job Pack / Designer Infrastructure | Integrate `https://www.ui-skills.com/` into the design infrastructure pack | Completed locally | Added Designer skill `ui-skills-directory`, first-use demo, prompts, checklist, toolkit template, public metadata, and guide/audit validation; UI Skills remains an external directory routed by task-fit shortlist, not a second catalog truth |
 
 ## Prompt / Workflow Notes
 | Date | Prompt Pattern | Use Case | Notes |
@@ -61,6 +64,9 @@
 | 2026-05-26 | "所有的skill都已经是git安装了吗？确定都打通了吗？把所有岗位再每个一个总的压缩包保存再本地" | Role-pack release automation invariant | Git release proof and local zip packaging must be commandized; do not rely on one-off shell checks when sharing pack releases |
 | 2026-05-27 | "为什么很多工具包里的说明书还没有完成 skill 三段式美化？全面检查和修复" | Guide manual completeness invariant | Generated guide pages must be reader-complete even when imported SKILL/SPEC sources use older heading conventions; make incomplete cards a prebuild failure instead of a visual TODO |
 | 2026-05-27 | "执行code review swarm / 按照SOTA路线" | Source-of-truth hardening invariant | Fix review findings by moving checks to the earliest truthful layer: source Markdown docs, release config JSON, root installer smoke, and standalone validation, not generated HTML or manual shell history |
+| 2026-05-31 | "Step 0 autonomous delivery protocol + attacker review" | Auth payload hardening invariant | Treat public metadata, protected payload delivery, generated install scripts, and return-path sanitization as one auth boundary; convert accepted review findings into audit/test gates |
+| 2026-05-31 | "继续" after auth closeout | Postmortem release guard | Convert PM machine triggers into a strict diff scanner; if a historical PM triggers, update the matching PM with fresh verification before release |
+| 2026-06-11 | "https://www.ui-skills.com/ 这个整合进去设计基建包" | Designer pack design-infrastructure integration | Add UI Skills as a bounded routing skill inside `designer`; use 3-5 task-fit recommendations with owner, sequence, and stop condition instead of copying the whole external directory |
 
 ## Anti-Regression Q&A
 | Q | A |
@@ -101,6 +107,13 @@
 | 怎么生成本地岗位包压缩包? | 运行 `npm run role-packs:package` 生成 22 个公开 canonical 包和一个 public 总包；运行 `npm run role-packs:package:all` 生成 26 个全量包和一个 all 总包。两个命令都会生成 `SHA256SUMS.txt`、`manifest-summary.json` 并对 zip 做安装烟测。 |
 | 怎么确认所有岗位包说明书里的 skill 都完成三段式美化? | 运行 `npm run role-packs:enrich-source-skills -- --check` 和 `npm run role-packs:audit-guides`。前者证明源 Markdown skill doc 已有 `是什么`、`怎么用`、`架构图`，后者证明 26 个 guide 的 182 个 guide-facing skill doc 都渲染成三段式卡片；非 Markdown skill payload 不作为说明书卡片。 |
 | 角色包 Git release ref 的单一事实源是什么? | `web/public/data/role-pack-release.json`。`scripts/generate-pack-guides.mjs`、`web/lib/protected-downloads.ts`、`scripts/audit-role-pack-git-release.mjs` 和 standalone `catalog/role-pack-release.json` 都必须从这个 JSON 派生，不能再硬编码 release ref。 |
+| `/api/packs/:id` 可以返回合并后的 `CLAUDE.md` / `AGENTS.md` / `settings.json` / `prompts.md` 吗? | 不可以。公开 detail API 只返回 pack metadata；payload body 只能通过注册态或短期 download token 访问 `GET /api/packs/:id/file?path=...`。 |
+| Worker 生成的 `install.sh` 可以把浏览器 bearer session 写进脚本吗? | 不可以。生成脚本只能嵌短期 D1 download token；如果用户用 bearer session 请求 `install.sh`，Worker 必须先 mint 一个短期 token 再写入脚本。 |
+| 登录、邮箱 callback、微信 callback 的 `return` / `return_to` 如何处理? | 只接受安全本地相对路径；协议相对 URL、反斜杠、控制字符或解码后不安全的值全部回退到 `/packs#wall`。 |
+| 受保护文件下载遇到 401 时可以手写 `/login?return=...` 吗? | 不可以。必须复用 `loginRedirect(returnPath)`，由共享 helper 统一做 return-path 归一化与编码。 |
+| 如何让 postmortem 真正参与发布守门? | 运行 `npm run postmortem:scan`。根 `npm run build` 和 `web` prebuild 已自动执行 `scripts/scan-postmortems.mjs --strict`；命中历史 PM 且没有同步更新该 PM 时会失败。 |
+| 如何防止 postmortem 发布守门本身静默漂移? | 运行 `node --import tsx --test tests/postmortem-scan.test.ts`。该测试锁定 root/web/deploy 接入点、PM machine trigger 可解析性、regex 可编译性，以及 strict/untracked safeguards。 |
+| UI Skills 应该如何进入设计基建包? | 作为 `designer` 包内的 `ui-skills-directory` 路由技能进入。它按当前任务选择 3-5 个 UI Skills 候选，并输出 owner、sequence、stop condition；不得把 `ui-skills.com` 当成产品需求来源或一次性全量安装清单。 |
 
 ## References
 1. `package.json`
@@ -159,3 +172,7 @@
 54. `scripts/audit-pack-guide-skill-sections.mjs`
 55. `scripts/enrich-pack-skill-sections.mjs`
 56. `web/public/data/role-pack-release.json`
+57. `scripts/scan-postmortems.mjs`
+58. `tests/postmortem-scan.test.ts`
+59. `https://www.ui-skills.com/`
+60. `https://github.com/ibelick/ui-skills`

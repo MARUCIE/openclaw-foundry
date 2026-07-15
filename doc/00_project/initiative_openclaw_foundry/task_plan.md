@@ -667,7 +667,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 16. Production smoke -> PASS: 22 public packs, 22 enriched, 0 deprecated aliases; sampled production guides contain `v2026.05.27.2`, exact three-part card parity, and no named cohort/person-owner strings or unfinished placeholders.
 
 ## 2026-05-27 · Role-Pack Source Contract and Release SSOT
-- Status: in deployment
+- Status: completed
 - Stop condition: source guide docs, generated guide HTML, standalone Git tag, local zip archives, Foundry build, GitHub deploy, and production smoke all verify against `v2026.05.27.3`.
 
 ### Steps
@@ -679,7 +679,7 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 - [x] Sync standalone role-pack repo, add standalone release validation, and publish tag `v2026.05.27.3`.
 - [x] Generate verified full local zip archive set for `v2026.05.27.3`.
 - [x] Run local Foundry and standalone verification.
-- [ ] Commit Foundry, push, wait for production deploy, and smoke-test production guide pages.
+- [x] Commit Foundry, push, wait for production deploy, and smoke-test production guide pages.
 
 ### Current Verification Snapshot
 1. `npm run role-packs:enrich-source-skills -- --check` -> PASS: 182 guide-facing source skill docs.
@@ -690,5 +690,139 @@ Move prototype validation ownership back to `product-manager`, rename `prototype
 6. `npm run role-packs:audit-git` -> PASS for `v2026.05.27.3`: 22 public packs, 26 distribution dirs, 550 manifest items, 550 payload files matched.
 7. `npm --prefix web run build` -> PASS with source-guide, person-name, install-source, dedup, coverage, online-status, and maturity gates.
 8. `npm run build` -> PASS.
-9. `npm run role-packs:package:all` -> PASS: `dist/role-pack-zips-20260527-094317-all`, 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.3.zip`, verified by install smoke.
+9. `npm run role-packs:package:all` -> PASS: `dist/role-pack-zips-20260527-095622-all`, 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.3.zip`, verified by install smoke.
 10. `ai check` -> command exited 0 with run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260527-095031-70e43875`; project docs/tests passed, but global AI-Fleet `skill_integrity` reported pre-existing/out-of-scope state (`codex-system-skills/plugin-creator` tampered, `code-review-swarm` and `network-speed-optimizer` new).
+11. Foundry commit `cffb44c450c242ac6b281c22c67f387f8ba50064` pushed to `origin/main`.
+12. GitHub Actions deploy run `26504443947` -> PASS for commit `cffb44c`; jobs `deploy-worker`, `apply-migrations`, and `deploy-frontend` completed successfully. `Deploy to CF Pages` completed at `2026-05-27T10:06:14Z`.
+13. Production data smoke on `https://agent-foundry.pages.dev` -> PASS: `role-pack-release.json` returned `v2026.05.27.3`, `/data/packs.json` returned 22 canonical packs, 0 deprecated aliases, and 7 sampled guide pages contained `是什么` / `怎么用` / `架构图`, pinned branch `v2026.05.27.3`, and no forbidden concrete person names.
+14. Production headless Chrome smoke -> PASS: screenshot `/tmp/agent-foundry-packs-cffb44c.png` shows `/packs` rendered with `22 packs`, `6 lines`, and merged `Work with / Read Data`; no duplicate role-card cluster appears in the first viewport.
+15. Three-end consistency -> PASS: local Foundry commit `cffb44c`, GitHub `origin/main` at `cffb44c`, standalone Git tag `v2026.05.27.3` at `3f0ecd1`, and production `role-pack-release.json` all point to the same release contract.
+
+## 2026-05-31 · Step 0 Autonomous Delivery Protocol Alignment
+- Status: completed locally
+- Mode: planning-with-files / local reversible preflight / attacker-review hardening
+- Stop condition: protocol requirements are recorded, local tool/DNA/codegraph availability is proven, first local verification queue is executed, accepted attacker-review findings are fixed, and any unavailable/HITL gates are explicitly marked with evidence.
+
+### Objective
+Apply the user-provided Step 0 preamble as the active execution protocol for this project without changing runtime product behavior in this branch.
+
+### Non-Goals
+1. Do not publish, push, tag, comment externally, or communicate outside the local workspace without explicit authority.
+2. Do not install third-party skills or run unreviewed executable payloads.
+3. Do not create a new product/runtime feature until a concrete implementation target is selected.
+
+### Constraints
+1. Use `/Users/mauricewen/Projects/22-openclaw-foundry` as `PROJECT_DIR`.
+2. Use append-only planning files unless a later cleanup pass intentionally normalizes docs.
+3. Preserve the pre-existing dirty `task_plan.md` state and do not revert prior edits.
+4. Treat `ai check`, UX-map smoke, and attacker review as release gates, not optional summaries.
+5. Use local/reversible commands first; defer production, GitHub comments, deploys, and tag moves as HITL/external authority gates.
+
+### Tool and Workflow Selection
+1. `planning-with-files` selected because the task is long-running and explicitly requires `task_plan.md`, `notes.md`, and `deliverable.md` evidence.
+2. DNA capsule lookup selected before new trial paths; initial search for `openclaw foundry planning workflow` and `ai check skill_integrity dna capsules` returned no matches.
+3. DNA registry health selected as reusable guard: `ai dna validate` and `ai dna doctor` are local and reversible.
+4. CodeGraph selected as repo-understanding guard, but current CLI status shows this repo is not initialized; graph creation is deferred until there is a code-impact task or explicit need for a persistent local index.
+5. Native verifier subagent delegated a read-only gate audit; root agent continues local doc/preflight work.
+
+### Steps
+- [x] Load project AGENTS/CLAUDE rules and canonical docs.
+- [x] Confirm planning files and PDCA checklist exist.
+- [x] Check current git state and preserve existing dirty file.
+- [x] Check installed `ai`, `omx`, `npx`, `node`, `npm`, and `agent-browser` paths.
+- [x] Run DNA search before trial/error.
+- [x] Run DNA validate/doctor availability checks.
+- [x] Check CodeGraph/MCP graph availability.
+- [x] Delegate read-only verification-gate audit to subagent.
+- [x] Run local preflight command queue: build/static checks plus DNA gates.
+- [x] Add a lightweight attacker-review checklist before any release claim.
+- [x] Decide whether a new DNA capsule is warranted after one verified correction path exists.
+- [x] Update deliverable with evidence after verification queue finishes.
+
+### Current Evidence
+1. `git status --short` shows only pre-existing `M doc/00_project/initiative_openclaw_foundry/task_plan.md` before this Step 0 append.
+2. `ai dna search "openclaw foundry planning workflow"` -> `No matches.`
+3. `ai dna search "ai check skill_integrity dna capsules"` -> `No matches.`
+4. `ai dna validate` -> `OK: validate passed`.
+5. `ai dna doctor` -> `OK: doctor passed`.
+6. `ai codegraph status .` -> `Not initialized`; no CodeGraph index was created in this branch.
+7. Code review graph MCP minimal context -> `0 nodes, 0 edges across 0 files`; current graph evidence is unavailable until a graph build/index is run.
+8. Attacker review accepted three release-blocking findings: public pack detail payload exposure, unsafe return-path propagation, and bearer-session leakage into generated installers.
+9. Attacker review classified GitHub tag install and open email magic-link registration as current product contracts/residual product risks, not code defects to change in this branch.
+10. Local verification after fixes:
+    - `node --import tsx --test tests/auth-boundary.test.ts` -> PASS, 5/5 tests.
+    - `bash scripts/audit-auth-surfaces.sh` -> PASS, 37 checks / 0 violations.
+    - `npm run build` -> PASS.
+    - `npx tsc -p worker/tsconfig.json` -> PASS.
+    - `node --import tsx --test tests/*.test.ts` -> PASS, 37/37 tests. Note: the pre-existing provider deploy test writes local `~/.openclaw` state and temporarily generated root agent mirror files; repo root side effects were cleaned from the diff.
+    - `npm --prefix web run build` -> PASS with existing Next static-export warnings.
+    - `git diff --check` -> PASS.
+    - `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-111035-3f11884f`, `ok=true`, `rounds=2`, docs/no_emoji/registry/instruction_mirror_drift/foundation_surface_audit/mcp_transport_guard/aaas_contracts/codegraph_lookup/sbom/skill_integrity all true; the tool's default options skipped its own audit/tests, so explicit project audit/tests above are the release evidence. The command produced a completed summary before its control-plane process exited, so the wrapper process was stopped after recording the summary.
+11. DNA capsule decision: do not create a cross-project DNA/Skill in this branch. The reusable auth boundary is encoded as `scripts/audit-auth-surfaces.sh` plus `tests/auth-boundary.test.ts`; a broader `openclaw-delivery-protocol` capsule remains a candidate for an AI-Fleet task after repeated use, not a project-runtime change.
+12. Postmortem added: `postmortem/PM-2026-05-31-auth-payload-boundary.md` records symptom, root cause, fix, prevention, machine triggers, and verification evidence for the release-blocking auth findings.
+13. Release guard added: `scripts/scan-postmortems.mjs --strict` scans current diffs against PM machine triggers, root `npm run build` runs `postmortem:scan`, `web` prebuild runs the same guard, and deploy checkout now fetches history for diff-based scanning. Fresh evidence: strict scan PASS, `tests/postmortem-scan.test.ts` PASS 3/3, full project Node tests PASS 37/37, root build PASS with scan, web build PASS with scan first in prebuild, deploy workflow YAML parse PASS, `ai check --no-tests` PASS at `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-134444-47cc7e19`; full `ai check` global tests hung and were terminated at `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-113154-226de16a`.
+14. Follow-on local hardening: `web/lib/protected-downloads.ts` now reuses `loginRedirect(returnPath)` for 401 re-auth redirects instead of hand-building a login return URL; `tests/auth-boundary.test.ts` and `scripts/audit-auth-surfaces.sh` now lock this shared-entry invariant.
+15. HITL/external gates not executed: no commit, push, tag move, GitHub comment, production deploy, production secret change, or three-end production consistency check was performed in this local-only branch.
+
+## 2026-06-11 · Designer UI Skills Directory Integration
+- Status: completed locally
+- Mode: feature-dev / local reversible pack update / documentation closeout
+- PROJECT_DIR: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊`
+- Stop condition: Designer pack contains a bounded UI Skills directory routing skill, public pack metadata and generated guide are synchronized, project PDCA docs and rolling ledger are updated, and local pack-generation audits pass.
+
+### Objective
+Integrate `https://www.ui-skills.com/` into the Designer design infrastructure pack as a curated routing capability for selecting task-fit UI/design engineering skills.
+
+### Non-Goals
+1. Do not install the full UI Skills directory into this repository.
+2. Do not add a new runtime dependency or external package.
+3. Do not alter unrelated auth/postmortem/workflow changes already present in the dirty worktree.
+4. Do not publish, push, deploy, move tags, or change production state.
+
+### Project Architecture and Page/Route Map Precheck
+1. Pack source: `web/public/packs/designer/`.
+2. Public pack catalog: `web/public/data/packs.json`.
+3. Generated pack guide: `web/public/packs/designer/guide.html`.
+4. Native pack generation path: `scripts/generate-pack-guides.mjs` plus `web` pack generation scripts; `generate-packs.mjs` preserves native packs from `web/public/data/packs.json`.
+5. User-facing surface: `/packs/designer` guide payload and pack catalog entry, sourced from the Designer manifest and generated static guide.
+
+### Steps
+- [x] Verify project root and load project rules.
+- [x] Identify the current design infrastructure pack as `web/public/packs/designer`.
+- [x] Check UI Skills source material and define a bounded integration contract.
+- [x] Add `ui-skills-directory` skill spec with `是什么`, `怎么用`, and `架构图`.
+- [x] Update Designer manifest, CLAUDE/AGENTS guidance, prompts, checklist, templates, public catalog metadata, and generated guide.
+- [x] Sync PRD, SYSTEM_ARCHITECTURE, USER_EXPERIENCE_MAP, PLATFORM_OPTIMIZATION_PLAN, doc index, and rolling requirements ledger.
+- [x] Run focused generation and pack audits.
+- [x] Record evidence in `task_plan.md`, `notes.md`, and `deliverable.md`.
+
+### Verification Evidence
+1. `node scripts/generate-pack-guides.mjs` -> PASS: `OK generated 26 guide.html`.
+2. `npm run role-packs:audit-guides` -> PASS: 26 guides, 183 source guide docs, 183 cards.
+3. `python3 scripts/pack-spec-audit.py --packs-dir web/public/packs --summary` -> PASS: 26 packs; `designer` enriched with P1/P2/P3/P4 coverage.
+4. JSON parse check for `web/public/packs/designer/manifest.json` and `web/public/data/packs.json` -> PASS.
+5. `npm --prefix web run generate-packs` -> PASS: native Designer pack preserved, guide regeneration and guide audit passed.
+6. `npm run role-packs:audit-person-names` -> PASS: public pack, extra pack source, and catalog name audit passed.
+7. `npm --prefix web run build` -> PASS: strict postmortem scan, static prebuild, pack generation, public install-source/dedup/coverage/online/maturity audits, Next build, and static export passed with existing Next warnings.
+8. `npm run build` -> PASS: TypeScript, design source lock, MD8 design hook, and strict postmortem scan passed.
+9. Exported Designer pack smoke -> PASS: `web/out/data/packs.json`, `web/out/packs/designer/guide.html`, and `web/out/packs/designer/skills/design/ui-skills-directory/SPEC.md` contain the UI Skills route.
+10. UX-map Designer pack path smoke -> PASS: catalog, manifest first-use demo, guide card, shortlist output, and Designer/Frontend Engineer/PM handoff are present.
+11. `npm run role-packs:package:all` -> PASS: 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.3.zip`, verified output at `dist/role-pack-zips-20260611-095701-all`.
+12. Zip content smoke -> PASS: `designer.zip` and `openclaw-role-packs-all-v2026.05.27.3.zip` contain `designer/skills/design/ui-skills-directory/SPEC.md`; `designer.zip` checksum `75120ffa7dd8d6139b65eb5db909d5456aca3892987deeb42eebf9d7ce470bda`.
+13. Temporary install smoke -> PASS: extracted `designer.zip`, ran `./install.sh --agent=claude --target <tmp> --local`, installed 16 artifacts, and verified installed `skills/design/ui-skills-directory/SPEC.md`, CLAUDE guidance, prompts, checklist, and source manifest first-use demo.
+14. `ai check --no-tests` -> PASS, final run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260611-110027-58ff0bb8`; docs, registry, instruction mirror drift, foundation surface, MCP transport, AAAS contracts, codegraph lookup, SBOM, and skill integrity passed; audit/tests intentionally skipped by option because explicit local build/smoke evidence above covers this pack-content change.
+15. `git diff --check` -> PASS after final planning-file append.
+
+### Closeout
+1. Skills update: completed inside the Designer pack as `skills/design/ui-skills-directory/SPEC.md`; no global Skill/DNA promotion yet because this is a pack-specific routing integration.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, rolling ledger, notes, task plan, deliverable, and doc index updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global workflow invariant; pack-local AGENTS/CLAUDE rules were updated.
+4. Technical debt closure: Designer now has an explicit bounded route for using UI Skills instead of ad hoc external-skill recommendations.
+5. Three-end consistency: N/A for this local-only branch; no commit, push, deploy, tag move, or production check was executed. Local generated static output and local role-pack zip install were smoke-checked instead.
+
+### Commit Boundary Audit
+1. Whole-file task-owned candidates: `web/public/packs/designer/**`, `web/public/data/packs.json`, and new `web/public/packs/designer/skills/design/ui-skills-directory/SPEC.md`.
+2. Mixed-history docs requiring hunk-level staging if making a UI-Skills-only commit: `doc/index.md`, PRD, SYSTEM_ARCHITECTURE, USER_EXPERIENCE_MAP, PLATFORM_OPTIMIZATION_PLAN, ROLLING_REQUIREMENTS_AND_PROMPTS, task_plan, notes, and deliverable.
+3. Exclude from a UI-Skills-only commit: `.github/workflows/deploy.yml`, auth pages/helpers, Worker auth/pack routes, postmortem scanner/tests, auth invariant docs, root/web package postmortem-scan wiring, and postmortem PM files unless intentionally creating a broader auth hardening commit.
+4. Lore commit intent line candidate: `Route Designer pack UI work through UI Skills`.
+5. Local commit created: `e6b724845949d04f0d7b057f8c10e60bab7adc41`; it includes only Designer pack files and `web/public/data/packs.json`, with no push or deploy.

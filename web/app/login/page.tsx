@@ -9,6 +9,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { API_BASE } from '@/lib/api-base';
+import { safeReturnPath } from '@/lib/session';
 
 const EMAIL_RX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -27,7 +28,7 @@ interface AuthConfig {
 
 function LoginInner() {
   const sp = useSearchParams();
-  const returnTo = sp?.get('return') || '/packs#wall';
+  const returnTo = safeReturnPath(sp?.get('return'));
   const errorCode = sp?.get('error');
 
   const [email, setEmail] = useState('');

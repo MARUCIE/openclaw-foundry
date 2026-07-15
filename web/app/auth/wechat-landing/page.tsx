@@ -10,6 +10,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { API_BASE } from '@/lib/api-base';
+import { safeReturnPath } from '@/lib/session';
 
 interface ExchangeResponse {
   bearer_token?: string;
@@ -63,7 +64,7 @@ function WechatLandingInner() {
           console.warn('localStorage unavailable; session will not persist beyond this tab', storageErr);
         }
         setStatus('success');
-        const returnTo = data.return_to && data.return_to.startsWith('/') ? data.return_to : '/packs#wall';
+        const returnTo = safeReturnPath(data.return_to);
         const t = setTimeout(() => {
           window.location.assign(returnTo);
         }, 600);

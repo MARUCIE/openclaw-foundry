@@ -1,7 +1,7 @@
 # Documentation Index
 
 ## Path Index
-- Project Root: `/Users/mauricewen/Projects/22-openclaw-foundry`
+- Project Root: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊`
 - Canonical Initiative Root: `doc/00_project/initiative_openclaw_foundry`
 - CLI Entry: `src/cli.ts`
 - Server Entry: `src/server.ts`

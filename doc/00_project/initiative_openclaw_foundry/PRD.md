@@ -93,6 +93,10 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 | FR-33 | Role-pack Git release verification and local zip packaging must be reproducible through first-class scripts: Git drift audit, public zip packaging, all-pack zip packaging, checksum output, and install smoke verification | Implemented 2026-05-26 |
 | FR-34 | Role-pack guide completeness must be proven from source skill documents, not from generated HTML fallback text; release config must be a single JSON source consumed by guide generation, UI copy, Git audit, and standalone validation | Implemented 2026-05-27 |
 | FR-34 | Every generated job-pack guide must render every bundled skill as a complete three-part manual card (`是什么` / `怎么用` / `架构图`); unfinished placeholders or stub guide cards fail prebuild | Implemented 2026-05-27 |
+| FR-35 | Public Job Pack detail APIs expose metadata only; merged configuration payloads are available only through protected file delivery | Implemented 2026-05-31 |
+| FR-36 | Auth return paths across login, email callback, and WeChat OAuth must accept only safe local relative paths and fall back to `/packs#wall` otherwise | Implemented 2026-05-31 |
+| FR-37 | Pre-release builds must scan changed files against `postmortem/PM-*.md` machine triggers and block historical regression signatures unless the matching PM is updated in the same diff | Implemented locally 2026-05-31 |
+| FR-38 | The `designer` pack must integrate UI Skills as a design-infrastructure routing skill that selects a small task-fit shortlist from `ui-skills.com` without turning the external directory into a product-requirement source | Implemented locally 2026-06-11 |
 
 ## Non-Functional Requirements
 1. Contract-first: `Blueprint` must remain the shared schema across CLI, server, and exported installers
@@ -113,7 +117,11 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 16. Role-pack release artifacts must be produced by auditable scripts, not ad hoc shell history: `npm run role-packs:audit-git` proves the pinned Git tag matches Foundry payloads, and `npm run role-packs:package` / `npm run role-packs:package:all` produce verified zip bundles with `SHA256SUMS.txt` and `manifest-summary.json`.
 17. `web/public/data/role-pack-release.json` is the single source of truth for the role-pack Git URL/ref/version; hardcoded release refs in generator/UI code are invalid.
 18. `scripts/generate-pack-guides.mjs` must fail when a guide skill document lacks `## 是什么`, `## 怎么用`, or `## 架构图` with Mermaid; `scripts/enrich-pack-skill-sections.mjs` is the only allowed deterministic source-repair path.
+19. Designer-pack UI Skills integration must remain curated and bounded: recommend 3-5 task-fit skills with owner, sequence, and stop condition; never recommend the whole external directory by default.
 17. Job-pack guide generation must be deterministic and complete: `scripts/generate-pack-guides.mjs` may derive missing three-part manual sections from existing skill metadata/body text, and `scripts/audit-pack-guide-skill-sections.mjs` must block any guide that lacks one card, three headings, or one Mermaid diagram per manifest skill.
+18. Worker-generated Job Pack install scripts must embed only short-lived D1 download tokens; browser bearer session tokens are never serialized into shell scripts, logs, or clipboard payloads.
+19. Public metadata routes, protected payload routes, and auth return-path handling must be covered by `scripts/audit-auth-surfaces.sh` so review findings become release guards.
+20. Postmortem prevention must be executable: `scripts/scan-postmortems.mjs --strict` runs in root build and `web` prebuild, scans current diff against machine triggers, and blocks unacknowledged historical regression signatures.
 
 ## Success Criteria
 1. A new user can reach blueprint generation from at least one supported entry channel without manual code editing
@@ -139,3 +147,5 @@ The Chinese AI Agent ecosystem has fragmented into 13+ platforms (ArkClaw, WorkB
 15. Public pack maturity can regress if new packs bypass the enrichment/audit chain; `web` prebuild must keep `enrich-public-pack-maturity` before `inject-pack-tiers` and must keep `audit-public-pack-maturity` after tier injection.
 16. CI provider action major versions can introduce breaking behavior; workflow upgrades must be validated through GitHub Actions deploy runs plus production smoke, not only local YAML parsing.
 17. Imported or legacy skill docs may not contain exact `## 是什么` / `## 怎么用` / `## 架构图` headings; the guide generator must normalize them for readers, and the audit gate must prove the visible guide contains no unfinished placeholder text.
+18. Email magic-link registration currently allows any mailbox holder to register. That is the current acquisition/product contract, not a security bug, but enterprise allowlist or approval-gated registration remains a future product decision.
+19. Pinned GitHub role-pack install remains the preferred shareable delivery route after registration. Treat it as an accepted distribution contract; Worker/R2 protected file delivery still guards single-file payload downloads and generated install scripts.

@@ -15,7 +15,8 @@
     "role-packs:enrich-source-skills": "node scripts/enrich-pack-skill-sections.mjs",
     "role-packs:package": "node scripts/package-role-packs.mjs --scope public",
     "role-packs:package:all": "node scripts/package-role-packs.mjs --scope all",
-    "build": "tsc && npm run design:verify-source && npm run design:check",
+    "postmortem:scan": "node scripts/scan-postmortems.mjs --strict",
+    "build": "tsc && npm run design:verify-source && npm run design:check && npm run postmortem:scan",
     "dev": "tsx watch src/server.ts",
     "workshop:start": "cd web && npm install --silent && npm run dev"
   },

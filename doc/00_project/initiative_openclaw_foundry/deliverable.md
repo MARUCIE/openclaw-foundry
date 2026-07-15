@@ -821,3 +821,81 @@ Fully audit and neutralize released role/job configuration packs so no concrete 
 3. AGENTS/CLAUDE cross-task rule update: N/A - the invariant is encoded as executable release gates.
 4. Technical debt closure: source incompleteness masking, release ref duplication, standalone validation gaps, hidden path-level person-name leakage, and root installer smoke gap are closed.
 5. Three-end consistency: local Foundry and standalone verified; GitHub standalone tag pushed; Foundry production deploy and production smoke pending this commit.
+
+## 2026-05-31 · Step 0 Auth Boundary Hardening
+
+### Delivered
+1. Public Job Pack detail API is metadata-only; merged configuration payload bodies remain behind protected file routes.
+2. Generated Worker `install.sh` responses embed only short-lived D1 download tokens, never browser bearer sessions.
+3. Login, email callback, WeChat landing, and Worker WeChat OAuth state handling now sanitize return paths to safe local-relative values.
+4. `scripts/audit-auth-surfaces.sh` now checks metadata-only public detail, no bearer-token installer leakage, and safe return-path wiring.
+5. Added `tests/auth-boundary.test.ts` as a focused regression suite for the accepted attacker-review findings.
+6. PDCA docs and rolling ledger now distinguish fixed security findings from accepted product contracts: pinned GitHub tag install and open email magic-link registration.
+7. Added `postmortem/PM-2026-05-31-auth-payload-boundary.md` with machine triggers for future pre-release scans.
+8. Added `scripts/scan-postmortems.mjs --strict`, root `postmortem:scan`, root build gating, `web` prebuild gating, and deploy checkout history for postmortem-trigger scans.
+9. Added `tests/postmortem-scan.test.ts` to lock scanner wiring, machine-trigger parseability, and strict/untracked safeguards.
+10. Reused `loginRedirect(returnPath)` for protected-download 401 re-auth redirects, eliminating the last hand-built login return URL in the pack file-download helper.
+
+### Evidence
+1. `node --import tsx --test tests/auth-boundary.test.ts` -> PASS, 5/5 tests.
+2. `bash scripts/audit-auth-surfaces.sh` -> PASS, 37 checks / 0 violations.
+3. `npm run build` -> PASS.
+4. `npx tsc -p worker/tsconfig.json` -> PASS.
+5. `node --import tsx --test tests/*.test.ts` -> PASS, 37/37 tests. Existing provider tests have local `~/.openclaw` side effects; generated repo-root mirror files were cleaned from the diff.
+6. `npm --prefix web run build` -> PASS with existing static-export warnings.
+7. `git diff --check` -> PASS.
+8. `ai check --no-tests` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-134444-47cc7e19`; audit/tests were skipped by tool options, so explicit project audit/tests above are the release-specific evidence.
+9. `node scripts/scan-postmortems.mjs --strict` -> PASS; triggered PMs were acknowledged in the same diff.
+10. Root `npm run build` -> PASS with `postmortem:scan` included.
+11. `npm --prefix web run build` -> PASS with `scan-postmortems.mjs --strict` first in `web` prebuild.
+12. `node --import tsx --test tests/postmortem-scan.test.ts` -> PASS, 3/3 tests.
+13. `node --import tsx --test tests/*.test.ts` -> PASS, 37/37 tests; known local `~/.openclaw` side effects from provider smoke were observed and repo-root mirror files were cleaned from the diff.
+14. `.github/workflows/deploy.yml` YAML parse -> PASS.
+15. Full `ai check` attempt run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-113154-226de16a` did not complete because the AI-Fleet global `tests/test_all.py` child process hung with no output and 0 CPU; it was terminated and recorded `tests: FAIL`. This is not used as project release evidence.
+
+### Closeout
+1. Skills update: N/A - no cross-project Skill/DNA was created in this branch; the reusable invariant is encoded as project audit/test gates.
+2. PDCA four-doc sync: PRD, UX map, system architecture, platform optimization plan, auth invariant, rolling ledger, notes, task plan, and deliverable updated.
+3. AGENTS/CLAUDE cross-task rule update: N/A - no new global workflow rule is required for this project-specific auth boundary.
+4. Technical debt closure: accepted attacker-review findings are fixed and guarded; generated root agent mirror files produced by the existing provider test were removed from the working diff.
+5. Postmortem: completed in `postmortem/PM-2026-05-31-auth-payload-boundary.md`; strict postmortem scan is wired into root and `web` builds.
+6. Three-end consistency: N/A for this local-only branch. No commit, push, tag move, production deploy, or production secret change was executed.
+
+## 2026-06-11 · Designer UI Skills Directory Integration
+
+### Delivered
+1. Integrated UI Skills into the Designer design infrastructure pack as a bounded directory-routing skill, not as a vendored full-directory import.
+2. Added `web/public/packs/designer/skills/design/ui-skills-directory/SPEC.md` with the required `是什么`, `怎么用`, and `架构图` sections.
+3. Updated Designer pack manifest, first-use demo, pack-local CLAUDE/AGENTS guidance, prompts, delivery checklist, document-template toolkit, and generated guide.
+4. Updated `web/public/data/packs.json` so the public Designer catalog reflects UI Skills routing and the increased skill count.
+5. Updated PRD, system architecture, user experience map, platform optimization plan, doc index, rolling requirements ledger, notes, task plan, and this deliverable.
+
+### Evidence
+1. `node scripts/generate-pack-guides.mjs` -> PASS: 26 guide pages generated.
+2. `npm run role-packs:audit-guides` -> PASS: guide/source/card parity passed with 183 source guide docs and 183 cards.
+3. `python3 scripts/pack-spec-audit.py --packs-dir web/public/packs --summary` -> PASS: Designer remains enriched with P1/P2/P3/P4 coverage.
+4. JSON parse check for `web/public/packs/designer/manifest.json` and `web/public/data/packs.json` -> PASS.
+5. `npm --prefix web run generate-packs` -> PASS: native Designer pack preserved; generated guides and guide audit passed.
+6. `npm run role-packs:audit-person-names` -> PASS: public pack, extra pack source, and catalog name audit passed.
+7. `npm --prefix web run build` -> PASS: strict postmortem scan, static prebuild, pack generation, public install-source/dedup/coverage/online/maturity audits, Next build, and static export passed with existing Next warnings.
+8. `npm run build` -> PASS: TypeScript, design source lock, MD8 design hook, and strict postmortem scan passed.
+9. Exported Designer pack smoke -> PASS: exported catalog, guide, and skill spec include the UI Skills route.
+10. UX-map Designer pack path smoke -> PASS: catalog, manifest first-use demo, guide card, shortlist output, and Designer/Frontend Engineer/PM handoff are present.
+11. `npm run role-packs:package:all` -> PASS: 26 per-pack archives plus `openclaw-role-packs-all-v2026.05.27.3.zip`, verified output at `dist/role-pack-zips-20260611-095701-all`.
+12. Zip content smoke -> PASS: `designer.zip` and all-in-one zip include `designer/skills/design/ui-skills-directory/SPEC.md`; Designer zip checksum `75120ffa7dd8d6139b65eb5db909d5456aca3892987deeb42eebf9d7ce470bda`.
+13. Temporary install smoke -> PASS: extracted `designer.zip`, ran `./install.sh --agent=claude --target <tmp> --local`, installed 16 artifacts, and verified installed UI Skills spec plus CLAUDE/prompts/checklist routing guidance.
+14. `ai check --no-tests` -> PASS, final run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260611-110027-58ff0bb8`; audit/tests skipped by option and covered by explicit local build/smoke evidence above.
+15. `git diff --check` -> PASS after final planning-file append.
+
+### Closeout
+1. Skills update: completed pack-locally as `ui-skills-directory`; global Skill/DNA promotion is N/A until this routing pattern repeats across projects.
+2. PDCA four-doc sync: completed for PRD, USER_EXPERIENCE_MAP, SYSTEM_ARCHITECTURE, PLATFORM_OPTIMIZATION_PLAN, rolling ledger, task plan, notes, deliverable, and doc index.
+3. AGENTS/CLAUDE cross-task rule update: N/A globally; pack-local Designer AGENTS/CLAUDE files were updated.
+4. Technical debt closure: Designer now has explicit rules preventing ad hoc, unbounded external UI skill recommendations.
+5. Three-end consistency: N/A for this local-only branch; no commit, push, deploy, production smoke, or tag action was performed. Local static export and local role-pack zip install were smoke-checked.
+
+### Remaining Risks
+1. The repository was already dirty with unrelated auth/postmortem/package/workflow changes. This delivery does not validate or claim those changes.
+2. This task did not run a production deployment or remote browser smoke; validation is local build, exported static smoke, local zip/install smoke, pack audits, and `ai check --no-tests`.
+3. UI-Skills-only commit preparation requires hunk-level staging for shared project docs because the current worktree also contains earlier auth/postmortem changes. Whole-file staging is appropriate for the Designer pack files and `web/public/data/packs.json`; exclude auth, Worker, postmortem, and workflow files unless creating a broader commit.
+4. Local commit `e6b724845949d04f0d7b057f8c10e60bab7adc41` contains the isolated Designer pack/catalog changes. No push, deploy, tag move, or production smoke was performed.

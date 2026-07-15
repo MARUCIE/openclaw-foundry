@@ -1,9 +1,9 @@
 # SYSTEM_ARCHITECTURE - OpenClaw Foundry
 
 ## AI-Managed Project Block
-- PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
+- PROJECT_DIR: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-27`
+- Updated: `2026-06-11`
 
 ## System Boundary
 OpenClaw Foundry 当前是统一的技能发现与部署控制产品面，支持 **13 platforms** across desktop / saas / cloud / mobile / remote modes. 当前 canonical 边界只覆盖已经存在的发现、部署、管理与比武能力；未来 Portal/资讯/商业化探索不属于本次已批准架构。
@@ -102,6 +102,7 @@ Rollback is artifact-level, not repo-level: the system must be able to restore t
 | Web session helper | `web/lib/session.ts`, `web/lib/protected-downloads.ts` | Browser-side registered-session checks plus Worker-backed protected copy/download helpers |
 | Worker auth + pack payload API | `worker/src/routes/auth.ts`, `worker/src/routes/auth-wechat.ts`, `worker/src/routes/packs.ts`, `worker/src/migration-v10.sql` | Email/WeChat auth, short-lived pack download tokens, protected pack files backed by D1/R2 |
 | Standalone role-pack repo | `/Users/mauricewen/Projects/openclaw-role-packs` | Copy-safe pack snapshot with root and per-pack local-first installers |
+| Postmortem release guard | `postmortem/PM-*.md`, `scripts/scan-postmortems.mjs`, `package.json`, `web/package.json` | Convert historical failure triggers into pre-release diff scans; root build and `web` prebuild block unacknowledged regression signatures |
 | **Deploy Manager** | `src/deploy-manager.ts` | **v3.0: Async deploy job lifecycle (create/poll/cancel)** |
 | **Arena Engine** | `src/arena-engine.ts` | **v3.0: Multi-provider parallel execution + scoring** |
 
@@ -125,7 +126,13 @@ flowchart LR
   I --> J[file download]
 ```
 
-Static Pages output keeps public Job Pack `guide.html` files as readable guides. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session. The protected install-command copy now writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.27.3` after the user is registered; it does not mint a Worker download token. The post-build prune script tombstones public static pack payload files in `web/out/packs` to close direct-link bypasses and overwrite stale Cloudflare Pages assets from older deployments. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
+Static Pages output keeps public Job Pack `guide.html` files as readable guides. Public pack detail APIs expose metadata only; merged payload bodies such as `CLAUDE.md`, `AGENTS.md`, `settings.json`, and `prompts.md` stay behind protected file delivery. Protected single-file downloads are served through `GET /api/packs/:id/file?path=...` with a registered bearer session or a short-lived D1 download token. Worker-generated `install.sh` responses may embed only a short-lived download token; browser bearer session tokens must never be written into generated shell scripts. The protected install-command copy writes a pinned GitHub clone command for `https://github.com/MARUCIE/openclaw-role-packs.git` at `v2026.05.27.3` after the user is registered; this Git release path is an accepted product contract rather than a Worker/R2 bypass. The post-build prune script tombstones public static pack payload files in `web/out/packs` to close direct-link bypasses and overwrite stale Cloudflare Pages assets from older deployments. Skill/MCP install command copy remains public. Static Pages catalog reads use `/data/*.json` directly when `NEXT_PUBLIC_API_URL` is unset, so production does not emit missing `/api/packs` console errors.
+
+Login and OAuth return paths are also part of the auth boundary. Web and Worker auth surfaces accept only local relative return paths, reject protocol-relative or backslash/control-character variants, and fall back to `/packs#wall` when the supplied value is unsafe.
+
+## Postmortem Release Guard (2026-05-31)
+
+Regression prevention is file-backed. Each `postmortem/PM-*.md` carries a `Machine Triggers` block with paths, keywords, and regex signatures. `scripts/scan-postmortems.mjs --strict` compares the current release diff against those triggers. If a historical PM is matched and that PM is not updated in the same diff, the command fails. The guard is wired into root `npm run build` and `web` `prebuild`, so production-oriented builds scan known failure modes before packaging or deploying.
 
 ## Standalone Role Pack Distribution (2026-05-25)
 
@@ -150,7 +157,11 @@ Release automation invariant: `npm run role-packs:audit-git` is the release gate
 
 ## Product Manager / Designer Pack Boundary (2026-05-25)
 
-The product line has two released frontdoor packs. `product-manager` owns PRD, user stories, RICE, prototype hypothesis, and clickable validation demo prompts. `designer` owns experience architecture, visual hierarchy, design tokens, design QA, advisor review, component states, responsive constraints, and engineering handoff. The retired `prototype-designer` slug is not kept as an alias so public catalog, guide, and Git install surfaces cannot imply that prototype ownership belongs to the Designer pack.
+The product line has two released frontdoor packs. `product-manager` owns PRD, user stories, RICE, prototype hypothesis, and clickable validation demo prompts. `designer` owns experience architecture, visual hierarchy, design tokens, UI Skills directory routing, design QA, advisor review, component states, responsive constraints, and engineering handoff. The retired `prototype-designer` slug is not kept as an alias so public catalog, guide, and Git install surfaces cannot imply that prototype ownership belongs to the Designer pack.
+
+## Designer UI Skills Directory Integration (2026-06-11)
+
+The Designer pack now includes `skills/design/ui-skills-directory/SPEC.md` as the design-infrastructure routing layer for `https://www.ui-skills.com/`. This does not make UI Skills a second catalog truth or a product-requirement source. It maps current UI work to a small, task-fit shortlist across accessibility, motion, systems, visual, interaction, performance, craft, and taste, then records execution order and owner boundaries between Designer, Frontend Engineer, and PM.
 
 ## Strategy Roundtable Job Pack Architecture (2026-05-25)
 

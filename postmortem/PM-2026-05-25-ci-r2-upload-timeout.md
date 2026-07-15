@@ -58,3 +58,7 @@ regex:
 - Root `npm run build` -> PASS.
 - `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260525-041513-3ebbd355`.
 - Remote GitHub Actions verification is required after pushing because real R2 upload needs Cloudflare Actions secrets.
+
+## 2026-05-31 Follow-up Verification
+
+The deploy workflow was updated to fetch full Git history for postmortem diff scanning. The R2 upload guard remains intact: `deploy-frontend` still has `timeout-minutes: 20`, `R2_UPLOAD_CONCURRENCY: 8`, local worker dependency install before upload, and `node scripts/upload-protected-packs-to-r2.mjs` before Pages tombstoning/deploy.

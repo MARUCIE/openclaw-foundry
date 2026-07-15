@@ -56,6 +56,21 @@ function b64urlDecode(s: string): string {
   return atob(padded);
 }
 
+function safeReturnPath(value?: string | null, fallback = '/packs#wall'): string {
+  const candidate = typeof value === 'string' ? value.trim() : '';
+  if (!candidate) return fallback;
+  if (!candidate.startsWith('/') || candidate.startsWith('//')) return fallback;
+  if (/[\u0000-\u001F\u007F\\]/.test(candidate)) return fallback;
+  try {
+    const decoded = decodeURIComponent(candidate);
+    if (!decoded.startsWith('/') || decoded.startsWith('//')) return fallback;
+    if (/[\u0000-\u001F\u007F\\]/.test(decoded)) return fallback;
+  } catch {
+    return fallback;
+  }
+  return candidate;
+}
+
 // GET /api/auth/wechat/start?return=<path> → 302 to Enterprise WeChat OAuth
 wechatAuth.get('/start', (c) => {
   const env = c.env;
@@ -65,7 +80,7 @@ wechatAuth.get('/start', (c) => {
       remediation: 'wrangler secret put WECHAT_CORP_ID + WECHAT_AGENT_ID + WECHAT_SECRET',
     }, 503);
   }
-  const returnTo = c.req.query('return') || '/packs#wall';
+  const returnTo = safeReturnPath(c.req.query('return'));
   // State carries the return-URL + a nonce + timestamp; checked on callback to
   // bound CSRF window. Not signed — for a 6-person cohort the trust model is
   // "only members in the corp can complete the flow anyway".
@@ -103,7 +118,7 @@ wechatAuth.get('/exchange', async (c) => {
   let returnTo = '/packs#wall';
   try {
     const decoded = JSON.parse(b64urlDecode(stateRaw)) as { r?: string; t?: number };
-    if (decoded.r && decoded.r.startsWith('/')) returnTo = decoded.r;
+    returnTo = safeReturnPath(decoded.r);
     // 10-minute state validity window
     if (!decoded.t || Date.now() - decoded.t > 10 * 60 * 1000) {
       return c.json({ error: 'state expired — please restart login' }, 400);

@@ -1,9 +1,9 @@
 # USER_EXPERIENCE_MAP - OpenClaw Foundry
 
 ## AI-Managed Project Block
-- PROJECT_DIR: `/Users/mauricewen/Projects/22-openclaw-foundry`
+- PROJECT_DIR: `/Users/mauricewen/01-Lingque-Platform/openclaw-foundry__OpenClaw工坊__OpenClaw工坊`
 - Canonical Initiative Path: `doc/00_project/initiative_openclaw_foundry/`
-- Updated: `2026-05-27`
+- Updated: `2026-06-11`
 
 ## Primary User Types
 1. Local builder:
@@ -43,6 +43,8 @@
 3. Job Pack install/download payload delivery is not public browsing; those actions require a registered session.
 4. Supported registration/login routes are email magic-link and WeChat OAuth.
 5. Pack payload files are not served as public static assets; `guide.html` remains public, while install scripts and payload files are served through Worker auth/token APIs.
+6. Public pack detail responses are metadata-only; configuration payload bodies are available only through protected file delivery.
+7. Auth return paths must resolve to safe local relative paths; unsafe values fall back to `/packs#wall`.
 
 ## Route / Page Map
 | Surface | Path or Command | Purpose |
@@ -72,7 +74,9 @@
 | Arena API | `POST /api/arena` | Create multi-provider match |
 | Arena Status | `GET /api/arena/:matchId` | Poll arena match + results |
 | Pack Install Command Copy | `/packs` button via `web/lib/protected-downloads.ts` | Registered-session clipboard command that clones pinned GitHub role-pack tag |
-| Pack File API | `GET /api/packs/:id/file?path=...` | Protected single-file delivery by bearer session |
+| Pack Detail API | `GET /api/packs/:id` | Public metadata-only pack detail response |
+| Pack File API | `GET /api/packs/:id/file?path=...` | Protected single-file delivery by bearer session or short-lived download token |
+| Postmortem Release Scan | `npm run postmortem:scan` / `scripts/scan-postmortems.mjs --strict` | Maintainer-facing pre-release scan that blocks known historical regression triggers unless the matching PM is updated |
 
 ## Core Journeys
 ### Journey 1: Local CLI Bootstrap
@@ -130,7 +134,7 @@
 5. If no active registered session exists, the UI redirects to `/login?return=/packs#install-<pack>`
 6. Login page calls `/api/auth/config`; unavailable email or WeChat providers render as disabled instead of broken jumps
 7. User registers or logs in through email magic-link or WeChat OAuth
-8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads
+8. Frontend writes a gated GitHub-tagged Job Pack install command to clipboard, or requests Worker-protected file routes for single-file downloads; generated Worker install scripts embed only short-lived download tokens and never browser bearer tokens
 9. Recommendation entrypoints use a small task-domain taxonomy instead of one card per pack: first question selects intent, second question selects a domain group, and the result page expands all packs in that group.
 10. Every one of the 22 canonical public catalog packs remains reachable through either a recommendation group or browse mode. Deprecated `spellbook-*` aliases are suppressed from public cards and counts when their canonical target exists; public cards now show no `Basic` maturity and currently render all canonical packs as `Enriched`.
 11. The `定策略` recommendation path opens the `战略决策` group, which contains `strategy-roundtable-advisor` plus adjacent strategy packs; selecting it renders all mapped strategy cards instead of hiding lower-maturity packs.
@@ -147,7 +151,7 @@
 8. Installer reads local sibling `manifest.json` and copies local artifacts by default
 9. Remote fetching happens only when `ROLE_PACKS_BASE_URL` or `FOUNDRY_BASE_URL` is explicitly set
 10. Production pack guide pages present the same GitHub-tagged install command and complete three-part skill manual cards; public static direct payload links are not part of the user journey and return only a protected-payload tombstone if requested directly
-11. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, design QA, and engineering handoff.
+11. Product-line users choose between `product-manager` and `designer`: PM owns PRD, prototype hypothesis, and validation demo; Designer owns experience architecture, visual hierarchy, design tokens, UI Skills shortlist routing, design QA, and engineering handoff.
 12. Pack content and copied install output use capability-neutral advisor identities rather than concrete person names.
 
 ## UX Gaps
@@ -163,6 +167,7 @@
 10. `prototype-designer` is retired. Public UX, install commands, guides, and standalone Git repo should expose `designer` only.
 11. `/packs` second-level taxonomy must stay compact: engineering is grouped into frontend experience, backend platform, quality/security, and infrastructure/ops; data is grouped into data/AI engineering and metrics/experiments.
 12. Guide generation must stay source-complete across imported Markdown skill docs with older heading formats; the UX acceptance check is `npm run role-packs:enrich-source-skills -- --check`, `npm run role-packs:audit-guides`, and a spot check of at least one previously incomplete guide such as `data-analyst` or `strategy-roundtable-advisor`.
+13. Login, email callback, and WeChat callback return paths must stay local-relative and cannot be used as open redirects.
 
 ## Round-Based Acceptance Criteria
 

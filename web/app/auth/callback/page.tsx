@@ -7,6 +7,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { API_BASE } from '@/lib/api-base';
+import { safeReturnPath } from '@/lib/session';
 
 interface ConsumeResponse {
   bearer_token?: string;
@@ -57,7 +58,7 @@ function CallbackInner() {
         let returnTo = '/packs#wall';
         try {
           const saved = window.localStorage.getItem('openclaw_login_return');
-          if (saved && saved.startsWith('/')) returnTo = saved;
+          returnTo = safeReturnPath(saved);
           window.localStorage.removeItem('openclaw_login_return');
         } catch { /* keep default */ }
         const t = setTimeout(() => {
