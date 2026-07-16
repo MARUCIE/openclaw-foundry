@@ -6,9 +6,10 @@
 // audit. This script only enforces the public catalog minimum.
 
 import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, resolve } from 'node:path';
 
-const ROOT = resolve(new URL('..', import.meta.url).pathname);
+const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACKS_JSON = join(ROOT, 'web', 'public', 'data', 'packs.json');
 
 function fail(message, details = []) {

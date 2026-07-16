@@ -10,9 +10,10 @@
 // to at least one packIds cluster or covered by an explicit dynamic line rule.
 
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-const root = resolve(new URL('..', import.meta.url).pathname);
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const packsPath = resolve(root, 'web/public/data/packs.json');
 const pagePath = resolve(root, 'web/app/packs/page.tsx');
 

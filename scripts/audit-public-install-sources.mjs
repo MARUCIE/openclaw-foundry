@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
-const root = new URL('..', import.meta.url).pathname;
+const root = fileURLToPath(new URL('..', import.meta.url));
 const webPublic = join(root, 'web', 'public');
 const skillsPath = join(webPublic, 'data', 'skills.json');
 const packsDir = join(webPublic, 'packs');

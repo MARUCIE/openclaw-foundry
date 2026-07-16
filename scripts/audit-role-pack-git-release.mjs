@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const ROOT = resolve(new URL('..', import.meta.url).pathname);
+const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACKS_JSON = join(ROOT, 'web', 'public', 'data', 'packs.json');
 const PACKS_DIR = join(ROOT, 'web', 'public', 'packs');
 const RELEASE_CONFIG = join(ROOT, 'web', 'public', 'data', 'role-pack-release.json');

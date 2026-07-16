@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
 
 const FOOTER_LINKS = [
-  { href: '/docs', key: 'footer.docs' },
-  { href: 'https://github.com/mauricewen/openclaw-foundry', key: null, label: 'GitHub' },
+  { href: '/api-docs', key: 'footer.docs' },
+  { href: 'https://github.com/MARUCIE/openclaw-foundry', key: null, label: 'GitHub' },
   { href: 'mailto:maurice_wen@proton.me', key: 'footer.contact' },
 ];
 
@@ -196,8 +196,20 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Inter, system-ui, sans-serif' }}>
           <div className="font-medium">Agent Foundry v4.0</div>
           <div className="flex items-center gap-4">
-            <span>{t('footer.privacy')}</span>
-            <span>{t('footer.terms')}</span>
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
+              style={{ color: 'var(--outline)' }}
+            >
+              {t('footer.privacy')}
+            </Link>
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
+              style={{ color: 'var(--outline)' }}
+            >
+              {t('footer.terms')}
+            </Link>
             <span>&copy; 2026</span>
           </div>
         </div>

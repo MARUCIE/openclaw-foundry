@@ -5,9 +5,10 @@
 // older deployments.
 
 import { readdirSync, statSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, resolve } from 'node:path';
 
-const ROOT = resolve(new URL('..', import.meta.url).pathname);
+const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACKS_DIR = resolve(process.env.PACKS_DIR || join(ROOT, 'web', 'out', 'packs'));
 const PUBLIC_ONLY = new Set(['guide.html']);
 const TOMBSTONE = [

@@ -66,3 +66,7 @@ The deploy workflow was updated to fetch full Git history for postmortem diff sc
 ## 2026-07-16 Follow-up Verification
 
 The deploy workflow changed only the `seed-db` job credential env (dedicated least-privilege D1 secret); `deploy-frontend` is untouched. Guards re-checked in the current tree: `timeout-minutes: 20` present, `R2_UPLOAD_CONCURRENCY: 8` present, the uploader is still invoked via the local script with the lockfile-installed Wrangler binary, and no `npx`-per-object spawn pattern exists in `scripts/upload-protected-packs-to-r2.mjs`.
+
+### 2026-07-16 (b) Path-decode fix — R2 upload timeout surface untouched
+
+`scripts/upload-protected-packs-to-r2.mjs` changed exactly one line: `resolve(new URL('..', import.meta.url).pathname)` → `resolve(fileURLToPath(new URL('..', import.meta.url)))`. This corrects the `ROOT` resolution for non-ASCII project paths (the folder name contains `工坊`; `.pathname` left it percent-encoded, breaking every path derived from `ROOT`). It does NOT alter upload batching, `R2_UPLOAD_CONCURRENCY`, timeout, retry, or the local-Wrangler spawn shape — the regression surface this PM guards is unchanged. Verified by `git diff` (single line) and `node --check scripts/upload-protected-packs-to-r2.mjs` → PASS.

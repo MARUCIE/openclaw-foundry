@@ -11,9 +11,10 @@
 // audit-pack-public-dedup.mjs.
 
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, resolve } from 'node:path';
 
-const ROOT = resolve(new URL('..', import.meta.url).pathname);
+const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACKS_JSON = join(ROOT, 'web', 'public', 'data', 'packs.json');
 const PACKS_DIR = join(ROOT, 'web', 'public', 'packs');
 const PACKS_PAGE = join(ROOT, 'web', 'app', 'packs', 'page.tsx');

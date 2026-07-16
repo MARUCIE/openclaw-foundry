@@ -4,10 +4,11 @@
 // payloads are served by the Worker after session/token validation.
 
 import { existsSync, readdirSync, statSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { join, relative, resolve } from 'node:path';
 import { spawn } from 'node:child_process';
 
-const ROOT = resolve(new URL('..', import.meta.url).pathname);
+const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PACKS_DIR = resolve(process.env.PACKS_DIR || join(ROOT, 'web', 'public', 'packs'));
 const WORKER_DIR = join(ROOT, 'worker');
 const BUCKET = process.env.FOUNDRY_PACKS_R2_BUCKET || 'openclaw-foundry-files';
