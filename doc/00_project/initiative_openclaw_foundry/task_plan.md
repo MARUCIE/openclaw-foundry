@@ -309,7 +309,7 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 - [x] 4. Set explicit `R2_UPLOAD_CONCURRENCY=8` in deploy workflow.
 - [x] 5. Increase frontend deploy job timeout to 20 minutes.
 - [x] 6. Add postmortem triggers.
-- [ ] 7. Push fix and verify real R2 upload plus Pages deploy.
+- [x] 7. Push fix and verify real R2 upload plus Pages deploy. (Reconciled 2026-07-16: closed by the same-day follow-up — deploy run `26383364471` succeeded with 437/437 protected payloads; see the next section's Completion Evidence 1.)
 
 ### Completion Evidence
 1. Failed run `26382381162`: job cancelled at `Upload protected pack files to R2`; last observed upload was `packs/spellbook-frontend-engineer/lint/typescript/.prettierrc`.
@@ -334,7 +334,7 @@ The R2 upload script tried to upload 437 protected pack payloads serially and sp
 - [x] 6. Verify production `/packs`, production guide, Worker auth boundary, and GitHub tag install smoke.
 - [x] 7. Verify production copy command through Playwright.
 - [x] 8. Remove static Pages `/api/packs` 404 console noise by reading `/data/*.json` directly when no API base is configured.
-- [ ] 9. Push the static API fallback fix and verify the final production deploy.
+- [x] 9. Push the static API fallback fix and verify the final production deploy. (Reconciled 2026-07-16: the `web/lib/api.ts` fallback shipped in later pushes ending at `41c09c9`, and production guide verification was recorded in `d93779a`/`cffb44c`; final end-to-end re-verification is the 2026-07-16 release section below.)
 
 ### Completion Evidence
 1. Deploy run `26383364471` succeeded; R2 upload logged 437/437 protected payload files.
@@ -826,3 +826,24 @@ Integrate `https://www.ui-skills.com/` into the Designer design infrastructure p
 3. Exclude from a UI-Skills-only commit: `.github/workflows/deploy.yml`, auth pages/helpers, Worker auth/pack routes, postmortem scanner/tests, auth invariant docs, root/web package postmortem-scan wiring, and postmortem PM files unless intentionally creating a broader auth hardening commit.
 4. Lore commit intent line candidate: `Route Designer pack UI work through UI Skills`.
 5. Local commit created: `e6b724845949d04f0d7b057f8c10e60bab7adc41`; it includes only Designer pack files and `web/public/data/packs.json`, with no push or deploy.
+
+## 2026-07-16 Auth Payload Boundary Release
+- Status: pushed; production deploy verification recorded below
+- Trigger: user directive "继续" after the PM-2026-05-31 auth hardening changeset was committed locally as `5973201`; the standing queue items were push + verify deploy
+
+### Steps
+- [x] 1. Re-run the PM-2026-05-31 release gate on the exact release tree: `tests/auth-boundary.test.ts` 5/5 pass; `scripts/audit-auth-surfaces.sh` 0 violations.
+- [x] 2. Push `origin/main` from `cffb44c` to `5973201` (3 commits: `95131e6` docs repoint, `e6b7248` Designer pack via UI Skills, `5973201` auth payload boundary hardening; all authored Maurice Wen, no AI trailers).
+- [x] 3. Reconcile the two stale 2026-05-25 push checkboxes with pointers to their actual closure evidence.
+- [x] 4. Verify GitHub Actions deploy run `29474644027` completes green (Worker + D1 migrations + R2 upload + Pages).
+- [x] 5. Curl-verify production auth boundary: `/packs` HTTP 200; public pack detail is metadata-only (no `claudeMd`/`agentsMd`/`settings`/`promptsMd` bodies); unauthenticated protected file route returns 401.
+- [x] 6. Refresh `HANDOFF.md` from the stale 2026-03-26 snapshot to current state and commit the documentation reconciliation.
+
+### Completion Evidence
+1. Release gate on the exact release tree (clean, HEAD `5973201`): `node --import tsx --test tests/auth-boundary.test.ts` -> PASS 5/5; `bash scripts/audit-auth-surfaces.sh` -> PASS, 0 violations.
+2. Push: `origin/main` advanced `cffb44c` -> `5973201`; all 3 commits authored `Maurice Wen <maurice_wen@proton.me>`, no AI trailers.
+3. Deploy run `29474644027` -> conclusion `success` at 2026-07-16T05:50:24Z; jobs: `deploy-worker` success, `apply-migrations` success, `deploy-frontend` success, `sync-data`/`seed-db` skipped by design (seed-db remains the known LOW-impact D1 token issue).
+4. Production `/packs` (agent-foundry.pages.dev) -> HTTP 200.
+5. Production public pack detail `GET /api/packs/compliance-expert` -> metadata-only; keys `color, description, descriptionZh, downloadCount, files, icon, id, layerIds, line, lineZh, name, nameZh`; none of `claudeMd`/`agentsMd`/`settings`/`promptsMd` present.
+6. Production unauthenticated `GET /api/packs/compliance-expert/file?path=install.sh` -> HTTP 401.
+7. `HANDOFF.md` rewritten from the 2026-03-26 snapshot to current state (git state, auth boundary contract, key files, known issue preserved).

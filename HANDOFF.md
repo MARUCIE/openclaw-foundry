@@ -1,48 +1,33 @@
 # HANDOFF -- OpenClaw Foundry
 
-> Session 2026-03-26. Job Packs v2 DONE + Skill Curation v4 DONE + Pipeline Automation DONE.
+> Refreshed 2026-07-16 (previous snapshot 2026-03-26 was stale). Job Packs v2 + Skill Curation v4 + Pipeline Automation remain DONE; this refresh adds the role-pack waves, the UI-Skills Designer route, and the PM-2026-05-31 auth payload boundary release.
 
-## Commits This Session (10)
+## Git State
 
-| # | Hash | Summary |
-|---|------|---------|
-| 1 | c344510 | Job Packs v2: 10 packs, 4 lines, 50 static files |
-| 2 | 4d6d849 | Full closure: API v5, D1 migrated, combos removed, CI prebuild |
-| 3 | 7fa4846 | Skill Curation P0: dedup + bell-curve ratings + 2000 icons |
-| 4 | d5fb846 | Skill Curation P1-5: 2000 tags + 400 taglines + 0% Other |
-| 5 | 9e7c11b | Pipeline automation: CI curation + incremental LLM + git commit |
-| 6 | 098e32e | Timestamp cleanup |
-| 7 | ad29744 | CI timeout: 25 → 45 min for LLM enrichment |
-| 8 | 45e29da | Carry-forward fix: restore tags from git HEAD, avoid LLM full retag |
-| 9 | be0ddf8 | seed-db: add npm ci for pinned wrangler |
-| 10 | (CI) | sync-data auto-commit: curated skills data |
+- Branch: main
+- Latest pushed: `5973201 Harden Job Pack auth payload boundary` (origin/main in sync)
+- Deploy: run `29474644027` triggered by that push (Worker + D1 + R2 + Pages); verification evidence in `doc/00_project/initiative_openclaw_foundry/task_plan.md` §2026-07-16
+- Production: agent-foundry.pages.dev LIVE
 
-## What Was Built
+## Recent Work (2026-05 → 2026-07)
 
-### 1. Job Packs v2 (COMPLETE)
-- 10 packs across 4 function lines (Engineering 5 / Data&AI 2 / Product 2 / Business 1)
-- 4-layer inheritance: L0 finance-tax (all inherit) → L1 line → L2 role → L3 project (optional)
-- 2-table D1 model: pack_layers (15) + config_packs (10)
-- Question tree UX: 2-step → 1 recommendation + Tab browse
-- E2E verified: VPS curl install.sh → 4 files installed
+### Auth Payload Boundary (PM-2026-05-31, released 2026-07-16)
+- One explicit boundary contract instead of adjacent behaviors: public pack detail is metadata-only; protected payload access is the only path to configuration bodies; generated `install.sh` never serializes browser sessions (short-lived D1 download tokens instead); auth return destinations pass `safeReturnPath`.
+- Executable invariants: `tests/auth-boundary.test.ts` + `scripts/audit-auth-surfaces.sh` (37 checks). Strict postmortem scanner (`scripts/scan-postmortems.mjs --strict`) wired into root build, web prebuild, and CI (checkout uses `fetch-depth: 0`).
+- Release gate rule: any change touching pack detail responses, protected file routes, install command generation, login callback returns, WeChat OAuth state, or download tokens must run the boundary test + audit before release. See `postmortem/PM-2026-05-31-auth-payload-boundary.md`.
 
-### 2. Skill Curation v4 (COMPLETE)
-- Phase 1 (Dedup): 89 generic names renamed, 0 same-author duplicates
-- Phase 2 (Ratings): Percentile bell-curve S:100 A:300 B:800 C:600 D:200
-- Phase 3 (Tags): 2000/2000 tagged (tech_stack + scenario + platform), Gemini Flash
-- Phase 4 (Editorial): 400 S/A taglines + 2000 Material Symbol icons
-- Phase 5 (Reclassify): 61 "Other" → 0 (0.0%)
+### Role Packs + UI Skills
+- Designer pack routes UI work through UI Skills (`web/public/packs/designer/skills/design/ui-skills-directory/SPEC.md`); 26 per-pack archives build via `npm run role-packs:package:all`.
+- Production install path: pinned GitHub tag install after registration (product contract); open email magic-link self-registration remains the acquisition contract.
 
-### 3. Pipeline Automation (COMPLETE)
-- CI sync-data: scrape → merge → prebuild → curate → LLM enrich → seed SQL → git commit
-- Carry-forward: Phase 0 restores tags/taglines from git HEAD, LLM only processes new skills
-- Incremental LLM: tag-skills-llm.mjs skips already-tagged skills
-- Graceful degradation: no API key = skip LLM (doesn't block pipeline)
-- GOOGLE_API_KEY secret added to GitHub Actions
+### Earlier (2026-03-26 snapshot, still valid)
+- Job Packs v2: 10 packs, 4-layer inheritance (L0 finance-tax → L1 line → L2 role → L3 project), D1 `pack_layers`(15) + `config_packs`(10).
+- Skill Curation v4: 2000 skills curated (dedup, bell-curve ratings S:100/A:300/B:800/C:600/D:200, tags, taglines, icons, 0% Other).
+- Pipeline automation: daily CI sync with carry-forward + incremental LLM enrichment.
 
 ## Known Issue: seed-db D1 Permission
 
-**Status**: CF API Token (CLOUDFLARE_API_TOKEN) lacks D1 query permission.
+**Status**: CF API Token (`CLOUDFLARE_API_TOKEN`) lacks D1 query permission.
 **Impact**: LOW — frontend uses static JSON, Worker API uses manual seed data (37310 skills).
 **Fix**: Create new API token in CF Dashboard with D1 Edit permission, then:
 ```bash
@@ -54,14 +39,16 @@ gh secret set CLOUDFLARE_API_TOKEN
 
 | File | Purpose |
 |------|---------|
-| scripts/curate-skills.mjs | Dedup + rating + icons + carry-forward (Phase 0-2, 4) |
-| scripts/tag-skills-llm.mjs | LLM tags + taglines + reclassify (Phase 3-5, incremental) |
-| scripts/generate-packs.mjs | Job Pack static file generator (50 files) |
-| scripts/generate-seed-sql.mjs | Curated data → D1 seed SQL (with tags/tagline columns) |
+| worker/src/routes/packs.ts | Metadata-only public detail; session vs download-token file access |
+| web/lib/session.ts | `safeReturnPath` return-destination sanitizer |
+| scripts/audit-auth-surfaces.sh | Auth boundary audit (37 checks) |
+| tests/auth-boundary.test.ts | Executable boundary invariants |
+| scripts/scan-postmortems.mjs | Strict postmortem trigger scanner (root/web/CI wired) |
+| scripts/curate-skills.mjs | Dedup + rating + icons + carry-forward |
+| scripts/tag-skills-llm.mjs | LLM tags + taglines + reclassify (incremental) |
+| scripts/generate-packs.mjs | Job Pack static file generator |
+| scripts/upload-protected-packs-to-r2.mjs | Bounded-concurrency R2 upload (437 payloads) |
 | .github/workflows/deploy.yml | Full pipeline DAG documented at top |
-| doc/.../SKILL_CURATION_V4_PLAN.md | Curation upgrade plan (6 phases) |
-| doc/.../SKILL_CURATION_V4_PLAN-zh.html | McKinsey Blue HTML version |
-| doc/.../JOB_PACKS_ARCHITECTURE-zh.html | Job Packs architecture doc |
 
 ## Pipeline DAG
 
@@ -77,14 +64,10 @@ Daily sync (cron 06:00 UTC):
   git commit → persist curated data
 
 Push to main:
-  generate-packs.mjs (npm prebuild) → web/public/packs/ (50 files)
-  next build → web/out/ (static export)
-  wrangler pages deploy → CF Pages
+  generate-packs.mjs (npm prebuild) → web/public/packs/
   wrangler deploy → CF Worker
+  apply D1 migrations
+  next build → web/out/ (static export)
+  upload protected pack payloads to R2, then tombstone them in web/out/
+  wrangler pages deploy → CF Pages
 ```
-
-## Git State
-- Branch: main
-- Latest: be0ddf8
-- CI: sync-data/deploy-frontend/deploy-worker GREEN, seed-db KNOWN ISSUE
-- Production: agent-foundry.pages.dev LIVE
