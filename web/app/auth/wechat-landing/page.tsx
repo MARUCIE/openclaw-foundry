@@ -71,7 +71,7 @@ function WechatLandingInner() {
         return () => clearTimeout(t);
       } catch (err) {
         if (cancelled) return;
-        const msg = err instanceof Error ? err.message : '企业微信登陆失败';
+        const msg = err instanceof Error ? err.message : '企业微信登录失败';
         setStatus('error');
         setErrorMsg(msg);
         const t = setTimeout(() => router.replace('/login?error=wechat_failed'), 1800);
@@ -106,7 +106,7 @@ function WechatLandingInner() {
             >
               <span aria-hidden="true" className="material-symbols-outlined text-3xl">check_circle</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">企业微信登陆成功，正在跳转…</h2>
+            <h2 className="text-xl font-black tracking-tight">企业微信登录成功，正在跳转…</h2>
           </>
         )}
         {status === 'error' && (
@@ -117,9 +117,9 @@ function WechatLandingInner() {
             >
               <span aria-hidden="true" className="material-symbols-outlined text-3xl">error</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">企业微信登陆失败</h2>
+            <h2 className="text-xl font-black tracking-tight">企业微信登录失败</h2>
             <p className="text-sm opacity-70">{errorMsg}</p>
-            <p className="text-xs opacity-50">即将跳转回登陆页…</p>
+            <p className="text-xs opacity-50">即将跳转回登录页…</p>
           </>
         )}
       </div>

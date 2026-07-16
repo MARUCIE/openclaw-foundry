@@ -68,7 +68,7 @@ function LoginInner() {
       expired: '链接已过期或被使用，请重新申请',
       invalid: '链接无效，请重新申请',
     };
-    setError(map[errorCode] || `登陆失败：${errorCode}`);
+    setError(map[errorCode] || `登录失败：${errorCode}`);
   }, [errorCode]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -114,7 +114,7 @@ function LoginInner() {
         <div className="w-2 h-12 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>
-            注册 / 登陆
+            注册 / 登录
           </h1>
           <p className="text-sm font-bold uppercase tracking-widest opacity-50 mt-1">
             Sign up or sign in · 支持邮箱注册和微信扫码注册
@@ -126,9 +126,9 @@ function LoginInner() {
         <>
           <section className="p-8 rounded-[2rem] space-y-6" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
             <div className="space-y-2">
-              <h2 className="text-xl font-black tracking-tight">邮箱注册 / 登陆</h2>
+              <h2 className="text-xl font-black tracking-tight">邮箱注册 / 登录</h2>
               <p className="text-sm opacity-70 leading-relaxed">
-                输入邮箱后会收到一次性链接。首次点击即完成注册，老用户点击即完成登陆——无需设置密码。链接 15 分钟内有效，仅限单次使用。
+                输入邮箱后会收到一次性链接。首次点击即完成注册，老用户点击即完成登录——无需设置密码。链接 15 分钟内有效，仅限单次使用。
               </p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -161,7 +161,7 @@ function LoginInner() {
                   style={{ background: 'var(--primary)', color: 'white' }}
                 >
                   <span aria-hidden="true" className="material-symbols-outlined text-base">send</span>
-                  {emailDisabled ? '邮箱服务未配置' : submitting ? '正在发送...' : '发送登陆链接'}
+                  {emailDisabled ? '邮箱服务未配置' : submitting ? '正在发送...' : '发送登录链接'}
                 </button>
                 <Link href={returnTo} className="text-sm font-bold opacity-50 hover:opacity-100">
                   ← 返回
@@ -190,9 +190,9 @@ function LoginInner() {
                 <span aria-hidden="true" className="material-symbols-outlined">qr_code_scanner</span>
               </div>
               <div className="space-y-1">
-                <h2 className="text-xl font-black tracking-tight">微信扫码注册 / 登陆</h2>
+                <h2 className="text-xl font-black tracking-tight">微信扫码注册 / 登录</h2>
                 <p className="text-sm opacity-70 leading-relaxed">
-                  用你本人的微信扫码完成企业微信自建应用授权。首次授权即注册，之后扫码即登陆；无需邮箱，无需密码。
+                  用你本人的微信扫码完成企业微信自建应用授权。首次授权即注册，之后扫码即登录；无需邮箱，无需密码。
                 </p>
               </div>
             </div>
@@ -203,7 +203,7 @@ function LoginInner() {
                 style={{ background: '#07C160', color: 'white' }}
               >
                 <span aria-hidden="true" className="material-symbols-outlined text-base">login</span>
-                企业微信授权登陆
+                企业微信授权登录
               </a>
             ) : (
               <button
@@ -220,7 +220,7 @@ function LoginInner() {
               {wechatEnabled ? (
                 <>首次使用：管理员需先把你加入企业微信训战群（30 秒一次性邀请）。</>
               ) : (
-                <>企业微信可信域名受腾讯主体备案规则限制，需 ICP 备案的自有域名。本 Wave 邮箱登陆已就绪，微信扫码 Wave 2+ 上线。</>
+                <>企业微信可信域名受腾讯主体备案规则限制，需 ICP 备案的自有域名。本 Wave 邮箱登录已就绪，微信扫码 Wave 2+ 上线。</>
               )}
             </p>
           </section>
@@ -236,7 +236,7 @@ function LoginInner() {
             <h2 className="text-xl font-black tracking-tight">已发送，请查收邮箱</h2>
           </div>
           <p className="text-sm leading-relaxed opacity-80">
-            登陆链接已发送到 <strong>{email}</strong>。请在 {sent.expires_minutes} 分钟内点击邮件中的链接完成登陆。
+            登录链接已发送到 <strong>{email}</strong>。请在 {sent.expires_minutes} 分钟内点击邮件中的链接完成登录。
           </p>
           <div className="space-y-3 text-xs opacity-60">
             <p>没收到？检查垃圾邮件文件夹，或 <button onClick={() => setSent(null)} className="underline font-bold opacity-100 hover:text-[var(--primary)]">用别的邮箱试试</button>。</p>

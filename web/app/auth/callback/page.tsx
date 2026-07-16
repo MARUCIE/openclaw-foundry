@@ -68,7 +68,7 @@ function CallbackInner() {
         return () => clearTimeout(t);
       } catch (err) {
         if (cancelled) return;
-        const msg = err instanceof Error ? err.message : '登陆失败';
+        const msg = err instanceof Error ? err.message : '登录失败';
         setStatus('error');
         setErrorMsg(msg);
         // Map specific server errors to /login query codes
@@ -89,7 +89,7 @@ function CallbackInner() {
             <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center animate-pulse" style={{ background: 'var(--surface-container)', color: 'var(--primary)' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-3xl">key</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">正在验证登陆链接…</h2>
+            <h2 className="text-xl font-black tracking-tight">正在验证登录链接…</h2>
           </>
         )}
         {status === 'success' && (
@@ -97,7 +97,7 @@ function CallbackInner() {
             <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center" style={{ background: 'var(--primary)', color: 'white' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-3xl">check_circle</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">登陆成功，正在跳转…</h2>
+            <h2 className="text-xl font-black tracking-tight">登录成功，正在跳转…</h2>
           </>
         )}
         {status === 'error' && (
@@ -105,9 +105,9 @@ function CallbackInner() {
             <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center" style={{ background: '#fee2e2', color: '#991b1b' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-3xl">error</span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">登陆失败</h2>
+            <h2 className="text-xl font-black tracking-tight">登录失败</h2>
             <p className="text-sm opacity-70">{errorMsg}</p>
-            <p className="text-xs opacity-50">即将跳转回登陆页…</p>
+            <p className="text-xs opacity-50">即将跳转回登录页…</p>
           </>
         )}
       </div>

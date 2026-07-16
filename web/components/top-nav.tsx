@@ -148,7 +148,7 @@ export function TopNav() {
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
             >
-              注册 / 登陆
+              注册 / 登录
             </Link>
           )}
           {user && (

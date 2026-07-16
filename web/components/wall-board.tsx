@@ -184,7 +184,7 @@ export default function WallBoard() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!sessionToken) {
-      setSubmitError('请先登陆后再发布');
+      setSubmitError('请先登录后再发布');
       return;
     }
     if (!before.trim() || !after.trim()) {
@@ -203,7 +203,7 @@ export default function WallBoard() {
         clearSession();
         setSessionToken('');
         setUser(null);
-        throw new Error('登陆已失效，请重新登陆');
+        throw new Error('登录已失效，请重新登录');
       }
       if (!r.ok) {
         const t = await r.text();
@@ -230,9 +230,9 @@ export default function WallBoard() {
               <span aria-hidden="true" className="material-symbols-outlined">lock</span>
             </div>
             <div className="flex-1 space-y-2">
-              <h2 className="text-xl font-black tracking-tight">登陆后发布卡点</h2>
+              <h2 className="text-xl font-black tracking-tight">登录后发布卡点</h2>
               <p className="text-sm leading-relaxed opacity-80">
-                只有验证邮箱的成员可以发布卡点和评论。浏览墙面无需登陆——读完整功能需登陆，是为了让你的贡献不被冒名。
+                只有验证邮箱的成员可以发布卡点和评论。浏览墙面无需登录——读完整功能需登录，是为了让你的贡献不被冒名。
               </p>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function WallBoard() {
               style={{ background: 'var(--primary)', color: 'white' }}
             >
               <span aria-hidden="true" className="material-symbols-outlined text-base">mail</span>
-              邮箱登陆
+              邮箱登录
             </Link>
           </div>
         </section>
@@ -339,7 +339,7 @@ export default function WallBoard() {
         )}
         {!isLoading && data?.entries.length === 0 && (
           <p className="text-sm opacity-60">
-            还没有卡点。{sessionToken ? '第一个分享你工作流里的卡点 ↑' : '登陆后第一个来分享你工作流里的卡点。'}
+            还没有卡点。{sessionToken ? '第一个分享你工作流里的卡点 ↑' : '登录后第一个来分享你工作流里的卡点。'}
           </p>
         )}
         <div className="space-y-4">

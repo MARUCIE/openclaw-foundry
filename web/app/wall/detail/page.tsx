@@ -128,7 +128,7 @@ function WallDetailInner() {
     e.preventDefault();
     if (!body.trim() || !id) return;
     if (!sessionToken) {
-      setSubmitError('请先登陆后再评论');
+      setSubmitError('请先登录后再评论');
       return;
     }
     setSubmitting(true);
@@ -143,7 +143,7 @@ function WallDetailInner() {
         clearSession();
         setSessionToken('');
         setUser(null);
-        throw new Error('登陆已失效，请重新登陆');
+        throw new Error('登录已失效，请重新登录');
       }
       if (!r.ok) {
         const t = await r.text();
@@ -264,7 +264,7 @@ function WallDetailInner() {
               <span className="opacity-70">{data.entry.liked ? '已赞' : '点赞'}</span>
             </button>
             {!sessionToken && (
-              <span className="text-xs opacity-50">登陆后可点赞和评论</span>
+              <span className="text-xs opacity-50">登录后可点赞和评论</span>
             )}
           </footer>
         </article>
@@ -288,15 +288,15 @@ function WallDetailInner() {
             <div className="p-6 rounded-[1.5rem] flex items-center gap-4" style={{ background: 'var(--surface-container-low)', border: '1px solid var(--outline-variant)' }}>
               <span aria-hidden="true" className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>lock</span>
               <div className="flex-1 space-y-1">
-                <p className="text-sm font-bold">登陆后可评论</p>
-                <p className="text-xs opacity-60">只有验证邮箱的成员可以评论——浏览无需登陆。</p>
+                <p className="text-sm font-bold">登录后可评论</p>
+                <p className="text-xs opacity-60">只有验证邮箱的成员可以评论——浏览无需登录。</p>
               </div>
               <Link
                 href={loginReturnHref()}
                 className="px-4 py-2 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg"
                 style={{ background: 'var(--primary)', color: 'white' }}
               >
-                邮箱登陆
+                邮箱登录
               </Link>
             </div>
           ) : (

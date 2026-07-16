@@ -910,3 +910,59 @@ job never even ran. Both had to be fixed for a green scheduled run.
 6. Operation-level proof: remote database query with the new credential executed successfully
    and returned a live row count from the production database (the exact execute path the seed
    job uses). Necessary-and-sufficient, not just the necessary list-scope check (E20).
+
+## 2026-07-16 · UX Acceptance Loop — Round 1 (footer trust surface + non-ASCII build unblock)
+
+Driven live via CDP against agent-foundry.pages.dev, walking the page map from the
+home marketplace. Round-1 卡点 found and closed:
+
+- [x] Footer "Docs" -> `/docs` returned **404** (no such route). Repointed to `/api-docs`
+      (the real REST documentation page). curl confirmed /docs=404 pre-fix.
+- [x] Footer "GitHub" -> `github.com/mauricewen/openclaw-foundry` returned **404** (wrong org).
+      Repointed to `github.com/MARUCIE/openclaw-foundry` (verified public, 200).
+- [x] Footer "Privacy Policy" / "Terms of Service" were **dead `<span>` text**, not links.
+      Created real `/privacy` + `/terms` pages (concise, honest, bilingual by `locale`,
+      in the site design system). Footer now links to them.
+- [x] Infra unblock: 9 build/util scripts derived a filesystem path from `import.meta.url`
+      via `.pathname`, which stays percent-encoded for non-ASCII paths. The project folder
+      name contains `工坊`, so `ROOT` resolved to a `%E5%..`-encoded path -> every downstream
+      `readFileSync` failed -> local `npm run build` blocked (CI on an ASCII runner path was
+      unaffected, which is why it never surfaced before). Fixed with `fileURLToPath(new URL(...))`
+      + the missing `node:url` import on all 9. PM-2026-05-25-ci-r2-upload-timeout ACKED (the
+      R2 script's change is path-decode only; timeout/concurrency surface untouched).
+
+Verification: web static export green, `/privacy` + `/terms` in the 22-route manifest,
+`node --check` on all 9 scripts, strict postmortem scan ACKED_IN_DIFF. Commit `0f38e02`,
+pushed to main -> deploy run `29497213985` (in_progress at log time). Baseline landing
+capture: `state/outputs/ux-acceptance/2026-07-16-round1/shots/00-landing-desktop-baseline.png`
+(2868x7482 @2x, full page incl. footer).
+
+Round-1 identified-but-deferred 卡点 (next iterations):
+- Nav coverage: top nav exposes only ~4 of ~14 public routes (explore/*, arena, wall,
+  breakthroughs, news, deploy, api-docs are not reachable from the primary nav).
+- `/explore/platforms` 301-redirects to `/packs` while the nav/route map still lists it.
+- Registration/login flow (`/login` magic-link) not yet walked end-to-end.
+
+Deploy landed (verified): deploy run `29497213985` = ok; prod `curl` confirms
+`/privacy` = 200, `/terms` = 200, `/api-docs` = 200, dead `/docs` = 404 (gone from footer).
+
+### Round-1 addendum — copy correctness (登陆 -> 登录)
+
+Walking the auth surface surfaced a systemic character error: the UI wrote 登陆
+("to make landfall") where it means 登录 ("to log in") — wrong term on the primary
+nav sign-in link, the /login headings/buttons, the auth callback + WeChat-landing
+pages, and the wall comment/detail auth prompts.
+
+- [x] Corrected 登陆 -> 登录 across 6 client source files (top-nav, login, auth/callback,
+      auth/wechat-landing, wall/detail, wall-board). Source is now 0 wrong-char (grep-clean,
+      excluding regenerated `web/out`/`.next` build artifacts).
+- [x] Verified by a full local `next build`: exit 0, 0 errors, all 14 routes + `privacy.html`
+      + `terms.html` exported; fresh output has 0 `登陆`, 11 chunks carry 登录. (This build
+      also validated the 0f38e02 non-ASCII `ROOT`-path fix — local build was previously blocked.)
+
+### Round-1 closure artifacts
+
+- [x] Screen-overview poster (rule 23): self-contained white-ground `--mode web` gallery of
+      the real deployed screens in product order (rule 22 inline check + rule 19 versioned).
+- Deferred to round 2/3 (unchanged): nav coverage (~4 of ~14 routes), `/explore/platforms`
+  301 vs route map, deeper login magic-link e2e (walked to real Resend send this round).
