@@ -309,7 +309,11 @@ jobs:
 
       - name: Seed D1 database (batched)
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # Least-privilege D1-only token (D1:Edit). The shared
+          # CLOUDFLARE_API_TOKEN deliberately lacks D1 query permission
+          # (HANDOFF known issue); a dedicated secret fixes seed-db without
+          # touching the token that keeps worker/pages/migrations green.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_D1_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           cd worker

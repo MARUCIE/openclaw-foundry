@@ -62,3 +62,7 @@ regex:
 ## 2026-05-31 Follow-up Verification
 
 The deploy workflow was updated to fetch full Git history for postmortem diff scanning. The R2 upload guard remains intact: `deploy-frontend` still has `timeout-minutes: 20`, `R2_UPLOAD_CONCURRENCY: 8`, local worker dependency install before upload, and `node scripts/upload-protected-packs-to-r2.mjs` before Pages tombstoning/deploy.
+
+## 2026-07-16 Follow-up Verification
+
+The deploy workflow changed only the `seed-db` job credential env (dedicated least-privilege D1 secret); `deploy-frontend` is untouched. Guards re-checked in the current tree: `timeout-minutes: 20` present, `R2_UPLOAD_CONCURRENCY: 8` present, the uploader is still invoked via the local script with the lockfile-installed Wrangler binary, and no `npx`-per-object spawn pattern exists in `scripts/upload-protected-packs-to-r2.mjs`.

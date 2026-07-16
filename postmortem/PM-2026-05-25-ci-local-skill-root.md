@@ -55,3 +55,7 @@ regex:
 ## 2026-05-31 Follow-up Verification
 
 The postmortem pre-release scan was added to `web/package.json` `prebuild`, which touched the same line as `reconcile-catalog-integrity.py`. The original guard remains intact: `--allow-missing-local-root --dry-run` is still passed before the production static-export audits run.
+
+## 2026-07-16 Follow-up Verification
+
+The deploy workflow changed only the `seed-db` job credential env (dedicated least-privilege D1 secret). Nothing in the frontend build path changed. Guard re-checked: `web/package.json` `prebuild` still passes `--allow-missing-local-root --dry-run` before the static-export audits.
