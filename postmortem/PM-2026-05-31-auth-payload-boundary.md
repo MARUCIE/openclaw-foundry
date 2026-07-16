@@ -87,3 +87,22 @@ regex:
 
 1. Pinned GitHub tag install after registration remains the product-approved distribution path.
 2. Open email magic-link self-registration remains the current acquisition contract. Enterprise allowlists or approval-gated onboarding require a new business requirement.
+
+## 2026-07-16 (b) Follow-up Verification — cosmetic 登陆→登录 auth-copy fix
+
+Commit `065a971` ("fix(ux): 登陆 -> 登录 across auth surface") touched three trigger
+paths — `web/app/login/page.tsx`, `web/app/auth/callback/page.tsx`,
+`web/app/auth/wechat-landing/page.tsx` — and correctly tripped this PM's strict
+scanner in deploy run `29497870025` (deploy-frontend BLOCK), because the commit
+did not update this file. This follow-up records the acknowledgment.
+
+Change classification: PURELY a Chinese UI-copy correction — the misspelling 登陆
+("make landfall") → 登录 ("log in") — in visible strings only. Verified by
+`git show 065a971` on the three files filtered to auth-boundary terms
+(`token|payload|consume|request|fetch|body|json|bearer|sha256|hash`): the filter
+returned EMPTY. No `/api/auth/request` or `/api/auth/consume` call shape, no token
+handling, no request/response payload field, and no bearer/hash logic was altered.
+The auth payload boundary this PM guards (public surfaces never expose the four
+protected payload fields; unauthenticated protected routes return 401) is
+unchanged. The boundary audit script and its 401/field-omission contract remain
+in force.
