@@ -35,7 +35,16 @@ const SINGLE_SORT = process.argv.find((a, i) => process.argv[i - 1] === '--sort'
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-async function fetchPage(sort, cursor) {
+// Transient upstream failures (observed: clawhub.ai 503 killed the daily CI
+// sync on 2026-07-14/15). Bounded backoff instead of fail-on-first-5xx.
+const TRANSIENT_STATUS = new Set([500, 502, 503, 504]);
+const MAX_TRANSIENT_RETRIES = 5;
+
+function backoffMs(attempt) {
+  return Math.min(60_000, 2 ** attempt * 2000); // 2s 4s 8s 16s 32s
+}
+
+async function fetchPage(sort, cursor, attempt = 0) {
   const params = new URLSearchParams({
     limit: String(LIMIT),
     family: 'skill',
@@ -43,18 +52,37 @@ async function fetchPage(sort, cursor) {
   if (cursor) params.set('cursor', cursor);
 
   const url = `${BASE_URL}?${params}`;
-  const res = await fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'User-Agent': 'OpenClaw-Foundry/1.0 (skill-registry-sync)',
-    },
-  });
+  let res;
+  try {
+    res = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'OpenClaw-Foundry/1.0 (skill-registry-sync)',
+      },
+    });
+  } catch (error) {
+    if (attempt >= MAX_TRANSIENT_RETRIES) throw error;
+    const waitMs = backoffMs(attempt);
+    console.log(`  WARN: fetch failed (${error.message}), retry ${attempt + 1}/${MAX_TRANSIENT_RETRIES} in ${waitMs / 1000}s...`);
+    await sleep(waitMs);
+    return fetchPage(sort, cursor, attempt + 1);
+  }
 
   if (res.status === 429) {
     const retryAfter = parseInt(res.headers.get('Retry-After') || '60');
     console.log(`  WARN: Rate limited, waiting ${retryAfter}s...`);
     await sleep(retryAfter * 1000);
-    return fetchPage(sort, cursor); // retry
+    return fetchPage(sort, cursor, attempt); // 429 has its own budget via Retry-After
+  }
+
+  if (TRANSIENT_STATUS.has(res.status)) {
+    if (attempt >= MAX_TRANSIENT_RETRIES) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText} for ${url} (gave up after ${MAX_TRANSIENT_RETRIES} retries)`);
+    }
+    const waitMs = backoffMs(attempt);
+    console.log(`  WARN: HTTP ${res.status}, retry ${attempt + 1}/${MAX_TRANSIENT_RETRIES} in ${waitMs / 1000}s...`);
+    await sleep(waitMs);
+    return fetchPage(sort, cursor, attempt + 1);
   }
 
   if (!res.ok) {
