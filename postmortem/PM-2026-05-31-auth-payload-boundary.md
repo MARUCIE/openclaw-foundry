@@ -76,6 +76,13 @@ regex:
 - `git diff --check` -> PASS.
 - `ai check` -> PASS, run dir `/Users/mauricewen/00-AI-Fleet/outputs/check/20260531-111035-3f11884f`, `ok=true`, `rounds=2`.
 
+## Release Verification (2026-07-16)
+
+- Released to production in commit `5973201` via deploy run `29474644027` (all jobs green; `seed-db` skipped by its own known issue).
+- Pre-push release gate on the exact release tree: boundary tests 5/5 PASS; audit script 0 violations (now 37 checks).
+- Production probes: Pages `/packs` HTTP 200; public pack detail for `compliance-expert` returned metadata keys only with none of the four protected payload fields present; unauthenticated protected file route returned HTTP 401.
+- Scanner enforcement observed live: the follow-up docs-only commit `c5594fd` was BLOCKED by this postmortem's strict scanner in run `29475065778` because its documentation mentioned this PM's trigger terms without updating this file. That is the scanner working as designed. Standing note: any commit whose diff mentions this boundary's trigger terms — including documentation — must update this PM file in the same commit to record acknowledgment.
+
 ## Known Product Contracts
 
 1. Pinned GitHub tag install after registration remains the product-approved distribution path.

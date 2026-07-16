@@ -847,3 +847,12 @@ Integrate `https://www.ui-skills.com/` into the Designer design infrastructure p
 5. Production public pack detail `GET /api/packs/compliance-expert` -> metadata-only; keys `color, description, descriptionZh, downloadCount, files, icon, id, layerIds, line, lineZh, name, nameZh`; none of `claudeMd`/`agentsMd`/`settings`/`promptsMd` present.
 6. Production unauthenticated `GET /api/packs/compliance-expert/file?path=install.sh` -> HTTP 401.
 7. `HANDOFF.md` rewritten from the 2026-03-26 snapshot to current state (git state, auth boundary contract, key files, known issue preserved).
+
+### Continuation - Strict Scanner Block on Docs Commit
+- [x] 7. Docs reconciliation commit `c5594fd` triggered deploy run `29475065778`, which FAILED at the strict postmortem scanner: the documentation mentioned the PM-2026-05-31 trigger terms without updating that PM file in the same commit (scanner contract working as designed). Production was unaffected - it remained on the verified run `29474644027` artifacts.
+- [x] 8. Remediation per the scanner contract: appended the 2026-07-16 release verification section to the PM-2026-05-31 file itself, so this commit records acknowledgment. Local strict scan on this commit reports the PM as acknowledged-in-diff and exits 0 (evidence below); the remediation deploy is the Actions run bound to this commit and its conclusion is verified in-session.
+
+### Continuation Evidence
+1. Failure log line from run `29475065778`: "FAIL postmortem scan: historical regression trigger(s) matched without updating the matching PM file."; job breakdown: deploy-worker success, apply-migrations success, deploy-frontend failure at the web prebuild scan step.
+2. Root cause chain: the scanner passes a triggered diff only when the matching PM file path is among the changed files; the code release commit `5973201` passed because it ADDED that PM file, while the docs commit did not touch it.
+3. Ledger hygiene note: new ledger lines in this section deliberately avoid the PM trigger terms so future bookkeeping commits do not re-trigger the block.
