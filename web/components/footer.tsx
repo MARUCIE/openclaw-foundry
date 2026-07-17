@@ -5,6 +5,11 @@ import { useI18n } from '@/lib/i18n';
 
 const FOOTER_LINKS = [
   { href: '/api-docs', key: 'footer.docs' },
+  // /news discovery entry point (Round-3 fix, 2026-07-16): /news was a live-200
+  // accidental orphan (zero inbound link). Placed in the footer tools row, NOT the
+  // top nav — respects the audited 2026-05-16 cohort-nav minimization (browse+install
+  // only). Reuses the existing nav.news i18n key (zh: 资讯 / en: News).
+  { href: '/news', key: 'nav.news' },
   { href: 'https://github.com/MARUCIE/openclaw-foundry', key: null, label: 'GitHub' },
   { href: 'mailto:maurice_wen@proton.me', key: 'footer.contact' },
 ];

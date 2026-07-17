@@ -966,3 +966,149 @@ pages, and the wall comment/detail auth prompts.
       the real deployed screens in product order (rule 22 inline check + rule 19 versioned).
 - Deferred to round 2/3 (unchanged): nav coverage (~4 of ~14 routes), `/explore/platforms`
   301 vs route map, deeper login magic-link e2e (walked to real Resend send this round).
+
+## 2026-07-16 · UX Acceptance Loop — Round 2 (IA reachability audit)
+
+Method: direct main-loop static link-graph analysis + production HTTP status probes
+(agent pool session-limited this window; main-loop Bash unaffected).
+
+### R1 closure — verified this session
+- Production regression FIXED + independently md5-verified: prod home serves 388a226
+  (deployment 1382f6d8, newest); footer = github.com/MARUCIE + /api-docs; stale bf7e2ca
+  (a0107636) demoted. Root cause: Cloudflare Pages "newest-deployment-wins" footgun — an
+  old commit re-deployed via workflow_dispatch was promoted over the correct build; fixed
+  by re-running the correct 388a226 deploy through the FULL CI pipeline (never a raw local
+  `wrangler pages deploy` — that skips the R2 protected-pack tombstoning IP-safety step).
+
+### R2 finding — orphaned-route cluster (真实打通 = FALSE for these)
+21 app routes. TopNav intentionally links only 4 (home/packs/wall/breakthroughs) per the
+AUDITED 2026-05-16 cohort-focus IA decision (Hara+Jobs+Godin swarm, top-nav.tsx:39-43) —
+minimal nav is BY DESIGN, not a defect. But nav-minimization != content-orphaning.
+Link graph = route literal referenced anywhere in web/{app,components,lib}, self-excluded;
++ live prod HTTP status:
+
+DELIBERATE / OK:
+- /api-docs           inbound: footer (data-driven) — footer-only per audit. OK.
+- /explore/platforms  301 redirect — deliberately collapsed. OK.
+- /arena              inbound: lib/api.ts code-ref only — de-navved 2026-05-16. Soft.
+- /admin/customers    200, URL-only admin surface. OK (verify client-side auth gate separately).
+
+ACCIDENTAL ORPHANS (live-200 but unreachable from the navigable graph) = 卡点:
+- /news          200, inbound=0 — carries ~100 M2a-seeded 资讯; ZERO entry point -> content invisible.
+- /pricing       200, inbound=0 — conversion page, no inbound link.
+- /catalog       200, inbound=0 — real page, no inbound link.
+- /skill         200, inbound=0 — singular route, likely superseded by /packs or /explore/skills.
+- /explore/mcp   200, inbound=0 — explore taxonomy links skills+platforms but strands mcp.
+- /explore/skills 200, only inbound = /skill (itself an orphan) -> transitively unreachable.
+
+Primary-path structural note: home = app/page.tsx (15 lines) -> <MarketplaceShell> (792 lines).
+Shell fetches /skills API, renders slug/role items, but has NO outbound route literal /
+router.push / <Link> to a detail route, and there is NO /packs/[slug] dynamic route. Implies
+in-page modal/drawer install (SPA pattern). Round-3 MUST verify via live browser (CDP) that
+click -> detail -> install actually works ("确保真实打通" on the core browse->install path).
+
+### Fix decision — DEFERRED to polish rounds (E02 discipline; respect the 2026-05-16 audit)
+Do NOT unilaterally re-wire all orphans (risks reversing the audited nav decision). The
+ACCIDENTAL subset (/news /pricing /catalog /skill /explore/mcp) needs a discovery decision:
+fold into marketplace-shell tabs, add a footer "more" group, OR delete dead/superseded routes
+(/skill). Highest value: /news (100 articles stranded). Decide with live evidence in R3.
+
+### R3 queue (direct main-loop, agent pool NOT required)
+1. CDP-drive the core path: land -> browse marketplace-shell -> click item -> confirm detail/install
+   surface renders and the install CTA is real (not a dead modal). Screenshot each step.
+2. Decide + apply the accidental-orphan discovery fix (highest value: /news entry point).
+3. Mobile 375px reflow pass on home + packs + wall.
+4. Closeout: rule-23 self-contained screen-overview poster (real screens, product order),
+   rule-19 versioned, rule-22 inline-check exit 0.
+
+## 2026-07-16 · UX Acceptance Loop — Round 3 (live browse->install walk + /news orphan fix + mobile 375 + poster)
+
+Method: parallel evidence pool (3 read-only investigators) + single mutation/synthesis owner.
+Tooling honesty: playwright MCP was in-use by the mobile agent (shared-browser lock), so the
+desktop walk used the CDP helper (cdp_shot.py) against Edge :9333 + a custom CDP click/network
+script; the mobile pass used chrome-devtools MCP (emulate 375x812x2, isMobile:true). Every claim
+below is backed by a real browser capture that was visually inspected + source read (E02: a screen
+rendering is necessary, not sufficient).
+
+### Task 1 — core browse->install path walked live on prod (388a226). Verdict: PASS, real not dead.
+Per-step (screens under state/outputs/ux-acceptance/2026-07-16-round3/shots/, all 2868px = 1440 CSS x2 DSF, md5-distinct):
+- 01 home renders marketplace-shell (S/A/B/C/D filters, 18-card grid, PAGE 1 OF 278). PASS.
+- 02 /explore/skills renders 18 skill cards (rating/author/category/downloads/source/安装). PASS.
+- 03 click 安装 -> SPA InstallModal opens WITHOUT a route change (confirms NO /packs/[slug]; in-page
+  detail is the intended pattern, NOT a dead seam). PASS.
+- 04 install CTA is REAL: 4 concrete correct commands (claude/codex/clawhub/hermes plugin install
+  <slug>); clicking Claude Code 复制 flipped content_copy -> 已复制 (clipboard writeText). PASS.
+CRUX network evidence (the "demo seam / dead design" risk, resolved): the install action is
+client-side navigator.clipboard.writeText() of a real command (marketplace-shell.tsx:94-101,144),
+NOT an API POST — by design (@auth-surface-allowlist comment: install-command copy is public). So
+"install POSTs to a worker" is REFUTED but this is the CORRECT architecture. Live backend that IS
+hit: GET /data/skills.json -> 200 (+ /data/skills-categories.json 200) — 5000-skill catalog is
+data-endpoint-backed, not hardcoded mock. Zero POSTs across load+modal+copy (network_posts=[], 87
+reqs, none to *.workers.dev): the prod build runs in STATIC-DATA mode (NEXT_PUBLIC_API_URL unset ->
+/data/*.json; real worker base in web/.env.example:12 is not wired into this deploy).
+Honest flag (not this round's scope): DeployFeedbackBar is defined (marketplace-shell.tsx:370) but
+rendered NOWHERE (grep '<DeployFeedbackBar' = 0) -> dead code; submitFeedback/submitEvent telemetry
+is unreachable from the UI on prod. If telemetry-driven curation is expected, its input is unwired.
+
+### Task 2 — /news accidental orphan FIXED (the highest-value discovery gap).
+Premise correction (E02 valid!=sound): the R2 note said /news carries "~100 M2a-seeded 资讯" — SOURCE-
+REFUTED. web/lib/news-data.ts (56 lines) actually carries 6 NEWS_FEED + 1 FEATURED = 7 articles, with
+`// TODO: Replace with /api/news endpoint backed by D1` (static seed, NOT D1-backed). => the entry
+label must NOT assert a count; neutral "资讯" only. Zero-inbound-link confirmed
+(grep -rnE "href=/news" web/{app,components,lib} minus /news self = 0).
+Change (SINGLE file, single array element, ZERO new i18n key):
+- web/components/footer.tsx FOOTER_LINKS (was lines 6-10): added { href: '/news', key: 'nav.news' }
+  in the footer tools row (after docs, before GitHub). Reuses the existing nav.news key
+  (messages/zh.json:8 "资讯" / messages/en.json:8 "News") — an orphan key left by the 2026-05-16
+  nav minimization, now re-consumed.
+Why the footer, NOT the top nav (respects the audited 2026-05-16 Hara+Jobs+Godin cohort-nav
+minimization, top-nav.tsx:39-43): TopNav stays the pure 4-item browse+install surface (home/packs/
+wall/breakthroughs) — the primary CTA path is NOT diluted; the footer is site-wide-mounted so ONE
+change makes /news discoverable on every page. Rejected marketplace-shell tab: SOURCE_KEYS
+(marketplace-shell.tsx:11) is a skills-SOURCE filter (all/Skills/MCP Servers); a 资讯 tab there is a
+different data model (NewsItem) and would repeat the shell's own R3.1 "schema lie" ban
+(marketplace-shell.tsx:440-444 — showing a tab for a source with no real coverage). Typecheck
+(node_modules/.bin/tsc --noEmit) = 0 errors, footer.tsx clean.
+
+### Fix DECISIONS for the other accidental orphans (recorded, NOT applied this round — E02 discipline)
+| Route | Live | Decision | One-line rationale |
+|---|---|---|---|
+| /pricing | 200, real pricing table (app/pricing/page.tsx, 245L) | KEEP orphan (footer candidate, deferred) | Loud pricing on a free/one-click-install cohort tool implies an un-fronted paid tier (schema-lie logic); add to footer via existing nav.pricing key only when a real paid SKU ships. |
+| /catalog | 200, platform directory (224L) | KEEP orphan / later candidate 301->/ | Platform directory overlaps the home marketplace browse path; linking it splits the discovery path. |
+| /skill | 200, single-skill detail via ?id (519L) | KEEP orphan | Canonical browse->detail is already the marketplace-shell in-page SPA (Task-1 verified); bare /skill w/o ?id has no content — cannot be a nav/footer target. Confirm it is not the shell install-CTA target before any 301. |
+| /explore/mcp | 200, MCP directory (248L) | KEEP orphan | Function already served + correctly gated by the shell's MCP Servers source tab (mcpCount>0); re-linking would revive the "developer platform" IA the 2026-05-16 audit deliberately removed. |
+Leftover i18n orphan keys (nav.deploy/explore/api/combos/arena, zh.json:5-14) = separate cleanup, not this round.
+
+### Task 3 — mobile 375px reflow pass. Verdict: home/packs/wall all PASS (2 low-risk polish items).
+Real 375 layout (not a desktop crop) proven 3 ways: home renders the lg:hidden mobile filter bar;
+home/packs pixel width = 750 (=375x2 DPR); /wall = 758 (=379x2) — a page-level difference a crop
+cannot produce. Shots: 20-home-375.png / 21-packs-375.png / 22-wall-375.png.
+- home: NO horizontal overflow (docScrollWidth=375=innerWidth); 12 over-wide els are category chips
+  inside a deliberate overflow-x-auto no-scrollbar lg:hidden self-contained horizontal scroller;
+  primary INSTALL CTA = 126x44px (Apple 44 HIG). PASS.
+- packs: overflow 0px; only over-wide el is a decorative absolute glow block (no text/interaction). PASS.
+- wall: no overflow beyond its own layout viewport (0 over-wide els), BUT the layout viewport itself is
+  379 not 375 — a reproducible page-specific +4px content-driven expansion (~4px imperceptible on a real
+  375 device, no clipping/visible h-scroll in the capture). PASS, low-risk.
+Two low-risk polish items (NOT reflow breaks): (a) /wall reproducible +4px layout-viewport expansion;
+(b) secondary filter chips 32-38px < Apple 44 ideal though WCAG-compliant. Edge data note (not layout):
+/wall "最近50条卡点" renders only 1 seed card (a seeding gap, separate lane).
+
+### Task 4 — rule-23 screen-overview poster (closeout). Built + verified.
+- Poster: state/outputs/ux-acceptance/2026-07-16-round3/overview.html (mode web, 7 REAL desktop screens
+  in product order home->market->detail->install->packs->wall->news; manifest overview.manifest.json
+  for caption control). Built by /Users/mauricewen/00-AI-Fleet/scripts/page-overview-build.py; engine's
+  byte-diff dedup gate raised NO duplicate-capture warning (all 7 md5-distinct).
+- rule-22 self-contained: html-inline-assets.py check overview.html -> exit 0 (OK, no external local refs).
+- rule-19 versioned: gitignored (state/ is gitignored — same precedent as R1/R2 outputs), so git cannot
+  recover it; snapshot-covered instead via post-html-version-snapshot.py into the canonical AI-Fleet
+  state/html-snapshots/openclaw-foundry__OpenClaw工坊/... (index.jsonl entry, sha256
+  9594271111bc..., snapshot 2026-07-17T02:01:29Z). Recoverable via html-rollback.sh list/restore.
+
+### Commit + deploy
+- Committed: web/components/footer.tsx (the /news entry) + this task_plan.md. Poster/manifest/shots stay
+  gitignored under state/ (R1/R2 precedent) — the poster is rule-19 snapshot-covered, not git-tracked.
+- Deploy flow = push to main -> .github/workflows/deploy.yml (on: push branches:[main]) runs the FULL CI
+  pipeline (next build -> web/out -> upload+tombstone protected packs to R2 -> wrangler pages deploy),
+  identical to the R1 flow that was md5-verified live. Commit SHA + deploy trigger status recorded in the
+  Round-3 delivery summary / git log; live footer-link verification is a fast follow-up once CF Pages builds.
