@@ -51,7 +51,9 @@ export default function NewsPage() {
   // hydration mismatch on the static export.
   const isNew = (date: string) => mounted && daysSince(date) <= 2;
   const freshStamp = mounted && data.generatedAt ? formatStamp(data.generatedAt) : '';
-  const newThisWeek = data.stats?.newLast7d ?? 0;
+  // Count freshly-published news items (last 7d) from the feed — NOT
+  // stats.newLast7d (skills-catalog derived, frozen → chip read 0 and hid).
+  const newThisWeek = mounted ? feed.filter(n => daysSince(n.date) <= 7).length : 0;
 
   return (
     <div className="page-shell py-12 space-y-12">
