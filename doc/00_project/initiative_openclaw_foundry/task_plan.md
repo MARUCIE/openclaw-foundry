@@ -1105,10 +1105,15 @@ Two low-risk polish items (NOT reflow breaks): (a) /wall reproducible +4px layou
   state/html-snapshots/openclaw-foundry__OpenClaw工坊/... (index.jsonl entry, sha256
   9594271111bc..., snapshot 2026-07-17T02:01:29Z). Recoverable via html-rollback.sh list/restore.
 
-### Commit + deploy
-- Committed: web/components/footer.tsx (the /news entry) + this task_plan.md. Poster/manifest/shots stay
-  gitignored under state/ (R1/R2 precedent) — the poster is rule-19 snapshot-covered, not git-tracked.
-- Deploy flow = push to main -> .github/workflows/deploy.yml (on: push branches:[main]) runs the FULL CI
-  pipeline (next build -> web/out -> upload+tombstone protected packs to R2 -> wrangler pages deploy),
-  identical to the R1 flow that was md5-verified live. Commit SHA + deploy trigger status recorded in the
-  Round-3 delivery summary / git log; live footer-link verification is a fast follow-up once CF Pages builds.
+### Commit + deploy — SHIPPED + LIVE-VERIFIED
+- Commit 83109eb (author Maurice Wen, no AI trailer): web/components/footer.tsx (the /news entry) + this
+  task_plan.md. Poster/manifest/shots stay gitignored under state/ (R1/R2 precedent) — the poster is
+  rule-19 snapshot-covered, not git-tracked.
+- Deploy flow = push to main -> .github/workflows/deploy.yml (on: push branches:[main]) FULL CI pipeline
+  (next build -> web/out -> upload+tombstone protected packs to R2 -> wrangler pages deploy), identical to
+  the R1 flow. CI run 29549013603 (headSha 83109eb) = status completed / conclusion SUCCESS.
+- LIVE-VERIFIED on prod: `curl https://agent-foundry.pages.dev/` now returns `href="/news">News` in the
+  footer tools row (was absent pre-deploy; the baseline curl showed docs/github/contact/privacy/terms
+  only). /news page itself = HTTP 200. The accidental orphan is now discoverable site-wide. Closure is
+  prod-verified, not just push-triggered (CLOSURE-A satisfied).
+- Follow-up doc commit records this verified outcome (this section).
