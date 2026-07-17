@@ -217,6 +217,11 @@
   "news.tab.industry": "Industry News",
   "news.tab.tutorials": "Tutorials",
   "news.tab.community": "Community Picks",
+  "news.live": "Live",
+  "news.lastUpdated": "Updated",
+  "news.new": "NEW",
+  "news.newThisWeek": "New this week",
+  "news.justNow": "just now",
 
   "deploy.title": "Deploy",
   "deploy.subtitle": "One-click deploy AI Agent to any platform",

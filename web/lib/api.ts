@@ -1,5 +1,7 @@
 // OCF Server API client — with static fallback for CF Pages
 
+import type { NewsResponse } from './news-data';
+
 // API base URL: set via env var or fallback to static JSON files only
 const HAS_API_BASE = Boolean(process.env.NEXT_PUBLIC_API_URL);
 const BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
@@ -12,6 +14,7 @@ const STATIC_MAP: Record<string, string> = {
   '/skills/categories': '/data/skills-categories.json',
   '/collections': '/data/collections.json',
   '/packs': '/data/packs.json',
+  '/news': '/data/news.json',
 };
 
 async function fetchJSON<T>(path: string, init?: RequestInit): Promise<T> {
@@ -120,6 +123,10 @@ export const getSkills = (params?: string) =>
 
 export const getSkillCategories = () =>
   fetchJSON<{ categories: Record<string, number> }>('/skills/categories');
+
+// News (daily-refreshed via scripts/scrape-agent-news.mjs → /data/news.json;
+// switches to the worker /news route automatically when NEXT_PUBLIC_API_URL is set)
+export const getNews = () => fetchJSON<NewsResponse>('/news');
 
 // Deploy feedback (R1 flywheel)
 export const submitFeedback = (skillId: string, outcome: 'success' | 'fail' | 'not_tried', providerId?: string) =>

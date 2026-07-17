@@ -217,6 +217,11 @@
   "news.tab.industry": "行业动态",
   "news.tab.tutorials": "教程",
   "news.tab.community": "社区精选",
+  "news.live": "实时",
+  "news.lastUpdated": "最后更新",
+  "news.new": "新",
+  "news.newThisWeek": "本周新增",
+  "news.justNow": "刚刚",
 
   "deploy.title": "部署",
   "deploy.subtitle": "一键部署 AI Agent 到任意平台",

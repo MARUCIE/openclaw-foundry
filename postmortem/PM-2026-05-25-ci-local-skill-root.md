@@ -59,3 +59,7 @@ The postmortem pre-release scan was added to `web/package.json` `prebuild`, whic
 ## 2026-07-16 Follow-up Verification
 
 The deploy workflow changed only the `seed-db` job credential env (dedicated least-privilege D1 secret). Nothing in the frontend build path changed. Guard re-checked: `web/package.json` `prebuild` still passes `--allow-missing-local-root --dry-run` before the static-export audits.
+
+## 2026-07-17 Follow-up Verification
+
+The deploy workflow added a `Scrape agent news (GitHub releases + foundry activity)` step (`node scripts/scrape-agent-news.mjs`) to the `sync-data` job, and `web/public/data/news.json` to the artifact upload list. Neither touches the frontend build path, `web/package.json` `prebuild`, `reconcile-catalog-integrity.py`, or any `~/.claude/skills` dependency — the news scraper only reads the committed `web/public/data/skills.json` and the public GitHub Releases API, with no developer-home path. Guard re-checked: `prebuild` still passes `--allow-missing-local-root --dry-run` before the static-export audits. Regression surface unchanged.

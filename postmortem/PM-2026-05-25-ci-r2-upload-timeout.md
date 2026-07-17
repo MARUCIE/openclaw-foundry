@@ -70,3 +70,7 @@ The deploy workflow changed only the `seed-db` job credential env (dedicated lea
 ### 2026-07-16 (b) Path-decode fix — R2 upload timeout surface untouched
 
 `scripts/upload-protected-packs-to-r2.mjs` changed exactly one line: `resolve(new URL('..', import.meta.url).pathname)` → `resolve(fileURLToPath(new URL('..', import.meta.url)))`. This corrects the `ROOT` resolution for non-ASCII project paths (the folder name contains `工坊`; `.pathname` left it percent-encoded, breaking every path derived from `ROOT`). It does NOT alter upload batching, `R2_UPLOAD_CONCURRENCY`, timeout, retry, or the local-Wrangler spawn shape — the regression surface this PM guards is unchanged. Verified by `git diff` (single line) and `node --check scripts/upload-protected-packs-to-r2.mjs` → PASS.
+
+### 2026-07-17 Follow-up Verification — news-scrape step, R2 upload surface untouched
+
+The deploy workflow added a `Scrape agent news` step to the `sync-data` job (before `Generate seed SQL`) and `web/public/data/news.json` to the artifact upload path list. The R2 upload guard is untouched: `deploy-frontend` still carries `timeout-minutes: 20`, `R2_UPLOAD_CONCURRENCY: 8`, the lockfile-installed local Wrangler binary, and no `npx`-per-object spawn. The new step runs in the separate `sync-data` job and performs only `fetch()` calls plus a single `news.json` write — it neither spawns Wrangler nor uploads to R2. Regression surface unchanged.

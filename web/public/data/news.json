@@ -1,0 +1,319 @@
+{
+  "generatedAt": "2026-07-17T07:31:38.572Z",
+  "featured": {
+    "tag": "CLAUDE CODE",
+    "tagColor": "bg-orange-100 text-orange-600",
+    "date": "2026-07-17",
+    "title": "Claude Code v2.1.212 发布",
+    "desc": "What's changed - /fork now copies your conversation into a new background session (its own row in claude agents ) while you keep working; the in-session subagent it used to laun…",
+    "category": "releases",
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.212",
+    "prerelease": false,
+    "source": "anthropics/claude-code"
+  },
+  "items": [
+    {
+      "tag": "CODEX",
+      "tagColor": "bg-slate-100 text-slate-600",
+      "date": "2026-07-17",
+      "title": "Codex rust-v0.145.0-alpha.20 — 0.145.0-alpha.20",
+      "desc": "Release 0.145.0-alpha.20",
+      "category": "releases",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.20",
+      "prerelease": true,
+      "source": "openai/codex"
+    },
+    {
+      "tag": "CLINE",
+      "tagColor": "bg-indigo-100 text-indigo-700",
+      "date": "2026-07-17",
+      "title": "Cline sdk/sdk/v0.0.64 — SDK v0.0.64",
+      "desc": "- Improved max output token handling across providers (gateway routing, OpenAI vendor, and reasoning models) - Frontmatter and user-instruction files that start with a UTF-8 byt…",
+      "category": "releases",
+      "url": "https://github.com/cline/cline/releases/tag/sdk/sdk/v0.0.64",
+      "prerelease": false,
+      "source": "cline/cline"
+    },
+    {
+      "tag": "CLINE",
+      "tagColor": "bg-indigo-100 text-indigo-700",
+      "date": "2026-07-17",
+      "title": "Cline sdk/sdk/v0.0.63 — SDK v0.0.63",
+      "desc": "- The session runtime now emits task.mistake limit reached telemetry when the consecutive-mistake limit is hit, so every host (CLI, VS Code extension, hub daemon) captures it —…",
+      "category": "releases",
+      "url": "https://github.com/cline/cline/releases/tag/sdk/sdk/v0.0.63",
+      "prerelease": false,
+      "source": "cline/cline"
+    },
+    {
+      "tag": "CLINE",
+      "tagColor": "bg-indigo-100 text-indigo-700",
+      "date": "2026-07-17",
+      "title": "Cline cli-v3.0.44 — CLI v3.0.44",
+      "desc": "- Improved max output token handling across providers (gateway routing, OpenAI vendor, and reasoning models) (from SDK v0.0.64) - Frontmatter and configuration files that start…",
+      "category": "releases",
+      "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.44",
+      "prerelease": false,
+      "source": "cline/cline"
+    },
+    {
+      "tag": "CLINE",
+      "tagColor": "bg-indigo-100 text-indigo-700",
+      "date": "2026-07-17",
+      "title": "Cline cli-v3.0.43 — CLI v3.0.43",
+      "desc": "- The CLI now automatically trusts your operating system's certificate store, so it works behind corporate proxies and TLS-inspecting firewalls without manually setting NODE EXT…",
+      "category": "releases",
+      "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.43",
+      "prerelease": false,
+      "source": "cline/cline"
+    },
+    {
+      "tag": "BROWSER-USE",
+      "tagColor": "bg-teal-100 text-teal-700",
+      "date": "2026-07-17",
+      "title": "browser-use 0.13.6 发布",
+      "desc": "What's Changed Release 0.13.6 with Browser Harness 0.1.6 by @gregpr07 in Full Changelog :",
+      "category": "releases",
+      "url": "https://github.com/browser-use/browser-use/releases/tag/0.13.6",
+      "prerelease": false,
+      "source": "browser-use/browser-use"
+    },
+    {
+      "tag": "BROWSER-USE",
+      "tagColor": "bg-teal-100 text-teal-700",
+      "date": "2026-07-17",
+      "title": "browser-use 0.13.5 发布",
+      "desc": "What's Changed Update README.md by @ShawnPana in feat: accept bu-qa-1 model alias in ChatBrowserUse by @Alezander9 in support MCP registry by @laithrw in Bump browser-use versio…",
+      "category": "releases",
+      "url": "https://github.com/browser-use/browser-use/releases/tag/0.13.5",
+      "prerelease": false,
+      "source": "browser-use/browser-use"
+    },
+    {
+      "tag": "CODEX",
+      "tagColor": "bg-slate-100 text-slate-600",
+      "date": "2026-07-16",
+      "title": "Codex rust-v0.144.5 — 0.144.5",
+      "desc": "Bug Fixes - Improved dangerous-command detection, including more forced rm forms, and provides clearer rejection reasons when commands are denied. ( 33455) Changelog Full Change…",
+      "category": "releases",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.144.5",
+      "prerelease": false,
+      "source": "openai/codex"
+    },
+    {
+      "tag": "CODEX",
+      "tagColor": "bg-slate-100 text-slate-600",
+      "date": "2026-07-16",
+      "title": "Codex rust-v0.145.0-alpha.19 — 0.145.0-alpha.19",
+      "desc": "Release 0.145.0-alpha.19",
+      "category": "releases",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.19",
+      "prerelease": true,
+      "source": "openai/codex"
+    },
+    {
+      "tag": "CODEX",
+      "tagColor": "bg-slate-100 text-slate-600",
+      "date": "2026-07-16",
+      "title": "Codex rust-v0.145.0-alpha.18 — 0.145.0-alpha.18",
+      "desc": "Release 0.145.0-alpha.18",
+      "category": "releases",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.18",
+      "prerelease": true,
+      "source": "openai/codex"
+    },
+    {
+      "tag": "CODEX",
+      "tagColor": "bg-slate-100 text-slate-600",
+      "date": "2026-07-16",
+      "title": "Codex rust-v0.145.0-alpha.16 — 0.145.0-alpha.16",
+      "desc": "Release 0.145.0-alpha.16",
+      "category": "releases",
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.16",
+      "prerelease": true,
+      "source": "openai/codex"
+    },
+    {
+      "tag": "OPENCODE",
+      "tagColor": "bg-cyan-100 text-cyan-700",
+      "date": "2026-07-16",
+      "title": "opencode v1.18.3 发布",
+      "desc": "Core Improvements - Added an Up Arrow shortcut to close the subagent picker when the first item is selected. Desktop Bugfixes - Fixed home page scrolling so sticky headers and t…",
+      "category": "releases",
+      "url": "https://github.com/anomalyco/opencode/releases/tag/v1.18.3",
+      "prerelease": false,
+      "source": "sst/opencode"
+    },
+    {
+      "tag": "CLINE",
+      "tagColor": "bg-indigo-100 text-indigo-700",
+      "date": "2026-07-16",
+      "title": "Cline v4.0.9 发布",
+      "desc": "Added - Add GPT-5.6 ChatGPT subscription models. Changed - Soften and shorten the message shown when Cline hits the consecutive mistake limit. Fixed - Handle cumulative usage sn…",
+      "category": "releases",
+      "url": "https://github.com/cline/cline/releases/tag/v4.0.9",
+      "prerelease": false,
+      "source": "cline/cline"
+    },
+    {
+      "tag": "GEMINI CLI",
+      "tagColor": "bg-red-100 text-red-600",
+      "date": "2026-07-16",
+      "title": "Gemini CLI v0.52.0-preview.0 — Release v0.52.0-preview.0",
+      "desc": "What's Changed Refactor: exclude transient CI configuration files from workspace context by @DavidAPierce in feat(caretaker-triage): add triage worker core foundational modules…",
+      "category": "releases",
+      "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.52.0-preview.0",
+      "prerelease": true,
+      "source": "google-gemini/gemini-cli"
+    },
+    {
+      "tag": "GEMINI CLI",
+      "tagColor": "bg-red-100 text-red-600",
+      "date": "2026-07-16",
+      "title": "Gemini CLI v0.52.0-nightly.20260716.g3ff5ba20f — Release v0.52.0-nightly.20260716.g3ff5ba2",
+      "desc": "What's Changed chore/release: bump version to 0.52.0-nightly.20260715.gfa975395b by @gemini-cli-robot in fix(core,a2a): group cancelled tool responses and coalesce consecutive r…",
+      "category": "releases",
+      "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.52.0-nightly.20260716.g3ff5ba20f",
+      "prerelease": true,
+      "source": "google-gemini/gemini-cli"
+    },
+    {
+      "tag": "GEMINI CLI",
+      "tagColor": "bg-red-100 text-red-600",
+      "date": "2026-07-16",
+      "title": "Gemini CLI v0.51.0 — Release v0.51.0",
+      "desc": "What's Changed Changelog for v0.50.0-preview.1 by @gemini-cli-robot in Fix no proxy test by @jerrylin3321 in chore(release): bump version to 0.51.0-nightly.20260625.g3fbf93e26 b…",
+      "category": "releases",
+      "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.51.0",
+      "prerelease": false,
+      "source": "google-gemini/gemini-cli"
+    },
+    {
+      "tag": "CLAUDE CODE",
+      "tagColor": "bg-orange-100 text-orange-600",
+      "date": "2026-07-15",
+      "title": "Claude Code v2.1.211 发布",
+      "desc": "What's changed - Added --forward-subagent-text flag and CLAUDE CODE FORWARD SUBAGENT TEXT environment variable to include subagent text and thinking in stream-json output - Fixe…",
+      "category": "releases",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.211",
+      "prerelease": false,
+      "source": "anthropics/claude-code"
+    },
+    {
+      "tag": "OPENHANDS",
+      "tagColor": "bg-purple-100 text-purple-600",
+      "date": "2026-07-15",
+      "title": "OpenHands cloud-1.46.2 — cloud: 1.46.2",
+      "desc": "1.46.2 (2026-07-15) What's Changed Bug Fixes fix(frontend): restore cross-domain PostHog tracking by aligning client/server distinct id (WIP) by @lilagrc in fix(app-server): low…",
+      "category": "releases",
+      "url": "https://github.com/OpenHands/OpenHands/releases/tag/cloud-1.46.2",
+      "prerelease": false,
+      "source": "All-Hands-AI/OpenHands"
+    },
+    {
+      "tag": "OPENCODE",
+      "tagColor": "bg-cyan-100 text-cyan-700",
+      "date": "2026-07-15",
+      "title": "opencode v1.18.2 发布",
+      "desc": "Core Bugfixes - Stopped subagents from launching nested subagents by default, with a configurable subagent depth limit when needed. - Improved default reasoning depth for Meta m…",
+      "category": "releases",
+      "url": "https://github.com/anomalyco/opencode/releases/tag/v1.18.2",
+      "prerelease": false,
+      "source": "sst/opencode"
+    },
+    {
+      "tag": "GEMINI CLI",
+      "tagColor": "bg-red-100 text-red-600",
+      "date": "2026-07-15",
+      "title": "Gemini CLI v0.52.0-nightly.20260715.gfa975395b — Release v0.52.0-nightly.20260715.gfa97539",
+      "desc": "Full Changelog :",
+      "category": "releases",
+      "url": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.52.0-nightly.20260715.gfa975395b",
+      "prerelease": true,
+      "source": "google-gemini/gemini-cli"
+    },
+    {
+      "tag": "CLAUDE CODE",
+      "tagColor": "bg-orange-100 text-orange-600",
+      "date": "2026-07-14",
+      "title": "Claude Code v2.1.210 发布",
+      "desc": "What's changed - Added a live elapsed-time counter to the collapsed tool summary line so long-running tool calls visibly tick instead of looking stuck - Added a startup warning…",
+      "category": "releases",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.210",
+      "prerelease": false,
+      "source": "anthropics/claude-code"
+    },
+    {
+      "tag": "CLAUDE CODE",
+      "tagColor": "bg-orange-100 text-orange-600",
+      "date": "2026-07-14",
+      "title": "Claude Code v2.1.209 发布",
+      "desc": "What's changed - Fixed /model and other dialogs being blocked in claude agents background sessions (reverts an overly broad guard)",
+      "category": "releases",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.209",
+      "prerelease": false,
+      "source": "anthropics/claude-code"
+    },
+    {
+      "tag": "CLAUDE CODE",
+      "tagColor": "bg-orange-100 text-orange-600",
+      "date": "2026-07-14",
+      "title": "Claude Code v2.1.208 发布",
+      "desc": "What's changed - Added screen reader mode: opt-in plain-text rendering for screen reader users. Run claude --ax-screen-reader , set CLAUDE AX SCREEN READER=1, or add \"axScreenRe…",
+      "category": "releases",
+      "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.208",
+      "prerelease": false,
+      "source": "anthropics/claude-code"
+    }
+  ],
+  "versionTracker": [
+    {
+      "name": "Claude Code",
+      "version": "v2.1.212",
+      "date": "2026-07-17"
+    },
+    {
+      "name": "Codex",
+      "version": "rust-v0.144.5",
+      "date": "2026-07-16"
+    },
+    {
+      "name": "MCP",
+      "version": "2026.7.10",
+      "date": "2026-07-10"
+    },
+    {
+      "name": "Goose",
+      "version": "v1.43.0",
+      "date": "2026-07-14"
+    },
+    {
+      "name": "OpenHands",
+      "version": "cloud-1.46.2",
+      "date": "2026-07-15"
+    },
+    {
+      "name": "opencode",
+      "version": "v1.18.3",
+      "date": "2026-07-16"
+    }
+  ],
+  "tags": [
+    "#MCP",
+    "#Skills",
+    "#ClawHub",
+    "#Agent",
+    "#CLI",
+    "#开源"
+  ],
+  "stats": {
+    "skillsTotal": 5000,
+    "newLast7d": 0,
+    "syncedAt": "2026-03-23T09:29:34.161Z"
+  },
+  "sources": {
+    "releases": 46,
+    "foundry": 0,
+    "repos": 10
+  }
+}

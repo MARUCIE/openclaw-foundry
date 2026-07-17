@@ -1,5 +1,6 @@
-// News content data — static seed, should be replaced with API integration
-// TODO: Replace with /api/news endpoint backed by D1
+// News SEED — fallback content ONLY. Live data now comes from web/public/data/news.json
+// (produced daily by scripts/scrape-agent-news.mjs via the CI sync-data rail) and is
+// fetched at runtime through api.ts getNews(); this seed renders only if that fetch fails.
 
 export interface NewsItem {
   tag: string;
@@ -8,6 +9,9 @@ export interface NewsItem {
   title: string;
   desc: string;
   category: string; // internal key: 'releases' | 'industry' | 'tutorials' | 'community'
+  url?: string;      // link target (GitHub release / foundry route); absent on legacy seed
+  prerelease?: boolean;
+  source?: string;
 }
 
 export interface VersionEntry {
@@ -54,3 +58,24 @@ export const VERSION_TRACKER: VersionEntry[] = [
 ];
 
 export const TAGS = ['#MCP', '#飞书', '#一键部署', '#Skills', '#ClawHub', '#自动化', '#开源', '#企业'];
+
+// Live response contract (web/public/data/news.json) — see scripts/scrape-agent-news.mjs.
+export interface NewsResponse {
+  generatedAt: string;
+  featured: NewsItem | null;
+  items: NewsItem[];
+  versionTracker: VersionEntry[];
+  tags: string[];
+  stats?: { skillsTotal?: number; newLast7d?: number; syncedAt?: string };
+  sources?: { releases?: number; foundry?: number; repos?: number };
+}
+
+// Fallback bundle assembled from the static seed above — used ONLY when the live
+// fetch fails (offline build, upstream outage). Prefer the fetched NewsResponse.
+export const NEWS_SEED: NewsResponse = {
+  generatedAt: '',
+  featured: FEATURED,
+  items: NEWS_FEED,
+  versionTracker: VERSION_TRACKER,
+  tags: TAGS,
+};

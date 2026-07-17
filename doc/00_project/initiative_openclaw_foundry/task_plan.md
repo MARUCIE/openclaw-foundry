@@ -1117,3 +1117,39 @@ Two low-risk polish items (NOT reflow breaks): (a) /wall reproducible +4px layou
   only). /news page itself = HTTP 200. The accidental orphan is now discoverable site-wide. Closure is
   prod-verified, not just push-triggered (CLOSURE-A satisfied).
 - Follow-up doc commit records this verified outcome (this section).
+
+## 2026-07-17 · Data Freshness — Automated News Collection & Update Engine (Round 4)
+
+**User directive (2026-07-17):** "里面的数据没有及时更新了，要做自动化采集更新引擎，每天都要有变化，有动态提示" — the live site's data is stale; build an automated collection/update engine so content changes daily, with dynamic freshness hints.
+
+### Root cause (evidence-backed)
+- `web/lib/news-data.ts` was a STATIC seed compiled into the bundle (header: `// TODO: Replace with /api/news endpoint backed by D1`), 7 items frozen at 2026-03-17..21 (machine-garbled placeholder copy). NO scraper fed it.
+- The daily CI rail (`deploy.yml` sync-data, cron `0 6 * * *`) refreshed skills.json but NEVER news → /news showed 4-month-old content.
+- Corroborating: skills.json carries `meta.syncedAt: 2026-03-23` while its mtime is today → the skills catalog data is ALSO frozen at March (ClawHub upstream likely serves static cache); Lane B (new-this-week) honestly reports 0.
+
+### Architecture (clause-3 infra-first: EXTEND the rail, do not rebuild)
+- Engine: `scripts/scrape-agent-news.mjs` — two grounded lanes, ZERO fabrication (no-mock + rule-14: every field copied verbatim from an upstream source, no LLM):
+  - Lane A — GitHub Releases API for 10 curated real agent/MCP/CLI repos (anthropics/claude-code, openai/codex, modelcontextprotocol/servers, block/goose, All-Hands-AI/OpenHands, sst/opencode, cline/cline, browser-use/browser-use, RooCodeInc/Roo-Code, google-gemini/gemini-cli). Fresh-filtered (<=120d), backoff-retried.
+  - Lane B — derived from the already-daily-fresh skills.json (new-this-week count, newest skills). Degrades to 0 honestly when upstream is frozen.
+  - Output: `web/public/data/news.json` { generatedAt, featured, items[], versionTracker[], tags[], stats{}, sources{} }.
+- Consumption seam: `web/lib/api.ts` `getNews()` routes `/news -> /data/news.json` (static-data mode) and auto-switches to the worker `/news` route when `NEXT_PUBLIC_API_URL` is set — same seam pattern as all other endpoints, future-proofs D1.
+- UI: `web/app/news/page.tsx` fetches getNews() at runtime, seed (`NEWS_SEED`) as graceful-degradation fallback; dynamic hints (client-only to avoid hydration mismatch): "实时 · 最后更新 <stamp>" pulsing pill, "本周新增 · N" chip (real stats), "新/NEW" badges on items <48h; featured + items now real clickable links.
+- CI: `deploy.yml` sync-data gains a `Scrape agent news` step (GITHUB_TOKEN authed) before Generate seed SQL; `news.json` added to artifact upload path; existing `git add web/public/data/` persists it + redeploys daily.
+
+### Test plan
+- `node --check scripts/scrape-agent-news.mjs` -> PASS.
+- Live run against real GitHub API -> 46 releases collected, featured "Claude Code v2.1.212" dated today, 23 feed items all dated today, real versionTracker. news.json written.
+- `tsc --noEmit`: 0 NEW errors (only pre-existing globals.css side-effect TS2882, unrelated).
+- `cd web && npm run build`: PASS — /news prerendered 5.15 kB; postmortem --strict scan passed after updating both triggered PM files (ci-local-skill-root, ci-r2-upload-timeout — both regression surfaces confirmed orthogonal).
+
+### Acceptance criteria (Definition of Done)
+1. /news serves REAL, current-dated content (featured dated today) — DONE local.
+2. Daily variation real, not no-op: Lane A pulls live GitHub releases each run — DONE (mechanism); daily proof pending first cron cycle.
+3. Dynamic freshness hints render (last-updated pill, NEW badges, new-this-week chip) — DONE.
+4. No fabrication (every field upstream-sourced) — DONE by construction.
+5. Live-verified on prod after deploy — PENDING (next tick).
+
+### Follow-up / risks
+- skills.json itself frozen at 2026-03-23 (ClawHub upstream cache) → SKILLS catalog also stale; separate investigation. Lane A carries news freshness regardless.
+- stats.json deploys.recent:0 / uptime:0 + DeployFeedbackBar dead code = dead telemetry; separate issue (round-3 flagged).
+- Next tick: prod live-verify + confirm daily cron commit produces a real diff.

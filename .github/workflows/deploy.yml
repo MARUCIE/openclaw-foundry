@@ -77,6 +77,11 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: node scripts/tag-skills-llm.mjs
 
+      - name: Scrape agent news (GitHub releases + foundry activity)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/scrape-agent-news.mjs
+
       - name: Generate seed SQL (from curated data)
         run: node scripts/generate-seed-sql.mjs
 
@@ -99,6 +104,7 @@ jobs:
             web/public/data/skills-categories.json
             web/public/data/providers.json
             web/public/data/stats.json
+            web/public/data/news.json
             worker/src/seed.sql
 
   # ── Step 4: Deploy frontend after Worker routes + D1 migrations exist ──
