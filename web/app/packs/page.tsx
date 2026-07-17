@@ -413,6 +413,16 @@ function PacksTabBody({
           <p className="text-lg font-medium opacity-70 leading-relaxed max-w-3xl text-pretty">
             {t('packs.heroDesc')}
           </p>
+          {step !== 'browse' && (
+            <button
+              onClick={() => setStep('browse')}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all border-2 hover:-translate-y-0.5 hover:shadow-lg active:scale-95"
+              style={{ borderColor: 'var(--primary)', color: 'var(--primary)', background: 'var(--surface-container-lowest)' }}
+            >
+              <span aria-hidden="true" className="material-symbols-outlined text-lg font-black">inventory_2</span>
+              {t('packs.browseAll')} ({totalPackCount || '—'})
+            </button>
+          )}
         </div>
       </div>
 
@@ -531,8 +541,10 @@ function PacksTabBody({
           <div className="text-center pt-4">
             <button
               onClick={() => setStep('browse')}
-              className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.3em] opacity-40 hover:opacity-100 hover:text-[var(--primary)] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-black uppercase tracking-widest transition-all border-2 hover:-translate-y-0.5 hover:shadow-lg active:scale-95"
+              style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface)', background: 'var(--surface-container-lowest)' }}
             >
+              <span aria-hidden="true" className="material-symbols-outlined text-lg font-black">inventory_2</span>
               {t('packs.browseAll')} ({totalPackCount || '—'})
             </button>
           </div>
