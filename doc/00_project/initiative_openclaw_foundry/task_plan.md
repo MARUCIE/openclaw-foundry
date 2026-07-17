@@ -1177,3 +1177,38 @@ CI run 29565527429 (headSha f9a6a70) `deploy-frontend` completed/success (08:11�
 - Pulse "实时·最后更新 2026-07-17 03:31" badge: renders. NEW/"新" badges: 17 (48h items). generatedAt=2026-07-17 (today; the date rolled 07-16→07-17 mid-session and prod reflected it — **daily variation empirically proven, not just mechanism**). 0 console errors, no white screen. Screenshot `/Users/mauricewen/00-AI-Fleet/.playwright-mcp/foundry-news-fail1-verify.png`.
 
 **All 5 acceptance criteria now DONE (criterion #5 "Live-verified on prod" = DONE).** The 3/3 dynamic freshness hints render on prod; the user directive "自动化采集更新引擎 / 每天都要有变化 / 有动态提示" is fully met and PROD-VERIFIED. Residual (non-blocking, separate issues): skills.json/stats frozen at 2026-03-23 (ClawHub upstream); DeployFeedbackBar dead telemetry (round-3 flagged). Next loop rounds: broader UX-map walk (登录/注册流 + remaining pages) per the standing /loop directive.
+
+## §UX Round-1 — Live prod acceptance walk (2026-07-17, read-only)
+
+Walked the LIVE prod site (`https://agent-foundry.pages.dev`) as a first-time user via Playwright MCP (real DOM + rendered-width probes + console/network). Page map derived from the live DOM nav + sitemap, not assumed. Escalation Workflow (w1kyoajir) failed on the `/login` 403 auth gate (0 workers dispatched); pivoted to a direct browser walk on this unblocked task-notification turn — the read-only acceptance work needs a browser, not a 10-agent Opus pool. Evidence screenshots: `/Users/mauricewen/00-AI-Fleet/.playwright-mcp/r1-ux/01..06-*.png`.
+
+### Per-page findings
+
+| Page | State | Finding (卡点) | Sev |
+|------|-------|---------------|-----|
+| `/` home | Rich: hero + full 5k-skill browser (search, S–D ratings, 32 category badges w/ real counts) | **F1** hero flagship metric literally reads "5.0k Skills … **(2026/3/23 快照)**" — a ~4-month-old snapshot label is the FIRST credibility signal a visitor reads, contradicting the "curated live marketplace" promise | **P1** |
+| `/` home | — | **F2** console `404 @ /skills` — stray client fetch to the unmapped `/skills` route; UI degrades OK via `/data/skills.json` fallback. Same static-map-gap class as the fixed `/news` case | P2 |
+| `/packs` | Role-selector + 3-step onboarding; 22 packs hidden behind a "查看全部配置包 (22)" button (client reveal, verified) | **F3** the "marketplace" hides its entire 22-pack inventory by default behind one click — discoverability friction on the core catalog surface | P2 |
+| `/packs/*/guide.html` | Rich real content (9.4k chars, structured 30秒画像/Toolkit/工具详解/多CLI/反模式/验证; per-page `<title>`; back-nav) | clean ✓ | — |
+| `/wall` 卡点墙 | ~6 items, login-gated posting (honest seam) | **F4** visible entries are TEST placeholder data ("Before：test / After：te…"), last activity 2026/5/19 (~2 mo stale) | P2 |
+| `/breakthroughs` 蜕变墙 | "最新蜕变 1 案例" — a single "test/test/test" placeholder (5/19) | **F5** a key social-proof wall shows exactly one placeholder test entry → reads as unpopulated/unfinished to a first-timer | **P1** |
+| `/news` | Fresh (07-17): 本周新增·23, "实时·最后更新" pulse, 25 NEW badges | clean ✓ (prior Round-4 fix holds; regression re-verified) | — |
+| `/api-docs` | Rich: Arsenal API, tiers Free/Arsenal/Arsenal Pro, 13 code blocks, real endpoints | **F6** entirely English while the site is CN-primary (defensible for a dev audience) | P3 |
+| `/login` | Passwordless magic-link email + WeChat QR gated "下个 Wave 上线" | clean ✓ (icons confirmed rendering as glyphs via width probe — the "send/lock/qr_code_scanner" literals are ligature source, NOT a broken icon font; WeChat gate is an honest seam) | — |
+| all Next routes | — | **F7** every Next-routed page shares the generic `<title>` "Agent Foundry — The Curated…"; only `guide.html` has per-page titles → SEO + browser-tab identity | P2 |
+
+### Prioritized 卡点 queue (feeds Round-2/3)
+
+- [ ] **F1 (P1)** home hero: replace the frozen "5.0k Skills (2026/3/23 快照)" stamp with a live/recency-aware label — drive the count + a "最后更新" signal from the SAME daily sync rail that now feeds `/news`.
+- [ ] **F5 (P1)** 蜕变墙: seed real transformation cases OR ship an honest, designed empty-state instead of a lone "test" placeholder.
+- [ ] **F3 (P2)** `/packs`: surface the 22 packs by default (or make "查看全部配置包" far more prominent / auto-expand on scroll).
+- [ ] **F4 (P2)** 卡点墙: same as F5 — real seed content or honest empty-state; drop literal "test" rows.
+- [ ] **F2 (P2)** add the `/skills` → `/data/skills.json` STATIC_MAP entry (mirror the `/news` fix) to kill the console 404.
+- [ ] **F7 (P2)** per-page `<title>` metadata on each Next route (currently all share the generic marketplace title).
+- [ ] **F6 (P3)** `/api-docs` optional CN localization (low priority; dev audience).
+
+### AHA — single highest-leverage first-run fix (evidence-backed)
+
+The core catalog is rich and real (5k-skill browser, 22 packs + full guides, live `/news`, real API docs). But the **two most-visible freshness/credibility signals a first-time visitor meets are stale or empty**: (1) the home hero's flagship metric is stamped "**2026/3/23 快照**" — a 4-month-old date, read first, undercutting the whole "curated live marketplace" pitch; (2) the social-proof walls (卡点墙/蜕变墙) carry only "test" placeholders from 5/19. The highest-leverage fix is **F1**: make the home hero's skill count + a "最后更新" recency chip live off the same daily sync rail that already makes `/news` fresh — the fix pattern is already shipped and proven, so this closes the visible gap between "we're live/curated" and "data as of 4 months ago" on the single most-viewed surface. This directly extends the original data-freshness directive (infra-first: reuse the `/news` engine, don't invent).
+
+Round-2 plan: implement F1 + F2 + F7 (all low-risk, static/metadata + reuse of the news sync pattern); deploy via CI push; prod-verify. Round-3: F3 + F4/F5 (discoverability + wall content/empty-state), deploy, final visual acceptance + screen-overview poster.
