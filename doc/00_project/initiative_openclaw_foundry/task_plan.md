@@ -1212,3 +1212,37 @@ Walked the LIVE prod site (`https://agent-foundry.pages.dev`) as a first-time us
 The core catalog is rich and real (5k-skill browser, 22 packs + full guides, live `/news`, real API docs). But the **two most-visible freshness/credibility signals a first-time visitor meets are stale or empty**: (1) the home hero's flagship metric is stamped "**2026/3/23 快照**" — a 4-month-old date, read first, undercutting the whole "curated live marketplace" pitch; (2) the social-proof walls (卡点墙/蜕变墙) carry only "test" placeholders from 5/19. The highest-leverage fix is **F1**: make the home hero's skill count + a "最后更新" recency chip live off the same daily sync rail that already makes `/news` fresh — the fix pattern is already shipped and proven, so this closes the visible gap between "we're live/curated" and "data as of 4 months ago" on the single most-viewed surface. This directly extends the original data-freshness directive (infra-first: reuse the `/news` engine, don't invent).
 
 Round-2 plan: implement F1 + F2 + F7 (all low-risk, static/metadata + reuse of the news sync pattern); deploy via CI push; prod-verify. Round-3: F3 + F4/F5 (discoverability + wall content/empty-state), deploy, final visual acceptance + screen-overview poster.
+
+## §UX Round-2 — Prod verification (2026-07-17)
+
+Repo anchor: branch `main`, HEAD `2437e34` (Round-3 F3 sits on top of Round-2 `f8c3e8a`). Deploy: CI run `29595767997` (Deploy to Cloudflare) = **success**, `headSha=2437e34`. Live-verified via curl + Playwright MCP on `https://agent-foundry.pages.dev`.
+
+| Finding | Verdict | Evidence |
+|---|---|---|
+| **F1** live hero freshness chip | **PASS** | Rendered hero `<p>` = `5.0k Skills & MCP Servers，一键安装到任意工具(最后更新 2026/7/17)· 目录快照 2026/3/23`. Chip `最后更新 2026/7/17` == `news.json` TOP-LEVEL `generatedAt` (`2026-07-17T07:31:38.572Z` → zh-CN `2026/7/17`), fetched live. `/news` stamp = `最后更新 2026-07-17 03:31` (same `generatedAt` instant, local-tz) → **calendar date EQUAL** (2026-07-17). Frozen `2026/3/23` appears ONLY behind the `目录快照` (Catalog snapshot) label; leading recency token is `最后更新 2026/7/17`. |
+| **F2** no `/skills` 404 | **PASS** | Fresh home load: console `0 errors, 0 warnings`. Network (filter `skills`): only `/data/skills.json => 200` + `/data/skills-categories.json => 200`; NO request to bare `/skills`. |
+| **F7** per-route `<title>` | **PASS (7/7)** | `/`=`Agent Foundry — The Curated AI Agent Skill Marketplace` (full default) · `/packs`=`Skill Packs · Agent Foundry` · `/wall`=`Skill Wall · Agent Foundry` · `/breakthroughs`=`Breakthroughs · Agent Foundry` · `/news`=`News · Agent Foundry` · `/login`=`Sign In · Agent Foundry` · `/api-docs`=`API Docs · Agent Foundry`. |
+
+Round-2 required NO fix — commits `f8c3e8a` (F1/F2/F7) already live and correct.
+
+## §UX Round-3 — Closures (2026-07-17)
+
+| Finding | Disposition | Fix SHA | Prod evidence |
+|---|---|---|---|
+| **F3** /packs discoverability | **CLOSED (fixed)** | `2437e34` | The 22-pack catalog is now surfaced by (a) an above-the-fold primary-accent CTA `查看全部配置包 (22)` (rendered: `opacity 1`, `border 2px`, `color rgb(0,62,168)`=var(--primary), `top=553` in a 900px viewport) and (b) the after-tree footnote upgraded from `opacity-40` fine print to a legible bordered pill (`opacity 1`, `border 2px`). Guided decision-tree-first IA (`step` default `q1`) preserved intentionally. Count `(22)` sourced from real `totalPackCount`. |
+| **F4** /wall test placeholder | **CLOSED (honest empty-state)** | (data-layer; no code change needed) | Live `GET ${API_BASE}/api/wall?limit=50 => 200` returns `{"entries":[]}` (QA `test` rows gone from prod D1). Frontend renders the built-in honest empty-state `还没有卡点。登录后第一个来分享你工作流里的卡点。` (`articleCount=0`, no `test` string). NO mock, NO fabricated entries — the empty-state was already coded (`wall-board.tsx:340`); the suppressing test pollution is cleared. |
+| **F5** /breakthroughs test placeholder | **CLOSED (honest labeled seed)** | (data-layer; no code change needed) | Live `GET ${API_BASE}/api/wall?limit=20&include_top_comments=3 => 200` returns empty → `hasLive=false` → the designed `SEED_BREAKTHROUGHS` (3 authored example cases, `_is_seed:true`) render under the explicit badge `3 案例 · 示例数据` with interactions disabled. This IS the sanctioned "honest empty-state" (labeled sample data, never masquerading as real cohort posts). No `test` string on page. |
+| **F6** /api-docs English-only | **CLOSED (accepted-as-designed, WONTFIX)** | — | P3, Round-1 walk itself judged it "defensible for a dev audience". English is the conventional register for a developer-facing API reference (endpoints, JSON, code blocks are English by nature; aligns with the engineering-baseline language policy that machine-readable/technical surfaces stay English). Not localizing is a deliberate, defensible disposition, not a defect. Out of the mandated Round-3 scope (F3/F4/F5). |
+
+### Final visual acceptance + screen-overview deliverable (rule 23)
+
+Walked the full page map on prod (home → packs → wall → breakthroughs → news → api-docs → login) at a real desktop profile (1440px, `--mode web`) via Playwright MCP; all 7 real screens captured (7 distinct md5, no duplicate-capture bug). Assembled into ONE self-contained white-ground screen-overview poster:
+
+- **Poster**: `doc/00_project/initiative_openclaw_foundry/SCREEN_OVERVIEW.html` (7 screens, mode=web, 1.2 MB).
+- **Self-contained** (rule 22): `html-inline-assets.py check` exits 0 (all screens base64-inlined, no external local refs).
+- **Verified render**: served over local HTTP + Playwright DOM probe — 7/7 `<img>` loaded (`naturalWidth>0`, 0 broken), body bg `rgb(255,255,255)`, numbered nav (7 links), all 7 screen titles + closure captions present.
+- Version-tracked (rule 19) via git commit in this repo.
+
+### Loop status: **CLOSED**
+
+All 7 Round-1 findings dispositioned and prod-verified: F1/F2/F3/F4/F5/F7 = fixed + live-verified; F6 = accepted-as-designed. Data mode note: `/wall` + `/breakthroughs` read the live Worker directly; their designed empty/seed states are the durable honest handling — a real user post will surface real content (correct behavior, not a regression).
