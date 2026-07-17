@@ -1169,3 +1169,11 @@ A 4-agent native-Opus acceptance pool (CI verifier + data-freshness verifier + b
 **FINDING-3 (data-integrity, non-UX).** `stats.syncedAt` still 2026-03-23 (skills-catalog sub-block, ClawHub upstream frozen). Confirmed NOT rendered on `/news` after the FAIL-1 fix. Remains a separate skills-catalog freshness investigation, not a /news blocker.
 
 Status: core delivery ACCEPTED on prod; FAIL-1 fix committed + pushed (redeploy pending); next tick prod-verifies the chip renders + first cron diff.
+
+### Round-4 CLOSED — FAIL-1 fix PROD-VERIFIED (2026-07-17, verification Workflow)
+
+CI run 29565527429 (headSha f9a6a70) `deploy-frontend` completed/success (08:11→08:16Z). A browser verification agent measured the LIVE prod DOM at `https://agent-foundry.pages.dev/news`:
+- **本周新增 chip: RENDERS** — DOM node `<span …var(--primary-container)…><span class="material-symbols-outlined">trending_up</span>本周新增 · 23</span>`, **N=23** (non-zero, = all items within 7d). FAIL-1 closed; no longer reads the frozen `stats.newLast7d`.
+- Pulse "实时·最后更新 2026-07-17 03:31" badge: renders. NEW/"新" badges: 17 (48h items). generatedAt=2026-07-17 (today; the date rolled 07-16→07-17 mid-session and prod reflected it — **daily variation empirically proven, not just mechanism**). 0 console errors, no white screen. Screenshot `/Users/mauricewen/00-AI-Fleet/.playwright-mcp/foundry-news-fail1-verify.png`.
+
+**All 5 acceptance criteria now DONE (criterion #5 "Live-verified on prod" = DONE).** The 3/3 dynamic freshness hints render on prod; the user directive "自动化采集更新引擎 / 每天都要有变化 / 有动态提示" is fully met and PROD-VERIFIED. Residual (non-blocking, separate issues): skills.json/stats frozen at 2026-03-23 (ClawHub upstream); DeployFeedbackBar dead telemetry (round-3 flagged). Next loop rounds: broader UX-map walk (登录/注册流 + remaining pages) per the standing /loop directive.
