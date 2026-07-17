@@ -5,7 +5,10 @@ import { Footer } from '@/components/footer';
 import { I18nProvider } from '@/lib/i18n';
 
 export const metadata: Metadata = {
-  title: 'Agent Foundry — The Curated AI Agent Skill Marketplace',
+  title: {
+    default: 'Agent Foundry — The Curated AI Agent Skill Marketplace',
+    template: '%s · Agent Foundry',
+  },
   description: 'Curated AI agent skills, locally verified. S/A/B/C quality ratings. Copy install command to any platform in one click. Workshop-ready toolkit.',
   icons: {
     icon: '/favicon.svg',

@@ -92,7 +92,7 @@
 
   "skills.title": "Agent Capability Marketplace",
   "skills.subtitle": "Skills & MCP Servers, one-click install to any tool",
-  "skills.synced": "Snapshot",
+  "skills.synced": "Catalog snapshot",
   "skills.localPrivateBanner": "Local-private · This skill only works on its source machine, so production does not expose a public install command.",
   "skills.localPrivateNoInstall": "No reproducible install command until it is published to a public source",
   "skills.notInstallable": "Not Installable",

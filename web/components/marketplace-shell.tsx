@@ -435,6 +435,14 @@ export function MarketplaceShell() {
     const res = await fetch('/data/skills-categories.json');
     return res.ok ? res.json() : {};
   });
+  // Live site-freshness signal: read the SAME fresh daily rail /news uses —
+  // news.json's TOP-LEVEL generatedAt (CI-refreshed daily). NOT stats.syncedAt,
+  // which is the frozen ClawHub catalog snapshot. Sourcing recency from the
+  // catalog is what made the hero read ~4 months stale.
+  const { data: newsMeta } = useSWR('landing-news-generatedAt', async () => {
+    const res = await fetch('/data/news.json');
+    return res.ok ? res.json() : null;
+  });
 
   const allSkills = data?.skills || [];
   // R3.1 (audit F5): Gate "MCP Servers" source tab behind mcp-registry count > 0.
@@ -448,6 +456,7 @@ export function MarketplaceShell() {
     .map(([k]) => k);
   const allCategories = ['all', ...sortedCats];
   const syncedAt = data?.meta?.syncedAt ? new Date(data.meta.syncedAt).toLocaleDateString('zh-CN') : '';
+  const lastUpdated = newsMeta?.generatedAt ? new Date(newsMeta.generatedAt).toLocaleDateString('zh-CN') : '';
 
   const requestedCategory = searchParams.get('category');
   const requestedRating = searchParams.get('rating');
@@ -520,7 +529,8 @@ export function MarketplaceShell() {
         </h1>
         <p className="font-medium opacity-60 text-pretty" style={{ fontSize: 'var(--af-fs-body-lg)' }}>
           {formatNum(data?.total || 0)} {t('skills.subtitle')}
-          {syncedAt && <span className="text-[var(--af-fs-meta)] ml-3 uppercase tracking-widest opacity-40">({syncedAt} {t('skills.synced')})</span>}
+          {lastUpdated && <span className="text-[var(--af-fs-meta)] ml-3 uppercase tracking-widest opacity-40">({t('news.lastUpdated')} {lastUpdated})</span>}
+          {syncedAt && <span className="text-[var(--af-fs-meta)] ml-2 uppercase tracking-widest opacity-30">· {t('skills.synced')} {syncedAt}</span>}
         </p>
 
         <div className="relative group max-w-2xl mx-auto">

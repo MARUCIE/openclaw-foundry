@@ -92,7 +92,7 @@
 
   "skills.title": "Agent 能力市场",
   "skills.subtitle": "Skills & MCP Servers，一键安装到任意工具",
-  "skills.synced": "快照",
+  "skills.synced": "目录快照",
   "skills.localPrivateBanner": "本地私有 · 此 skill 只有源机器可用，生产页不会提供公开安装命令。",
   "skills.localPrivateNoInstall": "未发布到公开来源，暂无可复现安装命令",
   "skills.notInstallable": "不可安装",
