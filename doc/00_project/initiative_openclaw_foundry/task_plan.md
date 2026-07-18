@@ -1383,3 +1383,21 @@ The Round-7 workflow judge returned **NEEDS_WORK**: (1) the perf lane missed its
 | **R1** | **Self-hosted** Material Symbols: subset woff2 (opsz 24 / wght 400 / **FILL 0..1 restored** / GRAD 0, Google Fonts v361, 446 KB — still −60% vs the original 1,126 KB) served same-origin from `/fonts/`, `@font-face` + the full icon class inlined into the bundled CSS. Both cross-origin render-blocking requests (googleapis CSS + gstatic connection) are GONE; the font loads async under `font-display: block`. FILL states work again. | `web/public/fonts/material-symbols-outlined.woff2`, `web/app/globals.css`, `web/app/layout.tsx` (3 `<link>` tags removed) |
 | **R2** | Top-nav auth controls + footer brand line wired through the existing flat-key i18n: `nav.signIn` / `nav.signOut` / `footer.ecosystemBrand` added to both dictionaries (EN keeps the native 苍蓝舰队 wordmark — no invented Latin brand name — and translates the descriptor: "Four-Site Ecosystem"). The `ECOSYSTEM_SITES` card descriptions/audiences (~12 strings) remain the documented Round-8 follow-up. | `web/components/top-nav.tsx`, `web/components/footer.tsx`, `web/messages/{en,zh}.json` |
 | **R3** | The false "ALL targets MET" acceptance record above corrected in place; this section is the honest closure with post-deploy arbitration numbers below. | this file |
+
+### Post-deploy arbitration (2026-07-18, commit `ab0d34c`, CI success, own Lighthouse 12 CLI, same rig as every prior arbitration)
+
+| Lane | Target | Round-7 state | Round-7b measured | Verdict |
+|------|--------|---------------|-------------------|---------|
+| Perf desktop | ≥95 | 81 (blocking cross-origin link) | **100** | **MET** |
+| Perf mobile | ≥85 | 91 | **98** (median of 3: 65 cold-edge first-hit artifact discarded, then 98 / 98; LCP 2.0–2.2 s on the hero `h1`, TBT 0 ms) | **MET** |
+| A11y | 100 both | 100 | **100 / 100** (BP 100, SEO 100 both profiles) | **HELD** |
+| Render-blocking | no cross-origin | googleapis CSS 922 B blocking | only the same-origin `_next` CSS remains (80 ms desktop / 300 ms mobile — inherent) | **CLOSED** |
+
+Non-perf verification, all live against `agent-foundry.pages.dev`:
+
+- **Self-hosting**: page HTML + bundled CSS contain 0 `fonts.googleapis.com` / `fonts.gstatic.com` references; `/fonts/material-symbols-outlined.woff2` serves HTTP 200, 457,048 bytes, `font/woff2` — byte-identical to the committed asset.
+- **FILL variation axis alive (3 independent proofs)**: (1) fontTools `fvar` parse of the *served* woff2 → exactly one variable axis, `FILL 0.0→1.0` (opsz/wght/GRAD instanced out as designed); (2) `/news` unconditional filled `mail` glyph computes `"FILL" 1` under the self-hosted family; (3) canvas ink-pixel discriminator rendering the same glyph both ways → 1,140 ink px filled vs 628 outline (1.82×). The Round-7 axis regression is repaired, not just re-requested.
+- **Icon non-regression**: 51 icons on the home page all render 24×24 with ligatures resolved (a fallen-back raw text label would measure ~3× wider) — zero tofu.
+- **i18n**: default EN export renders "Sign up / Sign in" + "苍蓝舰队 · Four-Site Ecosystem"; the ZH toggle (`ocf-lang=zh`) renders 注册 / 登录 + 苍蓝舰队 · 四站生态.
+
+### Loop status: perf **CLOSED** · a11y **HELD** · Round-8 candidates on record (ECOSYSTEM_SITES card copy i18n ~12 strings; skills.json 699 KB payload restructuring — both deferred, not blockers)
