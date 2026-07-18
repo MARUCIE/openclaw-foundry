@@ -189,7 +189,7 @@ function LoginInner() {
               >
                 <span aria-hidden="true" className="material-symbols-outlined">qr_code_scanner</span>
               </div>
-              <div className="space-y-1">
+              <div className="min-w-0 space-y-1">
                 <h2 className="text-xl font-black tracking-tight">微信扫码注册 / 登录</h2>
                 <p className="text-sm opacity-70 leading-relaxed">
                   用你本人的微信扫码完成企业微信自建应用授权。首次授权即注册，之后扫码即登录；无需邮箱，无需密码。

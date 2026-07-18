@@ -182,6 +182,26 @@ export function Footer() {
           >
             Agent Foundry
           </span>
+          {/* Mobile product nav: the top nav (md:flex) is display-hidden below md,
+              so surface the primary sections (Job Packs / Stickwall / Breakthroughs)
+              here for mobile reachability. md:hidden keeps the desktop footer unchanged
+              (the header nav already exposes these routes at >=md). */}
+          <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold md:hidden" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+            {[
+              { href: '/packs', key: 'nav.packs' },
+              { href: '/wall', key: 'nav.wall' },
+              { href: '/breakthroughs', key: 'nav.breakthroughs' },
+            ].map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
+                style={{ color: 'var(--on-surface-variant)' }}
+              >
+                {t(link.key)}
+              </Link>
+            ))}
+          </div>
           <div className="flex gap-6 text-sm font-semibold" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
             {FOOTER_LINKS.map(link => (
               <Link

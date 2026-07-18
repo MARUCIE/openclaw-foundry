@@ -106,3 +106,23 @@ The auth payload boundary this PM guards (public surfaces never expose the four
 protected payload fields; unauthenticated protected routes return 401) is
 unchanged. The boundary audit script and its 401/field-omission contract remain
 in force.
+
+## 2026-07-17 Follow-up Verification — Round-5 mobile CSS layout fix (min-w-0)
+
+The Round-5 mobile acceptance commit touched this PM's trigger path
+`web/app/login/page.tsx`, so this PM's strict scanner correctly flagged the diff.
+This section records the acknowledgment.
+
+Change classification: PURELY a CSS layout fix, no auth-boundary logic altered.
+The single edit adds the Tailwind utility `min-w-0` to the WeChat sign-in card's
+text column (`<div className="space-y-1">` -> `<div className="min-w-0 space-y-1">`)
+so its CJK heading can shrink and wrap, resolving a 390px mobile horizontal
+overflow (document scrollWidth 418 -> <=390). Verified by `git show` on
+`web/app/login/page.tsx` filtered to auth terms
+(`token|payload|consume|fetch|body|json|bearer|safeReturnPath|config|api/auth`):
+every matched line is pre-existing and unchanged; the sole added characters are
+the `min-w-0 ` class prefix on one presentational div. No request/response payload
+field, no return-path handling, no magic-link delivery gate, and no session token
+logic was modified. The auth payload boundary this PM guards (public surfaces
+never expose the four protected payload fields; unauthenticated protected routes
+return 401) is unchanged.
