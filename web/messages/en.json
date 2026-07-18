@@ -468,5 +468,8 @@
   "packs.q2StrategyDecisionDesc": "Multi-expert roundtables, strategy decomposition, executive perspective, and investment judgment.",
   "packs.q2ResearchKnowledge": "Research Learning",
   "packs.q2ResearchKnowledgeDesc": "SOTA scans, competitor analysis, literature reviews, and knowledge capture.",
-  "packs.q2ScenarioDesc": "Business scenarios, process nodes, role collaboration, and delivery paths."
+  "packs.q2ScenarioDesc": "Business scenarios, process nodes, role collaboration, and delivery paths.",
+  "nav.signIn": "Sign up / Sign in",
+  "nav.signOut": "Sign out",
+  "footer.ecosystemBrand": "苍蓝舰队 · Four-Site Ecosystem"
 }

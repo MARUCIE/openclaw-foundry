@@ -1344,7 +1344,7 @@ The acceptance measurement ran against the fully deployed state after both the m
 - **Heading-order audit**: score **1 (pass)**, **0 failing items**, BOTH profiles — down from **1 failing item** in the baseline.
 - **Material Symbols woff2**: **1,125,924 bytes → ~320,368 bytes (~320 KB), 71% reduction** after pinning `wght,FILL@400,0`.
 - **Non-regression**: icons/fonts render correctly; **0 console errors**; **0 overflow at 390px** on `/login`, `/wall`, and `/packs`.
-- **Acceptance**: ALL Round-7 performance and accessibility targets were **MET**.
+- **Acceptance** *(CORRECTED 2026-07-18, see §Round-7b)*: the a11y targets are MET (100 both profiles, triple-confirmed). The performance table above is the write leg's own single measurement and its desktop **98 was NOT reproducible** — two independent post-deploy reviewer runs measured desktop 71–81 and the main-session arbitration run measured **81** (mobile arbitration: **91**, ≥85 MET). Root cause of the desktop shortfall: the Material Symbols stylesheet remained a render-blocking cross-origin `<link>` (922 B CSS costing 1,270–1,405 ms of blocked render). The original "ALL targets MET" line was a false acceptance record; §Round-7b holds the honest closure.
 
 ### EN-locale walk + deferred follow-ups
 
@@ -1370,4 +1370,16 @@ The **`skills.json` 699,075 B** payload restructuring/lazy-load is explicitly de
 - `9e84ae449eab1738656268ed6409ed70724a0bdd` — footer text-contrast follow-up.
 - This commit — measured-quality task-plan record + four Round-7 locale-walk screenshots.
 
-### Loop status: **CLOSED** (perf + a11y)
+### Loop status: a11y **CLOSED** · perf **REOPENED → closed in §Round-7b**
+
+## §UX Round-7b — Rework: honest closure of the perf lane (2026-07-18)
+
+The Round-7 workflow judge returned **NEEDS_WORK**: (1) the perf lane missed its own acceptance because the Material Symbols stylesheet was still a render-blocking cross-origin request — the woff2 bytes were subset but the blocking `<link>` chain the goal named was kept; (2) the task_plan record above claimed "desktop 98 / ALL targets MET", which no independent measurement could reproduce; (3) the `wght,FILL@400,0` subset silently dropped the FILL axis while 7 call sites set `fontVariationSettings: 'FILL' 1` (liked/thumb states) — those filled states degraded to outlines; (4) the EN locale still shipped hardcoded Chinese in the top-nav auth controls and the footer brand line.
+
+### Rework (this round)
+
+| ID | Fix | Where |
+|----|-----|-------|
+| **R1** | **Self-hosted** Material Symbols: subset woff2 (opsz 24 / wght 400 / **FILL 0..1 restored** / GRAD 0, Google Fonts v361, 446 KB — still −60% vs the original 1,126 KB) served same-origin from `/fonts/`, `@font-face` + the full icon class inlined into the bundled CSS. Both cross-origin render-blocking requests (googleapis CSS + gstatic connection) are GONE; the font loads async under `font-display: block`. FILL states work again. | `web/public/fonts/material-symbols-outlined.woff2`, `web/app/globals.css`, `web/app/layout.tsx` (3 `<link>` tags removed) |
+| **R2** | Top-nav auth controls + footer brand line wired through the existing flat-key i18n: `nav.signIn` / `nav.signOut` / `footer.ecosystemBrand` added to both dictionaries (EN keeps the native 苍蓝舰队 wordmark — no invented Latin brand name — and translates the descriptor: "Four-Site Ecosystem"). The `ECOSYSTEM_SITES` card descriptions/audiences (~12 strings) remain the documented Round-8 follow-up. | `web/components/top-nav.tsx`, `web/components/footer.tsx`, `web/messages/{en,zh}.json` |
+| **R3** | The false "ALL targets MET" acceptance record above corrected in place; this section is the honest closure with post-deploy arbitration numbers below. | this file |

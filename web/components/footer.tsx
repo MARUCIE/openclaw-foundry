@@ -91,7 +91,7 @@ export function Footer() {
               className="text-xs uppercase tracking-[0.2em] font-semibold"
               style={{ color: 'var(--on-surface-variant)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
             >
-              苍蓝舰队 · 四站生态
+              {t('footer.ecosystemBrand')}
             </span>
             <span
               className="text-sm"

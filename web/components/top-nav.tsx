@@ -148,7 +148,7 @@ export function TopNav() {
                 fontFamily: 'var(--font-inter), system-ui, sans-serif',
               }}
             >
-              注册 / 登录
+              {t('nav.signIn')}
             </Link>
           )}
           {user && (
@@ -167,7 +167,7 @@ export function TopNav() {
                 onClick={handleLogout}
                 className="text-[var(--on-surface-variant)] hover:text-[var(--primary)] ml-1 underline-offset-2 hover:underline"
               >
-                退出
+                {t('nav.signOut')}
               </button>
             </div>
           )}

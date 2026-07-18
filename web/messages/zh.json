@@ -468,5 +468,8 @@
   "packs.q2StrategyDecisionDesc": "多专家圆桌、战略拆解、高管视角与投资判断。",
   "packs.q2ResearchKnowledge": "研究学习",
   "packs.q2ResearchKnowledgeDesc": "SOTA 扫描、竞品分析、论文综述与知识沉淀。",
-  "packs.q2ScenarioDesc": "业务场景、流程节点、角色协同与落地路径。"
+  "packs.q2ScenarioDesc": "业务场景、流程节点、角色协同与落地路径。",
+  "nav.signIn": "注册 / 登录",
+  "nav.signOut": "退出",
+  "footer.ecosystemBrand": "苍蓝舰队 · 四站生态"
 }

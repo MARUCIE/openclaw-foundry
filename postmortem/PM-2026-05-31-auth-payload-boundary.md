@@ -126,3 +126,14 @@ field, no return-path handling, no magic-link delivery gate, and no session toke
 logic was modified. The auth payload boundary this PM guards (public surfaces
 never expose the four protected payload fields; unauthenticated protected routes
 return 401) is unchanged.
+
+## 2026-07-18 Acknowledgment — Round-7b font self-hosting (keyword false positive)
+
+Round-7b commit self-hosts the Material Symbols icon font (`web/app/globals.css`,
+`web/app/layout.tsx`, `web/public/fonts/`) and wires three nav/footer strings
+through i18n. The strict scanner matched this PM's `settings` keyword because the
+diff contains the CSS property `font-variation-settings` / the React style key
+`fontVariationSettings` — typography, not auth. No auth route, session, payload,
+or login/callback surface is touched (the i18n edit in `top-nav.tsx` only replaces
+two hardcoded label strings with `t()` calls). Boundary contracts unchanged; this
+entry records the acknowledgment per the standing note above.
