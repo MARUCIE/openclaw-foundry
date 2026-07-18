@@ -3,16 +3,37 @@ import './globals.css';
 import { TopNav } from '@/components/top-nav';
 import { Footer } from '@/components/footer';
 import { I18nProvider } from '@/lib/i18n';
+import { SITE_URL, SITE_NAME, SITE_TAGLINE, OG_IMAGE } from '@/lib/page-metadata';
+
+const ROOT_TITLE = `${SITE_NAME} — ${SITE_TAGLINE}`;
+const ROOT_DESCRIPTION =
+  'Curated AI agent skills, locally verified. S/A/B/C quality ratings. Copy install command to any platform in one click. Workshop-ready toolkit.';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Agent Foundry — The Curated AI Agent Skill Marketplace',
+    default: ROOT_TITLE,
     template: '%s · Agent Foundry',
   },
-  description: 'Curated AI agent skills, locally verified. S/A/B/C quality ratings. Copy install command to any platform in one click. Workshop-ready toolkit.',
+  description: ROOT_DESCRIPTION,
+  alternates: { canonical: '/' },
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
+  },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    url: '/',
+    title: ROOT_TITLE,
+    description: ROOT_DESCRIPTION,
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: ROOT_TITLE }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: ROOT_TITLE,
+    description: ROOT_DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
