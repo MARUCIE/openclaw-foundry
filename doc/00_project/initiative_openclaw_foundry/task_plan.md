@@ -1281,3 +1281,31 @@ Per the 2026-07-13 real-device-profile rule, this responsive product ships BOTH 
 ### Loop status: **CLOSED** (mobile)
 
 M1 + M2 fixed in one commit, prod-verified at 390×844, desktop unregressed at 1440, dual-profile poster shipped. The single fix commit message is exactly `fix(ux): Round-5 mobile acceptance — reachable community nav + login overflow`.
+
+## §UX Round-6 — SHARE/SEO layer (2026-07-17)
+
+Rounds 1–5 covered function, copy, titles, and both device profiles. Round-6 is the discoverability/share lane: a pre-round prod audit found the marketplace had NO Open Graph or Twitter Card tags (a pasted link rendered no rich card anywhere), NO canonical link on any route, `sitemap.xml` → 404 (robots.txt was the Cloudflare-managed content-signals file with no Sitemap line), and every route shared the ONE generic home description.
+
+### Findings + fixes (one commit `748fd8a`, 20 files, +210/−17)
+
+| ID | Defect (prod, pre-round) | Fix | Where |
+|----|--------------------------|-----|-------|
+| **D1** | Zero `og:*` / `twitter:*` tags site-wide; `og:image` nonexistent. | Site-wide OG + Twitter Card via the root layout metadata export (`og:title/description/url/site_name/type/image(+width/height/alt)` + `twitter:card summary_large_image/title/description/image`); per-route `og:title` inherits the existing `%s · Agent Foundry` title template. New REAL brand card `web/public/og.png` (1200×630 PNG, 284,460 bytes) built from the project's own identity — the "F" logomark (favicon identity), site name, live tagline, domain, brand-blue gradient. No fabricated product scene. | `web/app/layout.tsx`, `web/public/og.png` |
+| **D2** | No canonical URL on any route. | `metadataBase = https://agent-foundry.pages.dev` + per-route `alternates.canonical` as clean no-trailing-slash paths via a shared helper. Canonical-host decision is evidence-backed: CI deploys `web/out` to Pages project `agent-foundry` (`.github/workflows/deploy.yml:192`); the old `openclaw-foundry.pages.dev` is a 301 redirect-only alias (`deploy.yml:198,207`); the Worker's `PAGES_BASE_URL` names the same origin (`worker/wrangler.toml:29-30`); no custom domain is bound or planned (ICP note, `AUTH_WIRING_GUIDE.md:21`). | `web/lib/page-metadata.ts` + root/route layouts |
+| **D3** | `sitemap.xml` 404; robots had no Sitemap line. | `web/app/sitemap.ts` (Next metadata route, static-export-compatible — emits `out/sitemap.xml` at build) listing the 14 real public routes: `/`, `/packs`, `/wall`, `/breakthroughs`, `/news`, `/api-docs`, `/pricing`, `/catalog`, `/arena`, `/deploy`, `/explore/skills`, `/explore/mcp`, `/privacy`, `/terms`; excludes the `/explore/platforms` 301, auth pages, and admin. `web/app/robots.ts` adds `Allow: /` + the `Sitemap:` line — post-deploy probe confirmed the PROJECT robots now wins over the Cloudflare content-signals file. | `web/app/sitemap.ts`, `web/app/robots.ts` |
+| **D4** | All routes shared the single generic description. | Distinct truthful one-line descriptions on the 16 route layouts, each grounded in that page's real rendered copy and matching its language register (i18n/EN pages → English; hardcoded-ZH pages `/wall` `/breakthroughs` `/login` → Chinese). | 16 × `web/app/<route>/layout.tsx` |
+
+### Prod evidence (LIVE `https://agent-foundry.pages.dev`, curl-verified post-deploy)
+
+- **Deploy**: one feat commit `748fd8a` (author=committer `Maurice Wen <maurice_wen@proton.me>`, no AI trailer), CI run **29627722568** "Deploy to Cloudflare" = completed/**success**, `headSha == 748fd8a == origin/main`.
+- **D1**: home carries the full OG set + `twitter:card summary_large_image`; `og.png` serves HTTP 200 `image/png` 284,460 bytes (byte-size-identical to the committed asset).
+- **D2**: per-route canonicals live and clean — `/packs` → `…/packs`, `/wall` → `…/wall`, `/news` → `…/news` (no trailing slash, decided host).
+- **D3**: `sitemap.xml` HTTP 200, valid XML, exactly **14 `<url>` entries**; `robots.txt` now serves the project file (`User-Agent: * / Allow: / / Sitemap: https://agent-foundry.pages.dev/sitemap.xml`).
+- **D4 samples (distinct + truthful)**: `/packs` "Job Packs — one-click, role-tailored configs for AI coding agents…"; `/wall` "卡点墙：匿名登记你在 AI 工作流里遇到的卡点，工作坊战友可以公开回复；解决后会自动汇入蜕变墙。"; `/news` "News Center — the latest OpenClaw ecosystem news, version updates, tutorials, and community picks…".
+- **Non-regression**: home `<title>` unchanged (`Agent Foundry — The Curated AI Agent Skill Marketplace`); metadata-only diff + one static asset, no layout surface touched.
+
+### Execution note
+
+The orchestrated write leg committed and pushed `748fd8a`, then its post-write review agents were killed by the Opus session-quota limit before running. The independent review was therefore executed by the main loop with its own tools (git authorship/trailer check, CI conclusion, prod curls of OG/canonical/sitemap/robots/descriptions, visual no-fabrication check of `og.png`). All checks PASS.
+
+### Loop status: **CLOSED** (share/SEO)
