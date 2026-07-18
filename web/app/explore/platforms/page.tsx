@@ -47,7 +47,7 @@ export default function PlatformsPage() {
             <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
             <h1
               className="text-3xl md:text-4xl font-extrabold text-balance"
-              style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}
+              style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: 'var(--on-surface)' }}
             >
               {t('platforms.title')}
             </h1>
@@ -82,7 +82,7 @@ export default function PlatformsPage() {
           <section key={tier} className="mb-16">
             <div className="flex items-center gap-3 p-4 rounded-2xl mb-6" style={{ background: cfg.bg }}>
               <span className="material-symbols-outlined" style={{ color: cfg.color, fontVariationSettings: "'FILL' 1" }}>{cfg.icon}</span>
-              <h2 className="font-bold text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: cfg.color }}>{t(cfg.labelKey)}</h2>
+              <h2 className="font-bold text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: cfg.color }}>{t(cfg.labelKey)}</h2>
               <span className="ml-auto text-sm font-bold px-3 py-1 rounded-full" style={{ color: cfg.color, background: 'rgba(255,255,255,0.5)' }}>
                 {t('platforms.count', { count: items.length })}
               </span>

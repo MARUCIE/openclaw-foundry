@@ -28,7 +28,7 @@ export const typography = {
     black: 900,
   },
   fontFamily: {
-    sans: "'Inter', system-ui, sans-serif",
+    sans: 'var(--font-inter), system-ui, sans-serif',
     mono: "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace",
     icon: "'Material Symbols Outlined'",
   },

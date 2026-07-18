@@ -89,13 +89,13 @@ export function Footer() {
           <div className="flex flex-col items-center gap-2">
             <span
               className="text-xs uppercase tracking-[0.2em] font-semibold"
-              style={{ color: 'var(--outline)', fontFamily: 'Inter, system-ui, sans-serif' }}
+              style={{ color: 'var(--outline)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
             >
               苍蓝舰队 · 四站生态
             </span>
             <span
               className="text-sm"
-              style={{ color: 'var(--on-surface-variant)', fontFamily: 'Inter, system-ui, sans-serif' }}
+              style={{ color: 'var(--on-surface-variant)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
             >
               从入门到实战的完整路径 · Pick the entry point that matches where you are
             </span>
@@ -117,7 +117,7 @@ export function Footer() {
                   boxShadow: site.current
                     ? '0 4px 16px -8px rgba(103, 80, 164, 0.35)'
                     : '0 1px 3px rgba(0,0,0,0.04)',
-                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontFamily: 'var(--font-inter), system-ui, sans-serif',
                 }}
               >
                 <div className="flex items-baseline justify-between gap-2">
@@ -178,7 +178,7 @@ export function Footer() {
         <div className="flex flex-col items-center space-y-4">
           <span
             className="font-bold text-2xl tracking-tighter"
-            style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}
+            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: 'var(--on-surface)' }}
           >
             Agent Foundry
           </span>
@@ -186,7 +186,7 @@ export function Footer() {
               so surface the primary sections (Job Packs / Stickwall / Breakthroughs)
               here for mobile reachability. md:hidden keeps the desktop footer unchanged
               (the header nav already exposes these routes at >=md). */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold md:hidden" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold md:hidden" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
             {[
               { href: '/packs', key: 'nav.packs' },
               { href: '/wall', key: 'nav.wall' },
@@ -202,7 +202,7 @@ export function Footer() {
               </Link>
             ))}
           </div>
-          <div className="flex gap-6 text-sm font-semibold" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <div className="flex gap-6 text-sm font-semibold" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
             {FOOTER_LINKS.map(link => (
               <Link
                 key={link.href}
@@ -218,7 +218,7 @@ export function Footer() {
 
         <div className="w-full h-px" style={{ background: 'rgba(195, 198, 215, 0.3)' }} />
 
-        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'Inter, system-ui, sans-serif' }}>
+        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
           <div className="font-medium">Agent Foundry v4.0</div>
           <div className="flex items-center gap-4">
             <Link

@@ -207,7 +207,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
           </h4>
           {isPrivateLocal && (
             <div className="p-4 rounded-2xl border border-dashed text-center" style={{ borderColor: 'var(--outline-variant)', color: 'var(--on-surface-variant)' }}>
-              <p className="text-xs font-black uppercase tracking-[0.2em] opacity-60 text-pretty">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[var(--on-surface-variant)] text-pretty">
                 {t('skills.localPrivateNoInstall')}
               </p>
             </div>
@@ -217,7 +217,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
             if (!rows.length) return null;
             return (
               <div key={section.id} className="space-y-2.5">
-                <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-[0.25em] opacity-50 pl-1" style={{ color: 'var(--on-surface-variant)' }}>
+                <p className="text-[var(--af-fs-micro)] font-black uppercase tracking-[0.25em] pl-1" style={{ color: 'var(--on-surface-variant)' }}>
                   {section.label}
                 </p>
                 <div className="space-y-3 pt-2">
@@ -233,7 +233,7 @@ function InstallModal({ skill, onClose }: { skill: ClawHubSkill; onClose: () => 
             const ext = deriveExternalSource(skill);
             if (!ext) {
               return (
-                <p className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-2 opacity-60" style={{ color: 'var(--on-surface-variant)' }}>
+                <p className="text-[var(--af-fs-meta)] font-black uppercase tracking-widest flex items-center gap-2" style={{ color: 'var(--on-surface-variant)' }}>
                   <span aria-hidden="true" className="material-symbols-outlined text-sm font-black">folder</span>
                   {t('skills.localOnly')}
                 </p>
@@ -390,7 +390,7 @@ function DeployFeedbackBar({ skillId }: { skillId: string }) {
 
   return (
     <div className="flex items-center gap-2 mb-4 py-2 border-t border-dashed" style={{ borderColor: 'var(--outline-variant)' }}>
-      <span className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest opacity-50">
+      <span className="text-[var(--af-fs-micro)] font-black uppercase tracking-widest text-[var(--on-surface-variant)]">
         {submitted ? 'Thanks!' : 'Tried it?'}
       </span>
       <div className="flex gap-1 ml-auto">
@@ -527,10 +527,10 @@ export function MarketplaceShell() {
         >
           {t('skills.title')}
         </h1>
-        <p className="font-medium opacity-60 text-pretty" style={{ fontSize: 'var(--af-fs-body-lg)' }}>
+        <p className="font-medium text-pretty" style={{ color: 'var(--on-surface-variant)', fontSize: 'var(--af-fs-body-lg)' }}>
           {formatNum(data?.total || 0)} {t('skills.subtitle')}
-          {lastUpdated && <span className="text-[var(--af-fs-meta)] ml-3 uppercase tracking-widest opacity-40">({t('news.lastUpdated')} {lastUpdated})</span>}
-          {syncedAt && <span className="text-[var(--af-fs-meta)] ml-2 uppercase tracking-widest opacity-30">· {t('skills.synced')} {syncedAt}</span>}
+          {lastUpdated && <span className="text-[var(--af-fs-meta)] ml-3 uppercase tracking-widest text-[var(--on-surface-subtle)]">({t('news.lastUpdated')} {lastUpdated})</span>}
+          {syncedAt && <span className="text-[var(--af-fs-meta)] ml-2 uppercase tracking-widest text-[var(--on-surface-subtle)]">· {t('skills.synced')} {syncedAt}</span>}
         </p>
 
         <div className="relative group max-w-2xl mx-auto">
@@ -573,7 +573,7 @@ export function MarketplaceShell() {
         {/* Round 1 Jobs P1: Rating demoted to secondary chip group — Source is the
             primary axis; Rating is a refinement, not a peer filter. */}
         <div className="flex items-center gap-1.5 ml-1">
-          <span className="text-[var(--af-fs-micro)] font-bold uppercase tracking-[var(--af-tracking-uppercase)] opacity-50 mr-1">
+          <span className="text-[var(--af-fs-micro)] font-bold uppercase tracking-[var(--af-tracking-uppercase)] text-[var(--on-surface-variant)] mr-1">
             {t('skills.allRatings')}:
           </span>
           {RATING_KEYS.map(r => (
@@ -596,7 +596,7 @@ export function MarketplaceShell() {
       <div className="flex gap-10">
         <aside className="hidden lg:block w-64 shrink-0 space-y-10">
           <div>
-            <h3 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] mb-6 opacity-50 text-balance">{t('skills.categories')}</h3>
+            <h2 className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] mb-6 text-[var(--on-surface-variant)] text-balance">{t('skills.categories')}</h2>
             <div className="space-y-1.5">
               {(showAllCats ? allCategories : allCategories.slice(0, 12)).map(cat => (
                 <button
@@ -612,7 +612,7 @@ export function MarketplaceShell() {
                     {cat === 'all' ? t('skills.all') : localizeSkillCategory(cat, t)}
                   </span>
                   {cat !== 'all' && categories[cat] && (
-                    <span className="text-[var(--af-fs-meta)] font-black px-2 py-0.5 rounded-full bg-[var(--surface-container-high)] opacity-60">
+                    <span className="text-[var(--af-fs-meta)] font-black px-2 py-0.5 rounded-full bg-[var(--surface-container-high)] text-[var(--on-surface-variant)]">
                       {formatNum(categories[cat] as number)}
                     </span>
                   )}
@@ -647,7 +647,7 @@ export function MarketplaceShell() {
           </div>
 
           <div className="flex justify-between items-center px-2">
-            <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-50">
+            <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-[var(--on-surface-variant)]">
               {t('skills.showing', { start: total > 0 ? page * LIMIT + 1 : 0, end: Math.min((page + 1) * LIMIT, total), total })}
             </span>
           </div>
@@ -669,15 +669,15 @@ export function MarketplaceShell() {
                     className="p-8 rounded-[2.5rem] bg-[var(--surface-container-lowest)] border border-[var(--outline-variant)] transition-all hover:shadow-2xl hover:-translate-y-1.5 group flex flex-col"
                   >
                     <div className="flex justify-between items-start mb-4">
-                      <h4 className="font-black text-lg leading-tight tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>{skill.name}</h4>
+                      <h2 className="font-black text-lg leading-tight tracking-tight text-balance" style={{ color: 'var(--on-surface)' }}>{skill.name}</h2>
                       <span className={`px-3 py-1 text-[var(--af-fs-micro)] font-black uppercase tracking-widest rounded-full ${RATING_BADGE_CLASSES[skill.rating] || 'bg-gray-100 text-gray-500'}`}>
                         {skill.rating}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2 mb-4 flex-wrap">
-                      <span className="text-xs font-bold opacity-60">@{skill.author}</span>
-                      <span className="text-[var(--af-fs-micro)] font-black px-2 py-0.5 rounded-full uppercase tracking-wider bg-[var(--surface-container-high)] opacity-60">
+                      <span className="text-xs font-bold text-[var(--on-surface-variant)]">@{skill.author}</span>
+                      <span className="text-[var(--af-fs-micro)] font-black px-2 py-0.5 rounded-full uppercase tracking-wider bg-[var(--surface-container-high)] text-[var(--on-surface-variant)]">
                         {localizeSkillCategory(skill.category, t)}
                       </span>
                     </div>
@@ -691,14 +691,14 @@ export function MarketplaceShell() {
                         <div className="flex items-center gap-1.5">
                           <span aria-hidden="true" className="material-symbols-outlined text-sm font-black opacity-40">download</span>
                           <span className="sr-only">{t('skills.downloads')} </span>
-                          <span className="text-[var(--af-fs-meta)] font-black tracking-widest opacity-60">{skill.downloadsDisplay || formatNum(skill.downloads)}</span>
+                          <span className="text-[var(--af-fs-meta)] font-black tracking-widest text-[var(--on-surface-variant)]">{skill.downloadsDisplay || formatNum(skill.downloads)}</span>
                         </div>
                       )}
                       {skill.stars > 0 && (
                         <div className="flex items-center gap-1.5">
                           <span aria-hidden="true" className="material-symbols-outlined text-sm font-black text-amber-500 fill-1">star</span>
                           <span className="sr-only">{t('skills.stars')} </span>
-                          <span className="text-[var(--af-fs-meta)] font-black tracking-widest opacity-60">{skill.starsDisplay || formatNum(skill.stars)}</span>
+                          <span className="text-[var(--af-fs-meta)] font-black tracking-widest text-[var(--on-surface-variant)]">{skill.starsDisplay || formatNum(skill.stars)}</span>
                         </div>
                       )}
                     </div>
@@ -716,13 +716,13 @@ export function MarketplaceShell() {
                             target="_blank"
                             rel="noopener noreferrer"
                             title={`${ext.label} · ${ext.href}`}
-                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity"
+                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-[var(--on-surface-subtle)] hover:text-[var(--primary)] transition-colors"
                           >
                             {ext.label}
                           </a>
                         ) : (
                           <span
-                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-30"
+                            className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-[var(--on-surface-subtle)]"
                             title={t('skills.localOnly')}
                           >
                             {t('skills.local')}
@@ -734,10 +734,13 @@ export function MarketplaceShell() {
                           if (!isPrivateLocal) setInstallSkill(skill);
                         }}
                         disabled={isPrivateLocal}
-                        className={`px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest text-white transition-all ${
-                          isPrivateLocal ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl active:scale-95'
+                        className={`px-6 py-2.5 rounded-2xl text-[var(--af-fs-meta)] font-black uppercase tracking-widest transition-all ${
+                          isPrivateLocal ? 'cursor-not-allowed' : 'hover:shadow-xl active:scale-95'
                         }`}
-                        style={{ background: isPrivateLocal ? 'var(--outline)' : (isSkill ? 'var(--primary)' : 'var(--tertiary)') }}
+                        style={{
+                          background: isPrivateLocal ? 'var(--surface-container-highest)' : (isSkill ? 'var(--primary)' : 'var(--tertiary)'),
+                          color: isPrivateLocal ? 'var(--on-surface-variant)' : 'white',
+                        }}
                       >
                         {isPrivateLocal ? t('skills.notInstallable') : t('skills.install')}
                       </button>
@@ -750,7 +753,7 @@ export function MarketplaceShell() {
 
           {totalPages > 1 && (
             <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-[var(--outline-variant)]">
-              <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] opacity-40">
+              <span className="text-[var(--af-fs-meta)] font-black uppercase tracking-[0.2em] text-[var(--on-surface-subtle)]">
                 Page {page + 1} of {totalPages}
               </span>
               <div className="flex items-center gap-2">

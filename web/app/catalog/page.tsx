@@ -69,7 +69,7 @@ function CatalogContent() {
       <div className="flex items-center gap-3">
         <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
-          <h1 className="text-3xl font-extrabold text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}>{t('catalog.title')}</h1>
+          <h1 className="text-3xl font-extrabold text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: 'var(--on-surface)' }}>{t('catalog.title')}</h1>
           <p className="text-sm mt-1 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('catalog.subtitle', { count: providers.length })}</p>
         </div>
       </div>
@@ -174,7 +174,7 @@ function PlatformCard({ provider: p }: { provider: ProviderMeta }) {
           <span className="material-symbols-outlined text-xl">{icon}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-sm truncate text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>{p.name}</h3>
+          <h3 className="font-semibold text-sm truncate text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>{p.name}</h3>
           <p className="text-xs truncate text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{p.vendor}</p>
         </div>
       </div>

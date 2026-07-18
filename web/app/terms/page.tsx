@@ -105,7 +105,7 @@ export default function TermsPage() {
   const c = CONTENT[locale] ?? CONTENT.en;
 
   return (
-    <main className="page-shell py-16" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <main className="page-shell py-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
       <div className="flex flex-col gap-3 mb-10">
         <Link
           href="/"

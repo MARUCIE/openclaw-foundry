@@ -125,7 +125,7 @@ export function TopNav() {
                 className="nav-link font-medium tracking-tight text-[13px] py-1"
                 data-active={isActive ? 'true' : undefined}
                 style={{
-                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontFamily: 'var(--font-inter), system-ui, sans-serif',
                   color: isActive ? 'var(--surface-tint)' : 'var(--on-surface-variant)',
                 }}
               >
@@ -145,7 +145,7 @@ export function TopNav() {
               style={{
                 background: 'var(--surface-container)',
                 color: 'var(--on-surface)',
-                fontFamily: 'Inter, system-ui, sans-serif',
+                fontFamily: 'var(--font-inter), system-ui, sans-serif',
               }}
             >
               注册 / 登录
@@ -157,7 +157,7 @@ export function TopNav() {
               style={{
                 background: 'var(--surface-container)',
                 color: 'var(--on-surface)',
-                fontFamily: 'Inter, system-ui, sans-serif',
+                fontFamily: 'var(--font-inter), system-ui, sans-serif',
               }}
               title={user.email}
             >
@@ -165,7 +165,7 @@ export function TopNav() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="opacity-60 hover:opacity-100 ml-1 underline-offset-2 hover:underline"
+                className="text-[var(--on-surface-variant)] hover:text-[var(--primary)] ml-1 underline-offset-2 hover:underline"
               >
                 退出
               </button>
@@ -177,7 +177,7 @@ export function TopNav() {
             style={{
               background: 'var(--primary-container)',
               color: 'var(--on-primary)',
-              fontFamily: 'Inter, system-ui, sans-serif',
+              fontFamily: 'var(--font-inter), system-ui, sans-serif',
             }}
           >
             {ctaLabel}

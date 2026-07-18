@@ -42,7 +42,7 @@ export default function AdminCustomersPage() {
       <div className="flex items-center gap-3">
         <div className="w-1.5 h-10 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
-          <h1 className="text-3xl font-extrabold text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}>Customer Management</h1>
+          <h1 className="text-3xl font-extrabold text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: 'var(--on-surface)' }}>Customer Management</h1>
           <p className="text-sm mt-1 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>Managed LLM Proxy Subscribers</p>
         </div>
       </div>

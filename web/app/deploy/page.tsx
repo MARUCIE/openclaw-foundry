@@ -110,7 +110,7 @@ function DeployPageInner() {
       <div className="flex items-center gap-4">
         <div className="w-2 h-12 rounded-full" style={{ background: 'var(--primary)' }} />
         <div>
-          <h1 className="text-4xl font-black tracking-tight text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--on-surface)' }}>{t('deploy.title')}</h1>
+          <h1 className="text-4xl font-black tracking-tight text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', color: 'var(--on-surface)' }}>{t('deploy.title')}</h1>
           <p className="text-sm font-medium mt-1 text-pretty" style={{ color: 'var(--on-surface-variant)' }}>{t('deploy.subtitle')}</p>
         </div>
       </div>
@@ -213,7 +213,7 @@ function DeployPageInner() {
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-2xl font-black text-balance" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>{providerInfo.name}</h4>
+                    <h4 className="text-2xl font-black text-balance" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>{providerInfo.name}</h4>
                     <p className="text-sm font-bold uppercase tracking-widest opacity-60 text-pretty">{providerInfo.vendor}</p>
                   </div>
                   <p className="text-sm leading-relaxed max-w-2xl text-pretty">{providerInfo.description}</p>

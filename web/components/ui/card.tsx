@@ -28,7 +28,7 @@ export function CardTitle({ children }: { children: React.ReactNode }) {
   return (
     <h3
       className="text-lg font-bold tracking-tight text-balance"
-      style={{ color: 'var(--on-surface)', fontFamily: 'Inter, system-ui, sans-serif' }}
+      style={{ color: 'var(--on-surface)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
     >
       {children}
     </h3>
@@ -39,7 +39,7 @@ export function CardValue({ children, color }: { children: React.ReactNode; colo
   return (
     <p
       className="text-3xl font-extrabold mt-1 text-pretty"
-      style={{ color: color || 'var(--on-surface)', fontFamily: 'Inter, system-ui, sans-serif' }}
+      style={{ color: color || 'var(--on-surface)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
     >
       {children}
     </p>
