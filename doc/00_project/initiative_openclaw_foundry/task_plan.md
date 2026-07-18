@@ -1309,3 +1309,65 @@ Rounds 1–5 covered function, copy, titles, and both device profiles. Round-6 i
 The orchestrated write leg committed and pushed `748fd8a`, then its post-write review agents were killed by the Opus session-quota limit before running. The independent review was therefore executed by the main loop with its own tools (git authorship/trailer check, CI conclusion, prod curls of OG/canonical/sitemap/robots/descriptions, visual no-fabrication check of `og.png`). All checks PASS.
 
 ### Loop status: **CLOSED** (share/SEO)
+
+## §UX Round-7 — Perf + A11y measured quality (2026-07-18)
+
+Round-7 closed the measured-quality lane against the fully deployed production state. The performance root cause was a render-blocking font chain, including the full variable-range Material Symbols font; the accessibility root causes were opacity-diluted text plus one under-threshold outline token used directly as text color; the heading-order root cause was a missing `<h2>` level between the page `<h1>` and visible section/card headings.
+
+### Findings + fixes
+
+| ID | Finding / root cause | Fix | Where |
+|----|----------------------|-----|-------|
+| **Q1** | The Material Symbols request used the full variable range `wght,FILL@100..700,0..1`, contributing a render-blocking font chain and a **1,125,924-byte** woff2 transfer. | Pinned the request to `wght,FILL@400,0`; implementation measurement was **~320,368 bytes (~320 KB), a 71% reduction**. | Main Round-7 fix commit `42873df9b23501506f146721627422a9fb49064a`. |
+| **Q2** | Secondary/micro text was made unreadable by `opacity-50` / `opacity-60` and `opacity-30` / `opacity-40`, diluting otherwise valid foreground colors. | Removed the opacity utilities from ~15 secondary-text elements and ~5 subtle/micro-text elements, then assigned explicit readable tokens: Tier A `--on-surface-variant` and Tier B `--on-surface-subtle`. | `web/components/marketplace-shell.tsx`, `web/components/top-nav.tsx`, `web/app/globals.css`. |
+| **Q3** | `--outline: #737686` has only **4.27:1** contrast and was incorrectly used as TEXT color in 6 footer spots. | Changed all 6 text uses to `color: var(--on-surface-variant)`; `--outline` remains unchanged and correctly used for borders/icons elsewhere. | `web/components/footer.tsx`; follow-up commit `9e84ae449eab1738656268ed6409ed70724a0bdd`. |
+| **Q4** | The page had no `<h2>` at all, so Lighthouse flagged a heading level skip on mobile and desktop. On mobile the CSS-hidden sidebar meant the card title followed `<h1>` directly; on desktop the visible sidebar label followed `<h1>` directly. | Changed sidebar `CATEGORIES` `<h3>` → `<h2>` and skill-card title `<h4>` → `<h2>`. Original `className` and styles remain unchanged; this is purely a semantic tag-name correction. | `web/components/marketplace-shell.tsx`. |
+
+### Contrast token disposition
+
+| Token | Value | Tier / measured contrast | Shipped use |
+|-------|-------|--------------------------|-------------|
+| `--on-surface-variant` | `#434655` | Tier A readable secondary text; **8.05–9.35:1** depending on ground, well above AA 4.5:1. | Reused for secondary text after removing `opacity-50` / `opacity-60`; also replaces all 6 invalid footer text uses of `--outline`. |
+| `--on-surface-subtle` | `#5f6378` | New Tier B subtle/micro text token; **4.60–5.63:1** depending on ground. | Added to `web/app/globals.css :root`; used after removing `opacity-30` / `opacity-40`. |
+| `--outline` | `#737686` | **4.27:1 — FAILED AA as text.** | No longer used as footer text; remains correctly used for borders/icons, unchanged. |
+
+### Prod evidence (LIVE `https://agent-foundry.pages.dev`, Lighthouse 12, measured 2026-07-18T08:40 UTC)
+
+The acceptance measurement ran against the fully deployed state after both the main fix commit `42873df9b23501506f146721627422a9fb49064a` and footer follow-up commit `9e84ae449eab1738656268ed6409ed70724a0bdd`; CI run **29637664355** had independently concluded **success**.
+
+| Profile | Performance | Accessibility | Best Practices | SEO | FCP | LCP | TBT | CLS |
+|---------|-------------|---------------|----------------|-----|-----|-----|-----|-----|
+| **Mobile** | **0.56 (56) → 0.90 (90)**; target ≥85, **MET** | **0.93 (93) → 1.0 (100)**; target 100, **MET** | **1.0 (100), maintained** | **1.0 (100), maintained** | **9.3s → 2.4s** | **13.4s → 3.0s** | **0ms** | **0.057 → 0.067** |
+| **Desktop** | **0.89 (89) → 0.98 (98)**; target ≥95, **MET** | **0.93 (93) → 1.0 (100)**; target 100, **MET** | **1.0 (100), maintained** | **1.0 (100), maintained** | **0.9s** | **0.9s** | **0ms** | **0.051** |
+
+- **Color contrast audit**: score **1 (pass)**, **0 failing items**, BOTH profiles — down from **59 failing items** in the pre-Round-7 baseline.
+- **Heading-order audit**: score **1 (pass)**, **0 failing items**, BOTH profiles — down from **1 failing item** in the baseline.
+- **Material Symbols woff2**: **1,125,924 bytes → ~320,368 bytes (~320 KB), 71% reduction** after pinning `wght,FILL@400,0`.
+- **Non-regression**: icons/fonts render correctly; **0 console errors**; **0 overflow at 390px** on `/login`, `/wall`, and `/packs`.
+- **Acceptance**: ALL Round-7 performance and accessibility targets were **MET**.
+
+### EN-locale walk + deferred follow-ups
+
+A real headless-browser locale walk was completed before closeout. The hero/nav switched to English correctly, the `最后更新` / `Updated` chip switched correctly, and toggling back to 中文 worked with no errors.
+
+Two hardcoded-Chinese leaks are documented as **Round-8 follow-ups**, out of scope for Round-7:
+
+1. `web/components/top-nav.tsx` hardcodes `注册 / 登录` and `退出`, bypassing the i18n dictionary.
+2. `web/components/footer.tsx` hardcodes `苍蓝舰队 · 四站生态`; the `ECOSYSTEM_SITES` array also hardcodes Chinese description/audience strings, so none switch to English.
+
+Auditable screenshots committed under `doc/00_project/initiative_openclaw_foundry/evidence/round7/`:
+
+- `round7-zh-initial.png`
+- `round7-en-hero-nav.png`
+- `round7-en-footer-hardcoded-zh.png`
+- `round7-zh-after-toggle-back.png`
+
+The **`skills.json` 699,075 B** payload restructuring/lazy-load is explicitly deferred to a future round and was out of scope for Round-7.
+
+### Round commits
+
+- `42873df9b23501506f146721627422a9fb49064a` — main performance + accessibility fix.
+- `9e84ae449eab1738656268ed6409ed70724a0bdd` — footer text-contrast follow-up.
+- This commit — measured-quality task-plan record + four Round-7 locale-walk screenshots.
+
+### Loop status: **CLOSED** (perf + a11y)
