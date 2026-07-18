@@ -1246,3 +1246,38 @@ Walked the full page map on prod (home → packs → wall → breakthroughs → 
 ### Loop status: **CLOSED**
 
 All 7 Round-1 findings dispositioned and prod-verified: F1/F2/F3/F4/F5/F7 = fixed + live-verified; F6 = accepted-as-designed. Data mode note: `/wall` + `/breakthroughs` read the live Worker directly; their designed empty/seed states are the durable honest handling — a real user post will surface real content (correct behavior, not a regression).
+
+## §UX Round-5 — MOBILE acceptance (2026-07-17)
+
+Rounds 1–4 walked prod at the 1440 desktop profile. Round-5 is the MOBILE lane: a native-Opus browser acceptor drove LIVE prod `https://agent-foundry.pages.dev` at **390×844** (iPhone-class) via a self-driven headless Chrome (playwright-core), because the shared browser MCP profile was locked. Two confirmed mobile defects were found and fixed in one commit; desktop appearance is unchanged.
+
+### Findings + fixes
+
+| ID | Defect (390px) | Root cause | Fix | File |
+|----|----------------|------------|-----|------|
+| **M1** | 卡点墙 `/wall`, 蜕变墙 `/breakthroughs`, 岗位配置包 `/packs` were UNREACHABLE on mobile — the header nav is `hidden md:flex` (display:none below md) with no mobile menu, so those three routes had zero visible tap target on a phone. | Nav minimization (audited 2026-05-16) kept the primary sections desktop-only; no mobile surfacing existed. | Added a compact `md:hidden` product-nav row inside the footer wordmark block exposing 岗位配置包 / 卡点墙 / 蜕变墙, reusing the existing `nav.packs` / `nav.wall` / `nav.breakthroughs` i18n keys + the existing footer link classes/tokens. `md:hidden` keeps the ≥md desktop footer byte-identical (the block is display:none there; the header nav already exposes these routes at ≥md). | web/components/footer.tsx |
+| **M2** | `/login` had horizontal overflow at 390px (document scrollWidth **418** vs viewport 390 → a ~28px sideways scroll on the whole page). | The WeChat sign-in card's text column is a flex child next to a `shrink-0` icon; without `min-w-0` the flex item floored at its CJK min-content width (the H2 `微信扫码注册 / 登录` + paragraph could not shrink/wrap), pushing the row past 390. | Added the single Tailwind utility `min-w-0` to that one text column so its CJK heading can shrink and wrap. One-class, presentational-only edit; a same-type scan confirmed it is the ONLY `shrink-0`-sibling row in the file, so no other row needed it. | web/app/login/page.tsx |
+
+Desktop appearance is UNCHANGED by both fixes: M1's block is `md:hidden` (invisible ≥768px); M2's `min-w-0` is a no-op on the wide desktop column that already has room.
+
+### Prod evidence (LIVE `https://agent-foundry.pages.dev`, real browser @390×844)
+
+- **Deploy**: one fix commit `d675f55` (author=committer `Maurice Wen <maurice_wen@proton.me>`, no AI trailer), CI run **29624601394** "Deploy to Cloudflare" = completed/**success**, `headSha == d675f55 == origin/main`.
+- **M2 overflow — before/after**: `/login` document scrollWidth **418 → 390** (overflow 28px → **0**) at the 390 viewport.
+- **M1 reachability — proven by a real tap-navigation**: home `/` → scroll to footer → the `md:hidden` nav row shows 卡点墙 / 蜕变墙 / 岗位配置包 as visible links; a scripted click on the footer 卡点墙 link NAVIGATED the page to `/wall` (URL landed `…/wall`). 卡点墙 `/wall` + 蜕变墙 `/breakthroughs` + 岗位配置包 `/packs` all present as visible mobile tap targets.
+- **All 7 routes zero overflow @390**: `/` `/packs` `/wall` `/breakthroughs` `/news` `/api-docs` `/login` — each measured overflowPx == 0.
+- **Desktop non-regression @1440**: all 7 routes overflow 0; header nav = 4 links unchanged; the footer `md:hidden` mobile-nav is hidden (visible count 0); zh-locale hero chips (最后更新 / 目录快照) still render.
+
+### Screen-overview poster (rule 23, dual-profile)
+
+Per the 2026-07-13 real-device-profile rule, this responsive product ships BOTH profiles side-by-side (never one width standing in for the other):
+
+- **Poster**: `doc/00_project/initiative_openclaw_foundry/SCREEN_OVERVIEW.html` — rebuilt via `scripts/page-overview-build.py` as **14 real-prod screens**: a desktop band D1–D7 (1440 viewport) + a mobile band M1–M7 (390×844), all full-page captures of LIVE prod.
+- **Self-contained** (rule 22): `html-inline-assets.py check` exits 0 (all 14 screens base64-inlined, no external local refs); file ~7.8 MB.
+- **Distinct captures**: 14 inlined images, 14 distinct md5s, 0 duplicate groups (no capture-collision bug); render-verified via a headless DOM probe (14 figures, 0 horizontal overflow, 0 console errors).
+- M1/M2 fixes annotated in the mobile captions (M1 → footer-nav reachability; M7 → min-w-0 scrollWidth 418→390).
+- Version-tracked (rule 19) via git commit in this repo.
+
+### Loop status: **CLOSED** (mobile)
+
+M1 + M2 fixed in one commit, prod-verified at 390×844, desktop unregressed at 1440, dual-profile poster shipped. The single fix commit message is exactly `fix(ux): Round-5 mobile acceptance — reachable community nav + login overflow`.
