@@ -89,7 +89,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-2">
             <span
               className="text-xs uppercase tracking-[0.2em] font-semibold"
-              style={{ color: 'var(--outline)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+              style={{ color: 'var(--on-surface-variant)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
             >
               苍蓝舰队 · 四站生态
             </span>
@@ -147,7 +147,7 @@ export function Footer() {
                   </span>
                   <span
                     className="text-xs font-mono"
-                    style={{ color: 'var(--outline)' }}
+                    style={{ color: 'var(--on-surface-variant)' }}
                   >
                     {site.url}
                   </span>
@@ -161,7 +161,7 @@ export function Footer() {
                 <div
                   className="mt-auto pt-2 text-xs"
                   style={{
-                    color: 'var(--outline)',
+                    color: 'var(--on-surface-variant)',
                     borderTop: '1px dashed rgba(195, 198, 215, 0.4)',
                   }}
                 >
@@ -218,20 +218,20 @@ export function Footer() {
 
         <div className="w-full h-px" style={{ background: 'rgba(195, 198, 215, 0.3)' }} />
 
-        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--outline)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+        <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4 text-xs" style={{ color: 'var(--on-surface-variant)', fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
           <div className="font-medium">Agent Foundry v4.0</div>
           <div className="flex items-center gap-4">
             <Link
               href="/privacy"
               className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
-              style={{ color: 'var(--outline)' }}
+              style={{ color: 'var(--on-surface-variant)' }}
             >
               {t('footer.privacy')}
             </Link>
             <Link
               href="/terms"
               className="transition-colors hover:text-[var(--surface-tint)] hover:underline underline-offset-4"
-              style={{ color: 'var(--outline)' }}
+              style={{ color: 'var(--on-surface-variant)' }}
             >
               {t('footer.terms')}
             </Link>
