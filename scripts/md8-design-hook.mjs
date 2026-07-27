@@ -1,12 +1,22 @@
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = process.cwd();
 
 function getTargetHtmlFiles() {
-  const output = execSync(
-    "find doc outputs/reports -type f -name '*.html' 2>/dev/null",
+  const searchRoots = ['doc', 'outputs/reports'].filter((directory) =>
+    existsSync(path.join(root, directory))
+  );
+
+  if (searchRoots.length === 0) {
+    return [];
+  }
+
+  const output = execFileSync(
+    'find',
+    [...searchRoots, '-type', 'f', '-name', '*.html'],
     { cwd: root, encoding: 'utf8' }
   );
 
